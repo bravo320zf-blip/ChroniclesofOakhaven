@@ -1,6 +1,6 @@
 {
-  "totalPasses": 5,
-  "totalItemsReworked": 50,
+  "totalPasses": 6,
+  "totalItemsReworked": 60,
   "history": [
     {
       "pass": 1,
@@ -81,6 +81,22 @@
         "bq_mossbeard_heartwood_staff"
       ],
       "summary": "Reworked 5 Vault of Magic items (including Sword of Volsung and Lantern of Judgment), 2 Tome of Heroes martial pieces, and 3 woodland quest relics with authentic passives and charged abilities."
+    },
+    {
+      "pass": 6,
+      "items": [
+        "vom_fab_battlecaster",
+        "vom_glass_wand_leng",
+        "vom_voidwalker_ring",
+        "astral_rod",
+        "bq_umbral_soul_harp",
+        "bq_brightsigh_glass_buckler",
+        "bq_flaying_star_diadem",
+        "bq_nargoth_void_seal",
+        "bq_returner_beacon_shard",
+        "bq_bagiennik_marsh_charm"
+      ],
+      "summary": "Reworked 3 Vault of Magic items (including Fabled Battlecaster's Armor and Legendary Voidwalker Ring), core Astral Arch-Rod, and 6 quest relics with signature passives and charged active abilities."
     }
   ],
   "itemPasses": {
@@ -133,6 +149,16 @@
     "bk_lamellar_armor": 1,
     "bq_shadow_drake_diadem": 1,
     "bq_briar_king_blade": 1,
-    "bq_mossbeard_heartwood_staff": 1
+    "bq_mossbeard_heartwood_staff": 1,
+    "vom_fab_battlecaster": 1,
+    "vom_glass_wand_leng": 1,
+    "vom_voidwalker_ring": 1,
+    "astral_rod": 1,
+    "bq_umbral_soul_harp": 1,
+    "bq_brightsigh_glass_buckler": 1,
+    "bq_flaying_star_diadem": 1,
+    "bq_nargoth_void_seal": 1,
+    "bq_returner_beacon_shard": 1,
+    "bq_bagiennik_marsh_charm": 1
   }
 }

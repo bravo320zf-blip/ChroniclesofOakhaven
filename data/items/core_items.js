@@ -15,7 +15,7 @@ window.OAKHAVEN.registerItems({
       ember_staff:     { id:"ember_staff", name:"Staff of Embers", type:"weapon", atk:2, arcana:2, value:90, desc:"+2 Attack, +2 Arcana" },
       sunfire_blade:   { id:"sunfire_blade", name:"Sunfire Greatsword", type:"weapon", atk:4, spirit:2, value:140, desc:"+4 Attack, +2 Spirit" },
       runeforged_axe:  { id:"runeforged_axe", name:"Runeforged Cleaver", type:"weapon", atk:4, might:2, value:135, desc:"+4 Attack, +2 Might (Crafted)" },
-      astral_rod:      { id:"astral_rod", name:"Astral Arch-Rod", type:"weapon", atk:3, arcana:3, value:145, desc:"+3 Attack, +3 Arcana" },
+      astral_rod:      { id:"astral_rod", name:"Astral Arch-Rod", type:"weapon", atk:3, arcana:3, value:145, passives:{ spellDmgBonus:2, mpRegen:true }, activeAbility:{ name:"Starlight Bolt", icon:"🌠", charges:2, mp:2, dmgDice:"2d6", dmgStat:"arcana", dmgType:"arcane", desc:"2/Quest (2 MP): Focus astral light into a lance dealing 2d6 + Arcana arcane dmg!" }, desc:"Starlight-etched arch-rod (+2 Spell Dmg, +1 MP regen) that channels Starlight Bolt." },
       cutlass_tides:   { id:"cutlass_tides", name:"Cutlass of the Tides", type:"weapon", atk:3, agility:2, value:95, desc:"+3 Attack, +2 Agility" },
 
       // Armor

@@ -226,7 +226,7 @@
       ["vom_brass_clockwork_staff", "Brass Clockwork Staff", "weapon", "rare", 94, { atk:2, arcana:2, ac:1 }, "+2 Attack, +1 AC, +2 Arcana", true],
       ["vom_devils_barb", "Devil's Barb Wand", "offhand", "rare", 92, { arcana:2, atk:1, maxMp:3 }, "+1 Attack, +2 Arcana, +3 Max MP (Hellfire wand)", true],
       ["vom_ghoulbane_rod", "Ghoulbane Rod", "weapon", "rare", 94, { atk:3, spirit:2 }, "+3 Attack, +2 Spirit (Weakens nearby undead)", true],
-      ["vom_glass_wand_leng", "Glass Wand of Leng", "weapon", "rare", 92, { atk:2, arcana:2, agility:1 }, "+2 Attack, +1 Agility, +2 Arcana", true],
+      ["vom_glass_wand_leng", "Glass Wand of Leng", "weapon", "rare", 92, { atk:2, arcana:2, agility:1, passives:{ spellDmgBonus:2, critRange:11, skillBonus:{ Persuasion:2, Arcana:1 } }, activeAbility:{ name:"Resonant Glass Note", icon:"🔮", charges:2, mp:1, dmgDice:"2d6", dmgStat:"arcana", dmgType:"psychic", stunTurns:1, evadeTurns:1, desc:"2/Quest (1 MP): Tap the razor-glass wand to ring an endless note — deal 2d6 + Arcana psychic dmg, Stun (1t), and Evade (1t)!" } }, "Razor-tipped clear glass wand of Leng that rings with an endless resonant note (+2 Spell Dmg, +Crit, +2 Persuasion) with Resonant Glass Note.", true],
       ["vom_howling_rod", "Howling Rod", "weapon", "rare", 95, { atk:3, spirit:2 }, "+3 Attack, +2 Spirit (Carnelian wolf-head rod)", true],
       ["vom_ring_imperious", "Ring of Imperious Command", "accessory", "rare", 90, { spirit:2, luck:1 }, "+2 Spirit, +1 Luck (Crowned iron signet)", true],
       ["vom_ring_frost_knight", "Ring of the Frost Knight", "accessory", "rare", 98, { ac:3, spirit:1 }, "+3 AC, +1 Spirit (Conjures enchanted ice plate)", true],
@@ -282,7 +282,7 @@
       ["vom_staff_winter_ice", "Staff of Winter and Ice", "weapon", "legendary", 235, { atk:4, arcana:4, ac:2, maxMp:8 }, "+4 Attack, +2 AC, +4 Arcana, +8 Max MP", true],
       ["vom_stonedrift_staff", "Stonedrift Staff", "weapon", "legendary", 225, { atk:4, might:2, spirit:3, ac:2 }, "+4 Attack, +2 AC, +2 Might, +3 Spirit", true],
       ["vom_umbral_staff", "Umbral Staff", "weapon", "legendary", 235, { atk:4, arcana:4, agility:2, maxMp:8 }, "+4 Attack, +2 Agility, +4 Arcana, +8 Max MP", true],
-      ["vom_voidwalker_ring", "Voidwalker Ring", "accessory", "legendary", 240, { arcana:3, agility:2, ac:2, maxMp:8 }, "+2 AC, +2 Agility, +3 Arcana, +8 Max MP", true],
+      ["vom_voidwalker_ring", "Voidwalker Ring", "accessory", "legendary", 240, { arcana:3, agility:2, ac:2, maxMp:8, passives:{ spellDmgBonus:4, spellCostReduce:1, dmgReduce:2, critRange:11, skillBonus:{ Stealth:2, Arcana:2 } }, activeAbility:{ name:"Step Through the Void", icon:"🌌", charges:2, dmgDice:"3d8", dmgStat:"arcana", dmgType:"arcane", evadeTurns:3, restoreMp:4, desc:"2/Quest: Blink across the outer dark — blast for 3d8 + Arcana void dmg, Evade (3t), and recover 4 MP!" } }, "Legendary obsidian band of planar striders (+4 Spell Dmg, -1 MP cost, -2 dmg taken, +Crit) with Step Through the Void.", true],
 
       // ==================== WONDROUS ITEMS ====================
       ["vom_charm_restoration", "Charm of Restoration", "accessory", "common", 22, { maxHp:4 }, "+4 Max HP (Woven green-frond talisman)", true],
@@ -388,7 +388,7 @@
 
       // ==================== FABLED MAGIC ITEMS (ENDGAME HEIRLOOMS) ====================
       ["vom_fab_assassins_chain", "Assassin's Chain (Fabled)", "armor", "fabled", 275, { ac:5, agility:4, atk:1 }, "+1 Attack, +5 AC, +4 Agility (Silent shadow mail)", true],
-      ["vom_fab_battlecaster", "Battlecaster's Armor (Fabled)", "armor", "fabled", 280, { ac:5, arcana:3, maxMp:8 }, "+5 AC, +3 Arcana, +8 Max MP (Gax's mithral)", true],
+      ["vom_fab_battlecaster", "Battlecaster's Armor (Fabled)", "armor", "fabled", 280, { ac:5, arcana:3, maxMp:8, passives:{ spellDmgBonus:5, spellCostReduce:1, dmgReduce:4, mpRegen:true, bossDmgBonus:3 }, activeAbility:{ name:"Potent Battlecaster Aegis", icon:"💠", charges:2, mp:2, ooc:true, shieldTurns:4, selfBuffAtk:{ atk:4, turns:3 }, restoreMp:4, desc:"2/Quest (2 MP): Channel Gax's mithral breastplate — gain +3 AC (4t), +4 ATK (3t), and surge +4 MP!" } }, "Gax's fabled mithral breastplate forged for war-mages (+5 Spell Dmg, -1 MP cost, -4 dmg taken, +1 MP regen) with Potent Battlecaster Aegis.", true],
       ["vom_fab_blood_moon_orb", "Blood Moon Orb (Fabled)", "offhand", "fabled", 270, { arcana:4, maxHp:10, maxMp:10 }, "+4 Arcana, +10 Max HP, +10 Max MP", true],
       ["vom_fab_blood_spike", "Blood Spike Armor (Fabled)", "armor", "fabled", 280, { ac:5, atk:2, might:3 }, "+2 Attack, +5 AC, +3 Might (Gregor's black plate)", true],
       ["vom_fab_bracers_ganis", "Bracers of Ganis'briel (Fabled)", "offhand", "fabled", 270, { ac:3, atk:3, agility:3 }, "+3 Attack, +3 AC, +3 Agility (Master archer)", true],

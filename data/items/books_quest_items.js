@@ -465,7 +465,9 @@ window.OAKHAVEN.registerItems({
     agility: 2,
     spirit: 2,
     luck: 2,
-    desc: "+3 AC, +2 Agility, +2 Spirit, +2 Luck. Eerie void-strung harp from the Triangle in Shadows."
+    passives: { spellDmgBonus: 4, lifesteal: 3, critRange: 11, skillBonus: { Persuasion: 3, Stealth: 2 } },
+    activeAbility: { name: "Dirge of the Shadow-Harp", icon: "🎵", charges: 2, mp: 2, dmgDice: "2d10", dmgStat: "spirit", dmgType: "psychic", chillTurns: 2, summon: { name: "Umbral Chord-Wraith", icon: "👻", dmg: 8, turns: 3 }, desc: "2/Quest (2 MP): Pluck void-strings for 2d10 + Spirit psychic dmg, Chill (2t), and summon an Umbral Chord-Wraith (8 dmg/t, 3t)!" },
+    desc: "Void-strung harp from the Triangle in Shadows (+4 Spell Dmg, Lifesteal 3, +Crit, +3 Persuasion) with Dirge of the Shadow-Harp."
   }
 });
 
@@ -778,7 +780,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 2,
     maxMp: 5,
-    desc: "+1 AC, +2 Arcana, +5 Max MP. Ward-disk closing the void breach inside Nargoth's hidden tomb."
+    passives: { dmgReduce: 2, spellCostReduce: 1, undeadDmgBonus: 3 },
+    activeAbility: { name: "Seal the Breach", icon: "🪐", charges: 2, ooc: true, healBase: 8, healStat: "arcana", restoreMp: 4, shieldTurns: 2, desc: "2/Quest: Tap Nargoth's containment disk to heal 8 + Arcana HP, restore 4 MP, and gain +3 AC (2t)!" },
+    desc: "Ward-disk that sealed the void breach in Nargoth's tomb (-2 dmg taken, -1 Spell MP cost, +3 vs Undead) with Seal the Breach."
   },
   "bq_last_gasp_ampoule": {
     id: "bq_last_gasp_ampoule",
@@ -1352,7 +1356,9 @@ window.OAKHAVEN.registerItems({
     value: 180,
     ac: 2,
     arcana: 1,
-    desc: "+2 AC, +1 Arcana. Enchanted shard-glass shield forged from Brightsigh Tower."
+    passives: { thornsDmg: 4, dmgReduce: 1, spellDmgBonus: 2 },
+    activeAbility: { name: "Prism Shatter-Guard", icon: "🪞", charges: 2, dmgDice: "2d6", dmgStat: "arcana", dmgType: "radiant", shieldTurns: 3, desc: "2/Quest: Flash mirrored glass for 2d6 + Arcana radiant dmg and gain +3 AC (3t)!" },
+    desc: "Enchanted shard-glass buckler from Brightsigh Tower (4 Thorns, -1 dmg taken, +2 Spell Dmg) with Prism Shatter-Guard."
   },
   "bq_big_briar_trollstone": {
     id: "bq_big_briar_trollstone",
@@ -1524,7 +1530,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     might: 2,
     arcana: 1,
-    desc: "+1 AC, +2 Might, +1 Arcana. Meteor-forged royal band won in the Crater of the Flaying Star."
+    passives: { bossDmgBonus: 3, critRange: 11, skillBonus: { Perception: 2 } },
+    activeAbility: { name: "Meteor Crown Flare", icon: "☄️", charges: 2, dmgDice: "2d8", dmgStat: "might", dmgType: "fire", dot: { dmg: 4, turns: 2, label: "Starfire" }, desc: "2/Quest: Unleash meteoric wrath for 2d8 + Might fire dmg and Starfire (4/t, 2t)!" },
+    desc: "Meteor-forged royal band from the Crater of the Flaying Star (+3 vs Bosses, +Crit, +2 Perception) with Meteor Crown Flare."
   },
   "bq_spiders_eye_emerald": {
     id: "bq_spiders_eye_emerald",
@@ -2228,9 +2236,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     agility: 1,
     luck: 1,
-    passives: { goldFindPct: 12, skillBonus: { Survival: 2 } },
+    passives: { goldFindPct: 12, dmgReduce: 1, skillBonus: { Survival: 2 } },
     activeAbility: { name: "Acidic Mire-Splash", icon: "🧪", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "poison", dot: { dmg: 3, turns: 2, label: "Marsh Acid" }, desc: "2/Quest: Splash stinging bog-acid for 1d8 + Agility poison dmg and Marsh Acid (3/t, 2t)!" },
-    desc: "Swirling bog-amber fetish claimed from Tuwold's flooded shrine (+12% Gold, +2 Survival) with Acidic Mire-Splash."
+    desc: "Swirling bog-amber fetish claimed from Tuwold's flooded shrine (+12% Gold, -1 dmg taken, +2 Survival) with Acidic Mire-Splash."
   },
   "bq_returner_beacon_shard": {
     id: "bq_returner_beacon_shard",
@@ -2241,9 +2249,9 @@ window.OAKHAVEN.registerItems({
     arcana: 3,
     luck: 2,
     maxMp: 6,
-    passives: { spellDmgBonus: 3, spellCostReduce: 1, skillBonus: { Arcana: 2 } },
+    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: true, skillBonus: { Arcana: 2 } },
     activeAbility: { name: "Planar Star-Pulse", icon: "✨", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, desc: "2/Quest (2 MP): Discharge stored planar lightning for 2d8 + Arcana dmg and Stun (1t)!" },
-    desc: "Humming star-metal fragment from Tarrini's dismantled watchtower beacon (+3 Spell Dmg, -1 MP cost, +2 Arcana) with Planar Star-Pulse."
+    desc: "Humming star-metal fragment from Tarrini's dismantled watchtower beacon (+3 Spell Dmg, -1 MP cost, +1 MP regen, +2 Arcana) with Planar Star-Pulse."
   },
   // Batch 020 — 10 Frontier & Underworld Lair Relics
   "bq_charms_of_lada": {
