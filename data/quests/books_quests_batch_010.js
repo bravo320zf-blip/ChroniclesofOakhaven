@@ -676,7 +676,8 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 11. HELL COMES A' GLITTERING (6 PAGES • LV 6)
+  // 11. HELL COMES A' GLITTERING (11 PAGES • LV 6)
+  // (Enriched Pass 1)
   // ==========================================================
   bk_b10_p2_5_hell_glittering: {
     id: "bk_b10_p2_5_hell_glittering",
@@ -686,56 +687,111 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 6,
     autoDiscover: false,
     discoverySource: "Mayor Enkam's Courier (Rusty Flagon Tavern)",
-    summary: "Solve six horrifying murders for Mayor Enkam—every victim stabbed, their bones and eyes turned to pure crystal, and their hearts missing—by confronting the secretive High Alchemist and the glittering fiend behind the slaughter!",
-    totalPages: 6,
+    summary: "Investigate six horrifying murders for Mayor Enkam—every victim found in a locked room, their bones and eyes turned to dazzling crystal and their hearts missing—by unraveling High Alchemist Vaelor's infernal debt and shattering the glittering fiend behind the slaughter!",
+    totalPages: 11,
     pages: {
       1: {
-        zone: "City Morgue & Alchemist's Lab",
+        zone: "Mayor's Hall • Rainy Night",
         title: "Hearts of Crystal",
         safeRetreat: true,
-        text: "Mayor Enkam promises 1,000 GP to end the terror: six citizens slain, their bodies crystallized from within and their hearts stolen! Questioning the evasive High Alchemist reveals shattered crystal retorts and a trail of ruby dust leading to his cellar!",
+        text: [
+          "Cold rain lashes the leaded glass of Mayor Enkam's civic hall as she spreads six silver-sealed Watch dossiers across her desk. Six respected citizens—an astronomer, a glassblower, a choir-master, a judge, a goldsmith, and a Watch captain—have been found stabbed behind bolted doors, their bones and eyes turned to glittering quartz and their hearts cleanly excised.",
+          "<em>'Panic is tearing my city apart,'</em> Mayor Enkam says grimly. <em>'One thousand gold in civic shares to whoever ends this nightmare before a seventh soul falls.'</em>"
+        ],
         choices: [
-          { t: "Examine the crystallized remains for infernal transmutation marks!", badge: "Arcana / Perception DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 2, fail: 2, passMsg: "A crystal devil! Its glittering blades shatter if struck with focused force!", failMsg: "The eerie facets reflect your lantern without yielding their secret." }, onPass: { cw: "CRYSTAL_FLAW" } },
-          { t: "Kick open the High Alchemist's locked cellar vault!", to: 2 }
+          { t: "Examine the sixth victim's crystallized remains in the City Morgue for arcane transmutation marks.", badge: "Arcana / Investigation DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 2, fail: 2, passMsg: "A Crystal Devil! Its jagged carapace has harmonic fault-lines vulnerable to focused strikes!", failMsg: "The eerie quartz facets reflect your lantern, though you spot crimson dust on the collar." }, onPass: { cw: "CRYSTAL_FLAW" } },
+          { t: "Question the frightened street-sweepers outside the goldsmith's alley where the last murder occurred.", badge: "Persuasion / Perception DC 13", check: { stat: "spirit", skill: "Persuasion", dc: 13, pass: 3, fail: 2, passMsg: "A shivering sweeper whispers of a diamond-armored silhouette slipping down High Alchemist Vaelor's coal-chute!", failMsg: "Too terrified to talk, the sweepers hurry indoors—leaving only the morgue lead." }, onPass: { cw: "ALLEY_WITNESS" } },
+          { t: "Head straight to the secretive High Alchemist Vaelor's townhouse to confront him directly.", to: 4 }
         ]
       },
       2: {
-        zone: "Alchemist's Cellar",
-        title: "The Glittering Fiend",
-        text: "Amid six pulsing crystal hearts arranged in a pentagram steps a dazzling, razor-faceted Crystal Devil—its pact-bound High Alchemist shrieking as it turns its jagged blades on you!",
-        enemy: { name: "Glittering Crystal Devil & Alchemist", desc: "Infernal assassin harvesting crystallized mortal hearts.", hp: 66, ac: 15, atk: 8, dmg: 9, xp: 220, gold: 150, items: ["bq_crystal_heart_prism"], weakCw: ["CRYSTAL_FLAW"] },
+        zone: "City Morgue • Stone Slab",
+        title: "Traces of Ruby-Salt",
+        text: "Beneath the morgue's flickering oil lamp, grains of fine crimson salt glitter inside the victim's collar—a rare transmutation catalyst distilled exclusively by <strong>High Alchemist Vaelor</strong>. Tucked inside the Watch captain's boot lies a crumpled scrap of vellum reading: <em>'Vaelor owes the Seventh Debt.'</em>",
         choices: [
-          { t: "Shatter the infernal pentagram and present proof to Mayor Enkam!", to: 3 }
+          { t: "Circle around to Vaelor's rear coal-chute to scout his cellar unseen!", to: 3 },
+          { t: "Knock boldly on Vaelor's brass-plated front door and watch his reaction!", to: 4 }
         ]
       },
       3: {
-        zone: "Mayor's Hall",
-        title: "Terror Ended",
-        text: "Mayor Enkam exhales in profound relief, honoring her full 1,000 GP civic bounty share as the city sleeps safely once more!",
+        zone: "Alchemist's Alley • Coal-Chute",
+        title: "Violet Light Below",
+        text: "Through the soot-caked iron grate behind High Alchemist Vaelor's townhouse pulses an eerie violet glow! From the sub-cellar rises the rhythmic chime of crystalline claws scraping flagstone—and a trembling human voice pleading for more time.",
         choices: [
-          { t: "Return to Oakhaven.", to: 4 }
+          { t: "Pick the rusted coal-chute padlock and drop silently behind the cellar guards!", badge: "Lockpicking / Stealth DC 13", check: { stat: "agility", skill: "Lockpicking", dc: 13, pass: 6, fail: 5, passMsg: "Click! You slip down the chute cleanly—bypassing Vaelor's upstairs lab guardians completely!", failMsg: "The corroded padlock snaps with a sharp ring—crystal homunculi shriek from the lab above!" }, onPass: { cw: "CELLAR_FLANK" } },
+          { t: "Squeeze silently through the narrow cellar ventilator grate using Stealth.", badge: "Stealth", reqSkill: "Stealth", to: 6, onChoose: { cw: "CELLAR_FLANK", msg: "You glide into the shadowed cellar corridor completely undetected!" } }
         ]
       },
       4: {
-        zone: "Oakhaven Market",
-        title: "Justice Done",
-        text: "Word spreads fast of the hero who broke the Crystal Murders.",
+        zone: "Vaelor's Townhouse • Apothecary Parlor",
+        title: "Nervous Lies & Shattered Glass",
+        text: "High Alchemist <strong>Vaelor</strong> opens the door with trembling, acid-stained fingers and a brittle smile. Behind him, glass retorts lie smashed across the workbench, and a faint trail of shimmering ruby dust disappears beneath a heavy oak cellar trapdoor!",
         choices: [
-          { t: "Collect your reward.", to: 5 }
+          { t: "Confront Vaelor with the 'Seventh Debt' and the ruby-salt from the morgue until his nerve breaks!", badge: "Persuasion / Intimidation DC 14", check: { stat: "spirit", skill: "Persuasion", dc: 14, pass: 6, fail: 5, passMsg: "Weeping, Vaelor confesses he summoned a Crystal Devil to erase his guild debts—and hands you a brass sonic tuning-fork that cracks its diamond shell!", failMsg: "Panicking, Vaelor smashes a glowing vial to wake his crystal constructs and bolts downstairs!" }, onPass: { cw: "SONIC_FORK" } },
+          { t: "Use Detect Traps to disarm the hidden alarm-latch on the cellar trapdoor!", badge: "Detect Traps", reqSpell: "Detect Traps", to: 6, onChoose: { cw: "CELLAR_FLANK", msg: "You bypass the silent alarm and descend quietly toward the glowing cellar!" } },
+          { t: "Shove past the stammering alchemist and kick the cellar door wide!", to: 5 }
         ]
       },
       5: {
-        zone: "Rusty Flagon Tavern",
-        title: "A Quiet Drink",
-        text: "Your Alchemist's Crystal Prism gleams harmlessly in the lamplight.",
+        zone: "Alchemist's Lab • Shattered Retorts",
+        title: "Crystal Homunculi",
+        text: "Razor-winged Crystal Homunculi and animated glass-beaker servitors burst from Vaelor's shelves, chiming wildly as they swarm to cover the alchemist's retreat downstairs!",
+        enemy: { name: "Vaelor's Crystal Homunculi", desc: "Razor-faceted alchemical constructs animated with infernal sparks.", hp: 48, ac: 14, atk: 7, dmg: 8, xp: 135, gold: 60, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["CRYSTAL_FLAW"] },
         choices: [
-          { t: "Finish the adventure.", to: 6 }
+          { t: "Follow the trail of glittering ruby dust down into the sealed cellar vault!", to: 6 }
         ]
       },
       6: {
+        zone: "Cellar Threshold • Ruby Stairs",
+        title: "The Six Crystal Hearts",
+        text: "Bitter ozone and winter frost drift up the ruby-dusted steps. Through a cracked iron archway you glimpse six luminous crystal hearts arranged at the points of a blazing infernal pentagram—awaiting a <em>seventh</em> heart to tear open a permanent rift beneath the city!",
+        choices: [
+          { t: "Strike Vaelor's brass sonic tuning-fork right as you step through the arch to fracture the fiend's carapace!", badge: "SONIC_FORK", reqCw: "SONIC_FORK", to: 7, onChoose: { cw: "CARAPACE_CRACKED", msg: "A pure, ringing note echoes off the vault—hairline fractures spiderweb across the Crystal Devil's armor!" } },
+          { t: "Pause behind a stone pillar to bind your scratches (+8 HP) before crashing the ritual.", to: 7, onChoose: { healHp: 8, msg: "You steady your breathing and grip your weapon tight (+8 HP)!" } },
+          { t: "Charge straight through the iron arch to smash the pentagram!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Alchemist's Cellar • Infernal Pentagram",
+        title: "The Glittering Fiend",
+        text: [
+          "Stepping smoothly from the blazing ruby pentagram towers a dazzling, seven-foot <strong>Crystal Devil</strong>—its diamond-faceted limbs refracting torchlight into blinding arcs while jagged blades chime like lethal chandeliers!",
+          "Behind it, desperate High Alchemist Vaelor shrieks: <em>'Take this interloper instead! Take the seventh heart and leave me be!'</em>"
+        ],
+        enemy: { name: "Glittering Crystal Devil & Alchemist", desc: "Infernal diamond-armored assassin harvesting crystallized mortal hearts.", hp: 66, ac: 15, atk: 8, dmg: 9, xp: 220, gold: 150, items: ["bq_crystal_heart_prism"], weakCw: ["CRYSTAL_FLAW", "CELLAR_FLANK", "CARAPACE_CRACKED"] },
+        choices: [
+          { t: "Inspect the still-humming ruby pentagram as the fiend shatters!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Alchemist's Cellar • Aftermath",
+        title: "Breaking the Seventh Debt",
+        text: "With a deafening chime, the Crystal Devil explodes into a harmless snowfall of glittering glass dust, and Vaelor collapses weeping against the wall. Yet the six crystal hearts still pulse faintly inside the ruby chalk circle!",
+        choices: [
+          { t: "Invert the infernal chalk-sigils with Arcana/Lore to free the trapped sparks and salvage pure uncursed rubies!", badge: "Arcana / Lore DC 13", check: { stat: "arcana", skill: "Lore", dc: 13, pass: 9, fail: 9, passMsg: "Warm golden light releases the victims' spirits (+12 HP), leaving 45 GP in purified ruby crystals!", failMsg: "You sweep the chalk away cleanly, silencing the pentagram for good (+8 HP)." }, onPass: { healHp: 12, gold: 45 }, onFail: { healHp: 8 } },
+          { t: "Kick through the ruby chalk immediately and haul Vaelor upstairs to the City Watch!", to: 9, onChoose: { healHp: 8, msg: "The pentagram goes dark as Watch captains rush down the stairs (+8 HP)!" } }
+        ]
+      },
+      9: {
+        zone: "Mayor's Hall • Dawn",
+        title: "Terror Ended",
+        text: "Mayor Enkam exhales in profound relief as Watch captains haul the broken High Alchemist away in iron manacles. True to her word, she honors your full civic bounty share and presents you with the Silver Key of the City.",
+        choices: [
+          { t: "Accept the city's gratitude and carry the quieted Crystal Prism home.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Lantern-Lit Streets",
+        title: "A City Sleeps Safely",
+        text: "For the first time in weeks, shutters unbar beneath clear morning skies. Word spreads quickly across Oakhaven of the sleuth who shattered the Crystal Murders.",
+        choices: [
+          { t: "Complete the adventure!", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Shatterer of the Glittering Hell",
-        text: "The Crystal Devil is banished and Mayor Enkam's city is safe.",
+        text: "The Crystal Devil is banished, Vaelor faces justice, and Mayor Enkam's city sleeps safely once more!",
         ending: { type: "true", title: "Sleuth of the Crystal Murders", xp: 255, gold: 250, trophy: "Mayor Enkam's Silver Key" },
         choices: []
       }

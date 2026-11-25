@@ -1,5 +1,5 @@
 {
-  "totalPasses": 3,
+  "totalPasses": 4,
   "history": [
     {
       "pass": 1,
@@ -21,11 +21,19 @@
       "title": "Empire of the Ghouls III: The Blood Marriage",
       "file": "data/quests/books_quests_batch_007.js",
       "summary": "Replaced 3 one-line filler pages and expanded into a full 11-page Northlands chapter with Shield-Captain Brynhild, a playable Ragnarok bonfire raid (Stealth/Firebolt), Spear Maiden sun-oil blessing (SUN_OIL), glacier ice-chimney bypass to the Obsidian Parapet with chain-dropping brazier sabotage (BRAZIER_DROPPED), Turn Undead aisle-clearing (CHOIR_BROKEN), and an interactive Eclipse-Chalice purification climax."
+    },
+    {
+      "pass": 4,
+      "questId": "bk_b10_p2_5_hell_glittering",
+      "title": "Hell Comes a' Glittering",
+      "file": "data/quests/books_quests_batch_010.js",
+      "summary": "Replaced 3 one-line filler pages and expanded into a full 11-page urban gothic mystery with 3 investigative leads (Morgue ruby-salt & Seventh Debt note, Alley witness coal-chute stakeout, and Vaelor's parlor interrogation), Stealth/Lockpicking/Detect Traps cellar flanking (CELLAR_FLANK), Vaelor's sonic tuning-fork confession payoff (SONIC_FORK -> CARAPACE_CRACKED), Crystal Homunculi mid-boss encounter, and interactive pentagram purification."
     }
   ],
   "questPasses": {
     "bk_b2_dib_1": 1,
     "ul_breaching_worm": 1,
-    "bk_b7_eog_3_blood_marriage": 1
+    "bk_b7_eog_3_blood_marriage": 1,
+    "bk_b10_p2_5_hell_glittering": 1
   }
 }
