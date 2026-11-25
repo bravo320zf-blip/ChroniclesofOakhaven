@@ -1435,7 +1435,19 @@ window.OAKHAVEN.registerItems({
     value: 175,
     atk: 4,
     agility: 2,
-    desc: "+4 Attack, +2 Agility. Slender silver dueling rapier won in the Court of Pale Roses."
+    passives: { critRange: 10, thornsDmg: 3, skillBonus: { Persuasion: 2 } },
+    activeAbility: {
+      name: "Pale Rose Lunge",
+      icon: "🥀",
+      charges: 2,
+      dmgDice: "2d8",
+      dmgStat: "agility",
+      dmgType: "physical",
+      dot: { dmg: 3, turns: 2, label: "Thorn Bleed" },
+      evadeTurns: 1,
+      desc: "2/Quest: Execute a courtly lunge for 2d8 + Agility dmg, Thorn Bleed (3/t, 2t), and Evade (1t)!"
+    },
+    desc: "Slender silver dueling rapier from the Court of Pale Roses (Crit 10+, 3 Thorns, +2 Persuasion) with Pale Rose Lunge."
   },
   "bq_brightsigh_glass_buckler": {
     id: "bq_brightsigh_glass_buckler",
@@ -2408,9 +2420,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 1,
     arcana: 1,
-    passives: { dmgReduce: 2, skillBonus: { Athletics: 1 } },
-    activeAbility: { name: "Stone-to-Tide Ward", icon: "🌊", charges: 2, dmgDice: "1d10", dmgStat: "arcana", dmgType: "cold", chillTurns: 2, shieldTurns: 2, desc: "2/Quest: Turn brine to slate — deal 1d10 + Arcana cold dmg, Chill (2t), and +3 AC (2t)!" },
-    desc: "Storied dwarven sea-ring of Binalric (-2 dmg taken, +1 Athletics) with Stone-to-Tide Ward."
+    passives: { dmgReduce: 2, spellDmgBonus: 2, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Stone-to-Tide Ward", icon: "🌊", charges: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "frost", chillTurns: 2, shieldTurns: 2, desc: "2/Quest: Turn brine to slate — deal 2d8 + Arcana cold dmg, Chill (2t), and +3 AC (2t)!" },
+    desc: "Storied dwarven sea-ring of Binalric (-2 Dmg Taken, +2 Spell Dmg, +2 Athletics) with Stone-to-Tide Ward."
   },
   "bq_mammon_coin_mail": {
     id: "bq_mammon_coin_mail",
@@ -2660,9 +2672,9 @@ window.OAKHAVEN.registerItems({
     value: 85,
     agility: 1,
     luck: 1,
-    passives: { goldFindPct: 10, skillBonus: { Perception: 2 } },
-    activeAbility: { name: "Swooping Plume-Dart", icon: "🪶", charges: 1, dmgDice: "1d8", dmgStat: "agility", dmgType: "physical", evadeTurns: 1, desc: "1/Quest: Flick a razor-feather dart for 1d8 + Agility dmg and Evade (1t)!" },
-    desc: "Iridescent three-legged bird talisman from Belcassel (+10% Gold, +2 Perception) with Swooping Plume-Dart."
+    passives: { goldFindPct: 12, skillBonus: { Perception: 2, Stealth: 1 } },
+    activeAbility: { name: "Swooping Plume-Dart", icon: "🪶", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "physical", evadeTurns: 1, desc: "2/Quest: Flick a razor-feather dart for 1d8 + Agility dmg and Evade (1t)!" },
+    desc: "Iridescent three-legged bird talisman from Belcassel (+12% Gold, +2 Perception, +1 Stealth) with Swooping Plume-Dart."
   },
   "bq_freyja_vine_chalice": {
     id: "bq_freyja_vine_chalice",

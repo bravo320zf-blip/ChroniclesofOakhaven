@@ -11,7 +11,7 @@ window.OAKHAVEN.registerItems({
       hunting_blade:   { id:"hunting_blade", name:"Hunting Blade", type:"weapon", atk:1, agility:1, value:20, desc:"+1 Attack, +1 Agility" },
       fine_steel_blade:{ id:"fine_steel_blade", name:"Fine Steel Sword", type:"weapon", atk:2, value:45, passives:{ critRange:11 }, desc:"Cleanly tempered frontier arming sword balanced for crisp parries and strikes (+Crit)." },
       dwarven_waraxe:  { id:"dwarven_waraxe", name:"Dwarven Waraxe", type:"weapon", atk:3, might:1, value:85, desc:"+3 Attack, +1 Might" },
-      venomfang_blade: { id:"venomfang_blade", name:"Venomfang Blade", type:"weapon", atk:3, agility:1, value:80, desc:"+3 Attack, +1 Agility" },
+      venomfang_blade: { id:"venomfang_blade", name:"Venomfang Blade", type:"weapon", atk:3, agility:1, value:80, passives:{ critRange:11 }, activeAbility:{ name:"Serpent's Sting", icon:"🐍", charges:2, dmgDice:"1d8", dmgStat:"agility", dmgType:"poison", dot:{ dmg:3, turns:3, label:"Venom" }, desc:"2/Quest: Slash with the grooved viper-blade for 1d8 + Agility dmg and Venom (3 dmg/t, 3t)!" }, desc:"Green-veined frontier sabre (+Crit) that inflicts lingering poison with Serpent's Sting." },
       ember_staff:     { id:"ember_staff", name:"Staff of Embers", type:"weapon", atk:2, arcana:2, value:90, desc:"+2 Attack, +2 Arcana" },
       sunfire_blade:   { id:"sunfire_blade", name:"Sunfire Greatsword", type:"weapon", atk:4, spirit:2, value:140, desc:"+4 Attack, +2 Spirit" },
       runeforged_axe:  { id:"runeforged_axe", name:"Runeforged Cleaver", type:"weapon", atk:4, might:2, value:135, desc:"+4 Attack, +2 Might (Crafted)" },
@@ -34,7 +34,7 @@ window.OAKHAVEN.registerItems({
       aegis_bastion:   { id:"aegis_bastion", name:"Aegis of Oakhaven", type:"offhand", ac:3, maxHp:5, value:115, desc:"+3 AC, +5 Max HP (Crafted)" },
 
       // Accessory
-      lucky_coin:      { id:"lucky_coin", name:"Silver Lucky Coin", type:"accessory", luck:1, value:28, desc:"+1 Luck" },
+      lucky_coin:      { id:"lucky_coin", name:"Silver Lucky Coin", type:"accessory", luck:1, value:28, passives:{ goldFindPct:8 }, activeAbility:{ name:"Heads I Win", icon:"🪙", charges:1, ooc:true, restoreLuck:1, desc:"1/Quest: Flip the worn silver coin to steady fate and regain +1 Current Luck!" }, desc:"Worn Oakhaven silver piece that always lands on edge (+8% Gold) with Heads I Win." },
       ring_vitality:   { id:"ring_vitality", name:"Ring of Vitality", type:"accessory", maxHp:6, ac:1, value:65, desc:"+6 Max HP, +1 AC" },
       ring_arcana:     { id:"ring_arcana", name:"Ring of Spellweave", type:"accessory", arcana:2, maxMp:4, value:75, desc:"+2 Arcana, +4 Max MP" },
       sunfire_amulet:  { id:"sunfire_amulet", name:"Sunfire Amulet", type:"accessory", ac:1, spirit:2, value:110, desc:"+1 AC, +2 Spirit" },

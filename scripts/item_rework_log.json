@@ -1,6 +1,6 @@
 {
-  "totalPasses": 16,
-  "totalItemsReworked": 160,
+  "totalPasses": 17,
+  "totalItemsReworked": 170,
   "history": [
     {
       "pass": 1,
@@ -257,6 +257,22 @@
         "bq_nefertari_date_pouch"
       ],
       "summary": "Reworked 8 Vault of Magic items (including Fabled Gauntlets of the Arcane Fist, Staff of Ice and Fire, Monkey's Paw of Fortune, Whispering Cloak, Moonsteel Rapier) plus 2 desert quest relics."
+    },
+    {
+      "pass": 17,
+      "items": [
+        "vom_cephalopod_plate",
+        "vom_fellforged_armor",
+        "vom_arcanaphage_stone",
+        "vom_radiant_bracers",
+        "vom_eye_golden_god",
+        "venomfang_blade",
+        "lucky_coin",
+        "bq_pale_rose_rapier",
+        "bq_slatelight_ring",
+        "bq_cikavak_feather_charm"
+      ],
+      "summary": "Reworked 5 Vault of Magic items (including Legendary Eye of the Golden God, Fellforged Armor, Arcanaphage Stone, Radiant Bracers, Cephalopod Breastplate), Venomfang Blade, Silver Lucky Coin, and 3 quest relics."
     }
   ],
   "itemPasses": {
@@ -419,6 +435,16 @@
     "vom_monkeys_paw": 1,
     "vom_fab_arcane_fist": 1,
     "bq_rathsys_cloak": 1,
-    "bq_nefertari_date_pouch": 1
+    "bq_nefertari_date_pouch": 1,
+    "vom_cephalopod_plate": 1,
+    "vom_fellforged_armor": 1,
+    "vom_arcanaphage_stone": 1,
+    "vom_radiant_bracers": 1,
+    "vom_eye_golden_god": 1,
+    "venomfang_blade": 1,
+    "lucky_coin": 1,
+    "bq_pale_rose_rapier": 1,
+    "bq_slatelight_ring": 1,
+    "bq_cikavak_feather_charm": 1
   }
 }
