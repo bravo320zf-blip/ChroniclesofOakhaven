@@ -1,6 +1,6 @@
 {
-  "batchCount": 20,
-  "totalQuestsAdded": 230,
+  "batchCount": 21,
+  "totalQuestsAdded": 240,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -974,44 +974,64 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #20 - Monkey Business.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Monkey Business"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #21 - Black Sarcophagus.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Black Sarcophagus"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #22 - Smugglers Run.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Smuggler's Run"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #23 - Wrath of the Bramble King.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Wrath of the Bramble King"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #24 - Pride of the Mushroom Queen.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Pride of the Mushroom Queen"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #25 - Shadows Envy.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Shadow's Envy"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #26 - Skeletons of the Illyrian Fleet.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Skeletons of the Illyrian Fleet"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #27 - The Empty Village v2.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Trollheim Chronicles I: The Empty Village"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #28 - The Wilding Call.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Trollheim Chronicles II: The Wilding Call"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #29 - The Beacon at the Top of the World.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Trollheim Chronicles III: The Beacon at the Top of the World"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #30 - Three Little Pigs Part 1.pdf": {
       "status": "pending",
