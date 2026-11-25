@@ -1,6 +1,6 @@
 {
-  "batchCount": 22,
-  "totalQuestsAdded": 250,
+  "batchCount": 23,
+  "totalQuestsAdded": 260,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -838,7 +838,7 @@
         "Spelldrinker's Cavern"
       ]
     },
-    "Books/Kobold Press/Warlock/Lairs/Warlock Lair #04 - Red Lenny’s Famous Meat Pies.pdf": {
+    "Books/Kobold Press/Warlock/Lairs/Warlock Lair #04 - Red Lenny\u2019s Famous Meat Pies.pdf": {
       "status": "done",
       "convertedTitles": [
         "Red Lenny's Famous Meat Pies"
@@ -951,7 +951,7 @@
         "Mad Maze of the Moon Kingdom"
       ]
     },
-    "Books/Kobold Press/Warlock/Lairs/Warlock Lair #18 - Storming the Queen’s Desire.pdf": {
+    "Books/Kobold Press/Warlock/Lairs/Warlock Lair #18 - Storming the Queen\u2019s Desire.pdf": {
       "status": "done",
       "convertedTitles": [
         "Storming the Queen's Desire"
@@ -1094,44 +1094,74 @@
       ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #40 - The Adoration of Quolo.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_adoration_quolo"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #41 - Song Undying.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_song_undying"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #42 - The Wandering Whelp.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_wandering_whelp"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #43 - Out of Phase.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_out_of_phase"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #44 - Raid on the Savage Oasis.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_savage_oasis"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #45 - Lost and Found.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_lost_and_found"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #46 - Terror at Twelve Goats.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_twelve_goats"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #47 - A Drinking Problem.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_drinking_problem"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #48 - Garden of Shade and Shadows.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_garden_shade_shadows"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #49 - Gold and Glory.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 23,
+      "quests": [
+        "bk_b23_gold_and_glory"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #50 - The Light of Memoria.pdf": {
       "status": "pending",
