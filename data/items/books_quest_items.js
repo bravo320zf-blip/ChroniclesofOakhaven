@@ -1644,3 +1644,136 @@ window.OAKHAVEN.registerItems({
     desc: "+3 Attack, +1 Arcana, +1 Luck. Hooked desert scepter claimed from the tomb of Anu-Asir."
   }
 });
+
+
+window.OAKHAVEN.registerItems({
+  // Batch 016 — Old Woodland Fairy Tales & Derende Trilogy
+  "bq_singing_tree_chime": {
+    id: "bq_singing_tree_chime",
+    name: "Chime of the Singing Tree",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 90,
+    spirit: 1,
+    luck: 1,
+    desc: "+1 Spirit, +1 Luck. Carved oak chime quieted in the haunted woods of Levoča."
+  },
+  "bq_royal_amber_comb": {
+    id: "bq_royal_amber_comb",
+    name: "Golden Comb of the Honey Queen",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 115,
+    spirit: 1,
+    maxHp: 6,
+    desc: "+1 Spirit, +6 Max HP. Sweet amber talisman gifted by the woodland bee-kin."
+  },
+  "bq_incot_vengeance_blade": {
+    id: "bq_incot_vengeance_blade",
+    name: "Cleansed Blade of Incot",
+    type: "weapon",
+    rarity: "rare",
+    value: 150,
+    atk: 4,
+    might: 1,
+    desc: "+4 Attack, +1 Might. Steel greatsword purged of Eagehrt's dark blood-marks."
+  },
+  "bq_crimson_hood_cloak": {
+    id: "bq_crimson_hood_cloak",
+    name: "Crimson Cloak of the Fang",
+    type: "cloak",
+    rarity: "rare",
+    value: 185,
+    ac: 2,
+    agility: 2,
+    desc: "+2 AC, +2 Agility. Enchanted scarlet hood blessed by the song of Gamayun."
+  },
+  "bq_lesharrkk_feather_cloak": {
+    id: "bq_lesharrkk_feather_cloak",
+    name: "Obsidian Griffon Mantle",
+    type: "cloak",
+    rarity: "rare",
+    value: 205,
+    ac: 2,
+    might: 1,
+    agility: 2,
+    desc: "+2 AC, +1 Might, +2 Agility. Woven from Lesharrkk's midnight-black griffon plumes."
+  },
+  "bq_spider_crone_ivy_crown": {
+    id: "bq_spider_crone_ivy_crown",
+    name: "Ivy Crown of Prophecy",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 245,
+    arcana: 2,
+    spirit: 2,
+    luck: 1,
+    desc: "+2 Arcana, +2 Spirit, +1 Luck. Ancient woven crown reclaimed from Mavra's House."
+  },
+  "bq_briar_king_blade": {
+    id: "bq_briar_king_blade",
+    name: "Thorn-Forged Sword of the Briar",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 280,
+    atk: 5,
+    might: 2,
+    agility: 1,
+    desc: "+5 Attack, +2 Might, +1 Agility. Living ironwood blade taken from the King of Thorns."
+  },
+  "bq_grandmothers_ember_brooch": {
+    id: "bq_grandmothers_ember_brooch",
+    name: "Grandmother's Hearth-Ember Brooch",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 315,
+    ac: 1,
+    arcana: 2,
+    spirit: 2,
+    maxHp: 10,
+    desc: "+1 AC, +2 Arcana, +2 Spirit, +10 Max HP. Ever-warm coal gifted by the hut in the deep woods."
+  },
+  "bq_zmey_triple_scale_mail": {
+    id: "bq_zmey_triple_scale_mail",
+    name: "Three-Headed Zmey Scale Mail",
+    type: "armor",
+    rarity: "very_rare",
+    value: 380,
+    ac: 4,
+    might: 2,
+    maxHp: 12,
+    desc: "+4 AC, +2 Might, +12 Max HP. Fireproof draconic scale forged from Levoča's Vengeful Zmey."
+  },
+  "bq_derende_finger_twig": {
+    id: "bq_derende_finger_twig",
+    name: "Star-Pointed Wand of the Fingers",
+    type: "weapon",
+    rarity: "uncommon",
+    value: 115,
+    atk: 3,
+    arcana: 2,
+    desc: "+3 Attack, +2 Arcana. Living wood focus taken from the Finger-Fortress of Family Starless."
+  },
+  "bq_thoulous_iron_spear": {
+    id: "bq_thoulous_iron_spear",
+    name: "Black-Iron Halberd of Thoulous",
+    type: "weapon",
+    rarity: "rare",
+    value: 210,
+    atk: 5,
+    might: 1,
+    desc: "+5 Attack, +1 Might. Heavy undead-forged polearm seized upon the Tongue of Derende."
+  },
+  "bq_heart_of_derende_amulet": {
+    id: "bq_heart_of_derende_amulet",
+    name: "Living Heart-Seed of Derende",
+    type: "accessory",
+    rarity: "legendary",
+    value: 360,
+    ac: 2,
+    spirit: 3,
+    arcana: 2,
+    maxHp: 14,
+    desc: "+2 AC, +3 Spirit, +2 Arcana, +14 Max HP. Pulsing emerald relic of the cleansed primeval forest."
+  }
+});

@@ -1,6 +1,6 @@
 {
-  "batchCount": 15,
-  "totalQuestsAdded": 174,
+  "batchCount": 16,
+  "totalQuestsAdded": 186,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -681,8 +681,21 @@
       "reason": "player guide sourcebook"
     },
     "Books/Kobold Press/Tales of the Old Margreve/Tales of the Old Margreve [5e].pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Hollow",
+        "The Honey Queen",
+        "The Vengeful Heart",
+        "Challenge of the Fang",
+        "The Griffon Hatchling Heist",
+        "Gall of the Spider Crone",
+        "Blood and Thorns",
+        "Grandmother's Fire",
+        "The Vengeful Dragon",
+        "Derende I: The Fingers of Derende",
+        "Derende II: The Tongue of Derende",
+        "Derende III: The Heart of Derende"
+      ]
     },
     "Books/Kobold Press/Tales of the Valiant/ToV-Monster-Vault.pdf": {
       "status": "skipped_no_quests",
