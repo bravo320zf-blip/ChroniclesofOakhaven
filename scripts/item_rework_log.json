@@ -1,6 +1,6 @@
 {
-  "totalPasses": 10,
-  "totalItemsReworked": 100,
+  "totalPasses": 11,
+  "totalItemsReworked": 110,
   "history": [
     {
       "pass": 1,
@@ -161,6 +161,22 @@
         "bq_frosttuft_silver_axe"
       ],
       "summary": "Milestone 100th item reworked! Upgraded 3 Vault of Magic items (including Chronomancer's Pocket Clock), 2 Tome of Heroes gauntlets, Otyugh's Onyx Dagger, and 4 quest relics."
+    },
+    {
+      "pass": 11,
+      "items": [
+        "vom_pick_ice_breaking",
+        "vom_blade_petals",
+        "vom_whip_blue_wyrm",
+        "vom_rod_wastes",
+        "vom_lupine_crown",
+        "vom_fab_kelgrors_hammer",
+        "bq_hurkl_fire_wand",
+        "bq_anax_star_scroll_case",
+        "bq_singing_tree_chime",
+        "bq_twisted_claw_stiletto"
+      ],
+      "summary": "Reworked 6 Vault of Magic items (including Fabled Kelgror's Hammer, Legendary Rod of the Wastes, Whip of the Blue Wyrm) and 4 quest relics with authentic passives and charged abilities."
     }
   ],
   "itemPasses": {
@@ -263,6 +279,16 @@
     "bq_adelind_holy_robes": 1,
     "bq_scorpion_prince_dagger": 1,
     "bq_green_sanctum_bloom": 1,
-    "bq_frosttuft_silver_axe": 1
+    "bq_frosttuft_silver_axe": 1,
+    "vom_pick_ice_breaking": 1,
+    "vom_blade_petals": 1,
+    "vom_whip_blue_wyrm": 1,
+    "vom_rod_wastes": 1,
+    "vom_lupine_crown": 1,
+    "vom_fab_kelgrors_hammer": 1,
+    "bq_hurkl_fire_wand": 1,
+    "bq_anax_star_scroll_case": 1,
+    "bq_singing_tree_chime": 1,
+    "bq_twisted_claw_stiletto": 1
   }
 }

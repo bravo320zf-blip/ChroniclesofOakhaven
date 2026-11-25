@@ -547,7 +547,9 @@ window.OAKHAVEN.registerItems({
     atk: 5,
     arcana: 2,
     maxMp: 5,
-    desc: "+5 Attack, +2 Arcana, +5 Max MP. Scorched wand of fireballs pried from shadow goblin Hurkl."
+    passives: { spellDmgBonus: 4, bombDmgBonus: 3, skillBonus: { Stealth: 1 } },
+    activeAbility: { name: "Shadow-Toll Fireball", icon: "🔥", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "fire", dot: { dmg: 5, turns: 3, label: "Goblin Cinders" }, desc: "2/Quest (2 MP): Blast a roaring fireball for 3d8 + Arcana fire dmg and Goblin Cinders (5/t, 3t)!" },
+    desc: "Scorched fireball wand pried from shadow goblin Hurkl (+4 Spell Dmg, +3 Bomb Dmg) with Shadow-Toll Fireball."
   },
   "bq_obelisk_rune_charm": {
     id: "bq_obelisk_rune_charm",
@@ -1488,7 +1490,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     luck: 1,
     maxMp: 5,
-    desc: "+2 Arcana, +1 Luck, +5 Max MP. Etched starlight scroll-focus recovered from the lost temple."
+    passives: { spellCostReduce: 1, mpRegen: true, skillBonus: { Arcana: 2 } },
+    activeAbility: { name: "Apogeion Star-Scroll", icon: "✨", charges: 2, ooc: true, dmgDice: "2d6", dmgStat: "arcana", dmgType: "radiant", restoreMp: 4, desc: "2/Quest: Unfurl stored starlight for 2d6 + Arcana radiant dmg and restore 4 MP!" },
+    desc: "Etched silver scroll-focus from the lost temple of Apogeion (-1 Spell MP cost, +1 MP regen, +2 Arcana) with Apogeion Star-Scroll."
   },
   "bq_sextant_brass_arc": {
     id: "bq_sextant_brass_arc",
@@ -1714,7 +1718,9 @@ window.OAKHAVEN.registerItems({
     value: 90,
     spirit: 1,
     luck: 1,
-    desc: "+1 Spirit, +1 Luck. Carved oak chime quieted in the haunted woods of Levoča."
+    passives: { healBonus: 2, skillBonus: { Persuasion: 1, Survival: 1 } },
+    activeAbility: { name: "Woodland Chime-Lullaby", icon: "🎐", charges: 1, ooc: true, healDice: "1d10", healStat: "spirit", restoreMp: 2, desc: "1/Quest: Ring the oak chime of Levoča to restore 1d10 + Spirit HP and 2 MP!" },
+    desc: "Carved oak chime from the woods of Levoča (+2 Healing, +1 Persuasion/Survival) with Woodland Chime-Lullaby."
   },
   "bq_royal_amber_comb": {
     id: "bq_royal_amber_comb",
@@ -2093,9 +2099,9 @@ window.OAKHAVEN.registerItems({
     atk: 6,
     agility: 3,
     luck: 2,
-    passives: { critRange: 11, lifesteal: 3, skillBonus: { Stealth: 2 } },
+    passives: { critRange: 11, lifesteal: 3, bossDmgBonus: 3, skillBonus: { Stealth: 2 } },
     activeAbility: { name: "Rakshasa Mirage-Strike", icon: "🐯", charges: 2, guaranteedCrit: true, evadeTurns: 3, desc: "2/Quest: Guaranteed Critical strike through shimmering illusions (+2 AC for 3 turns)!" },
-    desc: "Curved jeweled stiletto seized from the Rakshasa Slayer beneath the Veiled Mannequin."
+    desc: "Curved jeweled stiletto from the Rakshasa Slayer (+Crit, Lifesteal 3, +3 vs Bosses, +2 Stealth) with Rakshasa Mirage-Strike."
   },
   "bq_puca_silver_bridle": {
     id: "bq_puca_silver_bridle",
