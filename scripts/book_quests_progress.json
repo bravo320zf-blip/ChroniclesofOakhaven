@@ -1,6 +1,6 @@
 {
-  "batchCount": 24,
-  "totalQuestsAdded": 273,
+  "batchCount": 25,
+  "totalQuestsAdded": 284,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -1213,108 +1213,121 @@
       ]
     },
     "Books/Kobold Press/Warlock/Misc/Warlock - Guide to the Shadow Realms.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Misc/Warlock Bestiary.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Misc/Warlock Grimoire for 5th Edition.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #1 - Midgard & Mythos.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #10 - The Magocracies.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #11 - Treasure Vaults.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #12 - Dwarves.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #13 - War and Battle.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #14 - Clockwork.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #15 - Boss Monsters.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #16 - Eleven Hells.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #17 - Halflings.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #18 - Blood Kingdoms.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #19 - Masters of the Arcane.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #2 - Dread Magic.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #20 - Redtower.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #21 - Legends.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #22 - Druids.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #3 - Undercity.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #4 - The Dragon Empire.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #5 - Rogue's Gallery.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #6 - City of Brass.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #7 - Fey Courts.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #8 - Undead.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Warlock/Warlocks/Warlock #9 - The World Tree.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     },
     "Books/Kobold Press/Waste of Chaos/Wastes-of-Chaos-qwppcm.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 25,
+      "quests": [
+        "bk_b25_bleakspire",
+        "bk_b25_rustspike",
+        "bk_b25_cathedral_black_goat",
+        "bk_b25_ghost_light_marshes",
+        "bk_b25_nichenevin",
+        "bk_b25_tangleside",
+        "bk_b25_wasteland_drake",
+        "bk_b25_dread_colossus",
+        "bk_b25_raw_chaos_portal",
+        "bk_b25_river_of_alchemy",
+        "bk_b25_vault_god_king"
+      ]
     },
     "Books/Kobold Press/Weresheep/Weresheep.pdf": {
       "status": "skipped_no_quests",
@@ -1337,8 +1350,8 @@
       ]
     },
     "Books/Kobold Press/Zobeck Gazetteer/Zobeck Gazetteer.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Setting gazetteer / zine lore / bestiary / reference only"
     }
   }
 }
