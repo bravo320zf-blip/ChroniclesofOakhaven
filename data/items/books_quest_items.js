@@ -35,7 +35,18 @@ window.OAKHAVEN.registerItems({
     source: "12 Peculiar Towers",
     atk: 3,
     might: 1,
-    desc: "+3 Attack, +1 Might. Well-balanced bergfried steel forged for borderland war heroes."
+    passives: { critRange: 11, bossDmgBonus: 3 },
+    activeAbility: {
+      name: "Bergfried Cleave",
+      icon: "⚔️",
+      charges: 2,
+      dmgDice: "2d8",
+      dmgStat: "might",
+      dmgType: "physical",
+      selfBuffAtk: { atk: 2, turns: 2 },
+      desc: "2/Quest: Swing Dagny's borderland steel for 2d8 + Might dmg and +2 Attack (2t)!"
+    },
+    desc: "Well-balanced bergfried steel forged for borderland war heroes (+Crit, +3 Boss Dmg) with Bergfried Cleave."
   },
   "bq_raganni_prism_staff": {
     id: "bq_raganni_prism_staff",
@@ -274,7 +285,18 @@ window.OAKHAVEN.registerItems({
     source: "Book of Lairs",
     maxHp: 10,
     might: 1,
-    desc: "+10 Max HP, +1 Might. Vitality amulet hoarded in the worm-tunnels of Doom Croaker's Branches."
+    passives: { dmgReduce: 2, healBonus: 3, skillBonus: { Survival: 2 } },
+    activeAbility: {
+      name: "World-Root Vitality",
+      icon: "🌳",
+      charges: 2,
+      ooc: true,
+      healDice: "2d8",
+      healStat: "might",
+      shieldTurns: 2,
+      desc: "2/Quest: Draw sap from the World-Tree's root to restore 2d8 + Might HP and gain +3 AC (2t)!"
+    },
+    desc: "Vitality amulet hoarded in the worm-tunnels of Doom Croaker's Branches (-2 Dmg Taken, +3 Healing, +2 Survival) with World-Root Vitality."
   },
   "bq_imsim_mirage_ring": {
     id: "bq_imsim_mirage_ring",
@@ -1504,7 +1526,20 @@ window.OAKHAVEN.registerItems({
     spirit: 2,
     arcana: 2,
     maxHp: 8,
-    desc: "+2 AC, +2 Spirit, +2 Arcana, +8 Max HP. Mantle woven from the Sun King's rekindled dawn."
+    passives: { undeadDmgBonus: 6, healBonus: 4, mpRegen: 1 },
+    activeAbility: {
+      name: "Rekindled Dawnburst",
+      icon: "☀️",
+      charges: 2,
+      mp: 3,
+      dmgDice: "3d8",
+      dmgStat: "spirit",
+      dmgType: "radiant",
+      undeadDouble: true,
+      healBase: 10,
+      desc: "2/Quest (3 MP): Unleash the Sun King's dawn for 3d8 + Spirit radiant dmg (2x vs Undead) and +10 HP!"
+    },
+    desc: "Mantle woven from the Sun King's rekindled dawn (+6 vs Undead, +4 Healing, +1 MP/turn) with Rekindled Dawnburst."
   }
 });
 
@@ -2064,9 +2099,9 @@ window.OAKHAVEN.registerItems({
     value: 255,
     atk: 5,
     might: 2,
-    passives: { bossDmgBonus: 3, thornsDmg: 2 },
-    activeAbility: { name: "Anvil-Flame Smash", icon: "🔨", charges: 2, dmgDice: "2d6", dmgBonus: 2, dmgStat: "might", dmgType: "fire", dot: { dmg: 3, turns: 3, label: "Scorched" }, desc: "2/Quest: White-hot blow deals 2d6 + 2 + Might fire dmg & scorches foe (3/t, 3t)." },
-    desc: "White-hot runic warhammer wrested from the Twin Thursir Giants of the Lost Forge."
+    passives: { bossDmgBonus: 4, thornsDmg: 3 },
+    activeAbility: { name: "Anvil-Flame Smash", icon: "🔨", charges: 2, mp: 2, dmgDice: "3d6", dmgBonus: 2, dmgStat: "might", dmgType: "fire", stunTurns: 1, dot: { dmg: 4, turns: 3, label: "Forge-Scorch" }, desc: "2/Quest (2 MP): White-hot giant-forge blow deals 3d6 + 2 + Might fire dmg, Stun (1t), and Forge-Scorch (4/t, 3t)!" },
+    desc: "White-hot runic warhammer wrested from the Twin Thursir Giants (+4 Boss Dmg, 3 Thorns) with Anvil-Flame Smash."
   },
   "bq_millard_beast_whistle": {
     id: "bq_millard_beast_whistle",

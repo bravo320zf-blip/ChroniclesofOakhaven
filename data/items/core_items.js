@@ -9,7 +9,7 @@ window.OAKHAVEN.registerItems({
       runed_staff:     { id:"runed_staff", name:"Runed Oak Staff", type:"weapon", atk:1, arcana:1, value:22, passives:{ spellDmgBonus:1, skillBonus:{ Arcana:1 } }, desc:"Carved oaken staff etched with focusing runes (+1 Spell Dmg, +1 Arcana)." },
       blessed_mace:    { id:"blessed_mace", name:"Blessed Mace", type:"weapon", atk:1, spirit:1, value:22, desc:"+1 Attack, +1 Spirit" },
       hunting_blade:   { id:"hunting_blade", name:"Hunting Blade", type:"weapon", atk:1, agility:1, value:20, desc:"+1 Attack, +1 Agility" },
-      fine_steel_blade:{ id:"fine_steel_blade", name:"Fine Steel Sword", type:"weapon", atk:2, value:45, desc:"+2 Attack" },
+      fine_steel_blade:{ id:"fine_steel_blade", name:"Fine Steel Sword", type:"weapon", atk:2, value:45, passives:{ critRange:11 }, desc:"Cleanly tempered frontier arming sword balanced for crisp parries and strikes (+Crit)." },
       dwarven_waraxe:  { id:"dwarven_waraxe", name:"Dwarven Waraxe", type:"weapon", atk:3, might:1, value:85, desc:"+3 Attack, +1 Might" },
       venomfang_blade: { id:"venomfang_blade", name:"Venomfang Blade", type:"weapon", atk:3, agility:1, value:80, desc:"+3 Attack, +1 Agility" },
       ember_staff:     { id:"ember_staff", name:"Staff of Embers", type:"weapon", atk:2, arcana:2, value:90, desc:"+2 Attack, +2 Arcana" },

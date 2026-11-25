@@ -1,6 +1,6 @@
 {
-  "totalPasses": 14,
-  "totalItemsReworked": 140,
+  "totalPasses": 15,
+  "totalItemsReworked": 150,
   "history": [
     {
       "pass": 1,
@@ -225,6 +225,22 @@
         "runed_staff"
       ],
       "summary": "Reworked 7 Vault of Magic items (including Legendary Umbral Staff, Burning Skull Helm, Gauntlet of the Iron Sphere, Unseelie Staff, Plumb of the Elements), Medic's Sash, Calling Cat Pendant, and Runed Oak Staff."
+    },
+    {
+      "pass": 15,
+      "items": [
+        "vom_blackguard_blade",
+        "vom_riverine_blade",
+        "vom_seelie_staff",
+        "vom_staff_white_necro",
+        "fine_steel_blade",
+        "ul_ashkreigel_plate",
+        "bq_dagny_warblade",
+        "bq_lindwurm_amulet",
+        "bq_sun_king_radiant_crest",
+        "bq_lost_forge_tongs"
+      ],
+      "summary": "Milestone 150th item reworked! Upgraded 4 Vault of Magic items (including Staff of the White Necromancer and Seelie Staff), Legendary Adamantine Plate of Stoneboar, Fine Steel Sword, and 4 quest relics."
     }
   ],
   "itemPasses": {
@@ -367,6 +383,16 @@
     "vom_gauntlet_iron_sphere": 1,
     "bk_medic_s_sash": 1,
     "bq_calling_cat_charm": 1,
-    "runed_staff": 1
+    "runed_staff": 1,
+    "vom_blackguard_blade": 1,
+    "vom_riverine_blade": 1,
+    "vom_seelie_staff": 1,
+    "vom_staff_white_necro": 1,
+    "fine_steel_blade": 1,
+    "ul_ashkreigel_plate": 1,
+    "bq_dagny_warblade": 1,
+    "bq_lindwurm_amulet": 1,
+    "bq_sun_king_radiant_crest": 1,
+    "bq_lost_forge_tongs": 1
   }
 }

@@ -6,7 +6,7 @@
     const VAULT_OF_MAGIC_ITEMS = [
       // ==================== ARMOR & WEAPONS ====================
       ["vom_agile_armor", "Agile Armor", "armor", "common", 32, { ac:2, agility:1 }, "+2 AC, +1 Agility (Lighter enchanted mail)", true],
-      ["vom_blackguard_blade", "Blackguard's Blade", "weapon", "common", 24, { atk:1, agility:1 }, "+1 Attack, +1 Agility (Cunning duelist blade)", true],
+      ["vom_blackguard_blade", "Blackguard's Blade", "weapon", "common", 24, { atk:1, agility:1, passives:{ critRange:11, skillBonus:{ Stealth:1 } } }, "Cunning duelist shortsword balanced for dirty flank strikes (+Crit, +1 Stealth).", true],
       ["vom_bow_accuracy", "Bow of Accuracy", "weapon", "common", 25, { atk:1, luck:1 }, "+1 Attack, +1 Luck (Long-range precision)", true],
       ["vom_crusader_shield", "Crusader's Shield", "offhand", "common", 26, { ac:1, spirit:1 }, "+1 AC, +1 Spirit (Divine focus buckler)", true],
       ["vom_flash_bullet", "Flash Bullet", "bomb", "common", 14, { dmg:7 }, "Throw in combat for 7 radiant flash dmg", true],
@@ -88,7 +88,7 @@
       ["vom_moonsteel_weapon", "Moonsteel Rapier", "weapon", "rare", 94, { atk:3, agility:1, spirit:1 }, "+3 Attack, +1 Agility, +1 Spirit (Radiant steel)", true],
       ["vom_mordant_blade", "Mordant Blade", "weapon", "rare", 96, { atk:3, arcana:2 }, "+3 Attack, +2 Arcana (Acid-weeping sword)", true],
       ["vom_mutineers_blade", "Mutineer's Blade", "weapon", "rare", 94, { atk:3, agility:1, luck:1 }, "+3 Attack, +1 Agility, +1 Luck", true],
-      ["vom_riverine_blade", "Riverine Blade", "weapon", "rare", 92, { atk:3, agility:2 }, "+3 Attack, +2 Agility (Balanced sea-sword)", true],
+      ["vom_riverine_blade", "Riverine Blade", "weapon", "rare", 92, { atk:3, agility:2, passives:{ critRange:11, skillBonus:{ Athletics:2 } }, activeAbility:{ name:"Garroter Riposte", icon:"🌊", charges:2, dmgDice:"2d6", dmgStat:"agility", dmgType:"physical", evadeTurns:1, desc:"2/Quest: Flow like river current for 2d6 + Agility dmg and Evade (1t)!" } }, "Sea-sword with a garroter-crab crossguard and river-rock pommel (+Crit, +2 Athletics) with Garroter Riposte.", true],
       ["vom_rust_monster_shell", "Rust Monster Shell", "armor", "rare", 96, { ac:3, might:1, ac:3 }, "+3 AC, +1 Might (Corrodes enemy steel)", true],
       ["vom_scimitar_desert", "Scimitar of the Desert Winds", "weapon", "rare", 94, { atk:3, agility:2 }, "+3 Attack, +2 Agility (Gale-strike scimitar)", true],
       ["vom_searing_whip", "Searing Whip", "weapon", "rare", 92, { atk:3, spirit:2 }, "+3 Attack, +2 Spirit (Radiant light-drake whip)", true],
@@ -238,7 +238,7 @@
       ["vom_rod_icicles", "Rod of Icicles", "offhand", "rare", 94, { arcana:2, atk:1, maxMp:4, passives:{ spellDmgBonus:2, mpRegen:1 }, activeAbility:{ name:"Lance of Icicles", icon:"❄️", charges:3, mp:2, dmgDice:"3d6", dmgStat:"arcana", dmgType:"frost", chillTurns:2, desc:"3/Quest (2 MP): Fire a crystalline icicle for 3d6 + Arcana frost dmg and Chill (2t)!" } }, "White crystalline frost-rod (+2 Spell Dmg, +1 MP/turn) that hurls freezing darts with Lance of Icicles.", true],
       ["vom_rod_swarming_skulls", "Rod of Swarming Skulls", "offhand", "rare", 96, { arcana:2, spirit:1, maxMp:4 }, "+2 Arcana, +1 Spirit, +4 Max MP", true],
       ["vom_rod_thorns", "Rod of Thorns", "weapon", "rare", 92, { atk:3, spirit:1, maxHp:4 }, "+3 Attack, +1 Spirit, +4 Max HP", true],
-      ["vom_seelie_staff", "Seelie Staff", "weapon", "rare", 96, { atk:2, arcana:2, spirit:2 }, "+2 Attack, +2 Arcana, +2 Spirit (Summer Court)", true],
+      ["vom_seelie_staff", "Seelie Staff", "weapon", "rare", 96, { atk:2, arcana:2, spirit:2, passives:{ healBonus:3, spellDmgBonus:2, skillBonus:{ Persuasion:2 } }, activeAbility:{ name:"Summer Petal Glamour", icon:"🌸", charges:2, mp:2, ooc:true, healDice:"2d8", healStat:"spirit", evadeTurns:2, desc:"2/Quest (2 MP): Swirl fragrant Summer Court petals to restore 2d8 + Spirit HP and gain Evade (2t)!" } }, "Gilded white-ash staff crowned with blue quartz (+3 Healing, +2 Spell Dmg, +2 Persuasion) with Summer Petal Glamour.", true],
       ["vom_serpent_staff", "Serpent Staff", "weapon", "rare", 94, { atk:2, arcana:2, maxMp:4 }, "+2 Attack, +2 Arcana, +4 Max MP", true],
       ["vom_shimmer_ring", "Shimmer Ring", "accessory", "rare", 94, { atk:1, spirit:2, ac:1 }, "+1 Attack, +1 AC, +2 Spirit (Radiant bolts)", true],
       ["vom_signet_magister", "Signet of the Magister", "accessory", "rare", 96, { arcana:2, spirit:2, passives:{ thornsDmg:4, spellDmgBonus:2, skillBonus:{ Persuasion:2 } }, activeAbility:{ name:"Magister's Brand", icon:"🦅", charges:2, mp:2, dmgDice:"2d6", dmgStat:"spirit", dmgType:"arcane", stunTurns:1, desc:"2/Quest (2 MP): Brand a foe with the eagle-and-crown seal for 2d6 + Spirit psychic backlash and Stun (1t)!" } }, "Justicar's carnelian eagle-and-crown signet (4 Thorns, +2 Spell Dmg, +2 Persuasion) with Magister's Brand.", true],
@@ -270,7 +270,7 @@
       ["vom_staff_four_winds", "Staff of the Four Winds", "weapon", "very_rare", 148, { atk:3, agility:2, arcana:2 }, "+3 Attack, +2 Agility, +2 Arcana", true],
       ["vom_staff_scion", "Staff of the Scion", "weapon", "very_rare", 150, { atk:4, arcana:2, maxHp:5 }, "+4 Attack, +2 Arcana, +5 Max HP", true],
       ["vom_staff_treant", "Staff of the Treant", "weapon", "very_rare", 152, { atk:3, ac:2, spirit:2, maxHp:6, passives:{ dmgReduce:2, healBonus:3, thornsDmg:4, skillBonus:{ Survival:2 } }, activeAbility:{ name:"Awaken Living Boughs", icon:"🌳", charges:2, mp:3, healDice:"2d8", healStat:"spirit", summon:{ name:"Treant Sapling", icon:"🌳", dmg:7, turns:3 }, desc:"2/Quest (3 MP): Restore 2d8 + Spirit HP and awaken a Treant Sapling ally (7 dmg/t for 3t)!" } }, "Living oak-bough staff that turns skin to bark (-2 Dmg Taken, +3 Healing, 4 Thorns) with Awaken Living Boughs.", true],
-      ["vom_staff_white_necro", "Staff of the White Necromancer", "weapon", "very_rare", 150, { atk:3, spirit:3, maxMp:6 }, "+3 Attack, +3 Spirit, +6 Max MP", true],
+      ["vom_staff_white_necro", "Staff of the White Necromancer", "weapon", "very_rare", 150, { atk:3, spirit:3, maxMp:6, passives:{ healBonus:4, undeadDmgBonus:5, lifesteal:0.12 }, activeAbility:{ name:"Death Ward & Soul Mend", icon:"🤍", charges:2, mp:3, ooc:true, healDice:"3d8", healStat:"spirit", shieldTurns:3, desc:"2/Quest (3 MP): Channel white necromancy to restore 3d8 + Spirit HP and raise a Death Ward (+3 AC, 3t)!" } }, "Polished rune-carved bone staff of benevolent necromancy (+4 Healing, +5 vs Undead, 12% Lifesteal) with Death Ward & Soul Mend.", true],
       ["vom_stone_staff", "Stone Staff", "weapon", "very_rare", 148, { atk:3, ac:2, might:2 }, "+3 Attack, +2 AC, +2 Might (Dwarven stone)", true],
 
       ["vom_blacktooth", "Blacktooth Wand", "offhand", "legendary", 215, { arcana:4, spirit:2, maxMp:8 }, "+4 Arcana, +2 Spirit, +8 Max MP (Black ivory)", true],
