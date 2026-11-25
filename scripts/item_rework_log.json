@@ -1,6 +1,34 @@
 {
-  "totalPasses": 0,
-  "totalItemsReworked": 0,
-  "history": [],
-  "itemPasses": {}
+  "totalPasses": 1,
+  "totalItemsReworked": 10,
+  "history": [
+    {
+      "pass": 1,
+      "items": [
+        "vom_dawn_shard",
+        "vom_exsanguinating_blade",
+        "vom_fountmail",
+        "vom_larkmail",
+        "vom_staff_giantkin",
+        "bk_ward_against_wild_appetites",
+        "nf_leliam_grim_dagger",
+        "bq_ethereal_fang_blade",
+        "bq_night_messenger_pin",
+        "bq_catamount_claw_charm"
+      ],
+      "summary": "Reworked 5 Vault of Magic items from authentic sourcebook lore plus 5 woodland/quest relics with signature passives and charged active abilities."
+    }
+  ],
+  "itemPasses": {
+    "vom_dawn_shard": 1,
+    "vom_exsanguinating_blade": 1,
+    "vom_fountmail": 1,
+    "vom_larkmail": 1,
+    "vom_staff_giantkin": 1,
+    "bk_ward_against_wild_appetites": 1,
+    "nf_leliam_grim_dagger": 1,
+    "bq_ethereal_fang_blade": 1,
+    "bq_night_messenger_pin": 1,
+    "bq_catamount_claw_charm": 1
+  }
 }

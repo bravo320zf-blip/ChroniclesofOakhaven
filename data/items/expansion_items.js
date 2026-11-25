@@ -145,7 +145,7 @@ window.OAKHAVEN.registerItems({
 
       // --- Part V: The House that Drowns in the Woods ---
       nf_vanisia_hammer:     { id:"nf_vanisia_hammer", name:"Vanisia's Grim Hammer", type:"weapon", rarity:"very_rare", atk:5, might:2, spirit:1, value:205, unique:true, desc:"+5 Attack, +2 Might, +1 Spirit (Vaas Crypt Unique)" },
-      nf_leliam_grim_dagger: { id:"nf_leliam_grim_dagger", name:"Leliam's Grim Dagger +2", type:"weapon", rarity:"very_rare", atk:5, agility:3, value:215, unique:true, desc:"+5 Attack, +3 Agility (Pulled from Leliam's chest)" },
+      nf_leliam_grim_dagger: { id:"nf_leliam_grim_dagger", name:"Leliam's Grim Dagger +2", type:"weapon", rarity:"very_rare", atk:5, agility:3, value:215, unique:true, passives:{ critRange:11, lifesteal:2, undeadDmgBonus:3 }, activeAbility:{ name:"Grim Heartseeker", icon:"🗡️", charges:2, guaranteedCrit:true, dot:{ dmg:4, turns:3, label:"Shadow Bleed" }, evadeTurns:2, desc:"2/Quest: Guaranteed Critical shadow-thrust inflicting Shadow Bleed (4/t, 3t) and granting +2 AC for 2 turns!" }, desc:"Shadow-forged stiletto pulled from Leliam's chest, hungering for lethal heartstrikes." },
       nf_arkea_scimitar:     { id:"nf_arkea_scimitar", name:"Arkea's Cursed Scimitar", type:"weapon", rarity:"legendary", atk:6, agility:2, spirit:2, value:245, unique:true, desc:"+6 Attack, +2 Agility, +2 Spirit (Mazarol-touched blade)" },
 
       // --- Part VI: Vengeance is Mine ---

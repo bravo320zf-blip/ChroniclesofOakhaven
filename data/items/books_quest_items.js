@@ -55,10 +55,21 @@ window.OAKHAVEN.registerItems({
     type: "weapon",
     rarity: "rare",
     value: 165,
-    source: "12 Peculiar Towers",
     atk: 4,
     agility: 1,
-    desc: "+4 Attack, +1 Agility. Shimmering blade attuned to the Ethereal Gate of Grimspire."
+    passives: { spellDmgBonus: 2, undeadDmgBonus: 3 },
+    activeAbility: {
+      name: "Ethereal Phase-Slash",
+      icon: "👻",
+      charges: 2,
+      mp: 2,
+      dmgDice: "2d6",
+      dmgStat: "agility",
+      dmgType: "force",
+      evadeTurns: 2,
+      desc: "2/Quest (2 MP): Flicker through armor for 2d6 + Agility force dmg and phase into mist (+2 AC, 2t)!"
+    },
+    desc: "Shimmering spectral sabre attuned to the Ethereal Gate of Grimspire, slipping effortlessly between planes."
   },
   "bq_whirling_edge": {
     id: "bq_whirling_edge",
@@ -1281,7 +1292,16 @@ window.OAKHAVEN.registerItems({
     value: 90,
     agility: 1,
     luck: 1,
-    desc: "+1 Agility, +1 Luck. Swift courier's badge worn on the dark roads to Corremel."
+    passives: { skillBonus: { Stealth: 2, Survival: 1 } },
+    activeAbility: {
+      name: "Courier's Slipstep",
+      icon: "🌙",
+      charges: 2,
+      evadeTurns: 2,
+      restoreLuck: 1,
+      desc: "2/Quest: Dart into shadow-road mist for +2 AC (2t) and +1 Current Luck."
+    },
+    desc: "Swift shadow-road courier's silver badge worn on the perilous dark roads to Corremel."
   },
   "bq_lethe_memory_locket": {
     id: "bq_lethe_memory_locket",
@@ -1893,7 +1913,16 @@ window.OAKHAVEN.registerItems({
     value: 190,
     might: 2,
     agility: 2,
-    desc: "+2 Might, +2 Agility. Fierce predator's charm won on the high pass above Bay's Burrow."
+    passives: { critRange: 11, skillBonus: { Perception: 2 } },
+    activeAbility: {
+      name: "Predator's Pounce",
+      icon: "🐾",
+      charges: 2,
+      multiStrike: 2,
+      selfBuffAtk: { atk: 2, turns: 2 },
+      desc: "2/Quest: Unleash 2 ferocious pouncing strikes and gain +2 Attack for 2 turns!"
+    },
+    desc: "Razor-curved fang and claw talisman claimed from the monstrous Great Catamount above Bay's Burrow."
   },
   "bq_gorgo_artisan_hammer": {
     id: "bq_gorgo_artisan_hammer",

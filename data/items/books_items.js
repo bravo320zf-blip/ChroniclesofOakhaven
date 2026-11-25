@@ -385,11 +385,25 @@ window.OAKHAVEN.registerItems({
     "type": "accessory",
     "rarity": "uncommon",
     "value": 75,
-    "source": "Old Margreve",
     "ac": 1,
     "luck": 1,
     "maxHp": 4,
-    "desc": "+1 AC, +1 Luck, +4 Max HP (Old Margreve)"
+    "passives": {
+      "dmgReduce": 1,
+      "skillBonus": { "Survival": 2 }
+    },
+    "activeAbility": {
+      "name": "Hearth-Ward",
+      "icon": "🌿",
+      "charges": 1,
+      "ooc": true,
+      "healDice": "1d6",
+      "healBonus": 3,
+      "healStat": "spirit",
+      "shieldTurns": 2,
+      "desc": "1/Quest: Invoke the woodland ward to restore 1d6 + 3 + Spirit HP and gain +3 AC for 2 turns."
+    },
+    "desc": "Woven rowan-and-herb charm blessed to shield forest travelers from ravenous beasts and dark hunger."
   },
   "bk_elk_horn_rod": {
     "id": "bk_elk_horn_rod",
