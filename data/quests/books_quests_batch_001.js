@@ -9,7 +9,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_01_marblehead: {
     id: "bk_pt_01_marblehead",
     title: "The Old Marblehead Lighthouse",
-    subtitle: "12 Peculiar Towers • Coastal Cliff & Smugglers' Sea Cave",
+    subtitle: "Coastal Cliff & Smugglers' Sea Cave",
     difficulty: "Easy",
     recommendedLevel: 1,
     autoDiscover: false,
@@ -98,7 +98,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_02_midnight_tree: {
     id: "bk_pt_02_midnight_tree",
     title: "The Midnight Tree",
-    subtitle: "12 Peculiar Towers • Old Margreve Ravenfolk Fortress",
+    subtitle: "Old Margreve Ravenfolk Fortress",
     difficulty: "Medium",
     recommendedLevel: 2,
     autoDiscover: false,
@@ -197,7 +197,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_03_usurpers_tower: {
     id: "bk_pt_03_usurpers_tower",
     title: "Usurper's Tower",
-    subtitle: "12 Peculiar Towers • Borderland Bergfried Rescue",
+    subtitle: "Borderland Bergfried Rescue",
     difficulty: "Medium",
     recommendedLevel: 3,
     autoDiscover: false,
@@ -285,7 +285,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_04_ragannis_redoubt: {
     id: "bk_pt_04_ragannis_redoubt",
     title: "Raganni's Redoubt",
-    subtitle: "12 Peculiar Towers • Triangular Sanctum of the Salt Flats",
+    subtitle: "Triangular Sanctum of the Salt Flats",
     difficulty: "Medium-Hard",
     recommendedLevel: 4,
     autoDiscover: false,
@@ -382,7 +382,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_05_grimspire: {
     id: "bk_pt_05_grimspire",
     title: "Ruins of Grimspire",
-    subtitle: "12 Peculiar Towers • Ethereal Gate & Phase Spider Nest",
+    subtitle: "Ethereal Gate & Phase Spider Nest",
     difficulty: "Hard",
     recommendedLevel: 5,
     autoDiscover: false,
@@ -478,7 +478,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_06_rough_run: {
     id: "bk_pt_06_rough_run",
     title: "Respite at Rough Run",
-    subtitle: "12 Peculiar Towers • River Fortress of the Marauder Twins",
+    subtitle: "River Fortress of the Marauder Twins",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
@@ -565,7 +565,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_07_solanna_bael: {
     id: "bk_pt_07_solanna_bael",
     title: "Solanna Bael",
-    subtitle: "12 Peculiar Towers • Ancient Elven Archive Spire",
+    subtitle: "Ancient Elven Archive Spire",
     difficulty: "Hard",
     recommendedLevel: 7,
     autoDiscover: false,
@@ -652,7 +652,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_08_guildmasters_retreat: {
     id: "bk_pt_08_guildmasters_retreat",
     title: "The Guildmaster's Retreat",
-    subtitle: "12 Peculiar Towers • Windward Tower Heist & Showdown",
+    subtitle: "Windward Tower Heist & Showdown",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -749,7 +749,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_09_spire_sun_god: {
     id: "bk_pt_09_spire_sun_god",
     title: "Spire of the Sun God",
-    subtitle: "12 Peculiar Towers • Sealed Temple of Divine Trials",
+    subtitle: "Sealed Temple of Divine Trials",
     difficulty: "Very Hard",
     recommendedLevel: 9,
     autoDiscover: false,
@@ -844,7 +844,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_10_stormcallers_tower: {
     id: "bk_pt_10_stormcallers_tower",
     title: "Stormcaller's Tower",
-    subtitle: "12 Peculiar Towers • Lightning-Crowned Mountain Spire",
+    subtitle: "Lightning-Crowned Mountain Spire",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,

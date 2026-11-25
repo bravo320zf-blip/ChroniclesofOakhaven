@@ -11,7 +11,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_ms_1_crossroads: {
     id: "bk_b8_ms_1_crossroads",
     title: "Murder on the Crossroads",
-    subtitle: "Midgard Sagas • House Legora Deep-Winter Whodunit",
+    subtitle: "House Legora Deep-Winter Whodunit",
     difficulty: "Medium",
     recommendedLevel: 3,
     autoDiscover: false,
@@ -87,7 +87,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_ms_2_bridge: {
     id: "bk_b8_ms_2_bridge",
     title: "Madman at the Bridge",
-    subtitle: "Midgard Sagas • The Puffing Bridge & Exploding Boiler",
+    subtitle: "The Puffing Bridge & Exploding Boiler",
     difficulty: "Medium-Hard",
     recommendedLevel: 4,
     autoDiscover: false,
@@ -164,7 +164,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_ms_3_mhalmet: {
     id: "bk_b8_ms_3_mhalmet",
     title: "The Mhalmet Heist",
-    subtitle: "Midgard Sagas • Four-Day Casino Vault Job & Black Table",
+    subtitle: "Four-Day Casino Vault Job & Black Table",
     difficulty: "Hard",
     recommendedLevel: 5,
     autoDiscover: false,
@@ -241,7 +241,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_ms_4_tomorrows: {
     id: "bk_b8_ms_4_tomorrows",
     title: "Raiders of the Chamber of Tomorrows",
-    subtitle: "Midgard Sagas • Ruins of Thorn & The Effervescent Flotilla",
+    subtitle: "Ruins of Thorn & The Effervescent Flotilla",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
@@ -317,7 +317,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_ms_5_wake_war: {
     id: "bk_b8_ms_5_wake_war",
     title: "To Wake War",
-    subtitle: "Midgard Sagas • Karbekul Four-Fingers & Ylia, Angel of War",
+    subtitle: "Karbekul Four-Fingers & Ylia, Angel of War",
     difficulty: "Very Hard",
     recommendedLevel: 7,
     autoDiscover: false,
@@ -393,7 +393,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_ms_6_fallen_star: {
     id: "bk_b8_ms_6_fallen_star",
     title: "Blood of a Fallen Star",
-    subtitle: "Midgard Sagas • Beryksheim & The Alien Mi-Go Fungus",
+    subtitle: "Beryksheim & The Alien Mi-Go Fungus",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -471,7 +471,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_prep_1_marrow_mines: {
     id: "bk_b8_prep_1_marrow_mines",
     title: "The Marrow Mines",
-    subtitle: "Prepared! • Tunnels Inside a Petrified Leviathan",
+    subtitle: "Tunnels Inside a Petrified Leviathan",
     difficulty: "Easy",
     recommendedLevel: 1,
     autoDiscover: false,
@@ -540,7 +540,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_prep_2_pallon: {
     id: "bk_b8_prep_2_pallon",
     title: "The Vault of Pallon the Pious",
-    subtitle: "Prepared! • The Witch's Teeth & Reformed Pirate's Crypt",
+    subtitle: "The Witch's Teeth & Reformed Pirate's Crypt",
     difficulty: "Medium",
     recommendedLevel: 2,
     autoDiscover: false,
@@ -609,7 +609,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_prep_3_claret: {
     id: "bk_b8_prep_3_claret",
     title: "The Claret Wellspring",
-    subtitle: "Prepared! • The Soundless Vault & Keeper's Armor",
+    subtitle: "The Soundless Vault & Keeper's Armor",
     difficulty: "Medium",
     recommendedLevel: 3,
     autoDiscover: false,
@@ -678,7 +678,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_prep_4_five_corners: {
     id: "bk_b8_prep_4_five_corners",
     title: "The Room with Five Corners",
-    subtitle: "Prepared! • Street Gang Hideout & Planar Portal",
+    subtitle: "Street Gang Hideout & Planar Portal",
     difficulty: "Medium-Hard",
     recommendedLevel: 4,
     autoDiscover: false,
@@ -746,7 +746,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_prep_5_icebound: {
     id: "bk_b8_prep_5_icebound",
     title: "Upon the Icebound Terrace",
-    subtitle: "Prepared! • Gorol's Outpost & White Dragon Halicix",
+    subtitle: "Gorol's Outpost & White Dragon Halicix",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
@@ -814,7 +814,7 @@ window.OAKHAVEN.registerQuests({
   bk_b8_prep_6_horrid_wake: {
     id: "bk_b8_prep_6_horrid_wake",
     title: "In Its Horrid Wake",
-    subtitle: "Prepared! • Blighted Trail of an Abyssal Behemoth",
+    subtitle: "Blighted Trail of an Abyssal Behemoth",
     difficulty: "Very Hard",
     recommendedLevel: 7,
     autoDiscover: false,

@@ -12,7 +12,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_prep_7_betting: {
     id: "bk_b9_prep_7_betting",
     title: "A Bad Night for Betting",
-    subtitle: "Prepared! • Bleak Rock & Alchemically Maddened Dogmoles",
+    subtitle: "Bleak Rock & Alchemically Maddened Dogmoles",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -80,7 +80,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_prep_8_burning_crater: {
     id: "bk_b9_prep_8_burning_crater",
     title: "The Burning Crater",
-    subtitle: "Prepared! • Fire-Giant Hellshot & Toxic Brazier",
+    subtitle: "Fire-Giant Hellshot & Toxic Brazier",
     difficulty: "Very Hard",
     recommendedLevel: 9,
     autoDiscover: false,
@@ -148,7 +148,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_prep_9_atop_mountain: {
     id: "bk_b9_prep_9_atop_mountain",
     title: "Atop the Mountain",
-    subtitle: "Prepared! • Fountain of the Planetar & Infernal Ritual",
+    subtitle: "Fountain of the Planetar & Infernal Ritual",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,
@@ -216,7 +216,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_prep_10_revelers_feet: {
     id: "bk_b9_prep_10_revelers_feet",
     title: "Under Revelers' Feet",
-    subtitle: "Prepared! • The Haunted Cellar & Bone Collective",
+    subtitle: "The Haunted Cellar & Bone Collective",
     difficulty: "Deadly",
     recommendedLevel: 12,
     autoDiscover: false,
@@ -284,7 +284,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_prep_11_obsidian_pass: {
     id: "bk_b9_prep_11_obsidian_pass",
     title: "The Obsidian Pass",
-    subtitle: "Prepared! • The Sacred Grove's Mirror & Aberration Siege",
+    subtitle: "The Sacred Grove's Mirror & Aberration Siege",
     difficulty: "Deadly",
     recommendedLevel: 14,
     autoDiscover: false,
@@ -353,7 +353,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_tob2_1_track_thief: {
     id: "bk_b9_tob2_1_track_thief",
     title: "To Track a Thief",
-    subtitle: "Tome of Beasts 2 Lairs • Kolchak Counting House & Greed Swarm",
+    subtitle: "Kolchak Counting House & Greed Swarm",
     difficulty: "Medium",
     recommendedLevel: 2,
     autoDiscover: false,
@@ -421,7 +421,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_tob2_2_forsaken_fort: {
     id: "bk_b9_tob2_2_forsaken_fort",
     title: "The Forsaken Fort",
-    subtitle: "Tome of Beasts 2 Lairs • Plague Garrison & The Cunning Crocotta",
+    subtitle: "Plague Garrison & The Cunning Crocotta",
     difficulty: "Medium",
     recommendedLevel: 3,
     autoDiscover: false,
@@ -490,7 +490,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_tob2_3_twisted_wreath: {
     id: "bk_b9_tob2_3_twisted_wreath",
     title: "The Twisted Wreath",
-    subtitle: "Tome of Beasts 2 Lairs • Corrupted Druidic Obelisk & Vine Golem",
+    subtitle: "Corrupted Druidic Obelisk & Vine Golem",
     difficulty: "Medium-Hard",
     recommendedLevel: 4,
     autoDiscover: false,
@@ -559,7 +559,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_tob2_4_hungry_dead: {
     id: "bk_b9_tob2_4_hungry_dead",
     title: "Shrine of the Hungry Dead",
-    subtitle: "Tome of Beasts 2 Lairs • Sea-Cliff Islands & Deathweaver Nafresi",
+    subtitle: "Sea-Cliff Islands & Deathweaver Nafresi",
     difficulty: "Hard",
     recommendedLevel: 5,
     autoDiscover: false,
@@ -627,7 +627,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_tob2_5_thyrdun: {
     id: "bk_b9_tob2_5_thyrdun",
     title: "Tragedy at Thyrdun Outpost",
-    subtitle: "Tome of Beasts 2 Lairs • Flooded Dwarven Mine & The Overshadow",
+    subtitle: "Flooded Dwarven Mine & The Overshadow",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
@@ -695,7 +695,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_tob2_6_crystalline: {
     id: "bk_b9_tob2_6_crystalline",
     title: "Caverns of the Crystalline Monolith",
-    subtitle: "Tome of Beasts 2 Lairs • Geothermal Crystal Forest & Alien Gardener",
+    subtitle: "Geothermal Crystal Forest & Alien Gardener",
     difficulty: "Very Hard",
     recommendedLevel: 7,
     autoDiscover: false,
@@ -763,7 +763,7 @@ window.OAKHAVEN.registerQuests({
   bk_b9_tob2_7_horseshoe_oasis: {
     id: "bk_b9_tob2_7_horseshoe_oasis",
     title: "Fight for Horseshoe Rock Oasis",
-    subtitle: "Tome of Beasts 2 Lairs • Water Scorpions vs. Nesting Kezai",
+    subtitle: "Water Scorpions vs. Nesting Kezai",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,

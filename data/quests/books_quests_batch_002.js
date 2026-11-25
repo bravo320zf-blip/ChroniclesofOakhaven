@@ -16,7 +16,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_11_bloodstone_tower: {
     id: "bk_pt_11_bloodstone_tower",
     title: "Bloodstone Tower",
-    subtitle: "12 Peculiar Towers • Citadel of the Nightreaver",
+    subtitle: "Citadel of the Nightreaver",
     difficulty: "Deadly",
     recommendedLevel: 11,
     autoDiscover: false,
@@ -104,7 +104,7 @@ window.OAKHAVEN.registerQuests({
   bk_pt_12_lunar_knight: {
     id: "bk_pt_12_lunar_knight",
     title: "Court of the Lunar Knight",
-    subtitle: "12 Peculiar Towers • The Shadow Fey Ivory Tower",
+    subtitle: "The Shadow Fey Ivory Tower",
     difficulty: "Deadly",
     recommendedLevel: 12,
     autoDiscover: false,
@@ -795,7 +795,7 @@ window.OAKHAVEN.registerQuests({
   bk_b2_sister_alkava: {
     id: "bk_b2_sister_alkava",
     title: "Blood Vaults of Sister Alkava",
-    subtitle: "Midgard Side-Trek • The Red Goddess's Sanguine Crypts",
+    subtitle: "The Red Goddess's Sanguine Crypts",
     difficulty: "Hard",
     recommendedLevel: 5,
     autoDiscover: false,
@@ -881,7 +881,7 @@ window.OAKHAVEN.registerQuests({
   bk_b2_cat_and_mouse: {
     id: "bk_b2_cat_and_mouse",
     title: "Cat and Mouse",
-    subtitle: "Southlands Adventure • Per-Bastet & The Grimalkin Eye",
+    subtitle: "Per-Bastet & The Grimalkin Eye",
     difficulty: "Easy",
     recommendedLevel: 1,
     autoDiscover: false,
@@ -967,7 +967,7 @@ window.OAKHAVEN.registerQuests({
   bk_b2_spore_lord: {
     id: "bk_b2_spore_lord",
     title: "Caverns of the Spore Lord",
-    subtitle: "Tales of the Valiant • Hulgig & Subterranean Bellgrove",
+    subtitle: "Hulgig & Subterranean Bellgrove",
     difficulty: "Easy",
     recommendedLevel: 1,
     autoDiscover: false,

@@ -10,7 +10,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_13_reeds_whispers: {
     id: "bk_bol_13_reeds_whispers",
     title: "House of Reeds and Whispers",
-    subtitle: "Book of Lairs • Red Hag Sisters & Blood-Knitted Reeds",
+    subtitle: "Red Hag Sisters & Blood-Knitted Reeds",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -86,7 +86,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_14_scorpion_prince: {
     id: "bk_bol_14_scorpion_prince",
     title: "Tomb of the Scorpion Prince",
-    subtitle: "Book of Lairs • Giant Sandstone Scorpion & Venomous Mummy",
+    subtitle: "Giant Sandstone Scorpion & Venomous Mummy",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -162,7 +162,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_15_dark_forest: {
     id: "bk_bol_15_dark_forest",
     title: "The Dark Forest",
-    subtitle: "Book of Lairs • Alseid Sacred Grove & Elder Shadow Drakes",
+    subtitle: "Alseid Sacred Grove & Elder Shadow Drakes",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -239,7 +239,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_16_umbral_tower: {
     id: "bk_bol_16_umbral_tower",
     title: "Ruins of the Umbral Tower",
-    subtitle: "Book of Lairs • Shadow Fey Trophy Hunters & Planar Gate",
+    subtitle: "Shadow Fey Trophy Hunters & Planar Gate",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -316,7 +316,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_17_warlocks_crypt: {
     id: "bk_bol_17_warlocks_crypt",
     title: "The Warlock's Crypt",
-    subtitle: "Book of Lairs • The King in Silver & His Undead Sons",
+    subtitle: "The King in Silver & His Undead Sons",
     difficulty: "Very Hard",
     recommendedLevel: 9,
     autoDiscover: false,
@@ -393,7 +393,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_18_aboleths_grotto: {
     id: "bk_bol_18_aboleths_grotto",
     title: "The Aboleth's Grotto",
-    subtitle: "Book of Lairs • Springwell's Tainted Water & Undead Nihileth",
+    subtitle: "Springwell's Tainted Water & Undead Nihileth",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,
@@ -470,7 +470,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_19_bloodwood: {
     id: "bk_bol_19_bloodwood",
     title: "Bloodwood of the Cruor Circle",
-    subtitle: "Book of Lairs • Mother Congeala & Dark Blood Druids",
+    subtitle: "Mother Congeala & Dark Blood Druids",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,
@@ -547,7 +547,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_20_ghoul_outpost: {
     id: "bk_bol_20_ghoul_outpost",
     title: "Imperial Ghoul Outpost",
-    subtitle: "Book of Lairs • Splitsoul Ore & The Iron Marshal",
+    subtitle: "Splitsoul Ore & The Iron Marshal",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,
@@ -623,7 +623,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_21_the_cistern: {
     id: "bk_bol_21_the_cistern",
     title: "The Cistern",
-    subtitle: "Book of Lairs • Hada the Black's Lair & The Deep Drake",
+    subtitle: "Hada the Black's Lair & The Deep Drake",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,
@@ -700,7 +700,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_22_fane_serpents: {
     id: "bk_bol_22_fane_serpents",
     title: "Fane of Serpents",
-    subtitle: "Book of Lairs • Titan's Height & Thont-Aisk the Titanoboa",
+    subtitle: "Titan's Height & Thont-Aisk the Titanoboa",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,
@@ -777,7 +777,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_23_sky_stairs: {
     id: "bk_bol_23_sky_stairs",
     title: "Sky Stairs of Beldestan",
-    subtitle: "Book of Lairs (Part 1 of 2) • Five-Mile Pilgrimage Into the Clouds",
+    subtitle: "Part 1 of 2 • Five-Mile Pilgrimage Into the Clouds",
     difficulty: "Deadly",
     recommendedLevel: 14,
     autoDiscover: false,
@@ -864,7 +864,7 @@ window.OAKHAVEN.registerQuests({
     id: "bk_bol_24_void_citadel",
     reqQuest: "bk_bol_23_sky_stairs",
     title: "Citadel of the Void Dragons",
-    subtitle: "Book of Lairs (Part 2 of 2) • Orbital Lair of Astraxis & Yrsinestra",
+    subtitle: "Part 2 of 2 • Orbital Lair of Astraxis & Yrsinestra",
     difficulty: "Deadly",
     recommendedLevel: 15,
     autoDiscover: false,
@@ -948,7 +948,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_25_triangle_shadows: {
     id: "bk_bol_25_triangle_shadows",
     title: "A Triangle in Shadows",
-    subtitle: "Book of Lairs • Rotating Triangular Tower & Three Umbral Vampires",
+    subtitle: "Rotating Triangular Tower & Three Umbral Vampires",
     difficulty: "Deadly",
     recommendedLevel: 15,
     autoDiscover: false,

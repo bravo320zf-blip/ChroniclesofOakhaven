@@ -533,7 +533,7 @@ window.OAKHAVEN.registerQuests({
   bk_b7_three_little_pigs: {
     id: "bk_b7_three_little_pigs",
     title: "Three Little Pigs",
-    subtitle: "City of Cats • Per-Bastet's Day of Pigs Festival Rescue",
+    subtitle: "Per-Bastet's Day of Pigs Festival Rescue",
     difficulty: "Medium",
     recommendedLevel: 3,
     autoDiscover: false,
@@ -843,7 +843,7 @@ window.OAKHAVEN.registerQuests({
   bk_b7_last_gasp: {
     id: "bk_b7_last_gasp",
     title: "Last Gasp",
-    subtitle: "Southlands Adventure • The Airless Desert Tomb",
+    subtitle: "The Airless Desert Tomb",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,

@@ -45,6 +45,7 @@
       "Tales of the Valiant",
       "Tyranny of Dragons",
       "City of Cats",
+      "Underworld Lairs",
       "Warlock Lairs",
       "Warlock Lair"
     ];

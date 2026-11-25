@@ -355,7 +355,7 @@ window.OAKHAVEN.registerQuests({
   bk_b5_fire_cult: {
     id: "bk_b5_fire_cult",
     title: "Lair of the Fire Cult",
-    subtitle: "Creature Codex Lairs • Freejus Institute & Agnibarra Orbs",
+    subtitle: "Freejus Institute & Agnibarra Orbs",
     difficulty: "Medium",
     recommendedLevel: 3,
     autoDiscover: false,
@@ -587,7 +587,7 @@ window.OAKHAVEN.registerQuests({
   bk_b5_howling_moon: {
     id: "bk_b5_howling_moon",
     title: "Caverns of the Howling Moon",
-    subtitle: "Creature Codex Lairs • Matriarch Lamia Meziwah's Full-Moon Feast",
+    subtitle: "Matriarch Lamia Meziwah's Full-Moon Feast",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
@@ -664,7 +664,7 @@ window.OAKHAVEN.registerQuests({
   bk_b5_shadow_toll: {
     id: "bk_b5_shadow_toll",
     title: "Paying the Shadow Toll",
-    subtitle: "Creature Codex Lairs • Hurkl's Shadow Goblins & Spy Jaffmin",
+    subtitle: "Hurkl's Shadow Goblins & Spy Jaffmin",
     difficulty: "Very Hard",
     recommendedLevel: 7,
     autoDiscover: false,
@@ -740,7 +740,7 @@ window.OAKHAVEN.registerQuests({
   bk_b5_swept_away: {
     id: "bk_b5_swept_away",
     title: "Swept Away",
-    subtitle: "Creature Codex Lairs • Obelisk of a Thousand Runes & Wind's Harp Devil",
+    subtitle: "Obelisk of a Thousand Runes & Wind's Harp Devil",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -816,7 +816,7 @@ window.OAKHAVEN.registerQuests({
   bk_b5_ice_maiden: {
     id: "bk_b5_ice_maiden",
     title: "Ice Maiden's Kiss",
-    subtitle: "Creature Codex Lairs • Mother Rime & Reborn Ice Maiden Bruffa",
+    subtitle: "Mother Rime & Reborn Ice Maiden Bruffa",
     difficulty: "Very Hard",
     recommendedLevel: 9,
     autoDiscover: false,
@@ -892,7 +892,7 @@ window.OAKHAVEN.registerQuests({
   bk_b5_king_ill_fortune: {
     id: "bk_b5_king_ill_fortune",
     title: "King of Ill Fortune",
-    subtitle: "Creature Codex Lairs • Tower of Ill Fortune & Kobold King Qalqat",
+    subtitle: "Tower of Ill Fortune & Kobold King Qalqat",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,
@@ -968,7 +968,7 @@ window.OAKHAVEN.registerQuests({
   bk_b5_trollkin_hunt: {
     id: "bk_b5_trollkin_hunt",
     title: "Trollkin Hunt",
-    subtitle: "Creature Codex Lairs • Red Craw Marsh & The Venom Maw Hydra",
+    subtitle: "Red Craw Marsh & The Venom Maw Hydra",
     difficulty: "Deadly",
     recommendedLevel: 12,
     autoDiscover: false,

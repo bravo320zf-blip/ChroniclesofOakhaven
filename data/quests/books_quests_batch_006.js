@@ -13,7 +13,7 @@ window.OAKHAVEN.registerQuests({
   bk_b6_eldritch_1_dust_goblins: {
     id: "bk_b6_eldritch_1_dust_goblins",
     title: "Feycircle I: Pit of the Dust Goblins",
-    subtitle: "Eldritch Lairs (Part 1 of 3) • Shaman Sisskuss & Captive Selang",
+    subtitle: "Part 1 of 3 • Shaman Sisskuss & Captive Selang",
     difficulty: "Medium",
     recommendedLevel: 2,
     autoDiscover: false,
@@ -92,7 +92,7 @@ window.OAKHAVEN.registerQuests({
     id: "bk_b6_eldritch_2_green_shadows",
     reqQuest: "bk_b6_eldritch_1_dust_goblins",
     title: "Feycircle II: Crypt of Green Shadows",
-    subtitle: "Eldritch Lairs (Part 2 of 3) • Tomb of the Three Heroes",
+    subtitle: "Part 2 of 3 • Tomb of the Three Heroes",
     difficulty: "Medium-Hard",
     recommendedLevel: 4,
     autoDiscover: false,
@@ -171,7 +171,7 @@ window.OAKHAVEN.registerQuests({
     id: "bk_b6_eldritch_3_qorgeth",
     reqQuest: "bk_b6_eldritch_2_green_shadows",
     title: "Feycircle III: Carrion Shrine of Qorgeth",
-    subtitle: "Eldritch Lairs (Part 3 of 3) • Petring & The Utterance of Decay",
+    subtitle: "Part 3 of 3 • Petring & The Utterance of Decay",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
@@ -248,7 +248,7 @@ window.OAKHAVEN.registerQuests({
   bk_b6_eldritch_4_devils_thumb: {
     id: "bk_b6_eldritch_4_devils_thumb",
     title: "Under the Devil's Thumb",
-    subtitle: "Eldritch Lairs • Highgate Sewers, Sister Starkfeather & Lord Vermin",
+    subtitle: "Highgate Sewers, Sister Starkfeather & Lord Vermin",
     difficulty: "Hard",
     recommendedLevel: 5,
     autoDiscover: false,
@@ -324,7 +324,7 @@ window.OAKHAVEN.registerQuests({
   bk_b6_eldritch_5_indigo_star: {
     id: "bk_b6_eldritch_5_indigo_star",
     title: "The Leystone of the Indigo Star",
-    subtitle: "Eldritch Lairs • Western Wastes & Void Dragon Ixaranum",
+    subtitle: "Western Wastes & Void Dragon Ixaranum",
     difficulty: "Very Hard",
     recommendedLevel: 7,
     autoDiscover: false,
@@ -402,7 +402,7 @@ window.OAKHAVEN.registerQuests({
   bk_b6_eldritch_6_wind_lords: {
     id: "bk_b6_eldritch_6_wind_lords",
     title: "Palace of the Wind Lords",
-    subtitle: "Eldritch Lairs • Flying Sky Palace, Gnoll Archthieves & Djinni Leyla",
+    subtitle: "Flying Sky Palace, Gnoll Archthieves & Djinni Leyla",
     difficulty: "Very Hard",
     recommendedLevel: 8,
     autoDiscover: false,
@@ -478,7 +478,7 @@ window.OAKHAVEN.registerQuests({
   bk_b6_eldritch_7_undying_tourney: {
     id: "bk_b6_eldritch_7_undying_tourney",
     title: "The Undying Tournament",
-    subtitle: "Eldritch Lairs • Gonderif Arena & The Corpse Tearer Legion",
+    subtitle: "Gonderif Arena & The Corpse Tearer Legion",
     difficulty: "Very Hard",
     recommendedLevel: 9,
     autoDiscover: false,
@@ -555,7 +555,7 @@ window.OAKHAVEN.registerQuests({
   bk_b6_frozen_castle: {
     id: "bk_b6_frozen_castle",
     title: "The Frozen Castle",
-    subtitle: "Tyranny of Dragons • Crashed Skyreach Castle on Miklos Glacier",
+    subtitle: "Crashed Skyreach Castle on Miklos Glacier",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,

@@ -8,7 +8,7 @@ window.OAKHAVEN.registerQuests({
       ul_sanguine_lodge: {
         id: "ul_sanguine_lodge",
         title: "The Sanguine Lodge",
-        subtitle: "Underworld Lairs • Mountain Waystation of the Red Goddess",
+        subtitle: "Mountain Waystation of the Red Goddess",
         difficulty: "Medium",
         recommendedLevel: 2,
         autoDiscover: true,
@@ -59,7 +59,7 @@ window.OAKHAVEN.registerQuests({
       ul_bastion_deranged: {
         id: "ul_bastion_deranged",
         title: "Bastion of the Deranged",
-        subtitle: "Underworld Lairs • Graknir's Derro Cave Outpost",
+        subtitle: "Graknir's Derro Cave Outpost",
         difficulty: "Medium",
         recommendedLevel: 2,
         autoDiscover: true,
@@ -111,7 +111,7 @@ window.OAKHAVEN.registerQuests({
       ul_midden_flayed: {
         id: "ul_midden_flayed",
         title: "Midden of the Flayed",
-        subtitle: "Underworld Lairs • The Bone Pit Beneath the Butchery",
+        subtitle: "The Bone Pit Beneath the Butchery",
         difficulty: "Medium-Hard",
         recommendedLevel: 3,
         discoverySource: "Tunnel-Scout Derrick (Tavern)",
@@ -161,7 +161,7 @@ window.OAKHAVEN.registerQuests({
       ul_camp_sicarius: {
         id: "ul_camp_sicarius",
         title: "Camp Sicarius",
-        subtitle: "Underworld Lairs • The Compromised Drow Outpost",
+        subtitle: "The Compromised Drow Outpost",
         difficulty: "Medium-Hard",
         recommendedLevel: 3,
         discoverySource: "Hooded Envoy Vaelis (Tavern)",
@@ -209,7 +209,7 @@ window.OAKHAVEN.registerQuests({
       ul_skullcap_forest: {
         id: "ul_skullcap_forest",
         title: "Skullcap Forest",
-        subtitle: "Underworld Lairs • Colony of the Deathcap Myconids",
+        subtitle: "Colony of the Deathcap Myconids",
         difficulty: "Medium",
         recommendedLevel: 3,
         discoverySource: "Spore-Picker Orlo (Tavern)",
@@ -257,7 +257,7 @@ window.OAKHAVEN.registerQuests({
       ul_cathedral_flames: {
         id: "ul_cathedral_flames",
         title: "Cathedral of Ten Thousand Flames",
-        subtitle: "Underworld Lairs • Part I • Temple of Green Soul-Fire",
+        subtitle: "Part I • Temple of Green Soul-Fire",
         difficulty: "Hard",
         recommendedLevel: 4,
         discoverySource: "Lady Vespera (Tavern)",
@@ -314,7 +314,7 @@ window.OAKHAVEN.registerQuests({
       ul_the_throttle: {
         id: "ul_the_throttle",
         title: "The Throttle",
-        subtitle: "Underworld Lairs • Fortified Checkpoint of the Ghoul Imperium",
+        subtitle: "Fortified Checkpoint of the Ghoul Imperium",
         difficulty: "Hard",
         recommendedLevel: 4,
         discoverySource: "Agent Kaspar (Tavern)",
@@ -364,7 +364,7 @@ window.OAKHAVEN.registerQuests({
       ul_closed_throat: {
         id: "ul_closed_throat",
         title: "Closed Throat Pass",
-        subtitle: "Underworld Lairs • Gauntlet of Sir Pravus the Ghost Knight",
+        subtitle: "Gauntlet of Sir Pravus the Ghost Knight",
         difficulty: "Hard",
         recommendedLevel: 4,
         discoverySource: "Scarred Courier Bren (Tavern)",
@@ -412,7 +412,7 @@ window.OAKHAVEN.registerQuests({
       ul_starlit_chambers: {
         id: "ul_starlit_chambers",
         title: "The Starlit Chambers",
-        subtitle: "Underworld Lairs • Secret Strongpoint of the Ebon Star",
+        subtitle: "Secret Strongpoint of the Ebon Star",
         difficulty: "Medium-Hard",
         recommendedLevel: 4,
         discoverySource: "Cloaked Rebel Soren (Tavern)",
@@ -513,7 +513,7 @@ window.OAKHAVEN.registerQuests({
       ul_fungal_forgetting: {
         id: "ul_fungal_forgetting",
         title: "Fungal Forest of Forgetting",
-        subtitle: "Underworld Lairs • Lair of Ilxanthiard, Paragon of Rot",
+        subtitle: "Lair of Ilxanthiard, Paragon of Rot",
         difficulty: "Very Hard",
         recommendedLevel: 5,
         discoverySource: "Deep-Gnome Bimbil (Tavern)",
@@ -561,7 +561,7 @@ window.OAKHAVEN.registerQuests({
       ul_breaching_worm: {
         id: "ul_breaching_worm",
         title: "Breaching Worm Citadel",
-        subtitle: "Underworld Lairs • Petrified Worm Fortress of Pact Lich Augrimm",
+        subtitle: "Petrified Worm Fortress of Pact Lich Augrimm",
         difficulty: "Very Hard",
         recommendedLevel: 6,
         discoverySource: "Shadow-Fey Kaelis (Tavern)",
@@ -614,7 +614,7 @@ window.OAKHAVEN.registerQuests({
       ul_rising_sun: {
         id: "ul_rising_sun",
         title: "To Greet the Rising Sun",
-        subtitle: "Underworld Lairs • The Sunseeker Cave Giants of the Dark River",
+        subtitle: "The Sunseeker Cave Giants of the Dark River",
         difficulty: "Very Hard",
         recommendedLevel: 6,
         discoverySource: "Watch-Sergeant Hal (Tavern)",
@@ -661,7 +661,7 @@ window.OAKHAVEN.registerQuests({
       ul_dwarven_redoubt: {
         id: "ul_dwarven_redoubt",
         title: "The Last Dwarven Redoubt",
-        subtitle: "Underworld Lairs • Ashkreigel's Ziggurat of Fallen Ghouls",
+        subtitle: "Ashkreigel's Ziggurat of Fallen Ghouls",
         difficulty: "Very Hard",
         recommendedLevel: 6,
         discoverySource: "Dwarf Exile Brokk (Tavern)",

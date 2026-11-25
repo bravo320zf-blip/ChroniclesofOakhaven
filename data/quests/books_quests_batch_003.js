@@ -9,7 +9,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_01_rat_gang: {
     id: "bk_bol_01_rat_gang",
     title: "The Riverfront Rat Gang",
-    subtitle: "Book of Lairs • Abandoned Dockyards & Ratfolk Den",
+    subtitle: "Abandoned Dockyards & Ratfolk Den",
     difficulty: "Easy",
     recommendedLevel: 1,
     autoDiscover: false,
@@ -85,7 +85,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_02_everforge: {
     id: "bk_bol_02_everforge",
     title: "Lost Halls of Everforge",
-    subtitle: "Book of Lairs • Dwarven Great Forge & Flame Dragon",
+    subtitle: "Dwarven Great Forge & Flame Dragon",
     difficulty: "Medium",
     recommendedLevel: 2,
     autoDiscover: false,
@@ -171,7 +171,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_03_rotten_kings: {
     id: "bk_bol_03_rotten_kings",
     title: "Den of the Rotten Kings",
-    subtitle: "Book of Lairs • Wererat Crime Syndicate & Poisoned Cisterns",
+    subtitle: "Wererat Crime Syndicate & Poisoned Cisterns",
     difficulty: "Medium",
     recommendedLevel: 3,
     autoDiscover: false,
@@ -256,7 +256,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_04_clockwork_tower: {
     id: "bk_bol_04_clockwork_tower",
     title: "The Clockwork Tower",
-    subtitle: "Book of Lairs • Haunted Gears & Azza Gremlins",
+    subtitle: "Haunted Gears & Azza Gremlins",
     difficulty: "Medium",
     recommendedLevel: 3,
     autoDiscover: false,
@@ -341,7 +341,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_05_doom_croaker: {
     id: "bk_bol_05_doom_croaker",
     title: "Doom Croaker's Branches",
-    subtitle: "Book of Lairs • Yggdrasil Portal & Icy Lindwurm",
+    subtitle: "Yggdrasil Portal & Icy Lindwurm",
     difficulty: "Medium-Hard",
     recommendedLevel: 4,
     autoDiscover: false,
@@ -427,7 +427,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_06_castle_sand: {
     id: "bk_bol_06_castle_sand",
     title: "Castle of Sand",
-    subtitle: "Book of Lairs • Imsim the Dau & The Illusory Oasis",
+    subtitle: "Imsim the Dau & The Illusory Oasis",
     difficulty: "Medium-Hard",
     recommendedLevel: 4,
     autoDiscover: false,
@@ -513,7 +513,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_07_pirates_cove: {
     id: "bk_bol_07_pirates_cove",
     title: "The Pirates' Cove",
-    subtitle: "Book of Lairs • Captain Jarzon & The Cult of Shar-Ngolyeth",
+    subtitle: "Captain Jarzon & The Cult of Shar-Ngolyeth",
     difficulty: "Hard",
     recommendedLevel: 5,
     autoDiscover: false,
@@ -598,7 +598,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_08_all_seeing_eye: {
     id: "bk_bol_08_all_seeing_eye",
     title: "All-Seeing Eye",
-    subtitle: "Book of Lairs • Wandering Temple of Goddess Sanvi",
+    subtitle: "Wandering Temple of Goddess Sanvi",
     difficulty: "Hard",
     recommendedLevel: 5,
     autoDiscover: false,
@@ -684,7 +684,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_09_alchemists_guild: {
     id: "bk_bol_09_alchemists_guild",
     title: "The Alchemists' Guildhall",
-    subtitle: "Book of Lairs • Stilted Lake Hall & Zaeriez the Rusalka",
+    subtitle: "Stilted Lake Hall & Zaeriez the Rusalka",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
@@ -770,7 +770,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_10_the_hive: {
     id: "bk_bol_10_the_hive",
     title: "The Hive",
-    subtitle: "Book of Lairs • Forsaken Hills Termite Mound & Arbeyach Cult",
+    subtitle: "Forsaken Hills Termite Mound & Arbeyach Cult",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
@@ -855,7 +855,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_11_deep_ones: {
     id: "bk_bol_11_deep_ones",
     title: "Temple of the Deep Ones",
-    subtitle: "Book of Lairs • Sunken Island of Shar-Ngolyeth",
+    subtitle: "Sunken Island of Shar-Ngolyeth",
     difficulty: "Very Hard",
     recommendedLevel: 7,
     autoDiscover: false,
@@ -940,7 +940,7 @@ window.OAKHAVEN.registerQuests({
   bk_bol_12_thunderer: {
     id: "bk_bol_12_thunderer",
     title: "Monument of the Thunderer",
-    subtitle: "Book of Lairs • Red Cliff Raiders & Half-Dragon Mage Zahiil",
+    subtitle: "Red Cliff Raiders & Half-Dragon Mage Zahiil",
     difficulty: "Very Hard",
     recommendedLevel: 7,
     autoDiscover: false,
