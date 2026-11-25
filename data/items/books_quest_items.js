@@ -455,3 +455,127 @@ window.OAKHAVEN.registerItems({
     desc: "+3 AC, +2 Agility, +2 Spirit, +2 Luck. Eerie void-strung harp from the Triangle in Shadows."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 005 — Courts of the Shadow Fey (Acts I-IV) & Creature Codex Lairs (1-9)
+  "bq_sarastra_cameo": {
+    id: "bq_sarastra_cameo",
+    name: "Mithral Cameo of Queen Sarastra",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 260,
+    source: "Courts of the Shadow Fey",
+    ac: 2,
+    spirit: 2,
+    luck: 1,
+    desc: "+2 AC, +2 Spirit, +1 Luck. Mithral-and-onyx royal cameo granting status in the Shadow Courts."
+  },
+  "bq_lantern_dragonette": {
+    id: "bq_lantern_dragonette",
+    name: "Lantern Dragonette Familiar",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 290,
+    source: "Courts of the Shadow Fey",
+    arcana: 2,
+    luck: 2,
+    maxMp: 6,
+    desc: "+2 Arcana, +2 Luck, +6 Max MP. Glowing miniature fey dragonette gifted by the Lords of Light."
+  },
+  "bq_orb_of_rule_shard": {
+    id: "bq_orb_of_rule_shard",
+    name: "Signet of the Free City Charter",
+    type: "accessory",
+    rarity: "legendary",
+    value: 410,
+    source: "Courts of the Shadow Fey",
+    ac: 3,
+    spirit: 2,
+    arcana: 2,
+    maxHp: 8,
+    desc: "+3 AC, +2 Spirit, +2 Arcana, +8 Max HP. Royal seal affirming Zobeck's freedom from the Shadow Courts."
+  },
+  "bq_freejus_ember_orb": {
+    id: "bq_freejus_ember_orb",
+    name: "Quenched Agnibarra Ember",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 95,
+    source: "Creature Codex Lairs",
+    arcana: 1,
+    maxMp: 4,
+    desc: "+1 Arcana, +4 Max MP. Warm ruby cinder cooled from Dr. Freejus's asylum basement."
+  },
+  "bq_rathsys_cloak": {
+    id: "bq_rathsys_cloak",
+    name: "Gnawing Thirst Cloak of Protection",
+    type: "cloak",
+    rarity: "rare",
+    value: 165,
+    source: "Creature Codex Lairs",
+    ac: 2,
+    luck: 1,
+    maxHp: 4,
+    desc: "+2 AC, +1 Luck, +4 Max HP. Unattuned protective cloak dug from Rathsys's courtyard hoard."
+  },
+  "bq_hurkl_fire_wand": {
+    id: "bq_hurkl_fire_wand",
+    name: "Hurkl's Shadow-Toll Wand",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 255,
+    source: "Creature Codex Lairs",
+    atk: 5,
+    arcana: 2,
+    maxMp: 5,
+    desc: "+5 Attack, +2 Arcana, +5 Max MP. Scorched wand of fireballs pried from shadow goblin Hurkl."
+  },
+  "bq_obelisk_rune_charm": {
+    id: "bq_obelisk_rune_charm",
+    name: "Shard of the Thousand Runes",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 275,
+    source: "Creature Codex Lairs",
+    luck: 3,
+    ac: 1,
+    spirit: 1,
+    desc: "+3 Luck, +1 AC, +1 Spirit. Lucky granite sliver blessed by the Obelisk of a Thousand Runes."
+  },
+  "bq_bruffa_frost_pendant": {
+    id: "bq_bruffa_frost_pendant",
+    name: "Bruffa's Thawed Tear",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 300,
+    source: "Creature Codex Lairs",
+    ac: 2,
+    spirit: 2,
+    maxHp: 8,
+    desc: "+2 AC, +2 Spirit, +8 Max HP. Crystalline ice-pendant gifted by the redeemed ice maiden Bruffa."
+  },
+  "bq_qalqat_free_ring": {
+    id: "bq_qalqat_free_ring",
+    name: "King Qalqat's Ring of Free Action",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 335,
+    source: "Creature Codex Lairs",
+    ac: 2,
+    agility: 2,
+    luck: 2,
+    desc: "+2 AC, +2 Agility, +2 Luck. Kobold king's gilded band surrendered atop the Tower of Ill Fortune."
+  },
+  "bq_red_craw_battleaxe": {
+    id: "bq_red_craw_battleaxe",
+    name: "Red Craw Peacekeeper Axe",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 375,
+    source: "Creature Codex Lairs",
+    atk: 6,
+    might: 2,
+    maxHp: 6,
+    desc: "+6 Attack, +2 Might, +6 Max HP. Honored trollkin war-axe gifted after slaying the Venom Maw Hydra."
+  }
+});

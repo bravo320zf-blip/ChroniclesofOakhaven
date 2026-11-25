@@ -1,6 +1,6 @@
 {
-  "batchCount": 4,
-  "totalQuestsAdded": 47,
+  "batchCount": 5,
+  "totalQuestsAdded": 60,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -132,8 +132,13 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Courts of the Shadow Fey/Courts of the Shadow Fey.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Courts of the Shadow Fey I: A Chill in the Air",
+        "Courts of the Shadow Fey II: The Invisible Courts",
+        "Courts of the Shadow Fey III: The Honored Guests",
+        "Courts of the Shadow Fey IV: Royal Audiences and Treachery"
+      ]
     },
     "Books/Kobold Press/Creature Codex/Creature Codex.pdf": {
       "status": "skipped_no_quests",
@@ -141,123 +146,162 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Creature-Codex-Lairs/Creature Codex - Lairs.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Lair of the Fire Cult",
+        "A Rat Among Us I: Wharf of Chittr'k'k",
+        "A Rat Among Us II: The Gnawing Thirst",
+        "Caverns of the Howling Moon",
+        "Paying the Shadow Toll",
+        "Swept Away",
+        "Ice Maiden's Kiss",
+        "King of Ill Fortune",
+        "Trollkin Hunt"
+      ]
     },
     "Books/Kobold Press/Creature-Codex-Lairs/Finished Creature Codex Lairs Adventures/Lair of the Fire Cult/Creature Codex - Lairs - Lair of the Fire Cult (1).pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Creature Codex - Lairs.pdf",
       "convertedTitles": []
     },
     "Books/Kobold Press/Creature-Codex-Lairs/Finished Creature Codex Lairs Adventures/Lair of the Fire Cult/Creature Codex - Lairs - Lair of the Fire Cult (2).pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Creature Codex - Lairs.pdf",
       "convertedTitles": []
     },
     "Books/Kobold Press/Creature-Codex-Lairs/Finished Creature Codex Lairs Adventures/Lair of the Fire Cult/Creature Codex - Lairs - Lair of the Fire Cult (3).pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Creature Codex - Lairs.pdf",
       "convertedTitles": []
     },
     "Books/Kobold Press/Creature-Codex-Lairs/Finished Creature Codex Lairs Adventures/Lair of the Fire Cult/Creature Codex - Lairs - Lair of the Fire Cult.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Creature Codex - Lairs.pdf",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic 1/Deep+Magic+Vol+1_Final+092823.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic 2/Deep+Magic+2+Vol+2_Final+092823.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic Theurge/Deep-Magic-Theurge-khd9pi.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 1 Clockwork.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 10 Shadow Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 11 Elven High Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 12 Blood and Doom.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 13 Dragon Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 14 Elemental Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 15 Hieroglyphic Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 16 Time Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 17 Mythos Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 18 Combat Divination.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 19 Winter Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 2 Rune Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 20 Alkemancy.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 3 Void Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 4 Illumination Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 5 Ley Lines.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 6 Angelic Seals.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 7 Chaos Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 8 Battle Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep Magic 9 Ring Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Deep-Magic-5E-Final-ctrk3q_5f1a5685dac7c.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Deep Magic/Midgard Magic-Ley Lines Final.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "spellbook/magic supplement",
       "convertedTitles": []
     },
     "Books/Kobold Press/Demon Cults & Secret Societies/Demon Cults & Secret Societies.pdf": {
