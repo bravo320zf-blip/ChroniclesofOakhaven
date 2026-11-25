@@ -216,3 +216,120 @@ window.OAKHAVEN.registerItems({
     desc: "+1 Spirit, +5 Max HP. Bioluminescent fungal amulet gifted by the survivors of Bellgrove."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 003 — Book of Lairs (Lairs 1–12)
+  "bq_everforge_adamantine": {
+    id: "bq_everforge_adamantine",
+    name: "Everforge Adamantine Chain",
+    type: "armor",
+    rarity: "rare",
+    value: 160,
+    source: "Book of Lairs",
+    ac: 3,
+    maxHp: 6,
+    desc: "+3 AC, +6 Max HP. Masterwork dwarven mail gifted by Polla of the Lost Halls of Everforge."
+  },
+  "bq_rotten_king_mask": {
+    id: "bq_rotten_king_mask",
+    name: "King Sketch's Silver-Thread Mask",
+    type: "accessory",
+    rarity: "rare",
+    value: 115,
+    source: "Book of Lairs",
+    agility: 1,
+    luck: 2,
+    desc: "+1 Agility, +2 Luck. Feathered silver-thread mask taken from the Den of the Rotten Kings."
+  },
+  "bq_clockwork_chime": {
+    id: "bq_clockwork_chime",
+    name: "Gyre's Spark-Chime",
+    type: "accessory",
+    rarity: "rare",
+    value: 125,
+    source: "Book of Lairs",
+    arcana: 2,
+    maxMp: 4,
+    desc: "+2 Arcana, +4 Max MP. Brass lightning-coil salvaged from Jenneline Gyre's Clockwork Tower."
+  },
+  "bq_lindwurm_amulet": {
+    id: "bq_lindwurm_amulet",
+    name: "Yggdrasil Heart-Amulet",
+    type: "accessory",
+    rarity: "rare",
+    value: 155,
+    source: "Book of Lairs",
+    maxHp: 10,
+    might: 1,
+    desc: "+10 Max HP, +1 Might. Vitality amulet hoarded in the worm-tunnels of Doom Croaker's Branches."
+  },
+  "bq_imsim_mirage_ring": {
+    id: "bq_imsim_mirage_ring",
+    name: "Imsim's Mirage Band",
+    type: "accessory",
+    rarity: "rare",
+    value: 150,
+    source: "Book of Lairs",
+    ac: 1,
+    arcana: 1,
+    luck: 2,
+    desc: "+1 AC, +1 Arcana, +2 Luck. Shimmering desert trickster's ring from the Castle of Sand."
+  },
+  "bq_inheritor_cutlass": {
+    id: "bq_inheritor_cutlass",
+    name: "Cutlass of the Inheritor",
+    type: "weapon",
+    rarity: "rare",
+    value: 170,
+    source: "Book of Lairs",
+    atk: 4,
+    agility: 1,
+    desc: "+4 Attack, +1 Agility. Barnacle-etched boarding sabre seized from Captain Jarzon's cove."
+  },
+  "bq_sanvi_lens": {
+    id: "bq_sanvi_lens",
+    name: "Sanvi's Destiny Lens",
+    type: "accessory",
+    rarity: "rare",
+    value: 185,
+    source: "Book of Lairs",
+    spirit: 2,
+    luck: 2,
+    desc: "+2 Spirit, +2 Luck. Crystal divination disc blessed by the forgotten goddess Sanvi."
+  },
+  "bq_rusalka_pearls": {
+    id: "bq_rusalka_pearls",
+    name: "Zaeriez's Lake-Pearl Strand",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 225,
+    source: "Book of Lairs",
+    ac: 1,
+    arcana: 2,
+    spirit: 2,
+    desc: "+1 AC, +2 Arcana, +2 Spirit. Enchanted lake pearls taken from the corrupted Alchemists' Guildhall."
+  },
+  "bq_deep_ones_trident": {
+    id: "bq_deep_ones_trident",
+    name: "Tide-Breaker Coral Trident",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 255,
+    source: "Book of Lairs",
+    atk: 5,
+    might: 2,
+    desc: "+5 Attack, +2 Might. Storm-forged trident won atop the sunken Temple of the Deep Ones."
+  },
+  "bq_thunderer_spark_orb": {
+    id: "bq_thunderer_spark_orb",
+    name: "Echo of the Titan's Spark",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 270,
+    source: "Book of Lairs",
+    arcana: 2,
+    might: 1,
+    maxMp: 6,
+    desc: "+2 Arcana, +1 Might, +6 Max MP. Crackling amber relic recovered from the Monument of the Thunderer."
+  }
+});

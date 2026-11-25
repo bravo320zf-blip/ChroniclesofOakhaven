@@ -1,6 +1,6 @@
 {
-  "batchCount": 2,
-  "totalQuestsAdded": 22,
+  "batchCount": 3,
+  "totalQuestsAdded": 34,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -72,19 +72,49 @@
       ]
     },
     "Books/Kobold Press/Book of Ebon Tides/Book of Ebon Tides.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "setting/player sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Book of Lairs/Book of Lairs - Revised.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "in_progress",
+      "convertedTitles": [
+        "The Riverfront Rat Gang",
+        "Lost Halls of Everforge",
+        "Den of the Rotten Kings",
+        "The Clockwork Tower",
+        "Doom Croaker's Branches",
+        "Castle of Sand",
+        "The Pirates' Cove",
+        "All-Seeing Eye",
+        "The Alchemists' Guildhall",
+        "The Hive",
+        "Temple of the Deep Ones",
+        "Monument of the Thunderer"
+      ],
+      "remainingTitles": [
+        "House of Reeds and Whispers",
+        "Tomb of the Scorpion Prince",
+        "The Dark Forest",
+        "Ruins of the Umbral Tower",
+        "The Warlock's Crypt",
+        "The Aboleth's Grotto",
+        "Bloodwood of the Cruor Circle",
+        "Imperial Ghoul Outpost",
+        "The Cistern",
+        "Fane of Serpents",
+        "Sky Stairs of Beldestan",
+        "Citadel of the Void Dragons",
+        "A Triangle in Shadows"
+      ]
     },
     "Books/Kobold Press/Book of Lairs/Book of Lairs Map Pack.pdf": {
       "status": "skipped_no_quests",
       "convertedTitles": []
     },
     "Books/Kobold Press/Campaign Builder Cities and Towns for 5th Edition/Campaign Builder Cities and Towns for 5th Edition.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM worldbuilding sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Cat & Mouse/Cat & Mouse.pdf": {
@@ -108,7 +138,8 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Creature Codex/Creature Codex.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "bestiary reference",
       "convertedTitles": []
     },
     "Books/Kobold Press/Creature-Codex-Lairs/Creature Codex - Lairs.pdf": {
