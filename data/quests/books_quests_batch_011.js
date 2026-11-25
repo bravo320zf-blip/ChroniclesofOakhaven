@@ -162,7 +162,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 3. SCARLET CITADEL III: THE DWARVEN BARRACKS (7 PAGES • LV 5)
+  // 3. SCARLET CITADEL III: THE DWARVEN BARRACKS (12 PAGES • LV 5)
   // Part 3 of 7 (Prerequisite: bk_b11_sc_2_scriptorium)
   // ==========================================================
   bk_b11_sc_3_barracks: {
@@ -174,65 +174,123 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 5,
     autoDiscover: false,
     discoverySource: "Unlocks after Scarlet Citadel II",
-    summary: "Fight through the grand subterranean barracks carved by dwarven mercenary ring-mages 150 years ago, break the occupying Trollkin warband, and survive the terrifying insectoid Swarm of the Clacking Caverns!",
-    totalPages: 7,
+    summary: "Fight through the grand subterranean barracks carved by dwarven mercenary ring-mages 150 years ago, rescue a captive Redtower scout, break the occupying Trollkin warband, and survive the terrifying insectoid Swarm of the Clacking Caverns!",
+    totalPages: 12,
     pages: {
       1: {
-        zone: "Level 3 • Dwarven Barracks",
+        zone: "Level 3 • Stairwell Landing",
         title: "Halls of Gerhardt's Mercenaries",
         safeRetreat: true,
-        text: "Monumental dwarven pillars bear ring-mage runes—now defaced with crude trollkin war-paint! Hulking Trollkin Raiders bang spears against iron shields to block the main mess hall!",
-        enemy: { name: "Barracks Trollkin Warband", desc: "Disciplined trollkin mercenaries holding Level 3 for Gellert.", hp: 48, ac: 14, atk: 7, dmg: 7, xp: 140, gold: 70, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1 },
+        text: "Descending the spiral stairs from Maksilov's Scriptorium, you step onto a broad balcony carved by dwarven ring-mage mercenaries 150 years ago. Monumental basalt pillars bear ancient runic rings—now smeared with ochre trollkin war-paint. Below in the sunken mess hall, hulking Trollkin Raiders bang heavy spears against iron shields around a smoky spit-fire, guarding the barricaded archways. To your left, a cracked dwarven service duct hums with faint blue light; to your right, a shadowed rafter gallery overlooks the mess hall.",
         choices: [
-          { t: "Push past the dwarven ring-mage vaults into the echoing Clacking Caverns!", to: 2 }
+          { t: "Creep along the shadowed upper gallery to drop behind the trollkin shield-wall!", badge: "Stealth / Agility DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 2, fail: 2, failDmg: 4, passMsg: "You slip along the dusty rafters and drop straight behind their shields!", failMsg: "A loose flagstone clatters—trollkin spears jab upward (-4 HP) as you leap down!" }, onPass: { cw: "RAIDER_FLANKED" } },
+          { t: "Pick the rusted dwarven latch on the humming service duct to slip directly into the Ring-Mage Forge.", reqSkill: "Lockpicking", badge: "Lockpicking", to: 3, onChoose: { msg: "The dwarven bolt clicks open—you bypass the mess hall straight into the forgotten forge!" } },
+          { t: "Trace the defaced ring-mage runes on the pillar to trigger an ancient dwarven ward-chime!", badge: "Arcana / Perception DC 12", check: { stat: "arcana", skill: "Perception", dc: 12, pass: 2, fail: 2, failDmg: 3, passMsg: "A resonant dwarven chime rings through the stone, staggering the raiders!", failMsg: "Cracked rune-dust sparks across your fingers (-3 HP) as the raiders spot you!" }, onPass: { cw: "RAIDER_FLANKED" } },
+          { t: "Charge straight down the carved steps into the Trollkin shield-wall!", to: 2 }
         ]
       },
       2: {
-        zone: "Level 3 • Clacking Caverns",
-        title: "The Swarm & Trollkin Chief",
-        text: "Chitinous clicking rattles through natural caverns adjoining the barracks as a monstrous subterranean Swarm and the armored Trollkin Garrison Chief converge on the rope-ladder shaft!",
-        enemy: { name: "Trollkin Chief & Cavern Swarm", desc: "Brutal warband commander and skittering underground horrors.", hp: 58, ac: 15, atk: 8, dmg: 8, xp: 190, gold: 130, items: ["bq_dwarven_ring_mage_band"] },
+        zone: "Level 3 • Sunken Mess Hall",
+        title: "The Barracks Trollkin Warband",
+        text: "Bellowing harsh war-cries in Gellert's name, disciplined Trollkin Raiders lock iron shields across the hearth-lit mess hall and surge forward with hooked spears!",
+        enemy: { name: "Barracks Trollkin Warband", desc: "Disciplined trollkin mercenaries holding Level 3 for Gellert.", hp: 48, ac: 14, atk: 7, dmg: 7, xp: 140, gold: 70, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1, weakCw: ["RAIDER_FLANKED"] },
         choices: [
-          { t: "Secure the eighty-foot rope ladder dropping straight down into Level 4!", to: 3 }
+          { t: "Explore the ancient Dwarven Ring-Mage Forge to the north.", to: 3 },
+          { t: "Search the Trollkin Sergeants' Quarters to the west.", to: 4 },
+          { t: "Advance straight into the echoing breach of the Clacking Caverns.", to: 5 }
         ]
       },
       3: {
-        zone: "Shaft 317",
-        title: "Eighty Feet Into Darkness",
-        text: "Leathery wings flutter far below in the pitch-black abyss—the **Bat Caverns** await, where retreating back up the ladder under fire will be impossible!",
-        onEnter: { healHp: 14, msg: "Secured the dwarven barracks armory (+14 HP)!" },
+        zone: "Level 3 • Ring-Mage Forge",
+        title: "The Runed Anvil of Gerhardt",
+        text: "Cold blue rune-light flickers over a cracked dwarven anvil and locked tool-racks. An open apprentice ledger describes how the dwarven ring-mages once drove back the chitinous horrors of the Clacking Caverns using a high-pitched Cold-Iron Resonance Bell—still hanging untouched in the forge alcove! Beside it rests a brass-banded dwarven strongbox sealed with a shimmering abjuration glyph.",
         choices: [
-          { t: "Prepare for Part 4: Bat Caverns & The Diabolist!", to: 4 }
+          { t: "Claim the Cold-Iron Resonance Bell and move on before patrolling guards return.", to: 6, onChoose: { cw: "RESONANCE_BELL", msg: "You wrap the Cold-Iron Resonance Bell in cloth—ready to shatter insectoid morale (RESONANCE_BELL)!" } },
+          { t: "Dispel the glyph on the dwarven strongbox to claim both the bell and the guild cache!", badge: "Arcana / Perception DC 13", check: { stat: "arcana", skill: "Perception", dc: 13, pass: 6, fail: 6, failDmg: 4, passMsg: "The abjuration glyph dissolves cleanly—you pocket 45 GP and the Cold-Iron Resonance Bell!", failMsg: "The ward snaps with cold lightning (-4 HP), though you still snatch the Resonance Bell!" }, onPass: { gold: 45 }, onChoose: { cw: "RESONANCE_BELL" } },
+          { t: "Shatter the rune-lock with Firebolt and seize the forge cache!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 6, onChoose: { cw: "RESONANCE_BELL", gold: 45, msg: "Firebolt cracks the ward-seal! You claim 45 GP and the Cold-Iron Resonance Bell!" } }
         ]
       },
       4: {
-        zone: "Dwarven Armory",
-        title: "Ring-Mage Lore",
-        text: "Ancient dwarven journals warn that three bitter factions vie for control of the Bat Caverns below.",
+        zone: "Level 3 • Sergeants' Quarters",
+        title: "Gellert's Garrison Orders",
+        text: "Pelt-draped bunks and splintered dwarven footlockers litter the officers' barracks. Pinned to a butcher's table with a notched dagger are fresh orders bearing Gellert's wax seal: 'Hold Shaft 317 at all costs. If delvers breach Maksilov's Scriptorium, let the Clacking Swarm strip their bones.' Beneath a heavy cot, you spot a bound and gagged Redtower scout—Mira—widening her eyes in relief as she sees you!",
         choices: [
-          { t: "Unlock Part 4!", to: 5 }
+          { t: "Cut Scout Mira free and share a quick breather while she briefs you on Shaft 317.", to: 7, onChoose: { cw: "MIRA_SCOUT", healHp: 8, msg: "Freed Scout Mira (MIRA_SCOUT)! She tends your bruises (+8 HP) and reveals a hidden ledge over Shaft 317!" } },
+          { t: "Free Mira and pry open the trollkin officers' iron pay-chest before moving out.", to: 7, onChoose: { cw: "MIRA_SCOUT", gold: 35, msg: "Freed Scout Mira (MIRA_SCOUT) and seized 35 GP from the garrison pay-chest!" } }
         ]
       },
       5: {
-        zone: "Redtower Inn",
-        title: "Part 3 Complete",
-        text: "The Dwarven Barracks stand clear of trollkin raiders.",
+        zone: "Level 3 • Clacking Caverns Breach",
+        title: "Chitin in the Dark",
+        text: "Ancient dwarven stonework ends abruptly in a jagged natural cavern where wet stalactites drip into black pools. Ahead, the armored Trollkin Garrison Chief stands before the iron winch of Shaft 317, flanked by roaring pitch-braziers that barely hold back a surging tide of clicking, blade-limbed subterranean Swarm horrors!",
         choices: [
-          { t: "Advance to Part 4!", to: 6 }
+          { t: "Strike the Cold-Iron Resonance Bell to convulse the chitinous swarm and shatter the chief's line!", reqCw: "RESONANCE_BELL", badge: "RESONANCE_BELL", to: 8, onChoose: { cw: "SWARM_DISRUPTED", msg: "BONG! The cold-iron chime sends the chitinous swarm recoiling in agony and staggers the Trollkin Chief!" } },
+          { t: "Follow Scout Mira's plan: topple the pitch-braziers onto the trollkin flank!", reqCw: "MIRA_SCOUT", badge: "MIRA_SCOUT", to: 8, onChoose: { cw: "CHIEF_AMBUSHED", msg: "Blazing pitch floods the cavern floor, scorching the chief's formation before the fight even begins!" } },
+          { t: "Hurl Firebolt straight into the pitch-pots beside the Trollkin Chief!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 8, onChoose: { cw: "CHIEF_AMBUSHED", msg: "The pitch-pots detonate in a roaring plume of flame, scattering the swarm and blistering the chief!" } },
+          { t: "Crawl through the damp stalactite shadows to ambush the chief before the swarm closes in!", badge: "Stealth / Agility DC 13", check: { stat: "agility", skill: "Stealth", dc: 13, pass: 8, fail: 8, failDmg: 4, passMsg: "You slip behind a wet calcite pillar and strike the chief's flank unseen!", failMsg: "A skittering crawler slashes your boot (-4 HP) as the alarm erupts!" }, onPass: { cw: "CHIEF_AMBUSHED" } },
+          { t: "Charge headlong across the stone bridge into the Trollkin Chief and the Swarm!", to: 8 }
         ]
       },
       6: {
-        zone: "Shaft Landing",
-        title: "Ropes Checked",
-        text: "You double-knot your harness for the eighty-foot descent.",
+        zone: "Level 3 • Ring-Mage Gallery",
+        title: "The Forgotten Armory",
+        text: "Stepping out of the forge with the Cold-Iron Resonance Bell wrapped at your belt, you catch your breath beside an intact rack of dwarven oil-lanterns and dry linen bandages. Muffled thumps echo from the Sergeants' Quarters to the west, while the rhythmic clicking of the Clacking Caverns rattles from the eastern breach.",
+        onEnter: { healHp: 10, msg: "Rested briefly in the Ring-Mage Gallery (+10 HP)." },
         choices: [
-          { t: "Complete Part 3!", to: 7 }
+          { t: "Check the Sergeants' Quarters to the west for captives or Gellert's orders.", to: 4 },
+          { t: "Advance east into the echoing Clacking Caverns breach.", to: 5 }
         ]
       },
       7: {
+        zone: "Level 3 • Maintenance Overlook",
+        title: "Mira's Recon of Shaft 317",
+        text: "Scout Mira leads you along a narrow dwarven maintenance ledge overlooking the jagged eastern breach. Below, torchlight glints off the Trollkin Garrison Chief's horned iron helm beside an eighty-foot rope-ladder winch—while glossy black carapaces rustle in the fissures behind his men. 'He uses those burning pitch-pots to keep the Clacking Swarm pinned,' Mira whispers. 'Kick them over and the cavern will erupt in chaos!'",
+        choices: [
+          { t: "Descend to the Clacking Caverns breach with Mira's tactical edge.", to: 5 },
+          { t: "Swing north into the Dwarven Ring-Mage Forge first to check for old relics.", to: 3 }
+        ]
+      },
+      8: {
+        zone: "Level 3 • Clacking Caverns",
+        title: "The Swarm & Trollkin Chief",
+        text: "Deafening chitinous clicking echoes through the stalactite hall as the towering Trollkin Garrison Chief hefts a serrated halberd and the skittering subterranean Swarm surges across the wet basalt toward Shaft 317!",
+        enemy: { name: "Trollkin Chief & Cavern Swarm", desc: "Brutal warband commander and skittering underground horrors.", hp: 58, ac: 15, atk: 8, dmg: 8, xp: 190, gold: 130, items: ["bq_dwarven_ring_mage_band"], weakCw: ["SWARM_DISRUPTED", "CHIEF_AMBUSHED"] },
+        choices: [
+          { t: "Secure the iron winch of Shaft 317 and inspect the dwarven armory locker.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Level 3 • Dwarven Armory Vault",
+        title: "Journals of the Ring-Mages",
+        text: "With the Garrison Chief defeated and the surviving swarm driven back into the deep fissures, you pry open the quartermaster's iron locker beside the winch. Inside rest restorative tonics, fresh climbing pitons, and a weathered leather journal left by the last dwarven ring-mage commander. Its final entry warns that Level 4—the Bat Caverns—is locked in a bitter three-way stalemate between feral cavern stalkers, scheming shadow-dwellers, and Gellert's Diabolist cult.",
+        onEnter: { healHp: 14, msg: "Secured the dwarven barracks armory (+14 HP) and recovered the Ring-Mage Journal!" },
+        choices: [
+          { t: "Search the journal's hollow binding for hidden dwarven guild coin before moving to the shaft.", badge: "Perception / Arcana DC 12", check: { stat: "spirit", skill: "Perception", dc: 12, pass: 10, fail: 10, passMsg: "Inside the stitched leather lining you uncover 30 GP in antique dwarven trade-rings!", failMsg: "Only brittle parchment maps remain, though their notes on Level 4 are priceless." }, onPass: { gold: 30 } },
+          { t: "Rig the eighty-foot rope ladder over Shaft 317 and peer into the abyss.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Shaft 317",
+        title: "Eighty Feet Into Darkness",
+        text: "You test the hemp-and-iron rungs of the eighty-foot rope ladder anchored to the dwarven winch. Cold, sulfur-tainted updrafts rise from the pitch-black abyss below, carrying the leathery flutter of hundreds of wings and the distant crackle of infernal fire. Retreating back up this ladder under fire will be impossible—every knot must hold.",
+        choices: [
+          { t: "Signal Scout Mira to hold the upper winch and keep your retreat line to Redtower secure.", reqCw: "MIRA_SCOUT", badge: "MIRA_SCOUT", to: 11 },
+          { t: "Double-knot your climbing harness, light a fresh lantern, and seal the barracks behind you.", to: 12 }
+        ]
+      },
+      11: {
+        zone: "Shaft 317",
+        title: "Mira's Watch at the Winch",
+        text: "Scout Mira braces her heavy crossbow across the dwarven barricade and gives you a crisp salute. 'I'll send word back to Redtower that Level 3 is cleared and keep this winch guarded for your return. Take my spare coin-pouch—you've earned it ten times over!' She tosses you a clinking purse of 35 GP as you step to the rim of the shaft.",
+        onEnter: { gold: 35, msg: "Scout Mira rewards you with 35 GP and secures the upper winch!" },
+        choices: [
+          { t: "Complete Part 3 and prepare for the descent into the Bat Caverns!", to: 12 }
+        ]
+      },
+      12: {
         zone: "Epilogue",
         title: "Conqueror of the Barracks",
-        text: "Level 3 is won! <strong>Scarlet Citadel IV: Bat Caverns & The Diabolist</strong> is now unlocked!",
+        text: "The Dwarven Barracks of Level 3 stand liberated from Gellert's trollkin mercenaries, the ancient ring-mage seal rests safely in your pack, and the eighty-foot rope ladder into the echoing abyss awaits. <strong>Scarlet Citadel IV: Bat Caverns & The Diabolist</strong> is now unlocked!",
         ending: { type: "true", title: "Victor of the Dwarven Barracks (Part 3 of 7)", xp: 225, gold: 215, trophy: "Dwarven Ring-Mage Seal" },
         choices: []
       }

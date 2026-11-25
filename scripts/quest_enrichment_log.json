@@ -1,5 +1,5 @@
 {
-  "totalPasses": 6,
+  "totalPasses": 7,
   "history": [
     {
       "pass": 1,
@@ -42,6 +42,13 @@
       "title": "Bastion of the Deranged",
       "file": "data/quests/expansion_underworld_lairs.js",
       "summary": "Expanded from 10 terse pages to 13 branching pages with Caravan-Master Tovin's missing salt-train hook, a drainage culvert Stealth entry, revivable petrified Outrider Bram (BRAM_RESCUED -> grounding-chain sabotage CRYSTAL_SHATTERED & reunion bonus), Bat Roost stampede sabotage (BATS_STAMPEDED), Turn Undead/Firebolt/Herbalism Fungus Garden routes into the Barracks Alcove air-shaft (GRAKNIR_FLANKED), and a 3-weakness boss showdown."
+    },
+    {
+      "pass": 7,
+      "questId": "bk_b11_sc_3_barracks",
+      "title": "Scarlet Citadel III: The Dwarven Barracks",
+      "file": "data/quests/books_quests_batch_011.js",
+      "summary": "Replaced 3 one-line filler pages and expanded into a 12-page mega-dungeon chapter with Stealth/Lockpicking/Arcana ward-chime entries (RAIDER_FLANKED), the Dwarven Ring-Mage Forge & Cold-Iron Resonance Bell (RESONANCE_BELL -> SWARM_DISRUPTED), captive Redtower Scout Mira rescue in Sergeants' Quarters (MIRA_SCOUT -> pitch-brazier sabotage CHIEF_AMBUSHED & winch bonus), hidden journal trade-rings, and seamless handoff to Part 4."
     }
   ],
   "questPasses": {
@@ -50,6 +57,7 @@
     "bk_b7_eog_3_blood_marriage": 1,
     "bk_b10_p2_5_hell_glittering": 1,
     "bk_b6_eldritch_4_devils_thumb": 1,
-    "ul_bastion_deranged": 1
+    "ul_bastion_deranged": 1,
+    "bk_b11_sc_3_barracks": 1
   }
 }
