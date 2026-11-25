@@ -1,6 +1,6 @@
 {
-  "batchCount": 13,
-  "totalQuestsAdded": 154,
+  "batchCount": 14,
+  "totalQuestsAdded": 164,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -648,8 +648,19 @@
       ]
     },
     "Books/Kobold Press/Tales from the Wastes/Tales-from-the-Wastes-7fthr6.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "in_progress",
+      "convertedTitles": [
+        "The Sanctum",
+        "The Lost Temple of Anax Apogeion",
+        "Strange Alchemy",
+        "Dust to Dust",
+        "Vault of the God-King",
+        "A Cry for Help",
+        "Crater of the Flaying Star",
+        "The Spider's Eye",
+        "The Shattered Halls of the Fallen Star",
+        "Whispers of the Tumultuous Dark"
+      ]
     },
     "Books/Kobold Press/Tales of Valiant/ToV+Alpha+Release+FINAL.pdf": {
       "status": "skipped_no_quests",
@@ -768,20 +779,24 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #08 - The Lost Temple of Anax Apogeion (1).pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "duplicate of Lost Temple of Anax Apogeion (Batch 014)"
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #08 - The Lost Temple of Anax Apogeion (2).pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "duplicate of Lost Temple of Anax Apogeion (Batch 014)"
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #08 - The Lost Temple of Anax Apogeion (3).pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "duplicate of Lost Temple of Anax Apogeion (Batch 014)"
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #08 - The Lost Temple of Anax Apogeion.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "duplicate of Lost Temple of Anax Apogeion (Batch 014)"
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #09 - The Returners' Tower (1).pdf": {
       "status": "pending",

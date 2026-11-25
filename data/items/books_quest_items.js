@@ -1412,3 +1412,116 @@ window.OAKHAVEN.registerItems({
     desc: "+2 AC, +2 Spirit, +2 Arcana, +8 Max HP. Mantle woven from the Sun King's rekindled dawn."
   }
 });
+
+
+window.OAKHAVEN.registerItems({
+  // Batch 014 — Wasteland Adventures (Part 1)
+  "bq_sanctum_obsidian_icon": {
+    id: "bq_sanctum_obsidian_icon",
+    name: "Silenced Obsidian Ward-Icon",
+    type: "accessory",
+    rarity: "rare",
+    value: 140,
+    arcana: 2,
+    spirit: 1,
+    maxMp: 4,
+    desc: "+2 Arcana, +1 Spirit, +4 Max MP. Quieted basalt charm taken from the buried Sanctum."
+  },
+  "bq_anax_star_scroll_case": {
+    id: "bq_anax_star_scroll_case",
+    name: "Silver Star-Case of Apogeion",
+    type: "offhand",
+    rarity: "rare",
+    value: 150,
+    arcana: 2,
+    luck: 1,
+    maxMp: 5,
+    desc: "+2 Arcana, +1 Luck, +5 Max MP. Etched starlight scroll-focus recovered from the lost temple."
+  },
+  "bq_sextant_brass_arc": {
+    id: "bq_sextant_brass_arc",
+    name: "Vivi's Brass Sextant Charm",
+    type: "accessory",
+    rarity: "rare",
+    value: 155,
+    arcana: 2,
+    agility: 1,
+    luck: 1,
+    desc: "+2 Arcana, +1 Agility, +1 Luck. Precision planar-calibrated brass keepsake from Vivi Sparksprocket."
+  },
+  "bq_arakiel_fallen_amulet": {
+    id: "bq_arakiel_fallen_amulet",
+    name: "Cleansed Amulet of Arakiel",
+    type: "accessory",
+    rarity: "rare",
+    value: 185,
+    ac: 1,
+    spirit: 2,
+    maxHp: 6,
+    desc: "+1 AC, +2 Spirit, +6 Max HP. Ancient celestial medallion recovered from the Pillars of the Gods."
+  },
+  "bq_godking_star_rod": {
+    id: "bq_godking_star_rod",
+    name: "Star-Metal Rod of the Vault",
+    type: "weapon",
+    rarity: "rare",
+    value: 190,
+    atk: 4,
+    arcana: 2,
+    desc: "+4 Attack, +2 Arcana. Crackling sky-iron rod salvaged from the fallen metal meteor."
+  },
+  "bq_mikos_marsh_lantern": {
+    id: "bq_mikos_marsh_lantern",
+    name: "Addlebury's Wisp-Ward Lantern",
+    type: "offhand",
+    rarity: "rare",
+    value: 180,
+    ac: 1,
+    spirit: 2,
+    luck: 1,
+    desc: "+1 AC, +2 Spirit, +1 Luck. Brass marsh lantern that cuts through ghostly fog and illusions."
+  },
+  "bq_flaying_star_diadem": {
+    id: "bq_flaying_star_diadem",
+    name: "Okalveka's Star-Glass Diadem",
+    type: "accessory",
+    rarity: "rare",
+    value: 210,
+    ac: 1,
+    might: 2,
+    arcana: 1,
+    desc: "+1 AC, +2 Might, +1 Arcana. Meteor-forged royal band won in the Crater of the Flaying Star."
+  },
+  "bq_spiders_eye_emerald": {
+    id: "bq_spiders_eye_emerald",
+    name: "Emerald of the Spider's Eye",
+    type: "accessory",
+    rarity: "rare",
+    value: 215,
+    agility: 2,
+    luck: 2,
+    desc: "+2 Agility, +2 Luck. Faceted trade-canyon gemstone prized by wasteland caravan masters."
+  },
+  "bq_ocras_chrono_lens": {
+    id: "bq_ocras_chrono_lens",
+    name: "Ocras's Void-Vessel Visor",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 245,
+    ac: 2,
+    arcana: 2,
+    maxMp: 5,
+    desc: "+2 AC, +2 Arcana, +5 Max MP. Star-iron optical lens salvaged from the Shattered Halls."
+  },
+  "bq_tumultuous_dark_mantle": {
+    id: "bq_tumultuous_dark_mantle",
+    name: "Mantle of Quieted Shadows",
+    type: "cloak",
+    rarity: "very_rare",
+    value: 250,
+    ac: 2,
+    spirit: 2,
+    agility: 1,
+    desc: "+2 AC, +2 Spirit, +1 Agility. Woven shadow-cloak purged of Calviana's chaotic whispers."
+  }
+});
