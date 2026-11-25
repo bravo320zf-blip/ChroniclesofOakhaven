@@ -557,7 +557,17 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     luck: 1,
     maxHp: 4,
-    desc: "+2 AC, +1 Luck, +4 Max HP. Unattuned protective cloak dug from Rathsys's courtyard hoard."
+    passives: { dmgReduce: 2, healBonus: 2, skillBonus: { Survival: 2 } },
+    activeAbility: {
+      name: "Desert-Ward Shroud",
+      icon: "🏜️",
+      charges: 2,
+      ooc: true,
+      shieldTurns: 2,
+      restoreLuck: 1,
+      desc: "2/Quest: Wrap in Rathsys's warding cloak to gain +3 AC (2t) and +1 Current Luck!"
+    },
+    desc: "Protective desert mantle dug from Rathsys's courtyard hoard (-2 Dmg Taken, +2 Healing, +2 Survival) with Desert-Ward Shroud."
   },
   "bq_hurkl_fire_wand": {
     id: "bq_hurkl_fire_wand",
@@ -2626,9 +2636,9 @@ window.OAKHAVEN.registerItems({
     might: 2,
     spirit: 1,
     maxHp: 6,
-    passives: { healBonus: 2, skillBonus: { Survival: 2 } },
-    activeAbility: { name: "Cordial of Rooftop Strength", icon: "🌴", charges: 2, ooc: true, healDice: "2d6", healStat: "spirit", selfBuffAtk: { atk: 3, turns: 3 }, desc: "2/Quest: Partake of Nefertari's magical dates & cordial — heal 2d6 + Spirit HP and gain +3 ATK (3t)!" },
-    desc: "Carved wooden date-box gifted by awakened vulture Nefertari (+2 Healing, +2 Survival) with Cordial of Rooftop Strength."
+    passives: { healBonus: 3, goldFindPct: 10, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Cordial of Rooftop Strength", icon: "🌴", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", selfBuffAtk: { atk: 3, turns: 3 }, desc: "2/Quest: Partake of Nefertari's magical dates & cordial — heal 2d8 + Spirit HP and gain +3 ATK (3t)!" },
+    desc: "Carved wooden date-box gifted by awakened vulture Nefertari (+3 Healing, +10% Gold, +2 Survival) with Cordial of Rooftop Strength."
   },
   "bq_feaster_carving_twin": {
     id: "bq_feaster_carving_twin",

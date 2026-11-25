@@ -1,6 +1,6 @@
 {
-  "totalPasses": 15,
-  "totalItemsReworked": 150,
+  "totalPasses": 16,
+  "totalItemsReworked": 160,
   "history": [
     {
       "pass": 1,
@@ -241,6 +241,22 @@
         "bq_lost_forge_tongs"
       ],
       "summary": "Milestone 150th item reworked! Upgraded 4 Vault of Magic items (including Staff of the White Necromancer and Seelie Staff), Legendary Adamantine Plate of Stoneboar, Fine Steel Sword, and 4 quest relics."
+    },
+    {
+      "pass": 16,
+      "items": [
+        "vom_moonsteel_weapon",
+        "vom_staff_channeling",
+        "vom_staff_ice_fire",
+        "vom_aurochs_bracers",
+        "vom_cloak_bearfolk",
+        "vom_whispering_cloak",
+        "vom_monkeys_paw",
+        "vom_fab_arcane_fist",
+        "bq_rathsys_cloak",
+        "bq_nefertari_date_pouch"
+      ],
+      "summary": "Reworked 8 Vault of Magic items (including Fabled Gauntlets of the Arcane Fist, Staff of Ice and Fire, Monkey's Paw of Fortune, Whispering Cloak, Moonsteel Rapier) plus 2 desert quest relics."
     }
   ],
   "itemPasses": {
@@ -393,6 +409,16 @@
     "bq_dagny_warblade": 1,
     "bq_lindwurm_amulet": 1,
     "bq_sun_king_radiant_crest": 1,
-    "bq_lost_forge_tongs": 1
+    "bq_lost_forge_tongs": 1,
+    "vom_moonsteel_weapon": 1,
+    "vom_staff_channeling": 1,
+    "vom_staff_ice_fire": 1,
+    "vom_aurochs_bracers": 1,
+    "vom_cloak_bearfolk": 1,
+    "vom_whispering_cloak": 1,
+    "vom_monkeys_paw": 1,
+    "vom_fab_arcane_fist": 1,
+    "bq_rathsys_cloak": 1,
+    "bq_nefertari_date_pouch": 1
   }
 }
