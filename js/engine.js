@@ -2558,7 +2558,7 @@
       stopAutoWalk();
       state.mode = "adventure";
       state.innRested = false;
-      state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, classAbilityUsed: false, lootItems: [], lootGold: 0, lootXp: 0 };
+      state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, classAbilityUsed: false, torchLit: false, lootItems: [], lootGold: 0, lootXp: 0 };
       activeCombat = null;
       sfx("quest");
       bgm("adventure");
@@ -2667,11 +2667,12 @@
         const d = getDerived(state);
         const statVal = d.s[c.stat] || 0;
         const skBonus = (c.skill && state.skills.includes(c.skill)) ? 2 : 0;
+        const torchBonus = state.activeAdv?.torchLit ? 2 : 0;
         const scaledDc = c.dc + DIFFICULTY.skillDcBonus + Math.floor(Math.max(0, (state.level || 1) - 1) / 3);
         const r = roll2d6();
-        const tot = r.total + statVal + skBonus;
+        const tot = r.total + statVal + skBonus + torchBonus;
         const ok = tot >= scaledDc;
-        const desc = `🎲 ${c.stat.toUpperCase()} Check: [${r.d1}+${r.d2}]+${statVal}${skBonus?`+${skBonus}(${c.skill})`:""}=${tot} vs DC ${scaledDc} — ${ok?"SUCCESS!":"FAILED!"}`;
+        const desc = `🎲 ${c.stat.toUpperCase()} Check: [${r.d1}+${r.d2}]+${statVal}${skBonus?`+${skBonus}(${c.skill})`:""}${torchBonus?`+${torchBonus}(🔥Torch)`:""}=${tot} vs DC ${scaledDc} — ${ok?"SUCCESS!":"FAILED!"}`;
         addLog(desc, ok ? "good" : "bad");
         if (ok) {
           if (ch.onPass) applyAdvEffect(ch.onPass);
@@ -2958,6 +2959,22 @@
           extra += ` & weakens foe (-2 Atk, ${subP.bombChillTurns}t)`;
         }
         activeCombat.log.unshift(`💣 Threw ${it.name} for ${dmg} dmg${extra}!`);
+      } else if (kind === "torch") {
+        const i = state.backpack.findIndex(e => getEntryId(e) === "torch");
+        if (i === -1) return toast("No Pitch Torches in backpack!", "bad");
+        consumeOneFromSlot("backpack", i);
+        let dmg = 6 + (subP.bombDmgBonus || 0);
+        const undeadDouble = !!activeCombat.undead;
+        if (undeadDouble) dmg *= 2;
+        if (activeCombat.rageActive) dmg *= 2;
+        sfx("bomb");
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        activeCombat.dot = { dmg: 3, turns: 3, label: "Burning" };
+        activeCombat.chilled = Math.max(activeCombat.chilled, 2);
+        const mods = [];
+        if (undeadDouble) mods.push("2x Undead!");
+        if (activeCombat.rageActive) mods.push("🔥 RAGE 2x!");
+        activeCombat.log.unshift(`🔥 Hurled Pitch Torch for ${dmg} fire dmg${mods.length ? ` (${mods.join(" ")})` : ""}, igniting foe (3 Burning/t, 3t) & dazzling (-2 Enemy ATK, 2t)!`);
       }
       combatAfterPlayer();
     }
@@ -3412,7 +3429,7 @@
       const adv = ADVENTURES[state.activeAdv.id];
       const page = adv.pages[state.activeAdv.page];
 
-      document.getElementById("adv-header-meta").textContent = `${adv.title} • ${page.zone}`;
+      document.getElementById("adv-header-meta").textContent = `${adv.title} • ${page.zone}${state.activeAdv?.torchLit ? " • 🔥 Torch Lit (+2 Checks)" : ""}`;
       document.getElementById("adv-page-title").textContent = page.title;
       document.getElementById("adv-page-num").textContent = state.activeAdv.page;
       const pageTotalEl = document.getElementById("adv-page-total");
@@ -3504,6 +3521,14 @@
       const fleeBtn = document.getElementById("btn-c-flee");
       fleeBtn.disabled = !activeCombat.flee;
       fleeBtn.classList.toggle("opacity-40", !activeCombat.flee);
+
+      const torchBtn = document.getElementById("btn-c-torch");
+      if (torchBtn) {
+        const torchCount = state.backpack.reduce((sum, e) => sum + (getEntryId(e) === "torch" ? getEntryQty(e) : 0), 0);
+        torchBtn.disabled = torchCount <= 0;
+        torchBtn.classList.toggle("opacity-40", torchCount <= 0);
+        torchBtn.textContent = torchCount > 0 ? `🔥 Torch (${torchCount})` : "🔥 Torch";
+      }
 
       const abRow = document.getElementById("combat-abilities");
       if (abRow) {
@@ -3689,11 +3714,34 @@
             sfx("equip");
             toast(`Equipped ${it.name}!`, "gold");
           } else if (act === "use") {
+            if (id === "torch") {
+              if (activeCombat) {
+                combatItem("torch");
+                return;
+              }
+              if (state.mode !== "adventure" || !state.activeAdv) {
+                toast("Save your Pitch Torch for a dungeon! Light it during a quest for +2 to all Skill Checks, or hurl it in combat.", "info");
+                return;
+              }
+              if (state.activeAdv.torchLit) {
+                toast("Your Pitch Torch is already lit (+2 to all Skill Checks this quest)!", "info");
+                return;
+              }
+              consumeOneFromSlot("backpack", i);
+              const curD = getDerived(state);
+              state.activeAdv.torchLit = true;
+              state.hp = Math.min(curD.maxHp, state.hp + 4);
+              sfx("heal");
+              toast("🔥 Lit Pitch Torch! +2 to ALL Skill Checks for this quest (+4 HP warmth)!", "gold");
+              addLog("Lit a Pitch Torch (+2 to all Skill Checks for this quest, +4 HP warmth).", "gold");
+              renderAdvPage();
+              renderSheet();
+              return;
+            }
             consumeOneFromSlot("backpack", i);
             const curD = getDerived(state);
             if (it.healHp) state.hp = Math.min(curD.maxHp, state.hp + it.healHp);
             if (it.healMp) state.mp = Math.min(curD.maxMp, state.mp + it.healMp);
-            if (id === "torch") state.hp = Math.min(curD.maxHp, state.hp + 3);
             sfx("potion");
             toast(`Used ${it.name}!`, "good");
           } else if (act === "learn") {
@@ -4248,6 +4296,8 @@
     document.getElementById("btn-c-luck").addEventListener("click", () => combatStrike(true));
     document.getElementById("btn-c-potion").addEventListener("click", () => combatItem("potion"));
     document.getElementById("btn-c-bomb").addEventListener("click", () => combatItem("bomb"));
+    const btnCTorch = document.getElementById("btn-c-torch");
+    if (btnCTorch) btnCTorch.addEventListener("click", () => combatItem("torch"));
     document.getElementById("btn-c-flee").addEventListener("click", combatFlee);
 
     // Adventure Navigation Controls

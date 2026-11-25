@@ -52,7 +52,7 @@ window.OAKHAVEN.registerItems({
       mana_elixir:     { id:"mana_elixir", name:"Mana Elixir", type:"consumable", healMp:7, value:18, desc:"Restores 7 MP" },
       antidote:        { id:"antidote", name:"Bramble Antidote", type:"consumable", healHp:8, value:14, desc:"Restores 8 HP & clears venom" },
       alchemist_bomb:  { id:"alchemist_bomb", name:"Alchemist's Bomb", type:"bomb", dmg:10, value:22, desc:"Throw in combat for 10 dmg" },
-      torch:           { id:"torch", name:"Pitch Torch", type:"consumable", healHp:0, value:8, desc:"Lights dark passages (+3 HP warmth)" },
+      torch:           { id:"torch", name:"Pitch Torch", type:"consumable", healHp:0, value:8, desc:"Quest: Light for +2 to ALL Skill Checks this quest (+4 HP). Combat: Hurl for 6 Fire dmg (2x Undead), Burn (3/t, 3t) & Dazzle (-2 Enemy ATK, 2t)." },
 
       // Crafting Materials
       iron_ore:        { id:"iron_ore", name:"Iron Ore", type:"material", value:12, desc:"Crafting Material (Forge)" },
