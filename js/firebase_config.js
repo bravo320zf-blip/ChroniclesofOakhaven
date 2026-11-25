@@ -9,10 +9,11 @@
       Authentication -> Settings -> Authorized domains
    ============================================================ */
 window.OAKHAVEN_FIREBASE_CONFIG = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyA7Jsv4763EoQ-ieLtW-GquaFCt_7EgECA",
+  authDomain: "chroniclesofoakhaven.firebaseapp.com",
+  projectId: "chroniclesofoakhaven",
+  storageBucket: "chroniclesofoakhaven.firebasestorage.app",
+  messagingSenderId: "826298465145",
+  appId: "1:826298465145:web:349340475b95e93348cda8",
+  measurementId: "G-VPYZXSWRE5"
 };
