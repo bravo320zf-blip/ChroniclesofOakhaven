@@ -3,7 +3,7 @@
    10 standalone adventures (Lv 1 – Lv 7)
    All quests use autoDiscover: false (Inn Rumor Pool).
    ============================================================ */
-window.OAKHAVEN_REGISTER_ADVENTURES({
+window.OAKHAVEN.registerQuests({
   // ==========================================================
   // 1. THE ADORATION OF QUOLO (8 PAGES • LV 5)
   // ==========================================================

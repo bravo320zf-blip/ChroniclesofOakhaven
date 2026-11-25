@@ -1804,9 +1804,10 @@
     let mapCanvasCachedW = 0;
     let mapCanvasCachedH = 0;
     let mapLastDrawTs = 0;
-    const MAP_MODAL_IDS = ["modal-building", "modal-menu", "modal-journal", "modal-slots", "modal-rules", "modal-help", "modal-io"];
+    const MAP_MODAL_IDS = ["modal-menu", "modal-journal", "modal-slots", "modal-rules", "modal-help", "modal-io"];
 
     function isAnyBlockingModalOpen() {
+      if (buildingModalOpen) return true;
       for (const id of MAP_MODAL_IDS) {
         const el = document.getElementById(id);
         if (el && !el.classList.contains("hidden")) return true;
