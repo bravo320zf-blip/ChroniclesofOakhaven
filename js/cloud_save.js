@@ -68,6 +68,27 @@
     return isNaN(t) ? 0 : t;
   }
 
+  function parseCloudSlots(data) {
+    if (!data) return null;
+    if (typeof data.slotsJson === "string") {
+      try {
+        const parsed = JSON.parse(data.slotsJson);
+        if (Array.isArray(parsed)) return parsed;
+      } catch (_) {}
+    }
+    if (Array.isArray(data.slots)) return data.slots;
+    return null;
+  }
+
+  function serializeSlotsPayload(slots) {
+    const normalized = [];
+    for (let i = 0; i < MAX_SAVE_SLOTS; i++) normalized.push((slots && slots[i]) || null);
+    return {
+      slotsJson: JSON.stringify(normalized),
+      updatedAt: new Date().toISOString()
+    };
+  }
+
   async function syncSlotsFromCloud() {
     if (!db || !currentUser) return;
     syncStatus = "syncing";
@@ -76,9 +97,9 @@
       const ref = db.collection("users").doc(currentUser.uid).collection("saves").doc("slots");
       const snap = await ref.get();
       const localSlots = readLocalSlots();
+      const cloudSlots = snap.exists ? parseCloudSlots(snap.data()) : null;
 
-      if (snap.exists && Array.isArray(snap.data().slots)) {
-        const cloudSlots = snap.data().slots;
+      if (cloudSlots) {
         const merged = [null, null, null, null, null];
         let localHadNewer = false;
 
@@ -101,13 +122,13 @@
         }
         localStorage.setItem(SAVE_SLOTS_KEY, JSON.stringify(merged));
         if (localHadNewer) {
-          await ref.set({ slots: merged, updatedAt: new Date().toISOString() }, { merge: true });
+          await ref.set(serializeSlotsPayload(merged));
         }
       } else {
         // First time cloud user: upload any existing local slots
         const hasAny = localSlots.some(Boolean);
         if (hasAny) {
-          await ref.set({ slots: localSlots, updatedAt: new Date().toISOString() }, { merge: true });
+          await ref.set(serializeSlotsPayload(localSlots));
         }
       }
 
@@ -127,10 +148,7 @@
     renderCloudUi();
     try {
       const ref = db.collection("users").doc(currentUser.uid).collection("saves").doc("slots");
-      await ref.set({
-        slots: slots.slice(0, MAX_SAVE_SLOTS),
-        updatedAt: new Date().toISOString()
-      }, { merge: true });
+      await ref.set(serializeSlotsPayload(slots));
       syncStatus = "synced";
       renderCloudUi();
     } catch (err) {
