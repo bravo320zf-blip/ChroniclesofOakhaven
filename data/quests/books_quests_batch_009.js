@@ -6,8 +6,7 @@
    ============================================================ */
 window.OAKHAVEN.registerQuests({
   // ==========================================================
-  // 1. A BAD NIGHT FOR BETTING (6 PAGES • LV 8)
-  // Prepared! #8
+  // 1. A BAD NIGHT FOR BETTING (11 PAGES • LV 8)
   // ==========================================================
   bk_b9_prep_7_betting: {
     id: "bk_b9_prep_7_betting",
@@ -18,55 +17,108 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Pit-Master of Bleak Rock (Rusty Flagon Tavern)",
     summary: "When an unscrupulous alchemist spikes the fighting dogmoles in frontier village Bleak Rock with a mutagenic rage-brew, contain the burrowing beasts and stop their panicked handlers before the town is torn apart!",
-    totalPages: 6,
+    totalPages: 11,
     pages: {
       1: {
-        zone: "Bleak Rock • Fighting Pit",
-        title: "Mutagenic Mayhem",
+        zone: "Bleak Rock • Lantern-Lit Pit",
+        title: "Odds Gone Sour",
         safeRetreat: true,
-        text: "At Bleak Rock's rowdy dogmole pit, the stout Granitehold beasts suddenly swell with glowing green veins and burst straight through the timber barrier into the screaming crowd!",
-        enemy: { name: "Enraged Giant Dogmoles", desc: "Alchemically supercharged burrowing beasts tearing through Bleak Rock.", hp: 66, ac: 15, atk: 9, dmg: 10, xp: 195, gold: 80, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1 },
+        text: "Sawdust, cigar-smoke, and shouted wagers fill Bleak Rock's sunken fighting pit as Granitehold miners cheer around the timber rail. Suddenly a reedy stranger in a stained leather apron slips a glowing green vial into the copper watering trough—and vanishes behind the betting-booths! Seconds later, the burly dogmoles roar as emerald veins bulge across their hides and splintering planks fly into the screaming crowd!",
         choices: [
-          { t: "Corner the shady alchemist and furious pit-owners in the back alley!", to: 2 }
+          { t: "Leap onto the railing to herd the panicked spectators through the tavern shutters!", badge: "Athletics / Persuasion DC 14", check: { stat: "spirit", skill: "Persuasion", dc: 14, pass: 2, fail: 3, passMsg: "You clear the stands safely as Pit-Master Korrin tosses you a weighted iron net-chain!", failMsg: "The crowd stampedes past you as two foaming giant dogmoles lunge over the rail!" }, onPass: { cw: "CROWD_SAVED" } },
+          { t: "Trail the stained-apron alchemist along the betting-booth catwalk!", badge: "Perception / Stealth DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 4, fail: 3, passMsg: "You slip onto the catwalk above the booths, catching the alchemist red-handed!", failMsg: "A collapsing bench knocks you straight down into the roaring pit!" }, onPass: { cw: "ALCHEMIST_SPOTTED" } },
+          { t: "Vault directly into the sawdust pit to meet the raging dogmoles steel-to-steel!", to: 3 }
         ]
       },
       2: {
-        zone: "Bleak Rock Alley",
-        title: "The Shady Peddler",
-        text: "Backed by hired Granitehold bruisers and a massive Alpha Dogmole foaming with crimson alchemy, the unscrupulous peddler hurls explosive vials to cover his escape!",
-        enemy: { name: "Alpha Dogmole & Alchemist's Bruisers", desc: "Mutated burrowing juggernaut and desperate pit-handlers.", hp: 82, ac: 16, atk: 10, dmg: 11, xp: 280, gold: 185, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare") },
+        zone: "Bleak Rock • Pit Balcony",
+        title: "Cleared the Stands",
+        text: "You slam the heavy oak tavern shutters behind the last fleeing miners. Breathing hard, Pit-Master Korrin tosses you a coil of weighted iron net-chain from the rafters: 'Use the chain—don't let those maddened beasts burrow under the granary!'",
+        onEnter: { xp: 35, msg: "Saving the spectators earns Pit-Master Korrin's respect (+35 XP) and an iron net-chain!" },
         choices: [
-          { t: "Smash the remaining rage-vials and calm the surviving pups!", to: 3 }
+          { t: "Drop into the pit with Korrin's weighted chain to contain the raging dogmoles!", to: 3 },
+          { t: "Race along the catwalk rafters to cut off the fleeing alchemist!", to: 4 }
         ]
       },
       3: {
-        zone: "Bleak Rock Square",
-        title: "Order Restored",
-        text: "Townsfolk emerge from their cellars cheering as the frantic burrowing stops and the peddler is clapped in irons.",
+        zone: "Bleak Rock • Fighting Pit",
+        title: "Mutagenic Mayhem",
+        text: "Glowing green saliva drips from snapping jaws as the alchemically supercharged dogmoles churn the sawdust into flying clods and charge straight at you!",
+        enemy: { name: "Enraged Giant Dogmoles", desc: "Alchemically supercharged burrowing beasts tearing through Bleak Rock.", hp: 66, ac: 15, atk: 9, dmg: 10, xp: 195, gold: 80, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1, weakCw: ["CROWD_SAVED"] },
         choices: [
-          { t: "Accept Bleak Rock's gratitude and gold.", to: 4 }
+          { t: "Inspect the foaming green watering trough to find a counter-agent before giving chase!", to: 5 },
+          { t: "Vault the broken pit wall and chase the shady peddler straight into Bleak Rock Alley!", to: 6 }
         ]
       },
       4: {
-        zone: "Granitehold Trade Road",
-        title: "Dwarven Respect",
-        text: "Dwarven metal-traders passing through toast your steady hand.",
+        zone: "Betting-Booth Catwalk",
+        title: "The Stained-Apron Peddler",
+        text: "From the smoky rafters above the overturned betting-tables, you spot the crooked alchemist—a slick-tongued peddler named Vexil—paying off two Granitehold pit-bruisers while loading crimson 'Red-Fury' flasks and a brass wager-box onto a mud-spattered handcart!",
         choices: [
-          { t: "Return to Oakhaven.", to: 5 }
+          { t: "Cut the iron lantern-pulley above Vexil's handcart to shatter his spare explosive flasks!", badge: "Agility / Detect Traps DC 14", check: { stat: "agility", skill: "Detect Traps", dc: 14, pass: 6, fail: 6, passMsg: "The heavy brass lantern crashes onto the cart, ruining Vexil's spare bombs and scattering his bruisers!", failMsg: "The rope snags—Vexil spots you and whistles his bruisers into the granary alley!" }, onPass: { cw: "CART_SABOTAGED" } },
+          { t: "Drop behind the betting-booth and crack the abandoned brass wager-box!", badge: "Lockpicking / Stealth DC 15", check: { stat: "agility", skill: "Lockpicking", dc: 15, pass: 6, fail: 6, passMsg: "Click! You scoop up +95 GP in unclaimed crooked wagers before pursuing Vexil into the alley!", failMsg: "The lock resists—a bruiser's shout forces you to sprint after them into the alley!" }, onPass: { cw: "WAGER_BOX_LOOTED", gold: 95, xp: 30 } },
+          { t: "[Firebolt] Ignite Vexil's spare powder-tray from the rafters and chase them into the alley!", reqSpell: "Firebolt", to: 6 }
         ]
       },
       5: {
-        zone: "Rusty Flagon Tavern",
-        title: "No More Betting",
-        text: "You pocket your winnings—the honest way.",
+        zone: "Pit Watering Trough",
+        title: "Bitter Alchemy",
+        text: "Thick emerald foam hisses inside the copper trough, reeking of crushed fire-beetle glands and cave-salt. A torn bottle-label floating in the sawdust reveals the rage-brew breaks down instantly on contact with dry lime-ash!",
+        onEnter: { healHp: 12, msg: "You grab a clean restorative tonic from Pit-Master Korrin's shed (+12 HP)!" },
         choices: [
-          { t: "Finish the adventure.", to: 6 }
+          { t: "Haul two buckets of dry lime-ash from the pit-shed to neutralize the mutagen!", badge: "Lore / Arcana DC 14", check: { stat: "lore", skill: "Arcana", dc: 14, pass: 6, fail: 6, passMsg: "You pack lime-ash charges ready to blind and calm the mutated Alpha Dogmole!", failMsg: "A cracked bucket spills across your boots—no time left, you sprint for the alley!" }, onPass: { cw: "NEUTRALIZER_READY" } },
+          { t: "Sprint straight out the back gate into Bleak Rock Alley!", to: 6 }
         ]
       },
       6: {
+        zone: "Bleak Rock Alley",
+        title: "Cornered Behind the Granary",
+        text: "Lanterns sway violently in the narrow mud alley behind Bleak Rock's granary. Vexil backs against a timber wagon clutching glowing crimson vials while his hired Granitehold bruisers unchain a colossal Alpha Dogmole—its stone-shredding claws gouging deep trenches through the cobbles!",
+        choices: [
+          { t: "Hurl the dry lime-ash straight across the foaming Alpha Dogmole's snout!", reqCw: "NEUTRALIZER_READY", to: 7 },
+          { t: "Press the attack while Vexil's bruisers scramble through smoking glass!", reqCw: "CART_SABOTAGED", to: 7 },
+          { t: "Cut off Vexil's escape route before the Alpha tunnels through the granary wall!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Granary Mud-Alley",
+        title: "The Shady Peddler",
+        text: "Backed by his hired Granitehold bruisers and the massive Alpha Dogmole foaming with crimson alchemy, Vexil hurls sputtering vials to cover his escape!",
+        enemy: { name: "Alpha Dogmole & Alchemist's Bruisers", desc: "Mutated burrowing juggernaut and desperate pit-handlers.", hp: 82, ac: 16, atk: 10, dmg: 11, xp: 280, gold: 185, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["ALCHEMIST_SPOTTED", "CART_SABOTAGED", "NEUTRALIZER_READY"] },
+        choices: [
+          { t: "Smash the remaining rage-vials in the icy horse-trough and check the overturned wagon!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Bleak Rock Horse-Trough",
+        title: "Cooling the Fury",
+        text: "You shatter Vexil's crimson crate beneath the icy water of the horse-trough—emerald steam hisses harmlessly into the night air. Beneath the tilted wagon, three bewildered dogmole pups blink away the last of the alchemical haze and whimper softly.",
+        choices: [
+          { t: "Soothe the trembling pups with jerky and fresh water so they don't bolt into the mines.", badge: "Survival / Spirit DC 14", check: { stat: "spirit", skill: "Survival", dc: 14, pass: 9, fail: 10, passMsg: "The young dogmoles calm right down and nuzzle your boots—Pit-Master Korrin rewards your kindness (+45 GP, +30 XP)!", failMsg: "Startled by a slamming shutter, the pups scamper safely back into their straw kennel." }, onPass: { cw: "PUPS_CALMED", gold: 45, xp: 30 } },
+          { t: "Bind Vexil's wrists tight and march him straight into Bleak Rock Square.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Pit-Master's Kennel",
+        title: "Gentle Hands",
+        text: "The three dogmole pups curl happily into clean straw, snoozing peacefully. Deeply moved, Pit-Master Korrin swears off blood-pits for good—vowing to train the sturdy beasts as mine-rescue trackers instead—and pours you a steaming mug of dwarven honey-cordial!",
+        onEnter: { healHp: 12, msg: "Korrin's grateful toast and mountain cordial restore +12 HP!" },
+        choices: [
+          { t: "Escort the trussed-up alchemist into Bleak Rock Square.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Bleak Rock Square",
+        title: "Order Restored",
+        text: "Cellar doors bang open across Bleak Rock as miners, shopkeepers, and visiting Granitehold metal-traders pour into the lantern-lit square. The local reeve claps Vexil in iron manacles while the cheering crowd raises mugs to honest grit winning the night!",
+        choices: [
+          { t: "Accept Bleak Rock's gratitude and ride back toward Oakhaven.", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Savior of Bleak Rock",
-        text: "Bleak Rock sleeps soundly, safe from alchemical mayhem.",
+        text: "Bleak Rock sleeps soundly beneath a quiet frontier moon, its granary intact, its crooked alchemist behind bars, and its burrowing pups safe from rage-brews.",
         ending: { type: "true", title: "Tamer of Bleak Rock", xp: 315, gold: 295, trophy: "Granitehold Pit-Bell" },
         choices: []
       }

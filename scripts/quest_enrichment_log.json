@@ -1,5 +1,5 @@
 {
-  "totalPasses": 11,
+  "totalPasses": 12,
   "history": [
     {
       "pass": 1,
@@ -77,6 +77,13 @@
       "title": "Trouble at Mossbeard Mill II: Missing Pieces",
       "file": "data/quests/books_quests_batch_019.js",
       "summary": "Expanded from 8 terse pages to 12 atmospheric branching pages with Moonbright's twilight parley oath scene (TRUCE_BROKERED), a boathouse catwalk sabotage & cult-ledger infiltration branch (BEAM_DROPPED, CULT_LEDGER, Firebolt shortcut), oil-trail containment (FIRE_CONTAINED), a fog-shrouded river barge ferrymen rescue & Turn Undead tactical scene (FERRYMEN_SAVED), sinking barge strongbox salvage (BARGE_COFFER, 35 GP), and militia rallying at the Northcord Barricade."
+    },
+    {
+      "pass": 12,
+      "questId": "bk_b9_prep_7_betting",
+      "title": "A Bad Night for Betting",
+      "file": "data/quests/books_quests_batch_009.js",
+      "summary": "Replaced 3 one-line filler pages and expanded from 6 linear pages to 11 gritty frontier-town branching pages with Pit-Master Korrin's spectator evacuation (CROWD_SAVED), betting-booth catwalk infiltration against peddler Vexil (ALCHEMIST_SPOTTED, CART_SABOTAGED, WAGER_BOX_LOOTED 95 GP, Firebolt shortcut), copper-trough lime-ash neutralizer investigation (NEUTRALIZER_READY), and a heartwarming dogmole-pup rescue scene (PUPS_CALMED, 45 GP)."
     }
   ],
   "questPasses": {
@@ -90,6 +97,7 @@
     "bk_b16_marg_grandmothers_fire": 1,
     "bk_b9_prep_11_obsidian_pass": 1,
     "bk_b7_eog_5_fuligin_realm": 1,
-    "bk_b19_mossbeard_2": 1
+    "bk_b19_mossbeard_2": 1,
+    "bk_b9_prep_7_betting": 1
   }
 }
