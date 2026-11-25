@@ -1,0 +1,15 @@
+{
+  "totalPasses": 1,
+  "history": [
+    {
+      "pass": 1,
+      "questId": "bk_b2_dib_1",
+      "title": "Adventures of Dib I: Impregnable Fortress of Dib",
+      "file": "data/quests/books_quests_batch_002.js",
+      "summary": "Expanded from 7 linear pages to 11 richly branching pages with Milo Applecart's intro, Stealth/Perception flanking behind the rear axle, a full Parley/Duel/Firebolt branch with General Dib, hornet-nest sabotage payoff, Bramble the donkey rescue, and Dib's torn Wagon-of-Doom blueprint loot scene."
+    }
+  ],
+  "questPasses": {
+    "bk_b2_dib_1": 1
+  }
+}

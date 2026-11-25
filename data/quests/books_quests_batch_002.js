@@ -370,77 +370,124 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 5. ADVENTURES OF DIB I: IMPREGNABLE FORTRESS OF DIB (7 PAGES • LV 1)
-  // Part 1 of 2
+  // 5. ADVENTURES OF DIB I: IMPREGNABLE FORTRESS OF DIB (11 PAGES • LV 1)
+  // Part 1 of 2 (Enriched Pass 1)
   // ==========================================================
   bk_b2_dib_1: {
     id: "bk_b2_dib_1",
     title: "Adventures of Dib I: Impregnable Fortress of Dib",
-    subtitle: "Adventures of Dib (Part 1 of 2) • The Overturned-Wagon Citadel",
+    subtitle: "Part 1 of 2 • The Overturned-Wagon Citadel",
     difficulty: "Easy",
     recommendedLevel: 1,
     autoDiscover: false,
     discoverySource: "Irritated Trade-Caravan Master (Oakhaven Market)",
-    summary: "Track down the crafty goblin Dib Halfling-Chewer, who has fortified a stolen merchant wagon into an 'impregnable' roadside fortress bristling with ridiculous goblin traps.",
-    totalPages: 7,
+    summary: "Track down the crafty goblin Dib Halfling-Chewer, who has fortified a stolen merchant wagon into an 'impregnable' roadside fortress bristling with ridiculous goblin traps, kidnapped cargo, and blueprints for something far worse.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Oakhaven Trade Road",
         title: "Fortress of Splinters",
         safeRetreat: true,
-        text: "Beside a wooded bend sits an overturned freight wagon reinforced with barrel staves, soup pots, and a crudely painted banner reading 'IMPREGNABLE FORTRESS OF DIB!' Taunting goblin laughter echoes from behind the spokes.",
+        text: [
+          "At a wooded bend two miles east of Oakhaven, shattered cider casks and gouged wheel-ruts lead off the cobbles into a bramble clearing. Crouched behind a mossy milestone, a bruised halfling teamster named Milo Applecart points a trembling finger ahead.",
+          "There sits Master Harlan's stolen freight wagon—flipped on its side and ludicrously fortified with barrel staves, nailed soup pots, sharpened broomsticks, and a crooked bedsheet banner painted in berry juice: <em>'IMPREGNABLE FORTRESS OF DIB!'</em> Taunting goblin giggles and the clatter of tin pots echo from behind the spokes."
+        ],
         choices: [
-          { t: "Inspect the muddy approach for hidden goblin snares.", badge: "Perception DC 10", check: { stat: "spirit", skill: "Perception", dc: 10, pass: 2, fail: 2, failDmg: 2, passMsg: "You spot a concealed pit full of stinging nettles and step right around it!", failMsg: "Your boot plunges into a nettle-pit (-2 HP) as goblins giggle!" } },
-          { t: "March straight up and demand Dib surrender the stolen cargo!", to: 2 }
+          { t: "Scout the muddy bramble-line for hidden snares and a rear blindspot.", badge: "Perception DC 10", check: { stat: "spirit", skill: "Perception", dc: 10, pass: 2, fail: 3, failDmg: 2, passMsg: "You spot a concealed pit of stinging nettles and trace a quiet path behind the overturned axle!", failMsg: "Your boot plunges straight into a stinging nettle-pit (-2 HP) as goblins whoop from the ramparts!" }, onPass: { cw: "DIB_FLANKED" } },
+          { t: "Creep silently through the blackberry ditch to flank the rear axle.", badge: "Stealth", reqSkill: "Stealth", to: 2, onChoose: { cw: "DIB_FLANKED" } },
+          { t: "Step onto the road in full view and hail 'General Dib' for a formal parley.", to: 4 }
         ]
       },
       2: {
-        zone: "The Wheel-Barricade",
-        title: "Goblin Outriders",
-        text: "Three pot-helmeted goblin lackeys pop out from behind hay bales, slinging rotten turnips and rusty shortswords!",
-        enemy: { name: "Dib's Wagon Lackeys", desc: "Scrappy goblin bandits wearing soup-pot helmets.", hp: 15, ac: 10, atk: 3, dmg: 3, xp: 35, gold: 15, items: rollRandomLoot(["consumable"], 1, "common"), flee: 1 },
+        zone: "Behind the Overturned Axle",
+        title: "The Back-Wheel Blindspot",
+        text: "Slipping through the blackberry briars, you reach the blind side of the overturned wagon bed. Through the spokes you spy three pot-helmeted goblin lackeys arguing loudly over a stolen wheel of smoked cheddar. Better still, a taut hemp cord runs right past your elbow up to a huge, buzzing hornet nest perched precariously above their front barricade!",
         choices: [
-          { t: "Climb over the wagon-bed barricade into the 'throne room'!", to: 3 }
+          { t: "Snip the hornet-nest rope right now so it drops onto the outer guards!", badge: "Lockpicking / Agility DC 10", check: { stat: "agility", skill: "Lockpicking", dc: 10, pass: 5, fail: 3, passMsg: "Twang! The buzzing nest plummets onto the front barricade—sending the shrieking lackeys diving into the creek!", failMsg: "The rope snags and rattles the spokes! The lackeys drop their cheese and scramble toward you!" }, onPass: { cw: "HORNET_CHAOS" } },
+          { t: "Vault the axle and ambush the distracted lackeys while their mouths are full of cheddar!", to: 3 }
         ]
       },
       3: {
-        zone: "Inside the Overturned Wagon",
-        title: "The Bee-Hive Booby Trap",
-        text: "A frayed rope strung across the wagon canvas is tied directly to a buzzing hornet nest!",
+        zone: "The Wheel-Barricade",
+        title: "Goblin Outriders",
+        text: "Three scrappy goblin bandits wearing battered soup pots as helmets pop out from behind stacked hay bales! One bangs a copper frying pan like a war-drum while the others hurl rotten turnips and brandish jagged shortswords: 'For General Dib! Get the tall-legs!'",
+        enemy: { name: "Dib's Wagon Lackeys", desc: "Scrappy goblin bandits wearing soup-pot helmets and brandishing rusty blades.", hp: 15, ac: 10, atk: 3, dmg: 3, xp: 35, gold: 15, items: rollRandomLoot(["consumable"], 1, "common"), flee: 1, weakCw: ["DIB_FLANKED"] },
         choices: [
-          { t: "Carefully unhook the tripwire with nimble fingers.", badge: "Agility / Lockpicking DC 10", check: { stat: "agility", skill: "Lockpicking", dc: 10, pass: 4, fail: 4, failDmg: 3, passMsg: "Snip! The hornet nest stays safely tied up!", failMsg: "Buzz! Angry hornets sting your neck (-3 HP)!" } },
-          { t: "Duck and roll straight under the canvas!", to: 4 }
+          { t: "Vault over the wheel-barricade into the wagon's canvas-draped courtyard.", to: 5 }
         ]
       },
       4: {
-        zone: "Dib's Command Deck",
-        title: "Dib Halfling-Chewer",
-        text: "Perched atop a stack of stolen cheese wheels stands Dib Halfling-Chewer himself, brandishing a notched cleaver and an iron-rimmed wagon-wheel shield! 'None breach Dib's Fortress! Attack, my pretties!'",
-        enemy: { name: "Dib Halfling-Chewer & Guard", desc: "Ambitious, surprisingly crafty goblin wagon-lord.", hp: 20, ac: 11, atk: 4, dmg: 4, xp: 50, gold: 30, items: ["bq_dib_wagon_shield"] },
+        zone: "Front Ramparts",
+        title: "Parley with 'General Dib'",
+        text: "An oversized copper soup-pot helmet pokes over the splintered wagon rim, followed by two gleaming yellow eyes and a toothy grin. Dib Halfling-Chewer waves a wooden basting spoon like a royal scepter: <em>'Halt, trespasser! You stand before the IMPREGNABLE FORTRESS OF DIB! Pay three cheeses and your boots, or face my siege-turnips!'</em>",
         choices: [
-          { t: "Corner Dib—only to watch him dive through a trapdoor in the wagon floor!", to: 5 }
+          { t: "Flatter his 'masterwork siegecraft' and challenge him to a solo champion's duel so his lackeys stay back!", badge: "Persuasion DC 11", check: { stat: "spirit", skill: "Persuasion", dc: 11, pass: 6, fail: 3, passMsg: "Puffing out his chest, Dib orders his lackeys aside: 'Ha! Watch Dib duel, you turnip-brains!'", failMsg: "Dib narrows his eyes: 'Suspicious flattery! Pelt the tall-legs, boys!'" }, onPass: { cw: "HONOR_DUEL" } },
+          { t: "Hurl a Firebolt to scorch his prized 'IMPREGNABLE' banner clean off its pole!", badge: "Firebolt", reqSpell: "Firebolt", to: 5, onChoose: { cw: "BANNER_BURNED" } },
+          { t: "Enough nonsense—charge straight over the wheel-barricade!", to: 3 }
         ]
       },
       5: {
-        zone: "Roadside Ditch",
-        title: "A Vow of Vengeance",
-        text: "'You haven't seen the last of Dib!' the little goblin shrieks as he scrambles into the bushes clutching a blueprint for an even bigger wagon. At least all the merchant's stolen crates are intact!",
+        zone: "Wagon Courtyard",
+        title: "Ransacked Cargo & Bramble the Donkey",
+        text: "Beneath the patched canvas awning lies Master Harlan's overturned cargo: cracked jars spilling sweet cloves and cinnamon across the grass, half-chewed cheese rinds, and a nervous brown donkey named Bramble tethered tightly to the rear wheel. Beyond a hanging burlap curtain, you hear Dib barking orders inside his inner 'throne room.'",
         choices: [
-          { t: "Haul the recovered cargo back to Oakhaven Market.", to: 6 }
+          { t: "Cut Bramble loose and calm her with a handful of spilled oats before advancing.", to: 6, onChoose: { healHp: 3, cw: "BRAMBLE_SAVED", msg: "Bramble nuzzles your shoulder and trots safely back to Milo (+3 HP breather)!" } },
+          { t: "Creep straight up to the burlap curtain leading into Dib's command deck.", to: 6 }
         ]
       },
       6: {
-        zone: "Oakhaven Market",
-        title: "Cargo Restored",
-        text: "The caravan master chuckles in disbelief at Dib's soup-pot fortress and pays your full recovery fee.",
+        zone: "Inner Bulkhead",
+        title: "The Bee-Hive Booby Trap",
+        text: "Parting the burlap curtain, you spot Dib's proudest interior defense: a frayed wire stretched ankle-high across the splintered floorboards, rigged to yank a second angry paper hornet nest down from the wagon ribs!",
         choices: [
-          { t: "Collect your reward—and keep an eye out for Dib's return!", to: 7 }
+          { t: "Stride right past—your earlier hornet sabotage already rattled the whole nest loose!", badge: "Sabotaged", reqCw: "HORNET_CHAOS", to: 7 },
+          { t: "Carefully unhook the tripwire and lob the buzzing nest straight onto Dib's throne!", badge: "Lockpicking / Agility DC 10", check: { stat: "agility", skill: "Lockpicking", dc: 10, pass: 7, fail: 7, failDmg: 3, passMsg: "Snip—and toss! Angry hornets swarm straight into Dib's command deck before you even enter!", failMsg: "Snap! The nest drops early and furious hornets sting your neck (-3 HP)!" }, onPass: { cw: "DIB_STUNG" } },
+          { t: "Trace the wire with Detect Traps and slip cleanly past the snare.", badge: "Detect Traps", reqSpell: "Detect Traps", to: 7, onChoose: { cw: "DIB_STUNG" } },
+          { t: "Tuck your cloak over your face and dive straight under the canvas!", to: 7 }
         ]
       },
       7: {
+        zone: "Dib's Command Deck",
+        title: "Dib Halfling-Chewer",
+        text: [
+          "Perched atop a teetering pyramid of stolen Gouda wheels and peppercorn crates stands <strong>Dib Halfling-Chewer</strong> himself, brandishing a notched butcher's cleaver and a heavy iron-rimmed wagon-wheel buckler! Behind him, charcoal blueprints for a far larger, spike-wheeled carriage are pinned to the floorboards with bent forks.",
+          "<em>'None breach the Impregnable Fortress of Dib!'</em> he shrieks, hopping down with surprising agility. <em>'Taste steel and wagon-grease!'</em>"
+        ],
+        enemy: { name: "Dib Halfling-Chewer & Guard", desc: "Ambitious, surprisingly crafty goblin wagon-lord wielding a cleaver and wheel-shield.", hp: 20, ac: 11, atk: 4, dmg: 4, xp: 50, gold: 30, items: ["bq_dib_wagon_shield"], weakCw: ["DIB_STUNG", "HONOR_DUEL", "BANNER_BURNED"] },
+        choices: [
+          { t: "Corner Dib before he can reach the rear floorboards!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Roadside Culvert",
+        title: "The Trapdoor & Vow of Vengeance",
+        text: "As Dib's wagon-wheel buckler clatters across the planks, the little goblin lets out an indignant squawk, yanks his rolled charcoal blueprints off the wall, and kicks open a grease-slathered trapdoor hidden beneath the cheese crates! Dropping straight into the roadside drainage ditch, he scrambles into the thicket yelling: <em>'This fortress was only a PROTOTYPE, tall-legs! Next time Dib builds one that ROLLS! You haven't seen the last of Dib Halfling-Chewer!'</em>",
+        choices: [
+          { t: "Search Dib's hastily abandoned crate-desk before hauling the cargo home.", to: 9 },
+          { t: "Right the wagon with Milo's help and haul the recovered cargo back to Oakhaven.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Dib's Command Desk",
+        title: "The Torn Blueprint",
+        onEnter: { gold: 15, msg: "Found 15 GP stashed inside a tin spice-can along with a torn corner of Dib's war-wagon sketch!" },
+        text: "Amidst apple cores, pilfered tin spoons, and a dented soup-pot crown, you find a torn corner of Dib's next design: a terrifying double-decker armored carriage bristling with scythe-blades and stolen alchemical fireworks. Tucked inside an empty cinnamon tin sits a pouch of 15 GP Dib pinched from passing peddlers.",
+        choices: [
+          { t: "Pocket the sketch as a warning and help Milo haul the cargo back to Oakhaven Market.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Oakhaven Market",
+        title: "Cargo Restored",
+        text: "Master Harlan and Milo Applecart cheer as the righted freight wagon rolls safely back into Oakhaven Market with its spices and cheese crates intact. Harlan laughs heartily at Dib's dented soup-pot crown and counts out your full recovery fee—though his smile fades when you describe the goblin's vow to build a rolling juggernaut.",
+        choices: [
+          { t: "Collect your reward—and keep an eye on the frontier highway for Dib's return!", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Fortress Breached",
-        text: "Dib's Impregnable Fortress has fallen—yet his sworn vengeance looms! <strong>Adventures of Dib II: Dib's Wagon of Doom</strong> is now unlocked!",
+        text: "Dib's Impregnable Fortress has fallen and Oakhaven's trade road is safe for now—yet his sworn vengeance looms! <strong>Adventures of Dib II: Dib's Wagon of Doom</strong> is now unlocked on your Quest Board!",
         ending: { type: "true", title: "Wreck-Master of Dib's Fortress", xp: 90, gold: 85, trophy: "Dib's Soup-Pot Crown" },
         choices: []
       }
