@@ -592,7 +592,17 @@ window.OAKHAVEN.registerItems({
     "rarity": "uncommon",
     "value": 65,
     "ac": 3,
-    "desc": "+3 AC Heavy Shield (Tome of Heroes)"
+    "passives": {
+      "dmgReduce": 2
+    },
+    "activeAbility": {
+      "name": "Bulwark Stance",
+      "icon": "🛡️",
+      "charges": 2,
+      "shieldTurns": 2,
+      "desc": "2/Quest: Plant the massive iron-rimmed tower shield to gain +3 AC for 2 turns!"
+    },
+    "desc": "Full-length iron-rimmed bulwark shield (-2 Dmg Taken) with Bulwark Stance."
   },
   "bk_spiked_buckler": {
     "id": "bk_spiked_buckler",

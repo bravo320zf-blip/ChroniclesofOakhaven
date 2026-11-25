@@ -846,7 +846,18 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     luck: 2,
     maxMp: 5,
-    desc: "+2 Arcana, +2 Luck, +5 Max MP. Elven Great Retreat navigator from the Chamber of Tomorrows."
+    passives: { spellCostReduce: 1, mpRegen: 1, skillBonus: { Lore: 3, Perception: 2 } },
+    activeAbility: {
+      name: "Chart of Tomorrows",
+      icon: "🧭",
+      charges: 2,
+      ooc: true,
+      restoreMp: 5,
+      restoreLuck: 2,
+      evadeTurns: 2,
+      desc: "2/Quest: Sight the star-lanes of tomorrow — restore +5 MP, +2 Current Luck, and gain Evade (2t)!"
+    },
+    desc: "Elven brass star-navigator from the Chamber of Tomorrows (-1 MP Cost, +1 MP/turn, +3 Lore) with Chart of Tomorrows."
   },
   "bq_ylia_war_crown": {
     id: "bq_ylia_war_crown",
@@ -965,7 +976,18 @@ window.OAKHAVEN.registerItems({
     source: "Tome of Beasts 2 Lairs",
     spirit: 2,
     maxHp: 6,
-    desc: "+2 Spirit, +6 Max HP. Living druid-vine circlet from the cleansed Twisted Wreath."
+    passives: { healBonus: 3, thornsDmg: 3, skillBonus: { Survival: 2 } },
+    activeAbility: {
+      name: "Wreath of Renewal",
+      icon: "🌺",
+      charges: 2,
+      ooc: true,
+      healDice: "2d8",
+      healStat: "spirit",
+      shieldTurns: 2,
+      desc: "2/Quest: Let Ilkarayda's vines bloom — restore 2d8 + Spirit HP and gain +3 AC (2t)!"
+    },
+    desc: "Living druid-vine circlet from the cleansed Twisted Wreath (+3 Healing, 3 Thorns, +2 Survival) with Wreath of Renewal."
   },
   "bq_thyrdun_miner_pick": {
     id: "bq_thyrdun_miner_pick",

@@ -1,6 +1,6 @@
 {
-  "totalPasses": 12,
-  "totalItemsReworked": 120,
+  "totalPasses": 13,
+  "totalItemsReworked": 130,
   "history": [
     {
       "pass": 1,
@@ -193,6 +193,22 @@
         "crown_of_thorns"
       ],
       "summary": "Reworked 7 Vault of Magic items (including Mountain Hewer, Kraken Clutch Ring, Signet of the Magister, Boots of Pouncing, Alchemical Lantern), Spiked Chain, Locket of Clear Memory, and Circlet of Living Thorns."
+    },
+    {
+      "pass": 13,
+      "items": [
+        "vom_dirk_daring",
+        "vom_anchor_striking",
+        "vom_white_ape_hide",
+        "vom_rod_icicles",
+        "vom_staff_treant",
+        "vom_scouts_coat",
+        "vom_mantle_lion",
+        "bk_tower_shield",
+        "bq_celestial_sextant",
+        "bq_ilkarayda_vine_band"
+      ],
+      "summary": "Reworked 7 Vault of Magic items (including Staff of the Treant, White Ape Hide, Rod of Icicles, Anchor of Striking, Mantle of the Lion), Tower Shield, Thornish Celestial Sextant, and Ilkarayda's Blossoming Band."
     }
   ],
   "itemPasses": {
@@ -315,6 +331,16 @@
     "vom_boots_pouncing": 1,
     "bk_spiked_chain": 1,
     "bq_lethe_memory_locket": 1,
-    "crown_of_thorns": 1
+    "crown_of_thorns": 1,
+    "vom_dirk_daring": 1,
+    "vom_anchor_striking": 1,
+    "vom_white_ape_hide": 1,
+    "vom_rod_icicles": 1,
+    "vom_staff_treant": 1,
+    "vom_scouts_coat": 1,
+    "vom_mantle_lion": 1,
+    "bk_tower_shield": 1,
+    "bq_celestial_sextant": 1,
+    "bq_ilkarayda_vine_band": 1
   }
 }
