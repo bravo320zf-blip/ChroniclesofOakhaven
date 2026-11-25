@@ -676,3 +676,103 @@ window.OAKHAVEN.registerItems({
     desc: "+2 AC, +2 Agility, +2 Luck. Ancient feline artifact recovered from the sunken Growling Sanctuary."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 007 — Empire of the Ghouls (I-VI), City of Cats (Three Little Pigs), Hidden Tomb of Nargoth (I-III), Last Gasp
+  "bq_adelind_holy_robes": {
+    id: "bq_adelind_holy_robes",
+    name: "Holy Robes of Sister Adelind",
+    type: "cloak",
+    rarity: "rare",
+    value: 165,
+    source: "Empire of the Ghouls",
+    ac: 2,
+    spirit: 2,
+    maxHp: 5,
+    desc: "+2 AC, +2 Spirit, +5 Max HP. Consecrated relic vestments recovered from Castle Orzelbirg."
+  },
+  "bq_spear_maiden_aegis": {
+    id: "bq_spear_maiden_aegis",
+    name: "Randgrid's Spear-Maiden Torque",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 235,
+    source: "Empire of the Ghouls",
+    might: 2,
+    ac: 2,
+    maxHp: 6,
+    desc: "+2 Might, +2 AC, +6 Max HP. Runed northern silver torque honoring the fall of the Blood Marriage."
+  },
+  "bq_gravebinder_shroud": {
+    id: "bq_gravebinder_shroud",
+    name: "Siwal Gravebinder Shroud",
+    type: "cloak",
+    rarity: "very_rare",
+    value: 295,
+    source: "Empire of the Ghouls",
+    ac: 2,
+    agility: 2,
+    spirit: 2,
+    desc: "+2 AC, +2 Agility, +2 Spirit. Desert linen ward allowing mortals to walk unseen among the undead."
+  },
+  "bq_narosain_underworld_staff": {
+    id: "bq_narosain_underworld_staff",
+    name: "Staff of the Fuligin Underworld",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 350,
+    source: "Empire of the Ghouls",
+    atk: 6,
+    arcana: 3,
+    maxMp: 6,
+    desc: "+6 Attack, +3 Arcana, +6 Max MP. Ancient underworld relic wrested from cave dragon Gondecap."
+  },
+  "bq_krakova_royal_signet": {
+    id: "bq_krakova_royal_signet",
+    name: "Royal Signet of Krakova",
+    type: "accessory",
+    rarity: "legendary",
+    value: 440,
+    source: "Empire of the Ghouls",
+    ac: 3,
+    might: 2,
+    spirit: 2,
+    maxHp: 10,
+    desc: "+3 AC, +2 Might, +2 Spirit, +10 Max HP. Archduke Avgost Walerska's royal heirloom from Vandekhul."
+  },
+  "bq_omar_golden_truffle": {
+    id: "bq_omar_golden_truffle",
+    name: "Omar's Lucky Festival Charm",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 95,
+    source: "City of Cats",
+    luck: 2,
+    spirit: 1,
+    desc: "+2 Luck, +1 Spirit. Gilded Day of Pigs keepsake gifted by grateful merchant Omar-bac-Maheem."
+  },
+  "bq_nargoth_void_seal": {
+    id: "bq_nargoth_void_seal",
+    name: "Sealed Star-Disk of Nargoth",
+    type: "accessory",
+    rarity: "rare",
+    value: 180,
+    source: "Hidden Tomb of Nargoth",
+    ac: 1,
+    arcana: 2,
+    maxMp: 5,
+    desc: "+1 AC, +2 Arcana, +5 Max MP. Ward-disk closing the void breach inside Nargoth's hidden tomb."
+  },
+  "bq_last_gasp_ampoule": {
+    id: "bq_last_gasp_ampoule",
+    name: "Ampoule of Eternal Breath",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 225,
+    source: "Last Gasp",
+    ac: 2,
+    might: 1,
+    maxHp: 8,
+    desc: "+2 AC, +1 Might, +8 Max HP. Desert-glass vessel brimming with cool oasis air from the Tomb of Last Gasp."
+  }
+});

@@ -1,6 +1,6 @@
 {
-  "batchCount": 6,
-  "totalQuestsAdded": 71,
+  "batchCount": 7,
+  "totalQuestsAdded": 82,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -128,8 +128,10 @@
       ]
     },
     "Books/Kobold Press/City of Cats/City-of-Cats-5E-v2-iwuuqa_61242759bfe4d.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Three Little Pigs (Cat & Mouse and Grimalkin also converted)"
+      ]
     },
     "Books/Kobold Press/Courts of the Shadow Fey/Courts of the Shadow Fey.pdf": {
       "status": "done",
@@ -327,8 +329,15 @@
       ]
     },
     "Books/Kobold Press/Empire of Ghouls/Kobold Press - Empire of Ghouls.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Empire of the Ghouls I: Dread Chambers of the Undercity",
+        "Empire of the Ghouls II: The Holy Robes of Sister Adelind",
+        "Empire of the Ghouls III: The Blood Marriage",
+        "Empire of the Ghouls IV: Catacombs of the Ghul King",
+        "Empire of the Ghouls V: Into the Fuligin Realm",
+        "Empire of the Ghouls VI: The Pure City of Vandekhul"
+      ]
     },
     "Books/Kobold Press/Frozen Castle/Frozen Castle.pdf": {
       "status": "done",
@@ -360,11 +369,16 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Hidden Tomb of Nargoth/Hidden-Tomb-of-Nargoth_Final-xwyssb.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Hidden Tomb of Nargoth I: Locate the Tomb",
+        "Hidden Tomb of Nargoth II: Infiltrate the Cult",
+        "Hidden Tomb of Nargoth III: Face the Void"
+      ]
     },
     "Books/Kobold Press/Items Wondrous Strange/Items Wondrous Strange.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "reference/bestiary/duplicate",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Board Game Design/Kobold Guide to Board Game Design.pdf": {
@@ -418,15 +432,19 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Last Gasp/Last Gasp.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Last Gasp"
+      ]
     },
     "Books/Kobold Press/Midgard Heroes Handbook/Midgard Heroes Handbook.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "reference/bestiary/duplicate",
       "convertedTitles": []
     },
     "Books/Kobold Press/Midgard Heroes/Midgard Heroes.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "reference/bestiary/duplicate",
       "convertedTitles": []
     },
     "Books/Kobold Press/Midgard Sagas/Midgard Sagas.pdf": {
@@ -434,11 +452,13 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Midgard World Book/Midgard World Book.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "reference/bestiary/duplicate",
       "convertedTitles": []
     },
     "Books/Kobold Press/Monster Books/Creature Codex.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "reference/bestiary/duplicate",
       "convertedTitles": []
     },
     "Books/Kobold Press/Monster Books/Tome of Beasts 2 Lairs.pdf": {
@@ -446,15 +466,18 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Monster Books/Tome of Beasts 2.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "reference/bestiary/duplicate",
       "convertedTitles": []
     },
     "Books/Kobold Press/Monster Books/Tome of Beasts.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "reference/bestiary/duplicate",
       "convertedTitles": []
     },
     "Books/Kobold Press/Prepared! (2)/Prepared! A Dozen Adventures for Fifth Edition.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "reference/bestiary/duplicate",
       "convertedTitles": []
     },
     "Books/Kobold Press/Prepared!/Prepared! A Dozen Adventures for Fifth Edition.pdf": {
