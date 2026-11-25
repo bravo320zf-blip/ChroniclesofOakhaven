@@ -28,6 +28,37 @@
   const TAVERN_NPCS = window.OAKHAVEN.npcs;
   const ADVENTURES = window.OAKHAVEN.quests;
 
+  // Strip real-world sourcebook names from quest subtitles while preserving in-world locations & Part X of Y labels
+  function cleanQuestSubtitle(raw) {
+    if (!raw) return "";
+    const SOURCE_PREFIXES = [
+      "12 Peculiar Towers",
+      "Book of Lairs",
+      "Creature Codex Lairs",
+      "Eldritch Lairs",
+      "Midgard Sagas",
+      "Midgard Side-Trek",
+      "Prepared!",
+      "Tome of Beasts 2 Lairs",
+      "Tome of Beasts Lairs",
+      "Southlands Adventure",
+      "Tales of the Valiant",
+      "Tyranny of Dragons",
+      "City of Cats",
+      "Warlock Lairs",
+      "Warlock Lair"
+    ];
+    let s = String(raw).trim();
+    for (const src of SOURCE_PREFIXES) {
+      const esc = src.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      // e.g. "Book of Lairs (Part 1 of 2) • Foo" -> "Part 1 of 2 • Foo"
+      s = s.replace(new RegExp(`^${esc}\\s*\\((Part\\s+\\d+\\s+of\\s+\\d+)\\)\\s*(?:[•\\-–—:]\\s*)?`, "i"), "$1 • ");
+      // e.g. "12 Peculiar Towers • Foo" -> "Foo"
+      s = s.replace(new RegExp(`^${esc}\\s*(?:[•\\-–—:]\\s*)?`, "i"), "");
+    }
+    return s.replace(/^\s*[•\-–—:]\s*/, "").replace(/\s*[•\-–—:]\s*$/, "").trim();
+  }
+
   // Automatically place every non-autoDiscover quest (that has no prerequisite and no
   // dedicated NPC/location trigger) into the Rusty Flagon Inn's rotating rumor patron pool.
   (() => {
@@ -44,6 +75,7 @@
       const rawSrc = (adv.discoverySource || "Frontier Traveler").replace(/\s*\([^)]*\)\s*/g, "").trim();
       const patronName = rawSrc || "Frontier Traveler";
       const lvlTag = adv.recommendedLevel ? `Lv. ${adv.recommendedLevel}+` : "Frontier";
+      const cleanSub = cleanQuestSubtitle(adv.subtitle);
       TAVERN_NPCS.push({
         id: `inn_rumor_${adv.id}`,
         name: patronName,
@@ -54,7 +86,7 @@
           {
             label: `Ask for the trail to ${adv.title}`,
             unlock: adv.id,
-            reply: `"I've marked the route to ${adv.title} on the Town Square Quest Board for you. Stay sharp—${adv.subtitle || "danger awaits"}!"`
+            reply: `"I've marked the route to ${adv.title} on the Town Square Quest Board for you. Stay sharp—${cleanSub || "danger awaits"}!"`
           },
           {
             label: "Buy them a mug and listen to local gossip",
@@ -73,16 +105,11 @@
   const bgm = (theme) => window.OAKHAVEN_AUDIO?.setMusic(theme);
 
   function updateHeaderTotals() {
-    const allAdvs = Object.values(ADVENTURES);
-    const totalQuests = allAdvs.length;
-    const totalPages = allAdvs.reduce((sum, a) => sum + (a.totalPages || Object.keys(a.pages || {}).length), 0);
+    const subText = "Solo Fantasy Gamebook RPG • Frontier Tales & Rumors";
     const subEl = document.getElementById("header-subtitle");
-    const subText = `Solo Fantasy Gamebook RPG • ${totalQuests} Complete Adventures (${totalPages} Pages)`;
     if (subEl) subEl.textContent = subText;
     const launchSub = document.getElementById("launch-subtitle");
     if (launchSub) launchSub.textContent = subText;
-    const hdrTotal = document.getElementById("hdr-total-quests");
-    if (hdrTotal) hdrTotal.textContent = totalQuests;
   }
   updateHeaderTotals();
 
@@ -1579,16 +1606,14 @@
       const discovered = state.discoveredQuests
           .map(id => ADVENTURES[id])
           .filter(adv => adv && (!adv.reqQuest || !!state.completedQuests[adv.reqQuest]));
-        const totalAdvs = Object.values(ADVENTURES)
-          .filter(adv => !adv.reqQuest || !!state.completedQuests[adv.reqQuest]).length;
       box.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div>
             <h3 class="font-display text-xl font-bold text-amber-300">Town Square &amp; Quest Board</h3>
-            <p class="text-xs text-stone-400">Talk to patrons in the Rusty Flagon, Market, and Temple—or scout the Outskirts—to uncover all ${totalAdvs} adventures.</p>
+            <p class="text-xs text-stone-400">Talk to patrons in the Rusty Flagon, Market, and Temple—or scout the Outskirts—to uncover rumors of new adventures.</p>
           </div>
           <span class="px-3 py-1 rounded-full bg-stone-950 border border-amber-700/40 text-xs text-amber-200 font-semibold">
-            Discovered: ${discovered.length} / ${totalAdvs}
+            Discovered: ${discovered.length}
           </span>
         </div>
         <div id="quest-board-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
@@ -1596,6 +1621,7 @@
       const grid = box.querySelector("#quest-board-grid");
       discovered.forEach(adv => {
         const done = !!state.completedQuests[adv.id];
+        const cleanSub = cleanQuestSubtitle(adv.subtitle);
         const card = document.createElement("div");
         card.className = "p-4 rounded-xl bg-stone-950/90 border border-amber-700/35 flex flex-col justify-between gap-3";
         card.innerHTML = `
@@ -1603,10 +1629,10 @@
             <div class="flex items-start justify-between gap-2">
               <h4 class="font-display text-base font-bold text-amber-200 leading-snug">${adv.title}</h4>
               <span class="px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${done ? "bg-emerald-950 text-emerald-300 border border-emerald-600/50" : "bg-amber-950 text-amber-300 border border-amber-600/40"}">
-                ${done ? "✓ Cleared" : `${adv.totalPages} Pages`}
+                ${done ? "✓ Cleared" : "Active Lead"}
               </span>
             </div>
-            <div class="text-[11px] text-amber-400/80 mt-0.5">${adv.subtitle} &bull; ${adv.difficulty} (Lv. ${adv.recommendedLevel}+)</div>
+            <div class="text-[11px] text-amber-400/80 mt-0.5">${cleanSub ? `${cleanSub} &bull; ` : ""}${adv.difficulty} (Lv. ${adv.recommendedLevel}+)</div>
             <p class="text-xs text-stone-300 mt-2 leading-relaxed">${adv.summary}</p>
           </div>
           <button class="w-full py-2 rounded-lg btn-gold font-display text-xs uppercase tracking-wider">
@@ -3113,7 +3139,8 @@
       document.getElementById("adv-header-meta").textContent = `${adv.title} • ${page.zone}`;
       document.getElementById("adv-page-title").textContent = page.title;
       document.getElementById("adv-page-num").textContent = state.activeAdv.page;
-      document.getElementById("adv-page-total").textContent = adv.totalPages;
+      const pageTotalEl = document.getElementById("adv-page-total");
+      if (pageTotalEl) pageTotalEl.textContent = "";
 
       const bEl = document.getElementById("adv-roll-banner");
       if (banner?.text) {
