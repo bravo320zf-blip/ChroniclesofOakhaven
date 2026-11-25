@@ -1,6 +1,6 @@
 {
-  "batchCount": 16,
-  "totalQuestsAdded": 186,
+  "batchCount": 17,
+  "totalQuestsAdded": 198,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -735,8 +735,21 @@
       "reason": "bestiary reference"
     },
     "Books/Kobold Press/Tome of Beasts 3 Lairs/Tome of Beasts 3 Lairs for 5th Edition.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "in_progress",
+      "convertedTitles": [
+        "Proudheart's Predator Problem",
+        "Flight of the Dromedaries",
+        "Furor in the Farmyard",
+        "Salvage at Lonely Cove",
+        "Automated Banditry",
+        "Evil Rises",
+        "Four-Part Harmony",
+        "Harvest Fangs",
+        "The Pavilion of Whispers and Wonderment",
+        "Rainforest Reckoning",
+        "Safe and Sound",
+        "Lord Gorgo's Keep"
+      ]
     },
     "Books/Kobold Press/Tome of Beasts 3/Tome of Beasts 3 for 5th Edition.pdf": {
       "status": "skipped_no_quests",

@@ -1777,3 +1777,132 @@ window.OAKHAVEN.registerItems({
     desc: "+2 AC, +3 Spirit, +2 Arcana, +14 Max HP. Pulsing emerald relic of the cleansed primeval forest."
   }
 });
+
+
+window.OAKHAVEN.registerItems({
+  // Batch 017 — Frontier Lairs (Part 1)
+  "bq_proudheart_wool_cloak": {
+    id: "bq_proudheart_wool_cloak",
+    name: "Wool-Off Champion Mantle",
+    type: "cloak",
+    rarity: "uncommon",
+    value: 90,
+    ac: 1,
+    luck: 1,
+    maxHp: 4,
+    desc: "+1 AC, +1 Luck, +4 Max HP. Impossibly soft fleece cloak woven by Grumbo Proudheart."
+  },
+  "bq_caravan_water_flask": {
+    id: "bq_caravan_water_flask",
+    name: "Dune-Runner's Evercool Flask",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 95,
+    spirit: 1,
+    maxHp: 5,
+    desc: "+1 Spirit, +5 Max HP. Desert traveler's charm gifted after saving the scattered camels."
+  },
+  "bq_hundedel_dragonette_charm": {
+    id: "bq_hundedel_dragonette_charm",
+    name: "Brass Dragonette Bell",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 115,
+    agility: 1,
+    luck: 2,
+    desc: "+1 Agility, +2 Luck. Shiny keepsake gifted by the grateful Barnyard Dragonettes."
+  },
+  "bq_lonely_cove_spyglass": {
+    id: "bq_lonely_cove_spyglass",
+    name: "Lonely Cove Brass Spyglass",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 120,
+    agility: 1,
+    spirit: 1,
+    luck: 1,
+    desc: "+1 Agility, +1 Spirit, +1 Luck. Storm-salvaged captain's glass from Lonely Cove."
+  },
+  "bq_clockwork_pugilist_knuckles": {
+    id: "bq_clockwork_pugilist_knuckles",
+    name: "Clockwork Pugilist Gauntlets",
+    type: "weapon",
+    rarity: "rare",
+    value: 150,
+    atk: 4,
+    might: 1,
+    desc: "+4 Attack, +1 Might. Spring-loaded brass brawling gauntlets salvaged from the bandit mill."
+  },
+  "bq_amaranth_hearth_charm": {
+    id: "bq_amaranth_hearth_charm",
+    name: "Amaranth's Golden Hearth-Charm",
+    type: "accessory",
+    rarity: "rare",
+    value: 155,
+    spirit: 2,
+    maxHp: 6,
+    desc: "+2 Spirit, +6 Max HP. Warm cinnamon-scented draconic charm gifted by Amaranth the Bakery Drake."
+  },
+  "bq_conductor_ivory_baton": {
+    id: "bq_conductor_ivory_baton",
+    name: "Clockwork Conductor's Baton",
+    type: "weapon",
+    rarity: "rare",
+    value: 155,
+    atk: 3,
+    arcana: 2,
+    desc: "+3 Attack, +2 Arcana. Sparking ivory baton claimed from the haunted bardic college."
+  },
+  "bq_sycamore_golden_sickle": {
+    id: "bq_sycamore_golden_sickle",
+    name: "Cleansed Sycamore Harvest Sickle",
+    type: "weapon",
+    rarity: "rare",
+    value: 155,
+    atk: 4,
+    spirit: 1,
+    desc: "+4 Attack, +1 Spirit. Purified silvered sickle freed from the blood-soil cult."
+  },
+  "bq_maestro_whisper_mask": {
+    id: "bq_maestro_whisper_mask",
+    name: "Whisper-Silk Mask of the Pavilion",
+    type: "accessory",
+    rarity: "rare",
+    value: 185,
+    ac: 1,
+    arcana: 2,
+    luck: 1,
+    desc: "+1 AC, +2 Arcana, +1 Luck. Extraplanar domino mask lifted from The Maestro's stage."
+  },
+  "bq_bukofa_jade_totem": {
+    id: "bq_bukofa_jade_totem",
+    name: "Bukofa Emerald Canopy Totem",
+    type: "accessory",
+    rarity: "rare",
+    value: 185,
+    might: 1,
+    spirit: 2,
+    maxHp: 6,
+    desc: "+1 Might, +2 Spirit, +6 Max HP. Carved jungle talisman blessed by the grove's Aziza."
+  },
+  "bq_catamount_claw_charm": {
+    id: "bq_catamount_claw_charm",
+    name: "Great Catamount Claw Pendant",
+    type: "accessory",
+    rarity: "rare",
+    value: 190,
+    might: 2,
+    agility: 2,
+    desc: "+2 Might, +2 Agility. Fierce predator's charm won on the high pass above Bay's Burrow."
+  },
+  "bq_gorgo_artisan_hammer": {
+    id: "bq_gorgo_artisan_hammer",
+    name: "Lord Gorgo's Masterwork Hammer",
+    type: "weapon",
+    rarity: "rare",
+    value: 215,
+    atk: 5,
+    might: 2,
+    desc: "+5 Attack, +2 Might. Genuine runic forging-hammer seized from Spiteful Keep."
+  }
+});
