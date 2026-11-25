@@ -1133,7 +1133,7 @@
         equipment: { ...arch.gear },
         backpack: ["health_potion", "health_potion", "torch"],
         stash: [], vaultGold: 0,
-        blessing: null, innBuff: null, shieldTurns: 0, evadeTurns: 0,
+        blessing: null, innBuff: null, innRested: false, shieldTurns: 0, evadeTurns: 0,
         discoveredQuests: startingQuests,
         completedQuests: {}, // { advId: trophyName }
         kills: 0, deaths: 0,
@@ -1648,14 +1648,16 @@
     }
 
     function renderDistrictTavern(box) {
+      const alreadyRested = !!(state.innRested || state.innBuff);
+      const buffLbl = state.innBuff ? state.innBuff.charAt(0).toUpperCase() + state.innBuff.slice(1) : "";
       box.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
           <div>
             <h3 class="font-display text-xl font-bold text-amber-300">The Rusty Flagon Tavern</h3>
             <p class="text-xs text-stone-400">Hearthfire, warm beds, and frontier rumors from seasoned travelers.</p>
           </div>
-          <button id="btn-inn-rest" class="px-4 py-2 rounded-xl btn-gold text-xs font-display uppercase shadow">
-            🛏️ Rest at Inn (10 GP)
+          <button id="btn-inn-rest" ${alreadyRested ? "disabled" : ""} class="px-4 py-2 rounded-xl text-xs font-display uppercase shadow ${alreadyRested ? "bg-stone-800/80 border border-stone-700 text-stone-400 cursor-not-allowed" : "btn-gold"}">
+            ${alreadyRested ? `✓ Rested${buffLbl ? ` (+1 ${buffLbl})` : ""} • Quest to Rest Again` : "🛏️ Rest at Inn (10 GP)"}
           </button>
         </div>
         <div id="tavern-dialogue-box" class="${activeNpcDialogue ? "" : "hidden"} mb-4 p-4 rounded-xl bg-stone-950 border border-amber-500/50 space-y-2 pop-in"></div>
@@ -1663,6 +1665,9 @@
       `;
 
       box.querySelector("#btn-inn-rest").onclick = () => {
+        if (state.innRested || state.innBuff) {
+          return toast("You've already rested! Go on a quest before resting at the inn again.", "info");
+        }
         if (getTownGold() < 10) return toast("Need 10 GP for a room at the Rusty Flagon.", "bad");
         spendGoldWithVault(10);
         const statPool = [
@@ -1673,6 +1678,7 @@
           ["luck", "Luck"]
         ];
         const [statKey, statLabel] = statPool[Math.floor(Math.random() * statPool.length)];
+        state.innRested = true;
         state.innBuff = statKey;
         const d = getDerived(state);
         state.hp = d.maxHp; state.mp = d.maxMp; state.currentLuck = d.maxLuck;
@@ -2489,6 +2495,7 @@
       closeBuildingModal();
       stopAutoWalk();
       state.mode = "adventure";
+      state.innRested = false;
       state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false };
       activeCombat = null;
       sfx("quest");
@@ -3905,6 +3912,7 @@
     document.getElementById("btn-return-town-victory").addEventListener("click", () => enterTown("square", false));
     document.getElementById("btn-resurrect-temple").addEventListener("click", resurrectAtTemple);
     document.getElementById("btn-retreat-town").addEventListener("click", () => {
+      state.innBuff = null;
       addLog("Retreated safely back to Oakhaven.", "info");
       enterTown("square", false);
     });
