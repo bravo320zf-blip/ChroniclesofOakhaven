@@ -163,13 +163,16 @@
         mergedVault = localVault;
         localHadNewer = true;
       } else if (localVault && cloudVault) {
-        if (parseTime(localVault.updatedAt) > parseTime(cloudVault.updatedAt)) {
-          mergedVault = localVault;
+        const unionRecipes = Array.from(new Set([
+          ...(Array.isArray(localVault.unlockedRecipes) ? localVault.unlockedRecipes : []),
+          ...(Array.isArray(cloudVault.unlockedRecipes) ? cloudVault.unlockedRecipes : [])
+        ]));
+        const localNewer = parseTime(localVault.updatedAt) > parseTime(cloudVault.updatedAt);
+        mergedVault = localNewer ? { ...localVault, unlockedRecipes: unionRecipes } : { ...cloudVault, unlockedRecipes: unionRecipes };
+        if (localNewer || unionRecipes.length > (Array.isArray(cloudVault.unlockedRecipes) ? cloudVault.unlockedRecipes.length : 0)) {
           localHadNewer = true;
-        } else {
-          mergedVault = cloudVault;
-          localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(mergedVault));
         }
+        localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(mergedVault));
       }
 
       if (localHadNewer) {

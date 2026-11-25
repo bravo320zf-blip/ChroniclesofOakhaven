@@ -4766,10 +4766,11 @@
             }
             state.unlockedRecipes.push(it.unlocksRecipe);
             state.backpack.splice(i, 1);
+            persistVaultChange();
             const targetName = ITEMS_DB[it.unlocksRecipe]?.name || it.name;
             sfx("scroll");
-            toast(`📜 Unlocked Forge Recipe: ${targetName}!`, "gold");
-            addLog(`Learned Forge Schematic: ${targetName}!`, "gold");
+            toast(`📜 Unlocked Account-Wide Forge Recipe: ${targetName}!`, "gold");
+            addLog(`Learned Forge Schematic (Shared Account-Wide): ${targetName}!`, "gold");
             if (currentDistrict === "forge" && buildingModalOpen) renderTown();
           } else if (act === "learn_spell") {
             ensureHeroProgressionState(state);
@@ -5092,10 +5093,14 @@
       const activeTab = typeof raw?.activeStashTab === "number" && raw.activeStashTab >= 0 && raw.activeStashTab < stashTabs.length
         ? raw.activeStashTab
         : 0;
+      const recipes = Array.isArray(raw?.unlockedRecipes)
+        ? [...new Set(raw.unlockedRecipes.filter(r => typeof r === "string" && r.length > 0))]
+        : [];
       return {
         vaultGold: Math.max(0, Number(raw?.vaultGold) || 0),
         stashTabs,
         activeStashTab: activeTab,
+        unlockedRecipes: recipes,
         updatedAt: raw?.updatedAt || new Date().toISOString()
       };
     }
@@ -5139,7 +5144,17 @@
       }
     }
 
-    // One-time migration: merges every existing hero's individual vault gold, unlocked tabs, and items into one account-wide Shared Vault without losing a single item
+    function collectRecipesFromSlots(slots) {
+      const set = new Set();
+      (slots || []).forEach(slot => {
+        if (slot && Array.isArray(slot.unlockedRecipes)) {
+          slot.unlockedRecipes.forEach(r => { if (typeof r === "string" && r.length > 0) set.add(r); });
+        }
+      });
+      return [...set];
+    }
+
+    // One-time migration: merges every existing hero's individual vault gold, unlocked tabs, items, and crafting recipes into one account-wide Shared Vault without losing anything
     function migrateLegacyVaultsFromSlots(slots) {
       let totalGold = 0;
       let maxTabs = 1;
@@ -5167,6 +5182,7 @@
         vaultGold: totalGold,
         stashTabs: combinedTabs,
         activeStashTab: 0,
+        unlockedRecipes: collectRecipesFromSlots(slots),
         updatedAt: new Date().toISOString()
       });
       try { localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(migrated)); } catch (_) {}
@@ -5178,7 +5194,17 @@
         const raw = localStorage.getItem(SHARED_VAULT_KEY);
         if (raw) {
           const parsed = JSON.parse(raw);
-          if (parsed && typeof parsed === "object") return normalizeSharedVaultData(parsed);
+          if (parsed && typeof parsed === "object") {
+            // Backfill shared crafting recipes from all hero slots if upgrading from pre-recipe shared vault
+            if (!Array.isArray(parsed.unlockedRecipes)) {
+              parsed.unlockedRecipes = collectRecipesFromSlots(getSaveSlots());
+              parsed.updatedAt = new Date().toISOString();
+              const upgraded = normalizeSharedVaultData(parsed);
+              try { localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(upgraded)); } catch (_) {}
+              return upgraded;
+            }
+            return normalizeSharedVaultData(parsed);
+          }
         }
       } catch (_) {}
       return migrateLegacyVaultsFromSlots(getSaveSlots());
@@ -5191,6 +5217,18 @@
       target.stashTabs = cloneVaultTabs(sv.stashTabs);
       target.activeStashTab = Math.min(sv.activeStashTab, target.stashTabs.length - 1);
       target.stash = target.stashTabs[0];
+      const mergedRecipes = new Set(sv.unlockedRecipes || []);
+      let addedNew = false;
+      if (Array.isArray(target.unlockedRecipes)) {
+        target.unlockedRecipes.forEach(r => {
+          if (typeof r === "string" && r.length > 0 && !mergedRecipes.has(r)) {
+            mergedRecipes.add(r);
+            addedNew = true;
+          }
+        });
+      }
+      target.unlockedRecipes = [...mergedRecipes];
+      if (addedNew) syncSharedVaultFromState(target);
     }
 
     function syncSharedVaultFromState(target = state) {
@@ -5200,6 +5238,7 @@
         vaultGold: target.vaultGold || 0,
         stashTabs: cloneVaultTabs(tabs),
         activeStashTab: target.activeStashTab || 0,
+        unlockedRecipes: Array.isArray(target.unlockedRecipes) ? target.unlockedRecipes : [],
         updatedAt: new Date().toISOString()
       });
       try { localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(vaultObj)); } catch (_) {}
