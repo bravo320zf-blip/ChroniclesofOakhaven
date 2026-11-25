@@ -1,6 +1,6 @@
 {
-  "batchCount": 19,
-  "totalQuestsAdded": 220,
+  "batchCount": 20,
+  "totalQuestsAdded": 230,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -904,51 +904,73 @@
       ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #10 - Firefalls of Ghoss.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Firefalls of Ghoss"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #11 - Rune Crypt of Sianis.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Rune Crypt of Sianis"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #12 - The Scorpion's Shadow.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Scorpion's Shadow"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #13 - Bastion Of Rime And Salt.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Bastion of Rime and Salt"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #14 - The Infernal Salt Pits.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Infernal Salt Pits"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #15 - Ill-Met By Moonlight.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Ill-Met By Moonlight"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #16 - Lamassu's Secrets.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Lamassu's Secrets"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #17 - Mad Maze Of The Moon Kingdom.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Mad Maze of the Moon Kingdom"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #18 - Storming the Queen’s Desire.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Storming the Queen's Desire"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #19 - A Leeward Shore.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "A Leeward Shore"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #19 A Leeward Shore/A Leeward Shore/A_Leeward_Shore.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Warlock Lair #19",
       "convertedTitles": []
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #19 A Leeward Shore/A Leeward Shore/Emailing Warlock Lair #19 - A Leeward Shore.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Warlock Lair #19",
       "convertedTitles": []
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #20 - Monkey Business.pdf": {
