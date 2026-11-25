@@ -12,7 +12,25 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "ac": 2,
     "luck": 2,
-    "desc": "+2 AC, +2 Luck (Tome of Heroes)"
+    "passives": {
+      "undeadDmgBonus": 2,
+      "skillBonus": {
+        "Persuasion": 2,
+        "Perception": 1
+      }
+    },
+    "activeAbility": {
+      "name": "Golden Nimbus",
+      "icon": "👑",
+      "charges": 1,
+      "ooc": true,
+      "healBase": 6,
+      "healStat": "spirit",
+      "selfBuffAtk": { "atk": 3, "turns": 3 },
+      "shieldTurns": 2,
+      "desc": "1/Quest: Crown yourself in a nimbus of golden light — restore 6 + Spirit HP, gain +3 ATK (3t), and +3 AC (2t)!"
+    },
+    "desc": "Silver-threaded mantle of monastic knight-commanders. Inspires allies (+2 Persuasion, +1 Perception, +2 vs Undead) and ignites a Golden Nimbus."
   },
   "bk_axe_of_many_strikes": {
     "id": "bk_axe_of_many_strikes",
@@ -195,7 +213,22 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "atk": 4,
     "agility": 2,
-    "desc": "+4 Attack, +2 Agility (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "spellDmgBonus": 2
+    },
+    "activeAbility": {
+      "name": "Ninefold Spectral Volley",
+      "icon": "🗡️",
+      "charges": 2,
+      "mp": 2,
+      "dmgDice": "1d6",
+      "dmgStat": "agility",
+      "dmgType": "arcane",
+      "multiStrike": 3,
+      "desc": "2/Quest (2 MP): Unleash three ghostly dagger duplicates striking for 3× (1d6 + Agility) force damage!"
+    },
+    "desc": "Etched silver dagger that splits into ghostly duplicates mid-strike (+Crit, +2 Spell Dmg) and fires a Ninefold Spectral Volley."
   },
   "bk_paired_gauntlets_of_striking": {
     "id": "bk_paired_gauntlets_of_striking",

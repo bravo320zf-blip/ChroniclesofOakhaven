@@ -1,6 +1,6 @@
 {
-  "totalPasses": 1,
-  "totalItemsReworked": 10,
+  "totalPasses": 2,
+  "totalItemsReworked": 20,
   "history": [
     {
       "pass": 1,
@@ -17,6 +17,22 @@
         "bq_catamount_claw_charm"
       ],
       "summary": "Reworked 5 Vault of Magic items from authentic sourcebook lore plus 5 woodland/quest relics with signature passives and charged active abilities."
+    },
+    {
+      "pass": 2,
+      "items": [
+        "vom_asps_kiss",
+        "vom_akaasit_blade",
+        "vom_ioun_emerald",
+        "vom_mirrored_armor",
+        "bk_argent_mantle",
+        "bk_ninefold_swarmdagger",
+        "bq_tymande_venom_dagger",
+        "bq_conductor_ivory_baton",
+        "bq_urshaka_light_totem",
+        "bq_pol_radiant_brush"
+      ],
+      "summary": "Reworked 4 Vault of Magic items, 2 Tome of Heroes items, and 4 quest relics with authentic sourcebook passives and charged/MP active abilities."
     }
   ],
   "itemPasses": {
@@ -29,6 +45,16 @@
     "nf_leliam_grim_dagger": 1,
     "bq_ethereal_fang_blade": 1,
     "bq_night_messenger_pin": 1,
-    "bq_catamount_claw_charm": 1
+    "bq_catamount_claw_charm": 1,
+    "vom_asps_kiss": 1,
+    "vom_akaasit_blade": 1,
+    "vom_ioun_emerald": 1,
+    "vom_mirrored_armor": 1,
+    "bk_argent_mantle": 1,
+    "bk_ninefold_swarmdagger": 1,
+    "bq_tymande_venom_dagger": 1,
+    "bq_conductor_ivory_baton": 1,
+    "bq_urshaka_light_totem": 1,
+    "bq_pol_radiant_brush": 1
   }
 }

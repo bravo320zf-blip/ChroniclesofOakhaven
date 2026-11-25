@@ -603,7 +603,9 @@ window.OAKHAVEN.registerItems({
     atk: 4,
     agility: 1,
     arcana: 1,
-    desc: "+4 Attack, +1 Agility, +1 Arcana. Upgraded relic blade blessed in the Crypt of Green Shadows."
+    passives: { critRange: 11, skillBonus: { Stealth: 2 } },
+    activeAbility: { name: "Green Shadow Fang", icon: "☠️", charges: 2, dmgDice: "2d6", dmgStat: "agility", dmgType: "poison", dot: { dmg: 4, turns: 3, label: "Shadow Venom" }, evadeTurns: 1, desc: "2/Quest: Lunge from the veil for 2d6 + Agility poison dmg, inflict Shadow Venom (4/t, 3t), and slip into shadow (Evade 1t)!" },
+    desc: "Shadow-quenched dagger blessed in the Crypt of Green Shadows. Sharpens stealth (+2 Stealth, +Crit) and strikes with Green Shadow Fang."
   },
   "bq_shroud_of_tiberesh": {
     id: "bq_shroud_of_tiberesh",
@@ -1395,7 +1397,9 @@ window.OAKHAVEN.registerItems({
     might: 2,
     spirit: 2,
     maxHp: 8,
-    desc: "+2 Might, +2 Spirit, +8 Max HP. Sacred druid charm gifted by bearfolk shaman Urshaka."
+    passives: { healBonus: 3, dmgReduce: 2, bossDmgBonus: 3, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Spirit of the Moonbear", icon: "🐻", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", selfBuffAtk: { atk: 3, turns: 3 }, summon: { name: "Moonlit Spirit Bear", icon: "🐻", dmg: 6, turns: 3 }, desc: "2/Quest: Call Urshaka's guardian — heal 2d8 + Spirit HP, gain +3 ATK (3t), and summon a Moonlit Spirit Bear (6 dmg/t, 3t)!" },
+    desc: "Sacred druid charm carved by bearfolk shaman Urshaka. Grants primal fortitude (-2 dmg taken, +3 Healing, +3 vs Bosses) and summons the Moonlit Spirit Bear."
   },
   "bq_pluming_lantern_charm": {
     id: "bq_pluming_lantern_charm",
@@ -1871,7 +1875,9 @@ window.OAKHAVEN.registerItems({
     value: 155,
     atk: 3,
     arcana: 2,
-    desc: "+3 Attack, +2 Arcana. Sparking ivory baton claimed from the haunted bardic college."
+    passives: { spellDmgBonus: 3, mpRegen: true, skillBonus: { Arcana: 1 } },
+    activeAbility: { name: "Crescendo of Sparks", icon: "🎼", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, desc: "2/Quest (2 MP): Conduct a crackling harmonic bolt for 2d8 + Arcana lightning dmg and Stun the foe (1t)!" },
+    desc: "Sparking ivory baton from the haunted bardic college. Sustains arcane rhythm (+3 Spell Dmg, +1 MP regen) and conducts a Crescendo of Sparks."
   },
   "bq_sycamore_golden_sickle": {
     id: "bq_sycamore_golden_sickle",
@@ -2034,9 +2040,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 2,
     spirit: 3,
-    passives: { spellCostReduce: 1, undeadDmgBonus: 4 },
+    passives: { spellCostReduce: 1, healBonus: 2, undeadDmgBonus: 4 },
     activeAbility: { name: "Miracle Brushstroke", icon: "🎨", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", shieldTurns: 3, desc: "2/Quest: Paint a ward of golden light restoring 2d8 + Spirit HP & +3 AC (3t)!" },
-    desc: "Gilded focus blessed by the miracle mural of the Eclipsed Chapel."
+    desc: "Gilded focus blessed by the miracle mural of the Eclipsed Chapel. Eases spellcasting (-1 MP cost, +2 Healing, +4 vs Undead) and paints a Miracle Brushstroke."
   },
   "bq_twisted_claw_stiletto": {
     id: "bq_twisted_claw_stiletto",
