@@ -7,6 +7,7 @@
   "use strict";
 
   const SAVE_SLOTS_KEY = "chronicles_of_oakhaven_slots_v1";
+  const SHARED_VAULT_KEY = "chronicles_of_oakhaven_shared_vault_v1";
   const MAX_SAVE_SLOTS = 5;
 
   let auth = null;
@@ -63,6 +64,17 @@
     return slots;
   }
 
+  function readLocalSharedVault() {
+    try {
+      const raw = localStorage.getItem(SHARED_VAULT_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") return parsed;
+      }
+    } catch (_) {}
+    return null;
+  }
+
   function parseTime(s) {
     const t = s ? Date.parse(s) : 0;
     return isNaN(t) ? 0 : t;
@@ -80,11 +92,25 @@
     return null;
   }
 
-  function serializeSlotsPayload(slots) {
+  function parseCloudSharedVault(data) {
+    if (!data) return null;
+    if (typeof data.sharedVaultJson === "string") {
+      try {
+        const parsed = JSON.parse(data.sharedVaultJson);
+        if (parsed && typeof parsed === "object") return parsed;
+      } catch (_) {}
+    }
+    if (data.sharedVault && typeof data.sharedVault === "object") return data.sharedVault;
+    return null;
+  }
+
+  function serializeSlotsPayload(slots, sharedVault) {
     const normalized = [];
     for (let i = 0; i < MAX_SAVE_SLOTS; i++) normalized.push((slots && slots[i]) || null);
+    const vault = sharedVault || readLocalSharedVault();
     return {
       slotsJson: JSON.stringify(normalized),
+      sharedVaultJson: vault ? JSON.stringify(vault) : null,
       updatedAt: new Date().toISOString()
     };
   }
@@ -97,39 +123,57 @@
       const ref = db.collection("users").doc(currentUser.uid).collection("saves").doc("slots");
       const snap = await ref.get();
       const localSlots = readLocalSlots();
-      const cloudSlots = snap.exists ? parseCloudSlots(snap.data()) : null;
+      const localVault = readLocalSharedVault();
+      const snapData = snap.exists ? snap.data() : null;
+      const cloudSlots = snapData ? parseCloudSlots(snapData) : null;
+      const cloudVault = snapData ? parseCloudSharedVault(snapData) : null;
+
+      let mergedSlots = localSlots;
+      let mergedVault = localVault;
+      let localHadNewer = false;
 
       if (cloudSlots) {
-        const merged = [null, null, null, null, null];
-        let localHadNewer = false;
-
+        mergedSlots = [null, null, null, null, null];
         for (let i = 0; i < MAX_SAVE_SLOTS; i++) {
           const loc = localSlots[i] || null;
           const cld = cloudSlots[i] || null;
           if (loc && !cld) {
-            merged[i] = loc;
+            mergedSlots[i] = loc;
             localHadNewer = true;
           } else if (cld && !loc) {
-            merged[i] = cld;
+            mergedSlots[i] = cld;
           } else if (loc && cld) {
             if (parseTime(loc.savedAt) > parseTime(cld.savedAt)) {
-              merged[i] = loc;
+              mergedSlots[i] = loc;
               localHadNewer = true;
             } else {
-              merged[i] = cld;
+              mergedSlots[i] = cld;
             }
           }
         }
-        localStorage.setItem(SAVE_SLOTS_KEY, JSON.stringify(merged));
-        if (localHadNewer) {
-          await ref.set(serializeSlotsPayload(merged));
+        localStorage.setItem(SAVE_SLOTS_KEY, JSON.stringify(mergedSlots));
+      } else if (localSlots.some(Boolean)) {
+        localHadNewer = true;
+      }
+
+      if (cloudVault && !localVault) {
+        mergedVault = cloudVault;
+        localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(mergedVault));
+      } else if (localVault && !cloudVault) {
+        mergedVault = localVault;
+        localHadNewer = true;
+      } else if (localVault && cloudVault) {
+        if (parseTime(localVault.updatedAt) > parseTime(cloudVault.updatedAt)) {
+          mergedVault = localVault;
+          localHadNewer = true;
+        } else {
+          mergedVault = cloudVault;
+          localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(mergedVault));
         }
-      } else {
-        // First time cloud user: upload any existing local slots
-        const hasAny = localSlots.some(Boolean);
-        if (hasAny) {
-          await ref.set(serializeSlotsPayload(localSlots));
-        }
+      }
+
+      if (localHadNewer) {
+        await ref.set(serializeSlotsPayload(mergedSlots, mergedVault));
       }
 
       syncStatus = "synced";
@@ -142,13 +186,13 @@
     }
   }
 
-  async function pushSlotsToCloud(slots) {
+  async function pushSlotsToCloud(slots, sharedVault) {
     if (!db || !currentUser) return;
     syncStatus = "syncing";
     renderCloudUi();
     try {
       const ref = db.collection("users").doc(currentUser.uid).collection("saves").doc("slots");
-      await ref.set(serializeSlotsPayload(slots));
+      await ref.set(serializeSlotsPayload(slots, sharedVault));
       syncStatus = "synced";
       renderCloudUi();
     } catch (err) {

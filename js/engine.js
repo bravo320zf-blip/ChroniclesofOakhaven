@@ -119,6 +119,7 @@
        ------------------------------------------------------------ */
     const SAVE_KEY = "chronicles_of_oakhaven_v1";
     const SAVE_SLOTS_KEY = "chronicles_of_oakhaven_slots_v1";
+    const SHARED_VAULT_KEY = "chronicles_of_oakhaven_shared_vault_v1";
     const MAX_SAVE_SLOTS = 5;
     let activeSaveSlot = 0;
     const GUILD_STAT_UPGRADE_COSTS = [500, 1000, 1500];
@@ -188,7 +189,7 @@
 
     const TILE_TO_BUILDING = {
       T: { id: "tavern",    name: "The Rusty Flagon Tavern", icon: "🍺", img: "images/loc_tavern.jpg" },
-      S: { id: "stash",     name: "Personal Stash Vault",    icon: "🔐", img: "images/loc_stash.jpg" },
+      S: { id: "stash",     name: "Shared Account Vault",    icon: "🔐", img: "images/loc_stash.jpg" },
       O: { id: "outskirts", name: "Oakhaven Outskirts",      icon: "🌲", img: "images/loc_outskirts.jpg" },
       M: { id: "market",    name: "Market District",         icon: "⚖️", img: "images/loc_market.jpg" },
       D: { id: "temple",    name: "The Temple of the Dawn",  icon: "☀️", img: "images/loc_temple.jpg" },
@@ -1092,6 +1093,9 @@
         toast(`Moved ${added}x ${ITEMS_DB[srcId].name} to ${getContainerLabel(dstContainer)}.`, "info");
       }
 
+      if (String(srcContainer).startsWith("stash") || String(dstContainer).startsWith("stash")) {
+        persistVaultChange();
+      }
       if (buildingModalOpen && (currentDistrict === "stash" || currentDistrict === "forge" || currentDistrict === "market")) {
         renderTown();
       }
@@ -1227,6 +1231,7 @@
         const take = Math.max(1, Math.min(maxTake, parseInt(numEl.value, 10) || 1));
         arr[index] = { id, qty: qty - take };
         arr.push({ id, qty: take });
+        if (String(containerKey).startsWith("stash")) persistVaultChange();
         close();
         toast(`Split ${take}x ${item.name} into a new slot.`, "gold");
         if (buildingModalOpen && currentDistrict === "stash") renderTown();
@@ -1528,6 +1533,7 @@
         activeAdv: null,
         log: []
       };
+      applySharedVaultToState(state);
       const d = getDerived(state);
       state.hp = d.maxHp; state.mp = d.maxMp; state.currentLuck = d.maxLuck;
 
@@ -2459,20 +2465,26 @@
     function consumeMaterial(matId, qty) {
       let left = qty;
       const takeFrom = (arr) => {
+        let taken = 0;
         for (let i = arr.length - 1; i >= 0 && left > 0; i--) {
           if (getEntryId(arr[i]) !== matId) continue;
           const cur = getEntryQty(arr[i]);
           if (cur <= left) {
             left -= cur;
+            taken += cur;
             arr.splice(i, 1);
           } else {
             arr[i] = { id: matId, qty: cur - left };
+            taken += left;
             left = 0;
           }
         }
+        return taken;
       };
       takeFrom(state.backpack);
-      ensureStashTabs().forEach(tab => takeFrom(tab));
+      let tookFromVault = 0;
+      ensureStashTabs().forEach(tab => { tookFromVault += takeFrom(tab); });
+      if (tookFromVault > 0) persistVaultChange();
     }
 
     // Counts materials across Backpack + ALL unlocked Stash Tabs
@@ -2483,7 +2495,7 @@
       return { pack, vault, total: pack + vault };
     }
 
-    // Spends carried Gold first, then draws any remainder from your Personal Gold Vault
+    // Spends carried Gold first, then draws any remainder from your Shared Gold Vault
     function getTownGold() {
       return (state?.gold || 0) + (state?.vaultGold || 0);
     }
@@ -2494,6 +2506,7 @@
       const fromVault = amount - fromCarry;
       if (fromVault > 0) {
         state.vaultGold = Math.max(0, (state.vaultGold || 0) - fromVault);
+        persistVaultChange();
       }
       return { fromCarry, fromVault };
     }
@@ -2652,9 +2665,10 @@
           }
 
           const { fromVault } = spendGoldWithVault(rec.gold);
+          if (sentToVault) persistVaultChange();
           const notes = [];
-          if (fromVault > 0) notes.push(`drew ${fromVault} GP from Vault`);
-          if (sentToVault) notes.push("sent to Personal Vault");
+          if (fromVault > 0) notes.push(`drew ${fromVault} GP from Shared Vault`);
+          if (sentToVault) notes.push("sent to Shared Account Vault");
           sfx("forge");
           toast(`Crafted ${resItem.name}!${notes.length ? ` (${notes.join(", ")})` : ""}`, "good");
           addLog(`Crafted ${resItem.name} at the Forge.`, "gold");
@@ -2695,12 +2709,12 @@
 
       box.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-          <h3 class="font-display text-xl font-bold text-amber-300">Personal Vault &amp; Stash Tabs</h3>
+          <h3 class="font-display text-xl font-bold text-amber-300">Shared Account Vault &amp; Stash Tabs</h3>
           <span class="px-2.5 py-1 rounded-full bg-stone-950 border border-emerald-700/40 text-xs text-emerald-300 font-semibold">
             Total Stored: ${totalUsed} / ${totalCap}
           </span>
         </div>
-        <p class="text-xs text-emerald-300/90 mb-4">🛡️ Everything stored here is 100% SAFE from death! Drag items onto another Tab button to organize.</p>
+        <p class="text-xs text-emerald-300/90 mb-4">🛡️ 100% SAFE from death &amp; shared across ALL heroes on your account! Drag items onto another Tab button to organize.</p>
 
         <!-- Gold Vault -->
         <div class="p-4 rounded-xl bg-stone-950 border border-amber-600/40 mb-4">
@@ -2748,12 +2762,14 @@
         const amt = b.dataset.dep === "all" ? state.gold : Math.min(state.gold, parseInt(b.dataset.dep, 10));
         if (amt <= 0) return;
         state.gold -= amt; state.vaultGold += amt;
+        persistVaultChange();
         renderDistrictStash(box); renderSheet();
       });
       box.querySelectorAll(".v-wd").forEach(b => b.onclick = () => {
         const amt = b.dataset.wd === "all" ? state.vaultGold : Math.min(state.vaultGold, parseInt(b.dataset.wd, 10));
         if (amt <= 0) return;
         state.vaultGold -= amt; state.gold += amt;
+        persistVaultChange();
         renderDistrictStash(box); renderSheet();
       });
 
@@ -2789,6 +2805,7 @@
           if (added <= 0) return toast(`Stash Tab ${targetTabIdx + 1} is full (20/20)!`, "bad");
           if (added >= qty) srcArr.splice(srcIdx, 1);
           else srcArr[srcIdx] = { id, qty: qty - added };
+          persistVaultChange();
           toast(`Moved ${added}x ${ITEMS_DB[id].name} to Stash Tab ${targetTabIdx + 1}!`, "good");
           renderDistrictStash(box);
           renderSheet();
@@ -2805,8 +2822,9 @@
           spendGoldWithVault(cost);
           tabs.push([]);
           state.activeStashTab = tabs.length - 1;
-          toast(`🔓 Unlocked Stash Tab ${tabs.length} (+20 Safe Slots)!`, "gold");
-          addLog(`Unlocked Stash Tab ${tabs.length} for ${cost.toLocaleString()} GP.`, "gold");
+          persistVaultChange();
+          toast(`🔓 Unlocked Shared Stash Tab ${tabs.length} (+20 Safe Slots)!`, "gold");
+          addLog(`Unlocked Shared Stash Tab ${tabs.length} for ${cost.toLocaleString()} GP.`, "gold");
           renderDistrictStash(box);
           renderSheet();
         };
@@ -2834,6 +2852,7 @@
             if (added <= 0) return toast("Backpack full (12/12)!", "bad");
             if (added >= qty) activeTabArr.splice(i, 1);
             else activeTabArr[i] = { id, qty: qty - added };
+            persistVaultChange();
             renderDistrictStash(box); renderSheet();
           };
           sList.appendChild(r);
@@ -2861,6 +2880,7 @@
             if (added <= 0) return toast(`Stash Tab ${activeIdx + 1} is full (20/20)!`, "bad");
             if (added >= qty) state.backpack.splice(i, 1);
             else state.backpack[i] = { id, qty: qty - added };
+            persistVaultChange();
             renderDistrictStash(box); renderSheet();
           };
           pList.appendChild(r);
@@ -4249,7 +4269,8 @@
             if (added <= 0) return toast("All Stash Tabs are full!", "bad");
             if (added >= qty) state.backpack.splice(i, 1);
             else state.backpack[i] = { id, qty: qty - added };
-            toast(`Stored ${added}x ${it.name} in Personal Vault.`, "info");
+            persistVaultChange();
+            toast(`Stored ${added}x ${it.name} in Shared Account Vault.`, "info");
             if (currentDistrict === "stash") renderTown();
           } else if (act === "drop") {
             state.backpack.splice(i, 1);
@@ -4533,19 +4554,156 @@
       return slots;
     }
 
-    function writeSaveSlots(slots) {
+    function cloneVaultTabs(tabs) {
+      if (!Array.isArray(tabs) || tabs.length === 0) return [[]];
+      return tabs.map(tab => (Array.isArray(tab) ? tab.map(e => (e && typeof e === "object" ? { ...e } : e)) : []));
+    }
+
+    function normalizeSharedVaultData(raw) {
+      const tabsRaw = Array.isArray(raw?.stashTabs) && raw.stashTabs.length > 0
+        ? raw.stashTabs
+        : [Array.isArray(raw?.stash) ? raw.stash : []];
+      const stashTabs = tabsRaw.map(tab => compactContainerStacks(tab, 20));
+      if (stashTabs.length === 0) stashTabs.push([]);
+      const activeTab = typeof raw?.activeStashTab === "number" && raw.activeStashTab >= 0 && raw.activeStashTab < stashTabs.length
+        ? raw.activeStashTab
+        : 0;
+      return {
+        vaultGold: Math.max(0, Number(raw?.vaultGold) || 0),
+        stashTabs,
+        activeStashTab: activeTab,
+        updatedAt: raw?.updatedAt || new Date().toISOString()
+      };
+    }
+
+    function addEntryToVaultTabs(tabs, itemId, qty, preferredTabIdx = 0) {
+      if (!itemId || !ITEMS_DB[itemId] || qty <= 0) return;
+      let rem = qty;
+      const tryTab = (tab) => {
+        if (isStackableMaterial(itemId)) {
+          for (let i = 0; i < tab.length && rem > 0; i++) {
+            if (getEntryId(tab[i]) === itemId && getEntryQty(tab[i]) < MAX_MAT_STACK) {
+              const add = Math.min(rem, MAX_MAT_STACK - getEntryQty(tab[i]));
+              tab[i] = { id: itemId, qty: getEntryQty(tab[i]) + add };
+              rem -= add;
+            }
+          }
+          while (rem > 0 && tab.length < 20) {
+            const add = Math.min(rem, MAX_MAT_STACK);
+            tab.push({ id: itemId, qty: add });
+            rem -= add;
+          }
+        } else {
+          while (rem > 0 && tab.length < 20) {
+            tab.push(itemId);
+            rem--;
+          }
+        }
+      };
+
+      const order = [];
+      if (preferredTabIdx >= 0 && preferredTabIdx < tabs.length) order.push(preferredTabIdx);
+      for (let i = 0; i < tabs.length; i++) if (i !== preferredTabIdx) order.push(i);
+      for (const idx of order) {
+        if (rem <= 0) break;
+        tryTab(tabs[idx]);
+      }
+      while (rem > 0) {
+        const overflowTab = [];
+        tabs.push(overflowTab);
+        tryTab(overflowTab);
+      }
+    }
+
+    // One-time migration: merges every existing hero's individual vault gold, unlocked tabs, and items into one account-wide Shared Vault without losing a single item
+    function migrateLegacyVaultsFromSlots(slots) {
+      let totalGold = 0;
+      let maxTabs = 1;
+      (slots || []).forEach(slot => {
+        if (!slot) return;
+        totalGold += Math.max(0, Number(slot.vaultGold) || 0);
+        const tabCount = Array.isArray(slot.stashTabs) && slot.stashTabs.length > 0 ? slot.stashTabs.length : 1;
+        if (tabCount > maxTabs) maxTabs = tabCount;
+      });
+      const combinedTabs = Array.from({ length: maxTabs }, () => []);
+      (slots || []).forEach(slot => {
+        if (!slot) return;
+        const heroTabs = Array.isArray(slot.stashTabs) && slot.stashTabs.length > 0
+          ? slot.stashTabs
+          : [Array.isArray(slot.stash) ? slot.stash : []];
+        heroTabs.forEach((tab, tabIdx) => {
+          (tab || []).forEach(entry => {
+            const id = getEntryId(entry);
+            const qty = getEntryQty(entry);
+            if (id && qty > 0) addEntryToVaultTabs(combinedTabs, id, qty, tabIdx);
+          });
+        });
+      });
+      const migrated = normalizeSharedVaultData({
+        vaultGold: totalGold,
+        stashTabs: combinedTabs,
+        activeStashTab: 0,
+        updatedAt: new Date().toISOString()
+      });
+      try { localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(migrated)); } catch (_) {}
+      return migrated;
+    }
+
+    function getSharedVault() {
+      try {
+        const raw = localStorage.getItem(SHARED_VAULT_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === "object") return normalizeSharedVaultData(parsed);
+        }
+      } catch (_) {}
+      return migrateLegacyVaultsFromSlots(getSaveSlots());
+    }
+
+    function applySharedVaultToState(target = state) {
+      if (!target) return;
+      const sv = getSharedVault();
+      target.vaultGold = sv.vaultGold;
+      target.stashTabs = cloneVaultTabs(sv.stashTabs);
+      target.activeStashTab = Math.min(sv.activeStashTab, target.stashTabs.length - 1);
+      target.stash = target.stashTabs[0];
+    }
+
+    function syncSharedVaultFromState(target = state) {
+      if (!target) return null;
+      const tabs = ensureStashTabs(target);
+      const vaultObj = normalizeSharedVaultData({
+        vaultGold: target.vaultGold || 0,
+        stashTabs: cloneVaultTabs(tabs),
+        activeStashTab: target.activeStashTab || 0,
+        updatedAt: new Date().toISOString()
+      });
+      try { localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(vaultObj)); } catch (_) {}
+      return vaultObj;
+    }
+
+    // Atomically persists both the Shared Account Vault and the active hero (preventing dupes or lost items when switching heroes)
+    function persistVaultChange() {
+      if (!state) return;
+      syncSharedVaultFromState(state);
+      saveToSlot(activeSaveSlot, true);
+    }
+
+    function writeSaveSlots(slots, sharedVault = null) {
       localStorage.setItem(SAVE_SLOTS_KEY, JSON.stringify(slots));
-      if (window.OAKHAVEN_CLOUD) window.OAKHAVEN_CLOUD.pushSlotsToCloud(slots);
+      const vaultToPush = sharedVault || getSharedVault();
+      if (window.OAKHAVEN_CLOUD) window.OAKHAVEN_CLOUD.pushSlotsToCloud(slots, vaultToPush);
     }
 
     function saveToSlot(slotIdx, silent = false) {
       if (!state) return;
       const idx = Math.max(0, Math.min(MAX_SAVE_SLOTS - 1, slotIdx));
       try {
+        const vaultObj = syncSharedVaultFromState(state);
         const slots = getSaveSlots();
         activeSaveSlot = idx;
         slots[idx] = { ...state, savedAt: new Date().toLocaleString() };
-        writeSaveSlots(slots);
+        writeSaveSlots(slots, vaultObj);
         localStorage.setItem(SAVE_KEY, JSON.stringify(slots[idx]));
         if (!silent) {
           sfx("scroll");
@@ -4671,9 +4829,7 @@
         }
       });
 	  loaded.backpack = compactContainerStacks(loaded.backpack || [], 12);
-      const loadedTabs = ensureStashTabs(loaded);
-      loaded.stashTabs = loadedTabs.map(tab => compactContainerStacks(tab, 20));
-      loaded.stash = loaded.stashTabs[0];
+      applySharedVaultToState(loaded);
       ensureHeroProgressionState(loaded);
       state = loaded;
       activeCombat = null;
@@ -5000,11 +5156,18 @@
     document.getElementById("close-slots")?.addEventListener("click", () => slotsModal?.classList.add("hidden"));
     slotsModal?.addEventListener("click", (e) => { if (e.target.id === "modal-slots") slotsModal.classList.add("hidden"); });
 
-    // Refresh Launch Screen & Slots Modal whenever Firebase Cloud Sync pulls slots
+    // Refresh Launch Screen, Slots Modal, and live Shared Account Vault whenever Firebase Cloud Sync pulls data
     if (window.OAKHAVEN_CLOUD) {
       window.OAKHAVEN_CLOUD.onSlotsUpdated(() => {
         initLaunchScreen();
         renderSlotsModal();
+        if (state) {
+          applySharedVaultToState(state);
+          renderSheet();
+          if (buildingModalOpen && (currentDistrict === "stash" || currentDistrict === "forge")) {
+            renderTown();
+          }
+        }
       });
     }
 
