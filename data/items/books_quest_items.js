@@ -874,3 +874,97 @@ window.OAKHAVEN.registerItems({
     desc: "+3 AC, +1 Might, +5 Max HP. Glacier-tempered buckler won on the Icebound Terrace."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 009 — Prepared! (8-12) & Tome of Beasts 2 Lairs (1-7)
+  "bq_hellshot_shard_plate": {
+    id: "bq_hellshot_shard_plate",
+    name: "Fire-Giant Hellshot Cuirass",
+    type: "armor",
+    rarity: "very_rare",
+    value: 310,
+    source: "Prepared!",
+    ac: 4,
+    might: 2,
+    desc: "+4 AC, +2 Might. Forged from quenched fire-giant hellshot iron recovered at the Burning Crater."
+  },
+  "bq_planetar_fountain_chalice": {
+    id: "bq_planetar_fountain_chalice",
+    name: "Chalice of the Planetar",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 345,
+    source: "Prepared!",
+    ac: 2,
+    spirit: 3,
+    maxHp: 8,
+    desc: "+2 AC, +3 Spirit, +8 Max HP. Radiant chalice blessed at the purified Fountain of the Planetar."
+  },
+  "bq_obsidian_grove_mirror": {
+    id: "bq_obsidian_grove_mirror",
+    name: "Ward-Glass of Obsidian Pass",
+    type: "shield",
+    rarity: "legendary",
+    value: 455,
+    source: "Prepared!",
+    ac: 4,
+    arcana: 2,
+    spirit: 2,
+    desc: "+4 AC, +2 Arcana, +2 Spirit. Reflective grove-shield forged to turn aside aberrations."
+  },
+  "bq_kolchak_master_coin": {
+    id: "bq_kolchak_master_coin",
+    name: "Kolchak's Master Coin",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 95,
+    source: "Tome of Beasts 2 Lairs",
+    luck: 2,
+    ac: 1,
+    desc: "+2 Luck, +1 AC. Heavy stamped gold medallion that once commanded Mammon's greed swarm."
+  },
+  "bq_ilkarayda_vine_band": {
+    id: "bq_ilkarayda_vine_band",
+    name: "Ilkarayda's Blossoming Band",
+    type: "accessory",
+    rarity: "rare",
+    value: 155,
+    source: "Tome of Beasts 2 Lairs",
+    spirit: 2,
+    maxHp: 6,
+    desc: "+2 Spirit, +6 Max HP. Living druid-vine circlet from the cleansed Twisted Wreath."
+  },
+  "bq_thyrdun_miner_pick": {
+    id: "bq_thyrdun_miner_pick",
+    name: "Thyrdun's Iron-Heart Pick",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 225,
+    source: "Tome of Beasts 2 Lairs",
+    atk: 5,
+    might: 2,
+    desc: "+5 Attack, +2 Might. Heavy dwarven war-pick recovered from the shadows of Thyrdun Outpost."
+  },
+  "bq_monolith_crystal_lens": {
+    id: "bq_monolith_crystal_lens",
+    name: "Geothermal Monolith Prism",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 260,
+    source: "Tome of Beasts 2 Lairs",
+    arcana: 3,
+    maxMp: 6,
+    desc: "+3 Arcana, +6 Max MP. Singing geothermal crystal harvested from the Crystalline Monolith."
+  },
+  "bq_horseshoe_oasis_spear": {
+    id: "bq_horseshoe_oasis_spear",
+    name: "Scorpion-Bane Oasis Spear",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 280,
+    source: "Tome of Beasts 2 Lairs",
+    atk: 5,
+    agility: 2,
+    desc: "+5 Attack, +2 Agility. Balanced desert javelin-spear won at Horseshoe Rock Oasis."
+  }
+});
