@@ -1425,7 +1425,7 @@
         equipment: { ...arch.gear },
         backpack: ["health_potion", "health_potion", "torch"],
         stash: [], vaultGold: 0,
-        blessing: null, innBuff: null, innRested: false, shieldTurns: 0, evadeTurns: 0,
+        blessing: null, templeBlessed: false, innBuff: null, innRested: false, shieldTurns: 0, evadeTurns: 0,
         discoveredQuests: startingQuests,
         completedQuests: {},
         questJournal: [], // { advId: trophyName }
@@ -2740,6 +2740,8 @@
     }
     function renderDistrictTemple(box) {
       const hasStJude = state.discoveredQuests.includes("st_jude");
+      const alreadyBlessed = !!(state.templeBlessed || state.blessing);
+      const blessDisabledCls = "bg-stone-800/80 border border-stone-700 text-stone-400 cursor-not-allowed";
       box.innerHTML = `
         <h3 class="font-display text-xl font-bold text-amber-300 mb-1">The Temple of the Dawn</h3>
         <p class="text-xs text-stone-400 mb-4">Sanctuary of healing, blessings, and soul-resurrection. High Priestess Selene tends the golden brazier.</p>
@@ -2758,12 +2760,12 @@
             <button id="btn-temple-heal" class="w-full py-2 rounded-lg bg-emerald-800 hover:bg-emerald-700 text-emerald-100 text-xs font-bold">Pray (5 GP)</button>
           </div>
           <div class="p-3.5 rounded-xl bg-stone-950 border border-stone-800 flex flex-col justify-between gap-2">
-            <div><div class="font-display text-sm font-bold text-amber-300">Blessing of Aegis</div><p class="text-[11px] text-stone-400 mt-1">Gain +1 AC for your next adventure.</p></div>
-            <button id="btn-bless-ac" class="w-full py-2 rounded-lg btn-gold text-xs">Bless (25 GP)</button>
+            <div><div class="font-display text-sm font-bold text-amber-300">Blessing of Aegis</div><p class="text-[11px] text-stone-400 mt-1">Gain +1 AC for your next adventure. (1 blessing between quests)</p></div>
+            <button id="btn-bless-ac" ${alreadyBlessed ? "disabled" : ""} class="w-full py-2 rounded-lg text-xs ${alreadyBlessed ? blessDisabledCls : "btn-gold"}">${alreadyBlessed ? (state.blessing === "ac" ? "✓ Blessed (+1 AC) • Quest First" : "Already Blessed • Quest First") : "Bless (25 GP)"}</button>
           </div>
           <div class="p-3.5 rounded-xl bg-stone-950 border border-stone-800 flex flex-col justify-between gap-2">
-            <div><div class="font-display text-sm font-bold text-purple-300">Blessing of Fortune</div><p class="text-[11px] text-stone-400 mt-1">Gain +1 Luck for your next adventure.</p></div>
-            <button id="btn-bless-luck" class="w-full py-2 rounded-lg btn-gold text-xs">Bless (25 GP)</button>
+            <div><div class="font-display text-sm font-bold text-purple-300">Blessing of Fortune</div><p class="text-[11px] text-stone-400 mt-1">Gain +1 Luck for your next adventure. (1 blessing between quests)</p></div>
+            <button id="btn-bless-luck" ${alreadyBlessed ? "disabled" : ""} class="w-full py-2 rounded-lg text-xs ${alreadyBlessed ? blessDisabledCls : "btn-gold"}">${alreadyBlessed ? (state.blessing === "luck" ? "✓ Blessed (+1 Luck) • Quest First" : "Already Blessed • Quest First") : "Bless (25 GP)"}</button>
           </div>
         </div>
       `;
@@ -2780,19 +2782,31 @@
         renderSheet();
       };
       box.querySelector("#btn-bless-ac").onclick = () => {
+        if (state.templeBlessed || state.blessing) {
+          return toast("You've already received a Temple blessing! Embark on a quest before receiving another.", "info");
+        }
         if (getTownGold() < 25) return toast("Need 25 GP.", "bad");
-        spendGoldWithVault(25); state.blessing = "ac";
+        spendGoldWithVault(25);
+        state.blessing = "ac";
+        state.templeBlessed = true;
         sfx("heal");
         toast("Blessed with +1 AC for your next adventure!", "gold");
-        renderTown(); renderSheet();
+        addLog("Received Blessing of Aegis (+1 AC) at the Temple of the Dawn (-25 GP).", "gold");
+        renderDistrictTemple(box); renderTown(); renderSheet();
       };
       box.querySelector("#btn-bless-luck").onclick = () => {
+        if (state.templeBlessed || state.blessing) {
+          return toast("You've already received a Temple blessing! Embark on a quest before receiving another.", "info");
+        }
         if (getTownGold() < 25) return toast("Need 25 GP.", "bad");
-        spendGoldWithVault(25); state.blessing = "luck";
+        spendGoldWithVault(25);
+        state.blessing = "luck";
+        state.templeBlessed = true;
         state.currentLuck = getDerived(state).maxLuck;
         sfx("heal");
         toast("Blessed with +1 Luck for your next adventure!", "gold");
-        renderTown(); renderSheet();
+        addLog("Received Blessing of Fortune (+1 Luck) at the Temple of the Dawn (-25 GP).", "gold");
+        renderDistrictTemple(box); renderTown(); renderSheet();
       };
     }
 
@@ -2809,6 +2823,7 @@
       stopAutoWalk();
       state.mode = "adventure";
       state.innRested = false;
+      state.templeBlessed = false;
       state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, classAbilityUsed: false, torchLit: false, itemCharges: {}, lootItems: [], lootGold: 0, lootXp: 0 };
       activeCombat = null;
       sfx("quest");
@@ -2987,6 +3002,7 @@
       state.equipment = { weapon: "novice_cudgel", armor: null, offhand: null, accessory: null, cloak: null };
       state.backpack = [];
       state.blessing = null;
+      state.templeBlessed = false;
       state.innBuff = null;
       state.shieldTurns = 0;
       state.evadeTurns = 0;
