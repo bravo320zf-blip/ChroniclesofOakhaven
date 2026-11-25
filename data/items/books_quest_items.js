@@ -968,3 +968,93 @@ window.OAKHAVEN.registerItems({
     desc: "+5 Attack, +2 Agility. Balanced desert javelin-spear won at Horseshoe Rock Oasis."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 010 — River Tomb through Neither by Sail, Nor by Oar
+  "bq_sgavaldyr_venom_axe": {
+    id: "bq_sgavaldyr_venom_axe",
+    name: "Sgavaldyr's River-Forged Axe",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 280,
+    atk: 5,
+    might: 2,
+    desc: "+5 Attack, +2 Might. Ancient barbarian chieftain's axe pulled from the exposed River Tomb."
+  },
+  "bq_mountain_lotus_rosary": {
+    id: "bq_mountain_lotus_rosary",
+    name: "Purified Mountain Lotus Beads",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 335,
+    ac: 2,
+    spirit: 2,
+    maxHp: 8,
+    desc: "+2 AC, +2 Spirit, +8 Max HP. Consecrated prayer beads from the reclaimed Mountain Lotus Temple."
+  },
+  "bq_crucible_fabricator_core": {
+    id: "bq_crucible_fabricator_core",
+    name: "Fabricator's Arcane Core",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 390,
+    ac: 3,
+    arcana: 2,
+    maxMp: 6,
+    desc: "+3 AC, +2 Arcana, +6 Max MP. Humming ancient construct lens from the Crucible of Golems."
+  },
+  "bq_cherufe_magma_mantle": {
+    id: "bq_cherufe_magma_mantle",
+    name: "Olov Yurak Cinder-Mantle",
+    type: "cloak",
+    rarity: "legendary",
+    value: 465,
+    ac: 3,
+    might: 2,
+    arcana: 2,
+    maxHp: 8,
+    desc: "+3 AC, +2 Might, +2 Arcana, +8 Max HP. Volcanic cloak forged from the fallen Cherufe's embers."
+  },
+  "bq_void_touched_buckler": {
+    id: "bq_void_touched_buckler",
+    name: "Void-Touched Buckler",
+    type: "shield",
+    rarity: "rare",
+    value: 135,
+    ac: 2,
+    arcana: 1,
+    desc: "+2 AC, +1 Arcana. Star-frosted shield recovered from the frozen Starry Breach."
+  },
+  "bq_fellforged_helm": {
+    id: "bq_fellforged_helm",
+    name: "Steel Horde Command Visor",
+    type: "armor",
+    rarity: "rare",
+    value: 190,
+    ac: 3,
+    might: 1,
+    maxHp: 4,
+    desc: "+3 AC, +1 Might, +4 Max HP. Riveted iron helm salvaged from the Fellforged war-machine."
+  },
+  "bq_crystal_heart_prism": {
+    id: "bq_crystal_heart_prism",
+    name: "Alchemist's Crystal Prism",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 230,
+    arcana: 2,
+    spirit: 2,
+    desc: "+2 Arcana, +2 Spirit. Faceted ward-stone seized after ending Mayor Enkam's crystal murders."
+  },
+  "bq_silver_slipper_compass": {
+    id: "bq_silver_slipper_compass",
+    name: "Captain Sara's Fog-Compass",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 265,
+    ac: 2,
+    agility: 2,
+    luck: 1,
+    desc: "+2 AC, +2 Agility, +1 Luck. Silver-inlaid sea compass gifted aboard the Silver Slipper."
+  }
+});

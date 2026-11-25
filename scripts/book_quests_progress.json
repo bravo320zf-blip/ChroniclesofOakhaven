@@ -1,6 +1,6 @@
 {
-  "batchCount": 9,
-  "totalQuestsAdded": 106,
+  "batchCount": 10,
+  "totalQuestsAdded": 118,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -469,7 +469,7 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Monster Books/Tome of Beasts 2 Lairs.pdf": {
-      "status": "in_progress",
+      "status": "done",
       "convertedTitles": [
         "To Track a Thief",
         "The Forsaken Fort",
@@ -477,9 +477,7 @@
         "Shrine of the Hungry Dead",
         "Tragedy at Thyrdun Outpost",
         "Caverns of the Crystalline Monolith",
-        "Fight for Horseshoe Rock Oasis"
-      ],
-      "remainingTitles": [
+        "Fight for Horseshoe Rock Oasis",
         "The River Tomb",
         "House of the Worm God",
         "Terror at Mountain Lotus Temple",
@@ -521,19 +519,37 @@
       ]
     },
     "Books/Kobold Press/Prepared2/Ooze Tomb of the Oathbreaker/Ooze Tomb of the Oathbreaker Adventure.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate or reference sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Prepared2/Prepared-2-Final-with-Player-Maps_5ef8d66a2ee0b.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "in_progress",
+      "convertedTitles": [
+        "Dib's Wagon of Doom (Batch 002)",
+        "A Starry Breach",
+        "Ooze Tomb of the Oathbreaker",
+        "Assault of the Steel Horde",
+        "The Void Walker",
+        "Hell Comes a' Glittering",
+        "Neither by Sail, Nor by Oar"
+      ],
+      "remainingTitles": [
+        "Dark Night at the Odeum",
+        "The Tangled Temple",
+        "The Sparking Spire",
+        "Valley of Black Tears",
+        "A Shroud for Aganatha"
+      ]
     },
     "Books/Kobold Press/Raven's Call (1)/Raven's-Call-5e.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate or reference sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Raven's Call (2)/Raven's-Call-5e.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate or reference sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Rogues of Remballo/Rogues of Remballo.pdf": {
@@ -557,19 +573,23 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Southlands Heroes/Southlands Heroes.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate or reference sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Southlands Player Guide/Southlands-Players-Guide-5E-v2-dzhhuz_6124275773ec8.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate or reference sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Southlands World Book/Southlands World Map.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate or reference sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Southlands World Book/Southlands-Worldbook-Hardcover-FINAL-v2-gvbsvj_612427554e6ff.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate or reference sourcebook",
       "convertedTitles": []
     },
     "Books/Kobold Press/Streets of Zobeck/Streets of Zobeck.pdf": {
