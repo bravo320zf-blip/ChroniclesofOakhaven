@@ -487,6 +487,170 @@
       if (tip) tip.classList.add("hidden");
     }
 
+    // ---- Floating Item Inspector Tooltip (Hover + Tap) ----
+    let itemTooltipPinnedId = null;
+
+    const ITEM_TYPE_META = {
+      weapon:       { label: "Weapon",           icon: "⚔️" },
+      armor:        { label: "Armor",            icon: "🛡️" },
+      offhand:      { label: "Off-Hand",         icon: "🔰" },
+      accessory:    { label: "Ring / Amulet",    icon: "💍" },
+      cloak:        { label: "Cloak / Boots",    icon: "🧥" },
+      consumable:   { label: "Consumable",       icon: "🧪" },
+      bomb:         { label: "Throwable / Bomb", icon: "💣" },
+      material:     { label: "Crafting Material",icon: "⚒️" },
+      schematic:    { label: "Forge Schematic",  icon: "📜" },
+      spell_scroll: { label: "Spell Scroll",     icon: "✨" },
+      valuable:     { label: "Valuable",         icon: "💎" }
+    };
+
+    function buildItemTooltipHtml(it, opts = {}) {
+      const meta = ITEM_TYPE_META[it.type] || { label: (it.type || "Item"), icon: "🎒" };
+      const imgSrc = it.img || it.image || it.art || null;
+      const qty = opts.qty || 1;
+      const rarityHtml = typeof getRarityBadgeHtml === "function" ? getRarityBadgeHtml(it.rarity || "common") : "";
+
+      const stats = [];
+      if (it.atk)          stats.push({ lbl: `⚔️ ${it.atk > 0 ? "+" : ""}${it.atk} Attack`, cls: "bg-rose-950/80 text-rose-200 border-rose-600/50" });
+      if (it.ac)           stats.push({ lbl: `🛡️ ${it.ac > 0 ? "+" : ""}${it.ac} AC`, cls: "bg-sky-950/80 text-sky-200 border-sky-600/50" });
+      if (it.might)        stats.push({ lbl: `💪 +${it.might} Might`, cls: "bg-rose-950/70 text-rose-200 border-rose-700/40" });
+      if (it.agility)      stats.push({ lbl: `🏃 +${it.agility} Agility`, cls: "bg-emerald-950/70 text-emerald-200 border-emerald-700/40" });
+      if (it.arcana)       stats.push({ lbl: `🔮 +${it.arcana} Arcana`, cls: "bg-sky-950/70 text-sky-200 border-sky-700/40" });
+      if (it.spirit)       stats.push({ lbl: `🌟 +${it.spirit} Spirit`, cls: "bg-amber-950/70 text-amber-200 border-amber-700/40" });
+      if (it.luck)         stats.push({ lbl: `🍀 +${it.luck} Luck`, cls: "bg-purple-950/70 text-purple-200 border-purple-700/40" });
+      if (it.maxHp)        stats.push({ lbl: `❤️ +${it.maxHp} Max HP`, cls: "bg-emerald-950/80 text-emerald-200 border-emerald-600/50" });
+      if (it.maxMp)        stats.push({ lbl: `🔷 +${it.maxMp} Max MP`, cls: "bg-indigo-950/80 text-indigo-200 border-indigo-600/50" });
+      if (it.healHp)       stats.push({ lbl: `💚 Restores +${it.healHp} HP`, cls: "bg-emerald-950/80 text-emerald-200 border-emerald-600/50" });
+      if (it.healMp)       stats.push({ lbl: `💧 Restores +${it.healMp} MP`, cls: "bg-sky-950/80 text-sky-200 border-sky-600/50" });
+      if (it.dmgDice)      stats.push({ lbl: `💥 ${it.dmgDice} Damage`, cls: "bg-orange-950/80 text-orange-200 border-orange-600/50" });
+      else if (it.dmg)     stats.push({ lbl: `💥 ${it.dmg} Damage`, cls: "bg-orange-950/80 text-orange-200 border-orange-600/50" });
+      if (it.unlocksSpell) stats.push({ lbl: `✨ Teaches: ${it.unlocksSpell}`, cls: "bg-sky-950/80 text-sky-200 border-sky-500/50" });
+      if (it.unlocksRecipe) {
+        const rName = ITEMS_DB[it.unlocksRecipe]?.name || it.unlocksRecipe;
+        stats.push({ lbl: `📜 Unlocks: ${rName}`, cls: "bg-purple-950/80 text-purple-200 border-purple-500/50" });
+      }
+
+      const pictureHtml = imgSrc
+        ? `<img src="${imgSrc}" alt="${it.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" class="w-14 h-14 rounded-lg object-cover border border-amber-500/60 shadow shrink-0" /><div style="display:none" class="w-11 h-11 rounded-lg bg-stone-900 border border-amber-700/50 items-center justify-center text-xl shrink-0">${meta.icon}</div>`
+        : `<div class="w-11 h-11 rounded-lg bg-stone-900 border border-amber-700/50 flex items-center justify-center text-xl shrink-0">${meta.icon}</div>`;
+
+      const priceLine = opts.price != null
+        ? `<span>Shop Price: <strong class="text-amber-300">🪙 ${opts.price} GP</strong></span>`
+        : `<span>Sell Value: <strong class="text-amber-300">🪙 ${it.value || 0} GP</strong>${qty > 1 ? ` <span class="text-stone-400">(${(it.value || 0) * qty} GP stack)</span>` : ""}</span>`;
+
+      return `
+        <div class="flex items-start gap-2.5 border-b border-amber-700/40 pb-2">
+          ${pictureHtml}
+          <div class="min-w-0 flex-1">
+            <div class="flex items-start justify-between gap-1.5">
+              <div class="font-display text-sm font-bold text-amber-200 leading-snug">${it.name}${qty > 1 ? ` <span class="text-amber-400 text-xs">x${qty}</span>` : ""}</div>
+              ${opts.pinned ? `<button type="button" id="item-tip-close" class="text-stone-400 hover:text-amber-200 text-xs font-bold px-1 shrink-0" title="Close">✕</button>` : ""}
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5 mt-1">
+              <span class="text-[10px] uppercase tracking-wider text-stone-400 font-semibold">${meta.label}</span>
+              ${rarityHtml}
+              ${it.unique ? `<span class="px-1.5 py-0.5 rounded bg-amber-950/90 border border-amber-500/60 text-[9px] font-bold uppercase text-amber-300">Unique</span>` : ""}
+            </div>
+          </div>
+        </div>
+        ${stats.length ? `<div class="flex flex-wrap gap-1.5">${stats.map(s => `<span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${s.cls}">${s.lbl}</span>`).join("")}</div>` : ""}
+        ${it.desc ? `<p class="text-[11px] text-stone-200 leading-relaxed">${it.desc}</p>` : ""}
+        <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-stone-800 text-[10px] text-stone-400">
+          ${priceLine}
+          ${opts.slotLabel ? `<span class="uppercase text-stone-500">${opts.slotLabel}</span>` : ""}
+        </div>
+      `;
+    }
+
+    function positionItemTooltip(evtOrRect) {
+      const tip = document.getElementById("item-tooltip");
+      if (!tip || tip.classList.contains("hidden") || !evtOrRect) return;
+      const pad = 14;
+      const w = tip.offsetWidth || 320;
+      const h = tip.offsetHeight || 180;
+      let x, y;
+      if (typeof evtOrRect.clientX === "number") {
+        x = evtOrRect.clientX + pad;
+        y = evtOrRect.clientY + pad;
+      } else if (typeof evtOrRect.right === "number") {
+        x = evtOrRect.right + 10;
+        y = evtOrRect.top;
+        if (x + w > window.innerWidth - 10) x = evtOrRect.left - w - 10;
+      } else {
+        return;
+      }
+      if (x + w > window.innerWidth - 10) x = Math.max(10, (evtOrRect.clientX || window.innerWidth) - w - pad);
+      if (x < 10) x = 10;
+      if (y + h > window.innerHeight - 10) y = Math.max(10, window.innerHeight - h - 10);
+      if (y < 10) y = 10;
+      tip.style.left = `${x}px`;
+      tip.style.top = `${y}px`;
+    }
+
+    function showItemTooltip(itemId, evtOrEl, opts = {}) {
+      const tip = document.getElementById("item-tooltip");
+      const it = ITEMS_DB[itemId];
+      if (!tip || !it) return;
+      const pinned = !!opts.pinned;
+      tip.classList.toggle("pointer-events-none", !pinned);
+      tip.innerHTML = buildItemTooltipHtml(it, opts);
+      tip.classList.remove("hidden");
+      const closeBtn = tip.querySelector("#item-tip-close");
+      if (closeBtn) closeBtn.onclick = (e) => { e.stopPropagation(); hideItemTooltip(true); };
+      if (evtOrEl && typeof evtOrEl.getBoundingClientRect === "function") {
+        positionItemTooltip(evtOrEl.getBoundingClientRect());
+      } else {
+        positionItemTooltip(evtOrEl);
+      }
+    }
+
+    function hideItemTooltip(force = false) {
+      if (!force && itemTooltipPinnedId) return;
+      itemTooltipPinnedId = null;
+      const tip = document.getElementById("item-tooltip");
+      if (tip) {
+        tip.classList.add("hidden");
+        tip.classList.add("pointer-events-none");
+      }
+    }
+
+    function bindItemTooltip(el, itemId, opts = {}) {
+      if (!el || !itemId || !ITEMS_DB[itemId]) return;
+      el.addEventListener("mouseenter", (e) => {
+        if (itemTooltipPinnedId) return;
+        showItemTooltip(itemId, e, { ...opts, pinned: false });
+      });
+      el.addEventListener("mousemove", (e) => {
+        if (itemTooltipPinnedId) return;
+        positionItemTooltip(e);
+      });
+      el.addEventListener("mouseleave", () => {
+        hideItemTooltip(false);
+      });
+      el.addEventListener("dragstart", () => hideItemTooltip(true));
+      el.addEventListener("click", (e) => {
+        if (e.target && e.target.closest("button, a, input")) return;
+        e.stopPropagation();
+        const pinKey = `${itemId}:${opts.qty || 1}:${opts.price ?? ""}:${opts.slotLabel || ""}`;
+        if (itemTooltipPinnedId === pinKey) {
+          hideItemTooltip(true);
+        } else {
+          itemTooltipPinnedId = pinKey;
+          showItemTooltip(itemId, el, { ...opts, pinned: true });
+        }
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!itemTooltipPinnedId) return;
+      const tip = document.getElementById("item-tooltip");
+      if (tip && tip.contains(e.target)) return;
+      hideItemTooltip(true);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && itemTooltipPinnedId) hideItemTooltip(true);
+    });
+
     function getDerived(hero) {
       const s = { ...hero.baseStats };
       const subB = getSubclassPassiveTotals(hero);
@@ -1935,6 +2099,7 @@
           toast(`Bought ${it.name}!`, "gold");
           renderDistrictMarket(box); renderSheet();
         };
+        bindItemTooltip(r, entry.id, { price: entry.price });
         buyEl.appendChild(r);
       });
 
@@ -1968,6 +2133,7 @@
             }
             renderSheet();
           });
+          bindItemTooltip(r, id, { qty });
           sellEl.appendChild(r);
         });
       }
@@ -2247,7 +2413,7 @@
           const { pack, vault, total } = countMaterialSplit(mid);
           if (total < need) canCraft = false;
           const vaultTag = vault > 0 ? ` <span class="text-amber-300/90" title="${pack} in Backpack, ${vault} in Vault">(🔐${vault})</span>` : "";
-          return `<span class="px-2 py-0.5 rounded text-[10px] ${total >= need ? "bg-emerald-950 text-emerald-300 border border-emerald-700" : "bg-stone-900 text-rose-300 border border-stone-700"}">${ITEMS_DB[mid]?.name || mid}: ${total}/${need}${vaultTag}</span>`;
+          return `<span data-mat-id="${mid}" class="px-2 py-0.5 rounded text-[10px] cursor-help ${total >= need ? "bg-emerald-950 text-emerald-300 border border-emerald-700" : "bg-stone-900 text-rose-300 border border-stone-700"}">${ITEMS_DB[mid]?.name || mid}: ${total}/${need}${vaultTag}</span>`;
         }).join(" ");
 
         const c = document.createElement("div");
@@ -2294,6 +2460,10 @@
           renderSheet();
         };
 
+        bindItemTooltip(c, rec.result, { slotLabel: "Crafted Result" });
+        c.querySelectorAll("[data-mat-id]").forEach(mEl => {
+          bindItemTooltip(mEl, mEl.dataset.matId);
+        });
         list.appendChild(c);
       });
     }
@@ -2456,6 +2626,7 @@
           r.innerHTML = `<div><div class="font-bold text-amber-200">${it.name}${qty > 1 ? ` <span class="px-1.5 py-0.5 rounded bg-amber-900/80 text-[10px]">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
             <button class="px-2.5 py-1 rounded bg-sky-900 hover:bg-sky-800 text-sky-100 text-[11px] shrink-0">Withdraw</button>`;
           attachStackInteractions(r, activeContainerKey, i);
+          bindItemTooltip(r, id, { qty, slotLabel: `Stash Tab ${activeIdx + 1}` });
           r.querySelector("button").onclick = () => {
             const added = addItemToContainer("backpack", id, qty, 12);
             if (added <= 0) return toast("Backpack full (12/12)!", "bad");
@@ -2482,6 +2653,7 @@
           r.innerHTML = `<div><div class="font-bold text-stone-200">${it.name}${qty > 1 ? ` <span class="px-1.5 py-0.5 rounded bg-amber-900/80 text-[10px]">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
             <button class="px-2.5 py-1 rounded bg-emerald-900 hover:bg-emerald-800 text-emerald-100 text-[11px] shrink-0">Deposit</button>`;
           attachStackInteractions(r, "backpack", i);
+          bindItemTooltip(r, id, { qty, slotLabel: "Backpack" });
           r.querySelector("button").onclick = () => {
             const added = addItemToContainer(activeContainerKey, id, qty, 20);
             if (added <= 0) return toast(`Stash Tab ${activeIdx + 1} is full (20/20)!`, "bad");
@@ -3694,6 +3866,7 @@
           state.equipment[k] = null;
           renderSheet();
         };
+        if (it) bindItemTooltip(r, state.equipment[k], { slotLabel: `Equipped (${lbl})` });
         eqEl.appendChild(r);
       });
 
@@ -3736,6 +3909,7 @@
           </div>`;
 
         attachStackInteractions(r, "backpack", i);
+        bindItemTooltip(r, id, { qty, slotLabel: "Backpack" });
 
         r.querySelectorAll("button").forEach(b => b.onclick = () => {
           const act = b.dataset.act;
@@ -4050,6 +4224,7 @@
             }
             renderSheet();
           });
+          bindItemTooltip(r, id, { qty });
           sellEl.appendChild(r);
         });
       }
@@ -4423,7 +4598,7 @@
         const itemBadges = (entry.items || []).map(id => {
           const it = ITEMS_DB[id];
           const label = it ? it.name : id;
-          return `<span class="px-2 py-0.5 rounded bg-stone-900 border border-amber-700/35 text-[11px] text-amber-100">${label}</span>`;
+          return `<span data-journal-item="${id}" class="px-2 py-0.5 rounded bg-stone-900 border border-amber-700/35 text-[11px] text-amber-100 cursor-help">${label}</span>`;
         }).join("");
         const dateStr = entry.completedAt ? new Date(entry.completedAt).toLocaleDateString() : "";
         card.innerHTML = `
@@ -4442,6 +4617,9 @@
           </div>
           ${itemBadges ? `<div class="pt-1 border-t border-stone-800/80"><div class="text-[10px] uppercase tracking-wider text-stone-400 font-semibold mb-1">Loot &amp; Relics Earned</div><div class="flex flex-wrap gap-1.5">${itemBadges}</div></div>` : ""}
         `;
+        card.querySelectorAll("[data-journal-item]").forEach(el => {
+          bindItemTooltip(el, el.dataset.journalItem);
+        });
         listEl.appendChild(card);
       });
     }
