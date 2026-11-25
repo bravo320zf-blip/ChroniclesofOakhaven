@@ -180,87 +180,122 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 3. EMPIRE OF THE GHOULS III: THE BLOOD MARRIAGE (8 PAGES • LV 6)
-  // Part 3 of 6 (Prerequisite: bk_b7_eog_2_sister_adelind)
+  // 3. EMPIRE OF THE GHOULS III: THE BLOOD MARRIAGE (11 PAGES • LV 6)
+  // Part 3 of 6 (Prerequisite: bk_b7_eog_2_sister_adelind) (Enriched Pass 1)
   // ==========================================================
   bk_b7_eog_3_blood_marriage: {
     id: "bk_b7_eog_3_blood_marriage",
     reqQuest: "bk_b7_eog_2_sister_adelind",
     title: "Empire of the Ghouls III: The Blood Marriage",
-    subtitle: "Empire of the Ghouls (Part 3 of 6) • Huldramose, Nordheim & Midnight Temple",
+    subtitle: "Part 3 of 6 • Huldramose, Nordheim & The Midnight Temple",
     difficulty: "Hard",
     recommendedLevel: 6,
     autoDiscover: false,
     discoverySource: "Unlocks after Empire of the Ghouls II",
-    summary: "Answer the Spear Maidens' plea in the Northlands, raid the Ragnarok Cultists after the Memorial Feast of Randgrid Ironeyes, cross the Cursed Multitude to Nordheim, and shatter the unholy Blood Wedding at the Midnight Temple!",
-    totalPages: 8,
+    summary: "Answer the Spear Maidens' plea in the Northlands, raid the Ragnarok Cultists after the Memorial Feast of Randgrid Ironeyes, brave the Cursed Multitude across Nordheim's glaciers, and shatter the unholy Blood Wedding at the Midnight Temple!",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Huldramose • Memorial Hall",
         title: "The Spear Maidens' Plea",
         safeRetreat: true,
-        text: "At the solemn Memorial Feast of Randgrid Ironeyes, northern jarls warn that the Creed of All Flesh, Red Sisters of Marena, and Night Cauldron of Chernobog plan a 'Blood Marriage' at the Midnight Temple in Nordheim—binding vampire and ghoul deities to blot out the sun!",
+        text: [
+          "Horn-cups of spiced mead clatter across the long tables of Huldramose as the Spear Maidens honor fallen champion Randgrid Ironeyes. Amid the solemn dirges, Shield-Captain Brynhild unrolls a frost-rimed chart of Nordheim before you.",
+          "<em>'Three dark cabals have joined hands,'</em> she warns darkly. <em>'The Creed of All Flesh, the Red Sisters of Marena, and the Night Cauldron of Chernobog gather at the Midnight Temple for a Blood Marriage—binding vampire and ghoul deities to snuff out the northern sun!'</em>"
+        ],
         choices: [
-          { t: "Raid the Ragnarok Cultists' camp outside Huldramose first to cut off their reinforcements!", to: 2, onChoose: { cw: "RAGNAROK_RAIDED", msg: "Scattered the Ragnarok Cultists and weakened the Midnight Temple's guard!" } },
-          { t: "Sail straight north toward the frozen cliffs of Nordheim!", to: 2 }
+          { t: "Raid the Ragnarok Cultists' bonfire camp outside Huldramose first to cut off their tomb-dust supply sleds!", to: 2 },
+          { t: "Seek a blessing of consecrated sun-oil from the Spear Maidens' runecaster before sailing north.", badge: "Lore / Persuasion DC 13", check: { stat: "spirit", skill: "Lore", dc: 13, pass: 3, fail: 3, passMsg: "The runecaster anoints your weapon with gleaming sun-oil (+6 HP) that burns undead flesh!", failMsg: "The gale rises too fast for the full rite—you hurry aboard the longship." }, onPass: { cw: "SUN_OIL", healHp: 6 } },
+          { t: "Board a fast longship immediately and race the rising blood-moon to Nordheim!", to: 3 }
         ]
       },
       2: {
-        zone: "The Cursed Multitude",
-        title: "March of the Frozen Dead",
-        text: "Across howling glacial wastes, a shambling army of frost-bitten ghouls and blood-sworn thralls blocks the canyon to the Midnight Temple!",
-        enemy: { name: "Cursed Multitude Vanguard", desc: "Frost-rimed undead legionaries guarding the Blood Marriage.", hp: 52, ac: 14, atk: 7, dmg: 8, undead: true, xp: 150, gold: 70, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1, weakCw: ["RAGNAROK_RAIDED"] },
+        zone: "Outskirts of Huldramose • Bonfire Camp",
+        title: "The Ragnarok Supply Sleds",
+        text: "Beside a roaring pyre of whale-oil and black iron, hooded Ragnarok Cultists lash sealed amphorae of consecrated tomb-dust onto bone-runner sleds bound for Nordheim. Ruining this shipment will leave the Midnight Temple short-handed!",
         choices: [
-          { t: "Storm the obsidian doors of the Midnight Temple before the vows are sealed!", to: 3 }
+          { t: "Slip into the camp, overturn the whale-oil casks, and scatter the cultists in a sudden ambush!", badge: "Stealth / Athletics DC 13", check: { stat: "agility", skill: "Stealth", dc: 13, pass: 3, fail: 3, failDmg: 4, passMsg: "Whoosh! The sleds erupt in green flame—you pocket 35 GP in raid-silver and sprint for the docks!", failMsg: "A cult spear grazes your ribs (-4 HP) as you kick over the oil casks, still torching their sleds!" }, onPass: { cw: "RAGNAROK_RAIDED", gold: 35 }, onFail: { cw: "RAGNAROK_RAIDED" } },
+          { t: "Ignite the whale-oil casks from the snowy ridge with Firebolt!", badge: "Firebolt", reqSpell: "Firebolt", to: 3, onChoose: { cw: "RAGNAROK_RAIDED", msg: "A booming fireball turns the Ragnarok sleds to ash—Nordheim's garrison will be sorely weakened!" } }
         ]
       },
       3: {
-        zone: "The Midnight Temple",
-        title: "The Unholy Vows",
-        text: "Beneath an eclipsing blood-moon altar stand the ghoul Bridegroom of Vardesain and the vampire Bride of Marena, flanked by a Night Cauldron officiant! 'By fang and hunger, let eternal night begin!' they roar as you crash the wedding!",
-        enemy: { name: "The Blood Bride & Darakhul Groom", desc: "Vampire priestess of Marena and darakhul priest of Vardesain.", hp: 68, ac: 15, atk: 8, dmg: 10, undead: true, xp: 225, gold: 155, items: ["bq_spear_maiden_aegis"], weakCw: ["RAGNAROK_RAIDED"] },
+        zone: "Nordheim Coast • Glacier Canyon",
+        title: "The Cursed Multitude",
+        text: "Your longship grinds onto black volcanic ice beneath a bruised, crimson-rimmed sky. Blocking the narrow glacier canyon to the obsidian arches of the Midnight Temple marches the <strong>Cursed Multitude</strong>—ranks of frost-rimed ghouls and blood-sworn thralls bearing pale bone lanterns!",
         choices: [
-          { t: "Shatter the Night Cauldron's eclipse-chalice and break the Blood Marriage!", to: 4 }
+          { t: "Scale the jagged ice-chimney above the canyon to bypass the vanguard and reach the Temple's upper parapet!", badge: "Athletics / Stealth DC 14", check: { stat: "agility", skill: "Athletics", dc: 14, pass: 5, fail: 4, passMsg: "You haul yourself onto the obsidian parapet unseen, looking straight down on the wedding altar!", failMsg: "Brittle ice shears beneath your boots—you slide straight into the vanguard's spears!" } },
+          { t: "Raise your weapon and carve a path straight through the Cursed Multitude Vanguard!", to: 4 }
         ]
       },
       4: {
-        zone: "Nordheim Coast",
-        title: "Dawn Breaks Over the Ice",
-        text: "Golden northern sunlight pierces the black clouds as the unholy union dissolves! Yet a breathless messenger arrives from Jozht with terrible news: while you were in the North, Radomir Marrowblight's spies kidnapped Archduke Avgost!",
-        onEnter: { healHp: 16, msg: "The Spear Maidens tend your wounds (+16 HP) as urgent news arrives from Queen Urzula!" },
+        zone: "Glacier Canyon • Frozen Floor",
+        title: "March of the Frozen Dead",
+        text: "Bitter sleet lashes your cloak as frost-bitten ghoul legionaries and crimson-veiled thralls surge forward with jagged ice-blades!",
+        enemy: { name: "Cursed Multitude Vanguard", desc: "Frost-rimed undead legionaries guarding the canyon to the Blood Marriage.", hp: 52, ac: 14, atk: 7, dmg: 8, undead: true, xp: 150, gold: 70, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1, weakCw: ["RAGNAROK_RAIDED", "SUN_OIL"] },
         choices: [
-          { t: "Sail south immediately for Chapter IV: Catacombs of the Ghul King!", to: 5 }
+          { t: "Press through the shattered canyon toward the obsidian doors of the Midnight Temple!", to: 6 }
         ]
       },
       5: {
-        zone: "Huldramose",
-        title: "Gratitude of the North",
-        text: "The Spear Maidens salute you with clashing shields and silver tribute.",
+        zone: "Midnight Temple • Obsidian Parapet",
+        title: "Above the Blood-Lit Nave",
+        text: "Crouched beside a shattered rose-window high above the temple nave, you peer down at the unholy wedding below. Directly above the blood-moon altar hangs the Night Cauldron Officiant's massive iron eclipse-brazier, suspended by a single rusted chain!",
         choices: [
-          { t: "Unlock Chapter IV!", to: 6 }
+          { t: "Sever the iron chain so the flaming eclipse-brazier crashes onto the altar before you leap down!", badge: "Lockpicking / Sleight of Hand DC 13", check: { stat: "agility", skill: "Lockpicking", dc: 13, pass: 7, fail: 6, passMsg: "SNAP! The iron brazier plunges into the altar in a shower of sparks, scattering the officiant and staggering the bridal pair!", failMsg: "The chain jams loudly—red-robed sentries point upward as you drop toward the nave doors!" }, onPass: { cw: "BRAZIER_DROPPED" } },
+          { t: "Drop quietly into the side vestry to catch your breath (+8 HP) before crashing the ceremony!", to: 6, onChoose: { healHp: 8, msg: "A quiet moment in the vestry steadies your pulse (+8 HP)!" } }
         ]
       },
       6: {
-        zone: "Nieder Strait",
-        title: "Chapter III Complete",
-        text: "Queen Urzula's sealed letter awaits you in Kariessen.",
+        zone: "Midnight Temple • Crimson Aisle",
+        title: "The Unholy Choir",
+        text: "Towering obsidian doors groan wide onto a cathedral of black ice. Along both sides of the crimson aisle, Red Sisters of Marena chant a chilling hymn while bone-armored Darakhul knights cross halberds to bar your approach!",
         choices: [
-          { t: "Advance to Chapter IV!", to: 7 }
+          { t: "Blast the crimson aisle with Turn Undead to scatter the wedding choir before facing the bridal pair!", badge: "Turn Undead", reqSpell: "Turn Undead", to: 7, onChoose: { cw: "CHOIR_BROKEN", msg: "Blinding radiance scatters the chanting choir—leaving the Blood Bride and Groom exposed!" } },
+          { t: "Stride boldly down the crimson aisle and shatter the vows with steel!", to: 7 }
         ]
       },
       7: {
-        zone: "Road to Dornig",
-        title: "Race Against Time",
-        text: "Archduke Avgost's life hangs by a thread.",
+        zone: "The Midnight Temple • Altar",
+        title: "The Unholy Vows",
+        text: [
+          "Beneath an eclipsing blood-moon altar stand the pale <strong>Blood Bride of Marena</strong> and the bone-crowned <strong>Darakhul Groom of Vardesain</strong>, clasping clawed hands over a brimming silver eclipse-chalice!",
+          "<em>'By fang and hunger, let eternal night begin!'</em> they hiss in unison, wheeling upon you with unholy fury as you crash their wedding!"
+        ],
+        enemy: { name: "The Blood Bride & Darakhul Groom", desc: "Vampire priestess of Marena and darakhul priest of Vardesain.", hp: 68, ac: 15, atk: 8, dmg: 10, undead: true, xp: 225, gold: 155, items: ["bq_spear_maiden_aegis"], weakCw: ["RAGNAROK_RAIDED", "SUN_OIL", "BRAZIER_DROPPED", "CHOIR_BROKEN"] },
         choices: [
-          { t: "Complete Chapter III!", to: 8 }
+          { t: "Approach the violently pulsing eclipse-chalice still burning atop the altar!", to: 8 }
         ]
       },
       8: {
+        zone: "Midnight Temple • Breaking the Seal",
+        title: "The Eclipse-Chalice",
+        text: "Though the Blood Bride and Darakhul Groom crumble to ash and bone, the silver eclipse-chalice shrieks with trapped twilight magic—threatening to lock Nordheim beneath a permanent veil unless shattered properly!",
+        choices: [
+          { t: "Invert the Night Cauldron's runes with Arcana/Lore before smashing the chalice to reclaim its light!", badge: "Arcana / Lore DC 13", check: { stat: "arcana", skill: "Lore", dc: 13, pass: 9, fail: 9, passMsg: "Pure dawn-light bursts outward (+16 HP), and you salvage 40 GP in uncorrupted silver offerings!", failMsg: "The chalice cracks in a flash of cold mist, breaking the eclipse (+10 HP)!" }, onPass: { healHp: 16, gold: 40 }, onFail: { healHp: 10 } },
+          { t: "Bring your weapon crashing down to shatter the eclipse-chalice immediately!", to: 9, onChoose: { healHp: 12, msg: "The silver cup splits in two as golden sunlight pierces the black roof (+12 HP)!" } }
+        ]
+      },
+      9: {
+        zone: "Nordheim Coast",
+        title: "Dawn Breaks Over the Ice",
+        text: "Golden northern sunlight floods the glaciers as the unholy union dissolves! Shield-Captain Brynhild and the Spear Maidens raise a thunderous salute of clashing shields—until a breathless courier boat from Jozht scrapes onto the shingle bearing Queen Urzula's black-waxed seal. Terrible news: while you fought in the North, Radomir Marrowblight's spies kidnapped <strong>Archduke Avgost</strong>!",
+        choices: [
+          { t: "Board the Spear Maidens' swiftest longship and race south across the Nieder Strait!", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Nieder Strait • Longship Deck",
+        title: "Queen Urzula's Summons",
+        text: "Icy spray lashes the dragon-prow as you read Queen Urzula's urgent dispatch by lantern light. All trails from Kariessen lead straight into the cursed <strong>Catacombs of the Ghul King</strong>—and Archduke Avgost's life hangs by a thread.",
+        choices: [
+          { t: "Make landfall and prepare for Chapter IV: Catacombs of the Ghul King!", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Breaker of the Blood Marriage",
-        text: "You prevented an unholy alliance of vampire and ghoul! <strong>Empire of the Ghouls IV: Catacombs of the Ghul King</strong> is now unlocked!",
-        ending: { type: "true", title: "Shatterer of the Blood Wedding (Empire of Ghouls III)", xp: 260, gold: 245, trophy: "Shattered Eclipse Ring" },
+        text: "You shattered the unholy alliance of vampire and ghoul and saved the Northlands from eternal night! <strong>Empire of the Ghouls IV: Catacombs of the Ghul King</strong> is now unlocked on your Quest Board!",
+        ending: { type: "true", title: "Shatterer of the Blood Wedding (Part 3 of 6)", xp: 260, gold: 245, trophy: "Shattered Eclipse Ring" },
         choices: []
       }
     }
