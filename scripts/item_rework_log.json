@@ -1,6 +1,6 @@
 {
-  "totalPasses": 2,
-  "totalItemsReworked": 20,
+  "totalPasses": 3,
+  "totalItemsReworked": 30,
   "history": [
     {
       "pass": 1,
@@ -33,6 +33,22 @@
         "bq_pol_radiant_brush"
       ],
       "summary": "Reworked 4 Vault of Magic items, 2 Tome of Heroes items, and 4 quest relics with authentic sourcebook passives and charged/MP active abilities."
+    },
+    {
+      "pass": 3,
+      "items": [
+        "vom_sandals_desert",
+        "vom_brawn_armor",
+        "vom_sword_fallen_saints",
+        "vom_temple_guardian_blade",
+        "velvet_mantle",
+        "bk_gambeson",
+        "bq_arakiel_fallen_amulet",
+        "bq_dusk_queen_mirror_shard",
+        "bq_spyglass_noir_cloak",
+        "bq_worm_king_nexus_crown"
+      ],
+      "summary": "Reworked 4 Vault of Magic items, 1 Tome of Heroes armor, 1 expansion cloak, and 4 quest relics (including the mythic Ley-Nexus Crown) with sourcebook passives and active abilities."
     }
   ],
   "itemPasses": {
@@ -55,6 +71,16 @@
     "bq_tymande_venom_dagger": 1,
     "bq_conductor_ivory_baton": 1,
     "bq_urshaka_light_totem": 1,
-    "bq_pol_radiant_brush": 1
+    "bq_pol_radiant_brush": 1,
+    "vom_sandals_desert": 1,
+    "vom_brawn_armor": 1,
+    "vom_sword_fallen_saints": 1,
+    "vom_temple_guardian_blade": 1,
+    "velvet_mantle": 1,
+    "bk_gambeson": 1,
+    "bq_arakiel_fallen_amulet": 1,
+    "bq_dusk_queen_mirror_shard": 1,
+    "bq_spyglass_noir_cloak": 1,
+    "bq_worm_king_nexus_crown": 1
   }
 }

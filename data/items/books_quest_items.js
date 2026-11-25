@@ -1205,7 +1205,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 2,
     luck: 2,
-    desc: "+2 AC, +2 Arcana, +2 Luck. Twilight glass gleaming with the Sun King's trapped dawn."
+    passives: { spellDmgBonus: 3, critRange: 11, skillBonus: { Arcana: 2 } },
+    activeAbility: { name: "Dawn-Mirror Refraction", icon: "🌅", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "radiant", undeadDouble: true, evadeTurns: 2, desc: "2/Quest (2 MP): Shatter shadow with trapped dawnlight — deal 2d8 + Arcana radiant dmg (2× vs Undead) and Evade (2t)!" },
+    desc: "Twilight glass gleaming with the Sun King's trapped dawn (+3 Spell Dmg, +Crit, +2 Arcana) and unleashing Dawn-Mirror Refraction."
   },
   "bq_spyglass_noir_cloak": {
     id: "bq_spyglass_noir_cloak",
@@ -1215,7 +1217,9 @@ window.OAKHAVEN.registerItems({
     value: 115,
     ac: 1,
     agility: 2,
-    desc: "+1 AC, +2 Agility. Dark river-fog mantle taken from a ruthless guild cleaner."
+    passives: { skillBonus: { Stealth: 2, Perception: 1 } },
+    activeAbility: { name: "River-Fog Vanish", icon: "🌫️", charges: 1, evadeTurns: 2, selfBuffAtk: { atk: 2, turns: 2 }, desc: "1/Quest: Dissolve into swirling river-fog — Evade attacks (2t) and gain +2 ATK (2t) for an ambush strike!" },
+    desc: "Dark river-fog mantle of a guild cleaner. Sharpens urban stealth (+2 Stealth, +1 Perception) and grants River-Fog Vanish."
   },
   "bq_kaple_oxide_gauntlets": {
     id: "bq_kaple_oxide_gauntlets",
@@ -1482,7 +1486,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     spirit: 2,
     maxHp: 6,
-    desc: "+1 AC, +2 Spirit, +6 Max HP. Ancient celestial medallion recovered from the Pillars of the Gods."
+    passives: { undeadDmgBonus: 4, healBonus: 2, dmgReduce: 1 },
+    activeAbility: { name: "Celestial Aegis", icon: "🕊️", charges: 2, ooc: true, healDice: "2d6", healStat: "spirit", shieldTurns: 3, desc: "2/Quest: Bathe in Arakiel's cleansed radiance — heal 2d6 + Spirit HP and gain +3 AC (3t)!" },
+    desc: "Ancient celestial medallion cleansed at the Pillars of the Gods (+4 vs Undead, +2 Healing, -1 dmg taken) with Celestial Aegis."
   },
   "bq_godking_star_rod": {
     id: "bq_godking_star_rod",
@@ -1643,7 +1649,9 @@ window.OAKHAVEN.registerItems({
     luck: 2,
     maxHp: 20,
     maxMp: 12,
-    desc: "+4 AC, +2 STR/DEX/LCK, +3 INT/WIS, +20 HP, +12 MP. Mythic apex relic of the reborn City of Wonders."
+    passives: { spellDmgBonus: 5, spellCostReduce: 2, mpRegen: true, bossDmgBonus: 5, dmgReduce: 3 },
+    activeAbility: { name: "Ley-Nexus Convergence", icon: "🌌", charges: 2, ooc: true, dmgDice: "3d10", dmgStat: "arcana", dmgType: "arcane", healDice: "2d8", healStat: "spirit", restoreMp: 6, shieldTurns: 3, desc: "2/Quest: Unleash the City of Wonders' ley-nexus — blast for 3d10 + Arcana arcane dmg, restore 2d8 + Spirit HP & 6 MP, and gain +3 AC (3t)!" },
+    desc: "Mythic apex crown of the reborn City of Wonders. Channels infinite ley-power (+5 Spell/Boss Dmg, -2 MP cost, +1 MP regen, -3 dmg taken) and Ley-Nexus Convergence."
   },
   "bq_mercy_iron_nimbus": {
     id: "bq_mercy_iron_nimbus",

@@ -546,7 +546,10 @@ window.OAKHAVEN.registerItems({
     "rarity": "common",
     "value": 25,
     "ac": 2,
-    "desc": "+2 AC (Tome of Heroes)"
+    "passives": {
+      "dmgReduce": 1
+    },
+    "desc": "Quilted linen-and-leather gambeson that cushions incoming blows (-1 damage taken)."
   },
   "bk_tower_shield": {
     "id": "bk_tower_shield",
