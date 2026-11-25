@@ -543,6 +543,63 @@
       valuable:     { label: "Valuable",         icon: "💎" }
     };
 
+    function collectItemStatPills(item) {
+      const stats = [];
+      if (!item) return stats;
+      if (item.atk)          stats.push({ lbl: `⚔️ ${item.atk > 0 ? "+" : ""}${item.atk} Attack`, cls: "bg-rose-950/80 text-rose-200 border-rose-600/50" });
+      if (item.ac)           stats.push({ lbl: `🛡️ ${item.ac > 0 ? "+" : ""}${item.ac} AC`, cls: "bg-sky-950/80 text-sky-200 border-sky-600/50" });
+      if (item.might)        stats.push({ lbl: `💪 +${item.might} Might`, cls: "bg-rose-950/70 text-rose-200 border-rose-700/40" });
+      if (item.agility)      stats.push({ lbl: `🏃 +${item.agility} Agility`, cls: "bg-emerald-950/70 text-emerald-200 border-emerald-700/40" });
+      if (item.arcana)       stats.push({ lbl: `🔮 +${item.arcana} Arcana`, cls: "bg-sky-950/70 text-sky-200 border-sky-700/40" });
+      if (item.spirit)       stats.push({ lbl: `🌟 +${item.spirit} Spirit`, cls: "bg-amber-950/70 text-amber-200 border-amber-700/40" });
+      if (item.luck)         stats.push({ lbl: `🍀 +${item.luck} Luck`, cls: "bg-purple-950/70 text-purple-200 border-purple-700/40" });
+      if (item.maxHp)        stats.push({ lbl: `❤️ +${item.maxHp} Max HP`, cls: "bg-emerald-950/80 text-emerald-200 border-emerald-600/50" });
+      if (item.maxMp)        stats.push({ lbl: `🔷 +${item.maxMp} Max MP`, cls: "bg-indigo-950/80 text-indigo-200 border-indigo-600/50" });
+      if (item.healHp)       stats.push({ lbl: `💚 Restores +${item.healHp} HP`, cls: "bg-emerald-950/80 text-emerald-200 border-emerald-600/50" });
+      if (item.healMp)       stats.push({ lbl: `💧 Restores +${item.healMp} MP`, cls: "bg-sky-950/80 text-sky-200 border-sky-600/50" });
+      if (item.dmgDice)      stats.push({ lbl: `💥 ${item.dmgDice} Damage`, cls: "bg-orange-950/80 text-orange-200 border-orange-600/50" });
+      else if (item.dmg)     stats.push({ lbl: `💥 ${item.dmg} Damage`, cls: "bg-orange-950/80 text-orange-200 border-orange-600/50" });
+      return stats;
+    }
+
+    function collectItemPassivePills(item) {
+      const passivePills = [];
+      if (!item || !item.passives) return passivePills;
+      const p = item.passives;
+      if (p.critRange && p.critRange < 12) passivePills.push(`🎯 Crit on ${p.critRange}+`);
+      if (p.lifesteal) passivePills.push(`🩸 +${p.lifesteal} HP Drain on Hit`);
+      if (p.thornsDmg) passivePills.push(`🌵 ${p.thornsDmg} Thorns Retaliation`);
+      if (p.spellDmgBonus) passivePills.push(`✨ +${p.spellDmgBonus} Spell DMG`);
+      if (p.spellCostReduce) passivePills.push(`🔷 -${p.spellCostReduce} Spell MP Cost`);
+      if (p.healBonus) passivePills.push(`💚 +${p.healBonus} Healing Bonus`);
+      if (p.undeadDmgBonus) passivePills.push(`☀️ +${p.undeadDmgBonus} DMG vs Undead`);
+      if (p.bossDmgBonus) passivePills.push(`💀 +${p.bossDmgBonus} DMG vs Bosses`);
+      if (p.goldFindPct) passivePills.push(`🪙 +${p.goldFindPct}% Gold Find`);
+      if (p.bombDmgBonus) passivePills.push(`💣 +${p.bombDmgBonus} Bomb/Torch DMG`);
+      if (p.dmgReduce) passivePills.push(`🛡️ -${p.dmgReduce} Damage Taken`);
+      if (p.mpRegen) passivePills.push(`🔷 +${typeof p.mpRegen === "number" ? p.mpRegen : 1} MP/Turn`);
+      if (p.skillBonus) {
+        Object.entries(p.skillBonus).forEach(([sk, v]) => {
+          if (v) passivePills.push(`🎲 +${v} ${sk}`);
+        });
+      }
+      return passivePills;
+    }
+
+    function renderItemActiveAbilityBox(ab) {
+      if (!ab) return "";
+      return `
+        <div class="p-2 rounded-lg bg-teal-950/50 border border-teal-500/50 space-y-0.5">
+          <div class="flex items-center justify-between gap-1.5">
+            <span class="font-bold text-teal-200">${ab.icon || "⚡"} ${ab.name}</span>
+            <span class="px-1.5 py-0.5 rounded bg-teal-900/80 text-teal-200 text-[9px] font-bold uppercase shrink-0">
+              ${ab.charges ? `${ab.charges}/Quest` : ""}${ab.charges && ab.mp ? " • " : ""}${ab.mp ? `${ab.mp} MP` : (!ab.charges ? "Active" : "")}
+            </span>
+          </div>
+          <div class="text-[10px] text-teal-100/90 leading-snug">${ab.desc}</div>
+        </div>`;
+    }
+
     function buildItemTooltipHtml(it, opts = {}) {
       const meta = ITEM_TYPE_META[it.type] || { label: (it.type || "Item"), icon: "🎒" };
       const itemArtMap = window.OAKHAVEN_ITEM_IMAGES || {};
@@ -550,20 +607,7 @@
       const qty = opts.qty || 1;
       const rarityHtml = typeof getRarityBadgeHtml === "function" ? getRarityBadgeHtml(it.rarity || "common") : "";
 
-      const stats = [];
-      if (it.atk)          stats.push({ lbl: `⚔️ ${it.atk > 0 ? "+" : ""}${it.atk} Attack`, cls: "bg-rose-950/80 text-rose-200 border-rose-600/50" });
-      if (it.ac)           stats.push({ lbl: `🛡️ ${it.ac > 0 ? "+" : ""}${it.ac} AC`, cls: "bg-sky-950/80 text-sky-200 border-sky-600/50" });
-      if (it.might)        stats.push({ lbl: `💪 +${it.might} Might`, cls: "bg-rose-950/70 text-rose-200 border-rose-700/40" });
-      if (it.agility)      stats.push({ lbl: `🏃 +${it.agility} Agility`, cls: "bg-emerald-950/70 text-emerald-200 border-emerald-700/40" });
-      if (it.arcana)       stats.push({ lbl: `🔮 +${it.arcana} Arcana`, cls: "bg-sky-950/70 text-sky-200 border-sky-700/40" });
-      if (it.spirit)       stats.push({ lbl: `🌟 +${it.spirit} Spirit`, cls: "bg-amber-950/70 text-amber-200 border-amber-700/40" });
-      if (it.luck)         stats.push({ lbl: `🍀 +${it.luck} Luck`, cls: "bg-purple-950/70 text-purple-200 border-purple-700/40" });
-      if (it.maxHp)        stats.push({ lbl: `❤️ +${it.maxHp} Max HP`, cls: "bg-emerald-950/80 text-emerald-200 border-emerald-600/50" });
-      if (it.maxMp)        stats.push({ lbl: `🔷 +${it.maxMp} Max MP`, cls: "bg-indigo-950/80 text-indigo-200 border-indigo-600/50" });
-      if (it.healHp)       stats.push({ lbl: `💚 Restores +${it.healHp} HP`, cls: "bg-emerald-950/80 text-emerald-200 border-emerald-600/50" });
-      if (it.healMp)       stats.push({ lbl: `💧 Restores +${it.healMp} MP`, cls: "bg-sky-950/80 text-sky-200 border-sky-600/50" });
-      if (it.dmgDice)      stats.push({ lbl: `💥 ${it.dmgDice} Damage`, cls: "bg-orange-950/80 text-orange-200 border-orange-600/50" });
-      else if (it.dmg)     stats.push({ lbl: `💥 ${it.dmg} Damage`, cls: "bg-orange-950/80 text-orange-200 border-orange-600/50" });
+      const stats = collectItemStatPills(it);
       if (it.unlocksSpell) stats.push({ lbl: `✨ Teaches: ${it.unlocksSpell}`, cls: "bg-sky-950/80 text-sky-200 border-sky-500/50" });
       if (it.unlocksRecipe) {
         const rName = ITEMS_DB[it.unlocksRecipe]?.name || it.unlocksRecipe;
@@ -578,37 +622,83 @@
         ? `<span>Shop Price: <strong class="text-amber-300">🪙 ${opts.price} GP</strong></span>`
         : `<span>Sell Value: <strong class="text-amber-300">🪙 ${it.value || 0} GP</strong>${qty > 1 ? ` <span class="text-stone-400">(${(it.value || 0) * qty} GP stack)</span>` : ""}</span>`;
 
-      const passivePills = [];
-      if (it.passives) {
-        const p = it.passives;
-        if (p.critRange && p.critRange < 12) passivePills.push(`🎯 Crit on ${p.critRange}+`);
-        if (p.lifesteal) passivePills.push(`🩸 +${p.lifesteal} HP Drain on Hit`);
-        if (p.thornsDmg) passivePills.push(`🌵 ${p.thornsDmg} Thorns Retaliation`);
-        if (p.spellDmgBonus) passivePills.push(`✨ +${p.spellDmgBonus} Spell DMG`);
-        if (p.spellCostReduce) passivePills.push(`🔷 -${p.spellCostReduce} Spell MP Cost`);
-        if (p.healBonus) passivePills.push(`💚 +${p.healBonus} Healing Bonus`);
-        if (p.undeadDmgBonus) passivePills.push(`☀️ +${p.undeadDmgBonus} DMG vs Undead`);
-        if (p.bossDmgBonus) passivePills.push(`💀 +${p.bossDmgBonus} DMG vs Bosses`);
-        if (p.goldFindPct) passivePills.push(`🪙 +${p.goldFindPct}% Gold Find`);
-        if (p.bombDmgBonus) passivePills.push(`💣 +${p.bombDmgBonus} Bomb/Torch DMG`);
-        if (p.dmgReduce) passivePills.push(`🛡️ -${p.dmgReduce} Damage Taken`);
-        if (p.mpRegen) passivePills.push(`🔷 +${p.mpRegen} MP/Turn`);
-        if (p.skillBonus) {
-          Object.entries(p.skillBonus).forEach(([sk, v]) => {
-            if (v) passivePills.push(`🎲 +${v} ${sk}`);
-          });
+      const passivePills = collectItemPassivePills(it);
+      const activeBoxHtml = renderItemActiveAbilityBox(it.activeAbility);
+
+      // Detailed Spell Preview for Spell Scrolls
+      let spellPreviewHtml = "";
+      if (it.unlocksSpell) {
+        const sp = SPELLS_LIST.find(s => s.name === it.unlocksSpell);
+        if (sp) {
+          const alreadyKnown = !!(state && Array.isArray(state.spells) && state.spells.includes(sp.name));
+          const spTags = [];
+          const fmtDice = d => typeof d === "string" ? d : (d && d.count && d.sides ? `${d.count}d${d.sides}` : "");
+          if (sp.dmgDice) {
+            const dStr = fmtDice(sp.dmgDice);
+            const statStr = sp.dmgStat ? ` + ${sp.dmgStat.charAt(0).toUpperCase() + sp.dmgStat.slice(1)}` : "";
+            const bonusStr = sp.dmgBonus ? ` + ${sp.dmgBonus}` : "";
+            spTags.push(`💥 ${dStr}${bonusStr}${statStr}${sp.dmgType ? ` ${sp.dmgType}` : ""}`);
+          }
+          if (sp.healDice) {
+            const hStr = fmtDice(sp.healDice);
+            const statStr = sp.healStat ? ` + ${sp.healStat.charAt(0).toUpperCase() + sp.healStat.slice(1)}` : "";
+            const bonusStr = sp.healBonus ? ` + ${sp.healBonus}` : "";
+            spTags.push(`💚 Heal ${hStr}${bonusStr}${statStr}`);
+          }
+          if (sp.undeadDouble) spTags.push(`☀️ 2× vs Undead`);
+          if (sp.shieldTurns)  spTags.push(`🛡️ +3 AC (${sp.shieldTurns}t)`);
+          if (sp.evadeTurns)   spTags.push(`💨 Evade (${sp.evadeTurns}t)`);
+          if (sp.chillTurns)   spTags.push(`❄️ Chill (${sp.chillTurns}t)`);
+          if (sp.stunTurns)    spTags.push(`💫 Stun (${sp.stunTurns}t)`);
+          if (sp.ooc)          spTags.push(`🏕️ Usable Out of Combat`);
+          spellPreviewHtml = `
+            <div class="p-2.5 rounded-lg bg-sky-950/60 border border-sky-500/50 space-y-1.5">
+              <div class="flex items-center justify-between gap-1.5">
+                <span class="font-display text-xs font-bold text-sky-200">${sp.icon || "✨"} ${sp.name}</span>
+                <div class="flex items-center gap-1 shrink-0">
+                  <span class="px-1.5 py-0.5 rounded bg-indigo-900/80 text-indigo-200 text-[9px] font-bold uppercase">🔷 ${sp.mp} MP</span>
+                  ${alreadyKnown ? `<span class="px-1.5 py-0.5 rounded bg-emerald-900/80 text-emerald-200 text-[9px] font-bold uppercase">✓ Known</span>` : ""}
+                </div>
+              </div>
+              ${spTags.length ? `<div class="flex flex-wrap gap-1">${spTags.map(t => `<span class="px-1.5 py-0.5 rounded bg-sky-900/60 border border-sky-600/40 text-sky-100 text-[9px] font-semibold">${t}</span>`).join("")}</div>` : ""}
+              ${sp.desc ? `<div class="text-[10px] text-sky-100/90 leading-snug">${sp.desc}</div>` : ""}
+            </div>`;
         }
       }
-      const activeBoxHtml = it.activeAbility ? `
-        <div class="p-2 rounded-lg bg-teal-950/50 border border-teal-500/50 space-y-0.5">
-          <div class="flex items-center justify-between gap-1.5">
-            <span class="font-bold text-teal-200">${it.activeAbility.icon || "⚡"} ${it.activeAbility.name}</span>
-            <span class="px-1.5 py-0.5 rounded bg-teal-900/80 text-teal-200 text-[9px] font-bold uppercase shrink-0">
-              ${it.activeAbility.charges ? `${it.activeAbility.charges}/Quest` : ""}${it.activeAbility.charges && it.activeAbility.mp ? " • " : ""}${it.activeAbility.mp ? `${it.activeAbility.mp} MP` : (!it.activeAbility.charges ? "Active" : "")}
-            </span>
-          </div>
-          <div class="text-[10px] text-teal-100/90 leading-snug">${it.activeAbility.desc}</div>
-        </div>` : "";
+
+      // Detailed Crafted Item Preview for Forge Schematics
+      let recipePreviewHtml = "";
+      if (it.unlocksRecipe && ITEMS_DB[it.unlocksRecipe]) {
+        const target = ITEMS_DB[it.unlocksRecipe];
+        const tMeta = ITEM_TYPE_META[target.type] || { label: (target.type || "Item"), icon: "⚒️" };
+        const tRarity = typeof getRarityBadgeHtml === "function" ? getRarityBadgeHtml(target.rarity || "common") : "";
+        const tStats = collectItemStatPills(target);
+        const tPassives = collectItemPassivePills(target);
+        const tActive = renderItemActiveAbilityBox(target.activeAbility);
+        const alreadyUnlocked = !!(state && Array.isArray(state.unlockedRecipes) && state.unlockedRecipes.includes(it.unlocksRecipe));
+        const recipe = Array.isArray(CRAFT_RECIPES) ? CRAFT_RECIPES.find(r => r.result === it.unlocksRecipe) : null;
+        let craftCostLine = "";
+        if (recipe) {
+          const matParts = Object.entries(recipe.mats || {}).map(([mId, cnt]) => `${cnt}× ${ITEMS_DB[mId]?.name || mId}`);
+          craftCostLine = `<div class="text-[9px] text-amber-200/90 pt-1 border-t border-purple-700/40">⚒️ Forge Cost: <strong>${recipe.gold || 0} GP</strong>${matParts.length ? ` • ${matParts.join(", ")}` : ""}</div>`;
+        }
+        recipePreviewHtml = `
+          <div class="p-2.5 rounded-lg bg-purple-950/50 border border-purple-500/50 space-y-1.5">
+            <div class="flex items-center justify-between gap-1.5">
+              <span class="font-display text-xs font-bold text-amber-200">${tMeta.icon} ${target.name}</span>
+              <div class="flex items-center gap-1 shrink-0">
+                ${tRarity}
+                ${alreadyUnlocked ? `<span class="px-1.5 py-0.5 rounded bg-emerald-900/80 text-emerald-200 text-[9px] font-bold uppercase">✓ Unlocked</span>` : ""}
+              </div>
+            </div>
+            <div class="text-[9px] uppercase tracking-wider text-purple-300/90 font-semibold">${tMeta.label} • Crafted Result</div>
+            ${tStats.length ? `<div class="flex flex-wrap gap-1">${tStats.map(s => `<span class="px-1.5 py-0.5 rounded border text-[10px] font-semibold ${s.cls}">${s.lbl}</span>`).join("")}</div>` : ""}
+            ${tPassives.length ? `<div class="flex flex-wrap gap-1">${tPassives.map(p => `<span class="px-1.5 py-0.5 rounded border bg-purple-900/70 border-purple-400/50 text-purple-100 text-[9px] font-semibold">${p}</span>`).join("")}</div>` : ""}
+            ${tActive}
+            ${target.desc ? `<div class="text-[10px] text-stone-200 leading-snug">${target.desc}</div>` : ""}
+            ${craftCostLine}
+          </div>`;
+      }
 
       return `
         <div class="flex items-start gap-2.5 border-b border-amber-700/40 pb-2">
@@ -628,6 +718,8 @@
         ${stats.length ? `<div class="flex flex-wrap gap-1.5">${stats.map(s => `<span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${s.cls}">${s.lbl}</span>`).join("")}</div>` : ""}
         ${passivePills.length ? `<div class="flex flex-wrap gap-1.5">${passivePills.map(p => `<span class="px-2 py-0.5 rounded border bg-purple-950/70 border-purple-500/50 text-purple-200 text-[10px] font-semibold">${p}</span>`).join("")}</div>` : ""}
         ${activeBoxHtml}
+        ${spellPreviewHtml}
+        ${recipePreviewHtml}
         ${it.desc ? `<p class="text-[11px] text-stone-200 leading-relaxed">${it.desc}</p>` : ""}
         <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-stone-800 text-[10px] text-stone-400">
           ${priceLine}
