@@ -1,6 +1,6 @@
 {
-  "batchCount": 8,
-  "totalQuestsAdded": 94,
+  "batchCount": 9,
+  "totalQuestsAdded": 106,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -469,8 +469,24 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Monster Books/Tome of Beasts 2 Lairs.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "in_progress",
+      "convertedTitles": [
+        "To Track a Thief",
+        "The Forsaken Fort",
+        "The Twisted Wreath",
+        "Shrine of the Hungry Dead",
+        "Tragedy at Thyrdun Outpost",
+        "Caverns of the Crystalline Monolith",
+        "Fight for Horseshoe Rock Oasis"
+      ],
+      "remainingTitles": [
+        "The River Tomb",
+        "House of the Worm God",
+        "Terror at Mountain Lotus Temple",
+        "Tunnels Below Skulltop Tor",
+        "Crucible of Golems",
+        "Fire and Fury"
+      ]
     },
     "Books/Kobold Press/Monster Books/Tome of Beasts 2.pdf": {
       "status": "skipped_no_quests",
@@ -488,17 +504,15 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Prepared!/Prepared! A Dozen Adventures for Fifth Edition.pdf": {
-      "status": "in_progress",
+      "status": "done",
       "convertedTitles": [
-        "The Impregnable Fortress of Dib (already in Batch 002)",
+        "The Impregnable Fortress of Dib (Batch 002)",
         "The Marrow Mines",
         "The Vault of Pallon the Pious",
         "The Claret Wellspring",
         "The Room with Five Corners",
         "Upon the Icebound Terrace",
-        "In Its Horrid Wake"
-      ],
-      "remainingTitles": [
+        "In Its Horrid Wake",
         "A Bad Night for Betting",
         "The Burning Crater",
         "Atop the Mountain",
