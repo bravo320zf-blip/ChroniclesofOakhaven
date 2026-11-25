@@ -1,6 +1,6 @@
 {
-  "batchCount": 11,
-  "totalQuestsAdded": 130,
+  "batchCount": 12,
+  "totalQuestsAdded": 141,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -551,12 +551,16 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Rogues of Remballo/Rogues of Remballo.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Rogues in Remballo"
+      ]
     },
     "Books/Kobold Press/Sanctuary of Belches/Sanctuary of Belches for 5th Edition.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Sanctuary of Belches"
+      ]
     },
     "Books/Kobold Press/Scarlet Citadel/Scarlet-Citadel-5E_pdf_optimized-2aolig_60cfe3d1ac441.pdf": {
       "status": "done",
@@ -571,12 +575,16 @@
       ]
     },
     "Books/Kobold Press/Sea of Bones/Sea-of-Bones-FINAL-gjsdxx.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Sea of Bones"
+      ]
     },
     "Books/Kobold Press/Shadows of the Dusk Queen/Shadows of the Dusk Queen.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Shadows of the Dusk Queen"
+      ]
     },
     "Books/Kobold Press/Southlands Heroes/Southlands Heroes.pdf": {
       "status": "skipped_no_quests",
@@ -599,16 +607,26 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Streets of Zobeck/Streets of Zobeck.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Everyone Lies",
+        "Rust",
+        "The Fish and the Rose",
+        "The First Lab",
+        "Rebuilding a Good Man",
+        "Ripper",
+        "Flesh Fails"
+      ]
     },
     "Books/Kobold Press/TOH Playtest/ToH Playtest Material Phase1 - Feats.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "playtest feats supplement"
     },
     "Books/Kobold Press/TOH Playtest/ToH Playtest Material Phase1 - Weapon Options.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "playtest weapon options supplement"
     },
     "Books/Kobold Press/Tales from the Shadows/Tales from the Shadows.pdf": {
       "status": "pending",
@@ -619,24 +637,28 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Tales of Valiant/ToV+Alpha+Release+FINAL.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "rules alpha playtest document"
     },
     "Books/Kobold Press/Tales of the Old Margreve - Player's Guide/Tales of the Old Margreve - Player's Guide.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "player guide sourcebook"
     },
     "Books/Kobold Press/Tales of the Old Margreve/Tales of the Old Margreve [5e].pdf": {
       "status": "pending",
       "convertedTitles": []
     },
     "Books/Kobold Press/Tales of the Valiant/ToV-Monster-Vault.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "bestiary reference"
     },
     "Books/Kobold Press/Tales of the Valiant/ToV-Players-Guide.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "player rulebook"
     },
     "Books/Kobold Press/The Tomb of Mercy/The Tomb of Mercy.pdf": {
       "status": "pending",
@@ -647,40 +669,47 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Tome of Beasts 2 Lairs/The Twisted Wreath/The Twisted Wreath.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "duplicate of Tome of Beasts 2 Lairs"
     },
     "Books/Kobold Press/Tome of Beasts 2 Lairs/Tome of Beasts 2 Lairs.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "duplicate of Monster Books/Tome of Beasts 2 Lairs.pdf"
     },
     "Books/Kobold Press/Tome of Beasts 2/Tome of Beasts 2.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "bestiary reference"
     },
     "Books/Kobold Press/Tome of Beasts 3 Lairs/Tome of Beasts 3 Lairs for 5th Edition.pdf": {
       "status": "pending",
       "convertedTitles": []
     },
     "Books/Kobold Press/Tome of Beasts 3/Tome of Beasts 3 for 5th Edition.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "bestiary reference"
     },
     "Books/Kobold Press/Tome of Beasts/Tome of Beasts.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "bestiary reference"
     },
     "Books/Kobold Press/Tome of Heroes/Tome-of-Heroes_Final_053122-iguodn_62bd2571d99b5.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "player options sourcebook"
     },
     "Books/Kobold Press/Trouble at Mossbeard Mill/Trouble-at-Mossbeard-Mill-FINAL-35ffht.pdf": {
       "status": "pending",
       "convertedTitles": []
     },
     "Books/Kobold Press/Underworld - Players Guide/Kobold Press - Underworld - Players Guide.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "player guide sourcebook"
     },
     "Books/Kobold Press/Underworld Lairs/Kobold Press - Underworld Lairs.pdf": {
       "status": "pending",
@@ -691,8 +720,9 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Vault of Magic/Vault_of_Magic_for_5th_Edition.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "convertedTitles": [],
+      "reason": "magic items sourcebook"
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #01 - The Clattering Keep v2.pdf": {
       "status": "pending",

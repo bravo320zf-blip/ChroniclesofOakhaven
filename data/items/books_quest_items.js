@@ -1147,3 +1147,125 @@ window.OAKHAVEN.registerItems({
     desc: "+3 AC, +2 Spirit, +8 Max HP. Silver-threaded funerary mantle consecrated for Aganatha."
   }
 });
+
+
+window.OAKHAVEN.registerItems({
+  // Batch 012 — Remballo, Belches, Sea of Bones, Dusk Queen & Free City Underbelly
+  "bq_borgandy_signet_blade": {
+    id: "bq_borgandy_signet_blade",
+    name: "Remballo Syndicate Shortsword",
+    type: "weapon",
+    rarity: "uncommon",
+    value: 95,
+    atk: 3,
+    agility: 1,
+    desc: "+3 Attack, +1 Agility. Razor-balanced blade seized from the Four Corners hideout."
+  },
+  "bq_belches_rime_horn": {
+    id: "bq_belches_rime_horn",
+    name: "Olsha Frost-Ward Talisman",
+    type: "accessory",
+    rarity: "rare",
+    value: 185,
+    ac: 1,
+    might: 2,
+    maxHp: 8,
+    desc: "+1 AC, +2 Might, +8 Max HP. Forged from the silenced bronze horn of the alpine sanctuary."
+  },
+  "bq_starlight_sealant_charm": {
+    id: "bq_starlight_sealant_charm",
+    name: "Dreamsedge Starlight Phial",
+    type: "accessory",
+    rarity: "rare",
+    value: 145,
+    arcana: 2,
+    spirit: 1,
+    maxMp: 5,
+    desc: "+2 Arcana, +1 Spirit, +5 Max MP. Glowing tincture warded against the entropy of the Void."
+  },
+  "bq_dusk_queen_mirror_shard": {
+    id: "bq_dusk_queen_mirror_shard",
+    name: "Shard of the Dusk Queen's Mirror",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 295,
+    ac: 2,
+    arcana: 2,
+    luck: 2,
+    desc: "+2 AC, +2 Arcana, +2 Luck. Twilight glass gleaming with the Sun King's trapped dawn."
+  },
+  "bq_spyglass_noir_cloak": {
+    id: "bq_spyglass_noir_cloak",
+    name: "Fog-Alley Spyglass Cloak",
+    type: "cloak",
+    rarity: "uncommon",
+    value: 115,
+    ac: 1,
+    agility: 2,
+    desc: "+1 AC, +2 Agility. Dark river-fog mantle taken from a ruthless guild cleaner."
+  },
+  "bq_kaple_oxide_gauntlets": {
+    id: "bq_kaple_oxide_gauntlets",
+    name: "Kaple's Gear-Forged Gauntlets",
+    type: "armor",
+    rarity: "rare",
+    value: 170,
+    ac: 2,
+    might: 2,
+    desc: "+2 AC, +2 Might. Heavy articulated iron gloves salvaged from the Tarnish foundry."
+  },
+  "bq_rose_precog_brooch": {
+    id: "bq_rose_precog_brooch",
+    name: "Brooch of the Painted Rose",
+    type: "accessory",
+    rarity: "rare",
+    value: 195,
+    agility: 2,
+    luck: 2,
+    desc: "+2 Agility, +2 Luck. Enchanted keepsake hinting a heartbeat ahead of danger."
+  },
+  "bq_kovac_soul_lens": {
+    id: "bq_kovac_soul_lens",
+    name: "Kovac's Brass Soul-Lens",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 265,
+    ac: 2,
+    arcana: 2,
+    maxMp: 6,
+    desc: "+2 AC, +2 Arcana, +6 Max MP. Precision gearwork lens recovered from the First Lab."
+  },
+  "bq_hommal_botanical_vial": {
+    id: "bq_hommal_botanical_vial",
+    name: "Hommal's Golden Conservatory Vial",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 325,
+    spirit: 2,
+    luck: 2,
+    maxHp: 10,
+    desc: "+2 Spirit, +2 Luck, +10 Max HP. Rare rooftop elixir pulsing with restorative life."
+  },
+  "bq_xazagra_hell_blade": {
+    id: "bq_xazagra_hell_blade",
+    name: "Cinder-Etched Ripper's Saber",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 365,
+    atk: 6,
+    agility: 2,
+    desc: "+6 Attack, +2 Agility. Purified infernal steel wrested from the demon Xazagra."
+  },
+  "bq_konrad_soul_signet": {
+    id: "bq_konrad_soul_signet",
+    name: "Streck's Consecrated Ruby Signet",
+    type: "accessory",
+    rarity: "legendary",
+    value: 420,
+    ac: 3,
+    arcana: 2,
+    spirit: 2,
+    maxHp: 10,
+    desc: "+3 AC, +2 Arcana, +2 Spirit, +10 Max HP. Warded noble seal gifted after breaking Konrad's plot."
+  }
+});
