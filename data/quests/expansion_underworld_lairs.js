@@ -54,7 +54,7 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // 2. BASTION OF THE DERANGED (10 PAGES • LV 2 • AUTO-DISCOVERED)
+      // 2. BASTION OF THE DERANGED (13 PAGES • LV 2 • AUTO-DISCOVERED)
       // ==========================================================
       ul_bastion_deranged: {
         id: "ul_bastion_deranged",
@@ -64,44 +64,66 @@ window.OAKHAVEN.registerQuests({
         recommendedLevel: 2,
         autoDiscover: true,
         discoverySource: "Underworld Trade Rumor or Quest Board",
-        summary: "Breach a spiked iron gatehouse run by mad derro alchemists, dodge giant bats and cockatrices, and overthrow Shaman Graknir.",
-        totalPages: 10,
+        summary: "Breach a spiked iron gatehouse run by mad derro alchemists, rescue Oakhaven's missing salt-caravan, and overthrow Shaman Graknir.",
+        totalPages: 13,
         pages: {
-          1: { zone:"Bastion Gate", title:"The Spiked Iron Gates", safeRetreat:true, text:"Massive spiked iron gates block the cavern trade route. A pale, wild-eyed Derro Guard peers through a low viewing slot, twirling a hooked aklys club.", choices:[
-            { t:"Feed the mad derro an absurdly convincing story.", badge:"Persuasion DC 9", check:{ stat:"spirit", skill:"Persuasion", dc:9, pass:2, fail:3, passMsg:"The derro giggles and unbolts the wicket door!", failMsg:"'SPIES!' they shriek, hurling hooked clubs!" } },
-            { t:"Pick the wicket door lock quietly.", reqSkill:"Lockpicking", badge:"Lockpicking", to:2 },
-            { t:"Smash straight through the spiked gate!", to:3, onChoose:{ dmg:3, msg:"Iron spikes graze you (-3 HP) as you burst in!" } }
+          1: { zone:"Bastion Gate", title:"The Spiked Iron Gates", safeRetreat:true, text:"Three nights ago, Caravan-Master Tovin's salt-train vanished down the western subterranean trade road. Here, a jagged iron portcullis bristling with rusted spikes seals the basalt arch. Through a low viewing slit, a pale, wild-eyed derro sentry twirls a hooked aklys club, muttering about 'surface-sunlight thieves' and 'Graknir's grand crystal chair.'", choices:[
+            { t:"Feed the paranoid sentry an absurdly solemn tale about delivering 'bottled moonbeams' for Graknir.", badge:"Persuasion DC 9", check:{ stat:"spirit", skill:"Persuasion", dc:9, pass:2, fail:3, passMsg:"The sentry giggles wildly, salutes with his hooked club, and unbolts the wicket door!", failMsg:"'SUN-SPIES!' he shrieks, slamming the slit and rallying the gatehouse!" }, onPass:{ cw:"DERRO_PASS" } },
+            { t:"Wait for the sentry to laugh at his own shadow and pick the rusted wicket lock.", reqSkill:"Lockpicking", badge:"Lockpicking", to:2 },
+            { t:"Squeeze through the narrow drainage culvert beneath the eastern gate-post.", badge:"Stealth / Agility DC 10", check:{ stat:"agility", skill:"Stealth", dc:10, pass:2, fail:3, failDmg:2, passMsg:"You wriggle through the damp culvert and slip inside unseen!", failMsg:"Loose scree clatters down the grate—rusty iron scrapes your arm (-2 HP) as guards rush in!" } },
+            { t:"Put your shoulder to the rusted wicket and smash straight through the spiked gate!", to:3, onChoose:{ dmg:3, msg:"Iron spikes graze your shoulder (-3 HP) as you burst into the hall!" } }
           ]},
-          2: { zone:"Entry Hall", title:"Guano & Low Walls", text:"You slip inside the fortified entry hall. To the north smells of cooking mushrooms; east echoes with the leathery rustling of giant bats; south smells of musky reptiles.", choices:[
-            { t:"Investigate the Cockatrice Coop to the south.", to:4 },
+          2: { zone:"Entry Hall", title:"Guano, Lanterns & Low Walls", text:"You slip inside the fortified vestibule. Pale mushroom-oil lanterns hiss over waist-high stone barricades, and frantic chalk tally-marks on the wall count 'live surface specimens' dragged deeper inside. Three arched passages branch outward: the southern tunnel reeks of musky feathers and wet limestone; the eastern passage echoes with leathery wings and harness buckles; and the northern arch glows with sickly violet mist.", choices:[
+            { t:"Investigate the musky Cockatrice Coop to the south.", to:4 },
             { t:"Creep through the Giant Bat Roost to the east.", to:5 },
-            { t:"Slip into the Deadly Fungus Garden to the north.", to:6 }
+            { t:"Slip into the violet-lit Fungus Garden to the north.", to:6 }
           ]},
-          3: { zone:"Entry Hall", title:"Derro Gatehouse Skirmish", text:"Three cackling Derro Guards leap over the low stone barricades, snapping hooked aklys clubs!", enemy:{ name:"Derro Gatehouse Guards", desc:"Wild-eyed subterranean fanatics.", hp:20, ac:11, atk:4, dmg:4, xp:42, gold:22, items: rollRandomLoot(["consumable","material"], 1, "uncommon"), flee:1 }, choices:[
-            { t:"Explore the Cockatrice Coop to the south.", to:4 },
-            { t:"Press into the Giant Bat Roost.", to:5 }
+          3: { zone:"Entry Hall", title:"Derro Gatehouse Skirmish", text:"Three cackling Derro Guards vault over the low stone barricades, snapping hooked aklys clubs on leather thongs as mushroom-oil lanterns sway overhead!", enemy:{ name:"Derro Gatehouse Guards", desc:"Wild-eyed subterranean fanatics defending the spiked gate.", hp:20, ac:11, atk:4, dmg:4, xp:42, gold:22, items: rollRandomLoot(["consumable","material"], 1, "uncommon"), flee:1 }, choices:[
+            { t:"Investigate the Cockatrice Coop to the south.", to:4 },
+            { t:"Press east into the Giant Bat Roost.", to:5 },
+            { t:"Slip north into the Deadly Fungus Garden.", to:6 }
           ]},
-          4: { zone:"Cockatrice Coop", title:"The Petrification Keeper", text:"A derro alchemist tends four agitated Cockatrices beside jars labeled 'Stone-to-Flesh Balm'!", enemy:{ name:"Derro Keeper & Cockatrices", desc:"Hissing scaly birds and their mad handler.", hp:22, ac:11, atk:4, dmg:4, xp:48, gold:20, items:["ul_stone_flesh_balm", ...rollRandomLoot(["material","valuable"], 1, "uncommon")], flee:2 }, choices:[
-            { t:"Move through the Giant Bat Roost toward Graknir's Chamber.", to:5 }
+          4: { zone:"Cockatrice Coop", title:"The Petrification Keeper", text:"Iron-mesh pens rattle with four agitated, scaly-winged Cockatrices! Beside a cluttered workbench stacked with glass jars labeled 'Stone-to-Flesh Balm,' a grinning derro alchemist prods a life-sized limestone statue of a terrified Oakhaven outrider—still clutching a broken caravan lantern!", enemy:{ name:"Derro Keeper & Cockatrices", desc:"Hissing scaly birds and their mad alchemist handler.", hp:22, ac:11, atk:4, dmg:4, xp:48, gold:20, items:["ul_stone_flesh_balm", ...rollRandomLoot(["material","valuable"], 1, "uncommon")], flee:2 }, choices:[
+            { t:"Smear a dab of Stone-to-Flesh Balm across the petrified outrider to revive him.", to:11 },
+            { t:"Pocket the balm and move east through the Giant Bat Roost.", to:5 },
+            { t:"Circle back north toward the glowing Fungus Garden.", to:6 }
           ]},
-          5: { zone:"Bat Roost", title:"Wings in the Dark", text:"Eight giant riding bats hang above guano mounds beside leather harnesses.", choices:[
-            { t:"Sneak silently beneath the sleeping bats.", badge:"Stealth / Agility DC 10", check:{ stat:"agility", skill:"Stealth", dc:10, pass:7, fail:7, failDmg:4, passMsg:"You glide beneath the roost undetected!", failMsg:"Swooping bats slash at your cloak (-4 HP)!" } },
-            { t:"Scatter them with Firebolt or a loud blast!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:7, onChoose:{ msg:"Fire scatters the bats into the upper rafters!" } }
+          5: { zone:"Bat Roost", title:"Wings in the Dark", text:"Eight horse-sized subterranean riding bats hang inverted from the vaulted stalactites above guano-slick mounds and pegged leather saddles. A brass alarm-bell dangles beside the far archway leading directly into Shaman Graknir's Testing Chamber.", choices:[
+            { t:"Glide silently beneath the sleeping rafters.", badge:"Stealth / Agility DC 10", check:{ stat:"agility", skill:"Stealth", dc:10, pass:7, fail:7, failDmg:4, passMsg:"You slip beneath the leathery canopy without waking a single beast!", failMsg:"Startled riding bats swoop through the dark, slashing your cloak (-4 HP)!" } },
+            { t:"Slash the saddle-tethers and hurl a stone at the alarm-bell to stampede the bats into Graknir's hall!", badge:"Agility / Survival DC 11", check:{ stat:"agility", skill:"Survival", dc:11, pass:7, fail:7, failDmg:4, passMsg:"The bell clangs and eight panicked riding bats thunder straight into Graknir's sanctum!", failMsg:"A startled bat clips your shoulder (-4 HP) before the flock scatters into the rafters!" }, onPass:{ cw:"BATS_STAMPEDED" } },
+            { t:"Scatter them with Firebolt and drive the panicked flock straight into Graknir's chamber!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:7, onChoose:{ cw:"BATS_STAMPEDED", msg:"Blazing sparks send the giant riding bats shrieking straight into Graknir's hall!" } },
+            { t:"Double back north to check the Deadly Fungus Garden first.", to:6 }
           ]},
-          6: { zone:"Deadly Garden", title:"The Spore-Choked Zombies", text:"Thick hallucinatory spores drift over zombie gardeners tended by derro.", choices:[
-            { t:"Resist the spores with Herbalism / Spirit & loot the barracks.", badge:"Spirit / Herbalism DC 10", check:{ stat:"spirit", skill:"Herbalism", dc:10, pass:7, fail:7, failDmg:4, passMsg:"You hold your breath and pocket 30 GP!", failMsg:"Bitter spores choke you (-4 HP)!" }, onPass:{ gold:30, cw:"GRAKNIR_FLANKED" } }
+          6: { zone:"Deadly Garden", title:"The Spore-Choked Zombies", text:"Terraced beds of bloated violet toadstools hiss pale hallucinatory spores into the humid air. Three slack-jawed zombie gardeners—former tunnel-delvers—tend the rows with rusted trowels beside a dry supply alcove stacked with stolen caravan lockboxes and a narrow ventilation shaft.", choices:[
+            { t:"Read the spore-drafts with Herbalism and slip past the gardeners into the supply alcove.", badge:"Spirit / Herbalism DC 10", check:{ stat:"spirit", skill:"Herbalism", dc:10, pass:12, fail:7, failDmg:4, passMsg:"You hold your breath, time the vents, and reach the dry alcove untouched!", failMsg:"Bitter violet spores sear your lungs (-4 HP), forcing you to stumble forward into the next chamber!" } },
+            { t:"Banish the shambling gardeners with Turn Undead and raid the alcove freely!", reqSpell:"Turn Undead", mp:3, badge:"Turn Undead (3 MP)", to:12, onChoose:{ msg:"Sacred radiance scatters the spore-choked zombies into the dark corners!" } },
+            { t:"Ignite the drifting spore-cloud with Firebolt to burn a clean path to the alcove!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:12, onChoose:{ msg:"The violet haze flashes away in a brief curtain of harmless blue flame!" } },
+            { t:"Skirt the outer wall and push straight toward Graknir's Testing Chamber.", to:7 }
           ]},
-          7: { zone:"Testing Chamber", title:"Graknir's Mad Devices", text:"An iron chair studded with crystals sits beside a vat of green sludge. Graknir—the Derro Speaker to the Darkness—emerges clutching a hooked aklys and crackling with dark magic! 'A glorious test subject for the sun-ritual!'", choices:[
-            { t:"Pretend to submit, then strike when he leans close!", badge:"Stealth / Persuasion DC 10", check:{ stat:"spirit", skill:"Persuasion", dc:10, pass:8, fail:8, passMsg:"You catch Graknir completely off guard!", failMsg:"He sees through your ruse!" }, onPass:{ cw:"GRAKNIR_FLANKED" } },
-            { t:"Charge Graknir before he finishes chanting!", to:8 }
+          7: { zone:"Testing Chamber", title:"Graknir's Mad Devices", text:"Copper tubing coils around a towering iron chair studded with pulsing amethyst shards, wired to a ceiling stalactite by a taut brass grounding-chain. Beside a bubbling vat of emerald sludge, Caravan-Master Tovin hangs bound in hemp ropes—bruised, but alive. From behind an obsidian altar steps Shaman Graknir, Speaker to the Darkness, his white hair bristling with static and a notched aklys crackling in his fist. 'Ah! A fresh vessel brimming with surface-fire! Sit, sit—the Darkness hungers!'", choices:[
+            { t:"Use Outrider Bram's warning: sever the brass grounding-chain to overload Graknir's crystal chair!", reqCw:"BRAM_RESCUED", badge:"BRAM_RESCUED", to:8, onChoose:{ cw:"CRYSTAL_SHATTERED", msg:"SNAP! Violet sparks erupt across the altar, shattering Graknir's crystal conduit and staggering him!" } },
+            { t:"Spot the unstable amethyst conduit yourself and smash it before Graknir finishes chanting!", badge:"Arcana / Perception DC 11", check:{ stat:"arcana", skill:"Perception", dc:11, pass:8, fail:8, failDmg:3, passMsg:"You shatter the grounding crystal in a shower of purple sparks, disrupting Graknir's ritual!", failMsg:"Arcane static lashes your knuckles (-3 HP) as Graknir completes his incantation!" }, onPass:{ cw:"CRYSTAL_SHATTERED" } },
+            { t:"Play along with Graknir's madness—pretend to kneel by the chair, then strike when he leans close!", badge:"Persuasion / Spirit DC 10", check:{ stat:"spirit", skill:"Persuasion", dc:10, pass:8, fail:8, passMsg:"Graknir cackles with delight and leans right into your blade—caught completely off guard!", failMsg:"His wild eyes narrow—'Trickster! Burn with the rest!'" }, onPass:{ cw:"GRAKNIR_FLANKED" } },
+            { t:"Charge straight across the chamber before he can finish his chant!", to:8 }
           ]},
-          8: { zone:"Graknir's Chamber", title:"Shaman of the Darkness", text:"Incense swirls around a demonic bat statue as Graknir unleashes mad eldritch bolts!", enemy:{ name:"Graknir, Derro Shaman", desc:"Deranged ruler of the bastion.", hp:27, ac:12, atk:4, dmg:5, xp:70, gold:48, items:["ul_derro_aklys", ...rollRandomLoot(["consumable","valuable","accessory"], 1, "rare")], weakCw:["GRAKNIR_FLANKED"] }, choices:[
-            { t:"Unlock Graknir's personal treasure chest!", to:9 }
+          8: { zone:"Graknir's Chamber", title:"Shaman of the Darkness", text:"Acrid incense swirls around a leering basalt bat-idol as Shaman Graknir shrieks dissonant incantations and hurls snapping arcs of subterranean shadow across the flagstones!", enemy:{ name:"Graknir, Derro Shaman", desc:"Deranged Speaker to the Darkness who rules the bastion.", hp:27, ac:12, atk:4, dmg:5, xp:70, gold:48, items:["ul_derro_aklys", ...rollRandomLoot(["consumable","valuable","accessory"], 1, "rare")], weakCw:["GRAKNIR_FLANKED","CRYSTAL_SHATTERED","BATS_STAMPEDED"] }, choices:[
+            { t:"Cut Caravan-Master Tovin free and claim Graknir's brass strongbox key.", to:9 }
           ]},
-          9: { zone:"Graknir's Chamber", title:"Spoils of the Bastion", text:"Using Graknir's pocket key, you open his fur-lined chest to claim 50 GP and random trade goods confiscated from travelers.", onEnter:{ gold:50, items: rollRandomLoot(["weapon","armor","valuable","consumable"], 1, "rare"), msg:"Claimed 50 GP & random bastion loot!" }, choices:[
-            { t:"Secure the trade tunnel and return to Oakhaven!", to:10 }
+          9: { zone:"Graknir's Chamber", title:"Spoils of the Bastion", text:"With Graknir overthrown, the amethyst shards on the iron chair dim and cool. You slash Tovin's hemp bindings—the salt-merchant collapses in relief, thanking you profusely for sparing him from Graknir's 'sun-siphon.' Using the key from Graknir's sash, you unlock his fur-lined chest to claim 50 GP and confiscated caravan goods.", onEnter:{ gold:50, items: rollRandomLoot(["weapon","armor","valuable","consumable"], 1, "rare"), msg:"Claimed 50 GP & random bastion loot!" }, choices:[
+            { t:"Escort Tovin back to the spiked gatehouse where Outrider Bram is waiting.", reqCw:"BRAM_RESCUED", badge:"BRAM_RESCUED", to:13 },
+            { t:"Unbar the trade tunnel and escort Tovin back to Oakhaven!", to:10 }
           ]},
-          10: { zone:"Epilogue", title:"Bastion Cleared", text:"With Graknir overthrown and the derro scattered into the deep tunnels, the western Underworld trade route lies open for Oakhaven's delvers!", ending:{ type:"true", title:"Conqueror of the Deranged Bastion", xp:100, gold:105, trophy:"Bat-Idol of Graknir" }, choices:[] }
+          10: { zone:"Epilogue", title:"Bastion Cleared", text:"With Graknir overthrown and the surviving derro scattered into the sunless fissures below, the spiked iron gates are pried open for good. Back at the Rusty Flagon, Caravan-Master Tovin raises a foaming tankard in your honor while Oakhaven's guildmasters celebrate the reopening of the western Underworld salt-road!", ending:{ type:"true", title:"Conqueror of the Deranged Bastion", xp:100, gold:105, trophy:"Bat-Idol of Graknir" }, choices:[] },
+          11: { zone:"Cockatrice Coop", title:"Outrider Bram's Warning", text:"The pale mineral crust flakes away in chalky ribbons as Outrider Bram gasps back to life, clutching his bruised ribs. 'Bless you, delver!' he wheezes. 'That mad shaman Graknir has Caravan-Master Tovin strapped to a crystal-studded iron chair up ahead! Listen—a brass grounding-chain bolts that chair to a ceiling stalactite. Snap that chain and his whole dark apparatus will blow back in his face!' Bram presses his spare healing tonic into your palm and limps back to hold the gate.", onEnter:{ cw:"BRAM_RESCUED", items:["healing_potion"], msg:"Revived Outrider Bram (BRAM_RESCUED) & received a Healing Potion!" }, choices:[
+            { t:"Creep east through the Giant Bat Roost toward Graknir's sanctum.", to:5 },
+            { t:"Circle north through the Deadly Fungus Garden to flank Graknir.", to:6 }
+          ]},
+          12: { zone:"Barracks Alcove", title:"Caravan Lockboxes & Air-Shaft", text:"Inside the dry stone alcove behind the mushroom beds, you pry open a brass-banded lockbox stamped with Oakhaven's oak-leaf seal—recovering 35 GP and a crumpled ledger detailing Graknir's 'Sun-Siphon.' Better still, a narrow ventilation crawlspace opens right behind the crimson curtains of the Testing Chamber, letting you drop directly at the shaman's back!", onEnter:{ gold:35, cw:"GRAKNIR_FLANKED", msg:"Recovered 35 GP & found a flanking air-shaft behind Graknir (GRAKNIR_FLANKED)!" }, choices:[
+            { t:"Drop silently through the air-shaft into Graknir's Testing Chamber.", to:7 }
+          ]},
+          13: { zone:"Bastion Gate", title:"Reunion at the Iron Arch", text:"At the spiked iron gatehouse, Outrider Bram leaps up from behind a salt-crate with a grin as wide as a wagon-wheel when he sees Caravan-Master Tovin walking out alive. Clapping each other's shoulders, the two merchants insist on pressing an extra 30 GP purse into your palm before the three of you unbar the trade road together.", onEnter:{ gold:30, msg:"Tovin & Bram reward you with an extra 30 GP for bringing them both home!" }, choices:[
+            { t:"March back to Oakhaven in triumph!", to:10 }
+          ]}
         }
       },
 
