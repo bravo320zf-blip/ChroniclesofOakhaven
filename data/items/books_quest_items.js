@@ -1058,3 +1058,92 @@ window.OAKHAVEN.registerItems({
     desc: "+2 AC, +2 Agility, +1 Luck. Silver-inlaid sea compass gifted aboard the Silver Slipper."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 011 — Scarlet Citadel (Parts I-VII) & Remaining 5 Frontier Tales
+  "bq_gaoler_iron_keys": {
+    id: "bq_gaoler_iron_keys",
+    name: "Holzanger Crypt Ward-Key",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 95,
+    ac: 1,
+    luck: 1,
+    desc: "+1 AC, +1 Luck. Heavy iron signet-ring taken from the Gaoler beneath Redtower."
+  },
+  "bq_time_construct_gear": {
+    id: "bq_time_construct_gear",
+    name: "Cagoth-ze's Chronos Lens",
+    type: "accessory",
+    rarity: "rare",
+    value: 145,
+    arcana: 2,
+    agility: 1,
+    desc: "+2 Arcana, +1 Agility. Brass time-prism salvaged from the Arcane Scriptorium."
+  },
+  "bq_dwarven_ring_mage_band": {
+    id: "bq_dwarven_ring_mage_band",
+    name: "Barracks Ring-Mage Band",
+    type: "accessory",
+    rarity: "rare",
+    value: 185,
+    ac: 2,
+    arcana: 1,
+    maxMp: 5,
+    desc: "+2 AC, +1 Arcana, +5 Max MP. Ancient dwarven rune-ring from the Scarlet Citadel barracks."
+  },
+  "bq_black_river_oar_staff": {
+    id: "bq_black_river_oar_staff",
+    name: "Shadow-Current Staff",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 285,
+    atk: 5,
+    arcana: 2,
+    spirit: 1,
+    desc: "+5 Attack, +2 Arcana, +1 Spirit. Ley-infused staff recovered along the subterranean Black River."
+  },
+  "bq_gellert_void_grimoire": {
+    id: "bq_gellert_void_grimoire",
+    name: "Gellert's Void-Ley Signet",
+    type: "accessory",
+    rarity: "legendary",
+    value: 410,
+    ac: 3,
+    arcana: 3,
+    maxMp: 8,
+    desc: "+3 AC, +3 Arcana, +8 Max MP. Captured noble seal of Gellert the Gruesome, last scion of House Holzanger."
+  },
+  "bq_tangled_python_staff": {
+    id: "bq_tangled_python_staff",
+    name: "Glyph-Carved Staff of the Python",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 275,
+    atk: 5,
+    spirit: 2,
+    desc: "+5 Attack, +2 Spirit. Ancient serpentine staff recovered from the Tangled Temple."
+  },
+  "bq_lurinax_ocular_charm": {
+    id: "bq_lurinax_ocular_charm",
+    name: "Lurinax's Ocular Prism",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 340,
+    ac: 2,
+    arcana: 2,
+    luck: 2,
+    desc: "+2 AC, +2 Arcana, +2 Luck. Prophetic crystal eye won in the Valley of Black Tears."
+  },
+  "bq_aganatha_shroud": {
+    id: "bq_aganatha_shroud",
+    name: "Aganatha's Woven Shroud",
+    type: "cloak",
+    rarity: "very_rare",
+    value: 375,
+    ac: 3,
+    spirit: 2,
+    maxHp: 8,
+    desc: "+3 AC, +2 Spirit, +8 Max HP. Silver-threaded funerary mantle consecrated for Aganatha."
+  }
+});
