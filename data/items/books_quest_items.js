@@ -333,3 +333,125 @@ window.OAKHAVEN.registerItems({
     desc: "+2 Arcana, +1 Might, +6 Max MP. Crackling amber relic recovered from the Monument of the Thunderer."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 004 — Book of Lairs (Lairs 13–25)
+  "bq_coral_knitting_needles": {
+    id: "bq_coral_knitting_needles",
+    name: "Talitheos Coral Needles",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 250,
+    source: "Book of Lairs",
+    arcana: 2,
+    spirit: 1,
+    maxMp: 5,
+    desc: "+2 Arcana, +1 Spirit, +5 Max MP. Sunken red-hag coral needles sealed in ironwood."
+  },
+  "bq_scorpion_prince_dagger": {
+    id: "bq_scorpion_prince_dagger",
+    name: "Stinger of the Scorpion Prince",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 260,
+    source: "Book of Lairs",
+    atk: 5,
+    agility: 2,
+    desc: "+5 Attack, +2 Agility. Venomous aventurine-hilted blade from the unearthed desert tomb."
+  },
+  "bq_shadow_drake_diadem": {
+    id: "bq_shadow_drake_diadem",
+    name: "Riatha's Grove Blessing",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 265,
+    source: "Book of Lairs",
+    ac: 2,
+    spirit: 2,
+    maxHp: 6,
+    desc: "+2 AC, +2 Spirit, +6 Max HP. Alseid forest charm gifted for returning Riatha's diadem."
+  },
+  "bq_king_silver_blade": {
+    id: "bq_king_silver_blade",
+    name: "Silver-King's Crypt Blade",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 295,
+    source: "Book of Lairs",
+    atk: 6,
+    might: 1,
+    arcana: 1,
+    desc: "+6 Attack, +1 Might, +1 Arcana. Death-forged runeblade won in the Warlock's Crypt."
+  },
+  "bq_springwell_aegis": {
+    id: "bq_springwell_aegis",
+    name: "Grotto Sun-Mirror Shield",
+    type: "shield",
+    rarity: "very_rare",
+    value: 315,
+    source: "Book of Lairs",
+    ac: 3,
+    spirit: 1,
+    maxHp: 6,
+    desc: "+3 AC, +1 Spirit, +6 Max HP. Long-forgotten reflective shield recovered from the Aboleth's Grotto."
+  },
+  "bq_cruor_scimitar": {
+    id: "bq_cruor_scimitar",
+    name: "Bloodwood Scimitar of Speed",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 330,
+    source: "Book of Lairs",
+    atk: 6,
+    agility: 2,
+    desc: "+6 Attack, +2 Agility. Whistling curved blade taken from Mother Congeala's hut."
+  },
+  "bq_splitsoul_warhammer": {
+    id: "bq_splitsoul_warhammer",
+    name: "Duergar Splitsoul Warhammer",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 335,
+    source: "Book of Lairs",
+    atk: 6,
+    might: 2,
+    desc: "+6 Attack, +2 Might. Masterwork dwarven warhammer forged to shatter Imperial Ghoul iron."
+  },
+  "bq_charun_oar_charm": {
+    id: "bq_charun_oar_charm",
+    name: "Tallenya's Boatman Token",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 320,
+    source: "Book of Lairs",
+    ac: 2,
+    spirit: 2,
+    luck: 1,
+    desc: "+2 AC, +2 Spirit, +1 Luck. Sacred bronze oar-amulet of Charun from the Cistern."
+  },
+  "bq_void_star_sapphire": {
+    id: "bq_void_star_sapphire",
+    name: "Citadel Star Sapphire",
+    type: "accessory",
+    rarity: "legendary",
+    value: 460,
+    source: "Book of Lairs",
+    ac: 3,
+    arcana: 3,
+    maxMp: 8,
+    desc: "+3 AC, +3 Arcana, +8 Max MP. Humming ley-line sapphire from the Citadel of the Void Dragons."
+  },
+  "bq_umbral_soul_harp": {
+    id: "bq_umbral_soul_harp",
+    name: "Caragorn's Shadow-Harp",
+    type: "accessory",
+    rarity: "legendary",
+    value: 485,
+    source: "Book of Lairs",
+    ac: 3,
+    agility: 2,
+    spirit: 2,
+    luck: 2,
+    desc: "+3 AC, +2 Agility, +2 Spirit, +2 Luck. Eerie void-strung harp from the Triangle in Shadows."
+  }
+});
