@@ -99,7 +99,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 2. TROUBLE AT MOSSBEARD MILL II (8 PAGES • LV 2)
+  // 2. TROUBLE AT MOSSBEARD MILL II (12 PAGES • LV 2)
   // Part 2 of 3 (Prerequisite: bk_b19_mossbeard_1)
   // ==========================================================
   bk_b19_mossbeard_2: {
@@ -111,76 +111,120 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 2,
     autoDiscover: false,
     discoverySource: "Unlocks after Trouble at Mossbeard Mill I",
-    summary: "Broker a fragile peace between Moonbright's timber-council and the ancient treant Mossbeard at the river docks—only for ruthless saboteurs to unleash disaster!",
-    totalPages: 8,
+    summary: "Broker a fragile peace between Moonbright's timber-council and the ancient treant Mossbeard at the river docks—only for ruthless Barrow-Cult saboteurs to strike from the fog!",
+    totalPages: 12,
     pages: {
       1: {
         zone: "Moonbright River Docks",
         title: "The Twilight Parley",
         safeRetreat: true,
-        text: "Lanterns bob along the wet pilings of Moonbright's river docks as Mossbeard wades into the shallows, towering over the nervous timber-council. Asher Northcord whispers urgently at your elbow: 'Someone's been stacking pitch-casks behind the boathouse—and I saw hooded strangers near the pier!'",
+        text: "Lanterns bob along the slick pilings of Moonbright's river docks as twilight settles over the Silverrun. Mossbeard wades chest-deep into the shallows, ancient boughs dripping river-weed as he towers over the nervous timber-council. Asher Northcord slips to your elbow and whispers urgently: 'Something's wrong. Someone stacked fresh pitch-casks behind the boathouse—and a black-sailed barge just drifted into the fog past the outer pier!'",
         choices: [
-          { t: "Speak earnestly for sustainable forestry to calm Mossbeard and the council.", badge: "Persuasion / Spirit DC 11", check: { stat: "spirit", skill: "Persuasion", dc: 11, pass: 2, fail: 3, passMsg: "Mossbeard nods solemnly, agreeing to spare Moonbright if the heart-woods stay untouched!", failMsg: "Tempers flare on the dock—just as flaming arrows hiss out of the fog!" }, onPass: { cw: "TRUCE_BROKERED" } },
-          { t: "Slip behind the boathouse to catch the hooded saboteurs red-handed!", badge: "Stealth / Perception DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 2, fail: 3, passMsg: "You spot necromancer-hired arsonists rolling oil-casks toward the treant!", failMsg: "A lookout spots you and ignites the pitch-fuse early!" }, onPass: { cw: "SABOTEURS_SPOTTED" } },
-          { t: "Keep watch beside Mossbeard with weapon ready.", to: 3 }
+          { t: "Speak earnestly for sustainable forestry to calm Mossbeard and win over the council.", badge: "Persuasion / Spirit DC 11", check: { stat: "spirit", skill: "Persuasion", dc: 11, pass: 2, fail: 3, passMsg: "Mossbeard inclines his oak-crowned brow, accepting the council's oath to spare the heart-woods!", failMsg: "Old grievances boil over on the pier—just as flaming arrows hiss out of the mist!" }, onPass: { cw: "TRUCE_BROKERED" } },
+          { t: "Slip behind the boathouse to catch the hooded saboteurs beside the pitch-casks!", badge: "Stealth / Agility DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 4, fail: 5, passMsg: "You climb onto the shadowed catwalk unseen, spotting pale cultists priming green-tainted pitch fuses!", failMsg: "A loose plank groans beneath your boot—bone-masked arsonists whirl with blades drawn!" }, onPass: { cw: "SABOTEURS_SPOTTED" } },
+          { t: "Scan the river mist and the silent timber-barge drifting toward the pilings.", badge: "Perception / Lore DC 11", check: { stat: "lore", skill: "Perception", dc: 11, pass: 4, fail: 3, passMsg: "You spot a necrotic harpoon-rack aboard the barge and trace its lookouts back to the boathouse catwalk!", failMsg: "The river fog thickens—and a volley of black-fletched fire arrows erupts across the pier!" }, onPass: { cw: "BARGE_SPOTTED" } }
         ]
       },
       2: {
-        zone: "Boathouse Pier",
-        title: "Ambush on the Pilings",
-        text: "You intercept the hooded saboteurs beside the pitch-casks—pale cultists wearing bone-sigils who hiss: 'Once the oaken ward falls, the dead of the northern barrows walk free!'",
-        enemy: { name: "Barrow-Cult Arsonists", desc: "Hooded saboteurs hired to murder Mossbeard and break the forest ward.", hp: 22, ac: 12, atk: 4, dmg: 5, xp: 55, gold: 30, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1, weakCw: ["SABOTEURS_SPOTTED"] },
+        zone: "Moonbright River Docks",
+        title: "Oath of the Living Bough",
+        text: "Your plea bridges decades of suspicion. The timber-council pledges to harvest only windfall and outer-ring pine, and Mossbeard rumbles with quiet relief, pressing a sprig of silver-veined mistletoe into Asher's palm. Before the elders can seal the pact, an eerie green flare bursts above the boathouse roof and the acrid reek of alchemical pitch floods the dock!",
+        onEnter: { xp: 20, msg: "Brokering the truce earns Mossbeard's gratitude (+20 XP) and steadies Moonbright's council!" },
         choices: [
-          { t: "Race back to the main pier as dark magic erupts across the water!", to: 4 }
+          { t: "Sprint for the boathouse pilings to stop the arsonists before the docks ignite!", to: 5 },
+          { t: "Signal Asher and Varina to shield the elders while you rush the dark river barge!", to: 6 }
         ]
       },
       3: {
         zone: "Main Pier",
-        title: "Fire on the Water",
-        text: "Black-fletched fire arrows rain from the boathouse roof, igniting hidden pitch-casks around Mossbeard's roots as bone-masked cultists charge the council!",
-        enemy: { name: "Barrow-Cult Arsonists", desc: "Hooded saboteurs hired to murder Mossbeard and break the forest ward.", hp: 22, ac: 12, atk: 4, dmg: 5, xp: 55, gold: 30, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1 },
+        title: "Sparks in the Mist",
+        text: "Voices rise on the wet timber as two lumber-barons accuse Mossbeard of ruining their livelihoods. The treant's branches bristle—just as black-fletched fire arrows shriek from the boathouse roof, shattering the dock lanterns and igniting a slick trail of pitch racing straight toward Mossbeard's submerged roots!",
         choices: [
-          { t: "Charge toward the blazing pier to aid the wounded treant!", to: 4 }
+          { t: "Kick the burning oil-buckets into the river and flank behind the boathouse!", badge: "Agility / Strength DC 11", check: { stat: "agility", skill: "Acrobatics", dc: 11, pass: 4, fail: 5, passMsg: "You sever the burning oil-trail and vault onto the boathouse catwalk behind the arsonists!", failMsg: "The heat forces you back onto the main pier straight into the charging cultists!" }, onPass: { cw: "FIRE_CONTAINED" } },
+          { t: "Charge straight through the smoke toward the bone-masked arsonists!", to: 5 }
         ]
       },
       4: {
-        zone: "Blazing Docks",
-        title: "The Necrotic Harpoon",
-        text: "Before you can extinguish the black-green flames, a hulking bone-clad wight-captain leaps from a river barge and drives a cursed necrotic harpoon deep into Mossbeard's heartwood! The ancient treant groans as rot races up his bark.",
-        enemy: { name: "Barge Wight-Captain", desc: "Armored undead assassin wielding a blight-forged harpoon.", hp: 26, ac: 12, atk: 5, dmg: 5, undead: true, xp: 75, gold: 45, items: ["bq_blight_ward_brooch"], weakCw: ["TRUCE_BROKERED", "SABOTEURS_SPOTTED"] },
+        zone: "Boathouse Catwalk",
+        title: "The Pitch-Cask Conspiracy",
+        text: "From the creaking rafters above the boathouse, you look down on pale cultists wearing carved bone-sigils. They soak rope-fuses in sickly green necro-pitch, hissing to one another: 'Once the oaken ward dies, the Hollow Barrow wakes and Moonbright falls!' Beside their lantern lies an open iron-bound dock ledger and a heavy timber-beam suspended by a taut pulley-rope.",
         choices: [
-          { t: "Kneel beside the collapsing treant as the river mist turns ice-cold.", to: 5 }
+          { t: "Slice the pulley-rope to drop the suspended timber-beam onto the arsonists!", badge: "Agility / Detect Traps DC 11", check: { stat: "agility", skill: "Detect Traps", dc: 11, pass: 5, fail: 5, passMsg: "The beam crashes down with a splintering roar, bruising and scattering the cultists!", failMsg: "The rope snags on the iron block—the cultists spot you and rush the catwalk stairs!" }, onPass: { cw: "BEAM_DROPPED" } },
+          { t: "Snatch the Barrow-Cult's dock ledger to learn their counter-runes before leaping down.", badge: "Lockpicking / Perception DC 11", check: { stat: "lore", skill: "Perception", dc: 11, pass: 5, fail: 5, passMsg: "You memorize the wight-captain's necrotic tether-rune before dropping onto the pier!", failMsg: "A burning splinter forces you to drop the ledger and draw steel!" }, onPass: { cw: "CULT_LEDGER" } },
+          { t: "[Firebolt] Ignite their spare pitch-keg from the rafters and leap straight toward the river barge!", reqSpell: "Firebolt", to: 6 }
         ]
       },
       5: {
-        zone: "Moonbright Docks",
-        title: "Mossbeard's Final Gift",
-        text: "Even with the wight-captain shattered, the necrotic poison is too deep. Mossbeard's immense boughs settle gently onto the riverbank. With his last breath, he presses a glowing golden acorn into your palm: 'My roots held back the Hollow Barrow for three centuries... Now their master marches on Moonbright. Guard the seed...'",
-        onEnter: { healHp: 10, msg: "Mossbeard's final blessing restores +10 HP and entrusts you with the Golden Acorn!" },
+        zone: "Boathouse Pier",
+        title: "Ambush on the Pilings",
+        text: "Green-tinted flames lick the damp pilings as the hooded saboteurs fan out across the boathouse pier, waving bone-hilted daggers and oil-soaked torches. 'You're too late, meddler!' their leader rasps. 'The barge is already in position!'",
+        enemy: { name: "Barrow-Cult Arsonists", desc: "Hooded saboteurs hired to murder Mossbeard and break the forest ward.", hp: 22, ac: 12, atk: 4, dmg: 5, xp: 55, gold: 30, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1, weakCw: ["SABOTEURS_SPOTTED", "BEAM_DROPPED", "FIRE_CONTAINED"] },
         choices: [
-          { t: "Carry the Golden Acorn back to Moonbright Square as cold fog rolls off the woods.", to: 6 }
+          { t: "Race down the outer gangplank to board the fog-shrouded river barge!", to: 6 },
+          { t: "Vault across the blazing pilings straight to Mossbeard's side!", to: 7 }
         ]
       },
       6: {
-        zone: "Moonbright Square",
-        title: "Bells in the Fog",
-        text: "The watch-bells clang frantically across town—pale blue lights are rising along the northern tree-line where Mossbeard's ward once stood!",
+        zone: "Fog-Shrouded River Barge",
+        title: "The Necrotic Harpoon",
+        text: "A flat-bottomed timber barge looms out of the river fog, its lantern shrouded in black wool. At the prow, a hulking warrior in salt-rusted mail cranks a barbed, green-glowing harpoon into a swivel-mount aimed directly at Mossbeard's heartwood. Near the stern, two bound Moonbright ferrymen thrash desperately against soaked hemp ropes.",
         choices: [
-          { t: "Rally the townsfolk and prepare for the undead assault!", to: 7 }
+          { t: "Slash the ferrymen's ropes and shove their skiff clear so they can rally the town!", badge: "Agility / Lockpicking DC 11", check: { stat: "agility", skill: "Lockpicking", dc: 11, pass: 7, fail: 7, passMsg: "The ferrymen break free and row furiously for the shore to warn Moonbright!", failMsg: "The wet knots resist—the wight-captain turns and fires the cursed harpoon!" }, onPass: { cw: "FERRYMEN_SAVED", xp: 20 } },
+          { t: "[Turn Undead] Blast the barge deck with radiant light to disrupt the harpoon's curse!", reqSpell: "Turn Undead", to: 7 },
+          { t: "Charge the swivel-mount to spoil the undead assassin's aim!", to: 7 }
         ]
       },
       7: {
-        zone: "Northcord Barricade",
-        title: "Holding the Line",
-        text: "Asher, Varina, and the timber-crews drag wagons across the mill bridge as skeletal silhouettes emerge from the mist.",
+        zone: "Blazing Docks",
+        title: "The Barge Wight-Captain",
+        text: "With a deafening crack of splintered oak, the cursed harpoon flies across the water and buries itself deep in Mossbeard's heartwood! Black-green rot spiders swiftly up the ancient treant's bark. Roaring a hollow battle-cry, the armored wight-captain vaults from the barge onto the blazing pier to finish the deed—and cuts off your path with a frost-rimed halberd!",
+        enemy: { name: "Barge Wight-Captain", desc: "Armored undead assassin wielding a blight-forged harpoon and frost-rimed halberd.", hp: 26, ac: 12, atk: 5, dmg: 5, undead: true, xp: 75, gold: 45, items: ["bq_blight_ward_brooch"], weakCw: ["TRUCE_BROKERED", "SABOTEURS_SPOTTED", "BARGE_SPOTTED", "CULT_LEDGER"] },
         choices: [
-          { t: "Complete Part 2 and unlock Part 3: Death Comes Creeping!", to: 8 }
+          { t: "Kneel beside the collapsing treant as the river mist turns ice-cold.", to: 8 }
         ]
       },
       8: {
+        zone: "Moonbright Shallows",
+        title: "Mossbeard's Final Gift",
+        text: "Even with the wight-captain shattered into bone-dust and black brine, the necrotic poison runs too deep. Mossbeard's immense boughs settle gently onto the muddy riverbank, his amber eyes fading like autumn embers. With his last breath, he presses a warm, glowing Golden Acorn into your palm: 'My roots held back the Hollow Barrow for three centuries... Now their master marches on Moonbright. Guard the seed—where it lives, the woods remember...'",
+        onEnter: { healHp: 10, msg: "Mossbeard's final blessing restores +10 HP and entrusts you with the Golden Acorn!" },
+        choices: [
+          { t: "Wade out to the listing river barge to check the cultists' iron coffer before it sinks.", to: 9 },
+          { t: "Carry the Golden Acorn straight up the cobbles to Moonbright Square as alarm bells ring.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Sinking River Barge",
+        title: "Spoils of the Barrow-Cult",
+        text: "Black river-water floods the tilting deck as the barge begins to founder. Wedged beneath the shattered harpoon-rack rests a salt-stained strongbox stamped with the hollow-crown sigil of the Barrow-Cult, alongside a wax-sealed scroll tube detailing the necromancer's vanguard.",
+        choices: [
+          { t: "Pry the rusted clasp open before the barge slips beneath the current!", badge: "Lockpicking / Strength DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 10, fail: 10, passMsg: "You pop the latch, recovering 35 GP in stolen river-tolls and the cult's vanguard orders!", failMsg: "The barge lurches sharply—you leap clear onto the pier as the strongbox sinks!" }, onPass: { cw: "BARGE_COFFER", gold: 35, xp: 20 } },
+          { t: "Leave the cursed wreckage to the Silverrun and hurry back to town.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Moonbright Square",
+        title: "Bells in the Fog",
+        text: "The watch-bells clang frantically from the timber-hall steeple. Pale blue corpse-lights flicker along the northern tree-line where Mossbeard's ward once stood, and frightened families stream into the lantern-lit square. Asher Northcord and Varina sprint to meet you, eyes wide at the warm golden light pulsing between your fingers.",
+        choices: [
+          { t: "Reveal the Barrow-Cult's plot and rally the timber-crews to fortify the mill bridge!", badge: "Persuasion / Lore DC 11", check: { stat: "spirit", skill: "Persuasion", dc: 11, pass: 11, fail: 11, passMsg: "Your steady voice turns panic into resolve—lumberjacks heft axes and drag heavy wagons toward the bridge!", failMsg: "Shaken by the corpse-lights, only the bravest mill-hands follow you toward the bridge." }, onPass: { cw: "MILITIA_RALLIED", xp: 15 } },
+          { t: "Join the rescued ferrymen—who have already hauled extra oil-lanterns and axes to the bridge!", reqCw: "FERRYMEN_SAVED", to: 11 },
+          { t: "Hurry straight to the Northcord Mill bridge with Asher and Varina.", to: 11 }
+        ]
+      },
+      11: {
+        zone: "Northcord Barricade",
+        title: "Holding the Line",
+        text: "Overturned wagons, split-oak beams, and crackling braziers form a jagged wall across the mill bridge. Asher, Varina, and Moonbright's timber-crews stand shoulder-to-shoulder beside you as the first skeletal silhouettes emerge from the freezing northern mist. Against your chest, Mossbeard's Golden Acorn beats with quiet, defiant warmth.",
+        onEnter: { xp: 15, msg: "Moonbright's barricade is set—the town stands ready for the siege (+15 XP)!" },
+        choices: [
+          { t: "Complete Part 2 and unlock Part 3: Death Comes Creeping!", to: 12 }
+        ]
+      },
+      12: {
         zone: "Epilogue",
         title: "The Ward Is Broken",
-        text: "Mossbeard has fallen, and the ancient dead are loose. <strong>Trouble at Mossbeard Mill III: Death Comes Creeping</strong> is now unlocked!",
+        text: "Mossbeard has fallen, his ancient ward is broken, and the dead of the Hollow Barrow are loose in the mist—yet the Golden Acorn endures in your keeping, and Moonbright stands united behind the bridge barricade. <strong>Trouble at Mossbeard Mill III: Death Comes Creeping</strong> is now unlocked!",
         ending: { type: "true", title: "Keeper of the Golden Acorn (Part 2 of 3)", xp: 115, gold: 100, trophy: "Golden Acorn of Mossbeard" },
         choices: []
       }

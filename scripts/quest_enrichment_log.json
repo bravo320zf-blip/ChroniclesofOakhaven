@@ -1,5 +1,5 @@
 {
-  "totalPasses": 10,
+  "totalPasses": 11,
   "history": [
     {
       "pass": 1,
@@ -70,6 +70,13 @@
       "title": "Empire of the Ghouls V: Into the Fuligin Realm",
       "file": "data/quests/books_quests_batch_007.js",
       "summary": "Replaced 3 one-line filler pages and expanded into a 12-page Underworld chapter with kobold courier Skrik, a full parley scene at Narosain the Last King's court (LAST_KING_PACT & DRAGON_BLINDSPOT), Withered Hand shrine Marrowblight dispatch & sonic-phosphorus ampoules (PHOSPHORUS_CHALK -> DRAGON_AMBUSHED), Gondecap's dwarven ash-hoard strongbox (110 GP), and Narosain's Vandekhul loyalist countersign scene (80 GP)."
+    },
+    {
+      "pass": 11,
+      "questId": "bk_b19_mossbeard_2",
+      "title": "Trouble at Mossbeard Mill II: Missing Pieces",
+      "file": "data/quests/books_quests_batch_019.js",
+      "summary": "Expanded from 8 terse pages to 12 atmospheric branching pages with Moonbright's twilight parley oath scene (TRUCE_BROKERED), a boathouse catwalk sabotage & cult-ledger infiltration branch (BEAM_DROPPED, CULT_LEDGER, Firebolt shortcut), oil-trail containment (FIRE_CONTAINED), a fog-shrouded river barge ferrymen rescue & Turn Undead tactical scene (FERRYMEN_SAVED), sinking barge strongbox salvage (BARGE_COFFER, 35 GP), and militia rallying at the Northcord Barricade."
     }
   ],
   "questPasses": {
@@ -82,6 +89,7 @@
     "bk_b11_sc_3_barracks": 1,
     "bk_b16_marg_grandmothers_fire": 1,
     "bk_b9_prep_11_obsidian_pass": 1,
-    "bk_b7_eog_5_fuligin_realm": 1
+    "bk_b7_eog_5_fuligin_realm": 1,
+    "bk_b19_mossbeard_2": 1
   }
 }
