@@ -528,7 +528,7 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // QUEST 6 (PART 2 OF MALAKOR): THE PHYLACTERY THRONE (12 PAGES)
+      // QUEST 6 (PART 2 OF MALAKOR): THE PHYLACTERY THRONE (14 PAGES)
       // Prerequisite: `malakor` | Uniques: soulreaver_claymore, regent_plate, phylactery_shard
       // ==========================================================
       malakor_part2: {
@@ -541,47 +541,57 @@ window.OAKHAVEN.registerQuests({
         autoDiscover: true,
         discoverySource: "Unlocks after completing The Sunken Vault of Malakor",
         summary: "Descend beneath Malakor's shattered dais into his hidden Grand Necropolis, where Death-Knight Regent Vaelor is attempting to resurrect the Lich-King!",
-        totalPages: 12,
+        totalPages: 14,
         pages: {
-          1: { zone:"Shattered Dais", title:"The Rift Beneath the Throne", safeRetreat:true, text:"Where Lich-King Malakor once fell, the obsidian floor has split wide open—revealing a spiral descent of violet fire into a hidden Grand Necropolis. Cold chanting echoes from the abyss.", choices:[
-            { t:"Descend the violet spiral into the Hall of Regents.", to:2 },
-            { t:"Inspect a fallen Paladin's reliquary near the rim.", to:3 }
+          1: { zone:"Shattered Dais", title:"The Rift Beneath the Throne", safeRetreat:true, text:"Where Lich-King Malakor once fell, the cracked obsidian floor has split wide open—revealing a spiral staircase wreathed in cold violet flame plunging into a hidden Grand Necropolis. Grave-Watcher Corvus's warning echoes in your ears as hollow Latin chanting rises from the abyss below.", choices:[
+            { t:"Descend the violet spiral directly into the Hall of Regents.", to:2 },
+            { t:"Creep along the shadowed upper gallery to scout the Dread-Guard's patrol!", badge:"Stealth / Perception DC 12", check:{ stat:"agility", skill:"Stealth", dc:12, pass:2, fail:2, passMsg:"You spot the weak seams in the Dread-Guard's blackened plate from above!", failMsg:"Loose obsidian clatters down the spiral—alerting the armored sentinels below!" }, onPass:{ cw:"VANGUARD_FLANKED" } },
+            { t:"Inspect a fallen Dawn-Paladin's shattered reliquary near the chasm rim.", to:3 }
           ]},
-          2: { zone:"Hall of Regents", title:"The Dread-Guard Vanguard", text:"Two towering Skeletal Knights in blackened plate step from wall-alcoves, raising soulfire halberds!", enemy:{ name:"Malakor's Dread-Guard", desc:"Elite undead honor guard.", hp:26, ac:12, atk:5, dmg:6, undead:true, xp:68, gold:42, items:["obsidian_dust", ...rollRandomLoot(["consumable","valuable"], 1)], flee:1 }, choices:[
-            { t:"Enter the Soul-Forge Chamber to the east.", to:4 },
-            { t:"Advance toward the Chanting Nave.", to:6 }
+          2: { zone:"Hall of Regents", title:"The Dread-Guard Vanguard", text:"Two towering Skeletal Knights in mirror-blackened plate step smoothly from carved wall-alcoves, igniting soulfire halberds across the marble threshold!", enemy:{ name:"Malakor's Dread-Guard", desc:"Elite undead honor guard sworn to protect the Lich-King's hidden crypt.", hp:26, ac:12, atk:5, dmg:6, undead:true, xp:68, gold:42, items:["obsidian_dust", ...rollRandomLoot(["consumable","valuable"], 1)], flee:1, weakCw:["VANGUARD_FLANKED"] }, choices:[
+            { t:"Enter the Soul-Forge Chamber to the east where blue embers still glow.", to:4 },
+            { t:"Follow a faint hymn of silver bells into the Crypt of Weeping Banners.", to:13 },
+            { t:"Advance straight toward the Chanting Nave.", to:6 }
           ]},
-          3: { zone:"Shattered Dais", title:"The Dawn-Seals", text:"You recover a starlight-blessed Phoenix Tonic and a Dawn-Seal Sigil that disrupts necromantic resurrection rituals!", onEnter:{ cw:"DAWN_SEAL", items:["phoenix_tonic", ...rollRandomLoot(["consumable"], 1)], msg:"Found DAWN_SEAL & Phoenix Tonic!" }, choices:[
-            { t:"Descend into the Hall of Regents.", to:2 }
+          3: { zone:"Shattered Dais", title:"The Dawn-Seals", text:"Beside the cracked breastplate of an ancient Dawn-Watch paladin rests a starlight-blessed Phoenix Tonic and a radiant Dawn-Seal Sigil etched with prayers meant to shatter necromantic resurrection circles!", onEnter:{ cw:"DAWN_SEAL", items:["phoenix_tonic", ...rollRandomLoot(["consumable"], 1)], msg:"Found DAWN_SEAL & Phoenix Tonic!" }, choices:[
+            { t:"Descend the violet spiral into the Hall of Regents.", to:2 }
           ]},
-          4: { zone:"Soul-Forge", title:"The Regent's Armory", text:"Beside a cold soul-furnace rests the legendary Regent's Dread-Plate and a cache of random necropolis plunder!", onEnter:{ gold:45, items:["regent_plate", ...rollRandomLoot(["weapon","valuable","material"], 1)], msg:"Claimed Regent's Dread-Plate, 45 GP & random loot!" }, choices:[
-            { t:"Inspect the Phylactery Conduit.", to:5 },
-            { t:"March into the Chanting Nave.", to:6 }
+          4: { zone:"Soul-Forge", title:"The Regent's Armory", text:"Beside a cold blue-flame soul-furnace rests an iron armor-stand bearing the legendary Regent's Dread-Plate alongside a locked coffer of necropolis bullion and salvage!", onEnter:{ gold:45, items:["regent_plate", ...rollRandomLoot(["weapon","valuable","material"], 1)], msg:"Claimed Regent's Dread-Plate, 45 GP & random loot!" }, choices:[
+            { t:"Inspect the humming Phylactery Conduit feeding power toward the inner throne.", to:5 },
+            { t:"March directly into the Chanting Nave.", to:6 }
           ]},
-          5: { zone:"Soul-Forge", title:"The Soul Conduit", text:"Violet energy pulses through a crystal lens toward the inner throne.", choices:[
-            { t:"Shatter the conduit with Turn Undead or Arcana!", badge:"Arcana / Spirit DC 11", check:{ stat:"spirit", skill:"Lore", dc:11, pass:6, fail:6, failDmg:4, passMsg:"The conduit explodes, severing Vaelor's dark link!", failMsg:"Necrotic sparks sear you (-4 HP)!" }, onPass:{ cw:"CONDUIT_BROKEN" } }
+          5: { zone:"Soul-Forge", title:"The Soul Conduit", text:"Threads of violet soul-energy surge through a faceted obsidian lens, pulsing in steady rhythm with the chanting from Regent Vaelor's throne room beyond.", choices:[
+            { t:"[Turn Undead] Flood the crystal lens with pure sunlight to overload the conduit!", reqSpell:"Turn Undead", to:14 },
+            { t:"Shatter the conduit with Arcana or focused Lore!", badge:"Arcana / Spirit DC 11", check:{ stat:"spirit", skill:"Lore", dc:11, pass:6, fail:6, failDmg:4, passMsg:"The conduit explodes in white sparks, severing Vaelor's dark link!", failMsg:"Necrotic sparks sear your gauntlets (-4 HP) before the lens cracks!" }, onPass:{ cw:"CONDUIT_BROKEN" } }
           ]},
-          6: { zone:"Chanting Nave", title:"The Necromancer Choir", text:"Three hooded Liches-in-waiting channel violet beams into an obsidian casket!", enemy:{ name:"Choir of Bone-Mages", desc:"Malakor's ritual cultists.", hp:25, ac:12, atk:5, dmg:6, undead:true, xp:72, gold:48, items:["starlight_vial", ...rollRandomLoot(["valuable","material"], 1)], flee:1 }, choices:[
-            { t:"Pause to gather the Purified Phylactery Shard from the altar.", to:7 },
-            { t:"Kick open the doors to the Phylactery Throne!", to:8 }
+          6: { zone:"Chanting Nave", title:"The Necromancer Choir", text:"Beneath vaulted ribs of carved bone, three hooded Liches-in-waiting raise iron censers—channeling violet beams into a levitating obsidian casket!", enemy:{ name:"Choir of Bone-Mages", desc:"Malakor's ritual cultists weaving the Lich-King's resurrection.", hp:25, ac:12, atk:5, dmg:6, undead:true, xp:72, gold:48, items:["starlight_vial", ...rollRandomLoot(["valuable","material"], 1)], flee:1, weakCw:["CONDUIT_BROKEN"] }, choices:[
+            { t:"Pause to gather the Purified Phylactery Shard from the silenced altar.", to:7 },
+            { t:"Kick open the bronze doors to the Phylactery Throne!", to:8 }
           ]},
-          7: { zone:"Chanting Nave", title:"The Purified Shard", text:"You pluck the Purified Phylactery Shard from the silenced altar—humming with reclaimed arcane power!", onEnter:{ items:["phylactery_shard", ...rollRandomLoot(["consumable"], 1)], msg:"Claimed Purified Phylactery Shard!" }, choices:[
-            { t:"Enter the Phylactery Throne Room!", to:8 }
+          7: { zone:"Chanting Nave", title:"The Purified Shard", text:"With the dark choir broken, the cracked obsidian casket falls open—revealing a Purified Phylactery Shard humming with reclaimed, untainted arcane clarity!", onEnter:{ items:["phylactery_shard", ...rollRandomLoot(["consumable"], 1)], msg:"Claimed Purified Phylactery Shard!" }, choices:[
+            { t:"Step through the bronze doors into the Phylactery Throne Room!", to:8 }
           ]},
-          8: { zone:"Phylactery Throne", title:"Death-Knight Regent Vaelor", text:"Standing before Malakor's reassembling crown stands Death-Knight Regent Vaelor, hefting the massive Soulreaver Claymore. 'You slew my King once, mortal! This time, your soul fuels his return!'", choices:[
+          8: { zone:"Phylactery Throne", title:"Death-Knight Regent Vaelor", text:"Beneath Malakor's slowly reassembling iron crown stands Death-Knight Regent Vaelor, hefting the massive Soulreaver Claymore. Blue flame flares inside his visored helm: 'You slew my King once, mortal! This time, your soul fuels his eternal return!'", choices:[
             { t:"Invoke the Dawn-Seal to shatter his resurrection circle!", reqCw:"DAWN_SEAL", badge:"DAWN_SEAL", to:9 },
             { t:"Duel Regent Vaelor at full strength!", to:10 }
           ]},
-          9: { zone:"Phylactery Throne", title:"The Broken Resurrection", text:"Golden light erupts across the obsidian floor, cracking Vaelor's dark armor as he charges in fury!", enemy:{ name:"Regent Vaelor (Unbound)", desc:"Death-Knight stripped of Malakor's blessing.", hp:30, ac:12, atk:5, dmg:6, undead:true, xp:130, gold:110, items:["soulreaver_claymore", ...rollRandomLoot(["valuable","accessory"], 1)], weakCw:["CONDUIT_BROKEN"] }, choices:[
-            { t:"Seal the Grand Necropolis forever!", to:11 }
+          9: { zone:"Phylactery Throne", title:"The Broken Resurrection", text:"Golden sunrise erupts from the Dawn-Seal across the obsidian floor, cracking Vaelor's dark runes and snuffing out Malakor's levitating crown as the Death-Knight charges in desperate fury!", enemy:{ name:"Regent Vaelor (Unbound)", desc:"Death-Knight stripped of Malakor's dark resurrection blessing.", hp:30, ac:12, atk:5, dmg:6, undead:true, xp:130, gold:110, items:["soulreaver_claymore", ...rollRandomLoot(["valuable","accessory"], 1)], weakCw:["CONDUIT_BROKEN", "BANNER_BLESSED"] }, choices:[
+            { t:"Shatter Malakor's iron crown and seal the Grand Necropolis forever!", to:11 }
           ]},
-          10: { zone:"Phylactery Throne", title:"Clash of the Undying", text:"Blue soulfire screams off the Soulreaver Claymore with every earth-shaking blow!", enemy:{ name:"Death-Knight Regent Vaelor", desc:"Supreme champion of Malakor's court.", hp:38, ac:13, atk:6, dmg:7, undead:true, xp:155, gold:130, items:["soulreaver_claymore", ...rollRandomLoot(["valuable","weapon"], 1)], weakCw:["CONDUIT_BROKEN"] }, choices:[
-            { t:"Seal the Grand Necropolis forever!", to:11 }
+          10: { zone:"Phylactery Throne", title:"Clash of the Undying", text:"Blue soulfire screams off the Soulreaver Claymore with every earth-shaking blow as Vaelor fights to complete his master's dark rite!", enemy:{ name:"Death-Knight Regent Vaelor", desc:"Supreme champion of Malakor's undying court.", hp:38, ac:13, atk:6, dmg:7, undead:true, xp:155, gold:130, items:["soulreaver_claymore", ...rollRandomLoot(["valuable","weapon"], 1)], weakCw:["CONDUIT_BROKEN", "BANNER_BLESSED"] }, choices:[
+            { t:"Shatter Malakor's iron crown and seal the Grand Necropolis forever!", to:11 }
           ]},
-          11: { zone:"Phylactery Throne", title:"Final Silence of Malakor", text:"As Vaelor crumbles to ash, the violet fire dies forever. You claim 75 GP and a random treasure from the Regent's coffer before ascending to the marshes.", onEnter:{ gold:75, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 1), msg:"Claimed 75 GP & random treasure!" }, choices:[
+          11: { zone:"Phylactery Throne", title:"Final Silence of Malakor", text:"As Regent Vaelor crumbles into grey ash, the violet flames across the Grand Necropolis gutter out forever. You shatter the iron crown upon the dais and claim 75 GP and a gleaming relic from the Regent's coffer before ascending back to the marshes.", onEnter:{ gold:75, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 1), msg:"Claimed 75 GP & random treasure!" }, choices:[
             { t:"Return to Oakhaven as Conqueror of the Necropolis!", to:12 }
           ]},
-          12: { zone:"Epilogue", title:"End of the Undying Reign", text:"Grave-Watcher Corvus bows deeply before the Temple of the Dawn as you present Vaelor's shattered helm. Malakor's lineage is ended for all time!", ending:{ type:"true", title:"Bane of the Necropolis (Pt. II)", xp:160, gold:175, trophy:"Vaelor's Black Crown" }, choices:[] }
+          12: { zone:"Epilogue", title:"End of the Undying Reign", text:"Grave-Watcher Corvus bows deeply before the Temple of the Dawn as you present Vaelor's shattered helm. Malakor's undying lineage is ended for all time!", ending:{ type:"true", title:"Bane of the Necropolis (Pt. II)", xp:160, gold:175, trophy:"Vaelor's Black Crown" }, choices:[] },
+          13: { zone:"Crypt of Weeping Banners", title:"Oath of the Silver Watch", text:"Inside a quiet side-vault hang tattered silver sun-banners of the long-dead knights who first sealed Malakor's tomb. Faint golden motes drift around a kneeling stone effigy holding an unbroken silver censer.", choices:[
+            { t:"Speak the Dawn-Watch oath and kindle the silver censer to honor the fallen knights.", badge:"Spirit / Persuasion DC 12", check:{ stat:"spirit", skill:"Persuasion", dc:12, pass:4, fail:6, passMsg:"Warm golden light wraps your weapon (+10 HP, +30 GP offering)—Vaelor's shadow-wards will falter before you!", failMsg:"The censer stays cool, though the quiet shrine steadies your nerves as you press on." }, onPass:{ cw:"BANNER_BLESSED", healHp:10, gold:30 } },
+            { t:"Leave the fallen watchmen in peace and head into the Soul-Forge.", to:4 }
+          ]},
+          14: { zone:"Soul-Forge", title:"Radiant Overload", text:"Sunlight-bright radiance floods the obsidian lens! With a resonant chime, the soul conduit fractures into harmless glass dust—severing Regent Vaelor's necrotic tether without a scratch on you!", onEnter:{ cw:"CONDUIT_BROKEN", xp:20, msg:"Radiant Turn Undead shattered the soul conduit cleanly (+20 XP)!" }, choices:[
+            { t:"Advance into the Chanting Nave while the Choir reels!", to:6 }
+          ]}
         }
       },
 

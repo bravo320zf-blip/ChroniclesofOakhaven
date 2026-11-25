@@ -1,5 +1,5 @@
 {
-  "totalPasses": 12,
+  "totalPasses": 13,
   "history": [
     {
       "pass": 1,
@@ -84,6 +84,13 @@
       "title": "A Bad Night for Betting",
       "file": "data/quests/books_quests_batch_009.js",
       "summary": "Replaced 3 one-line filler pages and expanded from 6 linear pages to 11 gritty frontier-town branching pages with Pit-Master Korrin's spectator evacuation (CROWD_SAVED), betting-booth catwalk infiltration against peddler Vexil (ALCHEMIST_SPOTTED, CART_SABOTAGED, WAGER_BOX_LOOTED 95 GP, Firebolt shortcut), copper-trough lime-ash neutralizer investigation (NEUTRALIZER_READY), and a heartwarming dogmole-pup rescue scene (PUPS_CALMED, 45 GP)."
+    },
+    {
+      "pass": 13,
+      "questId": "malakor_part2",
+      "title": "Part II: The Phylactery Throne of Malakor",
+      "file": "data/quests/expansion_frontier_quests.js",
+      "summary": "Deepened from 12 to 14 atmospheric pages with upper-gallery Stealth scouting against the Dread-Guard (VANGUARD_FLANKED), a new Crypt of Weeping Banners side-vault with Dawn-Watch oath blessing (BANNER_BLESSED, +10 HP, +30 GP), a Turn Undead radiant conduit overload branch (CONDUIT_BROKEN, +20 XP), and richer prose throughout."
     }
   ],
   "questPasses": {
@@ -98,6 +105,7 @@
     "bk_b9_prep_11_obsidian_pass": 1,
     "bk_b7_eog_5_fuligin_realm": 1,
     "bk_b19_mossbeard_2": 1,
-    "bk_b9_prep_7_betting": 1
+    "bk_b9_prep_7_betting": 1,
+    "malakor_part2": 1
   }
 }
