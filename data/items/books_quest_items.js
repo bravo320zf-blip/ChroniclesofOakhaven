@@ -380,7 +380,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 2,
     maxHp: 6,
-    desc: "+2 AC, +2 Spirit, +6 Max HP. Alseid forest charm gifted for returning Riatha's diadem."
+    passives: { healBonus: 3, dmgReduce: 2, skillBonus: { Survival: 2, Persuasion: 1 } },
+    activeAbility: { name: "Alseid Grove Sanctuary", icon: "🦌", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", shieldTurns: 3, restoreMp: 3, desc: "2/Quest: Invoke Riatha's sylvan blessing — heal 2d8 + Spirit HP, restore 3 MP, and gain +3 AC (3t)!" },
+    desc: "Alseid forest charm gifted by Riatha (+3 Healing, -2 dmg taken, +2 Survival) with Alseid Grove Sanctuary."
   },
   "bq_king_silver_blade": {
     id: "bq_king_silver_blade",
@@ -1755,7 +1757,9 @@ window.OAKHAVEN.registerItems({
     atk: 5,
     might: 2,
     agility: 1,
-    desc: "+5 Attack, +2 Might, +1 Agility. Living ironwood blade taken from the King of Thorns."
+    passives: { lifesteal: 3, thornsDmg: 4, critRange: 11 },
+    activeAbility: { name: "Crown of Living Thorns", icon: "🌹", charges: 2, dmgDice: "2d8", dmgStat: "might", dmgType: "poison", dot: { dmg: 5, turns: 3, label: "Briar Bleed" }, desc: "2/Quest: Lash the foe with living ironwood barbs for 2d8 + Might dmg and Briar Bleed (5/t, 3t)!" },
+    desc: "Living ironwood blade of the King of Thorns (Lifesteal 3, 4 Thorns, +Crit) with Crown of Living Thorns."
   },
   "bq_grandmothers_ember_brooch": {
     id: "bq_grandmothers_ember_brooch",
@@ -2133,9 +2137,9 @@ window.OAKHAVEN.registerItems({
     atk: 3,
     spirit: 2,
     arcana: 1,
-    passives: { undeadDmgBonus: 4, healBonus: 2, mpRegen: true },
+    passives: { undeadDmgBonus: 4, healBonus: 2, mpRegen: true, skillBonus: { Survival: 2 } },
     activeAbility: { name: "Wrath of the Grove", icon: "🌳", charges: 2, mp: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, healBase: 5, desc: "2/Quest (2 MP): Strike with living roots for 2d6 + Spirit radiant dmg (2× vs Undead) and heal 5 HP!" },
-    desc: "Living silver-oak staff blessed by Moonbright's reborn grove (+4 vs Undead, +2 Healing, +1 MP regen) with Wrath of the Grove."
+    desc: "Living silver-oak staff blessed by Moonbright's reborn grove (+4 vs Undead, +2 Healing, +1 MP regen, +2 Survival) with Wrath of the Grove."
   },
   "bq_unhatched_bone_amulet": {
     id: "bq_unhatched_bone_amulet",

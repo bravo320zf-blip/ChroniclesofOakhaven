@@ -1,6 +1,6 @@
 {
-  "totalPasses": 4,
-  "totalItemsReworked": 40,
+  "totalPasses": 5,
+  "totalItemsReworked": 50,
   "history": [
     {
       "pass": 1,
@@ -65,6 +65,22 @@
         "bq_heart_of_derende_amulet"
       ],
       "summary": "Reworked 7 Vault of Magic items (including Phoenix Ember, Eyes of the Outer Dark, Elemental Wraps) and 3 legendary/rare quest relics with sourcebook passives and charged active abilities."
+    },
+    {
+      "pass": 5,
+      "items": [
+        "vom_sword_volsung",
+        "vom_firebird_feather",
+        "vom_armor_cushioning",
+        "vom_lantern_judgment",
+        "vom_ring_small_mercies",
+        "bk_bec_de_corbin",
+        "bk_lamellar_armor",
+        "bq_shadow_drake_diadem",
+        "bq_briar_king_blade",
+        "bq_mossbeard_heartwood_staff"
+      ],
+      "summary": "Reworked 5 Vault of Magic items (including Sword of Volsung and Lantern of Judgment), 2 Tome of Heroes martial pieces, and 3 woodland quest relics with authentic passives and charged abilities."
     }
   ],
   "itemPasses": {
@@ -107,6 +123,16 @@
     "vom_eyes_outer_dark": 1,
     "bq_lesharrkk_feather_cloak": 1,
     "bq_narosain_underworld_staff": 1,
-    "bq_heart_of_derende_amulet": 1
+    "bq_heart_of_derende_amulet": 1,
+    "vom_sword_volsung": 1,
+    "vom_firebird_feather": 1,
+    "vom_armor_cushioning": 1,
+    "vom_lantern_judgment": 1,
+    "vom_ring_small_mercies": 1,
+    "bk_bec_de_corbin": 1,
+    "bk_lamellar_armor": 1,
+    "bq_shadow_drake_diadem": 1,
+    "bq_briar_king_blade": 1,
+    "bq_mossbeard_heartwood_staff": 1
   }
 }

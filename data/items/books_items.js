@@ -537,7 +537,12 @@ window.OAKHAVEN.registerItems({
     "value": 75,
     "ac": 3,
     "might": 1,
-    "desc": "+3 AC, +1 Might (Tome of Heroes)"
+    "passives": {
+      "dmgReduce": 1,
+      "thornsDmg": 1,
+      "skillBonus": { "Athletics": 1 }
+    },
+    "desc": "Overlapping laced steel plates that flex smoothly in combat (-1 dmg taken, 1 thorns, +1 Athletics)."
   },
   "bk_gambeson": {
     "id": "bk_gambeson",
@@ -655,7 +660,21 @@ window.OAKHAVEN.registerItems({
     "value": 62,
     "atk": 3,
     "might": 1,
-    "desc": "+3 Attack, +1 Might (Tome of Heroes)"
+    "passives": {
+      "bossDmgBonus": 2,
+      "critRange": 11
+    },
+    "activeAbility": {
+      "name": "Armor-Piercing Beak",
+      "icon": "🔨",
+      "charges": 1,
+      "dmgDice": "1d10",
+      "dmgStat": "might",
+      "dmgType": "physical",
+      "stunTurns": 1,
+      "desc": "1/Quest: Drive the crow's-beak spike through heavy armor for 1d10 + Might dmg and Stun (1t)!"
+    },
+    "desc": "Steel-beaked polearm forged to punch through plate armor (+2 vs Bosses, +Crit) with Armor-Piercing Beak."
   },
   "bk_parrying_dagger": {
     "id": "bk_parrying_dagger",
