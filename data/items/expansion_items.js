@@ -46,7 +46,7 @@ window.OAKHAVEN.registerItems({
       echo_lantern:        { id:"echo_lantern", name:"Echo-Glass Lantern", type:"offhand", ac:2, spirit:2, value:110, unique:true, desc:"+2 AC, +2 Spirit (Salt-Mines Unique)" },
 
       // --- Quest 7 Uniques: The Sunken Lighthouse of Dreadmoor ---
-      stormglass_blade:    { id:"stormglass_blade", name:"Stormglass Cutlass", type:"weapon", atk:3, agility:2, value:118, unique:true, desc:"+3 Attack, +2 Agility (Lighthouse Unique)" },
+      stormglass_blade:    { id:"stormglass_blade", name:"Stormglass Cutlass", type:"weapon", atk:3, agility:2, value:118, unique:true, passives:{ critRange:11, spellDmgBonus:2 }, activeAbility:{ name:"Squall-Lightning Slash", icon:"⚡", charges:2, dmgDice:"2d6", dmgStat:"agility", dmgType:"lightning", chillTurns:1, desc:"2/Quest: Discharge lighthouse thunder through the stormglass edge for 2d6 + Agility lightning dmg and Chill (1t)!" }, desc:"Lightning-fused stormglass cutlass from the coastal lighthouse (+Crit, +2 Spell Dmg) with Squall-Lightning Slash." },
       keepers_oilskin:     { id:"keepers_oilskin", name:"Keeper's Storm-Coat", type:"cloak", ac:2, luck:1, value:100, unique:true, desc:"+2 AC, +1 Luck (Lighthouse Unique)" },
 
       // --- Quest 8 Uniques: The Ravencrest Bandit Citadel ---
@@ -141,7 +141,7 @@ window.OAKHAVEN.registerItems({
       // --- Part IV: The Curse of Owlrock ---
       nf_holy_dust_salvation:{ id:"nf_holy_dust_salvation", name:"Holy Dust of Salvation", type:"consumable", rarity:"rare", healHp:32, healMp:12, value:75, unique:true, desc:"Restores 32 HP & 12 MP (Appendix B Moonstone Dust)" },
       nf_oversea_longsword:  { id:"nf_oversea_longsword", name:"Apotropaic Oversea Sword", type:"weapon", rarity:"very_rare", atk:5, spirit:2, ac:1, value:190, unique:true, desc:"+5 Attack, +1 AC, +2 Spirit (Purges dark curses)" },
-      nf_mirgan_grimoire:    { id:"nf_mirgan_grimoire", name:"Mirgan's Petrified Grimoire", type:"offhand", rarity:"very_rare", ac:2, arcana:3, spirit:2, maxMp:6, value:195, unique:true, desc:"+2 AC, +3 Arcana, +2 Spirit, +6 Max MP (Owlrock Unique)" },
+      nf_mirgan_grimoire:    { id:"nf_mirgan_grimoire", name:"Mirgan's Petrified Grimoire", type:"offhand", rarity:"very_rare", ac:2, arcana:3, spirit:2, maxMp:6, value:195, unique:true, passives:{ spellDmgBonus:4, spellCostReduce:1, dmgReduce:2, mpRegen:true }, activeAbility:{ name:"Petrifying Moon-Rite", icon:"🗿", charges:2, mp:2, dmgDice:"2d8", dmgStat:"arcana", dmgType:"arcane", stunTurns:1, shieldTurns:2, desc:"2/Quest (2 MP): Channel Owlrock's petrified runes for 2d8 + Arcana dmg, Stun (1t), and +3 AC (2t)!" }, desc:"Stone-bound lunar grimoire from Owlrock (+4 Spell Dmg, -1 MP cost, -2 dmg taken, +1 MP regen) with Petrifying Moon-Rite." },
 
       // --- Part V: The House that Drowns in the Woods ---
       nf_vanisia_hammer:     { id:"nf_vanisia_hammer", name:"Vanisia's Grim Hammer", type:"weapon", rarity:"very_rare", atk:5, might:2, spirit:1, value:205, unique:true, desc:"+5 Attack, +2 Might, +1 Spirit (Vaas Crypt Unique)" },

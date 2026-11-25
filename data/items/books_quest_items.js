@@ -224,7 +224,9 @@ window.OAKHAVEN.registerItems({
     source: "Caverns of the Spore Lord",
     spirit: 1,
     maxHp: 5,
-    desc: "+1 Spirit, +5 Max HP. Bioluminescent fungal amulet gifted by the survivors of Bellgrove."
+    passives: { healBonus: 2, skillBonus: { Herbalism: 2 } },
+    activeAbility: { name: "Luminous Spore-Mend", icon: "🍄", charges: 1, ooc: true, healDice: "2d6", healStat: "spirit", desc: "1/Quest: Release bioluminescent Bellgrove spores to restore 2d6 + Spirit HP!" },
+    desc: "Bioluminescent fungal amulet gifted by Bellgrove's survivors (+2 Healing, +2 Herbalism) with Luminous Spore-Mend."
   }
 });
 
@@ -822,7 +824,9 @@ window.OAKHAVEN.registerItems({
     atk: 4,
     might: 1,
     arcana: 1,
-    desc: "+4 Attack, +1 Might, +1 Arcana. Heavy brass-and-steel wrench from the Puffing Bridge Engine House."
+    passives: { bossDmgBonus: 3, bombDmgBonus: 3, skillBonus: { Lockpicking: 2 } },
+    activeAbility: { name: "Boiler-Steam Smash", icon: "🔧", charges: 2, dmgDice: "2d8", dmgStat: "might", dmgType: "fire", stunTurns: 1, desc: "2/Quest: Swing the pressurized brass spanner for 2d8 + Might steam-scalding dmg and Stun (1t)!" },
+    desc: "Pressurized brass-and-steel wrench from the Puffing Bridge Engine House (+3 vs Bosses, +3 Bomb Dmg, +2 Lockpicking) with Boiler-Steam Smash."
   },
   "bq_celestial_sextant": {
     id: "bq_celestial_sextant",
@@ -1336,7 +1340,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     spirit: 2,
     maxMp: 4,
-    desc: "+1 AC, +2 Spirit, +4 Max MP. Cool silver charm purified from the Weeper's chapel."
+    passives: { undeadDmgBonus: 4, healBonus: 2, mpRegen: true },
+    activeAbility: { name: "Silver Tear of Solace", icon: "💧", charges: 2, ooc: true, healDice: "2d6", healStat: "spirit", restoreMp: 3, desc: "2/Quest: Invoke the chapel's purified silver tear to restore 2d6 + Spirit HP and 3 MP!" },
+    desc: "Purified silver tear charm from Womford's chapel (+4 vs Undead, +2 Healing, +1 MP regen) with Silver Tear of Solace."
   },
   "bq_pale_rose_rapier": {
     id: "bq_pale_rose_rapier",
