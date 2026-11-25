@@ -650,7 +650,21 @@ window.OAKHAVEN.registerItems({
     "value": 52,
     "atk": 2,
     "agility": 1,
-    "desc": "+2 Attack, +1 Agility (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "skillBonus": { "Athletics": 1 }
+    },
+    "activeAbility": {
+      "name": "Barbed Lash",
+      "icon": "⛓️",
+      "charges": 2,
+      "dmgDice": "1d8",
+      "dmgStat": "agility",
+      "dmgType": "physical",
+      "stunTurns": 1,
+      "desc": "2/Quest: Whip the weighted spiked chain around a foe's legs for 1d8 + Agility dmg and Stun (1t)!"
+    },
+    "desc": "Ten-foot length of razor-barbed iron chain built to trip and entangle (+Crit, +1 Athletics) with Barbed Lash."
   },
   "bk_bastard_sword": {
     "id": "bk_bastard_sword",

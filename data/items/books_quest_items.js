@@ -1339,7 +1339,17 @@ window.OAKHAVEN.registerItems({
     value: 115,
     spirit: 2,
     maxHp: 4,
-    desc: "+2 Spirit, +4 Max HP. Keeps the mind sharp against the forgetful mists of the Lethe."
+    passives: { mpRegen: 1, skillBonus: { Lore: 2, Perception: 1 } },
+    activeAbility: {
+      name: "Lucid Recall",
+      icon: "🔮",
+      charges: 2,
+      ooc: true,
+      restoreMp: 4,
+      restoreLuck: 1,
+      desc: "2/Quest: Peer into the silver locket to clear the mind, restoring +4 MP and +1 Current Luck."
+    },
+    desc: "Silver memory-locket that wards off the forgetful mists of the Lethe (+1 MP/turn, +2 Lore, +1 Perception) with Lucid Recall."
   },
   "bq_womford_tear_pendant": {
     id: "bq_womford_tear_pendant",

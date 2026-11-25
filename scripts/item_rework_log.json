@@ -1,6 +1,6 @@
 {
-  "totalPasses": 11,
-  "totalItemsReworked": 110,
+  "totalPasses": 12,
+  "totalItemsReworked": 120,
   "history": [
     {
       "pass": 1,
@@ -177,6 +177,22 @@
         "bq_twisted_claw_stiletto"
       ],
       "summary": "Reworked 6 Vault of Magic items (including Fabled Kelgror's Hammer, Legendary Rod of the Wastes, Whip of the Blue Wyrm) and 4 quest relics with authentic passives and charged abilities."
+    },
+    {
+      "pass": 12,
+      "items": [
+        "vom_manticores_tail",
+        "vom_mountain_hewer",
+        "vom_deaths_mirror",
+        "vom_signet_magister",
+        "vom_kraken_clutch_ring",
+        "vom_alchemical_lantern",
+        "vom_boots_pouncing",
+        "bk_spiked_chain",
+        "bq_lethe_memory_locket",
+        "crown_of_thorns"
+      ],
+      "summary": "Reworked 7 Vault of Magic items (including Mountain Hewer, Kraken Clutch Ring, Signet of the Magister, Boots of Pouncing, Alchemical Lantern), Spiked Chain, Locket of Clear Memory, and Circlet of Living Thorns."
     }
   ],
   "itemPasses": {
@@ -289,6 +305,16 @@
     "bq_hurkl_fire_wand": 1,
     "bq_anax_star_scroll_case": 1,
     "bq_singing_tree_chime": 1,
-    "bq_twisted_claw_stiletto": 1
+    "bq_twisted_claw_stiletto": 1,
+    "vom_manticores_tail": 1,
+    "vom_mountain_hewer": 1,
+    "vom_deaths_mirror": 1,
+    "vom_signet_magister": 1,
+    "vom_kraken_clutch_ring": 1,
+    "vom_alchemical_lantern": 1,
+    "vom_boots_pouncing": 1,
+    "bk_spiked_chain": 1,
+    "bq_lethe_memory_locket": 1,
+    "crown_of_thorns": 1
   }
 }

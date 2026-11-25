@@ -68,7 +68,7 @@ window.OAKHAVEN.registerItems({
 
       // --- Quest 12 Uniques (PART 2 of Thornwood): Heart of the Blight-Wood ---
       heartwood_bowblade:  { id:"heartwood_bowblade", name:"Heartwood Twinblade", type:"weapon", atk:4, agility:2, value:155, unique:true, desc:"+4 Attack, +2 Agility (Thornwood Pt.2 Unique)" },
-      crown_of_thorns:     { id:"crown_of_thorns", name:"Circlet of Living Thorns", type:"accessory", ac:2, spirit:2, luck:1, value:150, unique:true, desc:"+2 AC, +2 Spirit, +1 Luck (Thornwood Pt.2 Unique)" },
+      crown_of_thorns:     { id:"crown_of_thorns", name:"Circlet of Living Thorns", type:"accessory", ac:2, spirit:2, luck:1, value:150, unique:true, passives:{ thornsDmg:4, healBonus:2, skillBonus:{ Survival:2 } }, activeAbility:{ name:"Bramble Retribution", icon:"🌿", charges:2, mp:2, dmgDice:"2d6", dmgStat:"spirit", dmgType:"nature", dot:{ dmg:4, turns:2, label:"Briar Bleed" }, desc:"2/Quest (2 MP): Unleash whipping Thornwood briars for 2d6 + Spirit nature dmg and Briar Bleed (4 dmg/t, 2t)!" }, desc:"Living briar diadem crowned with Thornwood blossoms (4 Thorns, +2 Healing, +2 Survival) with Bramble Retribution." },
 
       // --- Quest 13 Uniques (PART 2 of Saltfang): The Abyssal Fleet ---
       abyssal_trident:     { id:"abyssal_trident", name:"Abyssal Tide-Trident", type:"weapon", atk:5, agility:1, value:165, unique:true, desc:"+5 Attack, +1 Agility (Saltfang Pt.2 Unique)" },
