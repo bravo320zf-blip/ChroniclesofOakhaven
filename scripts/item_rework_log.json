@@ -1,6 +1,6 @@
 {
-  "totalPasses": 8,
-  "totalItemsReworked": 80,
+  "totalPasses": 9,
+  "totalItemsReworked": 90,
   "history": [
     {
       "pass": 1,
@@ -129,6 +129,22 @@
         "bq_tangled_python_staff"
       ],
       "summary": "Reworked 8 Vault of Magic items (including Legendary Bloodprice Armor, Iceblink Sword, and Staff of the Armada) plus 2 very rare quest weapons with sourcebook passives and charged abilities."
+    },
+    {
+      "pass": 9,
+      "items": [
+        "vom_humble_cudgel",
+        "vom_pestilent_spear",
+        "vom_animated_chain",
+        "vom_gorgon_scale",
+        "vom_shepherds_flail",
+        "vom_ring_ursa",
+        "vom_band_iron_thorns",
+        "signet_of_cinders",
+        "bq_sianis_rune_signet",
+        "bq_illyria_edjet_blade"
+      ],
+      "summary": "Reworked 7 Vault of Magic items (including Legendary Shepherd's Flail, Gorgon Scale, and Animated Chain Mail), Baron's Cinder Signet, and 2 quest relics with authentic passives and charged abilities."
     }
   ],
   "itemPasses": {
@@ -211,6 +227,16 @@
     "vom_windwalker_boots": 1,
     "vom_hat_mental_acuity": 1,
     "bq_skyreach_frost_greatsword": 1,
-    "bq_tangled_python_staff": 1
+    "bq_tangled_python_staff": 1,
+    "vom_humble_cudgel": 1,
+    "vom_pestilent_spear": 1,
+    "vom_animated_chain": 1,
+    "vom_gorgon_scale": 1,
+    "vom_shepherds_flail": 1,
+    "vom_ring_ursa": 1,
+    "vom_band_iron_thorns": 1,
+    "signet_of_cinders": 1,
+    "bq_sianis_rune_signet": 1,
+    "bq_illyria_edjet_blade": 1
   }
 }

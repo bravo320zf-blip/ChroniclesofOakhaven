@@ -2180,9 +2180,9 @@ window.OAKHAVEN.registerItems({
     value: 190,
     atk: 4,
     might: 2,
-    passives: { critRange: 11, bossDmgBonus: 2 },
+    passives: { critRange: 11, bossDmgBonus: 2, skillBonus: { Athletics: 1 } },
     activeAbility: { name: "Draconic Ember-Slash", icon: "🔥", charges: 2, dmgDice: "2d6", dmgStat: "might", dmgType: "fire", dot: { dmg: 3, turns: 2, label: "Cinder Burn" }, desc: "2/Quest: Ignite the steel for 2d6 + Might fire dmg and Cinder Burn (3/t, 2t)!" },
-    desc: "Tempered shortsword of Illyria's dragonborn prison guard (+Crit, +2 vs Bosses) with Draconic Ember-Slash."
+    desc: "Tempered shortsword of Illyria's dragonborn prison guard (+Crit, +2 vs Bosses, +1 Athletics) with Draconic Ember-Slash."
   },
   "bq_spelldrinker_prism": {
     id: "bq_spelldrinker_prism",
@@ -2287,9 +2287,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 3,
     maxMp: 8,
-    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: true },
+    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: true, skillBonus: { Arcana: 2 } },
     activeAbility: { name: "Helari Binding Rune", icon: "ᛉ", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "arcane", stunTurns: 1, desc: "2/Quest (2 MP): Trace Sianis's ancient rune for 2d8 + Arcana force dmg and Stun (1t)!" },
-    desc: "Silver rune-ring cleansed of Chernobog's taint (+3 Spell Dmg, -1 MP cost, +1 MP regen) with Helari Binding Rune."
+    desc: "Silver rune-ring cleansed of Chernobog's taint (+3 Spell Dmg, -1 MP cost, +1 MP regen, +2 Arcana) with Helari Binding Rune."
   },
   "bq_selket_stinger_pin": {
     id: "bq_selket_stinger_pin",

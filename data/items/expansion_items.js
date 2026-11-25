@@ -35,7 +35,7 @@ window.OAKHAVEN.registerItems({
       // --- Quest 4 Uniques: The Ashen Keep of the Red Baron (3 Unique Items) ---
       baron_greatsword:    { id:"baron_greatsword", name:"Red Baron's Greatsword", type:"weapon", atk:5, might:1, value:165, unique:true, desc:"+5 Attack, +1 Might (Ashen Keep Unique)" },
       ashen_cloak:         { id:"ashen_cloak", name:"Mantle of Cinders", type:"cloak", ac:2, might:2, value:115, unique:true, desc:"+2 AC, +2 Might (Ashen Keep Unique)" },
-      signet_of_cinders:   { id:"signet_of_cinders", name:"Baron's Cinder Signet", type:"accessory", atk:1, ac:1, luck:1, value:120, unique:true, desc:"+1 Attack, +1 AC, +1 Luck (Ashen Keep Unique)" },
+      signet_of_cinders:   { id:"signet_of_cinders", name:"Baron's Cinder Signet", type:"accessory", atk:1, ac:1, luck:1, value:120, unique:true, passives:{ thornsDmg:3, goldFindPct:15, skillBonus:{ Persuasion:1 } }, activeAbility:{ name:"Ashen Baron's Flare", icon:"🔥", charges:2, dmgDice:"2d6", dmgStat:"luck", dmgType:"fire", dot:{ dmg:3, turns:3, label:"Cinder Ash" }, desc:"2/Quest: Ignite the Baron's signet for 2d6 + Luck fire dmg and Cinder Ash (3/t, 3t)!" }, desc:"Smoldering iron signet of the Ashen Keep (3 Fire Thorns, +15% Gold, +1 Persuasion) with Ashen Baron's Flare." },
 
       // --- Quest 5 Uniques: The Gloomfen Witch-Bog (3 Unique Items) ---
       witchwood_staff:     { id:"witchwood_staff", name:"Witchwood Arch-Staff", type:"weapon", atk:3, arcana:3, value:140, unique:true, desc:"+3 Attack, +3 Arcana (Gloomfen Unique)" },
