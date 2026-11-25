@@ -738,7 +738,9 @@ window.OAKHAVEN.registerItems({
     atk: 6,
     arcana: 3,
     maxMp: 6,
-    desc: "+6 Attack, +3 Arcana, +6 Max MP. Ancient underworld relic wrested from cave dragon Gondecap."
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, mpRegen: true, bossDmgBonus: 3 },
+    activeAbility: { name: "Fuligin Abyssal Ray", icon: "🌑", charges: 2, mp: 3, dmgDice: "3d8", dmgStat: "arcana", dmgType: "necrotic", chillTurns: 2, dot: { dmg: 4, turns: 3, label: "Fuligin Shade" }, desc: "2/Quest (3 MP): Unleash Gondecap's underworld ray for 3d8 + Arcana necrotic dmg, Chill (2t), and Fuligin Shade (4/t, 3t)!" },
+    desc: "Ancient underworld staff wrested from cave dragon Gondecap (+4 Spell Dmg, -1 MP cost, +1 MP regen, +3 vs Bosses) with Fuligin Abyssal Ray."
   },
   "bq_krakova_royal_signet": {
     id: "bq_krakova_royal_signet",
@@ -1729,7 +1731,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     might: 1,
     agility: 2,
-    desc: "+2 AC, +1 Might, +2 Agility. Woven from Lesharrkk's midnight-black griffon plumes."
+    passives: { critRange: 11, skillBonus: { Stealth: 2, Athletics: 1 } },
+    activeAbility: { name: "Midnight Swoop", icon: "🦅", charges: 2, dmgDice: "2d6", dmgStat: "agility", dmgType: "physical", evadeTurns: 2, desc: "2/Quest: Dive in obsidian feathers for 2d6 + Agility dmg and Evade incoming blows (2t)!" },
+    desc: "Woven from Lesharrkk's midnight-black griffon plumes (+Crit, +2 Stealth, +1 Athletics) with Midnight Swoop."
   },
   "bq_spider_crone_ivy_crown": {
     id: "bq_spider_crone_ivy_crown",
@@ -1806,7 +1810,9 @@ window.OAKHAVEN.registerItems({
     spirit: 3,
     arcana: 2,
     maxHp: 14,
-    desc: "+2 AC, +3 Spirit, +2 Arcana, +14 Max HP. Pulsing emerald relic of the cleansed primeval forest."
+    passives: { healBonus: 5, dmgReduce: 3, mpRegen: true, undeadDmgBonus: 5, skillBonus: { Survival: 3 } },
+    activeAbility: { name: "Awaken the Primeval Grove", icon: "🌱", charges: 2, ooc: true, healDice: "3d8", healStat: "spirit", restoreMp: 4, summon: { name: "Derende Briar-Warden", icon: "🌳", dmg: 8, turns: 3 }, desc: "2/Quest: Channel the cleansed primeval forest — heal 3d8 + Spirit HP, restore 4 MP, and summon a Derende Briar-Warden (8 dmg/t, 3t)!" },
+    desc: "Pulsing emerald relic of the cleansed primeval forest (+5 Healing, -3 dmg taken, +1 MP regen, +5 vs Undead) that awakens the Primeval Grove."
   }
 });
 

@@ -1,6 +1,6 @@
 {
-  "totalPasses": 3,
-  "totalItemsReworked": 30,
+  "totalPasses": 4,
+  "totalItemsReworked": 40,
   "history": [
     {
       "pass": 1,
@@ -49,6 +49,22 @@
         "bq_worm_king_nexus_crown"
       ],
       "summary": "Reworked 4 Vault of Magic items, 1 Tome of Heroes armor, 1 expansion cloak, and 4 quest relics (including the mythic Ley-Nexus Crown) with sourcebook passives and active abilities."
+    },
+    {
+      "pass": 4,
+      "items": [
+        "vom_blade_dervish",
+        "vom_golden_bolt",
+        "vom_scarab_rebirth",
+        "vom_phoenix_ember",
+        "vom_ring_spell_neg_blk",
+        "vom_elemental_wraps",
+        "vom_eyes_outer_dark",
+        "bq_lesharrkk_feather_cloak",
+        "bq_narosain_underworld_staff",
+        "bq_heart_of_derende_amulet"
+      ],
+      "summary": "Reworked 7 Vault of Magic items (including Phoenix Ember, Eyes of the Outer Dark, Elemental Wraps) and 3 legendary/rare quest relics with sourcebook passives and charged active abilities."
     }
   ],
   "itemPasses": {
@@ -81,6 +97,16 @@
     "bq_arakiel_fallen_amulet": 1,
     "bq_dusk_queen_mirror_shard": 1,
     "bq_spyglass_noir_cloak": 1,
-    "bq_worm_king_nexus_crown": 1
+    "bq_worm_king_nexus_crown": 1,
+    "vom_blade_dervish": 1,
+    "vom_golden_bolt": 1,
+    "vom_scarab_rebirth": 1,
+    "vom_phoenix_ember": 1,
+    "vom_ring_spell_neg_blk": 1,
+    "vom_elemental_wraps": 1,
+    "vom_eyes_outer_dark": 1,
+    "bq_lesharrkk_feather_cloak": 1,
+    "bq_narosain_underworld_staff": 1,
+    "bq_heart_of_derende_amulet": 1
   }
 }
