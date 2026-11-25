@@ -1,5 +1,5 @@
 {
-  "totalPasses": 7,
+  "totalPasses": 8,
   "history": [
     {
       "pass": 1,
@@ -49,6 +49,13 @@
       "title": "Scarlet Citadel III: The Dwarven Barracks",
       "file": "data/quests/books_quests_batch_011.js",
       "summary": "Replaced 3 one-line filler pages and expanded into a 12-page mega-dungeon chapter with Stealth/Lockpicking/Arcana ward-chime entries (RAIDER_FLANKED), the Dwarven Ring-Mage Forge & Cold-Iron Resonance Bell (RESONANCE_BELL -> SWARM_DISRUPTED), captive Redtower Scout Mira rescue in Sergeants' Quarters (MIRA_SCOUT -> pitch-brazier sabotage CHIEF_AMBUSHED & winch bonus), hidden journal trade-rings, and seamless handoff to Part 4."
+    },
+    {
+      "pass": 8,
+      "questId": "bk_b16_marg_grandmothers_fire",
+      "title": "Grandmother's Fire",
+      "file": "data/quests/books_quests_batch_016.js",
+      "summary": "Expanded from 6 terse pages to 12 Slavic-folklore branching pages with woodcutter Vasily's rescue from Ghost Knights of Doresh (Turn Undead/Stealth), Doresh's Frost-Seal saddlebag clue (CHAIN_KNOWN), a full interactive parley at Baba Yaga's chicken-legged hut (BABA_EMBER -> POOL_BOILED & Grandmother's 50 GP parting nod), sunken anchor-chain sabotage (CHAIN_SNAPPED), and a drowned toll-chest loot branch."
     }
   ],
   "questPasses": {
@@ -58,6 +65,7 @@
     "bk_b10_p2_5_hell_glittering": 1,
     "bk_b6_eldritch_4_devils_thumb": 1,
     "ul_bastion_deranged": 1,
-    "bk_b11_sc_3_barracks": 1
+    "bk_b11_sc_3_barracks": 1,
+    "bk_b16_marg_grandmothers_fire": 1
   }
 }

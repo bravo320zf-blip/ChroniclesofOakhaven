@@ -488,7 +488,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 8. GRANDMOTHER'S FIRE (6 PAGES • LV 8)
+  // 8. GRANDMOTHER'S FIRE (12 PAGES • LV 8)
   // ==========================================================
   bk_b16_marg_grandmothers_fire: {
     id: "bk_b16_marg_grandmothers_fire",
@@ -498,58 +498,120 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 8,
     autoDiscover: false,
     discoverySource: "Shivering Woodland Serf (Rusty Flagon Tavern)",
-    summary: "Every hearthfire across the deep forest has died as winter closes in! Rescue hunted serfs from Ghost Knights of Doresh, visit the chicken-legged Hut of Baba Yaga, and reclaim stolen fire from the Vodyanoi's Pool!",
-    totalPages: 6,
+    summary: "Every hearthfire across the deep forest has died as premature winter closes in! Rescue hunted serfs from Ghost Knights of Doresh, bargain at the chicken-legged Hut of Baba Yaga, and reclaim stolen fire from the Vodyanoi's Pool!",
+    totalPages: 12,
     pages: {
       1: {
         zone: "Frozen Forest • Cold Hearth",
         title: "No Fires Burn",
         safeRetreat: true,
-        text: "Bitter frost creeps across the autumn leaves—not a single campfire or hearth will ignite, and even fire spells turn to cold mist! After rescuing fleeing serfs from ghoulish Ghost Knights, they whisper that only a bargain at Baba Yaga's Hut can point you to who stole the forest's fire!",
+        text: "Bitter rime creeps across crimson autumn leaves weeks before winter. Across the deep woods, every hearthfire, forge, and lantern has died at once—even struck flint sparks only cold white mist. Ahead by a frozen creek, three shivering serfs led by woodcutter Vasily crouch behind a fallen birch while pale skeletal riders circle silently through the trees!",
         choices: [
-          { t: "Address Baba Yaga's dancing hut with traditional woodland courtesy to earn her ember-lantern!", badge: "Lore / Persuasion DC 15", check: { stat: "spirit", skill: "Persuasion", dc: 15, pass: 2, fail: 2, passMsg: "Grandmother cackles approvingly and tosses you a glowing ember-coal that sears the Vodyanoi!", failMsg: "The hut stamps impatiently—sending Ghost Knights galloping down the frozen trail!" }, onPass: { cw: "BABA_EMBER" } },
-          { t: "Follow the frozen steam-trail straight toward the Vodyanoi's Pool!", to: 2 }
+          { t: "Channel Turn Undead across the creek to crack the riders' frost-forged shields!", reqSpell: "Turn Undead", mp: 3, badge: "Turn Undead (3 MP)", to: 2, onChoose: { cw: "KNIGHTS_SHAKEN", msg: "Blazing radiance shatters the Ghost Knights' rime-aura before they can charge!" } },
+          { t: "Creep through the frosted brambles to ambush the undead riders from their flank!", badge: "Stealth / Agility DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 2, fail: 2, failDmg: 6, passMsg: "You slip behind a birch-fall and strike their flank before they spot you!", failMsg: "Frozen twigs snap beneath your boot—a ghostly lance grazes your ribs (-6 HP)!" }, onPass: { cw: "KNIGHTS_SHAKEN" } },
+          { t: "Step onto the frozen track and draw the Ghost Knights away from the serfs!", to: 2 }
         ]
       },
       2: {
         zone: "Frozen Trail • Doresh's Hunt",
         title: "Ghost Knights of Doresh",
-        text: "Armored in rime-crusted iron atop skeletal steeds, ghoulish **Ghost Knights of Doresh** charge through the frost-choked woods!",
-        enemy: { name: "Ghost Knights of Doresh", desc: "Undead winter riders hunting freezing woodland villagers.", hp: 66, ac: 16, atk: 8, dmg: 10, undead: true, xp: 265, gold: 155, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["BABA_EMBER"] },
+        text: "Armored in rime-crusted iron atop skeletal steeds whose breath freezes mid-air, the ghoulish Ghost Knights of Doresh lower frost-rimmed lances and thunder down the birch trail!",
+        enemy: { name: "Ghost Knights of Doresh", desc: "Undead winter riders hunting freezing woodland villagers.", hp: 66, ac: 16, atk: 8, dmg: 10, undead: true, xp: 265, gold: 155, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["KNIGHTS_SHAKEN"] },
         choices: [
-          { t: "Descend to the steaming black waters of the Vodyanoi's Pool!", to: 3 }
+          { t: "Tend to woodcutter Vasily and the rescued serfs behind the fallen birch.", to: 3 }
         ]
       },
       3: {
-        zone: "Heart of the Woods • The Vodyanoi's Pool",
-        title: "Thief of the Forest's Fire",
-        text: "Clutching a sunken brazier of trapped hearth-flames beneath icy water, a bloated, frog-faced **Ancient Vodyanoi** surges from the freezing pool!",
-        enemy: { name: "Ancient Vodyanoi of the Pool", desc: "Malevolent water-spirit hoarding the stolen warmth of the entire forest.", hp: 82, ac: 16, atk: 9, dmg: 11, xp: 355, gold: 225, items: ["bq_grandmothers_ember_brooch"], weakCw: ["BABA_EMBER"] },
+        zone: "Birch Clearing",
+        title: "Vasily's Tale of the Stolen Flame",
+        text: "Vasily clutches his threadbare wool coat, teeth chattering. 'The hearthfires didn't just go out—something sucked every ember straight up the chimneys at midnight like breath down a throat! The elders say only Baba Yaga knows who dared steal fire from her woods... Her chicken-legged hut was seen roosting in the Bone-Fence Glade west of here. Or you can follow that strange warm steam drifting east toward the sunken marsh!'",
         choices: [
-          { t: "Raise the glowing brazier above the ice and return fire to the forest!", to: 4 }
+          { t: "Search the fallen Ghost Knights' frosted saddlebags for orders before moving on.", badge: "Perception / Arcana DC 14", check: { stat: "spirit", skill: "Perception", dc: 14, pass: 5, fail: 4, failDmg: 4, passMsg: "Inside a frost-rimed satchel you uncover Doresh's sealed winter writ and silver coin!", failMsg: "Grave-frost bites your fingers (-4 HP) as you turn west toward Baba Yaga's glade." } },
+          { t: "Follow Vasily's directions west to the Bone-Fence Glade to visit Baba Yaga's Hut.", to: 4 },
+          { t: "Follow the unnatural warm steam-trail east straight toward the Vodyanoi's Pool.", to: 7 }
         ]
       },
       4: {
-        zone: "Woodland Village • Blazing Hearths",
-        title: "Warmth Returns",
-        text: "Across miles of dark timber, chimneys burst back to life with cheerful orange smoke! Grateful villagers feast you beside the roaring hearth.",
-        onEnter: { healHp: 16, msg: "Roaring hearthfire thaws every chill (+16 HP)!" },
+        zone: "Bone-Fence Glade",
+        title: "The Chicken-Legged Hut",
+        text: "A ring of bleached antlers and glowing skull-lanterns surrounds a crooked timber hut perched atop two gigantic, scaly chicken legs. Creaking like an old ship, the hut pivots on its talons to face you. High in the shuttered window, an iron-toothed crone leans on a wooden pestle and cackles: 'Little hero, little mouse—why do you come knocking on Grandmother's house?'",
         choices: [
-          { t: "Accept the villages' collected tribute.", to: 5 }
+          { t: "Bow low and speak the traditional woodland courtesy rhyme to Grandmother's hut.", badge: "Persuasion / Spirit DC 15", check: { stat: "spirit", skill: "Persuasion", dc: 15, pass: 6, fail: 6, failDmg: 6, passMsg: "Grandmother cackles approvingly and tosses you a white-hot ember-coal!", failMsg: "The hut stamps a scaly talon, shaking frost onto your head (-6 HP), though she still begrudges you a spark." }, onPass: { cw: "BABA_EMBER" } },
+          { t: "Answer Grandmother's riddle by naming the three cold winds of the ancient woods!", badge: "Arcana / Survival DC 15", check: { stat: "arcana", skill: "Survival", dc: 15, pass: 6, fail: 6, failDmg: 6, passMsg: "'Clever little bird!' Baba Yaga grins and flicks a blazing ember-coal into your lantern!", failMsg: "Grandmother snaps her wooden pestle across your knuckles (-6 HP) before pointing east!" }, onPass: { cw: "BABA_EMBER" } },
+          { t: "Refuse her riddles and march straight east along the warm steam-trail.", to: 7 }
         ]
       },
       5: {
-        zone: "Autumn Road",
-        title: "Winter Defied",
-        text: "Even Grandmother's distant hut dances a satisfied jig in the pines.",
+        zone: "Birch Clearing",
+        title: "Doresh's Frost-Seal",
+        text: "Inside the lead Ghost Knight's saddlebag rest 55 GP in tarnished silver and a black-ice writ stamped with Doresh's ghoul-crown: 'When the bloated river-king drowns the woodland hearths, let our riders harvest every freezing village!' Better still, a rough sketch shows the Vodyanoi's sunken fire-brazier anchored to the lakebed by a single rusted iron chain beneath the shelf-ice.",
+        onEnter: { gold: 55, cw: "CHAIN_KNOWN", msg: "Recovered 55 GP & learned the secret of the sunken anchor-chain (CHAIN_KNOWN)!" },
         choices: [
-          { t: "Complete the adventure!", to: 6 }
+          { t: "Head west to the Bone-Fence Glade to bargain at Baba Yaga's Hut first.", to: 4 },
+          { t: "Follow the steaming trail east straight to the Vodyanoi's Pool.", to: 7 }
         ]
       },
       6: {
+        zone: "Baba Yaga's Threshold",
+        title: "Grandmother's Coal",
+        text: "Baba Yaga leans over the sill, her sharp eyes glinting with fiery amusement. 'That bloated frog-king in the black pool thinks he can hoard MY woods' fire beneath his belly!' she rasps. 'Drop my ember into his cold water and watch the grease boil! Now shoo before my mortar gets hungry!'",
+        onEnter: { healHp: 12, msg: "Hearth-warmth radiates from Baba Yaga's threshold (+12 HP)!" },
+        choices: [
+          { t: "Follow the iron lantern's pull east toward the steaming Vodyanoi's Pool.", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Sunken Marsh",
+        title: "The Steaming Black Pool",
+        text: "In the heart of the frost-bound timber, a wide black tarn hisses with thick white steam. Beneath the translucent shelf-ice glows an eerie orange heart: a massive iron village-brazier chained to the muddy lakebed, hoarding the stolen warmth of every chimney for twenty miles! Bloated bubbles burst at the center as mossy claws grip the ice-lip.",
+        choices: [
+          { t: "Drop Baba Yaga's white-hot ember-coal straight into the tarn to boil the Vodyanoi out!", reqCw: "BABA_EMBER", badge: "BABA_EMBER", to: 8, onChoose: { cw: "POOL_BOILED", msg: "HISSSS! Grandmother's ember erupts in a blinding geyser of steam, scalding the Vodyanoi!" } },
+          { t: "Use Doresh's writ: shatter the sunken iron anchor-chain beneath the ice-shelf!", reqCw: "CHAIN_KNOWN", badge: "CHAIN_KNOWN", to: 8, onChoose: { cw: "CHAIN_SNAPPED", msg: "CLANG! The severed brazier lurches upward, searing the Vodyanoi's bloated belly!" } },
+          { t: "Spot the taut anchor-chain glinting beneath the ice and smash it before he surfaces!", badge: "Might / Perception DC 15", check: { stat: "might", skill: "Perception", dc: 15, pass: 8, fail: 8, failDmg: 7, passMsg: "Steel bites iron—the sunken brazier breaks loose in a burst of steam!", failMsg: "Freezing marsh-water lashes your face (-7 HP) as the monster surges up!" }, onPass: { cw: "CHAIN_SNAPPED" } },
+          { t: "Stand upon the creaking shelf-ice and challenge the Ancient Vodyanoi directly!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Heart of the Woods • The Vodyanoi's Pool",
+        title: "Thief of the Forest's Fire",
+        text: "Clutching the sunken brazier of trapped hearth-flames beneath his mossy bulk, a bloated, frog-faced Ancient Vodyanoi surges from the freezing black water with a thunderous croak!",
+        enemy: { name: "Ancient Vodyanoi of the Pool", desc: "Malevolent water-spirit hoarding the stolen warmth of the entire forest.", hp: 82, ac: 16, atk: 9, dmg: 11, xp: 355, gold: 225, items: ["bq_grandmothers_ember_brooch"], weakCw: ["BABA_EMBER", "POOL_BOILED", "CHAIN_SNAPPED"] },
+        choices: [
+          { t: "Haul the glowing iron brazier above the ice and return fire to the forest!", to: 9 }
+        ]
+      },
+      9: {
+        zone: "The Tarn Bank",
+        title: "Fire Unchained",
+        text: "The moment the stolen brazier breaks the surface, a spiral of golden sparks leaps skyward—splitting into a hundred dancing comets that race over the pines toward every cold chimney for miles! Beneath the receding ice-shelf glints a sunken chest of drowned toll-coins.",
+        choices: [
+          { t: "Haul the drowned toll-chest from the thawing mud before returning to Vasily's village!", badge: "Athletics / Survival DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 10, fail: 10, failDmg: 5, passMsg: "You drag the muddy chest ashore and claim 65 GP in ancient river-tolls!", failMsg: "The rotten wood splits and jagged iron scrapes your arm (-5 HP) before the chest sinks." }, onPass: { gold: 65 } },
+          { t: "Leave the murky tarn behind and march straight back to the village.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Woodland Village • Blazing Hearths",
+        title: "Warmth Returns",
+        text: "Across miles of dark timber, chimneys burst back to life with cheerful orange smoke! Woodcutter Vasily and the grateful villagers greet you with mugs of spiced cider, feasting you beside the roaring hearth until every trace of winter chill is gone.",
+        onEnter: { healHp: 16, msg: "Roaring hearthfire thaws every chill (+16 HP)!" },
+        choices: [
+          { t: "Pause on the autumn road as a familiar creaking echoes from the pine ridge.", reqCw: "BABA_EMBER", badge: "BABA_EMBER", to: 11 },
+          { t: "Accept the villages' collected tribute and head back toward Oakhaven.", to: 12 }
+        ]
+      },
+      11: {
+        zone: "Autumn Road",
+        title: "Grandmother's Nod",
+        text: "High on a mossy ridge, Baba Yaga's chicken-legged hut dances a single satisfied jig among the pines. A warm gust of woodsmoke drops a heavy leather pouch of 50 GP in antique gold beside your boots, accompanied by a faint, approving cackle.",
+        onEnter: { gold: 50, msg: "Baba Yaga rewards your courtesy with 50 GP in antique gold!" },
+        choices: [
+          { t: "Complete the adventure and return to Oakhaven!", to: 12 }
+        ]
+      },
+      12: {
         zone: "Epilogue",
         title: "Restorer of Hearthfire",
-        text: "You bested the Vodyanoi and returned Grandmother's Fire to the freezing woods!",
+        text: "You bested the Ancient Vodyanoi, broke Doresh's winter hunt, and returned Grandmother's Fire to the freezing woods!",
         ending: { type: "true", title: "Keeper of the Woodland Flame", xp: 395, gold: 345, trophy: "Baba Yaga's Ember Coal" },
         choices: []
       }
