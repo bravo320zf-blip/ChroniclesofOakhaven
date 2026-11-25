@@ -139,7 +139,8 @@
       pts: 6,
       bonus: { might: 0, agility: 0, arcana: 0, spirit: 0, luck: 0 },
       skills: [...(ARCHETYPES[0]?.skills || ["Athletics", "Perception"])],
-      spells: [...(ARCHETYPES[0]?.spells || ["Mend Wounds", "Arcane Shield"])]
+      spells: [...(ARCHETYPES[0]?.spells || ["Mend Wounds", "Arcane Shield"])],
+      hardcore: false
     };
     let state = null;
     let activeCombat = null;
@@ -1519,6 +1520,7 @@
         raceName: race?.name || "",
         subclassId: sub?.id || null,
         subclassName: sub?.name || "",
+        hardcore: !!creation.hardcore,
         level: 1, xp: 0, unspentStatPts: 0,
         baseStats: {
           might: 5 + creation.bonus.might + getStatExtra("might"),
@@ -3663,12 +3665,48 @@
       bgm("adventure");
       state.hp = 0;
       state.activeAdv.dead = true;
-      addLog(`💀 ${state.name} perished in ${ADVENTURES[state.activeAdv.id].title}!`, "bad");
+      if (state.hardcore) {
+        // Hardcore Permadeath: immediately erase this hero slot (Shared Vault & Crafting Recipes remain 100% intact!)
+        const slots = getSaveSlots();
+        slots[activeSaveSlot] = null;
+        writeSaveSlots(slots);
+        try {
+          const legacyRaw = localStorage.getItem(SAVE_KEY);
+          if (legacyRaw) {
+            const leg = JSON.parse(legacyRaw);
+            if (leg && leg.name === state.name && leg.hardcore) localStorage.removeItem(SAVE_KEY);
+          }
+        } catch (_) {}
+        addLog(`💀 HARDCORE PERMADEATH: ${state.name} perished in ${ADVENTURES[state.activeAdv.id].title}!`, "bad");
+      } else {
+        addLog(`💀 ${state.name} perished in ${ADVENTURES[state.activeAdv.id].title}!`, "bad");
+      }
       renderAdvPage(lastNote ? { type:"bad", text:lastNote } : null);
       renderSheet();
     }
 
+    function returnToLaunchScreen() {
+      stopAutoWalk();
+      closeBuildingModal();
+      activeCombat = null;
+      state = null;
+      document.getElementById("main-screen")?.classList.add("hidden");
+      document.getElementById("creation-screen")?.classList.add("hidden");
+      document.getElementById("launch-screen")?.classList.remove("hidden");
+      document.getElementById("btn-save")?.classList.add("hidden");
+      document.getElementById("header-quests-badge")?.classList.add("hidden");
+      document.getElementById("btn-toggle-sheet")?.classList.add("hidden");
+      document.getElementById("sheet-sidebar")?.classList.add("hidden");
+      initLaunchScreen();
+      bgm("town");
+    }
+
     function resurrectAtTemple() {
+      if (state && state.hardcore) {
+        toast("Your Hardcore hero has fallen. Shared Vault & Crafting Recipes remain safe!", "bad");
+        returnToLaunchScreen();
+        return;
+      }
       // CRITICAL DEATH PENALTY: Lose all carried gold, all equipped items, all backpack items!
       state.deaths++;
       state.gold = 0;
@@ -4441,7 +4479,22 @@
       document.getElementById("adv-merchant-box").classList.toggle("hidden", !page.merchant || state.activeAdv.dead);
 
       const dead = state.activeAdv.dead;
-      document.getElementById("adv-death-panel").classList.toggle("hidden", !dead);
+      const deathPanel = document.getElementById("adv-death-panel");
+      deathPanel.classList.toggle("hidden", !dead);
+      if (dead) {
+        const dTitle = document.getElementById("death-panel-title");
+        const dDesc = document.getElementById("death-panel-desc");
+        const dBtn = document.getElementById("btn-resurrect-temple");
+        if (state.hardcore) {
+          if (dTitle) dTitle.textContent = "💀 Hardcore Hero Fallen — Permadeath";
+          if (dDesc) dDesc.innerHTML = `<strong>${state.name}</strong> has perished in battle and this hero slot has been permanently erased. Your <strong>Shared Account Vault &amp; Crafting Recipes</strong> remain safe for your next hero.`;
+          if (dBtn) dBtn.textContent = "Return to Start Screen →";
+        } else {
+          if (dTitle) dTitle.textContent = "💀 You Have Fallen in Battle";
+          if (dDesc) dDesc.innerHTML = `The bells of the <strong>Temple of the Dawn</strong> summon your soul back to Oakhaven. All carried Gold, equipped Gear, and Backpack items are lost—but everything in your <strong>Shared Account Vault &amp; Crafting Recipes</strong> remains untouched!`;
+          if (dBtn) dBtn.textContent = "☀️ Resurrect at the Temple of the Dawn";
+        }
+      }
       document.getElementById("combat-panel").classList.toggle("hidden", !activeCombat || dead);
       if (activeCombat && !dead) renderCombatPanel();
 
@@ -4609,7 +4662,7 @@
       document.getElementById("sheet-name").textContent = state.name;
       const racePart = state.raceName ? `${state.raceName} • ` : "";
       const subPart = state.subclassName ? ` (${state.subclassName})` : "";
-      document.getElementById("sheet-class").textContent = `${racePart}${state.className}${subPart}`;
+      document.getElementById("sheet-class").textContent = `${racePart}${state.className}${subPart}${state.hardcore ? " • 💀 Hardcore" : ""}`;
       const tokPaths = getHeroTokenPaths(state);
       const sht = document.getElementById("sheet-hero-token");
       if (sht) setImgWithFallback(sht, tokPaths.primarySrc, tokPaths.fallbackSrc);
@@ -5052,6 +5105,8 @@
       document.getElementById("btn-save")?.classList.add("hidden");
       document.getElementById("header-quests-badge")?.classList.add("hidden");
       document.getElementById("btn-toggle-sheet")?.classList.add("hidden");
+      creation.hardcore = false;
+      renderHardcoreToggle();
       initCreation();
     }
 
@@ -5320,6 +5375,7 @@
             <div class="min-w-0">
               <div class="flex items-center gap-1.5">
                 <span class="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-stone-800 text-amber-300">Slot ${idx + 1}</span>
+                ${slotData.hardcore ? `<span class="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-red-950 text-rose-300 border border-red-600/60">💀 Hardcore</span>` : ""}
                 ${isCurrent ? `<span class="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600/50">Active</span>` : ""}
               </div>
               <div class="font-display text-sm font-bold text-amber-100 truncate mt-0.5">${slotData.name}</div>
@@ -5432,6 +5488,29 @@
         if (missing.length === 0) valBox.classList.add("hidden");
         else renderCreationValidation(missing);
       }
+    });
+    function renderHardcoreToggle() {
+      const btn = document.getElementById("btn-toggle-hardcore");
+      const titleEl = document.getElementById("hardcore-title");
+      const descEl = document.getElementById("hardcore-desc");
+      const pillEl = document.getElementById("hardcore-pill");
+      if (!btn) return;
+      if (creation.hardcore) {
+        btn.className = "w-full p-3.5 rounded-xl bg-red-950/85 hover:bg-red-950 border-2 border-red-500/80 text-left flex items-center justify-between gap-3 transition shadow-lg";
+        if (titleEl) { titleEl.textContent = "Hardcore Mode: ON (Permadeath)"; titleEl.className = "font-display text-sm font-bold text-rose-200"; }
+        if (descEl) { descEl.textContent = "If you die, this hero is permanently deleted and you return to the Start Screen. Shared Vault & Crafting Recipes remain safe!"; descEl.className = "text-[11px] text-rose-200/80"; }
+        if (pillEl) { pillEl.textContent = "💀 Hardcore"; pillEl.className = "px-2.5 py-1 rounded-full bg-red-900 border border-red-400 text-[10px] font-bold uppercase text-rose-100 shrink-0"; }
+      } else {
+        btn.className = "w-full p-3.5 rounded-xl bg-stone-950/80 hover:bg-stone-900 border border-stone-700/80 text-left flex items-center justify-between gap-3 transition";
+        if (titleEl) { titleEl.textContent = "Hardcore Mode: OFF"; titleEl.className = "font-display text-sm font-bold text-stone-200"; }
+        if (descEl) { descEl.textContent = "Standard Hero — Fallen heroes resurrect at the Temple of the Dawn. Click to enable Permadeath."; descEl.className = "text-[11px] text-stone-400"; }
+        if (pillEl) { pillEl.textContent = "Standard"; pillEl.className = "px-2.5 py-1 rounded-full bg-stone-800 border border-stone-600 text-[10px] font-bold uppercase text-stone-300 shrink-0"; }
+      }
+    }
+
+    document.getElementById("btn-toggle-hardcore")?.addEventListener("click", () => {
+      creation.hardcore = !creation.hardcore;
+      renderHardcoreToggle();
     });
     document.getElementById("btn-begin-game").addEventListener("click", startNewHero);
     document.getElementById("btn-save").addEventListener("click", saveGame);
