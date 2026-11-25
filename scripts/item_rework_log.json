@@ -1,6 +1,6 @@
 {
-  "totalPasses": 13,
-  "totalItemsReworked": 130,
+  "totalPasses": 14,
+  "totalItemsReworked": 140,
   "history": [
     {
       "pass": 1,
@@ -209,6 +209,22 @@
         "bq_ilkarayda_vine_band"
       ],
       "summary": "Reworked 7 Vault of Magic items (including Staff of the Treant, White Ape Hide, Rod of Icicles, Anchor of Striking, Mantle of the Lion), Tower Shield, Thornish Celestial Sextant, and Ilkarayda's Blossoming Band."
+    },
+    {
+      "pass": 14,
+      "items": [
+        "vom_knockabout_billet",
+        "vom_oakwood_wand",
+        "vom_unseelie_staff",
+        "vom_umbral_staff",
+        "vom_plumb_elements",
+        "vom_burning_skull",
+        "vom_gauntlet_iron_sphere",
+        "bk_medic_s_sash",
+        "bq_calling_cat_charm",
+        "runed_staff"
+      ],
+      "summary": "Reworked 7 Vault of Magic items (including Legendary Umbral Staff, Burning Skull Helm, Gauntlet of the Iron Sphere, Unseelie Staff, Plumb of the Elements), Medic's Sash, Calling Cat Pendant, and Runed Oak Staff."
     }
   ],
   "itemPasses": {
@@ -341,6 +357,16 @@
     "vom_mantle_lion": 1,
     "bk_tower_shield": 1,
     "bq_celestial_sextant": 1,
-    "bq_ilkarayda_vine_band": 1
+    "bq_ilkarayda_vine_band": 1,
+    "vom_knockabout_billet": 1,
+    "vom_oakwood_wand": 1,
+    "vom_unseelie_staff": 1,
+    "vom_umbral_staff": 1,
+    "vom_plumb_elements": 1,
+    "vom_burning_skull": 1,
+    "vom_gauntlet_iron_sphere": 1,
+    "bk_medic_s_sash": 1,
+    "bq_calling_cat_charm": 1,
+    "runed_staff": 1
   }
 }

@@ -206,7 +206,20 @@ window.OAKHAVEN.registerItems({
     "ac": 1,
     "arcana": 1,
     "maxMp": 4,
-    "desc": "+1 AC, +1 Arcana, +4 Max MP (Tome of Heroes)"
+    "passives": {
+      "healBonus": 3,
+      "skillBonus": { "Lore": 1 }
+    },
+    "activeAbility": {
+      "name": "Field Triage",
+      "icon": "🩹",
+      "charges": 2,
+      "ooc": true,
+      "healDice": "1d10",
+      "healStat": "spirit",
+      "desc": "2/Quest: Draw fresh herbs and bandages from the sash to restore 1d10 + Spirit HP!"
+    },
+    "desc": "Herb-stocked field healer's linen bandolier (+3 Healing, +1 Lore) with Field Triage."
   },
   "bk_momentblade": {
     "id": "bk_momentblade",

@@ -686,7 +686,16 @@ window.OAKHAVEN.registerItems({
     source: "Grimalkin",
     luck: 2,
     spirit: 1,
-    desc: "+2 Luck, +1 Spirit. Eerie sand-touched feline charm pulled from the River of Sand."
+    passives: { goldFindPct: 10, skillBonus: { Stealth: 2, Perception: 1 } },
+    activeAbility: {
+      name: "Nine-Lives Sidestep",
+      icon: "🐈",
+      charges: 2,
+      evadeTurns: 1,
+      restoreLuck: 1,
+      desc: "2/Quest: Slip away with feline luck — gain Evade (1t) and +1 Current Luck!"
+    },
+    desc: "Eerie sand-touched feline charm pulled from the River of Sand (+10% Gold, +2 Stealth) with Nine-Lives Sidestep."
   },
   "bq_grimalkin_idol": {
     id: "bq_grimalkin_idol",
