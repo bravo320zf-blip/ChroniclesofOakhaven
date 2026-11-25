@@ -1,5 +1,6 @@
 # Exclude large sourcebook PDFs (exceeds GitHub 100MB limit & keeps repo fast)
 books/
+Books/
 
 # OS & Python cache
 .DS_Store
