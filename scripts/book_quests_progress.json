@@ -1,6 +1,6 @@
 {
-  "batchCount": 21,
-  "totalQuestsAdded": 240,
+  "batchCount": 22,
+  "totalQuestsAdded": 250,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -1034,44 +1034,64 @@
       ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #30 - Three Little Pigs Part 1.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Three Little Pigs I: Nulah's Tale"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #31 - Three Little Pigs Part 2.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Three Little Pigs II: Armina's Peril"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #32 - Three Little Pigs Part 3.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Three Little Pigs III: Madgit's Story"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #33 - Fowl-Play.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Fowl Play I: Trouble in Belcassel"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #34 - The Sunken Library of Qezzit Qire.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Sunken Library of Qezzit Qire"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #35 - Rumble in the Henhouse (Fowl Play pt.2).pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Fowl Play II: Rumble in the Henhouse"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #36 - Run Like Hell.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Run Like Hell"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #37 - Birds of a Feather (Fowl Play pt.3).pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Fowl Play III: Birds of a Feather"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #38 - Reclamation of Hallowhall.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Reclamation of Hallowhall"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #39 - The Dark Aerie.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Dark Aerie"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #40 - The Adoration of Quolo.pdf": {
       "status": "pending",
