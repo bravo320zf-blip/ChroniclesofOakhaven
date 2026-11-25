@@ -1,6 +1,6 @@
 {
-  "batchCount": 14,
-  "totalQuestsAdded": 164,
+  "batchCount": 15,
+  "totalQuestsAdded": 174,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -648,7 +648,7 @@
       ]
     },
     "Books/Kobold Press/Tales from the Wastes/Tales-from-the-Wastes-7fthr6.pdf": {
-      "status": "in_progress",
+      "status": "done",
       "convertedTitles": [
         "The Sanctum",
         "The Lost Temple of Anax Apogeion",
@@ -659,7 +659,15 @@
         "Crater of the Flaying Star",
         "The Spider's Eye",
         "The Shattered Halls of the Fallen Star",
-        "Whispers of the Tumultuous Dark"
+        "Whispers of the Tumultuous Dark",
+        "No One Leaves",
+        "The Crystalline Sepulcher",
+        "The Great Portal Hunt",
+        "Dead and Buried",
+        "Down the Gullet",
+        "The Fleshwarper's Walking Fortress",
+        "The Doomed Patrol",
+        "City of the Worm King"
       ]
     },
     "Books/Kobold Press/Tales of Valiant/ToV+Alpha+Release+FINAL.pdf": {
@@ -687,12 +695,16 @@
       "reason": "player rulebook"
     },
     "Books/Kobold Press/The Tomb of Mercy/The Tomb of Mercy.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Tomb of Mercy"
+      ]
     },
     "Books/Kobold Press/Tomb of Tiberesh/Tomb of Tiberesh.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Tomb of Tiberesh"
+      ]
     },
     "Books/Kobold Press/Tome of Beasts 2 Lairs/The Twisted Wreath/The Twisted Wreath.pdf": {
       "status": "skipped_no_quests",

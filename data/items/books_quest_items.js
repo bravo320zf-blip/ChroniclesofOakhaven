@@ -1525,3 +1525,122 @@ window.OAKHAVEN.registerItems({
     desc: "+2 AC, +2 Spirit, +1 Agility. Woven shadow-cloak purged of Calviana's chaotic whispers."
   }
 });
+
+
+window.OAKHAVEN.registerItems({
+  // Batch 015 — Wasteland Endgame, Tomb of Mercy & Tomb of Tiberesh
+  "bq_espolmar_basalt_maul": {
+    id: "bq_espolmar_basalt_maul",
+    name: "Espolmar Iron-Bound Basalt Maul",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 240,
+    atk: 5,
+    might: 2,
+    desc: "+5 Attack, +2 Might. Heavy volcanic-stone war-maul forged from the Espolmar Mine."
+  },
+  "bq_crystalline_prism_core": {
+    id: "bq_crystalline_prism_core",
+    name: "Prism Core of the Sepulcher",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 275,
+    ac: 1,
+    arcana: 3,
+    maxMp: 6,
+    desc: "+1 AC, +3 Arcana, +6 Max MP. Stabilized Mage-War crystal pulsing with pure focus."
+  },
+  "bq_everstrife_portal_key": {
+    id: "bq_everstrife_portal_key",
+    name: "Everstrife's Keystone Sigil",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 280,
+    agility: 2,
+    arcana: 2,
+    luck: 2,
+    desc: "+2 Agility, +2 Arcana, +2 Luck. Planar maze-key claimed from Everstrife's hoard."
+  },
+  "bq_horizon_glass_lens": {
+    id: "bq_horizon_glass_lens",
+    name: "Horizon Glass of the Sextant",
+    type: "offhand",
+    rarity: "very_rare",
+    value: 310,
+    ac: 2,
+    arcana: 2,
+    spirit: 2,
+    desc: "+2 AC, +2 Arcana, +2 Spirit. Rare planar glass rescued from the buried dreadwalker vault."
+  },
+  "bq_chaos_moon_astrolabe": {
+    id: "bq_chaos_moon_astrolabe",
+    name: "Chaos-Moon Brass Astrolabe",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 315,
+    arcana: 3,
+    luck: 2,
+    maxMp: 6,
+    desc: "+3 Arcana, +2 Luck, +6 Max MP. Ancient observatory relic salvaged from the Gullet."
+  },
+  "bq_fleshwarper_storm_blade": {
+    id: "bq_fleshwarper_storm_blade",
+    name: "Mavrite Crucible Greatsword",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 375,
+    atk: 6,
+    might: 2,
+    spirit: 1,
+    desc: "+6 Attack, +2 Might, +1 Spirit. Storm-blessed steel gifted by the freed Mavrite pilgrims."
+  },
+  "bq_ssileficus_carapace_plate": {
+    id: "bq_ssileficus_carapace_plate",
+    name: "Slumberer's Spiny Carapace Plate",
+    type: "armor",
+    rarity: "legendary",
+    value: 520,
+    ac: 5,
+    might: 2,
+    maxHp: 16,
+    desc: "+5 AC, +2 Might, +16 Max HP. Impenetrable plate forged from Ssileficus the Slumberer."
+  },
+  "bq_worm_king_nexus_crown": {
+    id: "bq_worm_king_nexus_crown",
+    name: "Ley-Nexus Crown of the City of Wonders",
+    type: "accessory",
+    rarity: "legendary",
+    value: 850,
+    ac: 4,
+    might: 2,
+    agility: 2,
+    arcana: 3,
+    spirit: 3,
+    luck: 2,
+    maxHp: 20,
+    maxMp: 12,
+    desc: "+4 AC, +2 STR/DEX/LCK, +3 INT/WIS, +20 HP, +12 MP. Mythic apex relic of the reborn City of Wonders."
+  },
+  "bq_mercy_iron_nimbus": {
+    id: "bq_mercy_iron_nimbus",
+    name: "Iron Nimbus of Mother Mercy",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 320,
+    ac: 2,
+    spirit: 3,
+    maxHp: 10,
+    desc: "+2 AC, +3 Spirit, +10 Max HP. Consecrated angelic halo cleansed of the Tomb's blight."
+  },
+  "bq_tiberesh_hooked_rod": {
+    id: "bq_tiberesh_hooked_rod",
+    name: "Gem-Studded Rod of Tiberesh",
+    type: "weapon",
+    rarity: "uncommon",
+    value: 115,
+    atk: 3,
+    arcana: 1,
+    luck: 1,
+    desc: "+3 Attack, +1 Arcana, +1 Luck. Hooked desert scepter claimed from the tomb of Anu-Asir."
+  }
+});
