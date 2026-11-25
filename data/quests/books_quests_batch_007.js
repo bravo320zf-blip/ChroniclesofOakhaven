@@ -389,87 +389,130 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 5. EMPIRE OF THE GHOULS V: INTO THE FULIGIN REALM (8 PAGES • LV 10)
+  // 5. EMPIRE OF THE GHOULS V: INTO THE FULIGIN REALM (12 PAGES • LV 10)
   // Part 5 of 6 (Prerequisite: bk_b7_eog_4_ghul_king)
   // ==========================================================
   bk_b7_eog_5_fuligin_realm: {
     id: "bk_b7_eog_5_fuligin_realm",
     reqQuest: "bk_b7_eog_4_ghul_king",
     title: "Empire of the Ghouls V: Into the Fuligin Realm",
-    subtitle: "Empire of the Ghouls (Part 5 of 6) • Narosain the Last King & Dragon Graveyard",
+    subtitle: "Part 5 of 6 • Narosain the Last King & Dragon Graveyard",
     difficulty: "Deadly",
     recommendedLevel: 10,
     autoDiscover: false,
     discoverySource: "Unlocks after Empire of the Ghouls IV",
     summary: "Traverse the dark Pillars of the Underworld past Lillefor and the Pit of All Flesh, forge an uneasy alliance with exiled ghoul lord Narosain the Last King, and wrest his Staff of the Underworld from cave dragon Gondecap in the Dragon Graveyard!",
-    totalPages: 8,
+    totalPages: 12,
     pages: {
       1: {
-        zone: "Pillars of the Underworld",
-        title: "The Pit of All Flesh",
+        zone: "Pillars of the Underworld • Lillefor Edge",
+        title: "The Fuligin Realm",
         safeRetreat: true,
-        text: "Miles below Midgard's surface, colossal fungal pillars hold up the roof of the Fuligin Realm! Passing the kobold trade-city of Lillefor, you find the road to Vandekhul patrolled by the Derro Cult of the Withered Hand and ghoul legions!",
+        text: "Miles beneath the sunlit surface, colossal luminous fungal pillars hold up the black stone sky of the Fuligin Realm. Past the lantern-strung kobold trade-bridges of Lillefor, the basalt causeway toward the Pure City of Vandekhul is choked by Iron Ghoul checkpoints and mad Derro of the Withered Hand. A hooded kobold courier named Skrik tugs your sleeve: 'Marching on the Pit of All Flesh is suicide! Seek the hidden bone-court of Narosain, the exiled Last King—he hates Duke Morreto and knows a secret tunnel straight beneath Vandekhul!'",
         choices: [
-          { t: "Seek out the secret court of Narosain, the exiled Last King, for an inside way into Vandekhul!", to: 2, onChoose: { cw: "LAST_KING_PACT", msg: "Narosain promises secret entry to Vandekhul if you recover his Staff from the Dragon Graveyard!" } },
-          { t: "Fight straight through the Pit of All Flesh outpost!", to: 2 }
+          { t: "Follow Skrik's fungal ledges to the exiled court of Narosain the Last King.", to: 2 },
+          { t: "Scout the Withered Hand's chasm checkpoint from the upper stalactites to flank them!", badge: "Stealth / Perception DC 15", check: { stat: "agility", skill: "Stealth", dc: 15, pass: 3, fail: 3, failDmg: 8, passMsg: "You slip along the damp stalactites and drop directly behind their bone-barricade!", failMsg: "Loose scree tumbles into the chasm—derro crossbow bolts graze your cloak (-8 HP)!" }, onPass: { cw: "OUTPOST_FLANKED" } },
+          { t: "March boldly down the bone-strewn road straight into the Pit of All Flesh outpost!", to: 3 }
         ]
       },
       2: {
-        zone: "Cult of the Withered Hand",
-        title: "Derro & Ghoul Patrol",
-        text: "Crazed pale Derro cultists and patrolling Iron Ghouls ambush you along the bone-strewn chasm!",
-        enemy: { name: "Withered Hand Derro & Ghouls", desc: "Mad subterranean cultists and darakhul legion scouts.", hp: 82, ac: 16, atk: 11, dmg: 11, undead: true, xp: 255, gold: 125, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1, weakCw: ["LAST_KING_PACT"] },
+        zone: "Narosain's Hidden Court",
+        title: "Bargain With the Last King",
+        text: "In a sunken amethyst cavern lit by cold blue braziers, exiled ghoul monarch Narosain the Last King sits upon a cracked obsidian throne, his imperial crown tarnished yet his gaze razor-sharp. 'Morreto Lichmark and Marrowblight think themselves gods,' Narosain rasps. 'Break their Withered Hand patrol and wrest my Staff of the Underworld from the blind cave dragon Gondecap in the Dragon Graveyard—and I will place imperial transit seals and the hidden catacomb map to Vandekhul in your hands!'",
         choices: [
-          { t: "Enter the colossal cavern of the Dragon Graveyard!", to: 3 }
+          { t: "Accept Narosain's pact and press him for his whisper-map of Gondecap's blind-spots!", badge: "Persuasion / Spirit DC 15", check: { stat: "spirit", skill: "Persuasion", dc: 15, pass: 3, fail: 3, passMsg: "Narosain respects your nerve and sketches the muffled ash-drifts beneath Gondecap's perch!", failMsg: "Narosain merely waves a clawed hand—'Earn my map in dragon-blood first!'" }, onPass: { cw: "DRAGON_BLINDSPOT" }, onChoose: { cw: "LAST_KING_PACT", msg: "Struck an uneasy pact with Narosain the Last King (LAST_KING_PACT)!" } },
+          { t: "Seal the bargain in silence and depart for the Pit of All Flesh chasm.", to: 3, onChoose: { cw: "LAST_KING_PACT", msg: "Struck an uneasy pact with Narosain the Last King (LAST_KING_PACT)!" } }
         ]
       },
       3: {
-        zone: "The Dragon Graveyard",
-        title: "Gondecap the Cave Dragon",
-        text: "Amid ribs of ancient wyrms taller than cathedrals coils the ferocious, blind-scaled Cave Dragon Gondecap—hoarding Narosain's glowing **Staff of the Underworld** beneath its talons!",
-        enemy: { name: "Gondecap, Underworld Cave Dragon", desc: "Terrifying subterranean dragon guarding the Staff of the Underworld.", hp: 106, ac: 17, atk: 12, dmg: 14, xp: 380, gold: 270, items: ["bq_narosain_underworld_staff"], weakCw: ["LAST_KING_PACT"] },
+        zone: "Cult of the Withered Hand",
+        title: "Derro & Ghoul Patrol",
+        text: "Crazed pale Derro cultists waving notched obsidian blades and armored Iron Ghouls spring from behind the bone-barricades guarding the chasm road!",
+        enemy: { name: "Withered Hand Derro & Ghouls", desc: "Mad subterranean cultists and darakhul legion scouts.", hp: 82, ac: 16, atk: 11, dmg: 11, undead: true, xp: 255, gold: 125, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1, weakCw: ["LAST_KING_PACT", "OUTPOST_FLANKED"] },
         choices: [
-          { t: "Claim the Staff of the Underworld and secure Narosain's secret route into Vandekhul!", to: 4 }
+          { t: "Search the Withered Hand's bone-shrine for stolen imperial dispatches and supplies.", badge: "Perception / Arcana DC 15", check: { stat: "spirit", skill: "Perception", dc: 15, pass: 4, fail: 5, failDmg: 6, passMsg: "Beneath a skull-altar you find Marrowblight's sealed orders and sonic-phosphorus ampoules!", failMsg: "A trapped bone-needle pricks your palm (-6 HP) as you hurry toward the wyrm-rib bridge." } },
+          { t: "Cross the bridge of lashed wyrm-ribs into the colossal Dragon Graveyard.", to: 5 }
         ]
       },
       4: {
-        zone: "Narosain's Hidden Sanctum",
-        title: "Gates of the Pure City",
-        text: "True to his ruthless bargain, the Last King hands you imperial transit seals and the hidden catacomb map leading straight beneath Duke Morreto's **Pure City of Vandekhul**!",
-        onEnter: { healHp: 22, restoreMp: 8, msg: "Rested at Narosain's camp (+22 HP, +8 MP) before the final assault!" },
+        zone: "Withered Hand Shrine",
+        title: "Marrowblight's Dispatch",
+        text: "Amid the derro cultists' offerings you recover 95 GP in darakhul silver and a wax-sealed scroll from High Priest Radomir Marrowblight ordering the cult to keep Gondecap fed so no rival claims Narosain's Staff. Tucked beside it rest two glass ampoules of volatile sonic-phosphorus chalk—built to overwhelm a sound-hunting cave dragon's senses!",
+        onEnter: { gold: 95, cw: "PHOSPHORUS_CHALK", msg: "Recovered 95 GP & sonic-phosphorus ampoules (PHOSPHORUS_CHALK)!" },
         choices: [
-          { t: "March on Vandekhul in Chapter VI!", to: 5 }
+          { t: "Cross the wyrm-rib bridge into the echoing Dragon Graveyard.", to: 5 }
         ]
       },
       5: {
-        zone: "Underworld Causeway",
-        title: "Spires of White Bone",
-        text: "Ahead glows the pale, terrible silhouette of Vandekhul—the Bone Cathedral looms over all.",
+        zone: "The Dragon Graveyard • Rib-Cathedral",
+        title: "Echoes Among Wyrm-Bones",
+        text: "Ribcages of ancient wyrms arch like cathedral naves over a canyon of pale ash and glittering scales. Far below, curled around a humming violet-black staff, sleeps Gondecap—a titanic, eyeless subterranean Cave Dragon whose forked tongue tastes every tremor in the stone!",
         choices: [
-          { t: "Unlock the Grand Finale: Chapter VI!", to: 6 }
+          { t: "Use Narosain's whisper-map to creep through the muffled ash-drift right into Gondecap's blind-spot!", reqCw: "DRAGON_BLINDSPOT", badge: "DRAGON_BLINDSPOT", to: 6, onChoose: { cw: "DRAGON_AMBUSHED", msg: "You glide silently through the ash-drift and strike Gondecap's throat-scales before it hears you!" } },
+          { t: "Hurl Marrowblight's sonic-phosphorus ampoules against the stone ribs to deafen Gondecap's tremorsense!", reqCw: "PHOSPHORUS_CHALK", badge: "PHOSPHORUS_CHALK", to: 6, onChoose: { cw: "DRAGON_AMBUSHED", msg: "BOOM! Blinding sonic-phosphorus shatters Gondecap's subterranean senses!" } },
+          { t: "Step lightly across the deep ash-drifts to catch the sleeping cave dragon unawares!", badge: "Stealth / Agility DC 16", check: { stat: "agility", skill: "Stealth", dc: 16, pass: 6, fail: 6, failDmg: 10, passMsg: "You slip beneath a giant femur and seize the opening strike!", failMsg: "A loose dragon-rib clatters—choking cavern dust blasts across you (-10 HP)!" }, onPass: { cw: "DRAGON_AMBUSHED" } },
+          { t: "Strike a wyrm-rib with steel and challenge Gondecap openly!", to: 6 }
         ]
       },
       6: {
-        zone: "Catacomb Gate",
-        title: "Chapter V Complete",
-        text: "Radomir Marrowblight's final ritual is about to begin.",
+        zone: "The Dragon Graveyard",
+        title: "Gondecap the Cave Dragon",
+        text: "Roaring with a thunder that shakes loose stalactites, the ferocious, blind-scaled Cave Dragon Gondecap uncoils from the wyrm-bones—hoarding Narosain's glowing Staff of the Underworld beneath its obsidian talons!",
+        enemy: { name: "Gondecap, Underworld Cave Dragon", desc: "Terrifying subterranean dragon guarding the Staff of the Underworld.", hp: 106, ac: 17, atk: 12, dmg: 14, xp: 380, gold: 270, items: ["bq_narosain_underworld_staff"], weakCw: ["LAST_KING_PACT", "DRAGON_AMBUSHED"] },
         choices: [
-          { t: "Advance to Chapter VI!", to: 7 }
+          { t: "Claim the humming Staff of the Underworld and inspect Gondecap's ash-hoard!", to: 7 }
         ]
       },
       7: {
-        zone: "Shadow Tunnel",
-        title: "Final Breath",
-        text: "All of Midgard depends on what happens in the Bone Cathedral.",
+        zone: "Gondecap's Ash-Hoard",
+        title: "Spoils of the Graveyard",
+        text: "As the mighty cave dragon collapses across the wyrm-bones, the graveyard falls hushed. Half-buried beneath Gondecap's blackened scales glints an iron-bound strongbox from a vanished dwarven expedition.",
         choices: [
-          { t: "Complete Chapter V!", to: 8 }
+          { t: "Pick the rusted dwarven lock on Gondecap's buried strongbox.", reqSkill: "Lockpicking", badge: "Lockpicking", to: 8, onChoose: { gold: 110, msg: "Popped the dwarven expedition box for 110 GP!" } },
+          { t: "Force the heavy iron latch with strength or arcane leverage!", badge: "Might / Arcana DC 15", check: { stat: "might", skill: "Arcana", dc: 15, pass: 8, fail: 8, failDmg: 6, passMsg: "The iron clasp snaps cleanly—yielding 110 GP in dwarven bullion!", failMsg: "A corroded needle-trap nicks your thumb (-6 HP) before the lid gives way." }, onPass: { gold: 110 } },
+          { t: "Leave the ash-hoard and carry the Staff back to Narosain's hidden court.", to: 8 }
         ]
       },
       8: {
+        zone: "Narosain's Hidden Sanctum",
+        title: "Gates of the Pure City",
+        text: "True to his cold, aristocratic bargain, Narosain the Last King inclines his tarnished crown as you display the Staff of the Underworld—permitting you to wield its power against Morreto Lichmark while handing over imperial transit seals and the hidden catacomb map leading straight beneath the Pure City of Vandekhul!",
+        onEnter: { healHp: 22, restoreMp: 8, msg: "Rested at Narosain's court (+22 HP, +8 MP) and received the Vandekhul transit seals!" },
+        choices: [
+          { t: "Press Narosain for one final edge: the secret password of Emperor Nicoforus's loyalists inside Vandekhul!", badge: "Persuasion / Spirit DC 15", check: { stat: "spirit", skill: "Persuasion", dc: 15, pass: 9, fail: 10, passMsg: "Narosain smiles thinly and shares the loyalist countersign—plus a war-chest purse!", failMsg: "'Find Nicoforus's faithful yourself,' Narosain murmurs, gesturing toward the shadow tunnel." } },
+          { t: "Take the transit seals and descend into the Shadow Tunnel toward Vandekhul.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Narosain's Sanctum",
+        title: "The Emperor's Loyalist Sign",
+        text: "Narosain's lips curl in a razor smile. 'Tell Emperor Nicoforus's loyalists \"The Pale Crown still bleeds,\" and they will open their hidden armories to you. Take this imperial purse as well—every coin buys another blade against Morreto.' He slides 80 GP in stamped darakhul platinum across the stone table.",
+        onEnter: { gold: 80, msg: "Narosain gifts 80 GP and the loyalist countersign for Vandekhul!" },
+        choices: [
+          { t: "Descend into the Shadow Tunnel beneath the Pure City.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Underworld Causeway",
+        title: "Spires of White Bone",
+        text: "Stepping onto a high basalt gallery, you behold the breathtaking, terrible silhouette of Vandekhul, the Pure City—spires of bleached white bone rising above torchlit canals, crowned at the center by the towering Bone Cathedral where High Priest Radomir Marrowblight's final ritual is about to begin!",
+        choices: [
+          { t: "Slip through Narosain's secret catacomb grate toward the Bone Cathedral.", to: 11 }
+        ]
+      },
+      11: {
+        zone: "Catacomb Gate",
+        title: "Threshold of the Finale",
+        text: "With Narosain's imperial transit seals tucked inside your cloak and the Staff of the Underworld humming softly in your grip, you unbar the silent iron grate leading into the lower districts of Vandekhul. The fate of the sunlit world above now depends on what happens inside the Bone Cathedral.",
+        choices: [
+          { t: "Complete Chapter V and unlock the Grand Finale: Chapter VI!", to: 12 }
+        ]
+      },
+      12: {
         zone: "Epilogue",
         title: "Survivor of the Fuligin Realm",
-        text: "You braved the Underworld and slew Gondecap! <strong>Empire of the Ghouls VI: The Pure City of Vandekhul</strong> is now unlocked!",
-        ending: { type: "true", title: "Walker of the Fuligin Realm (Empire of Ghouls V)", xp: 425, gold: 405, trophy: "Gondecap's Cavern Fang" },
+        text: "You braved the Pillars of the Underworld, bargained with Narosain the Last King, and slew the cave dragon Gondecap! <strong>Empire of the Ghouls VI: The Pure City of Vandekhul</strong> is now unlocked!",
+        ending: { type: "true", title: "Walker of the Fuligin Realm (Part 5 of 6)", xp: 425, gold: 405, trophy: "Gondecap's Cavern Fang" },
         choices: []
       }
     }

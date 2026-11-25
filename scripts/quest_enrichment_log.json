@@ -1,5 +1,5 @@
 {
-  "totalPasses": 9,
+  "totalPasses": 10,
   "history": [
     {
       "pass": 1,
@@ -63,6 +63,13 @@
       "title": "The Obsidian Pass",
       "file": "data/quests/books_quests_batch_009.js",
       "summary": "Removed sourcebook leak ('Prepared! Conquered') and expanded from 6 linear pages to 12 dramatic branching pages with Elder Sylvara's hook, volcanic rockslide/druidic root-ward/shadow-fissure stealth options (GORGE_AMBUSH), uncovering the psychic tether on Archmage Vaeloria (VAELORIA_TRUTH -> VAELORIA_ALLY redemption & 150 GP penance bonus), Firebolt/Ward-Glass sunlight sabotage (RIFT_FRACTURED), and starlight crystal loot."
+    },
+    {
+      "pass": 10,
+      "questId": "bk_b7_eog_5_fuligin_realm",
+      "title": "Empire of the Ghouls V: Into the Fuligin Realm",
+      "file": "data/quests/books_quests_batch_007.js",
+      "summary": "Replaced 3 one-line filler pages and expanded into a 12-page Underworld chapter with kobold courier Skrik, a full parley scene at Narosain the Last King's court (LAST_KING_PACT & DRAGON_BLINDSPOT), Withered Hand shrine Marrowblight dispatch & sonic-phosphorus ampoules (PHOSPHORUS_CHALK -> DRAGON_AMBUSHED), Gondecap's dwarven ash-hoard strongbox (110 GP), and Narosain's Vandekhul loyalist countersign scene (80 GP)."
     }
   ],
   "questPasses": {
@@ -74,6 +81,7 @@
     "ul_bastion_deranged": 1,
     "bk_b11_sc_3_barracks": 1,
     "bk_b16_marg_grandmothers_fire": 1,
-    "bk_b9_prep_11_obsidian_pass": 1
+    "bk_b9_prep_11_obsidian_pass": 1,
+    "bk_b7_eog_5_fuligin_realm": 1
   }
 }
