@@ -1163,7 +1163,8 @@
         stash: [], vaultGold: 0,
         blessing: null, innBuff: null, innRested: false, shieldTurns: 0, evadeTurns: 0,
         discoveredQuests: startingQuests,
-        completedQuests: {}, // { advId: trophyName }
+        completedQuests: {},
+        questJournal: [], // { advId: trophyName }
         kills: 0, deaths: 0,
         mode: "town",
         townPos: { x: 11, y: 11 },
@@ -1604,9 +1605,9 @@
     }
 
     function renderDistrictSquare(box) {
-      const discovered = state.discoveredQuests
+      const activeLeads = state.discoveredQuests
           .map(id => ADVENTURES[id])
-          .filter(adv => adv && (!adv.reqQuest || !!state.completedQuests[adv.reqQuest]));
+          .filter(adv => adv && !state.completedQuests[adv.id] && (!adv.reqQuest || !!state.completedQuests[adv.reqQuest]));
       box.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div>
@@ -1614,14 +1615,22 @@
             <p class="text-xs text-stone-400">Talk to patrons in the Rusty Flagon, Market, and Temple—or scout the Outskirts—to uncover rumors of new adventures.</p>
           </div>
           <span class="px-3 py-1 rounded-full bg-stone-950 border border-amber-700/40 text-xs text-amber-200 font-semibold">
-            Discovered: ${discovered.length}
+            Active Leads: ${activeLeads.length}
           </span>
         </div>
         <div id="quest-board-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
       `;
       const grid = box.querySelector("#quest-board-grid");
-      discovered.forEach(adv => {
-        const done = !!state.completedQuests[adv.id];
+      if (activeLeads.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full p-5 rounded-xl bg-stone-950/90 border border-amber-700/35 text-center space-y-2">
+            <div class="font-display text-sm font-bold text-amber-200">No Active Leads on the Board</div>
+            <p class="text-xs text-stone-400">Visit patrons at the <strong>Rusty Flagon Tavern</strong>, explore the <strong>Market</strong> and <strong>Temple</strong>, or scout the <strong>Outskirts</strong> to uncover new rumors. View your completed deeds anytime in <strong>☰ Menu → 📓 Hero Journal</strong>.</p>
+          </div>
+        `;
+        return;
+      }
+      activeLeads.forEach(adv => {
         const cleanSub = cleanQuestSubtitle(adv.subtitle);
         const card = document.createElement("div");
         card.className = "p-4 rounded-xl bg-stone-950/90 border border-amber-700/35 flex flex-col justify-between gap-3";
@@ -1629,15 +1638,15 @@
           <div>
             <div class="flex items-start justify-between gap-2">
               <h4 class="font-display text-base font-bold text-amber-200 leading-snug">${adv.title}</h4>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${done ? "bg-emerald-950 text-emerald-300 border border-emerald-600/50" : "bg-amber-950 text-amber-300 border border-amber-600/40"}">
-                ${done ? "✓ Cleared" : "Active Lead"}
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold shrink-0 bg-amber-950 text-amber-300 border border-amber-600/40">
+                Active Lead
               </span>
             </div>
             <div class="text-[11px] text-amber-400/80 mt-0.5">${cleanSub ? `${cleanSub} &bull; ` : ""}${adv.difficulty} (Lv. ${adv.recommendedLevel}+)</div>
             <p class="text-xs text-stone-300 mt-2 leading-relaxed">${adv.summary}</p>
           </div>
           <button class="w-full py-2 rounded-lg btn-gold font-display text-xs uppercase tracking-wider">
-            ${done ? "Replay Adventure →" : "Embark on Adventure →"}
+            Embark on Adventure →
           </button>
         `;
         card.querySelector("button").onclick = () => startAdventure(adv.id);
@@ -2519,11 +2528,14 @@
     function startAdventure(advId) {
       const adv = ADVENTURES[advId];
       if (!adv) return;
+      if (state.completedQuests[advId]) {
+        return toast("You have already completed this adventure! Check your Hero Journal for its record.", "info");
+      }
       closeBuildingModal();
       stopAutoWalk();
       state.mode = "adventure";
       state.innRested = false;
-      state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false };
+      state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, lootItems: [], lootGold: 0, lootXp: 0 };
       activeCombat = null;
       sfx("quest");
       bgm("adventure");
@@ -2561,6 +2573,20 @@
         state.gold += page.ending.gold || 0;
         gainXp(page.ending.xp || 0);
         state.completedQuests[adv.id] = page.ending.trophy;
+        if (!Array.isArray(state.questJournal)) state.questJournal = [];
+        if (!state.questJournal.some(e => e.id === adv.id)) {
+          state.questJournal.push({
+            id: adv.id,
+            title: adv.title,
+            subtitle: cleanQuestSubtitle(adv.subtitle),
+            endingTitle: page.ending.title || "Victory",
+            trophy: page.ending.trophy || "",
+            xp: (state.activeAdv.lootXp || 0) + (page.ending.xp || 0),
+            gold: (state.activeAdv.lootGold || 0) + (page.ending.gold || 0),
+            items: [...(state.activeAdv.lootItems || [])],
+            completedAt: new Date().toISOString()
+          });
+        }
         // Automatically unlock any follow-up chapter in a multi-part quest series
         Object.values(ADVENTURES).forEach(nextAdv => {
           if (nextAdv && nextAdv.reqQuest === adv.id && !state.discoveredQuests.includes(nextAdv.id)) {
@@ -2583,9 +2609,20 @@
       if (!eff) return;
       const d = getDerived(state);
       if (eff.cw && !state.activeAdv.codewords.includes(eff.cw)) state.activeAdv.codewords.push(eff.cw);
-      if (eff.gold) state.gold += eff.gold;
-      if (eff.xp) gainXp(eff.xp);
-      if (eff.items) eff.items.forEach(id => addToPack(id));
+      if (eff.gold) {
+        state.gold += eff.gold;
+        if (state.activeAdv) state.activeAdv.lootGold = (state.activeAdv.lootGold || 0) + eff.gold;
+      }
+      if (eff.xp) {
+        gainXp(eff.xp);
+        if (state.activeAdv) state.activeAdv.lootXp = (state.activeAdv.lootXp || 0) + eff.xp;
+      }
+      if (eff.items) eff.items.forEach(id => {
+        if (addToPack(id) && state.activeAdv) {
+          if (!Array.isArray(state.activeAdv.lootItems)) state.activeAdv.lootItems = [];
+          state.activeAdv.lootItems.push(id);
+        }
+      });
       if (eff.healHp) state.hp = Math.min(d.maxHp, state.hp + eff.healHp);
       if (eff.healMp) state.mp = Math.min(d.maxMp, state.mp + eff.healMp);
       if (eff.dmg) state.hp = Math.max(0, state.hp - eff.dmg);
@@ -3066,11 +3103,24 @@
         const goldAward = subP.goldFindPct > 0 ? Math.round(baseGold * (1 + subP.goldFindPct / 100)) : baseGold;
         state.gold += goldAward;
         gainXp(c.xp || 25);
+        if (state.activeAdv) {
+          state.activeAdv.lootGold = (state.activeAdv.lootGold || 0) + goldAward;
+          state.activeAdv.lootXp = (state.activeAdv.lootXp || 0) + (c.xp || 25);
+          if (!Array.isArray(state.activeAdv.lootItems)) state.activeAdv.lootItems = [];
+        }
         const names = [];
-        (c.items || []).forEach(id => { if (addToPack(id)) names.push(ITEMS_DB[id].name); });
+        (c.items || []).forEach(id => {
+          if (addToPack(id)) {
+            names.push(ITEMS_DB[id].name);
+            if (state.activeAdv) state.activeAdv.lootItems.push(id);
+          }
+        });
         if (typeof rollEncounterVaultDrop === "function") {
           const bonusDrop = rollEncounterVaultDrop(c);
-          if (bonusDrop && addToPack(bonusDrop)) names.push(ITEMS_DB[bonusDrop].name);
+          if (bonusDrop && addToPack(bonusDrop)) {
+            names.push(ITEMS_DB[bonusDrop].name);
+            if (state.activeAdv) state.activeAdv.lootItems.push(bonusDrop);
+          }
         }
         if (c.cw && !state.activeAdv.codewords.includes(c.cw)) state.activeAdv.codewords.push(c.cw);
         const msg = `🏆 Defeated ${c.name}! +${c.xp||25} XP, +${goldAward} GP${names.length?` & ${names.join(", ")}`:""}.`;
@@ -3957,16 +4007,100 @@
       if (TILE_TO_BUILDING[t]) openBuildingModal(TILE_TO_BUILDING[t].id);
     });
 
-    // Menu & Help Modals (Bottom-Center Dock)
+    // Menu, Journal & Help Modals (Bottom-Center Dock)
     const menuModal = document.getElementById("modal-menu");
     const helpModal = document.getElementById("modal-help");
+    const journalModal = document.getElementById("modal-journal");
     const closeMenu = () => menuModal && menuModal.classList.add("hidden");
+
+    function renderJournalModal() {
+      const listEl = document.getElementById("journal-list");
+      const badgeEl = document.getElementById("journal-count-badge");
+      if (!listEl || !state) return;
+
+      // Combine recorded journal entries with any legacy completedQuests lacking detailed entries
+      const recorded = Array.isArray(state.questJournal) ? [...state.questJournal] : [];
+      const seen = new Set(recorded.map(e => e.id));
+      Object.entries(state.completedQuests || {}).forEach(([advId, trophy]) => {
+        if (seen.has(advId)) return;
+        const adv = ADVENTURES[advId];
+        let endXp = 0, endGold = 0, endTitle = "Completed";
+        if (adv && adv.pages) {
+          const endPage = Object.values(adv.pages).find(p => p && p.ending);
+          if (endPage && endPage.ending) {
+            endXp = endPage.ending.xp || 0;
+            endGold = endPage.ending.gold || 0;
+            endTitle = endPage.ending.title || "Completed";
+          }
+        }
+        recorded.push({
+          id: advId,
+          title: adv ? adv.title : advId,
+          subtitle: adv ? cleanQuestSubtitle(adv.subtitle) : "",
+          endingTitle: endTitle,
+          trophy: typeof trophy === "string" ? trophy : "",
+          xp: endXp,
+          gold: endGold,
+          items: [],
+          completedAt: null
+        });
+      });
+
+      if (badgeEl) badgeEl.textContent = `${recorded.length} Completed`;
+
+      if (recorded.length === 0) {
+        listEl.innerHTML = `
+          <div class="p-6 rounded-xl bg-stone-950/90 border border-stone-800 text-center space-y-2">
+            <div class="font-display text-sm font-bold text-amber-200">Your Journal Is Empty</div>
+            <p class="text-xs text-stone-400">Complete adventures from the Town Square Quest Board to record your victories, trophies, and earned rewards here.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = "";
+      recorded.slice().reverse().forEach(entry => {
+        const card = document.createElement("div");
+        card.className = "p-4 rounded-xl bg-stone-950/90 border border-amber-700/40 space-y-2";
+        const itemBadges = (entry.items || []).map(id => {
+          const it = ITEMS_DB[id];
+          const label = it ? it.name : id;
+          return `<span class="px-2 py-0.5 rounded bg-stone-900 border border-amber-700/35 text-[11px] text-amber-100">${label}</span>`;
+        }).join("");
+        const dateStr = entry.completedAt ? new Date(entry.completedAt).toLocaleDateString() : "";
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <h4 class="font-display text-base font-bold text-amber-200 leading-snug">${entry.title}</h4>
+              ${entry.subtitle ? `<div class="text-[11px] text-stone-400">${entry.subtitle}</div>` : ""}
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold shrink-0 bg-emerald-950 text-emerald-300 border border-emerald-600/50">✓ ${entry.endingTitle}</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 text-xs pt-1">
+            ${entry.trophy ? `<span class="px-2.5 py-0.5 rounded-full bg-amber-950/90 border border-amber-500/45 text-amber-200 font-semibold">🏆 ${entry.trophy}</span>` : ""}
+            <span class="px-2.5 py-0.5 rounded-full bg-indigo-950/80 border border-indigo-500/40 text-indigo-200 font-semibold">✨ +${entry.xp || 0} XP</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-950/70 border border-amber-600/40 text-amber-300 font-semibold">🪙 +${entry.gold || 0} GP</span>
+            ${dateStr ? `<span class="text-[10px] text-stone-500 ml-auto">${dateStr}</span>` : ""}
+          </div>
+          ${itemBadges ? `<div class="pt-1 border-t border-stone-800/80"><div class="text-[10px] uppercase tracking-wider text-stone-400 font-semibold mb-1">Loot &amp; Relics Earned</div><div class="flex flex-wrap gap-1.5">${itemBadges}</div></div>` : ""}
+        `;
+        listEl.appendChild(card);
+      });
+    }
 
     document.getElementById("btn-open-menu")?.addEventListener("click", () => {
       menuModal.classList.toggle("hidden");
     });
     document.getElementById("close-menu")?.addEventListener("click", closeMenu);
     menuModal?.addEventListener("click", (e) => { if (e.target.id === "modal-menu") closeMenu(); });
+
+    document.getElementById("btn-journal-modal")?.addEventListener("click", () => {
+      closeMenu();
+      renderJournalModal();
+      journalModal?.classList.remove("hidden");
+    });
+    document.getElementById("close-journal")?.addEventListener("click", () => journalModal?.classList.add("hidden"));
+    journalModal?.addEventListener("click", (e) => { if (e.target.id === "modal-journal") journalModal.classList.add("hidden"); });
 
     document.getElementById("btn-help-modal")?.addEventListener("click", () => {
       closeMenu();
@@ -3999,6 +4133,7 @@
 
       if (e.key === "Escape") {
         const sheet = document.getElementById("sheet-sidebar");
+        if (journalModal && !journalModal.classList.contains("hidden")) { journalModal.classList.add("hidden"); return; }
         if (helpModal && !helpModal.classList.contains("hidden")) { helpModal.classList.add("hidden"); return; }
         if (menuModal && !menuModal.classList.contains("hidden")) { menuModal.classList.add("hidden"); return; }
         if (sheet && !sheet.classList.contains("hidden")) { sheet.classList.add("hidden"); return; }
@@ -4006,7 +4141,7 @@
       }
 
       if (!state || state.mode !== "town" || buildingModalOpen) return;
-      const anyModalOpen = ["modal-rules", "modal-io", "modal-confirm-reset", "modal-menu", "modal-help", "sheet-sidebar"].some(
+      const anyModalOpen = ["modal-rules", "modal-io", "modal-confirm-reset", "modal-menu", "modal-help", "modal-journal", "sheet-sidebar"].some(
         id => { const el = document.getElementById(id); return el && !el.classList.contains("hidden"); }
       );
       if (anyModalOpen) return;
