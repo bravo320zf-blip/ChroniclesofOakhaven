@@ -1,0 +1,935 @@
+/* ============================================================
+   BOOK QUESTS — BATCH 001 (10 Quests)
+   Source: 12 Peculiar Towers (Kobold Press) — Towers 1–10
+   ============================================================ */
+window.OAKHAVEN.registerQuests({
+  // ==========================================================
+  // 1. THE OLD MARBLEHEAD LIGHTHOUSE (8 PAGES • LV 1)
+  // ==========================================================
+  bk_pt_01_marblehead: {
+    id: "bk_pt_01_marblehead",
+    title: "The Old Marblehead Lighthouse",
+    subtitle: "12 Peculiar Towers • Coastal Cliff & Smugglers' Sea Cave",
+    difficulty: "Easy",
+    recommendedLevel: 1,
+    autoDiscover: true,
+    discoverySource: "Oakhaven Quest Board (Northwatch Harbor Charter)",
+    summary: "Survey the abandoned sixty-foot lighthouse on Marblehead Point, clear out what nests in its damp stone halls, and uncover the forgotten smugglers' sea cave below.",
+    totalPages: 8,
+    pages: {
+      1: {
+        zone: "Marblehead Point",
+        title: "The White Cliffs",
+        safeRetreat: true,
+        text: "A three-mile overgrown track winds up onto windswept chalk cliffs once mistaken for marble. Before you rises the hexagonal, sixty-foot Marblehead Lighthouse. Its swollen wooden door sticks fast in its frame, while a rusted rope-and-pulley supply lift creaks on the western face.",
+        choices: [
+          { t: "Put your shoulder to the swollen lighthouse door.", badge: "Might DC 10", check: { stat: "might", skill: "Athletics", dc: 10, pass: 2, fail: 2, failDmg: 2, passMsg: "The swollen oak gives way with a loud crack!", failMsg: "You bruise your shoulder (-2 HP) before wrenching the door open." } },
+          { t: "Inspect the cliffside trail for a lower entrance before entering.", badge: "Perception DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 2, passMsg: "You spot old smuggler winch marks leading toward a sea cave below!", failMsg: "Only sea spray and tangled scrub meet your gaze." }, onPass: { cw: "SMUGGLER_TRAIL", msg: "Spotted SMUGGLER_TRAIL!" } }
+        ]
+      },
+      2: {
+        zone: "Ground Floor",
+        title: "Damp Entrance & Keeper's Quarters",
+        text: "Moldy crates and rotten barrels clutter the ground floor around a central spiral staircase. In the old keeper's domicile nearby, a salt-crusted chest sits unlocked beside a moldering logbook detailing coded lantern flashes for midnight ships.",
+        choices: [
+          { t: "Search the keeper's chest and logbook carefully.", to: 3, onChoose: { gold: 25, cw: "KEEPER_LOG", msg: "Recovered 25 GP and the keeper's smuggler logbook!" } },
+          { t: "Climb the central spiral stairs directly toward the upper beacon.", to: 4 }
+        ]
+      },
+      3: {
+        zone: "Storage Room",
+        title: "The Oil Casks",
+        text: "On the second landing, leaking whale-oil casks slick the stone floor. Giant cliff-scuttling crabs burst from behind the broken barrels, clacking their salt-encrusted pincers!",
+        enemy: { name: "Marblehead Cliff Crabs", desc: "Armored giant crabs nesting among oil barrels.", hp: 16, ac: 10, atk: 3, dmg: 3, xp: 35, gold: 15, items: rollRandomLoot(["consumable", "material"], 1, "common"), flee: 1 },
+        choices: [
+          { t: "Ascend to the glass-paned Beacon Room.", to: 4 },
+          { t: "Use the keeper's log clue to find the hidden cellar trapdoor.", reqCw: "KEEPER_LOG", badge: "KEEPER_LOG", to: 5 }
+        ]
+      },
+      4: {
+        zone: "The Beacon",
+        title: "Lantern of Northwatch",
+        text: "Broken glass crunches underfoot at the sixty-foot summit. The great brass Fresnel reflector still hangs intact, and tucked inside the oil locker sits a pristine storm-lantern alongside a hatchway leading down a maintenance shaft to the cellar.",
+        onEnter: { items: ["bq_marblehead_lantern"], msg: "Claimed the Marblehead Beacon Lantern!" },
+        choices: [
+          { t: "Descend the maintenance shaft into the dark cellar beneath the tower.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "The Cellar",
+        title: "Smugglers' Passage",
+        text: "Beneath the lighthouse lies a natural limestone cellar stacked with rotted silk bales. Cold ocean air drafts through a jagged tunnel leading down into a echoing sea cavern where hundreds of eyes glint in the dark.",
+        choices: [
+          { t: "Slip quietly past the roosting bats using Stealth.", badge: "Agility / Stealth DC 10", check: { stat: "agility", skill: "Stealth", dc: 10, pass: 7, fail: 6, passMsg: "You glide beneath the sleeping bat colony untouched!", failMsg: "Your boot kicks loose scree—the cavern erupts in leathery wings!" } },
+          { t: "Raise your lantern and march boldly into the Bat Cave.", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Bat Cave",
+        title: "Swarm of the Sea Cave",
+        text: "Shrieking cave bats swirl down from the stalactites in a blinding cloud!",
+        enemy: { name: "Sea-Cave Bat Swarm", desc: "Frenzied cave bats defending their roost.", hp: 18, ac: 11, atk: 3, dmg: 3, xp: 40, gold: 10, items: rollRandomLoot(["material"], 1, "common"), flee: 5 },
+        choices: [
+          { t: "Press deeper toward the eerie violet glow at the tidal cove.", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Aberrant Acolyte's Shrine",
+        title: "Whispers Beneath the Cliff",
+        text: "In the forgotten smugglers' sea cave, a twisted cultist kneels before a barnacle-encrusted idol pulled from the deep. 'The beacon stays dark!' the aberrant acolyte hisses, raising a crackling coral staff as tide-water surges around your boots!",
+        enemy: { name: "Aberrant Tide Acolyte", desc: "Deep-sea cultist guarding a profane tidal shrine.", hp: 22, ac: 11, atk: 4, dmg: 4, xp: 55, gold: 45, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon") },
+        choices: [
+          { t: "Shatter the coral idol and return to Northwatch with your survey.", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Epilogue",
+        title: "Beacon Restored",
+        text: "With the aberrant shrine cleansed and the sea cave mapped, Northwatch's mayor gladly pays the full charter bounty. Within a fortnight, the Marblehead Beacon blazes brightly over safe merchant lanes once more.",
+        ending: { type: "true", title: "Keeper of Marblehead Point", xp: 95, gold: 100, trophy: "Northwatch Harbor Seal" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 2. THE MIDNIGHT TREE (9 PAGES • LV 2)
+  // ==========================================================
+  bk_pt_02_midnight_tree: {
+    id: "bk_pt_02_midnight_tree",
+    title: "The Midnight Tree",
+    subtitle: "12 Peculiar Towers • Old Margreve Ravenfolk Fortress",
+    difficulty: "Medium",
+    recommendedLevel: 2,
+    autoDiscover: true,
+    discoverySource: "Albino Starkfeather Elder (Rusty Flagon Tavern)",
+    summary: "Storm the hollowed towering Midnight Tree at the edge of the Old Margreve and drive out the treacherous Greengloss ravenfolk bandits so the Starkfeather Clan may reclaim their ancestral perch.",
+    totalPages: 9,
+    pages: {
+      1: {
+        zone: "Old Margreve Edge",
+        title: "The Hollow Colossus",
+        safeRetreat: true,
+        text: "Towering above the trade road stands the Midnight Tree—an ancient charcoal-barked oak hollowed into a multi-story bandit fortress. The elderly albino matriarch of the Starkfeather Clan promised you all the plunder you can carry if you oust the usurping Greengloss ravenfolk.",
+        choices: [
+          { t: "Inspect the root-arch entranceway for bandit snares before stepping in.", badge: "Perception DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 2, failDmg: 4, passMsg: "You disarm a tensioned thorn-dart wire in the bark!", failMsg: "A hidden thorn-dart trap snaps across your arm (-4 HP)!" } },
+          { t: "Scale the lower boughs to slip in through a knotted window.", badge: "Agility / Athletics DC 12", check: { stat: "agility", skill: "Athletics", dc: 12, pass: 3, fail: 2, failDmg: 3, passMsg: "You hoist yourself quietly onto the second-floor ledge!", failMsg: "Mossy bark slips underfoot—you tumble back to the root door (-3 HP)!" } }
+        ]
+      },
+      2: {
+        zone: "Guard Room",
+        title: "Greengloss Sentries",
+        text: "Two black-feathered Greengloss scouts crouch behind timber arrow-slits, rattling dice beside a brazier. Spotting you, they mimic a hawk's shriek and draw curved sabres!",
+        enemy: { name: "Greengloss Ravenfolk Scouts", desc: "Cunning feathered highwaymen.", hp: 22, ac: 11, atk: 4, dmg: 4, xp: 45, gold: 25, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1 },
+        choices: [
+          { t: "Advance into the Central Hall and check the Jailor's Room.", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Jailor's Room",
+        title: "The Captive Courtier",
+        text: "A ring of iron keys hangs beside a cramped wooden cage holding a bruised noble courier captured along the Margreve road. A hulking Greengloss jailor steps from the storeroom, hefting a spiked cudgel!",
+        enemy: { name: "Greengloss Jailor", desc: "Cruel ravenfolk turnkey.", hp: 24, ac: 12, atk: 4, dmg: 4, xp: 50, gold: 30, items: rollRandomLoot(["consumable"], 1, "uncommon"), flee: 1 },
+        choices: [
+          { t: "Unlock the cage and free the noble courier.", to: 4, onChoose: { cw: "FREED_COURIER", gold: 35, msg: "The grateful courier promises court favor and slips you 35 GP!" } },
+          { t: "Leave the cells for later and climb to the Common Room.", to: 5 }
+        ]
+      },
+      4: {
+        zone: "The Sticky Hand",
+        title: "Sap-Slick Ambush",
+        text: "The freed courier warns you of 'The Sticky Hand'—an amber-sap pit chamber the bandits use to trap intruders. Forewarned, you skirt the adhesive resin and spot a hidden cubby stuffed with stolen traveler purses!",
+        onEnter: { gold: 40, healHp: 6, msg: "Avoided the sap trap, rested briefly (+6 HP), and claimed 40 GP!" },
+        choices: [
+          { t: "Climb the winding timber steps to the upper Common Room.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Common Room",
+        title: "Feast of Stolen Wine",
+        text: "Half-plucked pheasants and stolen casks litter the tree's broad midsection. Three Greengloss cutthroats overturn tables and vault toward you with flashing daggers!",
+        enemy: { name: "Greengloss Cutthroats", desc: "Rowdy ravenfolk raiders defending their hoard.", hp: 26, ac: 12, atk: 4, dmg: 5, xp: 60, gold: 35, items: rollRandomLoot(["valuable", "material"], 1, "uncommon"), flee: 3 },
+        choices: [
+          { t: "Pick the lock on the Bandit Treasure Chamber.", badge: "Lockpicking DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 6, fail: 7, passMsg: "The iron clasp clicks open!", failMsg: "The lock jams—you head straight for the Chieftain's Chamber." } },
+          { t: "Ascend directly to the Chieftain's Chamber.", to: 7 }
+        ]
+      },
+      6: {
+        zone: "Treasure Chamber",
+        title: "Bandit Hoard",
+        text: "Two iron-banded chests sit opposite a rack of stolen trade goods. Inside gleam silver trade bars, coin pouches, and an exquisite Starkfeather heirloom cloak!",
+        onEnter: { gold: 65, items: ["bq_starkfeather_cloak"], msg: "Looted 65 GP and the Starkfeather Mantle!" },
+        choices: [
+          { t: "Confront the Greengloss Chieftain above.", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Chieftain's Chamber",
+        title: "Lord of the Midnight Tree",
+        text: "Draped in stolen silks, the Greengloss Chieftain perches atop a carved mahogany throne. 'That pale old crow sent a ground-walker to do her dirty work?' he mocks, leaping forward with twin wicked blades!",
+        enemy: { name: "Greengloss Chieftain", desc: "Agile ravenfolk bandit lord.", hp: 30, ac: 13, atk: 5, dmg: 5, xp: 75, gold: 50, items: rollRandomLoot(["weapon", "accessory"], 1, "rare") },
+        choices: [
+          { t: "Climb out onto the Ceremonial Platform and Giant Ravens' Aerie!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Giant Ravens' Aerie",
+        title: "Wings Over the Canopy",
+        text: "High in the starlit crown of the oak, two massive war-trained Giant Ravens dive to avenge their fallen master!",
+        enemy: { name: "Greengloss Giant Ravens", desc: "Enormous black-winged canopy predators.", hp: 28, ac: 12, atk: 5, dmg: 5, xp: 70, gold: 20, items: rollRandomLoot(["material", "valuable"], 1, "rare") },
+        choices: [
+          { t: "Signal the Starkfeather Clan from the crown of the tree.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Epilogue",
+        title: "Return of the Starkfeathers",
+        text: "White-feathered silhouettes glide silently onto the boughs as the albino elder bows solemnly. With the Greengloss driven from the Margreve road, your name is honored among the Starkfeather Clan.",
+        ending: { type: "true", title: "Scourge of the Midnight Tree", xp: 120, gold: 110, trophy: "Albino Raven Plume" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 3. USURPER'S TOWER (8 PAGES • LV 3)
+  // ==========================================================
+  bk_pt_03_usurpers_tower: {
+    id: "bk_pt_03_usurpers_tower",
+    title: "Usurper's Tower",
+    subtitle: "12 Peculiar Towers • Borderland Bergfried Rescue",
+    difficulty: "Medium",
+    recommendedLevel: 3,
+    autoDiscover: true,
+    discoverySource: "Oakhaven Militia Captain (Town Square)",
+    summary: "Infiltrate the blood-stained border bergfried claimed by the cunning ogre Gragmir and goblin witchdoctor Skorg to rescue local war hero Dagny before Skorg exacts his vengeance.",
+    totalPages: 8,
+    pages: {
+      1: {
+        zone: "Borderland Crag",
+        title: "The Fallen Bergfried",
+        safeRetreat: true,
+        text: "Surrounded by shattered curtain walls from a decades-old siege, the stark stone keep known as Usurper's Tower looms over the mountain pass. Smoke curls from its upper arrow-slits—Gragmir the ogre and goblin witchdoctor Skorg hold war hero Dagny captive inside.",
+        choices: [
+          { t: "Creep up to the ground-floor breach under cover of rubble.", badge: "Stealth DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 2, fail: 2, failDmg: 4, passMsg: "You slip past the lookout unnoticed!", failMsg: "A goblin sentry looses a jagged arrow from above (-4 HP)!" } },
+          { t: "Charge straight through the splintered gatehouse.", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Ground Floor",
+        title: "Goblinoid Guardhouse",
+        text: "Cracked flagstones and rusted shields from the ancient siege litter the guardroom. A pack of snarling hobgoblins and goblin skirmishers overturn a mess table to block the stairs!",
+        enemy: { name: "Gragmir's Goblinoid Raiders", desc: "Disciplined borderland hobgoblins and goblin scouts.", hp: 28, ac: 12, atk: 5, dmg: 5, xp: 65, gold: 30, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1 },
+        choices: [
+          { t: "Examine the iron grate in the floor leading down to the Oubliette.", to: 3 },
+          { t: "Press upward to the First Floor barracks.", to: 4 }
+        ]
+      },
+      3: {
+        zone: "The Oubliette",
+        title: "Dagny in Chains",
+        text: "Lowering a rope into the damp stone pit, you find war hero Dagny and two battered militia survivors! 'Skorg's gone mad with vengeance,' Dagny rasps. 'Take my spare blade—Gragmir keeps our gear and the moonstone chest on the upper floor!'",
+        onEnter: { cw: "DAGNY_FREED", items: ["bq_dagny_warblade"], healHp: 8, msg: "Freed Dagny! Claimed Dagny's Border Blade and caught your breath (+8 HP)." },
+        choices: [
+          { t: "Climb back up and storm the First Floor!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "First Floor",
+        title: "Skorg's Fetish Chamber",
+        text: "Bone rattles and smoldering incense choke the first floor. Goblin witchdoctor Skorg screeches curses, waving a skull-topped staff as dark hexes crackle through the air!",
+        enemy: { name: "Skorg, Goblin Witchdoctor", desc: "Vengeful hex-slinging goblin shaman.", hp: 30, ac: 12, atk: 5, dmg: 6, xp: 80, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 2 },
+        choices: [
+          { t: "Search Skorg's bone altar for stolen moonstones and climb to the Second Floor.", to: 5, onChoose: { gold: 40, msg: "Found a pouch of borderland moonstones (40 GP)!" } }
+        ]
+      },
+      5: {
+        zone: "Second Floor",
+        title: "The Usurper's Hall",
+        text: "Faded banners of the long-dead usurper hang above a battered oak chest pinned with daggers. Before you can pry it open, heavy footsteps shake the timber ceiling!",
+        choices: [
+          { t: "Quickly pry open the trapped treasury chest before Gragmir descends.", badge: "Lockpicking DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 6, fail: 6, failDmg: 5, passMsg: "Disarmed the needle spring and grabbed 50 GP!", failMsg: "A poisoned dart pricks your wrist (-5 HP) as you grab the coins!" }, onPass: { gold: 50 } },
+          { t: "Take high ground on the stairwell leading to the Roof.", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Tower Roof",
+        title: "Gragmir's Last Stand",
+        text: "Wind howls across the crenellated roof where the usurper once fell. Towering nine feet tall in scavenged mail, Gragmir hefts a spiked iron beam. 'Little hero wants to bleed on my stones? Come try!'",
+        enemy: { name: "Gragmir the Clever Ogre", desc: "Cunning, heavily armored ogre war-chief.", hp: 40, ac: 13, atk: 6, dmg: 7, xp: 115, gold: 80, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "rare"), weakCw: ["DAGNY_FREED"] },
+        choices: [
+          { t: "Ensure Dagny and her squad are safe before marching back to town.", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Border Pass",
+        title: "Escort Home",
+        text: "With Gragmir cast down from the battlements and Skorg's dark hexes broken, the remaining goblins scatter into the crags. Dagny salutes you as the mountain road opens once more.",
+        choices: [
+          { t: "Claim your bounty and hero's welcome.", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Epilogue",
+        title: "Savior of the Pass",
+        text: "Songs of your daring ascent of Usurper's Tower echo through the border taverns, and the local militia honors you with a chest of silver and the gratitude of Dagny's company.",
+        ending: { type: "true", title: "Liberator of Usurper's Tower", xp: 145, gold: 135, trophy: "Usurper's Broken Crown" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 4. RAGANNI'S REDOUBT (9 PAGES • LV 4)
+  // ==========================================================
+  bk_pt_04_ragannis_redoubt: {
+    id: "bk_pt_04_ragannis_redoubt",
+    title: "Raganni's Redoubt",
+    subtitle: "12 Peculiar Towers • Triangular Sanctum of the Salt Flats",
+    difficulty: "Medium-Hard",
+    recommendedLevel: 4,
+    autoDiscover: true,
+    discoverySource: "Desert Caravan Scholar (Oakhaven Market)",
+    summary: "Venture into the blinding Kephani Salt Flats to breach the triangular arcane tower of the vanished archmage Raganni—and stop Bastet priestess Asenath from raising him in undeath.",
+    totalPages: 9,
+    pages: {
+      1: {
+        zone: "Kephani Salt Flats",
+        title: "The Triangular Mirage",
+        safeRetreat: true,
+        text: "Shimmering heat ripples across the white salt desert around an impossible three-sided obsidian tower. The sealed portal bears an arcane glyph whispering for a spoken password in ancient desert script.",
+        choices: [
+          { t: "Decode the desert glyph and speak the password 'Monsoon'.", badge: "Arcana DC 12", check: { stat: "arcana", skill: "Arcana", dc: 12, pass: 2, fail: 2, failDmg: 5, passMsg: "The ward dissolves cleanly—the triangular doors glide wide!", failMsg: "Arcane lightning jolts you (-5 HP) before the seal cracks!" }, onPass: { cw: "WARD_BYPASSED", msg: "Bypassed Raganni's outer ward cleanly!" } },
+          { t: "Force the bronze portal hinges with raw strength.", badge: "Might DC 13", check: { stat: "might", skill: "Athletics", dc: 13, pass: 2, fail: 2, failDmg: 5, passMsg: "You wrench the heavy portal open!", failMsg: "The ward scorches you (-5 HP) as the doors finally yield!" } }
+        ]
+      },
+      2: {
+        zone: "Front Hall & Library",
+        title: "Guardians of the Archive",
+        text: "Cool perfumed air greets you inside Raganni's triangular hall. Two jackal-headed sandstone constructs step down from marble alcoves to defend the scroll-lined Library!",
+        enemy: { name: "Sandstone Arcane Sentinels", desc: "Animated desert constructs built by Raganni.", hp: 36, ac: 13, atk: 5, dmg: 6, xp: 85, gold: 40, items: rollRandomLoot(["material", "valuable"], 1, "rare"), flee: 1 },
+        choices: [
+          { t: "Explore the Workshop and Summoning Chamber.", to: 3 },
+          { t: "Slip into the Hanging Indoor Garden.", to: 4 }
+        ]
+      },
+      3: {
+        zone: "Summoning Chamber",
+        title: "Bound Dust Mephits",
+        text: "A cracked brass binding circle hums on the floor, releasing swirling desert-fire elementals left behind from Raganni's final experiments!",
+        enemy: { name: "Bound Desert Mephits", desc: "Cackling creatures of salt-wind and ember.", hp: 34, ac: 13, atk: 6, dmg: 6, xp: 85, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 2 },
+        choices: [
+          { t: "Claim Raganni's crystal-capped Prism Staff from the workbench and climb higher.", to: 5, onChoose: { items: ["bq_raganni_prism_staff"], msg: "Claimed Raganni's Prism Staff!" } }
+        ]
+      },
+      4: {
+        zone: "The Indoor Garden",
+        title: "Oasis of Illusions",
+        text: "Enchanted sunlight illuminates palm fronds and a clear basin of restorative desert spring water. A carved tablet warns that Raganni's lover, Asenath, has already entered the upper sanctum with his corpse!",
+        onEnter: { healHp: 12, restoreMp: 4, cw: "ASENATH_WARNED", msg: "Refreshed by the oasis basin (+12 HP, +4 MP) and learned of Asenath's ritual!" },
+        choices: [
+          { t: "Ascend to Raganni's Trophy & Treasure Rooms.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Treasure & Crafting Rooms",
+        title: "Spools of Gold Thread",
+        text: "Silk tapestries, gilded astrolabes, and a dozen spools of spun gold and silver thread glitter behind a shimmering curtain of force.",
+        choices: [
+          { t: "Unravel the containment rune to raid the vault.", badge: "Arcana / Lockpicking DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 6, fail: 6, failDmg: 5, passMsg: "The curtain drops—you pocket 85 GP in desert gold!", failMsg: "Feedback sparks burn your hands (-5 HP) before the barrier fades." }, onPass: { gold: 85 } },
+          { t: "Bypass the vault and hurry straight to Raganni's Bedchamber!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Antechamber",
+        title: "Asenath's Temple Guard",
+        text: "Gold-masked catfolk zealots loyal to the Bastet priestess bar the stairs to the pinnacle, flashing curved khopeshes!",
+        enemy: { name: "Bastet Temple Zealots", desc: "Lithe desert warriors protecting Asenath's ritual.", hp: 38, ac: 14, atk: 6, dmg: 6, xp: 95, gold: 55, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 5 },
+        choices: [
+          { t: "Burst into Raganni's Bedchamber at the peak of the redoubt!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Raganni's Bedchamber",
+        title: "The Soul-Binding Ritual",
+        text: "In the apex chamber, Bastet priestess Asenath chants over Raganni's preserved corpse, black soul-fire spiraling toward his eyes! 'You will not steal him from me a second time!' she cries, summoning necrotic desert winds!",
+        enemy: { name: "Asenath & Risen Raganni", desc: "Grief-mad Bastet priestess and the half-awakened archmage.", hp: 46, ac: 14, atk: 7, dmg: 7, undead: true, xp: 145, gold: 100, items: rollRandomLoot(["weapon", "accessory", "armor"], 1, "rare"), weakCw: ["ASENATH_WARNED"] },
+        choices: [
+          { t: "Shatter the soul-binding urn so Raganni may finally rest.", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Tower Pinnacle",
+        title: "Silence Over the Salt",
+        text: "The obsidian urn bursts into harmless sand. As the necromantic storm fades, Raganni's spirit bows once in quiet gratitude before dissolving into the desert sky.",
+        choices: [
+          { t: "Depart the Kephani Salt Flats with the tower's arcane lore.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Epilogue",
+        title: "Secrets of the Redoubt",
+        text: "Caravan scholars in Oakhaven pay handsomely for your charts of the Kephani Salt Flats and Raganni's surviving research notes.",
+        ending: { type: "true", title: "Master of Raganni's Redoubt", xp: 175, gold: 165, trophy: "Obsidian Triangle Seal" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 5. RUINS OF GRIMSPIRE (9 PAGES • LV 5)
+  // ==========================================================
+  bk_pt_05_grimspire: {
+    id: "bk_pt_05_grimspire",
+    title: "Ruins of Grimspire",
+    subtitle: "12 Peculiar Towers • Ethereal Gate & Phase Spider Nest",
+    difficulty: "Hard",
+    recommendedLevel: 5,
+    autoDiscover: true,
+    discoverySource: "Shepherds of Therun's Vale (Oakhaven Outskirts)",
+    summary: "Ascend the cliffside ruins of Grimspire, step through its reawakened Ethereal Gate into a floating mist-tower, and confront the Phase Spider Matriarch hunting Therun's Vale.",
+    totalPages: 9,
+    pages: {
+      1: {
+        zone: "Therun's Vale Cliff",
+        title: "The Crumbling Landmark",
+        safeRetreat: true,
+        text: "Crowning a sheer crag above Therun's Vale, Grimspire has stood empty for centuries—until livestock and travelers began vanishing in shimmering silver mists. Thick, pearlescent webs now drape its broken archway.",
+        choices: [
+          { t: "Study the silver webbing for ethereal residue.", badge: "Arcana / Survival DC 12", check: { stat: "arcana", skill: "Survival", dc: 12, pass: 2, fail: 2, passMsg: "Phase spiders! Their venom strikes from the Ethereal Plane—you ready your reflexes.", failMsg: "The eerie silk resists your blade but reveals little." }, onPass: { cw: "SPIDER_LORE", msg: "Gained SPIDER_LORE (+edge against the brood)!" } },
+          { t: "Cut through the curtains of silk and enter the Ground Level.", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Ground & First Floor",
+        title: "Flickering Ambush",
+        text: "Halfway up the crumbling stone steps, the air ripples like heat-haze—two pale, eight-eyed Phase Spiders materialize out of nowhere, fangs dripping paralytic venom!",
+        enemy: { name: "Grimspire Phase Spiders", desc: "Planar arachnids flickering between realms.", hp: 40, ac: 14, atk: 6, dmg: 7, xp: 100, gold: 40, items: rollRandomLoot(["material", "consumable"], 1, "rare"), flee: 1 },
+        choices: [
+          { t: "Climb past the collapsed Second Floor to the Ethereal Gate.", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Third Floor",
+        title: "The Shimmering Gate",
+        text: "Where the tower roof once stood, an archway of swirling violet mist hovers above a ring of debris. Buried half in silk beside it gleams a silvered sabre attuned to the planar rift!",
+        onEnter: { items: ["bq_ethereal_fang_blade"], msg: "Recovered the Phase-Fang Sabre from the webs!" },
+        choices: [
+          { t: "Step through the Ethereal Gate into the floating mirror-tower!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Ethereal Tower • Fourth Level",
+        title: "Adrift in Silver Mist",
+        text: "You emerge inside an intact twin of Grimspire floating in endless grey fog! Gravity feels faintly buoyant as spectral wisps drift past glassless windows.",
+        choices: [
+          { t: "Search the silk-draped chest buried in the alcove.", badge: "Perception / Lockpicking DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 5, fail: 5, failDmg: 6, passMsg: "You pull free 75 GP and a healing draught without waking the hatchlings!", failMsg: "Biting spiderlings swarm your hands (-6 HP)!" }, onPass: { gold: 75, healHp: 10 } },
+          { t: "Descend carefully toward the pulsing egg-chamber below.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Ethereal Tower • Third Level",
+        title: "Hunters in the Fog",
+        text: "Three oversized Phase Spider Hunters drop from the ceiling rafters on invisible strands of ethereal silk!",
+        enemy: { name: "Ethereal Brood Hunters", desc: "Fierce guardians of the matriarch's lair.", hp: 44, ac: 14, atk: 7, dmg: 7, xp: 115, gold: 50, items: rollRandomLoot(["material", "valuable"], 1, "rare"), flee: 4 },
+        choices: [
+          { t: "Descend to the Second Level where the air hums with planar energy.", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Ethereal Tower • Second Level",
+        title: "The Planar Anchor",
+        text: "A cracked crystal obelisk anchors the Ethereal Gate open. If you stabilize or reverse its runes, you can seal the rift once the Matriarch falls!",
+        choices: [
+          { t: "Attune the obelisk to weaken ethereal phasing in the chamber below.", badge: "Arcana DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 7, fail: 7, failDmg: 5, passMsg: "Golden ripples ground the spiders' planar shift!", failMsg: "A feedback pulse numbs your arms (-5 HP)!" }, onPass: { cw: "ANCHOR_TUNED", msg: "Tuned the Planar Anchor!" } },
+          { t: "Drop straight down into the First Level Egg-Sanctum.", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Ethereal Tower • First Level",
+        title: "The Phase Spider Matriarch",
+        text: "Towering over glowing clusters of translucent eggs, the colossal Phase Spider Matriarch shrieks like rending silk! Her chitin shimmers between flesh and mist as she lunges!",
+        enemy: { name: "Phase Spider Matriarch", desc: "Colossal planar arachnid queen defending her clutch.", hp: 54, ac: 15, atk: 7, dmg: 8, xp: 165, gold: 110, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["SPIDER_LORE", "ANCHOR_TUNED"] },
+        choices: [
+          { t: "Destroy the rift crystal and sprint back through the closing Ethereal Gate!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Grimspire Summit",
+        title: "The Mist Collapses",
+        text: "You dive back onto the stone flagstones of Therun's Vale just as the violet archway implodes with a thunderclap, severing the Ethereal Tower from the mortal cliffs forever.",
+        choices: [
+          { t: "Descend to Therun's Vale to report the victory.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Epilogue",
+        title: "Peace in Therun's Vale",
+        text: "The grateful villagers pool coins and heirlooms in celebration—Grimspire stands silent once more above safe pastures.",
+        ending: { type: "true", title: "Bane of the Ethereal Brood", xp: 205, gold: 190, trophy: "Phase-Crystal Prism" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 6. RESPITE AT ROUGH RUN (8 PAGES • LV 6)
+  // ==========================================================
+  bk_pt_06_rough_run: {
+    id: "bk_pt_06_rough_run",
+    title: "Respite at Rough Run",
+    subtitle: "12 Peculiar Towers • River Fortress of the Marauder Twins",
+    difficulty: "Hard",
+    recommendedLevel: 6,
+    autoDiscover: true,
+    discoverySource: "Riverfolk Council (Oakhaven Market)",
+    summary: "While local militia stage a diversion at the marauders' river dam, infiltrate the heavily trapped island tower in the Rough Run rapids and topple the twin warlords within.",
+    totalPages: 8,
+    pages: {
+      1: {
+        zone: "The Rough Run Rapids",
+        title: "Island in the Whitewater",
+        safeRetreat: true,
+        text: "Horn-blasts echo downstream—the locals' diversion at the dam has begun! Perched on a slick crag mid-river stands the marauders' fortified tower. You lash a grapnel across the foaming rapids and haul yourself onto the stone quay.",
+        choices: [
+          { t: "Cross the slick narrow causeway with careful balance.", badge: "Agility / Athletics DC 13", check: { stat: "agility", skill: "Athletics", dc: 13, pass: 2, fail: 2, failDmg: 6, passMsg: "You vault onto the landing dry-shod!", failMsg: "Spray slams you against the rocks (-6 HP) before you climb ashore!" } },
+          { t: "Study the iron entrance sluice for mechanical triggers.", badge: "Perception DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 2, fail: 2, passMsg: "You spot pressure-plate grooves leading into the Hall of a Hundred Spears!", failMsg: "The roar of the river drowns out any mechanical clicks." }, onPass: { cw: "SPEAR_TRAP_SPOTTED", msg: "Spotted the pressure plates in advance!" } }
+        ]
+      },
+      2: {
+        zone: "Hall of a Hundred Spears",
+        title: "The Skewer Corridor",
+        text: "Iron-tipped spears jut from concealed wall slots the length of the ground hall, guarding the spiral stair. Marauder crossbowmen take aim from an overhead gallery!",
+        enemy: { name: "Rough Run Tower Guards", desc: "Hardened river-bandit veterans.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 120, gold: 55, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1 },
+        choices: [
+          { t: "Weave past the spear-ports into the Defensive Maze above.", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Defensive Maze",
+        title: "Murder-Holes & False Doors",
+        text: "The second floor is a claustrophobic stone labyrinth studded with murder-holes and jammed iron doors designed to bleed intruders dry.",
+        choices: [
+          { t: "Track the fresh boot-scuffs through the true corridor.", badge: "Survival / Perception DC 13", check: { stat: "spirit", skill: "Survival", dc: 13, pass: 4, fail: 4, failDmg: 7, passMsg: "You bypass three dead-end bolt traps cleanly!", failMsg: "A spring-loaded bolt grazes your ribs (-7 HP) before you find the stair!" } },
+          { t: "Smash straight through a weakened timber partition.", badge: "Might DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 4, fail: 4, failDmg: 6, passMsg: "Splinters fly—you cut straight to the third floor!", failMsg: "The reinforced oak jars your arm (-6 HP) before giving way!" } }
+        ]
+      },
+      4: {
+        zone: "Room of Whirling Death",
+        title: "The Sword Trees",
+        text: "Clockwork iron 'sword trees' bristling with spinning longswords shriek along floor tracks! You must dash between their lethal arcs—or jam their central gearwheel!",
+        choices: [
+          { t: "Time the spinning arcs and dash cleanly to the far stair!", badge: "Agility DC 14", check: { stat: "agility", skill: "Acrobatics", dc: 14, pass: 5, fail: 5, failDmg: 8, passMsg: "You tumble gracefully between the whirling blades unscathed!", failMsg: "A spinning steel edge slashes your shoulder (-8 HP)!" } },
+          { t: "Jam the brass floor track with a fallen spear!", reqCw: "SPEAR_TRAP_SPOTTED", badge: "SPEAR_TRAP_SPOTTED", to: 5, onChoose: { cw: "SWORDS_JAMMED", msg: "The sword trees grind to a screeching halt!" } }
+        ]
+      },
+      5: {
+        zone: "Bedroom of the Twins",
+        title: "The Marauders' Payroll",
+        text: "Plush fur rugs and maps of the dammed river valley fill the twins' lavish quarters. An iron-bound payroll chest sits locked at the foot of the bed.",
+        choices: [
+          { t: "Crack open the payroll chest before confronting the twins on the roof!", badge: "Lockpicking DC 13", check: { stat: "agility", skill: "Lockpicking", dc: 13, pass: 6, fail: 6, failDmg: 5, passMsg: "Popped the lock! Claimed 110 GP and a Rough Run Twin-Blade!", failMsg: "A poison needle snaps (-5 HP), though you still seize the blade!" }, onPass: { gold: 110, items: ["bq_whirling_edge"] }, onFail: { items: ["bq_whirling_edge"] } },
+          { t: "Leave the chest and climb immediately to the Rooftop!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Tower Rooftop",
+        title: "The Marauder Twins",
+        text: "Mist rises from the roaring rapids around the open parapet. Back-to-back stand the notorious Marauder Twins—twin warlords fighting in deadly synchronized rhythm! 'Our dam, our river, our toll!' they roar in unison!",
+        enemy: { name: "The Marauder Twins", desc: "Synchronized twin warlords commanding the Rough Run.", hp: 62, ac: 15, atk: 8, dmg: 9, xp: 190, gold: 130, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["SWORDS_JAMMED"] },
+        choices: [
+          { t: "Light the green signal flare atop the parapet for the riverfolk!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "The Broken Dam",
+        title: "Waters Unleashed",
+        text: "Seeing their warlords' standard topple from the island spire, the marauders guarding the dam throw down their weapons and flee. The riverfolk break the sluice gates, sending fresh water roaring downstream!",
+        choices: [
+          { t: "Return to Oakhaven to accept the Riverfolk Council's reward.", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Epilogue",
+        title: "Freedom of the Rough Run",
+        text: "Barges glide along the restored river once more, and the merchants of the valley hail you as the breaker of the Rough Run tyranny.",
+        ending: { type: "true", title: "Breaker of the Rough Run", xp: 240, gold: 220, trophy: "Twin Warlords' Crest" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 7. SOLANNA BAEL (8 PAGES • LV 7)
+  // ==========================================================
+  bk_pt_07_solanna_bael: {
+    id: "bk_pt_07_solanna_bael",
+    title: "Solanna Bael",
+    subtitle: "12 Peculiar Towers • Ancient Elven Archive Spire",
+    difficulty: "Hard",
+    recommendedLevel: 7,
+    autoDiscover: true,
+    discoverySource: "Elven Emissary (Guildhall)",
+    summary: "Ascend the alpine elven archive Solanna Bael ('History Guarded by its Makers'), pass its three living trials of battle, knowledge, and schism, and unlock the Vault of Ages.",
+    totalPages: 8,
+    pages: {
+      1: {
+        zone: "Southern Mountain Ridge",
+        title: "History Guarded by its Makers",
+        safeRetreat: true,
+        text: "Above the timberline gleams Solanna Bael—a slender spire of pearlescent elven stone etched with silver constellations. Its archway parts silently at your approach, revealing the first trial chamber.",
+        choices: [
+          { t: "Enter the Chamber of Lost Battles with weapon drawn.", to: 2 },
+          { t: "Bow respectfully to the elven inscriptions before stepping inside.", badge: "Arcana / Lore DC 13", check: { stat: "spirit", skill: "Lore", dc: 13, pass: 2, fail: 2, passMsg: "The archive recognizes your reverence—the wards hum peacefully!", failMsg: "The runes remain cold and watchful." }, onPass: { cw: "ELVEN_RESPECT", msg: "Earned ELVEN_RESPECT within the archive!" } }
+        ]
+      },
+      2: {
+        zone: "Chamber of Lost Battles",
+        title: "The Possessed Pillar",
+        text: "In the center of a frescoed rotunda, a marble statue of an ancient blademaster holds an ornate silver sword point-down upon its palms—the first key to the Vault of Ages. The moment you lift the blade, the stone pillar animates in a swirl of arcane fire!",
+        enemy: { name: "Possessed Elven Pillar", desc: "Animated marble sentinel of the Lost Battles.", hp: 56, ac: 15, atk: 8, dmg: 9, xp: 155, gold: 65, items: ["bq_solanna_keyblade"], flee: 1 },
+        choices: [
+          { t: "Bear the Archive Keyblade upward to the Chamber of Lost Knowledge.", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Chamber of Lost Knowledge",
+        title: "Riddle of the Star-Tomes",
+        text: "Floating crystal lecterns orbit a glowing globe of starlight. A resonant voice asks which pillar sustains an empire when steel fails: Conquest, Gold, or Memory?",
+        choices: [
+          { t: "Answer 'Memory—for without history, a people forget who they are.'", to: 4, onChoose: { cw: "MEMORY_ANSWER", healHp: 12, restoreMp: 5, msg: "The starlight warms you (+12 HP, +5 MP) and unlocks the next seal!" } },
+          { t: "Attempt to force the arcane lock with raw magical energy.", badge: "Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 4, fail: 4, failDmg: 8, passMsg: "Your spell harmonizes with the star-globe!", failMsg: "Starfire lashes back (-8 HP) before the seal yields!" } }
+        ]
+      },
+      4: {
+        zone: "Chamber of Societal Schism",
+        title: "Echoes of the Sundering",
+        text: "Spectral figures of high-elven mages and shadow-cloaked exiles clash endlessly across a mirrored floor! As you cross, two shimmering Echo Wardens turn their spectral spears upon you!",
+        enemy: { name: "Schism Echo Wardens", desc: "Manifested phantoms of ancient elven civil war.", hp: 60, ac: 15, atk: 8, dmg: 9, undead: true, xp: 170, gold: 80, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 3 },
+        choices: [
+          { t: "Insert the Keyblade into the gilded doors of the Vault of Ages.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Threshold of the Vault",
+        title: "The Final Seal",
+        text: "Three concentric rings of star-metal lock the Vault of Ages. Ancient ward-constructs hover beside the threshold, weighing your worthiness.",
+        choices: [
+          { t: "Present the Keyblade and invoke the wisdom of Memory.", reqCw: "MEMORY_ANSWER", badge: "MEMORY_ANSWER", to: 6, onChoose: { cw: "VAULT_BLESSED", msg: "The Vault opens with a chime of silver bells—its guardian weakens!" } },
+          { t: "Turn the Keyblade and prepare to face the Vault Guardian!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Vault of Ages",
+        title: "Keeper of the Archive",
+        text: "Within the domed vault gleam millennia of elven manuscripts, star-charts, and jeweled regalia. Rising from the floor mosaic, a radiant Astral Sentinel raises a halberd of pure starlight for your final trial!",
+        enemy: { name: "Astral Archive Sentinel", desc: "Supreme magical construct guarding Solanna Bael.", hp: 70, ac: 16, atk: 9, dmg: 10, xp: 225, gold: 150, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["ELVEN_RESPECT", "VAULT_BLESSED"] },
+        choices: [
+          { t: "Claim the sealed scrolls of elven heritage from the Vault.", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Vault of Ages",
+        title: "Legacy Reclaimed",
+        text: "The Sentinel kneels and fades into golden motes. You carefully pack the priceless historical codices to return to the elven emissaries waiting in Oakhaven.",
+        choices: [
+          { t: "Descend the mountain spire in triumph.", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Epilogue",
+        title: "Worthy of Solanna Bael",
+        text: "The elven emissary weeps with joy upon receiving the lost histories of Solanna Bael, rewarding you with an enormous purse and eternal renown among the elder folk.",
+        ending: { type: "true", title: "Champion of Solanna Bael", xp: 280, gold: 265, trophy: "Starlight Codex of Solanna" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 8. THE GUILDMASTER'S RETREAT (9 PAGES • LV 8)
+  // ==========================================================
+  bk_pt_08_guildmasters_retreat: {
+    id: "bk_pt_08_guildmasters_retreat",
+    title: "The Guildmaster's Retreat",
+    subtitle: "12 Peculiar Towers • Windward Tower Heist & Showdown",
+    difficulty: "Very Hard",
+    recommendedLevel: 8,
+    autoDiscover: true,
+    discoverySource: "Harbor Magistrate Bounty Notice (Town Square)",
+    summary: "Breach Windward Tower high on the harbor cliffs, outsmart the deadly traps and decoys of thieves' guildmaster Jerron Vaine, and collect the massive bounty on his head.",
+    totalPages: 9,
+    pages: {
+      1: {
+        zone: "Harbor Cliffs",
+        title: "Windward Tower",
+        safeRetreat: true,
+        text: "Perched above crashing surf, Windward Tower is the heavily fortified hideout of master thief Jerron Vaine. Whether to recover stolen heirlooms or claim the city's massive bounty, you stand before its iron-studded Entry Hall.",
+        choices: [
+          { t: "Check the entry lock and floor tiles for poison needles.", badge: "Perception / Lockpicking DC 14", check: { stat: "agility", skill: "Lockpicking", dc: 14, pass: 2, fail: 2, failDmg: 8, passMsg: "Disarmed a spring-dart in the keyhole and slipped inside!", failMsg: "A concealed dart nicks your palm (-8 HP) as the lock clicks open!" } },
+          { t: "Scale the ivy-clad kitchen chimney into the servants' wing.", badge: "Athletics DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 3, fail: 2, failDmg: 7, passMsg: "You drop quietly into the Pantry behind the guards!", failMsg: "A loose stone sends you tumbling back to the entry steps (-7 HP)!" } }
+        ]
+      },
+      2: {
+        zone: "Dining Hall & Parlor",
+        title: "Vaine's Hired Blades",
+        text: "Beneath crystal chandeliers, three cloaked guild assassins rise from the velvet settees, drawing balanced rapiers!",
+        enemy: { name: "Windward Guild Assassins", desc: "Elite thieves' guild bodyguards.", hp: 64, ac: 15, atk: 8, dmg: 9, xp: 175, gold: 85, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1 },
+        choices: [
+          { t: "Search the Parlor bookshelves for a hidden passage.", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Servants' Hall & Secret Room",
+        title: "Behind the Wainscoting",
+        text: "A hollow sconce swings open a narrow maintenance passage bypassing the main stairs! Inside hangs a blueprint showing that Vaine's 'Treasure Room' is a lethal decoy!",
+        onEnter: { cw: "DECOY_KNOWN", gold: 65, msg: "Found Vaine's blueprints (DECOY_KNOWN) and a stash of 65 GP!" },
+        choices: [
+          { t: "Ascend to the Trophy Room and False Treasure Room.", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Trophy Room",
+        title: "Stolen Splendor",
+        text: "Glass cases display royal signets, jeweled daggers, and gilded masks stolen from across the realm. Two clockwork hound-constructs spring to life from the corners!",
+        enemy: { name: "Clockwork Vault Hounds", desc: "Whirring brass-and-steel guard constructs.", hp: 66, ac: 16, atk: 9, dmg: 9, xp: 185, gold: 90, items: rollRandomLoot(["material", "valuable"], 1, "very_rare"), flee: 3 },
+        choices: [
+          { t: "Ignore the trapped False Treasure Room and open the true secret vault!", reqCw: "DECOY_KNOWN", badge: "DECOY_KNOWN", to: 5 },
+          { t: "Test the gleaming gilded door marked with Vaine's crest.", to: 6 }
+        ]
+      },
+      5: {
+        zone: "True Secret Room",
+        title: "Vaine's Emergency Stash",
+        text: "Sliding aside a mirrored panel in Vaine's bathroom reveals his real escape cache: bags of platinum trade coin, healing draughts, and his prized Shadow Mantle!",
+        onEnter: { gold: 135, healHp: 15, items: ["bq_vaine_shadow_mantle"], msg: "Raided Vaine's true stash (+135 GP, +15 HP, Guildmaster Vaine's Mantle)!" },
+        choices: [
+          { t: "Burst up the stairs onto the Roof before Vaine escapes!", to: 7 }
+        ]
+      },
+      6: {
+        zone: "False Treasure Room",
+        title: "The Gilded Gas Trap",
+        text: "The gilded chest clicks—releasing choking sleeping-gas and a hail of spring-loaded darts! Coughing violently, you dive out through the shattered door toward the rooftop stairs.",
+        onEnter: { dmg: 10, msg: "Caught in Vaine's decoy trap (-10 HP)!" },
+        choices: [
+          { t: "Sprint up to the Roof to cut off Jerron Vaine!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Windward Roof",
+        title: "Duel With the Guildmaster",
+        text: "Salt wind whips across the slate roof where a tethered glider awaits! Jerron Vaine turns with an effortless smirk, twirling twin poisoned stilettos. 'Impressive climb—pity your story ends over the rocks!'",
+        enemy: { name: "Guildmaster Jerron Vaine", desc: "Cunning master thief armed with poisoned twin blades.", hp: 78, ac: 16, atk: 10, dmg: 10, xp: 255, gold: 180, items: rollRandomLoot(["weapon", "accessory", "cloak"], 1, "very_rare"), weakCw: ["DECOY_KNOWN"] },
+        choices: [
+          { t: "Bind Vaine in iron cuffs and signal the harbor watch.", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Harbor Watch",
+        title: "Justice on the Cliffs",
+        text: "Lanterns bob up the cliff road as the Harbor Magistrate's guards arrive to take the notorious guildmaster into custody.",
+        choices: [
+          { t: "Collect the full magistrate's bounty!", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Epilogue",
+        title: "Fall of the Guildmaster",
+        text: "With Jerron Vaine captured alive and his stolen hoards accounted for, the harbor merchants toast your cunning and pay out a legendary reward.",
+        ending: { type: "true", title: "Bane of Windward Tower", xp: 315, gold: 310, trophy: "Vaine's Master Skeleton Key" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 9. SPIRE OF THE SUN GOD (9 PAGES • LV 9)
+  // ==========================================================
+  bk_pt_09_spire_sun_god: {
+    id: "bk_pt_09_spire_sun_god",
+    title: "Spire of the Sun God",
+    subtitle: "12 Peculiar Towers • Sealed Temple of Divine Trials",
+    difficulty: "Very Hard",
+    recommendedLevel: 9,
+    autoDiscover: true,
+    discoverySource: "High Priest of the Dawn (Temple of the Dawn)",
+    summary: "Enter the centuries-sealed Spire of the Sun God, prove your virtue in the Tests of the Saints and Light, and purge the Gilded Apostate imprisoned at its summit.",
+    totalPages: 9,
+    pages: {
+      1: {
+        zone: "Sun-Bleached Courtyard",
+        title: "The Unsealed Spire",
+        safeRetreat: true,
+        text: "For centuries the golden Spire of the Sun God stood sealed by divine wrath after evil overran its decadent clergy. Guided by fresh omens, the High Priest has entrusted you to pass the spire's sacred trials and cleanse any lingering taint.",
+        choices: [
+          { t: "Step reverently into the Entry Hall and Sacristy.", to: 2 },
+          { t: "Offer a brief prayer at the sun-dial threshold.", badge: "Spirit DC 13", check: { stat: "spirit", skill: "Lore", dc: 13, pass: 2, fail: 2, passMsg: "Warm golden radiance blesses your armor (+10 HP)!", failMsg: "The sun-dial remains silent." }, onPass: { healHp: 10, cw: "SUN_FAVOR", msg: "Received SUN_FAVOR!" } }
+        ]
+      },
+      2: {
+        zone: "Sacristy & Vestry",
+        title: "Ashes of the Corrupt",
+        text: "Tarnished thuribles and scorched vestments litter the Sacristy. Wreathed in dark smoke, ash-wraiths of the fallen invaders rise to bar the Sanctuary doors!",
+        enemy: { name: "Cinder-Wraith Invaders", desc: "Scorched undead remnants of the spire's desecrators.", hp: 72, ac: 16, atk: 9, dmg: 10, undead: true, xp: 205, gold: 95, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1 },
+        choices: [
+          { t: "Pass through the Sanctuary to the Test of the Saints.", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Test of the Saints",
+        title: "Sword, Stone, and Pitcher",
+        text: "Three marble pedestals bear a steel sword, a rough hearthstone, and a silver water pitcher before a statue of a kneeling pilgrim. The inscription reads: 'What first restores the weary traveler in the desert?'",
+        choices: [
+          { t: "Place the silver pitcher into the pilgrim's outstretched hands.", to: 4, onChoose: { cw: "SAINTS_PASSED", healHp: 14, msg: "Pure light bathes the chamber (+14 HP)—the Test of the Saints is passed!" } },
+          { t: "Place the sword in the statue's hands.", to: 4, onChoose: { dmg: 9, msg: "Radiant fire rebukes your pride (-9 HP), though the stair opens!" } }
+        ]
+      },
+      4: {
+        zone: "Test of Light",
+        title: "Hall of Mirrors",
+        text: "Blinding shafts of focused sunlight crisscross a circular gallery. Shadow-fiends lurking in the dark alcoves lunge whenever a beam shifts!",
+        enemy: { name: "Eclipse Shadow-Fiends", desc: "Darkness-born creatures trapped between sunbeams.", hp: 76, ac: 16, atk: 10, dmg: 10, undead: true, xp: 215, gold: 105, items: rollRandomLoot(["material", "valuable"], 1, "very_rare"), flee: 3 },
+        choices: [
+          { t: "Align the central prism mirror to illuminate the upper shrine.", badge: "Spirit / Arcana DC 14", check: { stat: "spirit", skill: "Perception", dc: 14, pass: 5, fail: 5, failDmg: 7, passMsg: "Golden light floods the upper chamber—the Sun God's Boons open!", failMsg: "A stray beam sears your cloak (-7 HP) before clicking into place!" }, onPass: { cw: "LIGHT_ALIGNED" } }
+        ]
+      },
+      5: {
+        zone: "Sun God's Boons",
+        title: "Chamber of Radiance",
+        text: "A floating solar orb warms the gilded sanctuary, offering divine restoration and an ancient relic medallion to the faithful before the final ascent.",
+        onEnter: { healHp: 20, restoreMp: 8, items: ["bq_sun_god_thurible"], msg: "Blessed by the Sun God (+20 HP, +8 MP) and claimed the Gilded Sun-Spire Medallion!" },
+        choices: [
+          { t: "Unseal the Prison of the Gilded Apostate at the spire's crown!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Prison of the Gilded Apostate",
+        title: "The Fallen High Cleric",
+        text: "Chained in melted gold within the domed apex stands the Gilded Apostate—the treacherous priest who first opened the spire to darkness! Breaking free in a roar of profane flame, he raises a blackened sun-mace!",
+        enemy: { name: "The Gilded Apostate", desc: "Cursed fallen arch-priest clad in molten gold.", hp: 90, ac: 17, atk: 11, dmg: 12, undead: true, xp: 295, gold: 210, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["SUN_FAVOR", "SAINTS_PASSED", "LIGHT_ALIGNED"] },
+        choices: [
+          { t: "Consecrate the apex altar with the purified solar flame.", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Spire Crown",
+        title: "Dawn Reborn",
+        text: "A pillar of golden morning light pierces the clouds above the spire, visible for leagues around. The ancient curse is broken at last.",
+        choices: [
+          { t: "Descend to report the reconsecration to the Temple of the Dawn.", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Temple of the Dawn",
+        title: "Bells of Triumph",
+        text: "Every bell in Oakhaven tolls in celebration as the clergy proclaim the Spire of the Sun God reclaimed.",
+        choices: [
+          { t: "Accept the High Priest's solemn blessing and reward.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Epilogue",
+        title: "Herald of the Sun Spire",
+        text: "Your name is inscribed in gold upon the temple pillars, and the faithful shower you with consecrated coin and relics.",
+        ending: { type: "true", title: "Purifier of the Sun Spire", xp: 365, gold: 350, trophy: "Crown of Solar Radiance" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 10. STORMCALLER'S TOWER (9 PAGES • LV 10)
+  // ==========================================================
+  bk_pt_10_stormcallers_tower: {
+    id: "bk_pt_10_stormcallers_tower",
+    title: "Stormcaller's Tower",
+    subtitle: "12 Peculiar Towers • Lightning-Crowned Mountain Spire",
+    difficulty: "Deadly",
+    recommendedLevel: 10,
+    autoDiscover: true,
+    discoverySource: "Desperate Border Lord (Oakhaven Guildhall)",
+    summary: "Climb the lightning-lashed mountain pinnacle of the Storm God's fanatics, survive the Hall of Coronas and Cascading Energy, and end the devastating tempest in the Cathedral of the Tempest.",
+    totalPages: 9,
+    pages: {
+      1: {
+        zone: "Thunderhead Peak",
+        title: "Spikes of Burning Sky",
+        safeRetreat: true,
+        text: "Black thunderheads churn around a jagged iron-spiked tower perched on the mountain crest. Every few seconds, blinding spears of lightning strike the crown and course down copper conduits into the stone! Below in the valley, unnatural hurricanes threaten to wipe out an entire settlement.",
+        choices: [
+          { t: "Dash across the charged bridge between lightning strikes!", badge: "Agility DC 15", check: { stat: "agility", skill: "Acrobatics", dc: 15, pass: 2, fail: 2, failDmg: 10, passMsg: "You dive through the bronze doors just ahead of a thunderbolt!", failMsg: "Arcing static scorches your armor (-10 HP) as you burst inside!" } },
+          { t: "Ground your gear with a copper chain before entering.", badge: "Arcana / Survival DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 2, fail: 2, passMsg: "Your makeshift grounding tether wards off stray arcs!", failMsg: "The gale snaps the chain before you cross." }, onPass: { cw: "STORM_GROUNDED", msg: "Gained STORM_GROUNDED protection!" } }
+        ]
+      },
+      2: {
+        zone: "Entry Hall & Antechamber",
+        title: "Disciples of the Gale",
+        text: "Ozone fills the air as armored Stormcaller Zealots chant around crackling iron braziers, hurling javelins of thunder at intruders!",
+        enemy: { name: "Stormcaller Temple Guards", desc: "Lightning-infused warrior-priests of the Storm God.", hp: 82, ac: 16, atk: 10, dmg: 11, xp: 240, gold: 115, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1 },
+        choices: [
+          { t: "Ascend into the crackling Hall of Coronas.", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Hall of Coronas",
+        title: "Orbs of St. Elmo's Fire",
+        text: "Floating spheres of blue plasma drift between copper pillars, coalescing into twin Air Elementals roaring with thunder!",
+        enemy: { name: "Tempest Lightning Elementals", desc: "Living cyclones crackling with mountain thunder.", hp: 86, ac: 17, atk: 11, dmg: 11, xp: 255, gold: 120, items: rollRandomLoot(["material", "valuable"], 1, "very_rare"), flee: 2 },
+        choices: [
+          { t: "Enter the humming Surge Room.", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Surge Room",
+        title: "The Copper Capacitors",
+        text: "Massive copper coils store the mountain's fury to power the storm-ritual above. Disabling a primary shunt will drain power from the High Stormcaller's cathedral!",
+        choices: [
+          { t: "Overload the copper shunt valve carefully!", badge: "Arcana / Lockpicking DC 15", check: { stat: "arcana", skill: "Arcana", dc: 15, pass: 5, fail: 5, failDmg: 10, passMsg: "Sparks shower harmlessly as half the coils go dark!", failMsg: "A violent surge blasts you backward (-10 HP), though the coil cracks!" }, onPass: { cw: "COILS_DRAINED", msg: "Drained the Surge Room capacitors!" } },
+          { t: "Climb straight up to the Hall of Cascading Energy.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Hall of Cascading Energy",
+        title: "Treasury of the Tempest",
+        text: "Crackling waterfalls of lightning frame an alcove holding the cult's tribute: electrum bracers, opal jewels, and a gleaming Winged Helm chased in gold!",
+        onEnter: { gold: 150, items: ["bq_tempest_winged_helm"], healHp: 15, msg: "Claimed 150 GP, the Stormcaller's Winged Helm, and caught your breath (+15 HP)!" },
+        choices: [
+          { t: "Throw open the bronze doors to the Cathedral of the Tempest!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Cathedral of the Tempest",
+        title: "Wrath of the High Stormcaller",
+        text: "Open to the raging sky beneath a forest of glowing iron spires, the Cathedral of the Tempest roars like a waterfall. Floating amid blue lightning, the High Stormcaller raises his storm-staff: 'No mortal defies the Thunder Lord! Perish in the gale!'",
+        enemy: { name: "High Stormcaller of the Peak", desc: "Master tempest-cleric channeling the mountain hurricane.", hp: 104, ac: 17, atk: 12, dmg: 13, xp: 345, gold: 250, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["STORM_GROUNDED", "COILS_DRAINED"] },
+        choices: [
+          { t: "Shatter the central lightning-conduit spire!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Cathedral of the Tempest",
+        title: "The Sky Clears",
+        text: "With a deafening crack, the central iron conduit splits apart. The black thunderheads uncoil into silver mist, and golden sunlight breaks across the valley far below!",
+        choices: [
+          { t: "Descend the quiet mountain peak.", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Valley Keep",
+        title: "Gratitude of the Valley",
+        text: "Townsfolk emerge from storm-cellars cheering as the unnatural hurricane vanishes. The grateful border lord empties his war-chest in tribute to your heroism.",
+        choices: [
+          { t: "Claim your legendary reward and return to Oakhaven.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Epilogue",
+        title: "Conqueror of the Tempest",
+        text: "Bards across Oakhaven sing of the hero who climbed into the lightning itself and silenced the Stormcaller's Tower.",
+        ending: { type: "true", title: "Tempest-Breaker of the Peak", xp: 420, gold: 410, trophy: "Electrum Lightning Crown" },
+        choices: []
+      }
+    }
+  }
+});

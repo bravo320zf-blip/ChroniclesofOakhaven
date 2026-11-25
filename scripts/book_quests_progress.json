@@ -1,0 +1,873 @@
+{
+  "batchCount": 1,
+  "totalQuestsAdded": 10,
+  "pdfs": {
+    "Books\\Kobold Press\\12 Peculiar Towers\\12 Peculiar Towers Map Pack\\12 Peculiar Towers.pdf": {
+      "status": "skipped_no_quests",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\12 Peculiar Towers\\12 Peculiar Towers.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\A Raven's Call (1)\\Raven's-Call-5e.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\A Raven's Call (2)\\Raven's-Call-5e.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\A Raven's Call (3)\\Raven's-Call-5e.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Adventures of Dib TOV\\Adventures-of-Dib-ToV-FINAL-vud8zy.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\An Enigma Lost in a Maze\\An Enigma Lost in a Maze.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Beyond Damage Dice\\Beyond Damage Dice 2.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Beyond Damage Dice\\Beyond Damage Dice.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Blood Vaults of Sister Alkava\\Blood Vaults of Sister Alkava for  5th Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Book of Ebon Tides\\Book of Ebon Tides.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Book of Lairs\\Book of Lairs - Revised.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Book of Lairs\\Book of Lairs Map Pack.pdf": {
+      "status": "skipped_no_quests",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Campaign Builder Cities and Towns for 5th Edition\\Campaign Builder Cities and Towns for 5th Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Cat & Mouse\\Cat & Mouse.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Caverns of the Spore Lord\\Caverns-of-the-Spore-Lord-FINAL-zismpm.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\City of Cats\\City-of-Cats-5E-v2-iwuuqa_61242759bfe4d.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Courts of the Shadow Fey\\Courts of the Shadow Fey.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Creature Codex\\Creature Codex.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Creature-Codex-Lairs\\Creature Codex - Lairs.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Creature-Codex-Lairs\\Finished Creature Codex Lairs Adventures\\Lair of the Fire Cult\\Creature Codex - Lairs - Lair of the Fire Cult (1).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Creature-Codex-Lairs\\Finished Creature Codex Lairs Adventures\\Lair of the Fire Cult\\Creature Codex - Lairs - Lair of the Fire Cult (2).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Creature-Codex-Lairs\\Finished Creature Codex Lairs Adventures\\Lair of the Fire Cult\\Creature Codex - Lairs - Lair of the Fire Cult (3).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Creature-Codex-Lairs\\Finished Creature Codex Lairs Adventures\\Lair of the Fire Cult\\Creature Codex - Lairs - Lair of the Fire Cult.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic 1\\Deep+Magic+Vol+1_Final+092823.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic 2\\Deep+Magic+2+Vol+2_Final+092823.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic Theurge\\Deep-Magic-Theurge-khd9pi.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 1 Clockwork.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 10 Shadow Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 11 Elven High Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 12 Blood and Doom.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 13 Dragon Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 14 Elemental Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 15 Hieroglyphic Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 16 Time Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 17 Mythos Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 18 Combat Divination.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 19 Winter Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 2 Rune Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 20 Alkemancy.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 3 Void Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 4 Illumination Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 5 Ley Lines.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 6 Angelic Seals.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 7 Chaos Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 8 Battle Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep Magic 9 Ring Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Deep-Magic-5E-Final-ctrk3q_5f1a5685dac7c.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Deep Magic\\Midgard Magic-Ley Lines Final.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Demon Cults & Secret Societies\\Demon Cults & Secret Societies.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Dungeon Tables\\Dungeon-Tables-Final-qvzdh2.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Eldritch Lairs\\Eldritch Lairs.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Empire of Ghouls\\Kobold Press - Empire of Ghouls.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Frozen Castle\\Frozen Castle.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Gem Dragons of Faerun\\Gem Dragons of Faerun.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Genies Great and Small - 21 New Genies of Zakhara\\Genies Great and Small - 21 New Genies of Zakhara.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Grimalkin\\Grimalkin-5E.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Guide to the Labyrinth\\Guide-to-the-Labyrinth-FINAL-1eyeli.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Hidden Tomb of Nargoth\\Hidden-Tomb-of-Nargoth_Final-xwyssb.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Items Wondrous Strange\\Items Wondrous Strange.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Board Game Design\\Kobold Guide to Board Game Design.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Combat\\Kobold Guide to Combat.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Game Design 1 - Adventures\\Kobold Guide to Game Design 1 - Adventures.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Game Design 2 - Pitch Playtest and Publish\\Kobold Guide to Game Design 2 - Pitch Playtest and Publish.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Game Design 3 - Tools and Techniques\\Kobold Guide to Game Design 3 - Tools and Techniques.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Game Design\\Kobold Press - Complete Kobold Guide to Game Design.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Gamemastering\\Kobold Guide to Gamemastering.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Magic\\Kobold Guide to Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Worldbuilding\\Dowloaded 2-18-2023\\Kobold Guide to Worldbuilding.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Kobold Guide to Worldbuilding\\Kobold Guide to Worldbuilding.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Last Gasp\\Last Gasp.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Midgard Heroes Handbook\\Midgard Heroes Handbook.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Midgard Heroes\\Midgard Heroes.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Midgard Sagas\\Midgard Sagas.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Midgard World Book\\Midgard World Book.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Monster Books\\Creature Codex.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Monster Books\\Tome of Beasts 2 Lairs.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Monster Books\\Tome of Beasts 2.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Monster Books\\Tome of Beasts.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Prepared! (2)\\Prepared! A Dozen Adventures for Fifth Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Prepared!\\Prepared! A Dozen Adventures for Fifth Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Prepared2\\Ooze Tomb of the Oathbreaker\\Ooze Tomb of the Oathbreaker Adventure.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Prepared2\\Prepared-2-Final-with-Player-Maps_5ef8d66a2ee0b.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Raven's Call (1)\\Raven's-Call-5e.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Raven's Call (2)\\Raven's-Call-5e.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Rogues of Remballo\\Rogues of Remballo.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Sanctuary of Belches\\Sanctuary of Belches for 5th Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Scarlet Citadel\\Scarlet-Citadel-5E_pdf_optimized-2aolig_60cfe3d1ac441.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Sea of Bones\\Sea-of-Bones-FINAL-gjsdxx.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Shadows of the Dusk Queen\\Shadows of the Dusk Queen.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Southlands Heroes\\Southlands Heroes.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Southlands Player Guide\\Southlands-Players-Guide-5E-v2-dzhhuz_6124275773ec8.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Southlands World Book\\Southlands World Map.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Southlands World Book\\Southlands-Worldbook-Hardcover-FINAL-v2-gvbsvj_612427554e6ff.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Streets of Zobeck\\Streets of Zobeck.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\TOH Playtest\\ToH Playtest Material Phase1 - Feats.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\TOH Playtest\\ToH Playtest Material Phase1 - Weapon Options.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tales from the Shadows\\Tales from the Shadows.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tales from the Wastes\\Tales-from-the-Wastes-7fthr6.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tales of Valiant\\ToV+Alpha+Release+FINAL.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tales of the Old Margreve - Player's Guide\\Tales of the Old Margreve - Player's Guide.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tales of the Old Margreve\\Tales of the Old Margreve [5e].pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tales of the Valiant\\ToV-Monster-Vault.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tales of the Valiant\\ToV-Players-Guide.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\The Tomb of Mercy\\The Tomb of Mercy.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tomb of Tiberesh\\Tomb of Tiberesh.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tome of Beasts 2 Lairs\\The Twisted Wreath\\The Twisted Wreath.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tome of Beasts 2 Lairs\\Tome of Beasts 2 Lairs.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tome of Beasts 2\\Tome of Beasts 2.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tome of Beasts 3 Lairs\\Tome of Beasts 3 Lairs for 5th Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tome of Beasts 3\\Tome of Beasts 3 for 5th Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tome of Beasts\\Tome of Beasts.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Tome of Heroes\\Tome-of-Heroes_Final_053122-iguodn_62bd2571d99b5.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Trouble at Mossbeard Mill\\Trouble-at-Mossbeard-Mill-FINAL-35ffht.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Underworld - Players Guide\\Kobold Press - Underworld - Players Guide.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Underworld Lairs\\Kobold Press - Underworld Lairs.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Unlikely Heroes\\Unlikely Heroes.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Vault of Magic\\Vault_of_Magic_for_5th_Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #01 - The Clattering Keep v2.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #02 - Pride of Illyria.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #03 - Spelldrinker's Cavern.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #04 - Red Lenny\u2019s Famous Meat Pies.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #05 - The Seal of Rhydaas.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #06 - A Night at the Seven Steeds.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #07 - The Bagiennik Game.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #08 - The Lost Temple of Anax Apogeion (1).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #08 - The Lost Temple of Anax Apogeion (2).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #08 - The Lost Temple of Anax Apogeion (3).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #08 - The Lost Temple of Anax Apogeion.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #09 - The Returners' Tower (1).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #09 - The Returners' Tower (2).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #09 - The Returners' Tower (3).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #09 - The Returners' Tower.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #10 - Firefalls of Ghoss.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #11 - Rune Crypt of Sianis.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #12 - The Scorpion's Shadow.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #13 - Bastion Of Rime And Salt.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #14 - The Infernal Salt Pits.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #15 - Ill-Met By Moonlight.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #16 - Lamassu's Secrets.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #17 - Mad Maze Of The Moon Kingdom.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #18 - Storming the Queen\u2019s Desire.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #19 - A Leeward Shore.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #19 A Leeward Shore\\A Leeward Shore\\A_Leeward_Shore.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #19 A Leeward Shore\\A Leeward Shore\\Emailing Warlock Lair #19 - A Leeward Shore.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #20 - Monkey Business.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #21 - Black Sarcophagus.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #22 - Smugglers Run.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #23 - Wrath of the Bramble King.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #24 - Pride of the Mushroom Queen.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #25 - Shadows Envy.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #26 - Skeletons of the Illyrian Fleet.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #27 - The Empty Village v2.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #28 - The Wilding Call.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #29 - The Beacon at the Top of the World.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #30 - Three Little Pigs Part 1.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #31 - Three Little Pigs Part 2.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #32 - Three Little Pigs Part 3.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #33 - Fowl-Play.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #34 - The Sunken Library of Qezzit Qire.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #35 - Rumble in the Henhouse (Fowl Play pt.2).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #36 - Run Like Hell.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #37 - Birds of a Feather (Fowl Play pt.3).pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #38 - Reclamation of Hallowhall.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #39 - The Dark Aerie.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #40 - The Adoration of Quolo.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #41 - Song Undying.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #42 - The Wandering Whelp.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #43 - Out of Phase.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #44 - Raid on the Savage Oasis.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #45 - Lost and Found.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #46 - Terror at Twelve Goats.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #47 - A Drinking Problem.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #48 - Garden of Shade and Shadows.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #49 - Gold and Glory.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #50 - The Light of Memoria.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #51 - Casting the Longest Shadow.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #52 - The White Worg Accord.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #53 - Death of a Mage.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #54 - Legend of Beacon Rock.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #55 - Beneath the Witchwillow.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Lairs\\Warlock Lair #56 - The Glowing Ossuary.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Misc\\Warlock - Guide to the Shadow Realms.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Misc\\Warlock Bestiary.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Misc\\Warlock Grimoire for 5th Edition.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #1 - Midgard & Mythos.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #10 - The Magocracies.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #11 - Treasure Vaults.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #12 - Dwarves.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #13 - War and Battle.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #14 - Clockwork.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #15 - Boss Monsters.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #16 - Eleven Hells.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #17 - Halflings.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #18 - Blood Kingdoms.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #19 - Masters of the Arcane.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #2 - Dread Magic.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #20 - Redtower.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #21 - Legends.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #22 - Druids.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #3 - Undercity.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #4 - The Dragon Empire.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #5 - Rogue's Gallery.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #6 - City of Brass.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #7 - Fey Courts.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #8 - Undead.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Warlock\\Warlocks\\Warlock #9 - The World Tree.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Waste of Chaos\\Wastes-of-Chaos-qwppcm.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Weresheep\\Weresheep.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Wrath of the River King\\Wrath of the River King Map.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Wrath of the River King\\Wrath of the River King.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books\\Kobold Press\\Zobeck Gazetteer\\Zobeck Gazetteer.pdf": {
+      "status": "pending",
+      "convertedTitles": []
+    },
+    "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers.pdf": {
+      "status": "in_progress",
+      "convertedTitles": [
+        "The Old Marblehead Lighthouse",
+        "The Midnight Tree",
+        "Usurper's Tower",
+        "Raganni's Redoubt",
+        "Ruins of Grimspire",
+        "Respite at Rough Run",
+        "Solanna Bael",
+        "The Guildmaster's Retreat",
+        "Spire of the Sun God",
+        "Stormcaller's Tower"
+      ],
+      "remainingTitles": [
+        "Bloodstone Tower",
+        "Court of the Lunar Knight"
+      ]
+    }
+  }
+}
