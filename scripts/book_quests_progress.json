@@ -1,6 +1,6 @@
 {
-  "batchCount": 12,
-  "totalQuestsAdded": 141,
+  "batchCount": 13,
+  "totalQuestsAdded": 154,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -629,8 +629,23 @@
       "reason": "playtest weapon options supplement"
     },
     "Books/Kobold Press/Tales from the Shadows/Tales from the Shadows.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Night Messengers",
+        "Hunters of the Tenebrous Plain",
+        "The Weeper in Shadow",
+        "A Death Among the Pale Roses",
+        "Reflections and Remembrance",
+        "Big Briar's Blessings",
+        "The Lost Treasure of Paletree Rise",
+        "The Horn of Revels",
+        "The Sodality of Silent Rites",
+        "The House of Reciprocities",
+        "Among the Shades and Shadows",
+        "The Time-Twister's Daughter",
+        "Radiance Lost",
+        "Shadows of the Dusk Queen (Batch 012)"
+      ]
     },
     "Books/Kobold Press/Tales from the Wastes/Tales-from-the-Wastes-7fthr6.pdf": {
       "status": "pending",

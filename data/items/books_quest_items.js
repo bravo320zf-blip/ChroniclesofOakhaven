@@ -1269,3 +1269,146 @@ window.OAKHAVEN.registerItems({
     desc: "+3 AC, +2 Arcana, +2 Spirit, +10 Max HP. Warded noble seal gifted after breaking Konrad's plot."
   }
 });
+
+
+window.OAKHAVEN.registerItems({
+  // Batch 013 — Shadow Realm Adventures
+  "bq_night_messenger_pin": {
+    id: "bq_night_messenger_pin",
+    name: "Night Messenger's Silver Clasp",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 90,
+    agility: 1,
+    luck: 1,
+    desc: "+1 Agility, +1 Luck. Swift courier's badge worn on the dark roads to Corremel."
+  },
+  "bq_lethe_memory_locket": {
+    id: "bq_lethe_memory_locket",
+    name: "Locket of Clear Memory",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 115,
+    spirit: 2,
+    maxHp: 4,
+    desc: "+2 Spirit, +4 Max HP. Keeps the mind sharp against the forgetful mists of the Lethe."
+  },
+  "bq_womford_tear_pendant": {
+    id: "bq_womford_tear_pendant",
+    name: "Womford Silver-Tear Pendant",
+    type: "accessory",
+    rarity: "rare",
+    value: 145,
+    ac: 1,
+    spirit: 2,
+    maxMp: 4,
+    desc: "+1 AC, +2 Spirit, +4 Max MP. Cool silver charm purified from the Weeper's chapel."
+  },
+  "bq_pale_rose_rapier": {
+    id: "bq_pale_rose_rapier",
+    name: "Thorn-Blade of Pale Roses",
+    type: "weapon",
+    rarity: "rare",
+    value: 175,
+    atk: 4,
+    agility: 2,
+    desc: "+4 Attack, +2 Agility. Slender silver dueling rapier won in the Court of Pale Roses."
+  },
+  "bq_brightsigh_glass_buckler": {
+    id: "bq_brightsigh_glass_buckler",
+    name: "Brightsigh Mirror Buckler",
+    type: "offhand",
+    rarity: "rare",
+    value: 180,
+    ac: 2,
+    arcana: 1,
+    desc: "+2 AC, +1 Arcana. Enchanted shard-glass shield forged from Brightsigh Tower."
+  },
+  "bq_big_briar_trollstone": {
+    id: "bq_big_briar_trollstone",
+    name: "Purified Leer Trollstone",
+    type: "accessory",
+    rarity: "rare",
+    value: 195,
+    might: 2,
+    maxHp: 10,
+    desc: "+2 Might, +10 Max HP. Heavy moss-carved charm cleansed of Big Briar's curse."
+  },
+  "bq_melgros_vault_circlet": {
+    id: "bq_melgros_vault_circlet",
+    name: "Star-Carved Circlet of Melgros",
+    type: "accessory",
+    rarity: "rare",
+    value: 205,
+    arcana: 2,
+    luck: 1,
+    maxMp: 5,
+    desc: "+2 Arcana, +1 Luck, +5 Max MP. Ancient scholar's band recovered from Paletree Rise."
+  },
+  "bq_horn_of_revels_charm": {
+    id: "bq_horn_of_revels_charm",
+    name: "Gilded Charm of Revelry",
+    type: "accessory",
+    rarity: "rare",
+    value: 230,
+    spirit: 2,
+    luck: 2,
+    desc: "+2 Spirit, +2 Luck. Joyful fey keepsake reclaimed from the Court of Wine and Roses."
+  },
+  "bq_sovereign_circle_ring": {
+    id: "bq_sovereign_circle_ring",
+    name: "Ring of the Sovereign's Circle",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 245,
+    ac: 1,
+    arcana: 2,
+    spirit: 1,
+    desc: "+1 AC, +2 Arcana, +1 Spirit. Frost-etched signet of the old Winter Court."
+  },
+  "bq_urshaka_light_totem": {
+    id: "bq_urshaka_light_totem",
+    name: "Urshaka's Moonlit Bear Totem",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 270,
+    might: 2,
+    spirit: 2,
+    maxHp: 8,
+    desc: "+2 Might, +2 Spirit, +8 Max HP. Sacred druid charm gifted by bearfolk shaman Urshaka."
+  },
+  "bq_pluming_lantern_charm": {
+    id: "bq_pluming_lantern_charm",
+    name: "Pluming Lantern Dream-Vial",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 275,
+    arcana: 2,
+    luck: 2,
+    maxMp: 6,
+    desc: "+2 Arcana, +2 Luck, +6 Max MP. Iridescent memory-charm seized from the Dream-Thieves."
+  },
+  "bq_oshragora_hourglass": {
+    id: "bq_oshragora_hourglass",
+    name: "Oshragoran Silver Hourglass",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 285,
+    agility: 2,
+    arcana: 2,
+    ac: 1,
+    desc: "+2 Agility, +2 Arcana, +1 AC. Chronomantic keepsake from the shattered city of Oshragora."
+  },
+  "bq_sun_king_radiant_crest": {
+    id: "bq_sun_king_radiant_crest",
+    name: "Sun King's Radiant Crest",
+    type: "cloak",
+    rarity: "very_rare",
+    value: 325,
+    ac: 2,
+    spirit: 2,
+    arcana: 2,
+    maxHp: 8,
+    desc: "+2 AC, +2 Spirit, +2 Arcana, +8 Max HP. Mantle woven from the Sun King's rekindled dawn."
+  }
+});
