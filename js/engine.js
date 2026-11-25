@@ -391,7 +391,8 @@
         bombDmgBonus: 0, bombChillTurns: 0,
         spellDmgBonus: 0, spellCostReduce: 0, healBonus: 0,
         critRange: 12, lifesteal: 0, thornsDmg: 0,
-        undeadDmgBonus: 0, bossDmgBonus: 0, goldFindPct: 0
+        undeadDmgBonus: 0, bossDmgBonus: 0, goldFindPct: 0,
+        dmgReduce: 0, mpRegen: 0, skillBonuses: {}
       };
       const unlocked = getUnlockedSubclassAbilities(hero);
       unlocked.forEach(ab => {
@@ -416,7 +417,45 @@
         if (ab.bossDmgBonus) totals.bossDmgBonus += ab.bossDmgBonus;
         if (ab.goldFindPct) totals.goldFindPct += ab.goldFindPct;
       });
+      // Merge passive effects from all equipped items
+      if (hero && hero.equipment) {
+        Object.values(hero.equipment).forEach(itemId => {
+          const it = itemId ? ITEMS_DB[itemId] : null;
+          const p = it && it.passives;
+          if (!p) return;
+          if (p.bombDmgBonus) totals.bombDmgBonus += p.bombDmgBonus;
+          if (p.bombChillTurns) totals.bombChillTurns = Math.max(totals.bombChillTurns, p.bombChillTurns);
+          if (p.spellDmgBonus) totals.spellDmgBonus += p.spellDmgBonus;
+          if (p.spellCostReduce) totals.spellCostReduce += p.spellCostReduce;
+          if (p.healBonus) totals.healBonus += p.healBonus;
+          if (p.critRange && p.critRange < totals.critRange) totals.critRange = p.critRange;
+          if (p.lifesteal) totals.lifesteal += p.lifesteal;
+          if (p.thornsDmg) totals.thornsDmg += p.thornsDmg;
+          if (p.undeadDmgBonus) totals.undeadDmgBonus += p.undeadDmgBonus;
+          if (p.bossDmgBonus) totals.bossDmgBonus += p.bossDmgBonus;
+          if (p.goldFindPct) totals.goldFindPct += p.goldFindPct;
+          if (p.dmgReduce) totals.dmgReduce += p.dmgReduce;
+          if (p.mpRegen) totals.mpRegen += p.mpRegen;
+          if (p.skillBonus) {
+            Object.entries(p.skillBonus).forEach(([sk, val]) => {
+              totals.skillBonuses[sk] = (totals.skillBonuses[sk] || 0) + (val || 0);
+            });
+          }
+        });
+      }
       return totals;
+    }
+
+    function getEquippedItemAbilities(hero = state) {
+      if (!hero || !hero.equipment) return [];
+      const list = [];
+      Object.values(hero.equipment).forEach(itemId => {
+        const it = itemId ? ITEMS_DB[itemId] : null;
+        if (it && it.activeAbility) {
+          list.push({ itemId, itemName: it.name, ab: it.activeAbility });
+        }
+      });
+      return list;
     }
 
     function getEffectiveSpellMp(sp, hero = state) {
@@ -538,6 +577,38 @@
         ? `<span>Shop Price: <strong class="text-amber-300">🪙 ${opts.price} GP</strong></span>`
         : `<span>Sell Value: <strong class="text-amber-300">🪙 ${it.value || 0} GP</strong>${qty > 1 ? ` <span class="text-stone-400">(${(it.value || 0) * qty} GP stack)</span>` : ""}</span>`;
 
+      const passivePills = [];
+      if (it.passives) {
+        const p = it.passives;
+        if (p.critRange && p.critRange < 12) passivePills.push(`🎯 Crit on ${p.critRange}+`);
+        if (p.lifesteal) passivePills.push(`🩸 +${p.lifesteal} HP Drain on Hit`);
+        if (p.thornsDmg) passivePills.push(`🌵 ${p.thornsDmg} Thorns Retaliation`);
+        if (p.spellDmgBonus) passivePills.push(`✨ +${p.spellDmgBonus} Spell DMG`);
+        if (p.spellCostReduce) passivePills.push(`🔷 -${p.spellCostReduce} Spell MP Cost`);
+        if (p.healBonus) passivePills.push(`💚 +${p.healBonus} Healing Bonus`);
+        if (p.undeadDmgBonus) passivePills.push(`☀️ +${p.undeadDmgBonus} DMG vs Undead`);
+        if (p.bossDmgBonus) passivePills.push(`💀 +${p.bossDmgBonus} DMG vs Bosses`);
+        if (p.goldFindPct) passivePills.push(`🪙 +${p.goldFindPct}% Gold Find`);
+        if (p.bombDmgBonus) passivePills.push(`💣 +${p.bombDmgBonus} Bomb/Torch DMG`);
+        if (p.dmgReduce) passivePills.push(`🛡️ -${p.dmgReduce} Damage Taken`);
+        if (p.mpRegen) passivePills.push(`🔷 +${p.mpRegen} MP/Turn`);
+        if (p.skillBonus) {
+          Object.entries(p.skillBonus).forEach(([sk, v]) => {
+            if (v) passivePills.push(`🎲 +${v} ${sk}`);
+          });
+        }
+      }
+      const activeBoxHtml = it.activeAbility ? `
+        <div class="p-2 rounded-lg bg-teal-950/50 border border-teal-500/50 space-y-0.5">
+          <div class="flex items-center justify-between gap-1.5">
+            <span class="font-bold text-teal-200">${it.activeAbility.icon || "⚡"} ${it.activeAbility.name}</span>
+            <span class="px-1.5 py-0.5 rounded bg-teal-900/80 text-teal-200 text-[9px] font-bold uppercase shrink-0">
+              ${it.activeAbility.charges ? `${it.activeAbility.charges}/Quest` : ""}${it.activeAbility.charges && it.activeAbility.mp ? " • " : ""}${it.activeAbility.mp ? `${it.activeAbility.mp} MP` : (!it.activeAbility.charges ? "Active" : "")}
+            </span>
+          </div>
+          <div class="text-[10px] text-teal-100/90 leading-snug">${it.activeAbility.desc}</div>
+        </div>` : "";
+
       return `
         <div class="flex items-start gap-2.5 border-b border-amber-700/40 pb-2">
           ${pictureHtml}
@@ -554,6 +625,8 @@
           </div>
         </div>
         ${stats.length ? `<div class="flex flex-wrap gap-1.5">${stats.map(s => `<span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${s.cls}">${s.lbl}</span>`).join("")}</div>` : ""}
+        ${passivePills.length ? `<div class="flex flex-wrap gap-1.5">${passivePills.map(p => `<span class="px-2 py-0.5 rounded border bg-purple-950/70 border-purple-500/50 text-purple-200 text-[10px] font-semibold">${p}</span>`).join("")}</div>` : ""}
+        ${activeBoxHtml}
         ${it.desc ? `<p class="text-[11px] text-stone-200 leading-relaxed">${it.desc}</p>` : ""}
         <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-stone-800 text-[10px] text-stone-400">
           ${priceLine}
@@ -2736,7 +2809,7 @@
       stopAutoWalk();
       state.mode = "adventure";
       state.innRested = false;
-      state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, classAbilityUsed: false, torchLit: false, lootItems: [], lootGold: 0, lootXp: 0 };
+      state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, classAbilityUsed: false, torchLit: false, itemCharges: {}, lootItems: [], lootGold: 0, lootXp: 0 };
       activeCombat = null;
       sfx("quest");
       bgm("adventure");
@@ -2850,12 +2923,13 @@
         const d = getDerived(state);
         const statVal = d.s[c.stat] || 0;
         const skBonus = (c.skill && state.skills.includes(c.skill)) ? 2 : 0;
+        const itemSkBonus = (c.skill && getSubclassPassiveTotals(state).skillBonuses?.[c.skill]) || 0;
         const torchBonus = state.activeAdv?.torchLit ? 2 : 0;
         const scaledDc = c.dc + DIFFICULTY.skillDcBonus + Math.floor(Math.max(0, (state.level || 1) - 1) / 3);
         const r = roll2d6();
-        const tot = r.total + statVal + skBonus + torchBonus;
+        const tot = r.total + statVal + skBonus + itemSkBonus + torchBonus;
         const ok = tot >= scaledDc;
-        const desc = `🎲 ${c.stat.toUpperCase()} Check: [${r.d1}+${r.d2}]+${statVal}${skBonus?`+${skBonus}(${c.skill})`:""}${torchBonus?`+${torchBonus}(🔥Torch)`:""}=${tot} vs DC ${scaledDc} — ${ok?"SUCCESS!":"FAILED!"}`;
+        const desc = `🎲 ${c.stat.toUpperCase()} Check: [${r.d1}+${r.d2}]+${statVal}${skBonus?`+${skBonus}(${c.skill})`:""}${itemSkBonus?`+${itemSkBonus}(Relic)`:""}${torchBonus?`+${torchBonus}(🔥Torch)`:""}=${tot} vs DC ${scaledDc} — ${ok?"SUCCESS!":"FAILED!"}`;
         addLog(desc, ok ? "good" : "bad");
         if (ok) {
           if (ch.onPass) applyAdvEffect(ch.onPass);
@@ -3486,6 +3560,29 @@
       combatAfterPlayer();
     }
 
+    function useEquippedItemAbility(itemId, ab, isOoc = false) {
+      if (!ab) return;
+      const chargesMax = ab.charges || 0;
+      if (chargesMax > 0 && state.activeAdv) {
+        if (!state.activeAdv.itemCharges) state.activeAdv.itemCharges = {};
+        const used = state.activeAdv.itemCharges[itemId] || 0;
+        if (used >= chargesMax) {
+          return toast(`${ab.name} has no charges left this quest (${used}/${chargesMax})!`, "info");
+        }
+      }
+      const cost = ab.mp || 0;
+      if (state.mp < cost) return toast(`Need ${cost} MP!`, "bad");
+      if (chargesMax > 0 && state.activeAdv) {
+        if (!state.activeAdv.itemCharges) state.activeAdv.itemCharges = {};
+        state.activeAdv.itemCharges[itemId] = (state.activeAdv.itemCharges[itemId] || 0) + 1;
+      }
+      if (isOoc) {
+        useOocSubclassAbility(ab);
+      } else {
+        combatSubclassAbility(ab);
+      }
+    }
+
     function combatFlee() {
       if (!activeCombat || !activeCombat.flee) return toast("No escape from this battle!", "bad");
       const dest = activeCombat.flee;
@@ -3588,6 +3685,7 @@
 
         if (tot >= heroAc || enemyCrit) {
           let hitDmg = enemyCrit ? Math.round(activeCombat.dmg * 1.5) : activeCombat.dmg;
+          if (subP.dmgReduce > 0) hitDmg = Math.max(1, hitDmg - subP.dmgReduce);
           if (activeCombat.rageActive) hitDmg *= 2;
           sfx("enemyHit");
           state.hp = Math.max(0, state.hp - hitDmg);
@@ -3615,12 +3713,13 @@
       if (state.shieldTurns > 0) state.shieldTurns--;
       if (state.evadeTurns > 0) state.evadeTurns--;
 
-      // Spellcaster passive: regenerate +1 MP at the end of each combat turn
-      if (state.hp > 0 && isSpellcasterClass(state)) {
+      // Spellcaster passive + equipped item MP regen at the end of each combat turn
+      const turnMpRegen = (isSpellcasterClass(state) ? 1 : 0) + (subP.mpRegen || 0);
+      if (state.hp > 0 && turnMpRegen > 0) {
         const rd = getDerived(state);
         if (state.mp < rd.maxMp) {
-          state.mp = Math.min(rd.maxMp, state.mp + 1);
-          activeCombat.log.unshift(`🔷 Arcane Flow restores +1 MP (${state.mp}/${rd.maxMp}).`);
+          state.mp = Math.min(rd.maxMp, state.mp + turnMpRegen);
+          activeCombat.log.unshift(`🔷 Arcane Flow restores +${turnMpRegen} MP (${state.mp}/${rd.maxMp}).`);
         }
       }
 
@@ -3761,6 +3860,25 @@
           const tag = used ? "Used" : (cost > 0 ? `${cost} MP` : "1/Combat");
           b.textContent = `${ab.icon || "🌟"} ${ab.name} (${tag})`;
           b.onclick = () => combatSubclassAbility(ab);
+          abRow.appendChild(b);
+        });
+        // Equipped Item Active Abilities (with quest charges / MP cost)
+        getEquippedItemAbilities(state).forEach(({ itemId, itemName, ab }) => {
+          const cost = ab.mp || 0;
+          const maxCh = ab.charges || 0;
+          const usedCh = (state.activeAdv?.itemCharges?.[itemId]) || 0;
+          const leftCh = maxCh > 0 ? Math.max(0, maxCh - usedCh) : null;
+          const hasCharge = maxCh <= 0 || leftCh > 0;
+          const ok = hasCharge && state.mp >= cost;
+          const b = document.createElement("button");
+          b.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border ${ok ? "bg-teal-950 hover:bg-teal-900 border-teal-400/70 text-teal-200" : "bg-stone-900 border-stone-800 text-stone-500"}`;
+          b.disabled = !ok;
+          b.title = `[${itemName}] ${ab.desc}`;
+          const parts = [];
+          if (maxCh > 0) parts.push(`${leftCh}/${maxCh}`);
+          if (cost > 0) parts.push(`${cost} MP`);
+          b.textContent = `${ab.icon || "⚡"} ${ab.name}${parts.length ? ` (${parts.join(" • ")})` : ""}`;
+          b.onclick = () => useEquippedItemAbility(itemId, ab, false);
           abRow.appendChild(b);
         });
       }
