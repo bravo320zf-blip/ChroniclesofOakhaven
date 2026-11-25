@@ -432,6 +432,12 @@
       return cls?.signatureAbility || null;
     }
 
+    function isSpellcasterClass(hero = state) {
+      if (!hero) return false;
+      const cls = ARCHETYPES.find(a => a.id === hero.archId || a.name === hero.className);
+      return !!(cls && (cls.mpRegen || (cls.bonusMp || 0) > 0));
+    }
+
     function showSubclassTooltip(sc, evt) {
       const tip = document.getElementById("subclass-tooltip");
       if (!tip || !sc) return;
@@ -956,7 +962,7 @@
         b.className = `text-left p-2 rounded-xl border transition flex items-center gap-2.5 ${on ? "bg-amber-900/40 border-amber-400 text-amber-100" : "bg-stone-950/70 border-stone-800 text-stone-300 hover:border-amber-700/60"}`;
         if (sig) b.title = `${sig.icon} ${sig.name}: ${sig.desc}`;
         b.innerHTML = `<img src="images/tokens/${selRaceId}_${a.id}.png" onerror="this.onerror=null;this.src='images/tokens/classes/${a.id}.png'" alt="${a.name}" class="w-10 h-10 rounded-full object-cover shrink-0 shadow" />
-          <div class="min-w-0"><div class="font-display text-xs font-bold truncate ${on?"text-amber-300":"text-stone-200"}">${a.name}</div><div class="text-[10px] text-stone-400 mt-0.5 line-clamp-2">${a.desc}</div>${sig ? `<div class="text-[10px] text-amber-300/90 mt-0.5 truncate font-semibold">${sig.icon} ${sig.name} (1/Quest)</div>` : ""}</div>`;
+          <div class="min-w-0"><div class="font-display text-xs font-bold truncate ${on?"text-amber-300":"text-stone-200"}">${a.name}</div><div class="text-[10px] text-stone-400 mt-0.5 line-clamp-2">${a.desc}</div>${sig ? `<div class="text-[10px] text-amber-300/90 mt-0.5 truncate font-semibold">${sig.icon} ${sig.name} (1/Quest)</div>` : ""}${a.mpRegen ? `<div class="text-[9px] text-sky-300/90 truncate">🔷 Passive: +1 MP/turn &amp; +1 MP/choice</div>` : ""}</div>`;
         b.onclick = () => {
           creation.archId = a.id;
           const firstSub = SUBCLASSES.find(sc => sc.classId === a.id);
@@ -2657,6 +2663,11 @@
         if (state.mp < ch.mp) return toast(`Need ${ch.mp} MP!`, "bad");
         state.mp -= ch.mp;
       }
+      // Spellcaster passive: regenerate +1 MP per adventure choice made
+      if (isSpellcasterClass(state)) {
+        const curD = getDerived(state);
+        if (state.mp < curD.maxMp) state.mp = Math.min(curD.maxMp, state.mp + 1);
+      }
       if (ch.onChoose) {
         applyAdvEffect(ch.onChoose);
         if (state.hp <= 0) return triggerDeath();
@@ -2949,7 +2960,16 @@
         if (i === -1) return toast("No bombs or throwables in backpack!", "bad");
         const usedId = consumeOneFromSlot("backpack", i);
         const it = ITEMS_DB[usedId];
-        let dmg = (it.dmg || 10) + (subP.bombDmgBonus || 0);
+        const diceSpec = it.dmgDice || (usedId === "alchemist_bomb" ? "2d6" : null);
+        let rollInfo = "";
+        let dmg = 0;
+        if (diceSpec) {
+          const br = rollDiceSpec(diceSpec);
+          dmg = br.total + (subP.bombDmgBonus || 0);
+          rollInfo = ` (${br.label}${subP.bombDmgBonus ? `+${subP.bombDmgBonus}` : ""})`;
+        } else {
+          dmg = (it.dmg || 10) + (subP.bombDmgBonus || 0);
+        }
         if (activeCombat.rageActive) dmg *= 2;
         sfx("bomb");
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
@@ -2958,7 +2978,7 @@
           activeCombat.chilled = Math.max(activeCombat.chilled, subP.bombChillTurns);
           extra += ` & weakens foe (-2 Atk, ${subP.bombChillTurns}t)`;
         }
-        activeCombat.log.unshift(`💣 Threw ${it.name} for ${dmg} dmg${extra}!`);
+        activeCombat.log.unshift(`💣 Threw ${it.name}${rollInfo} for ${dmg} dmg${extra}!`);
       } else if (kind === "torch") {
         const i = state.backpack.findIndex(e => getEntryId(e) === "torch");
         if (i === -1) return toast("No Pitch Torches in backpack!", "bad");
@@ -3360,6 +3380,10 @@
           }
         }
         if (c.cw && !state.activeAdv.codewords.includes(c.cw)) state.activeAdv.codewords.push(c.cw);
+        if (isSpellcasterClass(state)) {
+          const vd = getDerived(state);
+          if (state.mp < vd.maxMp) state.mp = Math.min(vd.maxMp, state.mp + 1);
+        }
         const msg = `🏆 Defeated ${c.name}! +${c.xp||25} XP, +${goldAward} GP${names.length?` & ${names.join(", ")}`:""}.`;
         sfx("victory");
         bgm("adventure");
@@ -3418,6 +3442,15 @@
       if (activeCombat.bardAcTurns > 0) activeCombat.bardAcTurns--;
       if (state.shieldTurns > 0) state.shieldTurns--;
       if (state.evadeTurns > 0) state.evadeTurns--;
+
+      // Spellcaster passive: regenerate +1 MP at the end of each combat turn
+      if (state.hp > 0 && isSpellcasterClass(state)) {
+        const rd = getDerived(state);
+        if (state.mp < rd.maxMp) {
+          state.mp = Math.min(rd.maxMp, state.mp + 1);
+          activeCombat.log.unshift(`🔷 Arcane Flow restores +1 MP (${state.mp}/${rd.maxMp}).`);
+        }
+      }
 
       if (state.hp <= 0) return triggerDeath(`Slain by ${activeCombat.name}!`);
       if (activeCombat.hp <= 0) return combatAfterPlayer();
@@ -3805,6 +3838,17 @@
             </div>
             <div class="text-[10px] text-stone-300 mt-0.5">${classAb.desc}</div>`;
           subAbEl.appendChild(sigCard);
+        }
+        if (isSpellcasterClass(state)) {
+          const regenCard = document.createElement("div");
+          regenCard.className = "p-2 rounded-lg border text-xs bg-sky-950/35 border-sky-500/50";
+          regenCard.innerHTML = `
+            <div class="flex items-center justify-between gap-1.5">
+              <span class="font-bold text-sky-300">🔷 Arcane Flow (Spellcaster Passive)</span>
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase shrink-0 bg-sky-900/80 text-sky-200">Passive</span>
+            </div>
+            <div class="text-[10px] text-stone-300 mt-0.5">Regenerate +1 MP every turn in combat and +1 MP for every choice made during an adventure.</div>`;
+          subAbEl.appendChild(regenCard);
         }
         const sub = getHeroSubclass(state);
         if (!sub || !Array.isArray(sub.abilities) || !sub.abilities.length) {
