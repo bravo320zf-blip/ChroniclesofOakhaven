@@ -1,6 +1,6 @@
 {
-  "batchCount": 7,
-  "totalQuestsAdded": 82,
+  "batchCount": 8,
+  "totalQuestsAdded": 94,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -448,8 +448,15 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Midgard Sagas/Midgard Sagas.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Murder on the Crossroads",
+        "Madman at the Bridge",
+        "The Mhalmet Heist",
+        "Raiders of the Chamber of Tomorrows",
+        "To Wake War",
+        "Blood of a Fallen Star"
+      ]
     },
     "Books/Kobold Press/Midgard World Book/Midgard World Book.pdf": {
       "status": "skipped_no_quests",
@@ -481,8 +488,23 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Prepared!/Prepared! A Dozen Adventures for Fifth Edition.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "in_progress",
+      "convertedTitles": [
+        "The Impregnable Fortress of Dib (already in Batch 002)",
+        "The Marrow Mines",
+        "The Vault of Pallon the Pious",
+        "The Claret Wellspring",
+        "The Room with Five Corners",
+        "Upon the Icebound Terrace",
+        "In Its Horrid Wake"
+      ],
+      "remainingTitles": [
+        "A Bad Night for Betting",
+        "The Burning Crater",
+        "Atop the Mountain",
+        "Under Revelers' Feet",
+        "The Obsidian Pass"
+      ]
     },
     "Books/Kobold Press/Prepared2/Ooze Tomb of the Oathbreaker/Ooze Tomb of the Oathbreaker Adventure.pdf": {
       "status": "pending",

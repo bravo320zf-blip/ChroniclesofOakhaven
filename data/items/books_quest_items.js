@@ -776,3 +776,101 @@ window.OAKHAVEN.registerItems({
     desc: "+2 AC, +1 Might, +8 Max HP. Desert-glass vessel brimming with cool oasis air from the Tomb of Last Gasp."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 008 — Midgard Sagas (1-6) & Prepared! (first 6 new)
+  "bq_legora_company_amulet": {
+    id: "bq_legora_company_amulet",
+    name: "Crossroads Company Amulet",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 110,
+    source: "Midgard Sagas",
+    ac: 1,
+    spirit: 1,
+    luck: 1,
+    desc: "+1 AC, +1 Spirit, +1 Luck. Mercenary officer's badge from House Legora."
+  },
+  "bq_puffing_bridge_wrench": {
+    id: "bq_puffing_bridge_wrench",
+    name: "Clockwork Engineer's Spanner",
+    type: "weapon",
+    rarity: "rare",
+    value: 145,
+    source: "Midgard Sagas",
+    atk: 4,
+    might: 1,
+    arcana: 1,
+    desc: "+4 Attack, +1 Might, +1 Arcana. Heavy brass-and-steel wrench from the Puffing Bridge Engine House."
+  },
+  "bq_celestial_sextant": {
+    id: "bq_celestial_sextant",
+    name: "Thornish Celestial Sextant",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 235,
+    source: "Midgard Sagas",
+    arcana: 2,
+    luck: 2,
+    maxMp: 5,
+    desc: "+2 Arcana, +2 Luck, +5 Max MP. Elven Great Retreat navigator from the Chamber of Tomorrows."
+  },
+  "bq_ylia_war_crown": {
+    id: "bq_ylia_war_crown",
+    name: "Mavros Pilgrim's War-Band",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 265,
+    source: "Midgard Sagas",
+    ac: 2,
+    might: 2,
+    maxHp: 6,
+    desc: "+2 AC, +2 Might, +6 Max HP. Blessed bronze circlet gifted by War-Angel Ylia at the Seat of Mavros."
+  },
+  "bq_migo_neural_rod": {
+    id: "bq_migo_neural_rod",
+    name: "Mi-Go Neural Agonizer",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 285,
+    source: "Midgard Sagas",
+    atk: 5,
+    arcana: 2,
+    agility: 1,
+    desc: "+5 Attack, +2 Arcana, +1 Agility. Alien crystalline baton salvaged from the Fallen Star above Beryksheim."
+  },
+  "bq_pallon_pious_cutlass": {
+    id: "bq_pallon_pious_cutlass",
+    name: "Pallon's Repentant Cutlass",
+    type: "weapon",
+    rarity: "uncommon",
+    value: 90,
+    source: "Prepared!",
+    atk: 3,
+    spirit: 1,
+    desc: "+3 Attack, +1 Spirit. Salt-bright sabre from the sunken Vault of Pallon the Pious."
+  },
+  "bq_fifth_corner_compass": {
+    id: "bq_fifth_corner_compass",
+    name: "Fifth-Direction Diamond Compass",
+    type: "accessory",
+    rarity: "rare",
+    value: 165,
+    source: "Prepared!",
+    arcana: 2,
+    luck: 2,
+    desc: "+2 Arcana, +2 Luck. Gold-and-diamond planar navigator from The Room with Five Corners."
+  },
+  "bq_halicix_frost_scale": {
+    id: "bq_halicix_frost_scale",
+    name: "Icebound Terrace Frost-Aegis",
+    type: "shield",
+    rarity: "very_rare",
+    value: 230,
+    source: "Prepared!",
+    ac: 3,
+    might: 1,
+    maxHp: 5,
+    desc: "+3 AC, +1 Might, +5 Max HP. Glacier-tempered buckler won on the Icebound Terrace."
+  }
+});
