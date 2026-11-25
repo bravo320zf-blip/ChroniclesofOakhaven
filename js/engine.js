@@ -421,8 +421,15 @@
 
     function getEffectiveSpellMp(sp, hero = state) {
       if (!sp) return 0;
+      if (activeCombat && activeCombat.overchargeTurns > 0) return 0;
       const subP = getSubclassPassiveTotals(hero);
       return Math.max(1, (sp.mp || 0) - (subP.spellCostReduce || 0));
+    }
+
+    function getHeroClassAbility(hero = state) {
+      if (!hero) return null;
+      const cls = ARCHETYPES.find(a => a.id === hero.archId || a.name === hero.className);
+      return cls?.signatureAbility || null;
     }
 
     function showSubclassTooltip(sc, evt) {
@@ -933,9 +940,11 @@
         const on = creation.archId === a.id;
         const b = document.createElement("button");
         b.type = "button";
+        const sig = a.signatureAbility;
         b.className = `text-left p-2 rounded-xl border transition flex items-center gap-2.5 ${on ? "bg-amber-900/40 border-amber-400 text-amber-100" : "bg-stone-950/70 border-stone-800 text-stone-300 hover:border-amber-700/60"}`;
+        if (sig) b.title = `${sig.icon} ${sig.name}: ${sig.desc}`;
         b.innerHTML = `<img src="images/tokens/${selRaceId}_${a.id}.png" onerror="this.onerror=null;this.src='images/tokens/classes/${a.id}.png'" alt="${a.name}" class="w-10 h-10 rounded-full object-cover shrink-0 shadow" />
-          <div class="min-w-0"><div class="font-display text-xs font-bold truncate ${on?"text-amber-300":"text-stone-200"}">${a.name}</div><div class="text-[10px] text-stone-400 mt-0.5 line-clamp-2">${a.desc}</div></div>`;
+          <div class="min-w-0"><div class="font-display text-xs font-bold truncate ${on?"text-amber-300":"text-stone-200"}">${a.name}</div><div class="text-[10px] text-stone-400 mt-0.5 line-clamp-2">${a.desc}</div>${sig ? `<div class="text-[10px] text-amber-300/90 mt-0.5 truncate font-semibold">${sig.icon} ${sig.name} (1/Quest)</div>` : ""}</div>`;
         b.onclick = () => {
           creation.archId = a.id;
           const firstSub = SUBCLASSES.find(sc => sc.classId === a.id);
@@ -1679,7 +1688,7 @@
       };
 
       const pool = [...shuffle(freshLeads), ...shuffle(otherPatrons)];
-      const count = Math.min(pool.length, 3 + Math.floor(Math.random() * 4)); // 3 to 6 patrons
+      const count = Math.min(pool.length, 1 + Math.floor(Math.random() * 2)); // 1 to 2 patrons
       state.tavernPatrons = pool.slice(0, count).map(npc => npc.id);
     }
 
@@ -1759,6 +1768,8 @@
 
       if (!Array.isArray(state.tavernPatrons) || state.tavernPatrons.length === 0) {
         rollTavernPatrons();
+      } else if (state.tavernPatrons.length > 2) {
+        state.tavernPatrons = state.tavernPatrons.slice(0, 2);
       }
 
       const visibleNpcs = TAVERN_NPCS.filter(npc =>
@@ -2535,7 +2546,7 @@
       stopAutoWalk();
       state.mode = "adventure";
       state.innRested = false;
-      state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, lootItems: [], lootGold: 0, lootXp: 0 };
+      state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, classAbilityUsed: false, lootItems: [], lootGold: 0, lootXp: 0 };
       activeCombat = null;
       sfx("quest");
       bgm("adventure");
@@ -2763,6 +2774,13 @@
         summon: null,
         heroAtkBuff: 0,
         heroAtkBuffTurns: 0,
+        rageActive: false,
+        nextSpellDouble: false,
+        overchargeTurns: 0,
+        wildShapeActive: false,
+        huntersMark: false,
+        grandHex: false,
+        bardAcTurns: 0,
         usedAbilities: [],
         log: [`⚔ [HARDCORE] Battle begins against ${tpl.name}!`, ...notes]
       };
@@ -2772,7 +2790,10 @@
       if (!activeCombat) return;
       const d = getDerived(state);
       const subP = getSubclassPassiveTotals(state);
-      const effAtk = d.atk + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0);
+      const effAtk = d.atk
+        + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0)
+        + (activeCombat.huntersMark ? 3 : 0);
+      const effEnemyAc = activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac;
       const r = roll2d6();
       let bonus = 0;
       if (lucky) {
@@ -2783,23 +2804,28 @@
         else activeCombat.log.unshift(`🍀 Unlucky (${lr.total}>${cur}, Luck -1).`);
       }
       const tot = r.total + effAtk;
-      const isCrit = r.total >= (subP.critRange || 12);
-      if (tot >= activeCombat.ac || bonus > 0 || isCrit) {
+      const critThreshold = activeCombat.huntersMark ? Math.min(subP.critRange || 12, 10) : (subP.critRange || 12);
+      const isCrit = r.total >= critThreshold;
+      if (tot >= effEnemyAc || bonus > 0 || isCrit) {
         let dmg = roll(6) + Math.max(1, Math.floor(effAtk / 3)) + bonus;
+        if (activeCombat.huntersMark) dmg += 4;
+        if (activeCombat.wildShapeActive) dmg += 4;
         if (activeCombat.undead && subP.undeadDmgBonus) dmg += subP.undeadDmgBonus;
         if (activeCombat.isBoss && subP.bossDmgBonus) dmg += subP.bossDmgBonus;
         if (isCrit) dmg = Math.round(dmg * 1.5);
+        if (activeCombat.rageActive) dmg *= 2;
         sfx(isCrit ? "crit" : "sword");
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
         let extra = "";
+        if (activeCombat.rageActive) extra += " [🔥 RAGE 2x!]";
         if (subP.lifesteal > 0) {
           state.hp = Math.min(d.maxHp, state.hp + subP.lifesteal);
-          extra = ` (+${subP.lifesteal} HP drained)`;
+          extra += ` (+${subP.lifesteal} HP drained)`;
         }
-        activeCombat.log.unshift(`⚔ ${isCrit ? "CRIT! " : ""}Hit [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${activeCombat.ac} for ${dmg} dmg!${extra}`);
+        activeCombat.log.unshift(`⚔ ${isCrit ? "CRIT! " : ""}Hit [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc} for ${dmg} dmg!${extra}`);
       } else {
         sfx("miss");
-        activeCombat.log.unshift(`⚔ Missed [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${activeCombat.ac}!`);
+        activeCombat.log.unshift(`⚔ Missed [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc}!`);
       }
       combatAfterPlayer();
     }
@@ -2837,9 +2863,24 @@
         if (activeCombat.isBoss && subP.bossDmgBonus) dmg += subP.bossDmgBonus;
         const doubled = !!(sp.undeadDouble && activeCombat.undead);
         if (doubled) dmg *= 2;
+        const mods = [];
+        if (doubled) mods.push("2x Undead!");
+        if (activeCombat.overchargeTurns > 0) {
+          dmg = Math.round(dmg * 1.5);
+          mods.push("☄️ Overcharge +50%!");
+        }
+        if (activeCombat.nextSpellDouble) {
+          dmg *= 2;
+          activeCombat.nextSpellDouble = false;
+          mods.push("🔮 Arcane Surge 2x!");
+        }
+        if (activeCombat.rageActive) {
+          dmg *= 2;
+          mods.push("🔥 RAGE 2x!");
+        }
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
         const typeStr = sp.dmgType ? ` ${sp.dmgType}` : "";
-        activeCombat.log.unshift(`${icon} ${sp.name} rolls ${rollText} = ${dmg}${typeStr} dmg${doubled ? " (2x Undead!)" : ""}!`);
+        activeCombat.log.unshift(`${icon} ${sp.name} rolls ${rollText} = ${dmg}${typeStr} dmg${mods.length ? ` (${mods.join(" ")})` : ""}!`);
       }
 
       if (sp.healDice || sp.healBase) {
@@ -2895,13 +2936,14 @@
         if (i === -1) return toast("No bombs or throwables in backpack!", "bad");
         const usedId = consumeOneFromSlot("backpack", i);
         const it = ITEMS_DB[usedId];
-        const dmg = (it.dmg || 10) + (subP.bombDmgBonus || 0);
+        let dmg = (it.dmg || 10) + (subP.bombDmgBonus || 0);
+        if (activeCombat.rageActive) dmg *= 2;
         sfx("bomb");
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
-        let extra = "";
+        let extra = activeCombat.rageActive ? " [🔥 RAGE 2x!]" : "";
         if (subP.bombChillTurns > 0) {
           activeCombat.chilled = Math.max(activeCombat.chilled, subP.bombChillTurns);
-          extra = ` & weakens foe (-2 Atk, ${subP.bombChillTurns}t)`;
+          extra += ` & weakens foe (-2 Atk, ${subP.bombChillTurns}t)`;
         }
         activeCombat.log.unshift(`💣 Threw ${it.name} for ${dmg} dmg${extra}!`);
       }
@@ -2974,26 +3016,29 @@
       }
 
       if (ab.multiStrike) {
-        const effAtk = d.atk + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0);
+        const effAtk = d.atk + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0) + (activeCombat.huntersMark ? 3 : 0);
+        const effEnemyAc = activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac;
         let totalDmg = 0, hits = 0;
         for (let k = 0; k < ab.multiStrike; k++) {
           const r = roll2d6();
-          if (r.total + effAtk >= activeCombat.ac || r.total >= (subP.critRange || 12)) {
+          if (r.total + effAtk >= effEnemyAc || r.total >= (subP.critRange || 12)) {
             let sd = roll(6) + Math.max(1, Math.floor(effAtk / 3));
             if (r.total >= (subP.critRange || 12)) sd = Math.round(sd * 1.5);
+            if (activeCombat.rageActive) sd *= 2;
             totalDmg += sd;
             hits++;
           }
         }
         activeCombat.hp = Math.max(0, activeCombat.hp - totalDmg);
-        activeCombat.log.unshift(`${icon} [${ab.name}] unleashed ${ab.multiStrike} strikes (${hits} hit) for ${totalDmg} dmg!`);
+        activeCombat.log.unshift(`${icon} [${ab.name}] unleashed ${ab.multiStrike} strikes (${hits} hit) for ${totalDmg} dmg${activeCombat.rageActive ? " [🔥 RAGE 2x!]" : ""}!`);
       }
 
       if (ab.guaranteedCrit) {
-        const effAtk = d.atk + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0);
-        const dmg = Math.round((roll(6) + roll(6) + Math.max(2, Math.floor(effAtk / 2))) * 1.5);
+        const effAtk = d.atk + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0) + (activeCombat.huntersMark ? 3 : 0);
+        let dmg = Math.round((roll(6) + roll(6) + Math.max(2, Math.floor(effAtk / 2))) * 1.5);
+        if (activeCombat.rageActive) dmg *= 2;
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
-        activeCombat.log.unshift(`${icon} [${ab.name}] CRITICAL STRIKE for ${dmg} dmg!`);
+        activeCombat.log.unshift(`${icon} [${ab.name}] CRITICAL STRIKE for ${dmg} dmg${activeCombat.rageActive ? " [🔥 RAGE 2x!]" : ""}!`);
       }
 
       if (ab.dmgDice || ab.dmgBase) {
@@ -3006,9 +3051,10 @@
         if (activeCombat.isBoss && subP.bossDmgBonus) dmg += subP.bossDmgBonus;
         const doubled = !!(ab.undeadDouble && activeCombat.undead);
         if (doubled) dmg *= 2;
+        if (activeCombat.rageActive) dmg *= 2;
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
         const typeStr = ab.dmgType ? ` ${ab.dmgType}` : "";
-        activeCombat.log.unshift(`${icon} [${ab.name}] rolls ${dr.label}${bonus ? `+${bonus}` : ""}+${statVal} = ${dmg}${typeStr} dmg${doubled ? " (2x Undead!)" : ""}!`);
+        activeCombat.log.unshift(`${icon} [${ab.name}] rolls ${dr.label}${bonus ? `+${bonus}` : ""}+${statVal} = ${dmg}${typeStr} dmg${doubled ? " (2x Undead!)" : ""}${activeCombat.rageActive ? " [🔥 RAGE 2x!]" : ""}!`);
       }
 
       if (ab.healDice || ab.healBase) {
@@ -3061,6 +3107,164 @@
       combatAfterPlayer();
     }
 
+    function combatClassAbility(ab) {
+      if (!activeCombat || !ab || !state.activeAdv) return;
+      if (state.activeAdv.classAbilityUsed) {
+        return toast(`${ab.name} can only be used once per quest!`, "info");
+      }
+      state.activeAdv.classAbilityUsed = true;
+      const d = getDerived(state);
+      const subP = getSubclassPassiveTotals(state);
+      const effAtk = d.atk + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0);
+      const effEnemyAc = activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac;
+      const id = ab.id;
+
+      if (id === "rage") {
+        activeCombat.rageActive = true;
+        sfx("crit");
+        activeCombat.log.unshift(`🔥 [RAGE!] Primal fury erupts! For this entire combat, ALL damage you deal is DOUBLED — and ALL damage you take is DOUBLED! (Free Action)`);
+        toast("🔥 RAGE ACTIVE! 2x Damage Dealt & 2x Damage Taken this combat!", "gold");
+        renderCombatPanel();
+        renderSheet();
+        return;
+      }
+
+      if (id === "arcane_surge") {
+        const mpGain = Math.max(5, Math.ceil(d.maxMp * 0.5));
+        state.mp = Math.min(d.maxMp, state.mp + mpGain);
+        activeCombat.nextSpellDouble = true;
+        sfx("heal");
+        activeCombat.log.unshift(`🔮 [ARCANE SURGE!] Restored +${mpGain} MP! Your next Spell this combat deals DOUBLE damage! (Free Action)`);
+        toast(`🔮 Arcane Surge! +${mpGain} MP & 2x Next Spell!`, "info");
+        renderCombatPanel();
+        renderSheet();
+        return;
+      }
+
+      if (id === "metamagic_overcharge") {
+        activeCombat.overchargeTurns = 2;
+        sfx("crit");
+        activeCombat.log.unshift(`☄️ [METAMAGIC OVERCHARGE!] For the next 2 turns, all Spells cost 0 MP and deal +50% damage! (Free Action)`);
+        toast("☄️ Metamagic Overcharge! 0 MP Spells & +50% Spell DMG (2 turns)!", "info");
+        renderCombatPanel();
+        renderSheet();
+        return;
+      }
+
+      if (id === "wild_shape") {
+        const hpGain = Math.max(10, Math.ceil(d.maxHp * 0.4));
+        state.hp = Math.min(d.maxHp, state.hp + hpGain);
+        activeCombat.wildShapeActive = true;
+        sfx("heal");
+        activeCombat.log.unshift(`🐻 [WILD SHAPE!] You shift into a towering Dire Bear (+${hpGain} HP, +3 AC & +4 strike damage for this combat)! (Free Action)`);
+        toast(`🐻 Wild Shape! +${hpGain} HP, +3 AC & +4 Strike DMG!`, "good");
+        renderCombatPanel();
+        renderSheet();
+        return;
+      }
+
+      if (id === "action_surge") {
+        const surgeAtk = effAtk + 2;
+        let totalDmg = 0, hits = 0;
+        for (let k = 0; k < 2; k++) {
+          const r = roll2d6();
+          const isCrit = r.total >= (subP.critRange || 12);
+          if (r.total + surgeAtk >= effEnemyAc || isCrit) {
+            let sd = roll(6) + Math.max(1, Math.floor(surgeAtk / 3));
+            if (isCrit) sd = Math.round(sd * 1.5);
+            totalDmg += sd;
+            hits++;
+          }
+        }
+        sfx("sword");
+        activeCombat.hp = Math.max(0, activeCombat.hp - totalDmg);
+        activeCombat.log.unshift(`⚔️ [ACTION SURGE!] Unleashed 2 surging weapon strikes at +${surgeAtk} ATK (${hits}/2 hit) for ${totalDmg} dmg!`);
+      } else if (id === "assassinate") {
+        const dmg = Math.round((roll(6) + roll(6) + Math.max(2, Math.floor(effAtk / 2))) * 2);
+        state.shieldTurns = Math.max(state.shieldTurns, 2);
+        sfx("crit");
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        activeCombat.log.unshift(`🗡️ [ASSASSINATE!] Lethal shadow-strike deals ${dmg} CRITICAL dmg & grants Shadow Veil (+3 AC, 2t)!`);
+      } else if (id === "divine_intervention") {
+        const heal = Math.max(12, Math.ceil(d.maxHp * 0.5));
+        state.hp = Math.min(d.maxHp, state.hp + heal);
+        state.shieldTurns = Math.max(state.shieldTurns, 3);
+        const dr = rollDiceSpec("2d6");
+        let dmg = dr.total + (d.s.spirit || 0);
+        if (activeCombat.undead) dmg *= 2;
+        sfx("heal");
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        activeCombat.log.unshift(`☀️ [DIVINE INTERVENTION!] Restored +${heal} HP, Sacred Ward (+3 AC, 3t), and blasted foe for ${dmg} radiant dmg${activeCombat.undead ? " (2x Undead!)" : ""}!`);
+      } else if (id === "hunters_mark") {
+        activeCombat.huntersMark = true;
+        const shotAtk = effAtk + 3;
+        const dmg = roll(6) + Math.max(2, Math.floor(shotAtk / 3)) + 4;
+        sfx("sword");
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        activeCombat.log.unshift(`🏹 [HUNTER'S MARK!] Aimed shot strikes for ${dmg} dmg! Prey is marked for the entire combat (+3 ATK, +4 strike DMG, Crit 10+)!`);
+      } else if (id === "bardic_inspiration") {
+        state.currentLuck = Math.min(d.maxLuck, state.currentLuck + 3);
+        activeCombat.heroAtkBuff = Math.max(activeCombat.heroAtkBuff, 3);
+        activeCombat.heroAtkBuffTurns = Math.max(activeCombat.heroAtkBuffTurns, 3);
+        activeCombat.bardAcTurns = 3;
+        activeCombat.chilled = Math.max(activeCombat.chilled, 3);
+        sfx("heal");
+        activeCombat.log.unshift(`🎵 [BARDIC INSPIRATION!] +3 Luck, +3 ATK & +2 AC (3t), and foe rattled (-2 Enemy ATK, 3t)!`);
+      } else if (id === "flurry_of_blows") {
+        let totalDmg = 0, hits = 0;
+        for (let k = 0; k < 3; k++) {
+          const r = roll2d6();
+          const isCrit = r.total >= (subP.critRange || 12);
+          if (r.total + effAtk >= effEnemyAc || isCrit) {
+            let sd = roll(6) + Math.max(1, Math.floor(effAtk / 3));
+            if (isCrit) sd = Math.round(sd * 1.5);
+            totalDmg += sd;
+            hits++;
+          }
+        }
+        activeCombat.stunned = Math.max(activeCombat.stunned, 1);
+        sfx("stun");
+        activeCombat.hp = Math.max(0, activeCombat.hp - totalDmg);
+        activeCombat.log.unshift(`👊 [FLURRY OF BLOWS!] 3 rapid ki strikes (${hits}/3 hit) for ${totalDmg} dmg & STUNNED ${activeCombat.name} (1t)!`);
+      } else if (id === "divine_smite") {
+        const dr = rollDiceSpec("3d6");
+        let dmg = roll(6) + Math.max(1, Math.floor(effAtk / 3)) + dr.total + (d.s.spirit || 0);
+        const doubled = !!(activeCombat.undead || activeCombat.isBoss);
+        if (doubled) dmg *= 2;
+        const heal = Math.max(2, Math.floor(dmg * 0.5));
+        state.hp = Math.min(d.maxHp, state.hp + heal);
+        sfx("crit");
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        activeCombat.log.unshift(`⚡ [DIVINE SMITE!] Radiant blow deals ${dmg} dmg${doubled ? " (2x vs Undead/Boss!)" : ""} and heals you for +${heal} HP!`);
+      } else if (id === "eldritch_pact") {
+        const hpCost = Math.min(Math.max(0, state.hp - 1), Math.max(2, Math.floor(state.hp * 0.2)));
+        state.hp = Math.max(1, state.hp - hpCost);
+        state.mp = d.maxMp;
+        const dr = rollDiceSpec("3d6");
+        const dmg = dr.total + (d.s.arcana || 0) + (d.s.spirit || 0);
+        activeCombat.dot = { dmg: 4, turns: 3, label: "Eldritch Curse" };
+        sfx("crit");
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        activeCombat.log.unshift(`👁️ [ELDRITCH PACT!] Paid ${hpCost} HP to unleash ${dmg} necrotic dmg, refill 100% MP, and curse foe (4/t, 3t)!`);
+      } else if (id === "arcane_divine_convergence") {
+        const dr = rollDiceSpec("2d6");
+        const hr = rollDiceSpec("2d6");
+        const dmg = dr.total + (d.s.arcana || 0) + (d.s.spirit || 0);
+        const heal = hr.total + (d.s.spirit || 0);
+        state.hp = Math.min(d.maxHp, state.hp + heal);
+        state.mp = Math.min(d.maxMp, state.mp + 4);
+        sfx("heal");
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        activeCombat.log.unshift(`⚖️ [ARCANE-DIVINE CONVERGENCE!] Dealt ${dmg} radiant-arcane dmg, healed +${heal} HP, and restored +4 MP!`);
+      } else if (id === "grand_hex") {
+        activeCombat.grandHex = true;
+        sfx("stun");
+        activeCombat.log.unshift(`🕯️ [GRAND HEX!] ${activeCombat.name} is cursed for the entire combat (-3 ATK, -2 AC, and 4 hex dmg every turn)!`);
+      }
+
+      combatAfterPlayer();
+    }
+
     function combatFlee() {
       if (!activeCombat || !activeCombat.flee) return toast("No escape from this battle!", "bad");
       const dest = activeCombat.flee;
@@ -3093,6 +3297,10 @@
         activeCombat.log.unshift(`☠️ ${activeCombat.name} suffers ${dt.dmg} ${dt.label} dmg!`);
         dt.turns--;
         if (dt.turns <= 0) activeCombat.dot = null;
+      }
+      if (activeCombat.hp > 0 && activeCombat.grandHex) {
+        activeCombat.hp = Math.max(0, activeCombat.hp - 4);
+        activeCombat.log.unshift(`🕯️ Grand Hex sears ${activeCombat.name} for 4 dmg!`);
       }
 
       if (activeCombat.hp <= 0) {
@@ -3147,33 +3355,38 @@
         activeCombat.log.unshift(`⚡ ${activeCombat.name} is STUNNED and loses its turn!`);
       } else {
         const d = getDerived(state);
+        const heroAc = d.ac + (activeCombat.wildShapeActive ? 3 : 0) + (activeCombat.bardAcTurns > 0 ? 2 : 0);
         const er = roll2d6();
-        const atk = activeCombat.chilled > 0 ? activeCombat.atk - 2 : activeCombat.atk;
+        const atk = activeCombat.atk - (activeCombat.chilled > 0 ? 2 : 0) - (activeCombat.grandHex ? 3 : 0);
         const tot = er.total + atk;
         const enemyCrit = er.total === 12;
 
-        if (tot >= d.ac || enemyCrit) {
+        if (tot >= heroAc || enemyCrit) {
           let hitDmg = enemyCrit ? Math.round(activeCombat.dmg * 1.5) : activeCombat.dmg;
+          if (activeCombat.rageActive) hitDmg *= 2;
           sfx("enemyHit");
           state.hp = Math.max(0, state.hp - hitDmg);
-          let extra = "";
+          let extra = activeCombat.rageActive ? " [🔥 RAGE 2x Taken!]" : "";
           if (activeCombat.undead && state.mp > 0 && roll(6) >= 4) {
             state.mp = Math.max(0, state.mp - 1);
             extra += " (-1 MP drained!)";
           }
           if (subP.thornsDmg > 0) {
-            activeCombat.hp = Math.max(0, activeCombat.hp - subP.thornsDmg);
-            extra += ` [Retaliated ${subP.thornsDmg} dmg!]`;
+            const retDmg = activeCombat.rageActive ? subP.thornsDmg * 2 : subP.thornsDmg;
+            activeCombat.hp = Math.max(0, activeCombat.hp - retDmg);
+            extra += ` [Retaliated ${retDmg} dmg!]`;
           }
-          activeCombat.log.unshift(`💥 ${enemyCrit ? "ENEMY CRIT! " : ""}${activeCombat.name} hits (${tot} vs AC ${d.ac}) for ${hitDmg} dmg!${extra}`);
+          activeCombat.log.unshift(`💥 ${enemyCrit ? "ENEMY CRIT! " : ""}${activeCombat.name} hits (${tot} vs AC ${heroAc}) for ${hitDmg} dmg!${extra}`);
         } else {
           sfx("shield");
-          activeCombat.log.unshift(`🛡️ ${activeCombat.name} misses (${tot} vs AC ${d.ac})!`);
+          activeCombat.log.unshift(`🛡️ ${activeCombat.name} misses (${tot} vs AC ${heroAc})!`);
         }
       }
 
       if (activeCombat.chilled > 0) activeCombat.chilled--;
       if (activeCombat.heroAtkBuffTurns > 0) activeCombat.heroAtkBuffTurns--;
+      if (activeCombat.overchargeTurns > 0) activeCombat.overchargeTurns--;
+      if (activeCombat.bardAcTurns > 0) activeCombat.bardAcTurns--;
       if (state.shieldTurns > 0) state.shieldTurns--;
       if (state.evadeTurns > 0) state.evadeTurns--;
 
@@ -3242,8 +3455,10 @@
       if (!activeCombat) return;
       document.getElementById("enemy-name").textContent = activeCombat.name;
       document.getElementById("enemy-desc").textContent = activeCombat.desc;
-      document.getElementById("enemy-ac").textContent = activeCombat.ac;
-      document.getElementById("enemy-atk").textContent = `+${activeCombat.chilled>0?activeCombat.atk-2:activeCombat.atk}`;
+      const effEnemyAc = activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac;
+      const effEnemyAtk = activeCombat.atk - (activeCombat.chilled > 0 ? 2 : 0) - (activeCombat.grandHex ? 3 : 0);
+      document.getElementById("enemy-ac").textContent = effEnemyAc;
+      document.getElementById("enemy-atk").textContent = `${effEnemyAtk >= 0 ? "+" : ""}${effEnemyAtk}`;
       document.getElementById("enemy-hp-text").textContent = `${activeCombat.hp} / ${activeCombat.maxHp}`;
       document.getElementById("enemy-hp-bar").style.width = `${Math.max(0, Math.round((activeCombat.hp/activeCombat.maxHp)*100))}%`;
 
@@ -3264,6 +3479,13 @@
       if (activeCombat.dot) tags.push(`<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/50 text-[10px] text-emerald-200">${activeCombat.dot.label} (${activeCombat.dot.dmg}/t, ${activeCombat.dot.turns}t)</span>`);
       if (activeCombat.summon) tags.push(`<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-500/50 text-[10px] text-purple-200">${activeCombat.summon.icon} ${activeCombat.summon.name} (${activeCombat.summon.dmg}/t, ${activeCombat.summon.turns}t)</span>`);
       if (activeCombat.heroAtkBuffTurns > 0) tags.push(`<span class="px-2 py-0.5 rounded bg-rose-950 text-[10px] text-rose-200">+${activeCombat.heroAtkBuff} ATK (${activeCombat.heroAtkBuffTurns}t)</span>`);
+      if (activeCombat.rageActive) tags.push(`<span class="px-2 py-0.5 rounded bg-red-950 border border-red-500/70 text-[10px] text-red-200 font-bold">🔥 RAGE (2x Dealt / 2x Taken)</span>`);
+      if (activeCombat.nextSpellDouble) tags.push(`<span class="px-2 py-0.5 rounded bg-sky-950 border border-sky-400/70 text-[10px] text-sky-200 font-bold">🔮 Arcane Surge (2x Next Spell)</span>`);
+      if (activeCombat.overchargeTurns > 0) tags.push(`<span class="px-2 py-0.5 rounded bg-indigo-950 border border-indigo-400/70 text-[10px] text-indigo-200 font-bold">☄️ Overcharge (0 MP, +50% Spell, ${activeCombat.overchargeTurns}t)</span>`);
+      if (activeCombat.wildShapeActive) tags.push(`<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-400/70 text-[10px] text-emerald-200 font-bold">🐻 Wild Shape (+3 AC, +4 DMG)</span>`);
+      if (activeCombat.huntersMark) tags.push(`<span class="px-2 py-0.5 rounded bg-amber-950 border border-amber-400/70 text-[10px] text-amber-200 font-bold">🏹 Hunter's Mark (+3 ATK, +4 DMG, Crit 10+)</span>`);
+      if (activeCombat.grandHex) tags.push(`<span class="px-2 py-0.5 rounded bg-fuchsia-950 border border-fuchsia-400/70 text-[10px] text-fuchsia-200 font-bold">🕯️ Grand Hex (-3 ATK, -2 AC, 4/t)</span>`);
+      if (activeCombat.bardAcTurns > 0) tags.push(`<span class="px-2 py-0.5 rounded bg-pink-950 border border-pink-400/60 text-[10px] text-pink-200">🎵 Inspired (+2 AC, ${activeCombat.bardAcTurns}t)</span>`);
       if (state.shieldTurns > 0) tags.push(`<span class="px-2 py-0.5 rounded bg-amber-950 text-[10px] text-amber-200">Ward (+3 AC)</span>`);
       document.getElementById("combat-tags").innerHTML = tags.join("");
 
@@ -3274,6 +3496,17 @@
       const abRow = document.getElementById("combat-abilities");
       if (abRow) {
         abRow.innerHTML = "";
+        const classAb = getHeroClassAbility(state);
+        if (classAb) {
+          const used = !!state.activeAdv?.classAbilityUsed;
+          const b = document.createElement("button");
+          b.className = `px-3 py-1 rounded-lg text-xs font-bold border shadow-sm ${!used ? "bg-amber-950 hover:bg-amber-900 border-amber-400/80 text-amber-200" : "bg-stone-900 border-stone-800 text-stone-500"}`;
+          b.disabled = used;
+          b.title = classAb.desc;
+          b.textContent = `${classAb.icon} ${classAb.name} (${used ? "Used This Quest" : "1/Quest"})`;
+          b.onclick = () => combatClassAbility(classAb);
+          abRow.appendChild(b);
+        }
         const activeAbs = getUnlockedSubclassAbilities(state).filter(ab => ab.type === "active");
         activeAbs.forEach(ab => {
           const cost = ab.mp || 0;
@@ -3490,13 +3723,26 @@
         bpEl.appendChild(r);
       });
 
-      // Subclass Abilities (Lv 1 / Lv 5 / Lv 10)
+      // Class Signature Ability (1/Quest) + Subclass Abilities (Lv 1 / Lv 5 / Lv 10)
       const subAbEl = document.getElementById("sheet-subclass-abilities");
       if (subAbEl) {
         subAbEl.innerHTML = "";
+        const classAb = getHeroClassAbility(state);
+        if (classAb) {
+          const usedThisQuest = state.mode === "adventure" && !!state.activeAdv?.classAbilityUsed;
+          const sigCard = document.createElement("div");
+          sigCard.className = `p-2 rounded-lg border text-xs ${usedThisQuest ? "bg-stone-950 border-stone-800 opacity-65" : "bg-amber-950/35 border-amber-500/60"}`;
+          sigCard.innerHTML = `
+            <div class="flex items-center justify-between gap-1.5">
+              <span class="font-bold ${usedThisQuest ? "text-stone-400" : "text-amber-300"}">${classAb.icon} ${classAb.name}</span>
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase shrink-0 ${usedThisQuest ? "bg-stone-800 text-stone-400" : "bg-amber-900/80 text-amber-200"}">${usedThisQuest ? "Used (1/Quest)" : "Ready (1/Quest)"}</span>
+            </div>
+            <div class="text-[10px] text-stone-300 mt-0.5">${classAb.desc}</div>`;
+          subAbEl.appendChild(sigCard);
+        }
         const sub = getHeroSubclass(state);
         if (!sub || !Array.isArray(sub.abilities) || !sub.abilities.length) {
-          subAbEl.innerHTML = `<div class="text-xs text-stone-500 italic">No subclass abilities active.</div>`;
+          if (!classAb) subAbEl.innerHTML = `<div class="text-xs text-stone-500 italic">No subclass abilities active.</div>`;
         } else {
           sub.abilities.forEach(ab => {
             const unlocked = (state.level || 1) >= ab.level;
