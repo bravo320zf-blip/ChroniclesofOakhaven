@@ -963,7 +963,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 13. TROLLKIN HUNT (7 PAGES • LV 12)
+  // 13. TROLLKIN HUNT (11 PAGES • LV 12)
   // ==========================================================
   bk_b5_trollkin_hunt: {
     id: "bk_b5_trollkin_hunt",
@@ -974,65 +974,105 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Patient Village Elder (Oakhaven Outskirts)",
     summary: "Prevent a bloody war between the crayfish-harvesting village and the Red Craw Marsh trollkin clan by hunting down the true culprit slaughtering both sides: a monstrous Venom Maw Hydra and its swamp worshippers!",
-    totalPages: 7,
+    totalPages: 11,
     pages: {
       1: {
         zone: "Edge of Red Craw Marsh",
         title: "A Broken Truce",
         safeRetreat: true,
-        text: "Both villagers and trollkin have turned up slain in the misty Red Craw Marsh, and angry townsfolk are grabbing pitchforks! Investigating the first clearing, you find a fallen trollkin warrior beside his gleaming +2 battleaxe—covered not in human blade wounds, but corrosive hydra-venom!",
+        text: "Bitter smoke rises over the stilt-houses of Red Craw Village as angry crayfish-harvesters sharpen boar-spears—three fishermen and two trollkin scouts have turned up dead in the mist-choked fen! At the edge of the first cypress clearing, you kneel beside a fallen trollkin warrior and his gleaming rune-etched battleaxe: the wounds across his mail aren't human steel at all, but sizzling, corrosive hydra-acid!",
         choices: [
-          { t: "Leave the fallen trollkin's battleaxe respectfully untouched and track the acid-scars!", to: 2, onChoose: { cw: "HONORED_TROLLKIN", msg: "Left the trollkin warrior's weapon intact—earning the clan's respect!" } },
-          { t: "Follow the massive webbed tracks straight into the swamp's heart.", to: 2 }
+          { t: "Fold the fallen trollkin's hands over his battleaxe untouched and follow the acid-burned reeds!", to: 2, onChoose: { cw: "HONORED_TROLLKIN", msg: "You honored the fallen warrior's weapon—earning the Red Craw clan's respect!" } },
+          { t: "Examine the acidic scorch-marks and webbed clawprints to learn the predator's habits.", badge: "Survival / Lore DC 16", check: { stat: "lore", skill: "Survival", dc: 16, pass: 3, fail: 2, passMsg: "Five-headed hydra tracks—and you spot a dry cypress root-walk bypassing the cultists' ambush!", failMsg: "Sizzling marsh-gas stings your eyes, forcing you straight into the sunken fen!" }, onPass: { cw: "HYDRA_STUDIED" } },
+          { t: "Follow the massive webbed tracks straight into the sunken crayfish fen.", to: 2 }
         ]
       },
       2: {
         zone: "Sunken Crayfish Fen",
         title: "Hydra Worshippers",
-        text: "Fanatical swamp-cultists and venomous marsh drakes guarding the hydra's hunting grounds lunge out of the reeds!",
-        enemy: { name: "Venom Maw Marsh Cultists", desc: "Twisted swamp zealots serving the multi-headed beast.", hp: 92, ac: 17, atk: 12, dmg: 13, xp: 315, gold: 150, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1 },
+        text: "Half-submerged bone totems rattle in the reeds as fanatical swamp-cultists draped in shed hydra-scales—backed by spitting marsh-drakes—surge out of the crimson water to defend their 'Five-Headed Mother'!",
+        enemy: { name: "Venom Maw Marsh Cultists", desc: "Twisted swamp zealots and venomous marsh-drakes serving the hydra.", hp: 92, ac: 17, atk: 12, dmg: 13, xp: 315, gold: 150, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1, weakCw: ["HYDRA_STUDIED"] },
         choices: [
-          { t: "Wading through crimson-tinged bog water, confront the Venom Maw Hydra!", to: 3 }
+          { t: "Search the cultists' sunken offering-shrine before approaching the hydra's pool.", to: 4 },
+          { t: "Wade straight through the steaming crimson bog toward the Venom Maw's lair!", to: 5 }
         ]
       },
       3: {
-        zone: "Heart of Red Craw Marsh",
-        title: "The Venom Maw Hydra",
-        text: "Five hissing serpentine heads erupt from the black marsh pool, dripping sizzling emerald venom that melts reeds to ash!",
-        enemy: { name: "Venom Maw Hydra", desc: "Terrifying multi-headed acid-spitting swamp titan.", hp: 120, ac: 18, atk: 13, dmg: 15, xp: 450, gold: 310, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare") },
+        zone: "Cypress Root-Walk",
+        title: "Above the Ambush",
+        text: "Moving silently along the knotted cypress roots above the reed-beds, you watch the hydra-cultists' patrol slog harmlessly beneath you—and spot a trapped village crayfish-skiff tangled in the branches, still holding a dry apothecary's antidote kit!",
+        onEnter: { healHp: 15, xp: 45, cw: "ANTIDOTE_READY", msg: "Bypassed the ambush (+45 XP), recovered marsh antidotes (+15 HP) & gained ANTIDOTE_READY!" },
         choices: [
-          { t: "Meet the four approaching Trollkin Reavers searching for their fallen kin!", to: 4 }
+          { t: "Inspect the cultists' sunken offering-shrine on the far bank.", to: 4 },
+          { t: "Drop quietly along the ridge overlooking the Venom Maw Hydra's black pool!", to: 5 }
         ]
       },
       4: {
-        zone: "Red Craw Clearing",
-        title: "Peace Restored",
-        text: "Four heavily armed Trollkin Reavers emerge from the fog—and seeing the dead Venom Maw Hydra and their fallen brother's untouched axe, they lower their weapons in deep honor and gift you the Peacekeeper Axe!",
-        onEnter: { items: ["bq_red_craw_battleaxe"], healHp: 20, msg: "The Trollkin Reavers honor your integrity (+20 HP) and gift the Red Craw Peacekeeper Axe!" },
+        zone: "Sunken Offering-Shrine",
+        title: "The Acid-Censers",
+        text: "Beneath a mossy skull-arch, three iron braziers burn green pitch-sap meant to call the hydra to feed—beside a waterlogged chest of silver coins stolen from both villagers and trollkin!",
         choices: [
-          { t: "Escort the trollkin envoy back to the village elder to renew the crayfish truce.", to: 5 }
+          { t: "Smash the iron lock and douse the green summoning braziers in bog-water!", badge: "Lockpicking / Detect Traps DC 16", check: { stat: "agility", skill: "Lockpicking", dc: 16, pass: 5, fail: 5, passMsg: "You recover +120 GP in stolen tribute and choke the hydra's frenzy-fumes!", failMsg: "The latch snaps with a splash—acidic mist rolls across the pool ahead!" }, onPass: { cw: "SHRINE_DOUSED", gold: 120, xp: 35 } },
+          { t: "[Firebolt] Ignite the cult's spare oil-pitch barrels to sear the marsh-reeds ahead!", reqSpell: "Firebolt", to: 5, onChoose: { cw: "REEDS_TORCHED", msg: "Roaring fire clears the bog-mist and singes the hydra's lair!" } },
+          { t: "Leave the cursed shrine alone and press toward the hydra's black pool.", to: 5 }
         ]
       },
       5: {
-        zone: "Marshside Village",
-        title: "Feast of Red Crayfish",
-        text: "Villagers and trollkin alike raise mugs around a roaring bonfire as the lucrative crayfish harvest resumes in peace.",
+        zone: "Heart of Red Craw Marsh",
+        title: "The Venom Maw Hydra",
+        text: "The black marsh pool boils like a cauldron! Five towering, emerald-scaled serpentine heads erupt from the water in a deafening chorus of hisses, dripping sizzling venom that melts cypress trunks to ash!",
+        enemy: { name: "Venom Maw Hydra", desc: "Terrifying five-headed acid-spitting swamp titan.", hp: 120, ac: 18, atk: 13, dmg: 15, xp: 450, gold: 310, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["HYDRA_STUDIED", "ANTIDOTE_READY", "SHRINE_DOUSED", "REEDS_TORCHED"] },
         choices: [
-          { t: "Accept the joint reward of both communities.", to: 6 }
+          { t: "Carve a venom-dripping fang as proof as heavy footsteps splash through the fog!", to: 6 }
         ]
       },
       6: {
-        zone: "Oakhaven Return",
-        title: "Peacemaker of the Marsh",
-        text: "Bards praise both your hydra-slaying steel and your wise diplomacy.",
+        zone: "Red Craw Clearing",
+        title: "Blades in the Fog",
+        text: "Four towering, scarred Trollkin Reavers emerge from the cypress mist with war-axes raised—grief and fury burning in their amber eyes as they spot you standing over the steaming swamp-titan!",
         choices: [
-          { t: "Complete the adventure!", to: 7 }
+          { t: "Point calmly to the slain five-headed hydra and their fallen brother's untouched axe.", reqCw: "HONORED_TROLLKIN", to: 7 },
+          { t: "Hold up the Venom Maw Hydra's severed fang and speak plainly for peace between both peoples.", badge: "Persuasion / Spirit DC 16", check: { stat: "spirit", skill: "Persuasion", dc: 16, pass: 7, fail: 8, passMsg: "The reaver chieftain nods slowly, lowering his notched axe in solemn respect!", failMsg: "Bitter with grief, the reavers demand a brief test of honor before trusting any outsider!" } }
         ]
       },
       7: {
+        zone: "Red Craw Clearing",
+        title: "Honor of the Red Craw Clan",
+        text: "Seeing the monstrous Venom Maw Hydra dead at your feet—and their fallen kinsman's battleaxe left respectfully untouched—the four Trollkin Reavers strike their shields in salute! Their chieftain steps forward and presses the storied Red Craw Peacekeeper Axe into your hands.",
+        onEnter: { items: ["bq_red_craw_battleaxe"], healHp: 20, msg: "The Trollkin Reavers honor your integrity (+20 HP) and gift the Red Craw Peacekeeper Axe!" },
+        choices: [
+          { t: "Escort the trollkin envoy back to Red Craw Village to renew the crayfish truce.", to: 9 }
+        ]
+      },
+      8: {
+        zone: "Red Craw Clearing",
+        title: "A Somber Truce",
+        text: "After a tense standoff over the steaming hydra carcass, the reaver chieftain grudgingly accepts the evidence of the acid-scars and agrees to parley—still pressing the Red Craw Peacekeeper Axe into your keeping as blood-price for slaying the beast.",
+        onEnter: { items: ["bq_red_craw_battleaxe"], healHp: 12, msg: "The reaver chieftain grants you the Red Craw Peacekeeper Axe (+12 HP)!" },
+        choices: [
+          { t: "Lead the watchful trollkin envoy back to the village elder.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Marshside Village",
+        title: "Feast of Red Crayfish",
+        text: "At dusk, nervous villagers lower their spears as you stride into the square beside the trollkin envoy carrying the hydra's acid-scarred fang. By midnight, both peoples are laughing around a roaring cedar bonfire, sharing spiced red crayfish and renewing their harvest pact for another generation!",
+        choices: [
+          { t: "Accept the joint reward of both communities before dawn breaks.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Oakhaven Return",
+        title: "Peacemaker of the Marsh",
+        text: "Word of your deed outruns you down the frontier road—bards at the Rusty Flagon already sing of the hero who slew the five-headed terror and turned a marshland blood-feud into a feast.",
+        choices: [
+          { t: "Complete the adventure!", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Savior of Red Craw Marsh",
-        text: "A needless war was averted, the Venom Maw Hydra is slain, and peace endures in the marsh.",
+        text: "A needless war was averted, the Venom Maw Hydra is slain, and lasting peace endures across Red Craw Marsh.",
         ending: { type: "true", title: "Peacemaker of Red Craw Marsh", xp: 510, gold: 480, trophy: "Venom Maw Hydra Fang" },
         choices: []
       }

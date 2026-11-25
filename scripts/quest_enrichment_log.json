@@ -1,5 +1,5 @@
 {
-  "totalPasses": 13,
+  "totalPasses": 14,
   "history": [
     {
       "pass": 1,
@@ -91,6 +91,13 @@
       "title": "Part II: The Phylactery Throne of Malakor",
       "file": "data/quests/expansion_frontier_quests.js",
       "summary": "Deepened from 12 to 14 atmospheric pages with upper-gallery Stealth scouting against the Dread-Guard (VANGUARD_FLANKED), a new Crypt of Weeping Banners side-vault with Dawn-Watch oath blessing (BANNER_BLESSED, +10 HP, +30 GP), a Turn Undead radiant conduit overload branch (CONDUIT_BROKEN, +20 XP), and richer prose throughout."
+    },
+    {
+      "pass": 14,
+      "questId": "bk_b5_trollkin_hunt",
+      "title": "Trollkin Hunt",
+      "file": "data/quests/books_quests_batch_005.js",
+      "summary": "Expanded from 7 terse pages to 11 richly branching pages with hydra-track Survival scouting (HYDRA_STUDIED), a Cypress Root-Walk ambush bypass yielding marsh antidotes (ANTIDOTE_READY, +15 HP, +45 XP), a Sunken Offering-Shrine sabotage & Firebolt branch (SHRINE_DOUSED +120 GP, REEDS_TORCHED), and an interactive Trollkin Reaver parley payoff for HONORED_TROLLKIN."
     }
   ],
   "questPasses": {
@@ -106,6 +113,7 @@
     "bk_b7_eog_5_fuligin_realm": 1,
     "bk_b19_mossbeard_2": 1,
     "bk_b9_prep_7_betting": 1,
-    "malakor_part2": 1
+    "malakor_part2": 1,
+    "bk_b5_trollkin_hunt": 1
   }
 }
