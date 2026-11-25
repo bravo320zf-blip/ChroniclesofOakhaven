@@ -1,6 +1,6 @@
 {
-  "batchCount": 17,
-  "totalQuestsAdded": 198,
+  "batchCount": 18,
+  "totalQuestsAdded": 209,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -735,7 +735,7 @@
       "reason": "bestiary reference"
     },
     "Books/Kobold Press/Tome of Beasts 3 Lairs/Tome of Beasts 3 Lairs for 5th Edition.pdf": {
-      "status": "in_progress",
+      "status": "done",
       "convertedTitles": [
         "Proudheart's Predator Problem",
         "Flight of the Dromedaries",
@@ -748,7 +748,18 @@
         "The Pavilion of Whispers and Wonderment",
         "Rainforest Reckoning",
         "Safe and Sound",
-        "Lord Gorgo's Keep"
+        "Lord Gorgo's Keep",
+        "Redoubt of the Perfidious Guru",
+        "Incident at Wrackwater",
+        "The Lost Forge",
+        "The Monstrous Machinations of Margrave Millard",
+        "The Green Sanctum",
+        "The Salons of Mother Celeste",
+        "Chaos at the Caldera",
+        "The Eclipsed Chapel",
+        "The Twisted Sanctuary",
+        "A Midnight Ride",
+        "Down in the Dark of The Deep King's Domain"
       ]
     },
     "Books/Kobold Press/Tome of Beasts 3/Tome of Beasts 3 for 5th Edition.pdf": {
@@ -800,7 +811,7 @@
       "status": "pending",
       "convertedTitles": []
     },
-    "Books/Kobold Press/Warlock/Lairs/Warlock Lair #04 - Red Lenny\u2019s Famous Meat Pies.pdf": {
+    "Books/Kobold Press/Warlock/Lairs/Warlock Lair #04 - Red Lenny’s Famous Meat Pies.pdf": {
       "status": "pending",
       "convertedTitles": []
     },
@@ -884,7 +895,7 @@
       "status": "pending",
       "convertedTitles": []
     },
-    "Books/Kobold Press/Warlock/Lairs/Warlock Lair #18 - Storming the Queen\u2019s Desire.pdf": {
+    "Books/Kobold Press/Warlock/Lairs/Warlock Lair #18 - Storming the Queen’s Desire.pdf": {
       "status": "pending",
       "convertedTitles": []
     },

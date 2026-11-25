@@ -1,0 +1,764 @@
+/* ============================================================
+   BOOK QUESTS — BATCH 018 (11 Quests • All autoDiscover: false)
+   Purely in-world subtitles & Inn rumor pool discovery.
+   ============================================================ */
+window.OAKHAVEN.registerQuests({
+  // ==========================================================
+  // 1. REDOUBT OF THE PERFIDIOUS GURU (6 PAGES • LV 5)
+  // ==========================================================
+  bk_b18_tob3_perfidious_guru: {
+    id: "bk_b18_tob3_perfidious_guru",
+    title: "Redoubt of the Perfidious Guru",
+    subtitle: "Mountain Sanctuary & The Infernal Tutor",
+    difficulty: "Hard",
+    recommendedLevel: 5,
+    autoDiscover: false,
+    discoverySource: "Disillusioned Mountain Acolyte (Rusty Flagon Tavern)",
+    summary: "Ascend to a secretive alpine sanctuary promising inner peace and soul-divination—uncovering the fiendish machinations of its elusive Lesser Infernal Tutor past Alpine Creepers and Cloudhoof Assassins!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "High Peaks • Sanctuary Trail",
+        title: "False Enlightenment",
+        safeRetreat: true,
+        text: "Pilgrims climb the misty cliffs seeking a celebrated guru said to read every visitor's soul—yet none who enter the inner redoubt return quite themselves! Clawed Alpine Creepers cling to the icy switchbacks below the temple gates.",
+        choices: [
+          { t: "Spot the camouflaged Alpine Creepers and hidden brimstone censers along the cliff path!", badge: "Perception DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 2, fail: 2, passMsg: "You unmask the soothing incense as a devilish charm, keeping your mind sharp!", failMsg: "Leaping Cloudhoof Assassins drop from the misty spires onto the trail!" }, onPass: { cw: "INCENSE_EXPOSED" } },
+          { t: "March boldly up the stone steps to confront the sanctuary's master!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Mountain Redoubt • Terrace of Clouds",
+        title: "Cloudhoof Assassins & Alpine Creepers",
+        text: "Silent, sure-footed **Cloudhoof Assassins** and frost-scaled **Alpine Creepers** bound across the prayer-terrace to silence nosy outsiders!",
+        enemy: { name: "Cloudhoof Assassins & Alpine Creepers", desc: "Swift alpine killers guarding the deceptive mountain sanctuary.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 155, gold: 85, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["INCENSE_EXPOSED"] },
+        choices: [
+          { t: "Kick open the gilded doors of the Meditation Hall to unmask the Guru!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Meditation Hall • Soul-Mirror",
+        title: "The Perfidious Guru",
+        text: "Shedding his serene mortal illusion in a burst of sulfur, the **Lesser Infernal Tutor** unfolds barbed wings beside a soul-trapping mirror: 'Your devotion is mine—sign in ash!'",
+        enemy: { name: "Lesser Infernal Tutor", desc: "Fiendish deceiver harvesting seekers' souls atop the mountain.", hp: 58, ac: 15, atk: 7, dmg: 8, xp: 215, gold: 145, items: ["bq_guru_prayer_beads"], weakCw: ["INCENSE_EXPOSED"] },
+        choices: [
+          { t: "Shatter the soul-mirror and free the entranced pilgrims!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Sanctuary Courtyard • Clear Sky",
+        title: "Awakened Seekers",
+        text: "Freed from the fiend's honeyed glamour, the grateful pilgrims pool their travel silver and share alpine tea.",
+        onEnter: { healHp: 12, msg: "Pure mountain springwater restores your vigor (+12 HP)!" },
+        choices: [
+          { t: "Lead the pilgrims safely down the pass.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Alpine Switchbacks",
+        title: "True Peace",
+        text: "The false guru's redoubt stands empty beneath clean snow.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Unmasker of the Perfidious Guru",
+        text: "You banished the Infernal Tutor and freed the mountain sanctuary's pilgrims!",
+        ending: { type: "true", title: "Breaker of the False Redoubt", xp: 250, gold: 240, trophy: "Shattered Soul-Mirror Shard" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 2. INCIDENT AT WRACKWATER (6 PAGES • LV 6)
+  // ==========================================================
+  bk_b18_tob3_wrackwater: {
+    id: "bk_b18_tob3_wrackwater",
+    title: "Incident at Wrackwater",
+    subtitle: "Fog-Bound Harbor & The Dark Lighthouse",
+    difficulty: "Hard",
+    recommendedLevel: 6,
+    autoDiscover: false,
+    discoverySource: "Wrackwater Harbor Master (Rusty Flagon Tavern)",
+    summary: "Brave the fog-bound spit of Wrackwater Cove to find two missing search parties and relight the dark harbor lighthouse before the supply ship wrecks—battling Bilge Gremlins, Gullkin Hunters, and a fierce Muraenid!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Wrackwater Spit • Foggy Causeway",
+        title: "A Darkened Beacon",
+        safeRetreat: true,
+        text: "Thick sea-fog blankets Wrackwater Cove—the harbor lighthouse has gone dark, two village patrols have vanished, and a vital supply ship is due before dawn! Screeching Gullkin circle the dark lantern-tower.",
+        choices: [
+          { t: "Use the harbor master's storm-whistle to spot the Bilge Gremlins sabotaging the breakwater!", badge: "Perception DC 14", check: { stat: "spirit", skill: "Perception", dc: 14, pass: 2, fail: 2, passMsg: "You catch the sabotaging gremlins mid-scheme and free a trapped scout!", failMsg: "Swooping Gullkin Hunters dive through the fog with barbed harpoons!" }, onPass: { cw: "FOG_SCOUT" } },
+          { t: "Sprint down the wave-lashed stone causeway straight to the lighthouse door!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Lighthouse Base • Flooded Cellar",
+        title: "Bilge Gremlins & Gullkin Hunters",
+        text: "Cackling **Bilge Gremlins** led by a bosun swarm up from the tide-pool cellar while **Gullkin Hunters** strike from the broken shutters!",
+        enemy: { name: "Bilge Gremlin Bosun & Gullkin", desc: "Sabotaging sea-fey and feathered coastal raiders.", hp: 54, ac: 15, atk: 7, dmg: 8, xp: 190, gold: 110, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["FOG_SCOUT"] },
+        choices: [
+          { t: "Climb the spiraling iron stair to the dark lantern-room!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Lighthouse Peak • Lantern Room",
+        title: "The Eel-Muraenid",
+        text: "Coiled around the unlit oil-mirror, a monstrous, snapping **Muraenid** sea-horror lunges through the shattered glass to keep Wrackwater's beacon dark!",
+        enemy: { name: "Wrackwater Muraenid", desc: "Ferocious amphibious eel-beast commanding the lighthouse ambush.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 175, items: ["bq_wrackwater_beacon_lens"], weakCw: ["FOG_SCOUT"] },
+        choices: [
+          { t: "Ignite the great lighthouse mirror and guide the supply ship safely into harbor!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Wrackwater Quay • Dawn",
+        title: "Safe Harbor",
+        text: "A brilliant golden beam sweeps across the waves! The supply vessel docks intact, the trapped patrols are freed, and the village cheers your name.",
+        onEnter: { healHp: 14, msg: "Hot spiced rum and harbor rations restore your strength (+14 HP)!" },
+        choices: [
+          { t: "Accept Wrackwater's grateful bounty.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Harbor Road",
+        title: "The Light Burns True",
+        text: "The steady golden beam turns faithfully over the cove.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Keeper of Wrackwater Light",
+        text: "You cleared the lighthouse, saved the patrols, and brought the supply ship safely home!",
+        ending: { type: "true", title: "Savior of Wrackwater Cove", xp: 295, gold: 275, trophy: "Brass Lighthouse Key" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 3. THE LOST FORGE (6 PAGES • LV 6)
+  // ==========================================================
+  bk_b18_tob3_lost_forge: {
+    id: "bk_b18_tob3_lost_forge",
+    title: "The Lost Forge",
+    subtitle: "Ruined Dwarven Fort & The Twin Thursir Giants",
+    difficulty: "Hard",
+    recommendedLevel: 6,
+    autoDiscover: false,
+    discoverySource: "Dwarf Pike Guard Captain (Rusty Flagon Tavern)",
+    summary: "Reclaim a dragon-scarred mountain dwarven fort whose ancient forge has blazed back to life under twin Thursir Giants and their Ogre Alleybashers raiding ore-and-ale caravans!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Mountain Fort • Dragon-Scarred Gate",
+        title: "Smoke Over the Dormant Anvil",
+        safeRetreat: true,
+        text: "Abandoned for decades after a dragon attack, the high dwarven stronghold's chimneys once again belch black smoke! Twin Thursir Giants—an Armorer and a Hearth Priestess—have seized the Lost Forge and send ogres to raid passing dwarven ore-and-ale caravans!",
+        choices: [
+          { t: "Coordinate with the Dwarf Pike Guard to slip through the old ventilation aqueduct behind the ogre gate!", badge: "Athletics / Stealth DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 2, fail: 2, passMsg: "You breach the upper foundry walkway, dropping straight behind the ogres!", failMsg: "Clanging hammers stop suddenly as Ogre Alleybashers charge the main gate!" }, onPass: { cw: "FOUNDRY_FLANK" } },
+          { t: "March up the stone switchback alongside the dwarven pike-wall!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Dwarven Fort • Bellows Courtyard",
+        title: "Ogre Alleybashers",
+        text: "Brutal **Ogre Alleybashers** hoisting stolen ale-kegs and iron crowbars smash through the courtyard barricades!",
+        enemy: { name: "Ogre Alleybashers", desc: "Hulking street-brawling ogres serving the Thursir twins.", hp: 54, ac: 14, atk: 7, dmg: 8, xp: 190, gold: 110, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["FOUNDRY_FLANK"] },
+        choices: [
+          { t: "Storm the blazing Great Anvil Hall where the Twin Thursir Giants forge runic iron!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Lost Forge • Great Anvil Hall",
+        title: "Twin Thursir Giants",
+        text: "Sparks shower from the white-hot forge as the **Thursir Armorer Giant** and **Thursir Hearth Priestess** lift glowing runic hammers: 'This mountain iron belongs to the Thursir now!'",
+        enemy: { name: "Twin Thursir Forge-Giants", desc: "Runic frost-giant armorer and flame-channeling hearth priestess.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 180, items: ["bq_lost_forge_tongs"], weakCw: ["FOUNDRY_FLANK"] },
+        choices: [
+          { t: "Dethrone the giants and hand the Lost Forge back to the dwarven clans!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Great Anvil Hall • Victory Ale",
+        title: "Caravans Safe",
+        text: "The Dwarf Pike Captain raises a foaming tankard of recovered stout in your honor, paying out a hefty chest of clan silver.",
+        onEnter: { healHp: 14, msg: "Stout dwarven ale and warm hearth-rest mend your bruises (+14 HP)!" },
+        choices: [
+          { t: "Descend the mountain with the dwarves' gratitude.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "High Ore-Road",
+        title: "Peace in the Peaks",
+        text: "Dwarven hammers ring honestly across the valley once more.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Liberator of the Lost Forge",
+        text: "You toppled the Twin Thursir Giants and restored the mountain stronghold!",
+        ending: { type: "true", title: "Reclaimer of the Lost Forge", xp: 295, gold: 280, trophy: "Dwarven Master-Anvil Token" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 4. THE MONSTROUS MACHINATIONS OF MARGRAVE MILLARD (6 PAGES • LV 7)
+  // ==========================================================
+  bk_b18_tob3_margrave_millard: {
+    id: "bk_b18_tob3_margrave_millard",
+    title: "The Monstrous Machinations of Margrave Millard",
+    subtitle: "The Eccentric Menagerie & Hybrid Beasts",
+    difficulty: "Hard",
+    recommendedLevel: 7,
+    autoDiscover: false,
+    discoverySource: "Escaped Estate Keeper (Rusty Flagon Tavern)",
+    summary: "Infiltrate eccentric Margrave Millard's secluded menagerie—where he has escalated from harmless show-pets to testing lethal Dire Owlbears, Razorfeather Raptors, and a Grolar Bear Alpha on kidnapped citizens!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Millard Estate • Iron Menagerie Gate",
+        title: "Show-Pets Gone Monstrous",
+        safeRetreat: true,
+        text: "Once laughed off as a harmless eccentric breeding odd show-pets, **Margrave Millard** has crossed a bloody line—kidnapping local townsfolk to test his latest arcane crossbreeds inside a walled hunting arena!",
+        choices: [
+          { t: "Uncouple the brass feeding-bell above the beast-pens to lure the Razorfeather Raptors into the empty kennel!", badge: "Stealth / Survival DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 2, fail: 2, passMsg: "Half the hybrid pack bolts after the feeding-bell, clearing your path to the arena!", failMsg: "Shrill screeches echo from the iron cages as chimeric beasts burst loose!" }, onPass: { cw: "KENNEL_LURE" } },
+          { t: "Cut the iron padlock on the menagerie courtyard and charge in!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Menagerie Courtyard • Caged Pens",
+        title: "Dire Owlbear & Razorfeather Raptors",
+        text: "A roaring **Dire Owlbear** and slashing **Razorfeather Raptors** leap across the flagstones alongside darting Slithy Toves!",
+        enemy: { name: "Dire Owlbear & Razorfeather Raptors", desc: "Arcanely engineered apex predators guarding Millard's estate.", hp: 60, ac: 15, atk: 8, dmg: 9, xp: 235, gold: 140, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["KENNEL_LURE"] },
+        choices: [
+          { t: "Burst into the Hunting Arena where Margrave Millard unleashes his Grolar Bear Alpha!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Hunting Arena • Margrave's Balcony",
+        title: "Margrave Millard & Grolar Bear Alpha",
+        text: "Clapping madly from his box, **Margrave Millard** pulls a lever—releasing his towering, frost-furred **Grolar Bear Alpha** straight at you and the bound captives!",
+        enemy: { name: "Grolar Bear Alpha & Margrave Millard", desc: "Colossal hybrid bear-titan and its deranged aristocratic creator.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 315, gold: 205, items: ["bq_millard_beast_whistle"], weakCw: ["KENNEL_LURE"] },
+        choices: [
+          { t: "Subdue the Margrave, unlock the captive cages, and seal the breeding vats!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Estate Gate • Watch Arrival",
+        title: "Captives Freed",
+        text: "Town watchmen haul the raving Margrave away in chains while freed citizens weep with relief and award you the civic bounty.",
+        onEnter: { healHp: 15, msg: "A gentle Capybear nudges a healing satchel to your boots (+15 HP)!" },
+        choices: [
+          { t: "Leave the quieted menagerie behind.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Country Estate Road",
+        title: "Machinations Ended",
+        text: "No more monstrous hybrids will prowl the countryside.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Tamer of Millard's Menagerie",
+        text: "You defeated the Grolar Bear Alpha, stopped Margrave Millard, and freed every captive!",
+        ending: { type: "true", title: "Breaker of the Menagerie", xp: 350, gold: 305, trophy: "Margrave's Silver Whistle" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 5. THE GREEN SANCTUM (6 PAGES • LV 7)
+  // ==========================================================
+  bk_b18_tob3_green_sanctum: {
+    id: "bk_b18_tob3_green_sanctum",
+    title: "The Green Sanctum",
+    subtitle: "The Remote Island Arboretum & Ice Willow",
+    difficulty: "Hard",
+    recommendedLevel: 7,
+    autoDiscover: false,
+    discoverySource: "Botanical Academy Scholar (Rusty Flagon Tavern)",
+    summary: "Sail to a remote island housing a deceased botanist's overgrown glass arboretum—surviving Alpine Creepers, a freezing Ice Willow, and an implacable Ice Golem to claim a priceless exotic specimen!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Remote Island • Glass Arboretum",
+        title: "Overgrown Conservatory",
+        safeRetreat: true,
+        text: "Since its eccentric botanist passed away, her glass-domed island arboretum has run wild with frost-blooming exotic flora! Rival scholars hire you to retrieve her rarest specimen—if you can survive the conservatory's lethal plants and tireless guardian!",
+        choices: [
+          { t: "Open the brass steam-vents along the greenhouse floor to thaw the frost-coated walkways!", badge: "Herbalism / Arcana DC 14", check: { stat: "arcana", skill: "Herbalism", dc: 14, pass: 2, fail: 2, passMsg: "Warm steam melts the rime-slick tiles and weakens the Ice Willow's frost aura!", failMsg: "Shattering icicles rain from the glass dome as frozen vines lunge!" }, onPass: { cw: "STEAM_THAW" } },
+          { t: "Push open the frosted glass doors and step into the Green Sanctum!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Arboretum • Winter Gallery",
+        title: "Ice Willow & Alpine Creepers",
+        text: "Whipping frozen tendrils like crystal chains, a towering **Ice Willow** and predatory **Alpine Creepers** seal the central conservatory!",
+        enemy: { name: "Ice Willow & Alpine Creepers", desc: "Subzero botanical horrors guarding the overgrown island greenhouse.", hp: 60, ac: 15, atk: 8, dmg: 9, xp: 235, gold: 140, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["STEAM_THAW"] },
+        choices: [
+          { t: "Approach the crystalline specimen-pedestal guarded by the Ice Golem!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Green Sanctum • Specimen Pedestal",
+        title: "The Ice Golem Guardian",
+        text: "Bound to protect its late mistress's prized botanical treasure, a colossal, translucent **Ice Golem** steps before the glowing rare plant!",
+        enemy: { name: "Arboretum Ice Golem", desc: "Unrelenting glacial construct defending the scholar's rarest bloom.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 315, gold: 205, items: ["bq_green_sanctum_bloom"], weakCw: ["STEAM_THAW"] },
+        choices: [
+          { t: "Carefully pot the priceless exotic bloom and sail back to the Academy!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Island Dock • Academy Skiff",
+        title: "Specimen Secured",
+        text: "The academy scholars gasps in wonder at the unblemished bloom, paying out a handsome scholarly endowment.",
+        onEnter: { healHp: 15, msg: "Aromatic nectar from the conservatory restores your vigor (+15 HP)!" },
+        choices: [
+          { t: "Sail back toward Oakhaven.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Sunlit Harbor",
+        title: "Botanical Triumph",
+        text: "The rare bloom will yield life-saving tonics for generations.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Delver of the Green Sanctum",
+        text: "You braved the frozen conservatory and claimed the priceless exotic plant!",
+        ending: { type: "true", title: "Warden of the Green Sanctum", xp: 350, gold: 305, trophy: "Pressed Frost-Lotus Blossom" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 6. THE SALONS OF MOTHER CELESTE (6 PAGES • LV 8)
+  // ==========================================================
+  bk_b18_tob3_mother_celeste: {
+    id: "bk_b18_tob3_mother_celeste",
+    title: "The Salons of Mother Celeste",
+    subtitle: "The Sunken Merchant Wreck & Brine Hag",
+    difficulty: "Hard",
+    recommendedLevel: 8,
+    autoDiscover: false,
+    discoverySource: "Coastal Port Authority (Rusty Flagon Tavern)",
+    summary: "Dive to the reef-trapped wreck of a missing merchant vessel—fighting past Dire Lionfish, a Breakwater Troll, and a haunting Wrackwraith to defeat the sinister Brine Hag claiming its flooded salons!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Reef Shallows • Sunken Hull",
+        title: "Beneath the Waves",
+        safeRetreat: true,
+        text: "Fishermen located the missing merchant vessel wedged deep in a jagged reef, its flooded salons glowing with eerie sea-witch lanterns! Armed with water-breathing charms, you dive into the darkened hull to salvage the lost cargo.",
+        choices: [
+          { t: "Swim through the breached stern-window to avoid the venomous Dire Lionfish patrolling the deck!", badge: "Stealth / Athletics DC 15", check: { stat: "agility", skill: "Stealth", dc: 15, pass: 2, fail: 2, passMsg: "You slip cleanly into the flooded salon, surprising the reef-guardians!", failMsg: "Spiny Dire Lionfish and a roaring Breakwater Troll lunge from the kelp!" }, onPass: { cw: "STERN_DIVE" } },
+          { t: "Descend straight through the shattered main deck hatch!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Sunken Ship • Flooded Cargo Deck",
+        title: "Breakwater Troll & Dire Lionfish",
+        text: "Barnacle-crusted **Breakwater Troll** claws slash through the murk alongside venomous **Dire Lionfish** and cackling Bilge Gremlins!",
+        enemy: { name: "Breakwater Troll & Dire Lionfish", desc: "Regenerating sea-troll and venomous reef predators nesting in the wreck.", hp: 66, ac: 15, atk: 8, dmg: 10, xp: 265, gold: 155, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["STERN_DIVE"] },
+        choices: [
+          { t: "Enter the Grand Salon where the Brine Hag and a Wrackwraith hold court!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Grand Salon • Mother Celeste's Bower",
+        title: "The Brine Hag & Wrackwraith",
+        text: "Draped in kelp and drowned sailors' silver, the hideous **Brine Hag** commands a wailing **Wrackwraith** amid the ship's treasure chests!",
+        enemy: { name: "Mother Celeste, Brine Hag & Wrackwraith", desc: "Sinister sea-hag and drowned spirit haunting the sunken salons.", hp: 82, ac: 16, atk: 9, dmg: 11, undead: true, xp: 355, gold: 230, items: ["bq_celeste_pearl_chalice"], weakCw: ["STERN_DIVE"] },
+        choices: [
+          { t: "Rig salvage-floats to the merchant chests and surface with the cargo!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Harbor Pier • Salvage Boat",
+        title: "Cargo Raised",
+        text: "Port officials cheer as the sealed trade-chests break the waves, awarding you a generous share of sea-gold.",
+        onEnter: { healHp: 16, msg: "Dry blankets and warm port broth mend your strength (+16 HP)!" },
+        choices: [
+          { t: "Collect your salvage fee.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Coastal Wharf",
+        title: "Reef Cleansed",
+        text: "Fishing boats sail cleanly over the quieted reef once again.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Salvager of the Sunken Salons",
+        text: "You slew the Brine Hag, laid the Wrackwraith to rest, and recovered the lost cargo!",
+        ending: { type: "true", title: "Bane of the Brine Hag", xp: 395, gold: 350, trophy: "Barnacle-Crowned Sea Pearl" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 7. CHAOS AT THE CALDERA (6 PAGES • LV 8)
+  // ==========================================================
+  bk_b18_tob3_caldera: {
+    id: "bk_b18_tob3_caldera",
+    title: "Chaos at the Caldera",
+    subtitle: "Mount Magra & The Planar Lava Portals",
+    difficulty: "Hard",
+    recommendedLevel: 8,
+    autoDiscover: false,
+    discoverySource: "Dorma Village Elder (Rusty Flagon Tavern)",
+    summary: "Ascend smoking Mount Magra above the fertile town of Dorma to close violent planar portals tearing open its caldera—battling rampaging Ibexians and a molten Obsidian Ophidian before the volcano erupts!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Mount Magra • Ash-Covered Slopes",
+        title: "Tremors Above Dorma",
+        safeRetreat: true,
+        text: "Long dormant above the fertile fields of Dorma, **Mount Magra** now rumbles with thunderous tremors! Planar rifts have torn open inside the volcano's caldera, spewing fiery extraplanar beasts toward the trembling town below!",
+        choices: [
+          { t: "Trace the cool basalt wind-chimneys up the caldera rim to avoid the falling magma-bombs!", badge: "Survival / Athletics DC 15", check: { stat: "might", skill: "Survival", dc: 15, pass: 2, fail: 2, passMsg: "You reach the high crater ledge unharmed, flanking the planar portal-guards!", failMsg: "Blistering ash-gusts sweep the ridge as horned Ibexians charge!" }, onPass: { cw: "BASALT_RIDGE" } },
+          { t: "Climb straight up the smoking lava-trail into the caldera bowl!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Caldera Rim • Smoking Fissures",
+        title: "Planar Ibexians",
+        text: "Fierce, bronze-horned **Ibexian** marauders leap across glowing lava fissures, trying to widen the volcano's planar rifts!",
+        enemy: { name: "Rampaging Planar Ibexians", desc: "Horned extraplanar raiders pouring out of Mount Magra's rifts.", hp: 66, ac: 16, atk: 8, dmg: 10, xp: 265, gold: 155, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["BASALT_RIDGE"] },
+        choices: [
+          { t: "Descend to the blazing magma-heart where an Obsidian Ophidian coils around the rift!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Caldera Heart • Planar Magma Rift",
+        title: "The Obsidian Ophidian",
+        text: "Wreathed in volcanic glass and searing magma, a colossal **Obsidian Ophidian** rears out of the crackling portal—threatening to trigger Mount Magra's eruption!",
+        enemy: { name: "The Obsidian Ophidian", desc: "Volcanic-glass serpent guardian channeling planar eruption fire.", hp: 84, ac: 16, atk: 9, dmg: 11, xp: 360, gold: 230, items: ["bq_magra_obsidian_fang"], weakCw: ["BASALT_RIDGE"] },
+        choices: [
+          { t: "Collapse the planar rift-anchor and calm the trembling caldera!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Town of Dorma • Vineyards",
+        title: "The Mountain Sleeps",
+        text: "The ash-plume fades to white steam as Mount Magra settles back into slumber! Grateful Dorma vintners celebrate with gold and rich valley wine.",
+        onEnter: { healHp: 16, msg: "Cool mountain air and Dorma's finest vintage mend your burns (+16 HP)!" },
+        choices: [
+          { t: "Accept Dorma's heartfelt tribute.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Fertile Valley Road",
+        title: "Eruption Averted",
+        text: "Green vineyards thrive safely beneath the quiet peak.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Savior of Dorma",
+        text: "You slew the Obsidian Ophidian, sealed the caldera portals, and saved Dorma from eruption!",
+        ending: { type: "true", title: "Queller of Mount Magra", xp: 400, gold: 350, trophy: "Vitrified Magra Ember-Stone" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 8. THE ECLIPSED CHAPEL (6 PAGES • LV 9)
+  // ==========================================================
+  bk_b18_tob3_eclipsed_chapel: {
+    id: "bk_b18_tob3_eclipsed_chapel",
+    title: "The Eclipsed Chapel",
+    subtitle: "Painter Pol's Miracle Mural & The Dark Apostle",
+    difficulty: "Deadly",
+    recommendedLevel: 9,
+    autoDiscover: false,
+    discoverySource: "Inspired Painter Pol (Rusty Flagon Tavern)",
+    summary: "Stand vigil for earnest painter Pol as he races to paint a miracle mural in an abandoned chapel—defending him against Stained Glass Moths, Copperkill Slimes, Gearmasses, and a twisted Apostle!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Abandoned Chapel • Nave of Dust",
+        title: "A Leap of Faith",
+        safeRetreat: true,
+        text: "Paint-splattered visionary **Pol** swears an angel tasked him with completing a luminous magic mural inside this ruined chapel before sundown! Yet the moment his brush touches plaster, dark oozes, shimmering Stained Glass Moths, and a ticking Gearmass awaken to stop the miracle!",
+        choices: [
+          { t: "Consecrate the chapel's dry stone font before Pol begins painting to weaken the corrupting oozes!", badge: "Spirit / Lore DC 15", check: { stat: "spirit", skill: "Lore", dc: 15, pass: 2, fail: 2, passMsg: "Pale radiance gleams across the nave, searing the creeping slimes!", failMsg: "Shattered window-shards flutter to life as Stained Glass Moths descend!" }, onPass: { cw: "FONT_BLESSED" } },
+          { t: "Plant yourself before Pol's scaffolding with weapon drawn!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Eclipsed Chapel • Shattered Windows",
+        title: "Stained Glass Moths & Copperkill Slimes",
+        text: "Razor-winged **Stained Glass Moths** swoop from the rose window while **Copperkill & Sinoper Oozes** and a grinding **Gearmass** surge toward Pol's ladder!",
+        enemy: { name: "Stained Glass Moths & Gearmass", desc: "Lethal living glass insects and corrosive chapel constructs.", hp: 74, ac: 16, atk: 9, dmg: 11, xp: 305, gold: 180, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["FONT_BLESSED"] },
+        choices: [
+          { t: "Hold the final vigil as a shadowed Apostle steps out of the eclipsed altar!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Eclipsed Chapel • The Miracle Mural",
+        title: "The Eclipsed Apostle",
+        text: "With Pol's final brushstroke moments away, a terrifying **Dark Apostle** erupts from the cracked altar to smear the radiant mural in shadow!",
+        enemy: { name: "The Eclipsed Apostle", desc: "Malevolent heresy-spirit determined to snuff out Pol's angelic mural.", hp: 88, ac: 16, atk: 10, dmg: 12, undead: true, xp: 400, gold: 255, items: ["bq_pol_radiant_brush"], weakCw: ["FONT_BLESSED"] },
+        choices: [
+          { t: "Watch Pol's final brushstroke ignite the chapel in dazzling angelic light!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Sanctified Chapel • Golden Dusk",
+        title: "A Miracle Complete",
+        text: "Golden warmth pours straight from the finished mural! Weeping with joy, Pol and grateful pilgrims shower you with blessed coin and radiant healing.",
+        onEnter: { healHp: 18, msg: "Angelic light from Pol's finished mural heals your wounds (+18 HP)!" },
+        choices: [
+          { t: "Leave the newly sanctified chapel in peace.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Hilltop Path",
+        title: "Faith Rewarded",
+        text: "The mural's warm glow shines through the chapel windows like a beacon.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Guardian of the Miracle Mural",
+        text: "You held the vigil at the Eclipsed Chapel and protected Pol's miracle!",
+        ending: { type: "true", title: "Vigilant Shield of the Chapel", xp: 440, gold: 390, trophy: "Stained-Glass Angel Medallion" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 9. THE TWISTED SANCTUARY (6 PAGES • LV 10)
+  // ==========================================================
+  bk_b18_tob3_twisted_sanctuary: {
+    id: "bk_b18_tob3_twisted_sanctuary",
+    title: "The Twisted Sanctuary",
+    subtitle: "The Veiled Mannequin & Rakshasa Safehouse",
+    difficulty: "Deadly",
+    recommendedLevel: 10,
+    autoDiscover: false,
+    discoverySource: "Suspicious City Inspector (Rusty Flagon Tavern)",
+    summary: "Uncover the secret entrance hidden inside the upscale Veiled Mannequin tailor's shop and raid the Sanctuary of the Twisted Claw—a deadly Rakshasa safehouse plotting ruin from the heart of the city!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Upscale Quarter • The Veiled Mannequin",
+        title: "Silk & Backwards Hands",
+        safeRetreat: true,
+        text: "Behind the plush velvet curtains of the Veiled Mannequin tailor's shop lies a hidden stair down into the **Sanctuary of the Twisted Claw**—a fiendish Rakshasa cabal manipulating city officials from the shadows!",
+        choices: [
+          { t: "Spot the silver-threaded illusion seam in the fitting-room mirror to slip past the tailor's alarm!", badge: "Investigation DC 16", check: { stat: "arcana", skill: "Investigation", dc: 16, pass: 2, fail: 2, passMsg: "You slip cleanly behind the mirrored door, catching the Rakshasa guards off-balance!", failMsg: "The tailor's eyes flash fiery tiger-gold as Rakshasa servitors spring from the curtains!" }, onPass: { cw: "MIRROR_SEAM" } },
+          { t: "Kick through the fitting-room mirror straight into the hidden sanctuary!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Sanctuary of the Twisted Claw • Velvet Hall",
+        title: "Rakshasa Myrmidon & Servitors",
+        text: "Tiger-headed **Rakshasa Myrmidons** and spell-cloaked **Rakshasa Servitors** draw curved, cursed blades amidst burning incense!",
+        enemy: { name: "Rakshasa Myrmidon & Servitors", desc: "Fiendish feline warriors defending the hidden urban cabal.", hp: 82, ac: 16, atk: 10, dmg: 12, xp: 345, gold: 210, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["MIRROR_SEAM"] },
+        choices: [
+          { t: "Storm the inner sanctum where the Rakshasa Slayer and Pustakam guard their blackmail vault!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Twisted Sanctuary • Blackmail Vault",
+        title: "Rakshasa Slayer & Pustakam",
+        text: "Wreathed in shimmering spell-wards, the lethal **Rakshasa Slayer** and tome-bound **Rakshasa Pustakam** snarl: 'No mortal leaves the Twisted Claw alive!'",
+        enemy: { name: "Rakshasa Slayer & Pustakam", desc: "Fiendish master assassin and arcane grimoire-lord of the cabal.", hp: 98, ac: 17, atk: 11, dmg: 13, xp: 455, gold: 295, items: ["bq_twisted_claw_stiletto"], weakCw: ["MIRROR_SEAM"] },
+        choices: [
+          { t: "Seize the Rakshasa cabal's ledgers and expose the safehouse to the city!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "City Watch Headquarters",
+        title: "Cabal Broken",
+        text: "Stunned magistrates pay out the city's highest secret bounty as the Veiled Mannequin is sealed for good.",
+        onEnter: { healHp: 18, msg: "City clerics mend your cursed wounds (+18 HP)!" },
+        choices: [
+          { t: "Collect your gold and fade into the crowd.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Market Street",
+        title: "Illusions Shattered",
+        text: "The city's halls breathe free of fiendish manipulation.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Bane of the Twisted Claw",
+        text: "You raided the Veiled Mannequin and crushed the Rakshasa safehouse!",
+        ending: { type: "true", title: "Hunter of the Twisted Claw", xp: 490, gold: 450, trophy: "Rakshasa Silk Signet" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 10. A MIDNIGHT RIDE (6 PAGES • LV 11)
+  // ==========================================================
+  bk_b18_tob3_midnight_ride: {
+    id: "bk_b18_tob3_midnight_ride",
+    title: "A Midnight Ride",
+    subtitle: "The Silver-Chained Púca & Psychophant Cultists",
+    difficulty: "Deadly",
+    recommendedLevel: 11,
+    autoDiscover: false,
+    discoverySource: "Frightened Village Farmer (Rusty Flagon Tavern)",
+    summary: "Answer a rural village's plea to drive off sinister Psychophant Cultists hunting a silver-chained black fey horse—the legendary Púca—to rip open planar gates, and settle accounts with the wild fey itself!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Moonlit Pastures • Silver Hoofprints",
+        title: "Chains in the Mist",
+        safeRetreat: true,
+        text: "A gleaming black stallion draped in silver chains—a trickster **Púca**—has been luring village youths toward the twilight hills! Worse, hooded **Psychophant Cultists** have arrived with grotesque Leashed Lesions to capture the fey steed and force open planar rifts!",
+        choices: [
+          { t: "Track the cultists' psychic beacons across the clover-field to ambush their binding-circle first!", badge: "Arcana / Survival DC 16", check: { stat: "arcana", skill: "Survival", dc: 16, pass: 2, fail: 2, passMsg: "You shatter two planar anchor-stones, disrupting the cultists' leashes!", failMsg: "Twisted Leashed Lesions shriek through the mist as cultists close in!" }, onPass: { cw: "ANCHOR_BROKEN" } },
+          { t: "Ride straight toward the clinking silver chains on the moonlit ridge!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Twilight Ridge • Binding Circle",
+        title: "Psychophant Cultists & Leashed Lesions",
+        text: "Mind-warping **Psychophant Cultists** unleash horrifying **Leashed Lesions** to capture the rearing black stallion—and slay anyone interfering!",
+        enemy: { name: "Psychophant Cultists & Leashed Lesions", desc: "Planar zealots and writhing psychic horrors hunting the Púca.", hp: 90, ac: 17, atk: 11, dmg: 13, xp: 385, gold: 235, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["ANCHOR_BROKEN"] },
+        choices: [
+          { t: "Confront the wild, silver-chained Púca before it bolts through the village!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Standing Stones • Midnight Crossing",
+        title: "The Silver-Chained Púca",
+        text: "Eyes blazing with wild fey fire, the shapeshifting **Púca** rears amid whipping silver chains—testing your mettle in a furious midnight clash!",
+        enemy: { name: "The Silver-Chained Púca", desc: "Powerful shapeshifting fey trickster draped in enchanted silver chains.", hp: 108, ac: 17, atk: 12, dmg: 14, xp: 510, gold: 325, items: ["bq_puca_silver_bridle"], weakCw: ["ANCHOR_BROKEN"] },
+        choices: [
+          { t: "Earn the Púca's grudging truce and send it galloping far beyond the village!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Farming Village • Sunrise",
+        title: "Safe Pastures",
+        text: "Both the cultists and the midnight trickster are gone! Overjoyed farmers pay out the full promised bonus.",
+        onEnter: { healHp: 20, msg: "Warm farmhouse breakfast and rest mend every bruise (+20 HP)!" },
+        choices: [
+          { t: "Collect the village's bounty.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Country Road",
+        title: "Quiet Midnights",
+        text: "Only ordinary crickets sing across the clover fields at dusk.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Tamer of the Midnight Ride",
+        text: "You routed the Psychophant Cultists and bested the silver-chained Púca!",
+        ending: { type: "true", title: "Rider of the Silver Chains", xp: 545, gold: 495, trophy: "Silver Link of the Púca" },
+        choices: []
+      }
+    }
+  },
+
+  // ==========================================================
+  // 11. DOWN IN THE DARK OF THE DEEP KING'S DOMAIN (6 PAGES • LV 12)
+  // ==========================================================
+  bk_b18_tob3_deep_king: {
+    id: "bk_b18_tob3_deep_king",
+    title: "Down in the Dark of The Deep King's Domain",
+    subtitle: "Bioluminescent Caverns & The Cave Sovereign",
+    difficulty: "Deadly",
+    recommendedLevel: 12,
+    autoDiscover: false,
+    discoverySource: "Sole Survivor of the Deep Delve (Rusty Flagon Tavern)",
+    summary: "Descend into twisting bioluminescent fungal caverns far beneath the earth—braving necrotic Duskwilt horrors to slay the fell alien intelligence known as the Deep King!",
+    totalPages: 6,
+    pages: {
+      1: {
+        zone: "Deep Underworld • Bioluminescent Grotto",
+        title: "Motes of Light in the Abyss",
+        safeRetreat: true,
+        text: "Far below the roots of the mountains, glowing fungi drift like pale stars through echoing caverns—hunting ground of the **Deep King**, an alien Cave Sovereign that feeds on the spiritual essence of every expedition sent against it!",
+        choices: [
+          { t: "Read the bioluminescent spore-currents to avoid the soul-draining Duskwilt pockets!", badge: "Arcana / Survival DC 17", check: { stat: "arcana", skill: "Survival", dc: 17, pass: 2, fail: 2, passMsg: "You chart a clean dry-stone ridge straight into the Sovereign's throne grotto!", failMsg: "Spore-clouds burst purple as withered Duskwilt stalkers close in!" }, onPass: { cw: "SPORE_RIDGE" } },
+          { t: "Descend boldly into the luminous cavern depths with lantern raised!", to: 2 }
+        ]
+      },
+      2: {
+        zone: "Fungal Caverns • Ossuary Trail",
+        title: "Duskwilt Horrors",
+        text: "Twisted, essence-draining **Duskwilt** predators rise from the remains of previous fallen heroes along the glowing cavern floor!",
+        enemy: { name: "Cavern Duskwilt Pack", desc: "Soul-siphoning subterranean predators serving the Deep King.", hp: 96, ac: 17, atk: 12, dmg: 14, xp: 420, gold: 260, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1, weakCw: ["SPORE_RIDGE"] },
+        choices: [
+          { t: "Enter the echoing Cathedral of Spores where the Deep King awaits!", to: 3 }
+        ]
+      },
+      3: {
+        zone: "Cathedral of Spores • Throne of the Deep",
+        title: "The Deep King, Cave Sovereign",
+        text: "Radiating crushing psychic pressure amid drifting emerald spores, the alien **Cave Sovereign**—the dreaded Deep King—reaches out to harvest your spirit!",
+        enemy: { name: "The Deep King, Cave Sovereign", desc: "Fell alien intelligence feeding on spiritual essence deep beneath the world.", hp: 118, ac: 18, atk: 13, dmg: 15, xp: 575, gold: 360, items: ["bq_deep_king_sovereign_crown"], weakCw: ["SPORE_RIDGE"] },
+        choices: [
+          { t: "Shatter the Deep King's essence-nexus and claim the fallen expeditions' hoard!", to: 4 }
+        ]
+      },
+      4: {
+        zone: "Upper Cavern • Returning Light",
+        title: "The Abyss Quieted",
+        text: "As the alien intelligence dissolves, trapped spirits drift peacefully upward and the surviving guide salutes you in awe.",
+        onEnter: { healHp: 22, msg: "Pure released essence mends every wound (+22 HP)!" },
+        choices: [
+          { t: "Ascend back to the sunlit surface.", to: 5 }
+        ]
+      },
+      5: {
+        zone: "Mountain Tunnel Exit",
+        title: "Deep Delve Triumphant",
+        text: "No more expeditions will vanish into the Deep King's domain.",
+        choices: [
+          { t: "Complete the adventure!", to: 6 }
+        ]
+      },
+      6: {
+        zone: "Epilogue",
+        title: "Slayer of the Deep King",
+        text: "You succeeded where so many fell and ended the reign of the Cave Sovereign!",
+        ending: { type: "true", title: "Conqueror of the Deep King", xp: 615, gold: 550, trophy: "Bioluminescent Sovereign Crest" },
+        choices: []
+      }
+    }
+  }
+});

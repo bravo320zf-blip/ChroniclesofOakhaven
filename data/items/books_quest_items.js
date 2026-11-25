@@ -1935,3 +1935,147 @@ window.OAKHAVEN.registerItems({
     desc: "+5 Attack, +2 Might. Genuine runic forging-hammer seized from Spiteful Keep."
   }
 });
+
+
+window.OAKHAVEN.registerItems({
+  // Batch 018 — Frontier & Deep Lairs (Part 2 — Built with Passives & Active Abilities!)
+  "bq_guru_prayer_beads": {
+    id: "bq_guru_prayer_beads",
+    name: "Cleansed Alpine Prayer Beads",
+    type: "accessory",
+    rarity: "rare",
+    value: 210,
+    spirit: 2,
+    luck: 1,
+    passives: { healBonus: 3, skillBonus: { Perception: 2 } },
+    activeAbility: { name: "Serene Clarity", icon: "📿", charges: 2, ooc: true, healDice: "1d8", healStat: "spirit", restoreLuck: 1, desc: "2/Quest: Calm mind and body to restore 1d8 + Spirit HP and +1 Current Luck." },
+    desc: "Mountain jade beads purified of the Perfidious Guru's infernal glamour."
+  },
+  "bq_wrackwater_beacon_lens": {
+    id: "bq_wrackwater_beacon_lens",
+    name: "Wrackwater Lighthouse Lens",
+    type: "offhand",
+    rarity: "very_rare",
+    value: 245,
+    ac: 2,
+    spirit: 2,
+    passives: { undeadDmgBonus: 3, skillBonus: { Perception: 2 } },
+    activeAbility: { name: "Harbor Flare", icon: "🔦", charges: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "radiant", chillTurns: 2, desc: "2/Quest: Blinding lighthouse beam deals 2d6 + Spirit radiant dmg & dazzles foe (-2 Enemy ATK, 2t)." },
+    desc: "Faceted beacon crystal from Wrackwater Cove that pierces fog and shadow."
+  },
+  "bq_lost_forge_tongs": {
+    id: "bq_lost_forge_tongs",
+    name: "Thursir Runic Forge-Hammer",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 255,
+    atk: 5,
+    might: 2,
+    passives: { bossDmgBonus: 3, thornsDmg: 2 },
+    activeAbility: { name: "Anvil-Flame Smash", icon: "🔨", charges: 2, dmgDice: "2d6", dmgBonus: 2, dmgStat: "might", dmgType: "fire", dot: { dmg: 3, turns: 3, label: "Scorched" }, desc: "2/Quest: White-hot blow deals 2d6 + 2 + Might fire dmg & scorches foe (3/t, 3t)." },
+    desc: "White-hot runic warhammer wrested from the Twin Thursir Giants of the Lost Forge."
+  },
+  "bq_millard_beast_whistle": {
+    id: "bq_millard_beast_whistle",
+    name: "Margrave's Silver Menagerie Whistle",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 275,
+    might: 2,
+    agility: 2,
+    passives: { critRange: 11, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Summon Capybear", icon: "🐾", charges: 2, summon: { name: "Loyal Capybear", icon: "🐻", dmg: 6, turns: 3 }, desc: "2/Quest: Call a fierce yet friendly Capybear ally (6 dmg/turn for 3 turns)!" },
+    desc: "Silver whistle salvaged from Margrave Millard's menagerie that summons a loyal hybrid companion."
+  },
+  "bq_green_sanctum_bloom": {
+    id: "bq_green_sanctum_bloom",
+    name: "Frost-Lotus of the Green Sanctum",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 280,
+    arcana: 2,
+    spirit: 2,
+    maxMp: 6,
+    passives: { spellDmgBonus: 2, mpRegen: 1 },
+    activeAbility: { name: "Glacial Bloom", icon: "❄️", charges: 2, dmgDice: "2d6", dmgStat: "arcana", dmgType: "cold", chillTurns: 3, desc: "2/Quest: Release subzero petals for 2d6 + Arcana cold dmg & chill foe (-2 Enemy ATK, 3t)." },
+    desc: "Ever-chilled exotic flower preserved in crystal from the remote island arboretum."
+  },
+  "bq_celeste_pearl_chalice": {
+    id: "bq_celeste_pearl_chalice",
+    name: "Sunken Pearl of Mother Celeste",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 315,
+    ac: 2,
+    spirit: 2,
+    maxHp: 10,
+    passives: { dmgReduce: 1, healBonus: 4 },
+    activeAbility: { name: "Tidal Surge", icon: "🌊", charges: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "cold", healDice: "1d8", healStat: "spirit", desc: "2/Quest: Crash a cold reef-wave for 2d6 + Spirit dmg while restoring 1d8 + Spirit HP!" },
+    desc: "Iridescent sea-pearl recovered from the flooded salons of the reef-trapped wreck."
+  },
+  "bq_magra_obsidian_fang": {
+    id: "bq_magra_obsidian_fang",
+    name: "Obsidian Ophidian Fang-Blade",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 325,
+    atk: 6,
+    agility: 2,
+    passives: { critRange: 11, bombDmgBonus: 3 },
+    activeAbility: { name: "Magma Venom Strike", icon: "🌋", charges: 2, dmgDice: "2d8", dmgStat: "agility", dmgType: "fire", dot: { dmg: 4, turns: 3, label: "Molten Burn" }, desc: "2/Quest: Sear the foe for 2d8 + Agility fire dmg and inflict Molten Burn (4/t, 3t)!" },
+    desc: "Volcanic-glass blade carved from the Obsidian Ophidian of Mount Magra."
+  },
+  "bq_pol_radiant_brush": {
+    id: "bq_pol_radiant_brush",
+    name: "Pol's Angelic Gilding Focus",
+    type: "offhand",
+    rarity: "very_rare",
+    value: 350,
+    ac: 2,
+    arcana: 2,
+    spirit: 3,
+    passives: { spellCostReduce: 1, undeadDmgBonus: 4 },
+    activeAbility: { name: "Miracle Brushstroke", icon: "🎨", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", shieldTurns: 3, desc: "2/Quest: Paint a ward of golden light restoring 2d8 + Spirit HP & +3 AC (3t)!" },
+    desc: "Gilded focus blessed by the miracle mural of the Eclipsed Chapel."
+  },
+  "bq_twisted_claw_stiletto": {
+    id: "bq_twisted_claw_stiletto",
+    name: "Stiletto of the Twisted Claw",
+    type: "weapon",
+    rarity: "legendary",
+    value: 400,
+    atk: 6,
+    agility: 3,
+    luck: 2,
+    passives: { critRange: 11, lifesteal: 3, skillBonus: { Stealth: 2 } },
+    activeAbility: { name: "Rakshasa Mirage-Strike", icon: "🐯", charges: 2, guaranteedCrit: true, evadeTurns: 3, desc: "2/Quest: Guaranteed Critical strike through shimmering illusions (+2 AC for 3 turns)!" },
+    desc: "Curved jeweled stiletto seized from the Rakshasa Slayer beneath the Veiled Mannequin."
+  },
+  "bq_puca_silver_bridle": {
+    id: "bq_puca_silver_bridle",
+    name: "Silver Chains of the Púca",
+    type: "cloak",
+    rarity: "legendary",
+    value: 440,
+    ac: 3,
+    agility: 3,
+    luck: 2,
+    passives: { dmgReduce: 2, skillBonus: { Stealth: 2, Persuasion: 2 } },
+    activeAbility: { name: "Midnight Gallop", icon: "🐎", charges: 2, multiStrike: 2, evadeTurns: 2, restoreLuck: 2, desc: "2/Quest: Blur in silver chains for 2 swift strikes, +2 AC (2t), and +2 Current Luck!" },
+    desc: "Moon-forged silver mantle won from the wild shapeshifting Púca at midnight."
+  },
+  "bq_deep_king_sovereign_crown": {
+    id: "bq_deep_king_sovereign_crown",
+    name: "Bioluminescent Crest of the Deep King",
+    type: "accessory",
+    rarity: "legendary",
+    value: 490,
+    ac: 3,
+    arcana: 3,
+    spirit: 3,
+    maxMp: 10,
+    passives: { spellDmgBonus: 3, mpRegen: 1, lifesteal: 2 },
+    activeAbility: { name: "Sovereign Essence Drain", icon: "👑", charges: 2, dmgDice: "3d6", dmgStat: "arcana", dmgType: "psychic", healDice: "2d6", healStat: "spirit", restoreMp: 4, desc: "2/Quest: Rend foe for 3d6 + Arcana psychic dmg while draining 2d6 + Spirit HP & +4 MP!" },
+    desc: "Luminous alien diadem claimed from the Cave Sovereign deep beneath the world."
+  }
+});
