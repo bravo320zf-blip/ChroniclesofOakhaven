@@ -1,6 +1,6 @@
 {
-  "batchCount": 18,
-  "totalQuestsAdded": 209,
+  "batchCount": 19,
+  "totalQuestsAdded": 220,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -778,8 +778,12 @@
       "reason": "player options sourcebook"
     },
     "Books/Kobold Press/Trouble at Mossbeard Mill/Trouble-at-Mossbeard-Mill-FINAL-35ffht.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Trouble at Mossbeard Mill I: Shadows Over Moonbright",
+        "Trouble at Mossbeard Mill II: Missing Pieces",
+        "Trouble at Mossbeard Mill III: Death Comes Creeping"
+      ]
     },
     "Books/Kobold Press/Underworld - Players Guide/Kobold Press - Underworld - Players Guide.pdf": {
       "status": "skipped_no_quests",
@@ -787,11 +791,28 @@
       "reason": "player guide sourcebook"
     },
     "Books/Kobold Press/Underworld Lairs/Kobold Press - Underworld Lairs.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "reason": "all 14 adventures already converted in data/quests/expansion_underworld_lairs.js",
+      "convertedTitles": [
+        "The Sanguine Lodge",
+        "Bastion of the Deranged",
+        "Midden of the Flayed",
+        "Camp Sicarius",
+        "Skullcap Forest",
+        "Cathedral of Ten Thousand Flames",
+        "The Throttle",
+        "Closed Throat Pass",
+        "The Starlit Chambers",
+        "Part II: Caverns of the Soul Rivener",
+        "Fungal Forest of Forgetting",
+        "Breaching Worm Citadel",
+        "To Greet the Rising Sun",
+        "The Last Dwarven Redoubt"
+      ]
     },
     "Books/Kobold Press/Unlikely Heroes/Unlikely Heroes.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "playable race reference supplement, no adventures",
       "convertedTitles": []
     },
     "Books/Kobold Press/Vault of Magic/Vault_of_Magic_for_5th_Edition.pdf": {
@@ -800,32 +821,46 @@
       "reason": "magic items sourcebook"
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #01 - The Clattering Keep v2.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Clattering Keep"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #02 - Pride of Illyria.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Pride of Illyria"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #03 - Spelldrinker's Cavern.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Spelldrinker's Cavern"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #04 - Red Lenny’s Famous Meat Pies.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Red Lenny's Famous Meat Pies"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #05 - The Seal of Rhydaas.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Seal of Rhydaas"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #06 - A Night at the Seven Steeds.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "A Night at the Seven Steeds"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #07 - The Bagiennik Game.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Bagiennik Game"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #08 - The Lost Temple of Anax Apogeion (1).pdf": {
       "status": "skipped_no_quests",
@@ -848,20 +883,25 @@
       "reason": "duplicate of Lost Temple of Anax Apogeion (Batch 014)"
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #09 - The Returners' Tower (1).pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Warlock Lair #09",
       "convertedTitles": []
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #09 - The Returners' Tower (2).pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Warlock Lair #09",
       "convertedTitles": []
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #09 - The Returners' Tower (3).pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "duplicate of Warlock Lair #09",
       "convertedTitles": []
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #09 - The Returners' Tower.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Returners' Tower"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #10 - Firefalls of Ghoss.pdf": {
       "status": "pending",
