@@ -134,6 +134,9 @@
     filter.connect(g);
     g.connect(musicGain);
 
+    osc.onended = () => {
+      try { osc.disconnect(); osc2.disconnect(); g2.disconnect(); filter.disconnect(); g.disconnect(); } catch (_) {}
+    };
     osc.start(startTime);
     osc2.start(startTime);
     osc.stop(startTime + dur + 0.05);
@@ -168,6 +171,9 @@
     filter.connect(g);
     g.connect(musicGain);
 
+    osc.onended = () => {
+      try { osc.disconnect(); vib.disconnect(); vibG.disconnect(); filter.disconnect(); g.disconnect(); } catch (_) {}
+    };
     osc.start(startTime);
     vib.start(startTime);
     osc.stop(startTime + dur + 0.05);
@@ -199,6 +205,9 @@
     filter.connect(g);
     g.connect(musicGain);
 
+    o1.onended = () => {
+      try { o1.disconnect(); o2.disconnect(); filter.disconnect(); g.disconnect(); } catch (_) {}
+    };
     o1.start(startTime);
     o2.start(startTime);
     o1.stop(startTime + dur + 0.05);
@@ -216,6 +225,9 @@
     g.gain.exponentialRampToValueAtTime(0.001, startTime + 0.20);
     osc.connect(g);
     g.connect(musicGain);
+    osc.onended = () => {
+      try { osc.disconnect(); g.disconnect(); } catch (_) {}
+    };
     osc.start(startTime);
     osc.stop(startTime + 0.22);
   }
@@ -236,6 +248,9 @@
     osc.connect(filter);
     filter.connect(g);
     g.connect(musicGain);
+    osc.onended = () => {
+      try { osc.disconnect(); filter.disconnect(); g.disconnect(); } catch (_) {}
+    };
     osc.start(startTime);
     osc.stop(startTime + dur + 0.04);
   }
@@ -293,7 +308,7 @@
     const len = th.harp.length;
 
     const tick = () => {
-      if (!ctx || ctx.state !== "running" || prefs.muted || !prefs.musicEnabled) return;
+      if (document.hidden || !ctx || ctx.state !== "running" || prefs.muted || !prefs.musicEnabled) return;
       const now = ctx.currentTime + 0.03;
       const i = seqStep % len;
 
@@ -345,6 +360,9 @@
     src.connect(f);
     f.connect(g);
     g.connect(sfxGain);
+    src.onended = () => {
+      try { src.disconnect(); f.disconnect(); g.disconnect(); } catch (_) {}
+    };
     src.start(startTime, Math.random() * 0.4, dur + 0.02);
   }
 
@@ -362,6 +380,9 @@
     g.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
     osc.connect(g);
     g.connect(sfxGain);
+    osc.onended = () => {
+      try { osc.disconnect(); g.disconnect(); } catch (_) {}
+    };
     osc.start(startTime);
     osc.stop(startTime + dur + 0.02);
   }
@@ -581,6 +602,16 @@
   }
   ["pointerdown", "keydown"].forEach(ev => {
     document.addEventListener(ev, unlockAudio, { once: false, passive: true });
+  });
+
+  // Suspend WebAudio when the browser tab is hidden to prevent background node/CPU buildup
+  document.addEventListener("visibilitychange", () => {
+    if (!ctx) return;
+    if (document.hidden) {
+      if (ctx.state === "running") ctx.suspend().catch(() => {});
+    } else {
+      if (ctx.state === "suspended" && !prefs.muted) ctx.resume().catch(() => {});
+    }
   });
 
   // Global tactile UI click sound on all buttons (respecting disabled state)

@@ -1703,15 +1703,46 @@
       });
     }
 
+    let mapCanvasCachedW = 0;
+    let mapCanvasCachedH = 0;
+    let mapLastDrawTs = 0;
+    const MAP_MODAL_IDS = ["modal-building", "modal-menu", "modal-journal", "modal-slots", "modal-rules", "modal-help", "modal-io"];
+
+    function isAnyBlockingModalOpen() {
+      for (const id of MAP_MODAL_IDS) {
+        const el = document.getElementById(id);
+        if (el && !el.classList.contains("hidden")) return true;
+      }
+      return false;
+    }
+
+    function invalidateMapCanvasSize() {
+      mapCanvasCachedW = 0;
+      mapCanvasCachedH = 0;
+    }
+    window.addEventListener("resize", invalidateMapCanvasSize, { passive: true });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        if (mapAnimFrame) { cancelAnimationFrame(mapAnimFrame); mapAnimFrame = null; }
+      } else if (state && state.mode === "town" && !mapAnimFrame) {
+        invalidateMapCanvasSize();
+        startMapLoop();
+      }
+    });
+
     function renderTownMapCanvas(ts = 0) {
       const canvas = document.getElementById("town-map-canvas");
-      if (!canvas || !state || state.mode !== "town") return;
-      const rect = canvas.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return;
+      if (!canvas || !state || state.mode !== "town" || document.hidden) return;
+      if (!mapCanvasCachedW || !mapCanvasCachedH) {
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+        mapCanvasCachedW = rect.width;
+        mapCanvasCachedH = rect.height;
+      }
 
-      const dpr = window.devicePixelRatio || 1;
-      const targetW = Math.round(rect.width * dpr);
-      const targetH = Math.round(rect.height * dpr);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const targetW = Math.round(mapCanvasCachedW * dpr);
+      const targetH = Math.round(mapCanvasCachedH * dpr);
       if (canvas.width !== targetW || canvas.height !== targetH) {
         canvas.width = targetW;
         canvas.height = targetH;
@@ -1720,8 +1751,8 @@
       const ctx = canvas.getContext("2d");
       ctx.save();
       ctx.scale(dpr, dpr);
-      const w = rect.width;
-      const h = rect.height;
+      const w = mapCanvasCachedW;
+      const h = mapCanvasCachedH;
       const cw = w / MAP_COLS;
       const ch = h / MAP_ROWS;
 
@@ -1810,13 +1841,18 @@
 
     function startMapLoop() {
       if (mapAnimFrame) cancelAnimationFrame(mapAnimFrame);
+      mapLastDrawTs = 0;
       const tick = (ts) => {
-        if (state && state.mode === "town") {
-          renderTownMapCanvas(ts);
-          mapAnimFrame = requestAnimationFrame(tick);
-        } else {
+        if (!state || state.mode !== "town" || document.hidden) {
           mapAnimFrame = null;
+          return;
         }
+        // Throttle idle town redraws to ~20 FPS and skip GPU blits while a modal covers the map
+        if (!isAnyBlockingModalOpen() && (ts - mapLastDrawTs >= 50 || mapLastDrawTs === 0)) {
+          mapLastDrawTs = ts;
+          renderTownMapCanvas(ts);
+        }
+        mapAnimFrame = requestAnimationFrame(tick);
       };
       mapAnimFrame = requestAnimationFrame(tick);
     }
