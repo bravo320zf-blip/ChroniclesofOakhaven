@@ -1,0 +1,9 @@
+# Exclude large sourcebook PDFs (exceeds GitHub 100MB limit & keeps repo fast)
+books/
+
+# OS & Python cache
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.env

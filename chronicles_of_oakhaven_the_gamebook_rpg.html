@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chronicles of Oakhaven: The Gamebook RPG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-obsidian: #100d0b;
+      --bg-leather: #1a1512;
+      --parchment-top: #f6edd9;
+      --parchment-bot: #e6d6b5;
+      --ink-dark: #241910;
+      --ink-muted: #584330;
+      --gold: #c99a45;
+      --crimson: #8b1e24;
+    }
+    body {
+      background-color: var(--bg-obsidian);
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(139, 30, 36, 0.16), transparent 42%),
+        radial-gradient(circle at 88% 85%, rgba(201, 154, 69, 0.13), transparent 48%);
+      color: #eae0d0;
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+    .font-display { font-family: 'Cinzel', Georgia, serif; }
+    .font-story { font-family: 'Crimson Text', Georgia, 'Times New Roman', serif; }
+
+    .parchment-card {
+      background: linear-gradient(165deg, var(--parchment-top) 0%, var(--parchment-bot) 100%);
+      color: var(--ink-dark);
+      border: 2px solid #8c6a32;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.68), inset 0 0 42px rgba(120,82,34,0.18), inset 0 0 0 4px rgba(139,30,36,0.14);
+      position: relative;
+    }
+    .parchment-card::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(140,106,50,0.38);
+      border-radius: 0.7rem;
+      pointer-events: none;
+    }
+    .story-prose p:first-of-type::first-letter {
+      font-family: 'Cinzel', Georgia, serif;
+      float: left;
+      font-size: 3.1rem;
+      line-height: 0.85;
+      padding-right: 0.5rem;
+      padding-top: 0.18rem;
+      color: var(--crimson);
+      font-weight: 700;
+    }
+    .leather-panel {
+      background: linear-gradient(180deg, #211b17 0%, #15110e 100%);
+      border: 1px solid rgba(201, 154, 69, 0.34);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.58);
+    }
+    .choice-btn {
+      background: rgba(255, 250, 240, 0.78);
+      border: 1.5px solid #9c7940;
+      color: #241910;
+      transition: all 0.16s ease;
+    }
+    .choice-btn:hover:not(:disabled) {
+      background: #fffaf0;
+      border-color: var(--crimson);
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(139,30,36,0.18);
+    }
+    .choice-btn-special {
+      background: linear-gradient(90deg, rgba(248, 234, 195, 0.94), rgba(255, 249, 228, 0.96));
+      border: 1.5px solid #b58328;
+    }
+    .btn-gold {
+      background: linear-gradient(180deg, #d6a752 0%, #a37425 100%);
+      color: #1a1209;
+      border: 1px solid #f2d38d;
+      font-weight: 700;
+      transition: all 0.15s ease;
+    }
+    .btn-gold:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-crimson {
+      background: linear-gradient(180deg, #a8272e 0%, #73161b 100%);
+      color: #fdf6e9;
+      border: 1px solid #d66b70;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .btn-crimson:hover:not(:disabled) { filter: brightness(1.12); transform: translateY(-1px); }
+
+    @keyframes popIn {
+      0% { transform: scale(0.92); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pop-in { animation: popIn 0.25s ease-out; }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #14110e; }
+    ::-webkit-scrollbar-thumb { background: #503e27; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7a5e39; }
+  </style>
+</head>
+<body class="antialiased selection:bg-amber-700 selection:text-amber-50">
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-xs w-full pointer-events-none"></div>
+
+  <!-- ============================================================
+       SCREEN 0: TITLE / LAUNCH SCREEN
+       ============================================================ -->
+  <section id="launch-screen" class="fixed inset-0 z-30 flex items-center justify-center p-4 bg-stone-950 overflow-y-auto">
+    <img src="Gemini_Generated_Image_8g96pf8g96pf8g96.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-45 select-none pointer-events-none" />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/85 pointer-events-none"></div>
+
+    <div class="relative z-10 leather-panel rounded-2xl max-w-lg w-full p-6 sm:p-8 text-center shadow-2xl border-2 border-amber-500/60 backdrop-blur-md pop-in space-y-6">
+      <div class="space-y-2">
+        <div class="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-red-900 border-2 border-amber-300/70 flex items-center justify-center shadow-xl">
+          <svg class="w-8 h-8 text-amber-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/>
+          </svg>
+        </div>
+        <h1 class="font-display text-3xl sm:text-4xl font-extrabold text-amber-200 tracking-wide drop-shadow">
+          Chronicles of Oakhaven
+        </h1>
+        <p id="launch-subtitle" class="font-story text-base text-amber-100/80">
+          Solo Fantasy Gamebook RPG
+        </p>
+      </div>
+
+      <!-- Google Sign-In Cloud Save Bar -->
+      <div id="launch-cloud-bar" class="p-3 rounded-xl bg-stone-950/90 border border-amber-700/40"></div>
+
+      <!-- 5 Hero Save Slots Roster -->
+      <div class="text-left space-y-2">
+        <div class="flex items-center justify-between text-[11px] uppercase tracking-wider font-display text-amber-400 font-bold px-1">
+          <span>Hero Save Slots (5 Slots)</span>
+          <span class="text-stone-400 font-sans normal-case font-normal">Click Play or Create</span>
+        </div>
+        <div id="launch-slots-list" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
+      </div>
+
+      <!-- Secondary Launch Actions -->
+      <div class="grid grid-cols-2 gap-2.5 pt-1">
+        <button id="btn-launch-new" class="py-2.5 px-4 rounded-xl btn-crimson font-display text-xs uppercase tracking-wider shadow">
+          ⚔ Forge New Hero
+        </button>
+        <button id="btn-launch-import" class="py-2.5 px-4 rounded-xl bg-stone-900/90 hover:bg-stone-800 border border-purple-500/40 text-xs font-semibold text-purple-200 transition">
+          📋 Import Save JSON
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SCREEN 1: CHARACTER CREATION
+       ============================================================ -->
+  <main id="creation-screen" class="hidden max-w-5xl mx-auto px-3 sm:px-6 py-6 sm:py-10 pb-24">
+    <div class="leather-panel rounded-2xl p-5 sm:p-8">
+      <div class="text-center border-b border-amber-700/30 pb-5 mb-6">
+        <span class="inline-block px-3 py-1 rounded-full bg-red-950/80 border border-amber-600/40 text-amber-300 text-xs font-display tracking-widest uppercase mb-2">
+          Chronicles of Oakhaven &bull; Character Sheet
+        </span>
+        <h2 class="font-display text-2xl sm:text-4xl font-extrabold text-amber-200 tracking-wide">
+          Forge Your Adventurer
+        </h2>
+        <p class="font-story text-base sm:text-lg text-stone-300 mt-2 max-w-2xl mx-auto">
+          Create your hero before arriving at the frontier town of Oakhaven. Gather rumors, train at the Guildhall, craft gear, stash your wealth safely, and conquer six classic gamebook adventures.
+        </p>
+      </div>
+
+      <!-- Name, Race, Class & Subclass -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="space-y-4">
+          <div>
+            <label for="char-name" class="block font-display text-xs uppercase tracking-wider text-amber-400 mb-2">Hero Name</label>
+            <input id="char-name" type="text" maxlength="28" value="Rowan Ashblade"
+              class="w-full px-4 py-3 rounded-xl bg-stone-950 border border-amber-700/50 text-amber-100 focus:outline-none focus:border-amber-400 text-base" />
+          </div>
+          <div>
+            <label class="block font-display text-xs uppercase tracking-wider text-amber-400 mb-2">Choose Race</label>
+            <div id="race-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1"></div>
+          </div>
+          <div class="p-3 rounded-xl bg-stone-950/70 border border-stone-800 text-xs text-stone-400 space-y-1">
+            <div class="text-amber-300 font-semibold">Classic Gamebook Heritage</div>
+            <p>Unites <em>Fighting Fantasy</em> (Test Your Luck &amp; 2d6 combat), <em>Lone Wolf</em> (12-slot pack &amp; skills), <em>Sorcery!</em> (tactical magic), and <em>Fabled Lands</em> (open town hub, stash &amp; codewords).</p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label class="block font-display text-xs uppercase tracking-wider text-amber-400 mb-2">Choose Class Archetype</label>
+            <div id="archetype-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-56 overflow-y-auto pr-1"></div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label class="block font-display text-xs uppercase tracking-wider text-purple-300">Choose Subclass</label>
+              <span class="text-[10px] text-purple-300/80 italic">Hover a subclass to view Lv. 1 / 5 / 10 abilities</span>
+            </div>
+            <div id="subclass-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-56 overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attributes Point-Buy -->
+      <div class="mb-6 p-4 sm:p-5 rounded-xl bg-stone-950/70 border border-amber-700/30">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="font-display text-base font-bold text-amber-300">Core Attributes (Base 5 + 6 Points)</h3>
+            <p class="text-xs text-stone-400">Used for 2d6 Skill Checks, Combat, Spells, and Test Your Luck.</p>
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-amber-950/70 border border-amber-500/50 text-xs font-semibold text-amber-200">
+            Points Left: <span id="points-left" class="text-amber-400 text-base font-bold">6</span>
+          </div>
+        </div>
+        <div id="stats-builder" class="grid grid-cols-2 sm:grid-cols-5 gap-3"></div>
+        <div class="mt-4 pt-3 border-t border-stone-800 flex flex-wrap items-center gap-3">
+          <div id="creation-token-preview" class="relative w-16 h-16 shrink-0" title="Your Hero Map Token">
+            <img id="preview-hero-token" src="images/tokens/human_warrior.png" alt="Hero Token" class="w-16 h-16 rounded-full object-cover shadow-lg" />
+          </div>
+          <div class="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <div class="p-2 rounded-lg bg-stone-900 border border-stone-800"><div class="text-[11px] text-stone-400">Starting HP</div><div id="preview-hp" class="font-display text-lg font-bold text-rose-400">24</div></div>
+            <div class="p-2 rounded-lg bg-stone-900 border border-stone-800"><div class="text-[11px] text-stone-400">Starting MP</div><div id="preview-mp" class="font-display text-lg font-bold text-sky-400">12</div></div>
+            <div class="p-2 rounded-lg bg-stone-900 border border-stone-800"><div class="text-[11px] text-stone-400">Armor Class</div><div id="preview-ac" class="font-display text-lg font-bold text-amber-300">11</div></div>
+            <div class="p-2 rounded-lg bg-stone-900 border border-stone-800"><div class="text-[11px] text-stone-400">Attack Bonus</div><div id="preview-atk" class="font-display text-lg font-bold text-emerald-400">+4</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills & Spells -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-7">
+        <div class="p-4 rounded-xl bg-stone-950/70 border border-amber-700/30">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display text-base font-bold text-amber-300">Starting Skills (+2 Bonus)</h3>
+            <span id="skill-counter" class="text-xs px-2.5 py-0.5 rounded-full bg-stone-800 text-amber-300">0/2</span>
+          </div>
+          <div id="skills-selector" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+        </div>
+        <div class="p-4 rounded-xl bg-stone-950/70 border border-amber-700/30">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display text-base font-bold text-sky-300">Starting Spells</h3>
+            <span id="spell-counter" class="text-xs px-2.5 py-0.5 rounded-full bg-stone-800 text-sky-300">0/2</span>
+          </div>
+          <div id="spells-selector" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+        </div>
+      </div>
+
+      <!-- Inline Character Creation Validation Banner -->
+      <div id="creation-validation-msg" class="hidden mb-5 p-3.5 rounded-xl bg-red-950/90 border border-red-500/70 text-xs sm:text-sm text-rose-100 space-y-1 pop-in"></div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-amber-700/30">
+        <div class="text-xs text-stone-400">
+          Starts in <strong>Oakhaven</strong> with Class Gear, 2 Health Potions, 1 Torch, and 35 GP.
+        </div>
+        <button id="btn-begin-game" class="w-full sm:w-auto px-8 py-3.5 rounded-xl btn-gold font-display text-base tracking-wider uppercase shadow-lg">
+          Enter Oakhaven &rarr;
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================================
+       SCREEN 2: MAIN PLAY AREA (FULL-SCREEN TOWN MAP OR ADVENTURE)
+       ============================================================ -->
+  <div id="main-screen" class="hidden min-h-screen">
+
+    <!-- MODE A: FULL-SCREEN OAKHAVEN TOWN MAP -->
+    <div id="town-hub-view" class="fixed inset-0 z-10 bg-stone-950 transition-opacity duration-500 ease-in-out opacity-100 select-none overflow-hidden">
+      <canvas id="town-map-canvas" class="w-full h-full block cursor-pointer"></canvas>
+
+      <!-- Subtle Top-Left Floating Location HUD -->
+      <div class="fixed top-3 left-3 z-20 flex flex-wrap items-center gap-2 pointer-events-none">
+        <div class="px-3.5 py-1.5 rounded-xl bg-stone-950/85 border border-amber-600/50 text-xs text-amber-200 backdrop-blur-md shadow-xl">
+          <span id="map-location-label" class="font-display font-bold">Town Square Path</span>
+          <span id="map-coords-label" class="text-[10px] text-stone-400 ml-1.5">(11, 11)</span>
+        </div>
+        <div id="town-blessing-badge" class="hidden px-3 py-1.5 rounded-xl bg-amber-950/90 border border-amber-400/60 text-xs text-amber-200 font-semibold backdrop-blur-md shadow-xl"></div>
+        <button id="btn-reenter-building" class="hidden pointer-events-auto px-3.5 py-1.5 rounded-xl btn-gold text-xs font-display uppercase shadow-xl">
+          Enter Building
+        </button>
+      </div>
+    </div>
+
+    <!-- MODE B: ACTIVE ADVENTURE PAGE VIEW -->
+    <div id="adventure-view" class="hidden max-w-4xl mx-auto px-3 sm:px-6 pt-6 pb-28 space-y-4">
+          <article class="parchment-card rounded-2xl p-5 sm:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-amber-900/25">
+              <div>
+                <span id="adv-header-meta" class="text-[11px] font-bold uppercase tracking-widest text-red-900/80 block">
+                  Adventure &bull; Zone
+                </span>
+                <h2 id="adv-page-title" class="font-display text-2xl sm:text-3xl font-extrabold text-[#241910] mt-0.5">
+                  Page Title
+                </h2>
+              </div>
+              <span class="font-display px-3 py-1.5 rounded-lg bg-[#241910] text-amber-300 text-xs sm:text-sm font-bold shadow">
+                Page <span id="adv-page-num">1</span> / <span id="adv-page-total">20</span>
+              </span>
+            </div>
+
+            <div id="adv-roll-banner" class="hidden mb-5 p-3 rounded-xl border text-xs sm:text-sm font-medium"></div>
+
+            <div id="adv-prose" class="story-prose font-story text-lg sm:text-[1.2rem] leading-relaxed space-y-4 text-[#241910]"></div>
+
+            <!-- Mid-Dungeon Merchant Callout (Vexx) -->
+            <div id="adv-merchant-box" class="hidden mt-5 p-4 rounded-xl bg-amber-900/15 border border-amber-800/40 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h4 class="font-display font-bold text-base text-[#3b210a]">Vexx's Underground Stall</h4>
+                <p class="text-xs text-[#584330]">Buy potions or steel, or sell loot from your backpack.</p>
+              </div>
+              <button id="btn-open-dungeon-merchant" class="px-4 py-2 rounded-xl btn-gold text-xs font-display uppercase shadow">
+                Trade with Vexx
+              </button>
+            </div>
+
+            <!-- Turn-Based Combat Arena -->
+            <div id="combat-panel" class="hidden mt-6 p-4 sm:p-5 rounded-xl bg-[#1c1511] text-amber-100 border-2 border-red-900/80 shadow-xl">
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-amber-700/30">
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-red-400 font-bold">Combat Encounter</span>
+                  <h3 id="enemy-name" class="font-display text-xl font-bold text-amber-200">Enemy</h3>
+                  <p id="enemy-desc" class="text-xs text-stone-400"></p>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="px-2.5 py-1 rounded bg-stone-900 border border-stone-700">AC: <strong id="enemy-ac" class="text-amber-300">10</strong></span>
+                  <span class="px-2.5 py-1 rounded bg-stone-900 border border-stone-700">ATK: <strong id="enemy-atk" class="text-red-300">+2</strong></span>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="text-red-300 font-semibold">Enemy HP</span>
+                  <span id="enemy-hp-text" class="font-bold text-amber-100">15 / 15</span>
+                </div>
+                <div class="w-full h-3 rounded-full bg-stone-900 overflow-hidden border border-stone-700">
+                  <div id="enemy-hp-bar" class="h-full bg-gradient-to-r from-red-700 to-rose-500 transition-all duration-300" style="width:100%"></div>
+                </div>
+                <div id="combat-tags" class="flex flex-wrap gap-1.5 mt-2"></div>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-3">
+                <button id="btn-c-strike" class="p-2 rounded-lg btn-crimson text-xs font-display">⚔ Strike</button>
+                <button id="btn-c-luck" class="p-2 rounded-lg btn-gold text-xs font-display">🍀 Luck Hit</button>
+                <button id="btn-c-potion" class="p-2 rounded-lg bg-emerald-800 hover:bg-emerald-700 border border-emerald-500/50 text-emerald-100 text-xs font-semibold">🧪 Potion</button>
+                <button id="btn-c-bomb" class="p-2 rounded-lg bg-orange-900 hover:bg-orange-800 border border-orange-500/50 text-orange-100 text-xs font-semibold">💣 Bomb</button>
+                <button id="btn-c-flee" class="p-2 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs font-semibold">🏃 Flee</button>
+              </div>
+
+              <div id="combat-abilities" class="flex flex-wrap gap-1.5 mb-2"></div>
+              <div id="combat-spells" class="flex flex-wrap gap-1.5 mb-3"></div>
+
+              <!-- Hero HP & MP Bars in Combat -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3 p-2.5 rounded-lg bg-stone-950/75 border border-amber-700/30">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="text-rose-300 font-semibold">Your HP</span>
+                    <span id="combat-hero-hp-text" class="font-bold text-amber-100">24 / 24</span>
+                  </div>
+                  <div class="w-full h-2.5 rounded-full bg-stone-900 overflow-hidden border border-stone-700">
+                    <div id="combat-hero-hp-bar" class="h-full bg-gradient-to-r from-red-700 to-rose-500 transition-all duration-300" style="width:100%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="text-sky-300 font-semibold">Your MP</span>
+                    <span id="combat-hero-mp-text" class="font-bold text-amber-100">12 / 12</span>
+                  </div>
+                  <div class="w-full h-2.5 rounded-full bg-stone-900 overflow-hidden border border-stone-700">
+                    <div id="combat-hero-mp-bar" class="h-full bg-gradient-to-r from-blue-700 to-sky-400 transition-all duration-300" style="width:100%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="combat-log" class="bg-stone-950/90 border border-stone-800 rounded-lg p-2.5 max-h-36 overflow-y-auto text-xs space-y-1 font-mono text-stone-300"></div>
+            </div>
+
+            <!-- Death / Temple Resurrection Panel -->
+            <div id="adv-death-panel" class="hidden mt-6 p-5 rounded-xl bg-red-950/95 text-rose-100 border-2 border-red-600/80 text-center space-y-3 pop-in">
+              <h3 class="font-display text-2xl font-extrabold text-rose-300">💀 You Have Fallen in Battle</h3>
+              <p class="text-sm text-rose-200/90 max-w-lg mx-auto">
+                The bells of the <strong>Temple of the Dawn</strong> summon your soul back to Oakhaven. All carried Gold, equipped Gear, and Backpack items are lost—but everything in your <strong>Personal Stash &amp; Gold Vault</strong> remains untouched!
+              </p>
+              <button id="btn-resurrect-temple" class="px-6 py-3 rounded-xl btn-gold font-display text-sm uppercase shadow-lg">
+                ☀️ Resurrect at the Temple of the Dawn
+              </button>
+            </div>
+
+            <!-- Victory / Ending Panel -->
+            <div id="adv-ending-panel" class="hidden mt-6 p-5 rounded-xl bg-[#1a140f] text-amber-100 border-2 border-amber-500/70 space-y-3 pop-in">
+              <span class="text-[11px] uppercase tracking-widest text-amber-400 font-bold">Adventure Complete</span>
+              <h3 id="ending-title" class="font-display text-2xl font-bold text-amber-300">Triumph!</h3>
+              <p id="ending-rewards-text" class="text-sm text-emerald-300 font-semibold"></p>
+              <button id="btn-return-town-victory" class="px-6 py-2.5 rounded-xl btn-gold font-display text-sm uppercase">
+                Return to Oakhaven &rarr;
+              </button>
+            </div>
+
+            <!-- Page Choices -->
+            <div id="adv-choices-wrap" class="mt-6 pt-5 border-t border-amber-900/25">
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <h3 class="font-display text-xs uppercase tracking-widest text-red-900/80 font-bold">Choose Your Path</h3>
+                <button id="btn-retreat-town" class="hidden px-3 py-1 rounded-lg bg-[#241910] hover:bg-red-950 text-amber-300 text-[11px] font-semibold transition">
+                  &larr; Return to Oakhaven
+                </button>
+              </div>
+              <div id="adv-choices-list" class="space-y-2.5"></div>
+            </div>
+          </article>
+
+          <!-- Adventure & Dice Log -->
+          <div class="leather-panel rounded-2xl p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-display text-xs uppercase tracking-widest text-amber-400 font-bold">Chronicle &amp; Dice Log</h3>
+              <span class="text-[11px] text-stone-400">Recent rolls &amp; discoveries</span>
+            </div>
+            <div id="adventure-log" class="max-h-36 overflow-y-auto space-y-1 text-xs text-stone-300 pr-1"></div>
+          </div>
+        </div>
+  </div>
+
+  <!-- ============================================================
+       BOTTOM-CENTER FLOATING ACTION DOCK (CHARACTER SHEET + MENU)
+       ============================================================ -->
+  <div id="bottom-dock" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2.5 px-3 py-2 rounded-2xl leather-panel shadow-2xl border-2 border-amber-600/60 backdrop-blur-md">
+    <button id="btn-toggle-sheet" class="hidden px-4 py-2 rounded-xl btn-gold font-display text-xs sm:text-sm uppercase tracking-wide shadow flex items-center gap-1.5">
+      📜 Character Sheet
+    </button>
+    <button id="btn-open-menu" class="px-4 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 border border-amber-500/50 text-amber-200 font-display text-xs sm:text-sm uppercase tracking-wide shadow transition flex items-center gap-1.5">
+      ☰ Menu
+    </button>
+  </div>
+
+  <!-- ============================================================
+       CHARACTER SHEET MODAL (OPENED FROM BOTTOM-CENTER DOCK)
+       ============================================================ -->
+  <div id="sheet-sidebar" class="hidden fixed inset-0 z-40 bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 pb-20">
+    <div class="leather-panel rounded-2xl max-w-lg w-full max-h-[82vh] overflow-y-auto p-4 sm:p-5 shadow-2xl border-2 border-amber-600/60 pop-in">
+          <!-- Identity & Gold -->
+          <div class="flex items-start justify-between gap-2 pb-3 mb-3 border-b border-amber-700/30">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="relative w-12 h-12 shrink-0">
+                <img id="sheet-hero-token" src="images/tokens/human_warrior.png" alt="Hero Token" class="w-12 h-12 rounded-full object-cover shadow-md" />
+              </div>
+              <div class="min-w-0">
+                <h2 id="sheet-name" class="font-display text-xl font-bold text-amber-200 leading-tight truncate">Rowan Ashblade</h2>
+                <p class="text-xs text-amber-400/80 font-medium truncate">
+                  <span id="sheet-class">Warrior</span> &bull; Lv. <strong id="sheet-level">1</strong>
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <div class="px-2.5 py-1 rounded-lg bg-amber-950/80 border border-amber-500/40 text-xs font-bold text-amber-300">
+                🪙 <span id="sheet-gold">35</span> GP
+              </div>
+              <button id="btn-close-mobile-sheet" class="px-2.5 py-1 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-semibold">✕</button>
+            </div>
+          </div>
+
+          <!-- HP / MP / XP Bars -->
+          <div class="space-y-2 mb-4">
+            <div>
+              <div class="flex justify-between text-xs mb-0.5"><span class="text-rose-300 font-semibold">HP</span><span id="sheet-hp-text" class="font-bold">24 / 24</span></div>
+              <div class="w-full h-2.5 rounded-full bg-stone-950 overflow-hidden border border-stone-800"><div id="sheet-hp-bar" class="h-full bg-gradient-to-r from-red-700 to-rose-500 transition-all" style="width:100%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-0.5"><span class="text-sky-300 font-semibold">MP</span><span id="sheet-mp-text" class="font-bold">12 / 12</span></div>
+              <div class="w-full h-2.5 rounded-full bg-stone-950 overflow-hidden border border-stone-800"><div id="sheet-mp-bar" class="h-full bg-gradient-to-r from-blue-700 to-sky-400 transition-all" style="width:100%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span class="text-amber-300 font-semibold">XP</span><span id="sheet-xp-text" class="text-stone-300">0 / 100</span></div>
+              <div class="w-full h-1.5 rounded-full bg-stone-950 overflow-hidden border border-stone-800"><div id="sheet-xp-bar" class="h-full bg-amber-400 transition-all" style="width:0%"></div></div>
+            </div>
+          </div>
+
+          <!-- Combat Pills -->
+          <div class="grid grid-cols-3 gap-2 mb-3 text-center">
+            <div class="p-1.5 rounded-lg bg-stone-950 border border-stone-800"><div class="text-[9px] uppercase text-stone-400">AC</div><div id="sheet-ac" class="font-display text-base font-bold text-amber-300">11</div></div>
+            <div class="p-1.5 rounded-lg bg-stone-950 border border-stone-800"><div class="text-[9px] uppercase text-stone-400">Attack</div><div id="sheet-atk" class="font-display text-base font-bold text-emerald-400">+4</div></div>
+            <div class="p-1.5 rounded-lg bg-stone-950 border border-stone-800"><div class="text-[9px] uppercase text-stone-400">Luck</div><div id="sheet-luck" class="font-display text-base font-bold text-purple-300">5/5</div></div>
+          </div>
+
+          <!-- Unspent Level-Up Stat Point Banner -->
+          <div id="stat-points-banner" class="hidden mb-2 p-2 rounded-lg bg-emerald-950/70 border border-emerald-500/50 text-center text-xs text-emerald-200 font-semibold">
+            ⭐ Unspent Stat Points: <span id="unspent-pts">0</span> (Click + below)
+          </div>
+
+          <!-- 5 Core Stats -->
+          <div id="sheet-stats-row" class="grid grid-cols-5 gap-1.5 mb-4 text-center"></div>
+
+          <!-- Sheet Tabs -->
+          <div class="grid grid-cols-3 gap-1 p-1 rounded-xl bg-stone-950 border border-stone-800 mb-3 text-xs font-semibold">
+            <button data-tab="gear" class="sheet-tab-btn py-1.5 rounded-lg bg-amber-900/50 text-amber-200 transition">Gear &amp; Pack</button>
+            <button data-tab="magic" class="sheet-tab-btn py-1.5 rounded-lg text-stone-400 hover:text-stone-200 transition">Skills/Magic</button>
+            <button data-tab="quests" class="sheet-tab-btn py-1.5 rounded-lg text-stone-400 hover:text-stone-200 transition">Vault/Quests</button>
+          </div>
+
+          <!-- TAB 1: GEAR & BACKPACK -->
+          <div id="tab-gear" class="space-y-4">
+            <div>
+              <h4 class="font-display text-[11px] uppercase tracking-wider text-amber-400 mb-1.5">Equipped Gear (5 Slots)</h4>
+              <div id="equipment-slots" class="space-y-1.5"></div>
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <h4 class="font-display text-[11px] uppercase tracking-wider text-amber-400">Backpack</h4>
+                <span id="backpack-count" class="text-[11px] text-stone-400">0 / 12 Slots</span>
+              </div>
+              <div id="backpack-grid" class="space-y-1.5 max-h-64 overflow-y-auto pr-1"></div>
+            </div>
+          </div>
+
+          <!-- TAB 2: SKILLS & SPELLS -->
+          <div id="tab-magic" class="hidden space-y-4">
+            <div><h4 class="font-display text-[11px] uppercase tracking-wider text-purple-300 mb-1.5">Subclass Abilities (Lv. 1 / 5 / 10)</h4><div id="sheet-subclass-abilities" class="space-y-1.5"></div></div>
+            <div><h4 class="font-display text-[11px] uppercase tracking-wider text-amber-400 mb-1.5">Skills (+2 Check Bonus)</h4><div id="sheet-skills" class="space-y-1.5"></div></div>
+            <div><h4 class="font-display text-[11px] uppercase tracking-wider text-sky-400 mb-1.5">Spells</h4><div id="sheet-spells" class="space-y-1.5"></div></div>
+          </div>
+
+          <!-- TAB 3: VAULT SUMMARY, COMPLETED QUESTS & CODEWORDS -->
+          <div id="tab-quests" class="hidden space-y-3 text-xs">
+            <div class="p-2.5 rounded-lg bg-stone-950 border border-stone-800 space-y-1">
+              <div class="flex justify-between"><span class="text-stone-400">Vaulted Gold (Safe):</span><strong id="sheet-vault-gold" class="text-amber-300">0 GP</strong></div>
+              <div class="flex justify-between"><span class="text-stone-400">Stashed Items (Safe):</span><strong id="sheet-vault-items" class="text-emerald-300">0 / 20</strong></div>
+              <div class="flex justify-between"><span class="text-stone-400">Monsters Slain:</span><strong id="sheet-kills" class="text-stone-200">0</strong></div>
+              <div class="flex justify-between"><span class="text-stone-400">Resurrections:</span><strong id="sheet-deaths" class="text-rose-300">0</strong></div>
+            </div>
+            <div>
+              <h4 class="font-display text-[11px] uppercase text-amber-400 mb-1.5">Completed Adventures</h4>
+              <div id="sheet-completed-quests" class="space-y-1"></div>
+            </div>
+            <div>
+              <h4 class="font-display text-[11px] uppercase text-amber-400 mb-1.5">Active Codewords</h4>
+              <div id="sheet-codewords" class="flex flex-wrap gap-1"></div>
+            </div>
+            <button id="btn-new-hero" class="w-full py-2 rounded-lg bg-stone-900 hover:bg-red-950/60 border border-red-900/50 text-xs text-red-300 transition">
+              Forge New Adventurer
+            </button>
+          </div>
+        </div>
+  </div>
+
+  <!-- ============================================================
+       MODALS: BUILDING INTERIOR (WITH FADE TRANSITION), MENU, HELP, RULES, IO, MERCHANT, RESET
+       ============================================================ -->
+  <div id="modal-building" class="fixed inset-0 z-30 opacity-0 pointer-events-none transition-opacity duration-500 ease-in-out flex items-center justify-center p-3 sm:p-5 pb-20 overflow-hidden bg-stone-950">
+    <!-- Full-bleed Atmospheric Location Interior Backdrop -->
+    <img id="building-bg-img" src="" alt="" class="absolute inset-0 w-full h-full object-cover opacity-55 transition-opacity duration-500 ease-in-out select-none pointer-events-none" />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/85 pointer-events-none"></div>
+
+    <div class="relative z-10 leather-panel rounded-2xl max-w-3xl w-full max-h-[82vh] flex flex-col shadow-2xl border-2 border-amber-600/70 overflow-hidden backdrop-blur-sm">
+      <!-- Scenic Interior Banner -->
+      <div class="relative h-36 sm:h-44 w-full shrink-0 overflow-hidden border-b border-amber-700/50 bg-stone-950">
+        <img id="building-banner-img" src="" alt="" class="w-full h-full object-cover object-center transition-opacity duration-500" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1a1511] via-[#1a1511]/30 to-black/40"></div>
+        <div class="absolute inset-x-0 bottom-0 px-5 py-3 flex items-end justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <span id="building-modal-icon" class="text-2xl drop-shadow">🏛️</span>
+            <h2 id="building-modal-title" class="font-display text-xl sm:text-2xl font-bold text-amber-200 drop-shadow-lg">Town Building</h2>
+          </div>
+          <button id="btn-exit-building-top" class="px-3.5 py-1.5 rounded-lg btn-crimson text-xs font-display uppercase tracking-wide shadow-lg">
+            Exit Building ✕
+          </button>
+        </div>
+      </div>
+      <div id="town-district-content" class="p-5 sm:p-6 overflow-y-auto flex-1 bg-[#1b1612]/90"></div>
+      <div class="px-5 py-3 border-t border-amber-700/30 bg-stone-950/85 flex items-center justify-between gap-2">
+        <span class="text-[11px] text-stone-400">Press <kbd class="px-1.5 py-0.5 rounded bg-stone-800 border border-stone-700 text-[10px]">Esc</kbd> or click Exit to return to Oakhaven.</span>
+        <button id="btn-exit-building-bottom" class="px-4 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-amber-600/40 text-xs font-semibold text-amber-200 transition">
+          ← Step Outside
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME MENU MODAL (All former top-bar controls + Help) -->
+  <div id="modal-menu" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="leather-panel rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border-2 border-amber-600/60 pop-in space-y-4">
+      <div class="flex items-start justify-between gap-2 border-b border-amber-700/30 pb-3">
+        <div>
+          <h2 class="font-display text-xl font-bold text-amber-300">Chronicles of Oakhaven</h2>
+          <p id="header-subtitle" class="text-[11px] text-amber-200/70">Solo Fantasy Gamebook RPG</p>
+        </div>
+        <button id="close-menu" class="px-3 py-1 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-semibold">Close ✕</button>
+      </div>
+
+      <!-- Quests Counter -->
+      <div id="header-quests-badge" class="hidden px-3 py-2 rounded-xl bg-stone-950/90 border border-amber-700/40 flex items-center justify-between text-xs text-amber-200">
+        <span>Adventures Completed</span>
+        <span><strong id="hdr-completed-count" class="text-amber-400 text-sm">0</strong> / <span id="hdr-total-quests">41</span></span>
+      </div>
+
+      <!-- Cloud Save (Google Sign-In) -->
+      <div id="menu-cloud-bar" class="p-3 rounded-xl bg-stone-950/90 border border-amber-700/40"></div>
+
+      <!-- Audio Controls -->
+      <div class="p-3 rounded-xl bg-stone-950/90 border border-stone-800 space-y-2">
+        <div class="text-[11px] uppercase tracking-wider font-display text-amber-400 font-bold">Audio &amp; Music</div>
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <button id="btn-audio-mute" class="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-sm transition" title="Mute All Audio">🔊</button>
+            <button id="btn-audio-music" class="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-xs font-semibold text-amber-300 transition" title="Toggle Background Music">🎵 On</button>
+          </div>
+          <div class="flex items-center gap-2 flex-1 justify-end">
+            <span class="text-[10px] text-stone-400">Vol</span>
+            <input id="audio-vol-slider" type="range" min="0" max="100" value="42" class="w-28 accent-amber-400 cursor-pointer h-1.5" title="Master Volume" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Actions -->
+      <div class="grid grid-cols-2 gap-2">
+        <button id="btn-save" class="hidden py-2.5 px-3 rounded-xl bg-emerald-950/80 hover:bg-emerald-900/80 border border-emerald-600/50 text-xs font-semibold text-emerald-200 transition">💾 Quick Save</button>
+        <button id="btn-load" class="py-2.5 px-3 rounded-xl bg-sky-950/80 hover:bg-sky-900/80 border border-sky-600/50 text-xs font-semibold text-sky-200 transition">📂 Hero Slots (5)</button>
+        <button id="btn-io-modal" class="py-2.5 px-3 rounded-xl bg-purple-950/80 hover:bg-purple-900/80 border border-purple-500/50 text-xs font-semibold text-purple-200 transition">📋 Export / Import</button>
+        <button id="btn-rules" class="py-2.5 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 border border-amber-600/40 text-xs font-semibold text-amber-200 transition">📖 Game Rules</button>
+        <button id="btn-help-modal" class="col-span-2 py-2.5 px-3 rounded-xl btn-gold text-xs font-display uppercase tracking-wide">❓ Help &amp; Controls</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5-SLOT HERO SAVE / LOAD MODAL -->
+  <div id="modal-slots" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="leather-panel rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-5 sm:p-6 shadow-2xl border-2 border-amber-600/60 pop-in space-y-4">
+      <div class="flex items-center justify-between border-b border-amber-700/30 pb-3">
+        <div>
+          <h2 class="font-display text-xl font-bold text-amber-300">Hero Save Slots (5 Slots)</h2>
+          <p class="text-[11px] text-stone-400">Save your active hero to any slot, load another hero, or start fresh.</p>
+        </div>
+        <button id="close-slots" class="px-3 py-1 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs">Close ✕</button>
+      </div>
+      <div id="modal-slots-list" class="space-y-2.5"></div>
+    </div>
+  </div>
+
+  <!-- HELP & CONTROLS MODAL (Moved from under the map) -->
+  <div id="modal-help" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="leather-panel rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-5 sm:p-6 shadow-2xl border-2 border-amber-600/60 pop-in space-y-4">
+      <div class="flex items-center justify-between border-b border-amber-700/30 pb-3">
+        <h2 class="font-display text-xl font-bold text-amber-300">Help &amp; Controls</h2>
+        <button id="close-help" class="px-3 py-1 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs">Close ✕</button>
+      </div>
+      <div class="space-y-3 text-sm text-stone-300 leading-relaxed">
+        <div class="p-3 rounded-xl bg-stone-950/90 border border-stone-800 space-y-1.5">
+          <div class="font-display text-xs uppercase text-amber-400 font-bold">Town Map Navigation</div>
+          <p class="text-xs">Use <kbd class="px-1.5 py-0.5 rounded bg-stone-800 border border-stone-600 text-[10px]">W</kbd> <kbd class="px-1.5 py-0.5 rounded bg-stone-800 border border-stone-600 text-[10px]">A</kbd> <kbd class="px-1.5 py-0.5 rounded bg-stone-800 border border-stone-600 text-[10px]">S</kbd> <kbd class="px-1.5 py-0.5 rounded bg-stone-800 border border-stone-600 text-[10px]">D</kbd>, <strong>Arrow Keys</strong>, or <strong>Click / Tap</strong> anywhere along the dirt and cobblestone paths to walk around Oakhaven.</p>
+          <p class="text-xs text-stone-400">Walk onto a building entrance (or press <kbd class="px-1.5 py-0.5 rounded bg-stone-800 border border-stone-600 text-[10px]">Enter</kbd> / <kbd class="px-1.5 py-0.5 rounded bg-stone-800 border border-stone-600 text-[10px]">Space</kbd> at a doorway) to enter. Press <kbd class="px-1.5 py-0.5 rounded bg-stone-800 border border-stone-600 text-[10px]">Esc</kbd> to step back outside.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-stone-950/90 border border-stone-800 space-y-1.5">
+          <div class="font-display text-xs uppercase text-amber-400 font-bold">Bottom Action Dock</div>
+          <p class="text-xs">Click <strong>📜 Character Sheet</strong> at the bottom center anytime to inspect your stats, equip gear, learn Rare Spell Scrolls &amp; Forge Schematics, prepare up to 4 spells in town, and view your Lv. 1 / 5 / 10 Subclass Abilities.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-stone-950/90 border border-stone-800 flex items-center justify-between gap-3">
+          <div>
+            <div class="font-display text-xs uppercase text-amber-400 font-bold">Map Path Grid Overlay</div>
+            <div class="text-[11px] text-stone-400">Toggle walkable tile highlights on the Oakhaven map.</div>
+          </div>
+          <button id="btn-toggle-grid" class="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-600 text-xs text-stone-200 font-semibold shrink-0">
+            Grid: Off
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-rules" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="leather-panel rounded-2xl max-w-2xl w-full max-h-[88vh] overflow-y-auto p-5 sm:p-7">
+      <div class="flex items-center justify-between border-b border-amber-700/30 pb-3 mb-4">
+        <h2 class="font-display text-xl font-bold text-amber-300">Rules of Oakhaven</h2>
+        <button id="close-rules" class="px-3 py-1 rounded-lg bg-stone-800 text-stone-200 text-sm">Close ✕</button>
+      </div>
+      <div class="space-y-3 text-sm text-stone-300 leading-relaxed">
+        <p><strong class="text-amber-200">Hub &amp; Adventures:</strong> Between quests, rest and prepare in <strong>Oakhaven</strong>. Talk to NPCs at the Rusty Flagon Tavern, Temple, and Market—or scout the Outskirts—to discover all 6 playable adventures (148 total pages).</p>
+        <p><strong class="text-amber-200">Stash &amp; Death Penalty:</strong> Dying in an adventure resurrects you at the <strong>Temple of the Dawn</strong>, but you lose all carried Gold, equipped Gear, and Backpack items! Always store spare gear and gold in your <strong>20-Slot Stash &amp; Gold Vault</strong> before dangerous quests.</p>
+        <p><strong class="text-amber-200">Dice &amp; Combat:</strong> Skill Checks roll <code>2d6 + Attribute (+2 if Skilled) &ge; DC</code>. <em>Test Your Luck</em> rolls <code>2d6 &le; Current Luck</code> (reducing Luck by 1 until you rest at the Inn or Temple). Combat rolls <code>2d6 + Attack &ge; Enemy AC</code>.</p>
+        <p><strong class="text-amber-200">Progression &amp; Crafting:</strong> Earn XP to level up (+4 Max HP, +2 Max MP, +1 Stat Point). At the Guildhall, each Attribute can be upgraded up to 3 times (500 / 1000 / 1500 GP), and you may learn up to 3 extra Skills (500 GP each) and 2 extra Spells (500 GP each).</p>
+        <p><strong class="text-amber-200">Prepared Spells &amp; Spell Scrolls:</strong> You may prepare up to <strong>4 spells</strong> at a time while in Oakhaven. Only prepared spells can be cast while adventuring! Additional spells can be discovered as <strong>Rare Spell Scrolls</strong> in dungeon loot and learned from your Backpack.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-io" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="leather-panel rounded-2xl max-w-lg w-full p-5 sm:p-6">
+      <div class="flex items-center justify-between border-b border-amber-700/30 pb-3 mb-3">
+        <h2 class="font-display text-lg font-bold text-amber-300">Export / Import Hero Save JSON</h2>
+        <button id="close-io" class="px-3 py-1 rounded-lg bg-stone-800 text-stone-200 text-xs">Close ✕</button>
+      </div>
+      <p class="text-xs text-stone-400 mb-2">Copy your save string to back up your hero across updates, or paste a saved JSON below and click Import.</p>
+      <textarea id="io-textarea" rows="6" class="w-full p-2.5 rounded-xl bg-stone-950 border border-stone-700 text-xs font-mono text-amber-100 mb-3"></textarea>
+      <div class="flex flex-wrap gap-2 justify-end">
+        <button id="btn-io-copy" class="px-4 py-2 rounded-lg bg-stone-800 hover:bg-stone-700 text-amber-200 text-xs font-semibold">Copy Save</button>
+        <button id="btn-io-import" class="px-4 py-2 rounded-lg btn-gold text-xs">Import Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-dungeon-merchant" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="leather-panel rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-5">
+      <div class="flex items-center justify-between border-b border-amber-700/30 pb-3 mb-4">
+        <div>
+          <h2 class="font-display text-lg font-bold text-amber-300">Vexx's Underground Stall</h2>
+          <p class="text-xs text-stone-400">"Fresh potions and crypt-tested steel!"</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded bg-amber-950 border border-amber-500/40 text-xs font-bold text-amber-300">🪙 <span id="dm-gold">0</span> GP</span>
+          <button id="close-dm" class="px-3 py-1 rounded bg-stone-800 text-stone-200 text-xs">Close ✕</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div><h4 class="font-display text-xs text-emerald-400 uppercase mb-2">Buy</h4><div id="dm-buy" class="space-y-1.5"></div></div>
+        <div><h4 class="font-display text-xs text-amber-400 uppercase mb-2">Sell from Backpack</h4><div id="dm-sell" class="space-y-1.5"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-confirm-reset" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="leather-panel rounded-2xl max-w-md w-full p-6 text-center">
+      <h3 class="font-display text-xl font-bold text-amber-300 mb-2">Forge a New Adventurer?</h3>
+      <p class="text-sm text-stone-300 mb-5">Your active hero will be replaced unless you exported or saved first.</p>
+      <div class="flex justify-center gap-3">
+        <button id="cancel-reset" class="px-4 py-2 rounded-lg bg-stone-800 text-stone-200 text-sm">Cancel</button>
+        <button id="confirm-reset" class="px-4 py-2 rounded-lg btn-crimson text-sm">Yes, New Hero</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Subclass Ability Hover Tooltip -->
+  <div id="subclass-tooltip" class="hidden fixed z-50 pointer-events-none max-w-sm w-80 p-3.5 rounded-xl bg-stone-950/95 border-2 border-purple-500/70 shadow-2xl backdrop-blur-md text-xs text-stone-200 space-y-2"></div>
+
+  <!-- ============================================================
+       MODULAR GAME DATA & CORE ENGINE
+       To add an expansion, drop a new .js file into the matching
+       data/ folder and add a single script tag below!
+       ============================================================ -->
+  <script src="js/registry.js"></script>
+
+  <!-- Items, Shops & Vault of Magic -->
+  <script src="data/items/core_items.js"></script>
+  <script src="data/items/expansion_items.js"></script>
+  <script src="data/items/vault_of_magic.js"></script>
+  <script src="data/items/books_items.js"></script>
+
+  <!-- Spells (auto-registers Rare Spell Scrolls in loot table) -->
+  <script src="data/spells/core_spells.js"></script>
+  <script src="data/spells/expansion_spells.js"></script>
+  <script src="data/spells/books_deep_magic_1.js"></script>
+  <script src="data/spells/books_deep_magic_2.js"></script>
+  <script src="data/spells/books_midgard.js"></script>
+  <script src="data/spells/books_margreve.js"></script>
+  <script src="data/spells/books_tome_of_heroes.js"></script>
+
+  <!-- Skills -->
+  <script src="data/skills/core_skills.js"></script>
+  <script src="data/skills/expansion_skills.js"></script>
+
+  <!-- Crafting Recipes -->
+  <script src="data/recipes/core_recipes.js"></script>
+  <script src="data/recipes/expansion_recipes.js"></script>
+
+  <!-- Classes, Races & Subclasses -->
+  <script src="data/classes/core_classes.js"></script>
+  <script src="data/classes/books_classes.js"></script>
+  <script src="data/races/core_races.js"></script>
+  <script src="data/races/books_races.js"></script>
+  <script src="data/subclasses/core_subclasses.js"></script>
+  <script src="data/subclasses/books_subclasses.js"></script>
+
+  <!-- Tavern NPCs -->
+  <script src="data/npcs/core_npcs.js"></script>
+  <script src="data/npcs/expansion_npcs.js"></script>
+
+  <!-- Quests / Adventures -->
+  <script src="data/quests/core_quests.js"></script>
+  <script src="data/quests/expansion_frontier_quests.js"></script>
+  <script src="data/quests/expansion_underworld_lairs.js"></script>
+  <script src="data/quests/expansion_nightfell.js"></script>
+
+  <!-- Firebase Cloud Save (Free Spark Plan • Google Auth + Firestore) -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase_config.js"></script>
+  <script src="js/cloud_save.js"></script>
+
+  <!-- Audio Engine & Core Game Engine -->
+  <script src="js/audio.js"></script>
+  <script src="js/engine.js"></script>
+</body>
+</html>
