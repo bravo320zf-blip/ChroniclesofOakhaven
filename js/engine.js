@@ -545,7 +545,8 @@
 
     function buildItemTooltipHtml(it, opts = {}) {
       const meta = ITEM_TYPE_META[it.type] || { label: (it.type || "Item"), icon: "🎒" };
-      const imgSrc = it.img || it.image || it.art || null;
+      const itemArtMap = window.OAKHAVEN_ITEM_IMAGES || {};
+      const imgSrc = it.img || it.image || it.art || itemArtMap[it.id] || (it.unlocksRecipe ? itemArtMap[it.unlocksRecipe] : null) || null;
       const qty = opts.qty || 1;
       const rarityHtml = typeof getRarityBadgeHtml === "function" ? getRarityBadgeHtml(it.rarity || "common") : "";
 
