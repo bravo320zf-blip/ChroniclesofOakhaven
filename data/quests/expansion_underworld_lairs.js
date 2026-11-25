@@ -556,7 +556,8 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // 12. BREACHING WORM CITADEL (12 PAGES • LV 6)
+      // 12. BREACHING WORM CITADEL (14 PAGES • LV 6)
+      // (Enriched Pass 1)
       // ==========================================================
       ul_breaching_worm: {
         id: "ul_breaching_worm",
@@ -565,46 +566,150 @@ window.OAKHAVEN.registerQuests({
         difficulty: "Very Hard",
         recommendedLevel: 6,
         discoverySource: "Shadow-Fey Kaelis (Tavern)",
-        summary: "Descend the coiled stone entrails of a giant petrified purple worm, shatter a decoy Hierophant Lich, and face Pact Lich Augrimm in the stinger spire.",
-        totalPages: 12,
+        summary: "Descend the coiled stone entrails of a colossal petrified purple worm, rescue a captured Shadow-Fey agent, shatter a memory-wiped decoy lich, and unravel Pact Lich Augrimm's infernal circle in the Stinger Spire.",
+        totalPages: 14,
         pages: {
-          1: { zone:"Gullet Gatehouse", title:"Maw of the Petrified Worm", safeRetreat:true, text:"Two Barbed Devils guard the circular stone throat of a colossal petrified purple worm, while Glabrezu demons watch from the fanged Maw Watchtower above.", choices:[
-            { t:"Pose as a wealthy client seeking Augrimm's contract services.", badge:"Persuasion DC 12", check:{ stat:"spirit", skill:"Persuasion", dc:12, pass:3, fail:2, passMsg:"The devils escort you straight down past the Bone Swarms!", failMsg:"An invisible imp screeches—devils attack!" } },
-            { t:"Fight your way past the Gatehouse Devils!", to:2 }
-          ]},
-          2: { zone:"The Gizzard", title:"Pillars of Bone", text:"Two towering Bone Swarms detach from the ribbed stone walls alongside a Barbed Devil!", enemy:{ name:"Gizzard Bone Swarms", desc:"Animated skeletal pillars.", hp:34, ac:13, atk:6, dmg:6, undead:true, xp:105, gold:45, items: rollRandomLoot(["consumable","valuable"], 1, "very_rare"), flee:1 }, choices:[
-            { t:"Descend the coiled gut to the Hall of the Fallen.", to:3 }
-          ]},
-          3: { zone:"Hall of the Fallen", title:"Corpse Mound & Trophies", text:"Desiccated corpses spill from alcoves into a Corpse Mound guarding a lightning-trapped double door!", enemy:{ name:"Citadel Corpse Mound", desc:"Hulking undead sentinel.", hp:35, ac:13, atk:6, dmg:6, undead:true, xp:110, gold:50, items: rollRandomLoot(["weapon","armor","consumable"], 1, "very_rare"), flee:1 }, choices:[
-            { t:"Disarm the lightning glyph on the double doors.", badge:"Lockpicking / Arcana DC 11", check:{ stat:"arcana", skill:"Lockpicking", dc:11, pass:4, fail:4, failDmg:5, passMsg:"You neutralize the explosive runes cleanly!", failMsg:"Lightning arcs across your gauntlets (-5 HP)!" } }
-          ]},
-          4: { zone:"Interrogation Chamber", title:"Automata Devils", text:"Hammering gears echo as two brass Automata Devils torture a captured Shadow-Fey agent!", enemy:{ name:"Automata Devils", desc:"Infernal clockwork torturers.", hp:36, ac:13, atk:6, dmg:7, xp:120, gold:60, items: rollRandomLoot(["accessory","valuable"], 1, "very_rare"), flee:1 }, choices:[
-            { t:"Heal the Shadow-Fey (+1 ally) and descend to the False Lair!", to:5, onChoose:{ cw:"FEY_RESCUED", msg:"The grateful Shadow-Fey tells you of the decoy lich & secret book!" } }
-          ]},
-          5: { zone:"False Lair", title:"The Decoy Augrimm", text:"A crowned Hierophant Lich rises behind a bloodstained altar, utterly convinced it is Augrimm! 'Fools! None shall interrupt my moon-ritual!'", enemy:{ name:"Decoy Hierophant Lich", desc:"Memory-wiped lesser lich serving as proxy.", hp:38, ac:13, atk:6, dmg:7, undead:true, xp:145, gold:110, items: rollRandomLoot(["weapon","armor","accessory"], 1, "legendary") }, choices:[
-            { t:"Find the secret balcony door into the False Treasure Room!", to:6 }
-          ]},
-          6: { zone:"False Treasure Room", title:"Amethyst Riches", text:"Mountains of gold glitter beneath amethyst torches—yet Kaelis warned you the common trinkets are tracked! Five gibbets hang beside an empty weighted cage.", choices:[
-            { t:"Load 500 pounds of stone into the empty cage to open the secret door!", to:7, onChoose:{ gold:80, msg:"The secret wall slides open! Pocketed 80 GP in untracked coins." } },
-            { t:"Rest briefly (+12 HP) before entering the Scriptorium.", to:7, onChoose:{ healHp:12, msg:"Caught your breath (+12 HP)!" } }
-          ]},
-          7: { zone:"The Scriptorium", title:"The Undiscovered Country", text:"Towering bookshelves stretch across tiered halls guarded by living Ink Oozes and Paper Golems! One dusty spine reads: <em>The Undiscovered Country</em>.", choices:[
-            { t:"Pull the secret book cleanly without disturbing the ink devils!", badge:"Stealth / Lore DC 12", check:{ stat:"agility", skill:"Lore", dc:12, pass:8, fail:8, failDmg:5, passMsg:"The bookshelf swivels open before the golems awaken!", failMsg:"Paper golems slash at your cloak (-5 HP) as you dive through!" } }
-          ]},
-          8: { zone:"Stinger Spire", title:"Augrimm's True Lair", text:"At the curved stinger-tip of the petrified worm stands the TRUE Pact Lich Augrimm inside a glowing silver summoning circle, flanked by a Hezrou demon and a Deathwisp! A white cat watches calmly from a statue.", choices:[
-            { t:"Unleash the rescued Shadow-Fey to disrupt Augrimm's circle!", reqCw:"FEY_RESCUED", badge:"FEY_RESCUED", to:9 },
-            { t:"Challenge Pact Lich Augrimm in the Stinger Spire!", to:10 }
-          ]},
-          9: { zone:"Stinger Spire", title:"The Pact Unraveled", text:"Your Shadow-Fey ally cuts down the Deathwisp as you clash directly with Pact Lich Augrimm!", enemy:{ name:"Pact Lich Augrimm (Disrupted)", desc:"Infernal lich whose summoning circle falters.", hp:42, ac:14, atk:6, dmg:7, undead:true, xp:210, gold:175, items:["ul_augrimm_pact_staff","ul_worm_carapace_mail"] }, choices:[
-            { t:"Claim the Citadel's true arcane hoard!", to:11 }
-          ]},
-          10: { zone:"Stinger Spire", title:"Master of Devils and Bone", text:"Infernal hellfire and necrotic lightning erupt across the stinger spire as Augrimm attacks!", enemy:{ name:"Pact Lich Augrimm", desc:"Supreme fiend-bound lich of the Breaching Worm.", hp:50, ac:15, atk:7, dmg:8, undead:true, xp:245, gold:210, items:["ul_augrimm_pact_staff","ul_worm_carapace_mail"] }, choices:[
-            { t:"Claim the Citadel's true arcane hoard!", to:11 }
-          ]},
-          11: { zone:"Stinger Spire", title:"Spoils of the Stinger", text:"Augrimm dissolves into sulfurous smoke! You coax the friendly white cat into your hood, claim 100 GP and two random high-tier relics, and ascend from the worm.", onEnter:{ gold:100, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 2, "legendary"), msg:"Claimed 100 GP & 2 legendary-tier spoils!" }, choices:[
-            { t:"Return to Shadow-Fey Kaelis in Oakhaven!", to:12 }
-          ]},
-          12: { zone:"Epilogue", title:"Breaker of the Worm Citadel", text:"Kaelis bows deeply in the moonlight, pledging the favor of the Court of Night as Oakhaven hails your legendary victory over Pact Lich Augrimm!", ending:{ type:"true", title:"Conqueror of the Breaching Worm", xp:240, gold:260, trophy:"Augrimm's Infernal Signet" }, choices:[] }
+          1: {
+            zone: "Gullet Gatehouse",
+            title: "Maw of the Petrified Worm",
+            safeRetreat: true,
+            text: [
+              "Deep beneath the underworld's basalt vault looms an impossible silhouette: a colossal purple worm petrified mid-breach, its arched stone throat hollowed into a fortress ringed by jagged, ivory-white fangs. Sulfur-lit braziers flicker between its ribs, and the air reeks of ozone and scorched parchment.",
+              "Two armored Barbed Devils stand sentinel at the circular Gullet Gatehouse while towering Glabrezu demons peer lazily down from the fanged Maw Watchtower above. Somewhere in the curved stinger-tip far below, Pact Lich Augrimm bargains away stolen souls."
+            ],
+            choices: [
+              { t: "Pose as an envoy from a wealthy surface lord seeking Augrimm's infernal contract services.", badge: "Persuasion DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 3, fail: 2, passMsg: "The Barbed Devils exchange a greedy glance and wave you straight down past the Bone Swarms!", failMsg: "An invisible imp perches on your shoulder and shrieks 'INTRUDER!'—devils lower their glaives!" } },
+              { t: "Slip along the upper fang-ridge using Stealth to bypass the gatehouse watch.", badge: "Stealth", reqSkill: "Stealth", to: 3, onChoose: { cw: "FANG_SCOUT", msg: "You creep silently along the petrified gullet-ribs, gaining the drop on the Hall of the Fallen!" } },
+              { t: "Draw steel and cut your way straight through the Gullet Gatehouse!", to: 2 }
+            ]
+          },
+          2: {
+            zone: "The Gizzard",
+            title: "Pillars of Bone",
+            text: "The worm's petrified gizzard opens into a cavernous ribbed chamber where ancient, half-digested stone pillars jut from the floor. As your boots strike the shale, two towering Bone Swarms peel away from the walls with a dry clatter alongside a grinning Barbed Devil!",
+            enemy: { name: "Gizzard Bone Swarms", desc: "Animated skeletal pillars flanked by an infernal gatehouse devil.", hp: 34, ac: 13, atk: 6, dmg: 6, undead: true, xp: 105, gold: 45, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1 },
+            choices: [
+              { t: "Pry open a half-petrified dwarven strongbox wedged in the gizzard ribs before descending.", badge: "Lockpicking / Athletics DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 3, fail: 3, passMsg: "Click! Inside lies a forgotten pouch of 35 GP and a clean healing draught (+6 HP)!", failMsg: "The corroded clasp snaps shut—better keep moving before reinforcements arrive." }, onPass: { gold: 35, healHp: 6 } },
+              { t: "Descend the coiled stone gut into the Hall of the Fallen.", to: 3 }
+            ]
+          },
+          3: {
+            zone: "Hall of the Fallen",
+            title: "Corpse Mound & Trophies",
+            text: "Broken shields, cracked wizard staves, and silver-trimmed cloaks of failed intruders line the alcoves of the Hall of the Fallen. Before a pair of rune-etched bronze double doors, desiccated bodies spill together into a shambling Corpse Mound!",
+            enemy: { name: "Citadel Corpse Mound", desc: "Hulking undead sentinel stitched from defeated trespassers.", hp: 35, ac: 13, atk: 6, dmg: 6, undead: true, xp: 110, gold: 50, items: rollRandomLoot(["weapon", "armor", "consumable"], 1, "very_rare"), flee: 1, weakCw: ["FANG_SCOUT"] },
+            choices: [
+              { t: "Carefully disarm the crackling lightning glyph etched across the bronze double doors.", badge: "Lockpicking / Arcana DC 11", check: { stat: "arcana", skill: "Lockpicking", dc: 11, pass: 4, fail: 4, failDmg: 5, passMsg: "You ground the arcane wire cleanly—and spot Augrimm's true fiendish pact-seal etched on the latch!", failMsg: "Blue lightning snaps across your gauntlets (-5 HP) as the doors shudder open!" }, onPass: { cw: "PACT_NAME" } },
+              { t: "Read the glyph's flow with Detect Traps to disarm it effortlessly.", badge: "Detect Traps", reqSpell: "Detect Traps", to: 4, onChoose: { cw: "PACT_NAME", msg: "You disarm the rune effortlessly and memorize Augrimm's true fiendish pact-seal!" } }
+            ]
+          },
+          4: {
+            zone: "Interrogation Chamber",
+            title: "Automata Devils & The Captured Scout",
+            text: "The rhythmic clang of brass gears echoes from a circular stone cell! Two ticking, infernal Automata Devils loom with glowing iron tongs over a bound Shadow-Fey scout—Lyris of the Moonlit Court—trying to extract Kaelis's secrets!",
+            enemy: { name: "Automata Devils", desc: "Infernal clockwork torturers fueled by hellish steam.", hp: 36, ac: 13, atk: 6, dmg: 7, xp: 120, gold: 60, items: rollRandomLoot(["accessory", "valuable"], 1, "very_rare"), flee: 1 },
+            choices: [
+              { t: "Unbind and heal Shadow-Fey scout Lyris so she can share her intelligence and fight beside you!", to: 5, onChoose: { cw: "FEY_RESCUED", msg: "Grateful, Lyris whispers: 'Beware the lich ahead—he is a memory-wiped DECOY! And pull The Undiscovered Country in the Scriptorium!'" } },
+              { t: "Press onward immediately toward the glowing chamber below before the alarm spreads.", to: 5 }
+            ]
+          },
+          5: {
+            zone: "False Lair",
+            title: "The Decoy Augrimm",
+            text: [
+              "Purple moonlight pours through a false illusion-skylight onto a bloodstained basalt altar. Rising in tattered royal robes stands a crowned Hierophant Lich, utterly convinced by Augrimm's cruel memory-magic that it IS the master of the Worm Citadel!",
+              "<em>'Insolent mortals!'</em> the proxy shrieks, clutching a cracked moon-phylactery. <em>'None shall interrupt my moon-ritual!'</em>"
+            ],
+            choices: [
+              { t: "Heed Lyris's tip—shatter the memory-gem on the altar first to stagger the Decoy Lich!", badge: "FEY_RESCUED", reqCw: "FEY_RESCUED", to: 6, onChoose: { cw: "DECOY_CRACKED", msg: "The memory-gem shatters in a shower of violet sparks—the decoy lich clutches its skull in confusion!" } },
+              { t: "Confront the Decoy Hierophant Lich directly!", to: 6 }
+            ]
+          },
+          6: {
+            zone: "False Lair • Altar",
+            title: "Shattering the Proxy",
+            text: "Necrotic arcs lash across the stone ribs as the Deluded Hierophant Lich unleashes its stolen spells!",
+            enemy: { name: "Decoy Hierophant Lich", desc: "Memory-wiped lesser lich serving as Augrimm's expendable proxy.", hp: 38, ac: 13, atk: 6, dmg: 7, undead: true, xp: 145, gold: 110, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "legendary"), weakCw: ["DECOY_CRACKED"] },
+            choices: [
+              { t: "Slip through the concealed balcony arch behind the altar into the False Treasure Room.", to: 7 }
+            ]
+          },
+          7: {
+            zone: "False Treasure Room",
+            title: "Amethyst Riches & The Weighted Gibbet",
+            text: "Mountains of glittering chalices and gold coins shimmer beneath whispering amethyst torches—yet Kaelis warned you that Augrimm hexes his decoy hoard to track greedy thieves! Along the far wall hang five iron gibbets beside an empty, counterweighted stone cage.",
+            choices: [
+              { t: "Heave 500 pounds of loose rubble into the empty gibbet cage to trigger the hidden Scriptorium door!", to: 8, onChoose: { gold: 80, msg: "Chains groan and the stone wall slides open! You pocket 80 GP in untracked silver along the threshold." } },
+              { t: "Purge the tracking hex from a small coffer with Arcana and take a quiet breather.", badge: "Arcana DC 12", check: { stat: "arcana", skill: "Lore", dc: 12, pass: 8, fail: 8, passMsg: "Hex dispelled! You claim 45 untracked GP and catch your breath (+10 HP)!", failMsg: "The tracking hex flares—you leave the coffer untouched and steady your nerves (+8 HP)." }, onPass: { gold: 45, healHp: 10 }, onFail: { healHp: 8 } },
+              { t: "Leave the hexed gold untouched and catch your breath (+12 HP) before entering the Scriptorium.", to: 8, onChoose: { healHp: 12, msg: "You bandage your wounds beneath the amethyst glow (+12 HP)!" } }
+            ]
+          },
+          8: {
+            zone: "The Scriptorium",
+            title: "The Undiscovered Country",
+            text: "Towering mahogany bookshelves curve up the petrified worm-ribs, patrolled by creeping Ink Oozes and razor-edged Paper Golems! On a brass-trimmed shelf gleams a dusty volume titled <em>The Undiscovered Country</em>—while a narrow side-alcove holds Augrimm's glowing Pact-Ledger.",
+            choices: [
+              { t: "Slip into the Pact-Ledger Alcove first to sabotage Augrimm's secondary infernal contract!", to: 9 },
+              { t: "Pull The Undiscovered Country smoothly without waking the Ink Oozes and Paper Golems!", badge: "Stealth / Lore DC 12", check: { stat: "agility", skill: "Lore", dc: 12, pass: 10, fail: 10, failDmg: 5, passMsg: "Click! The hidden bookcase pivots cleanly before a single golem stirs!", failMsg: "Razor-sharp Paper Golems slash your cloak (-5 HP) as you dive through the closing archway!" } },
+              { t: "Ignite the Paper Golems with Firebolt and stride straight through the secret bookcase!", badge: "Firebolt", reqSpell: "Firebolt", to: 10, onChoose: { msg: "Flaming parchment scatters harmlessly as you step cleanly into the Stinger Spire!" } }
+            ]
+          },
+          9: {
+            zone: "Scriptorium • Pact-Ledger Alcove",
+            title: "Breaking the Infernal Fine Print",
+            text: "Upon a bone lectern lies a sizzling vellum ledger binding a Hezrou demon and a Deathwisp to Augrimm's service in the Stinger Spire! A single well-placed stroke across the blood-ink clause will snap their tether.",
+            choices: [
+              { t: "Strike through the summoning clause with Arcana/Lore and slip through The Undiscovered Country!", badge: "Arcana / Lore DC 12", check: { stat: "arcana", skill: "Lore", dc: 12, pass: 10, fail: 10, failDmg: 4, passMsg: "Brimstone hisses as the contract voids—Augrimm's summoning circle in the Stinger Spire is severely weakened!", failMsg: "The blood-ink sears your fingers (-4 HP), though you still tear out the page!" }, onPass: { cw: "CONTRACT_BURNED" } },
+              { t: "Tear the ledger in half and pull The Undiscovered Country to enter the Stinger Spire!", to: 10, onChoose: { cw: "CONTRACT_BURNED", msg: "Sparks burst from the torn vellum—Augrimm's fiendish leash snaps!" } }
+            ]
+          },
+          10: {
+            zone: "Stinger Spire",
+            title: "Augrimm's True Lair",
+            text: [
+              "At the tapering, venom-veined stinger-tip of the petrified worm stands the TRUE <strong>Pact Lich Augrimm</strong> inside a blazing silver summoning circle! A hulking Hezrou demon and a shrieking Deathwisp crouch at the circle's rim, while a calm, snow-white cat watches everything with emerald eyes from atop a marble statue.",
+              "<em>'Ah,'</em> Augrimm purrs, his skeletal jaw clicking over infernal sigils. <em>'Past my proxy, past my scriptorium. Come—sign your soul in ash.'</em>"
+            ],
+            choices: [
+              { t: "Signal Lyris to strike the Deathwisp and shatter Augrimm's silver summoning circle!", reqCw: "FEY_RESCUED", badge: "FEY_RESCUED", to: 11 },
+              { t: "Speak the voided contract clause to collapse Augrimm's fiendish summoning circle!", reqCw: "CONTRACT_BURNED", badge: "CONTRACT_BURNED", to: 11 },
+              { t: "Challenge Pact Lich Augrimm head-on in the Stinger Spire!", to: 12 }
+            ]
+          },
+          11: {
+            zone: "Stinger Spire",
+            title: "The Pact Unraveled",
+            text: "The silver summoning circle shatters in a blinding burst of sparks! Deprived of his Deathwisp and fiendish tether, Pact Lich Augrimm snarls furiously and raises his infernal staff for a desperate duel!",
+            enemy: { name: "Pact Lich Augrimm (Disrupted)", desc: "Infernal lich whose summoning circle falters beneath your sabotage.", hp: 42, ac: 14, atk: 6, dmg: 7, undead: true, xp: 210, gold: 175, items: ["ul_augrimm_pact_staff", "ul_worm_carapace_mail"], weakCw: ["PACT_NAME"] },
+            choices: [
+              { t: "Claim the Citadel's true arcane hoard and approach the calm white cat!", to: 13 }
+            ]
+          },
+          12: {
+            zone: "Stinger Spire",
+            title: "Master of Devils and Bone",
+            text: "Infernal hellfire and crackling necrotic lightning erupt across the tapering Stinger Spire as Pact Lich Augrimm unleashes the full fury of his unbroken pact!",
+            enemy: { name: "Pact Lich Augrimm", desc: "Supreme fiend-bound lich of the Breaching Worm Citadel.", hp: 50, ac: 15, atk: 7, dmg: 8, undead: true, xp: 245, gold: 210, items: ["ul_augrimm_pact_staff", "ul_worm_carapace_mail"], weakCw: ["PACT_NAME"] },
+            choices: [
+              { t: "Claim the Citadel's true arcane hoard and approach the calm white cat!", to: 13 }
+            ]
+          },
+          13: {
+            zone: "Stinger Spire",
+            title: "Spoils of the Stinger",
+            text: "With a hollow crack, Augrimm dissolves into sulfurous smoke and harmless ash! The snow-white cat—an enchanted familiar of the Moonlit Court trapped since Augrimm's last bargain—leaps lightly into your hood and purrs. Beneath the marble statue lies the Citadel's genuine, unhexed hoard: 100 GP and two legendary-tier relics!",
+            onEnter: { gold: 100, items: rollRandomLoot(["weapon", "armor", "accessory", "valuable"], 2, "legendary"), msg: "Claimed 100 GP & 2 legendary-tier spoils from the Stinger Spire!" },
+            choices: [
+              { t: "Ascend from the petrified worm and return the familiar to Shadow-Fey Kaelis in Oakhaven!", to: 14 }
+            ]
+          },
+          14: {
+            zone: "Epilogue",
+            title: "Breaker of the Worm Citadel",
+            text: "Kaelis bows deeply in the moonlight as the white familiar leaps into her arms, pledging the lasting favor of the Court of Night while Oakhaven hails your legendary victory over Pact Lich Augrimm!",
+            ending: { type: "true", title: "Conqueror of the Breaching Worm", xp: 240, gold: 260, trophy: "Augrimm's Infernal Signet" },
+            choices: []
+          }
         }
       },
 
