@@ -516,26 +516,38 @@
       return { s, ac, atk, maxHp, maxMp, maxLuck: s.luck };
     }
 
+    const MAX_HERO_LEVEL = 20;
+
     function gainXp(amt) {
       if (!amt || !state) return;
+      if (state.level >= MAX_HERO_LEVEL) {
+        state.level = MAX_HERO_LEVEL;
+        state.xp = 0;
+        return;
+      }
       state.xp += amt;
       let needed = state.level * 100;
-      while (state.xp >= needed) {
+      while (state.level < MAX_HERO_LEVEL && state.xp >= needed) {
         state.xp -= needed;
         state.level++;
         state.unspentStatPts++;
         const d = getDerived(state);
         state.hp = d.maxHp;
         state.mp = d.maxMp;
-        toast(`⭐ LEVEL UP! Reached Level ${state.level}! (+4 Max HP, +2 Max MP, +1 Stat Point)`, "gold");
+        const maxTag = state.level >= MAX_HERO_LEVEL ? " (MAX LEVEL!)" : "";
+        toast(`⭐ LEVEL UP! Reached Level ${state.level}${maxTag}! (+4 Max HP, +2 Max MP, +1 Stat Point)`, "gold");
         sfx("levelUp");
-        addLog(`Leveled up to Level ${state.level}!`, "gold");
+        addLog(`Leveled up to Level ${state.level}${maxTag}!`, "gold");
         const sub = getHeroSubclass(state);
         if (sub && Array.isArray(sub.abilities)) {
           sub.abilities.filter(ab => ab.level === state.level).forEach(ab => {
             toast(`🌟 SUBCLASS ABILITY UNLOCKED (Lv.${state.level}): ${ab.name}!`, "info");
             addLog(`Unlocked ${sub.name} Ability (Lv.${state.level}): ${ab.name} — ${ab.desc}`, "gold");
           });
+        }
+        if (state.level >= MAX_HERO_LEVEL) {
+          state.xp = 0;
+          break;
         }
         needed = state.level * 100;
       }
@@ -3564,6 +3576,7 @@
       const tokPaths = getHeroTokenPaths(state);
       const sht = document.getElementById("sheet-hero-token");
       if (sht) setImgWithFallback(sht, tokPaths.primarySrc, tokPaths.fallbackSrc);
+      if (state.level > MAX_HERO_LEVEL) { state.level = MAX_HERO_LEVEL; state.xp = 0; }
       document.getElementById("sheet-level").textContent = state.level;
       document.getElementById("sheet-gold").textContent = state.gold;
 
@@ -3571,9 +3584,14 @@
       document.getElementById("sheet-hp-bar").style.width = `${Math.max(0, Math.round((state.hp/d.maxHp)*100))}%`;
       document.getElementById("sheet-mp-text").textContent = `${state.mp} / ${d.maxMp}`;
       document.getElementById("sheet-mp-bar").style.width = `${Math.max(0, Math.round((state.mp/d.maxMp)*100))}%`;
-      const xpNeed = state.level * 100;
-      document.getElementById("sheet-xp-text").textContent = `${state.xp} / ${xpNeed}`;
-      document.getElementById("sheet-xp-bar").style.width = `${Math.min(100, Math.round((state.xp/xpNeed)*100))}%`;
+      if (state.level >= MAX_HERO_LEVEL) {
+        document.getElementById("sheet-xp-text").textContent = "MAX LEVEL";
+        document.getElementById("sheet-xp-bar").style.width = "100%";
+      } else {
+        const xpNeed = state.level * 100;
+        document.getElementById("sheet-xp-text").textContent = `${state.xp} / ${xpNeed}`;
+        document.getElementById("sheet-xp-bar").style.width = `${Math.min(100, Math.round((state.xp/xpNeed)*100))}%`;
+      }
 
       document.getElementById("sheet-ac").textContent = d.ac;
       document.getElementById("sheet-atk").textContent = `+${d.atk}`;
