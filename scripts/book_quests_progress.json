@@ -1,6 +1,6 @@
 {
-  "batchCount": 5,
-  "totalQuestsAdded": 60,
+  "batchCount": 6,
+  "totalQuestsAdded": 71,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -305,39 +305,58 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Demon Cults & Secret Societies/Demon Cults & Secret Societies.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Dungeon Tables/Dungeon-Tables-Final-qvzdh2.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Eldritch Lairs/Eldritch Lairs.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Feycircle I: Pit of the Dust Goblins",
+        "Feycircle II: Crypt of Green Shadows",
+        "Feycircle III: Carrion Shrine of Qorgeth",
+        "Under the Devil's Thumb",
+        "The Leystone of the Indigo Star",
+        "Palace of the Wind Lords",
+        "The Undying Tournament"
+      ]
     },
     "Books/Kobold Press/Empire of Ghouls/Kobold Press - Empire of Ghouls.pdf": {
       "status": "pending",
       "convertedTitles": []
     },
     "Books/Kobold Press/Frozen Castle/Frozen Castle.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "The Frozen Castle"
+      ]
     },
     "Books/Kobold Press/Gem Dragons of Faerun/Gem Dragons of Faerun.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Genies Great and Small - 21 New Genies of Zakhara/Genies Great and Small - 21 New Genies of Zakhara.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Grimalkin/Grimalkin-5E.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "convertedTitles": [
+        "Grimalkin I: The Beautiful Gnoll",
+        "Grimalkin II: The Plot Thickens",
+        "Grimalkin III: The Growling Sanctuary"
+      ]
     },
     "Books/Kobold Press/Guide to the Labyrinth/Guide-to-the-Labyrinth-FINAL-1eyeli.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Hidden Tomb of Nargoth/Hidden-Tomb-of-Nargoth_Final-xwyssb.pdf": {
@@ -349,43 +368,53 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Board Game Design/Kobold Guide to Board Game Design.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Combat/Kobold Guide to Combat.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Game Design 1 - Adventures/Kobold Guide to Game Design 1 - Adventures.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Game Design 2 - Pitch Playtest and Publish/Kobold Guide to Game Design 2 - Pitch Playtest and Publish.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Game Design 3 - Tools and Techniques/Kobold Guide to Game Design 3 - Tools and Techniques.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Game Design/Kobold Press - Complete Kobold Guide to Game Design.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Gamemastering/Kobold Guide to Gamemastering.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Magic/Kobold Guide to Magic.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Worldbuilding/Dowloaded 2-18-2023/Kobold Guide to Worldbuilding.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Kobold Guide to Worldbuilding/Kobold Guide to Worldbuilding.pdf": {
-      "status": "pending",
+      "status": "skipped_no_quests",
+      "reason": "GM/bestiary/design reference book",
       "convertedTitles": []
     },
     "Books/Kobold Press/Last Gasp/Last Gasp.pdf": {

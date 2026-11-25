@@ -579,3 +579,100 @@ window.OAKHAVEN.registerItems({
     desc: "+6 Attack, +2 Might, +6 Max HP. Honored trollkin war-axe gifted after slaying the Venom Maw Hydra."
   }
 });
+
+window.OAKHAVEN.registerItems({
+  // Batch 006 — Eldritch Lairs (7), Frozen Castle (1), Grimalkin (3)
+  "bq_tymande_venom_dagger": {
+    id: "bq_tymande_venom_dagger",
+    name: "Tymande's Shadow-Venom Dagger",
+    type: "weapon",
+    rarity: "rare",
+    value: 160,
+    source: "Eldritch Lairs",
+    atk: 4,
+    agility: 1,
+    arcana: 1,
+    desc: "+4 Attack, +1 Agility, +1 Arcana. Upgraded relic blade blessed in the Crypt of Green Shadows."
+  },
+  "bq_shroud_of_tiberesh": {
+    id: "bq_shroud_of_tiberesh",
+    name: "Shroud of Tiberesh",
+    type: "cloak",
+    rarity: "rare",
+    value: 180,
+    source: "Eldritch Lairs",
+    ac: 2,
+    spirit: 2,
+    desc: "+2 AC, +2 Spirit. Contested funerary cloak sought by Sister Starkfeather and Lord Vermin."
+  },
+  "bq_indigo_star_chime": {
+    id: "bq_indigo_star_chime",
+    name: "Bemmean Ley-Line Chime",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 255,
+    source: "Eldritch Lairs",
+    arcana: 3,
+    maxMp: 6,
+    desc: "+3 Arcana, +6 Max MP. Resonant crystal chime attuned to the Leystone of the Indigo Star."
+  },
+  "bq_leyla_wind_ring": {
+    id: "bq_leyla_wind_ring",
+    name: "Leyla's Freed-Djinni Band",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 280,
+    source: "Eldritch Lairs",
+    ac: 2,
+    agility: 2,
+    luck: 1,
+    desc: "+2 AC, +2 Agility, +1 Luck. Sky-opal ring gifted by freed djinni Leyla of the Wind Palace."
+  },
+  "bq_gonderif_mithral_mail": {
+    id: "bq_gonderif_mithral_mail",
+    name: "Corpse-Tearer Mithral Scale",
+    type: "armor",
+    rarity: "very_rare",
+    value: 310,
+    source: "Eldritch Lairs",
+    ac: 4,
+    agility: 1,
+    maxHp: 6,
+    desc: "+4 AC, +1 Agility, +6 Max HP. Gleaming mithral legion scale seized in the Undying Tournament."
+  },
+  "bq_skyreach_frost_greatsword": {
+    id: "bq_skyreach_frost_greatsword",
+    name: "Blagothkus's Cloud-Frost Blade",
+    type: "weapon",
+    rarity: "very_rare",
+    value: 345,
+    source: "Frozen Castle",
+    atk: 6,
+    might: 2,
+    ac: 1,
+    desc: "+6 Attack, +2 Might, +1 AC. Giant-forged frost blade recovered from crashed Skyreach Castle."
+  },
+  "bq_calling_cat_charm": {
+    id: "bq_calling_cat_charm",
+    name: "The Calling Cat Pendant",
+    type: "accessory",
+    rarity: "uncommon",
+    value: 110,
+    source: "Grimalkin",
+    luck: 2,
+    spirit: 1,
+    desc: "+2 Luck, +1 Spirit. Eerie sand-touched feline charm pulled from the River of Sand."
+  },
+  "bq_grimalkin_idol": {
+    id: "bq_grimalkin_idol",
+    name: "The Grimalkin Idol",
+    type: "accessory",
+    rarity: "very_rare",
+    value: 230,
+    source: "Grimalkin",
+    ac: 2,
+    agility: 2,
+    luck: 2,
+    desc: "+2 AC, +2 Agility, +2 Luck. Ancient feline artifact recovered from the sunken Growling Sanctuary."
+  }
+});
