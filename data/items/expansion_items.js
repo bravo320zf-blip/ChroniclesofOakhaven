@@ -91,7 +91,7 @@ window.OAKHAVEN.registerItems({
       ul_stone_flesh_balm:   { id:"ul_stone_flesh_balm", name:"Stone-to-Flesh Balm", type:"consumable", rarity:"rare", healHp:24, value:50, unique:true, desc:"Restores 24 HP & reverses petrification" },
 
       ul_charnel_maul:       { id:"ul_charnel_maul", name:"Bone-Midden Crusher", type:"weapon", rarity:"rare", atk:3, might:2, value:125, unique:true, desc:"+3 Attack, +2 Might (Flayed Midden Unique)" },
-      ul_onyx_fang_dagger:   { id:"ul_onyx_fang_dagger", name:"Otyugh's Onyx Dagger", type:"weapon", rarity:"rare", atk:3, agility:2, value:120, unique:true, desc:"+3 Attack, +2 Agility (Flayed Midden Unique)" },
+      ul_onyx_fang_dagger:   { id:"ul_onyx_fang_dagger", name:"Otyugh's Onyx Dagger", type:"weapon", rarity:"rare", atk:3, agility:2, value:120, unique:true, passives:{ critRange:11, lifesteal:2, skillBonus:{ Stealth:2 } }, activeAbility:{ name:"Midden-Venom Fang", icon:"🗡️", charges:2, dmgDice:"2d6", dmgStat:"agility", dmgType:"poison", dot:{ dmg:4, turns:3, label:"Carrion Rot" }, desc:"2/Quest: Drive the onyx fang for 2d6 + Agility poison dmg and Carrion Rot (4/t, 3t)!" }, desc:"Onyx dagger gifted by the Carrion Collector of the Flayed Midden (+Crit, Lifesteal 2, +2 Stealth) with Midden-Venom Fang." },
 
       ul_sicarius_silk:      { id:"ul_sicarius_silk", name:"Spidersilk Mantle of Sicarius", type:"cloak", rarity:"rare", ac:2, agility:2, value:130, unique:true, desc:"+2 AC, +2 Agility (Camp Sicarius Unique)" },
       ul_black_pearl_brooch: { id:"ul_black_pearl_brooch", name:"Nizana's Black-Pearl Brooch", type:"accessory", rarity:"rare", arcana:2, luck:1, value:145, unique:true, desc:"+2 Arcana, +1 Luck (Camp Sicarius Unique)" },

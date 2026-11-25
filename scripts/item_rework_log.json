@@ -1,6 +1,6 @@
 {
-  "totalPasses": 9,
-  "totalItemsReworked": 90,
+  "totalPasses": 10,
+  "totalItemsReworked": 100,
   "history": [
     {
       "pass": 1,
@@ -145,6 +145,22 @@
         "bq_illyria_edjet_blade"
       ],
       "summary": "Reworked 7 Vault of Magic items (including Legendary Shepherd's Flail, Gorgon Scale, and Animated Chain Mail), Baron's Cinder Signet, and 2 quest relics with authentic passives and charged abilities."
+    },
+    {
+      "pass": 10,
+      "items": [
+        "vom_boots_swift_striker",
+        "vom_leaf_bladed_sword",
+        "vom_chronomancer_clock",
+        "bk_giantstrike_cestus",
+        "bk_paired_gauntlets_of_striking",
+        "ul_onyx_fang_dagger",
+        "bq_adelind_holy_robes",
+        "bq_scorpion_prince_dagger",
+        "bq_green_sanctum_bloom",
+        "bq_frosttuft_silver_axe"
+      ],
+      "summary": "Milestone 100th item reworked! Upgraded 3 Vault of Magic items (including Chronomancer's Pocket Clock), 2 Tome of Heroes gauntlets, Otyugh's Onyx Dagger, and 4 quest relics."
     }
   ],
   "itemPasses": {
@@ -237,6 +253,16 @@
     "vom_band_iron_thorns": 1,
     "signet_of_cinders": 1,
     "bq_sianis_rune_signet": 1,
-    "bq_illyria_edjet_blade": 1
+    "bq_illyria_edjet_blade": 1,
+    "vom_boots_swift_striker": 1,
+    "vom_leaf_bladed_sword": 1,
+    "vom_chronomancer_clock": 1,
+    "bk_giantstrike_cestus": 1,
+    "bk_paired_gauntlets_of_striking": 1,
+    "ul_onyx_fang_dagger": 1,
+    "bq_adelind_holy_robes": 1,
+    "bq_scorpion_prince_dagger": 1,
+    "bq_green_sanctum_bloom": 1,
+    "bq_frosttuft_silver_axe": 1
   }
 }

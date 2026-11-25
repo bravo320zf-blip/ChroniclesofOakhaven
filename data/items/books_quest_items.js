@@ -370,7 +370,9 @@ window.OAKHAVEN.registerItems({
     source: "Book of Lairs",
     atk: 5,
     agility: 2,
-    desc: "+5 Attack, +2 Agility. Venomous aventurine-hilted blade from the unearthed desert tomb."
+    passives: { critRange: 10, lifesteal: 2, skillBonus: { Stealth: 2 } },
+    activeAbility: { name: "Royal Aventurine Sting", icon: "🦂", charges: 2, dmgDice: "2d8", dmgStat: "agility", dmgType: "poison", dot: { dmg: 5, turns: 3, label: "Royal Venom" }, guaranteedCrit: true, desc: "2/Quest: Lunge with the Scorpion Prince's stinger for a guaranteed-crit 2d8 + Agility poison blow + Royal Venom (5/t, 3t)!" },
+    desc: "Aventurine-hilted venomous blade from the unearthed desert tomb (Crit 10+, Lifesteal 2, +2 Stealth) with Royal Aventurine Sting."
   },
   "bq_shadow_drake_diadem": {
     id: "bq_shadow_drake_diadem",
@@ -710,7 +712,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 2,
     maxHp: 5,
-    desc: "+2 AC, +2 Spirit, +5 Max HP. Consecrated relic vestments recovered from Castle Orzelbirg."
+    passives: { undeadDmgBonus: 5, healBonus: 3, dmgReduce: 1 },
+    activeAbility: { name: "Adelind's Consecration", icon: "🕊️", charges: 2, ooc: true, healDice: "2d6", healStat: "spirit", shieldTurns: 3, desc: "2/Quest: Invoke Sister Adelind's consecrated vestments — restore 2d6 + Spirit HP and gain +3 AC (3t)!" },
+    desc: "Consecrated relic vestments from Castle Orzelbirg (+5 vs Undead, +3 Healing, -1 dmg taken) with Adelind's Consecration."
   },
   "bq_spear_maiden_aegis": {
     id: "bq_spear_maiden_aegis",
@@ -2038,9 +2042,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     spirit: 2,
     maxMp: 6,
-    passives: { spellDmgBonus: 2, mpRegen: 1 },
+    passives: { spellDmgBonus: 2, healBonus: 2, mpRegen: true },
     activeAbility: { name: "Glacial Bloom", icon: "❄️", charges: 2, dmgDice: "2d6", dmgStat: "arcana", dmgType: "cold", chillTurns: 3, desc: "2/Quest: Release subzero petals for 2d6 + Arcana cold dmg & chill foe (-2 Enemy ATK, 3t)." },
-    desc: "Ever-chilled exotic flower preserved in crystal from the remote island arboretum."
+    desc: "Ever-chilled exotic flower from the island arboretum (+2 Spell Dmg, +2 Healing, +1 MP regen) with Glacial Bloom."
   },
   "bq_celeste_pearl_chalice": {
     id: "bq_celeste_pearl_chalice",
@@ -2501,9 +2505,9 @@ window.OAKHAVEN.registerItems({
     value: 340,
     atk: 6,
     might: 3,
-    passives: { bossDmgBonus: 4, undeadDmgBonus: 4, critRange: 11 },
+    passives: { bossDmgBonus: 4, undeadDmgBonus: 4, critRange: 11, skillBonus: { Survival: 2 } },
     activeAbility: { name: "Bearfolk Silver Cleave", icon: "🪓", charges: 2, dmgDice: "2d10", dmgStat: "might", dmgType: "radiant", selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest: Heave silvered bearfolk steel for 2d10 + Might radiant dmg and +3 ATK (2t)!" },
-    desc: "Silvered bearfolk war-axe honored in Trollheim (+4 vs Bosses & Undead, +Crit) with Bearfolk Silver Cleave."
+    desc: "Silvered bearfolk war-axe honored in Trollheim (+4 vs Bosses & Undead, +Crit, +2 Survival) with Bearfolk Silver Cleave."
   },
   "bq_surtur_polar_brand": {
     id: "bq_surtur_polar_brand",

@@ -157,7 +157,22 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "ac": 5,
     "maxHp": 8,
-    "desc": "+5 AC, +8 Max HP (Tome of Heroes)"
+    "passives": {
+      "bossDmgBonus": 5,
+      "thornsDmg": 4,
+      "dmgReduce": 2
+    },
+    "activeAbility": {
+      "name": "Titanic Knuckle-Breaker",
+      "icon": "🥊",
+      "charges": 2,
+      "dmgDice": "2d10",
+      "dmgStat": "might",
+      "dmgType": "physical",
+      "stunTurns": 1,
+      "desc": "2/Quest: Drive the giant-forged cestus home for 2d10 + Might crushing dmg and Stun (1t)!"
+    },
+    "desc": "Heavy giant-forged war-cestus (+5 vs Bosses, 4 Thorns, -2 dmg taken) with Titanic Knuckle-Breaker."
   },
   "bk_javelin_of_teleportation": {
     "id": "bk_javelin_of_teleportation",
@@ -239,7 +254,21 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "ac": 3,
     "maxHp": 4,
-    "desc": "+3 AC, +4 Max HP (Tome of Heroes)"
+    "passives": {
+      "thornsDmg": 2,
+      "skillBonus": { "Athletics": 1 }
+    },
+    "activeAbility": {
+      "name": "Twin-Fist Combination",
+      "icon": "👊",
+      "charges": 2,
+      "dmgDice": "1d6",
+      "dmgStat": "might",
+      "dmgType": "physical",
+      "multiStrike": 2,
+      "desc": "2/Quest: Unleash a crisp left-right steel gauntlet combo for 2× (1d6 + Might) dmg!"
+    },
+    "desc": "Balanced steel brawling gauntlets (2 Thorns, +1 Athletics) with Twin-Fist Combination."
   },
   "bk_phase_arrow": {
     "id": "bk_phase_arrow",
