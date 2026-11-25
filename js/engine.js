@@ -60,7 +60,7 @@
     return s.replace(/^\s*[•\-–—:]\s*/, "").replace(/\s*[•\-–—:]\s*$/, "").trim();
   }
 
-  // Automatically place every non-autoDiscover quest (that has no prerequisite and no
+  // Automatically place every standalone / Part-1 quest (that has no prerequisite and no
   // dedicated NPC/location trigger) into the Rusty Flagon Inn's rotating rumor patron pool.
   (() => {
     const claimedQuests = new Set(["thornwood", "saltfang", "st_jude", "karak_zul", "crimson_spire"]);
@@ -71,7 +71,7 @@
       }
     });
     Object.values(ADVENTURES).forEach(adv => {
-      if (!adv || adv.autoDiscover || adv.reqQuest || claimedQuests.has(adv.id)) return;
+      if (!adv || adv.reqQuest || claimedQuests.has(adv.id)) return;
       claimedQuests.add(adv.id);
       const rawSrc = (adv.discoverySource || "Frontier Traveler").replace(/\s*\([^)]*\)\s*/g, "").trim();
       const patronName = rawSrc || "Frontier Traveler";
@@ -1503,10 +1503,13 @@
         (race?.statBonuses?.[k] || 0);
 
       const name = document.getElementById("char-name").value.trim();
-      const startingQuests = ["malakor"];
-      Object.values(ADVENTURES).forEach(adv => {
-        if (adv.autoDiscover && !startingQuests.includes(adv.id)) startingQuests.push(adv.id);
-      });
+      const lvl1Pool = Object.values(ADVENTURES).filter(
+        adv => adv && !adv.reqQuest && (adv.recommendedLevel || 1) === 1
+      );
+      const starterQuest = lvl1Pool.length
+        ? lvl1Pool[Math.floor(Math.random() * lvl1Pool.length)].id
+        : "malakor";
+      const startingQuests = [starterQuest];
 
       state = {
         name,
@@ -2020,10 +2023,15 @@
       }
     }
 
+    function getActiveBoardLeads(target = state) {
+      if (!target || !Array.isArray(target.discoveredQuests)) return [];
+      return target.discoveredQuests
+        .map(id => ADVENTURES[id])
+        .filter(adv => adv && !target.completedQuests?.[adv.id] && (!adv.reqQuest || !!target.completedQuests?.[adv.reqQuest]));
+    }
+
     function renderDistrictSquare(box) {
-      const activeLeads = state.discoveredQuests
-          .map(id => ADVENTURES[id])
-          .filter(adv => adv && !state.completedQuests[adv.id] && (!adv.reqQuest || !!state.completedQuests[adv.reqQuest]));
+      const activeLeads = getActiveBoardLeads();
       box.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div>
@@ -2070,7 +2078,7 @@
       });
     }
 	
-	function rollTavernPatrons() {
+    function rollTavernPatrons() {
       if (!state) return;
 
       // Only include quest-givers whose Part 1 prerequisite (if any) is complete
@@ -2079,11 +2087,12 @@
         (!npc.reqQuest || !!state.completedQuests[npc.reqQuest])
       );
 
-      // Prioritize NPCs offering quests you haven't discovered yet
+      // Prioritize NPCs offering quests you haven't discovered or completed yet
       const freshLeads = eligible.filter(npc =>
-        npc.discoverQuest && !state.discoveredQuests.includes(npc.discoverQuest)
+        npc.discoverQuest &&
+        !state.discoveredQuests.includes(npc.discoverQuest) &&
+        !state.completedQuests[npc.discoverQuest]
       );
-      const otherPatrons = eligible.filter(npc => !freshLeads.includes(npc));
 
       const shuffle = (arr) => {
         const copy = [...arr];
@@ -2094,9 +2103,26 @@
         return copy;
       };
 
-      const pool = [...shuffle(freshLeads), ...shuffle(otherPatrons)];
-      const count = Math.min(pool.length, 1 + Math.floor(Math.random() * 2)); // 1 to 2 patrons
-      state.tavernPatrons = pool.slice(0, count).map(npc => npc.id);
+      // If the hero has NO active quests left on the board, guarantee 1 quest rumor at the Inn.
+      // Otherwise roll 0 or 1 rumor patron so quests arrive at a relaxed, unhurried pace.
+      const boardIsEmpty = getActiveBoardLeads().length === 0;
+      const count = boardIsEmpty
+        ? (freshLeads.length > 0 ? 1 : 0)
+        : (freshLeads.length > 0 && Math.random() < 0.5 ? 1 : 0);
+
+      if (count === 0) {
+        state.tavernPatrons = [];
+        return;
+      }
+
+      // Gently favor level-appropriate quests (within +2 of hero level) when available
+      const heroLv = state.level || 1;
+      const levelAppropriate = freshLeads.filter(npc => {
+        const adv = ADVENTURES[npc.discoverQuest];
+        return adv && (adv.recommendedLevel || 1) <= heroLv + 2;
+      });
+      const pickPool = shuffle(levelAppropriate.length > 0 ? levelAppropriate : freshLeads);
+      state.tavernPatrons = [pickPool[0].id];
     }
 
     function renderDistrictTavern(box) {
@@ -2173,10 +2199,18 @@
         }
       }
 
-      if (!Array.isArray(state.tavernPatrons) || state.tavernPatrons.length === 0) {
+      if (!Array.isArray(state.tavernPatrons)) {
         rollTavernPatrons();
-      } else if (state.tavernPatrons.length > 2) {
-        state.tavernPatrons = state.tavernPatrons.slice(0, 2);
+      } else if (state.tavernPatrons.length > 1) {
+        state.tavernPatrons = state.tavernPatrons.slice(0, 1);
+      }
+      // Safety net: if the Quest Board has no available quests, guarantee 1 fresh lead at the Inn
+      if (getActiveBoardLeads().length === 0) {
+        const hasFreshPatron = state.tavernPatrons.some(id => {
+          const n = TAVERN_NPCS.find(x => x.id === id);
+          return n && n.discoverQuest && !state.discoveredQuests.includes(n.discoverQuest) && !state.completedQuests[n.discoverQuest];
+        });
+        if (!hasFreshPatron) rollTavernPatrons();
       }
 
       const visibleNpcs = TAVERN_NPCS.filter(npc =>
@@ -2204,6 +2238,12 @@
         };
         grid.appendChild(c);
       });
+      if (visibleNpcs.length <= 1) {
+        const quiet = document.createElement("div");
+        quiet.className = "p-3.5 rounded-xl bg-stone-950/60 border border-dashed border-stone-800 text-xs text-stone-400 italic flex items-center";
+        quiet.textContent = "A quiet evening at the Rusty Flagon — no travelers have new rumors right now. Complete a quest or rest at the inn to see who wanders in next.";
+        grid.appendChild(quiet);
+      }
     }
 
     function renderDistrictOutskirts(box) {
@@ -4847,12 +4887,12 @@
         throw new Error("Invalid save data format.");
       }
       if (!loaded.townPos) loaded.townPos = { x: 11, y: 11 };
-      if (!Array.isArray(loaded.discoveredQuests)) loaded.discoveredQuests = ["malakor"];
-      Object.values(ADVENTURES).forEach(adv => {
-        if (adv.autoDiscover && !loaded.discoveredQuests.includes(adv.id)) {
-          loaded.discoveredQuests.push(adv.id);
-        }
-      });
+      if (!Array.isArray(loaded.discoveredQuests)) {
+        const lvl1Pool = Object.values(ADVENTURES).filter(
+          adv => adv && !adv.reqQuest && (adv.recommendedLevel || 1) === 1
+        );
+        loaded.discoveredQuests = [lvl1Pool.length ? lvl1Pool[Math.floor(Math.random() * lvl1Pool.length)].id : "malakor"];
+      }
 	  loaded.backpack = compactContainerStacks(loaded.backpack || [], 12);
       applySharedVaultToState(loaded);
       ensureHeroProgressionState(loaded);
