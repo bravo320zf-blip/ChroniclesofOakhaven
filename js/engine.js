@@ -601,10 +601,26 @@
         </div>`;
     }
 
+    function getItemArtSrc(it) {
+      if (!it) return null;
+      const itemArtMap = window.OAKHAVEN_ITEM_IMAGES || {};
+      return it.img || it.image || it.art || itemArtMap[it.id] || (it.unlocksRecipe ? itemArtMap[it.unlocksRecipe] : null) || null;
+    }
+
+    function renderItemThumbHtml(itemOrId, sizeCls = "w-11 h-11", iconCls = "text-lg") {
+      const it = typeof itemOrId === "string" ? ITEMS_DB[itemOrId] : itemOrId;
+      if (!it) return "";
+      const meta = ITEM_TYPE_META[it.type] || { label: (it.type || "Item"), icon: "🎒" };
+      const imgSrc = getItemArtSrc(it);
+      if (imgSrc) {
+        return `<img src="${imgSrc}" alt="${it.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" class="${sizeCls} rounded-lg object-cover border border-amber-500/60 shadow shrink-0 bg-stone-900" /><div style="display:none" class="${sizeCls} rounded-lg bg-stone-900 border border-amber-700/50 items-center justify-center ${iconCls} shrink-0">${meta.icon}</div>`;
+      }
+      return `<div class="${sizeCls} rounded-lg bg-stone-900 border border-amber-700/50 flex items-center justify-center ${iconCls} shrink-0">${meta.icon}</div>`;
+    }
+
     function buildItemTooltipHtml(it, opts = {}) {
       const meta = ITEM_TYPE_META[it.type] || { label: (it.type || "Item"), icon: "🎒" };
-      const itemArtMap = window.OAKHAVEN_ITEM_IMAGES || {};
-      const imgSrc = it.img || it.image || it.art || itemArtMap[it.id] || (it.unlocksRecipe ? itemArtMap[it.unlocksRecipe] : null) || null;
+      const imgSrc = getItemArtSrc(it);
       const qty = opts.qty || 1;
       const rarityHtml = typeof getRarityBadgeHtml === "function" ? getRarityBadgeHtml(it.rarity || "common") : "";
 
@@ -2628,19 +2644,27 @@
         const matBadges = Object.entries(rec.mats).map(([mid, need]) => {
           const { pack, vault, total } = countMaterialSplit(mid);
           if (total < need) canCraft = false;
+          const matItem = ITEMS_DB[mid];
+          const matImg = getItemArtSrc(matItem);
+          const matThumb = matImg ? `<img src="${matImg}" alt="" loading="lazy" onerror="this.style.display='none'" class="w-4 h-4 rounded object-cover border border-amber-600/40 shrink-0" />` : "";
           const vaultTag = vault > 0 ? ` <span class="text-amber-300/90" title="${pack} in Backpack, ${vault} in Vault">(🔐${vault})</span>` : "";
-          return `<span data-mat-id="${mid}" class="px-2 py-0.5 rounded text-[10px] cursor-help ${total >= need ? "bg-emerald-950 text-emerald-300 border border-emerald-700" : "bg-stone-900 text-rose-300 border border-stone-700"}">${ITEMS_DB[mid]?.name || mid}: ${total}/${need}${vaultTag}</span>`;
+          return `<span data-mat-id="${mid}" class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] cursor-help ${total >= need ? "bg-emerald-950 text-emerald-300 border border-emerald-700" : "bg-stone-900 text-rose-300 border border-stone-700"}">${matThumb}<span>${matItem?.name || mid}: ${total}/${need}${vaultTag}</span></span>`;
         }).join(" ");
 
         const c = document.createElement("div");
         c.className = "p-3.5 rounded-xl bg-stone-950/90 border border-amber-700/30 flex flex-col justify-between gap-2.5";
         c.innerHTML = `
           <div>
-            <div class="flex items-center justify-between gap-2">
-              <div class="font-display text-sm font-bold text-amber-200">${resItem.name}</div>
-              ${typeof getRarityBadgeHtml === "function" ? getRarityBadgeHtml(rec.rarity || resItem.rarity) : ""}
+            <div class="flex items-start gap-2.5 mb-2">
+              ${renderItemThumbHtml(resItem, "w-12 h-12", "text-xl")}
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="font-display text-sm font-bold text-amber-200 truncate">${resItem.name}</div>
+                  ${typeof getRarityBadgeHtml === "function" ? getRarityBadgeHtml(rec.rarity || resItem.rarity) : ""}
+                </div>
+                <div class="text-[11px] text-stone-400 mt-0.5 leading-snug">${rec.desc}</div>
+              </div>
             </div>
-            <div class="text-[11px] text-stone-400 mb-2 mt-0.5">${rec.desc}</div>
             <div class="flex flex-wrap gap-1">${matBadges}</div>
           </div>
           <button class="w-full py-2 rounded-lg text-xs font-bold ${canCraft ? "btn-gold" : "bg-stone-800 text-stone-500 cursor-not-allowed"}" ${canCraft ? "" : "disabled"}>
