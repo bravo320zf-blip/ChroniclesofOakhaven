@@ -27,6 +27,43 @@
   const CRAFT_RECIPES = window.OAKHAVEN.recipes;
   const TAVERN_NPCS = window.OAKHAVEN.npcs;
   const ADVENTURES = window.OAKHAVEN.quests;
+
+  // Automatically place every non-autoDiscover quest (that has no prerequisite and no
+  // dedicated NPC/location trigger) into the Rusty Flagon Inn's rotating rumor patron pool.
+  (() => {
+    const claimedQuests = new Set(["thornwood", "saltfang", "st_jude", "karak_zul", "crimson_spire"]);
+    TAVERN_NPCS.forEach(npc => {
+      if (npc.discoverQuest) claimedQuests.add(npc.discoverQuest);
+      if (Array.isArray(npc.options)) {
+        npc.options.forEach(opt => { if (opt.unlock) claimedQuests.add(opt.unlock); });
+      }
+    });
+    Object.values(ADVENTURES).forEach(adv => {
+      if (!adv || adv.autoDiscover || adv.reqQuest || claimedQuests.has(adv.id)) return;
+      claimedQuests.add(adv.id);
+      const rawSrc = (adv.discoverySource || "Frontier Traveler").replace(/\s*\([^)]*\)\s*/g, "").trim();
+      const patronName = rawSrc || "Frontier Traveler";
+      const lvlTag = adv.recommendedLevel ? `Lv. ${adv.recommendedLevel}+` : "Frontier";
+      TAVERN_NPCS.push({
+        id: `inn_rumor_${adv.id}`,
+        name: patronName,
+        role: `Tavern Rumor • ${adv.difficulty || "Adventure"} (${lvlTag})`,
+        discoverQuest: adv.id,
+        greeting: `"You look handy with steel and spell, friend. Have you heard the talk about ${adv.title}? ${adv.summary}"`,
+        options: [
+          {
+            label: `Ask for the trail to ${adv.title}`,
+            unlock: adv.id,
+            reply: `"I've marked the route to ${adv.title} on the Town Square Quest Board for you. Stay sharp—${adv.subtitle || "danger awaits"}!"`
+          },
+          {
+            label: "Buy them a mug and listen to local gossip",
+            reply: `"Much obliged! If you decide to take on ${adv.title}, stop back by and I'll point you straight to the trail."`
+          }
+        ]
+      });
+    });
+  })();
   const RARITY_META = window.OAKHAVEN.RARITY_META;
   const getRarityBadgeHtml = window.OAKHAVEN.getRarityBadgeHtml;
   const rollRandomLoot = window.OAKHAVEN.rollRandomLoot;
@@ -1639,6 +1676,7 @@
         state.innBuff = statKey;
         const d = getDerived(state);
         state.hp = d.maxHp; state.mp = d.maxMp; state.currentLuck = d.maxLuck;
+        rollTavernPatrons(); // Fresh travelers arrive at the Rusty Flagon overnight!
         sfx("heal");
         toast(`Rested! Full HP/MP/Luck & Well-Rested Buff: +1 ${statLabel} for your next adventure!`, "good");
         addLog(`Rested at the Rusty Flagon (-10 GP) — Well-Rested: +1 ${statLabel} for next adventure.`, "good");
@@ -2489,6 +2527,12 @@
         state.gold += page.ending.gold || 0;
         gainXp(page.ending.xp || 0);
         state.completedQuests[adv.id] = page.ending.trophy;
+        // Automatically unlock any follow-up chapter in a multi-part quest series
+        Object.values(ADVENTURES).forEach(nextAdv => {
+          if (nextAdv && nextAdv.reqQuest === adv.id && !state.discoveredQuests.includes(nextAdv.id)) {
+            discoverAdventure(nextAdv.id, adv.title);
+          }
+        });
         state.blessing = null;
         state.innBuff = null;
         rollTavernPatrons(); // Refreshes the 3-6 Tavern patrons!
