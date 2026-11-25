@@ -243,7 +243,8 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 4. UNDER THE DEVIL'S THUMB (7 PAGES • LV 5)
+  // 4. UNDER THE DEVIL'S THUMB (10 PAGES • LV 5)
+  // (Enriched Pass 1)
   // ==========================================================
   bk_b6_eldritch_4_devils_thumb: {
     id: "bk_b6_eldritch_4_devils_thumb",
@@ -253,65 +254,102 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 5,
     autoDiscover: false,
     discoverySource: "Agents Spinel & Galena of Highgate (Oakhaven Market)",
-    summary: "Enter the plague-shadowed white limestone city of Highgate on the River Nuria, navigate the deadly eight-year contest between Sister Starkfeather and roachling Lord Vermin's Umbers, and seize the Shroud of Tiberesh!",
-    totalPages: 7,
+    summary: "Enter the plague-shadowed white limestone city of Highgate on the River Nuria, navigate the deadly eight-year contest between Sister Starkfeather and roachling crime-lord Lord Vermin's Umbers, and seize the sacred Shroud of Tiberesh to save dying Etiryp!",
+    totalPages: 10,
     pages: {
       1: {
-        zone: "Highgate Aqueducts",
+        zone: "Highgate Aqueducts • Sunlit Gate",
         title: "City of Fear",
         safeRetreat: true,
-        text: "Gleaming white limestone walls hide a terrified city gripped by a mysterious wasting sickness. Ravenfolk devotees Spinel and Galena hire you to slip into the subterranean aqueducts beneath Highgate and recover the sacred Shroud of Tiberesh before roachling crime-lord Lord Vermin's Umbers claim it!",
+        text: [
+          "Gleaming white limestone spires rise above the River Nuria, yet plague-cloths hang from shuttered balconies across Highgate. In a shadowed portico, ravenfolk agents <strong>Spinel and Galena</strong>—sworn to Sister Starkfeather—speak in urgent whispers.",
+          "<em>'The eight-year contest of the Five Exalted reaches its climax,'</em> Spinel warns. <em>'Our ally Etiryp dies of the wasting sickness unless you recover the sacred Shroud of Tiberesh from the sunken aqueducts before roachling crime-lord Lord Vermin's Umbers seize it!'</em>"
+        ],
         choices: [
-          { t: "Follow the dry aqueduct bypass to skirt Lord Vermin's sewer traps.", badge: "Perception / Stealth DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 2, fail: 2, failDmg: 5, passMsg: "You slip cleanly past the Umbers' tripwires!", failMsg: "A corroded sewer-snare bruises your ankle (-5 HP)!" }, onPass: { cw: "SEWER_BYPASS" } },
-          { t: "Descend straight through the main limestone sluice-gate.", to: 2 }
+          { t: "Trace the dry upper aqueduct ledge to skirt Lord Vermin's corroded sewer-traps.", badge: "Perception / Stealth DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 2, fail: 3, failDmg: 5, passMsg: "You slip cleanly past the Umbers' tripwires onto the high dry cistern!", failMsg: "A rusted sewer-snare bruises your ankle (-5 HP) and sends you tumbling toward the Umber checkpoint!" }, onPass: { cw: "SEWER_BYPASS" } },
+          { t: "Map every hidden tripwire along the limestone sluice-gate using Detect Traps.", badge: "Detect Traps", reqSpell: "Detect Traps", to: 2, onChoose: { cw: "SEWER_BYPASS", msg: "You spot every wire and climb cleanly to the upper aqueduct valve!" } },
+          { t: "Descend straight through the roaring main limestone sluice-gate.", to: 3 }
         ]
       },
       2: {
-        zone: "Subterranean Lairs",
-        title: "The Umbers Ambush",
-        text: "Chittering roachling rogues and corrupt city watchmen loyal to Lord Vermin drop from the sewer arches with poisoned blades!",
-        enemy: { name: "Lord Vermin's Umbers", desc: "Subterranean roachling cutthroats serving the newest Exalted.", hp: 44, ac: 14, atk: 7, dmg: 7, xp: 120, gold: 60, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1, weakCw: ["SEWER_BYPASS"] },
+        zone: "Dry Aqueduct • Sluice Cistern",
+        title: "The Bronze Flood-Valve",
+        text: "High above the lantern-lit subterranean canal sits a massive bronze flood-valve overlooking the Umbers' checkpoint! Through the grating below, you hear chittering roachling cutthroats sharpening poisoned blades beside bribed Watch captains.",
         choices: [
-          { t: "Enter the sunken crypt holding the Shroud of Tiberesh!", to: 3 }
+          { t: "Heave the bronze flood-valve open to wash half the Umber checkpoint straight down the main drain!", badge: "Athletics DC 13", check: { stat: "might", skill: "Athletics", dc: 13, pass: 4, fail: 3, passMsg: "A roaring wall of river water sweeps the Umbers down the canal—leaving a clear path straight to the crypt!", failMsg: "The rusted wheel groans loudly! Roachling lookouts spot you and swarm up the ladders!" }, onPass: { cw: "FLOOD_FLUSHED" } },
+          { t: "Drop quietly down the rear ladder to ambush the Umbers from behind!", to: 3 }
         ]
       },
       3: {
-        zone: "Vault of Tiberesh",
-        title: "Lord Vermin's Champion",
-        text: "Guarding the silver-woven Shroud of Tiberesh looms Lord Vermin's armored sewer-warden and plague-hounds! 'The eight-year contest belongs to Lord Vermin!' it hisses!",
-        enemy: { name: "Umber Crypt-Warden", desc: "Elite roachling assassin guarding the Shroud of Tiberesh.", hp: 54, ac: 15, atk: 7, dmg: 8, xp: 170, gold: 115, items: ["bq_shroud_of_tiberesh"] },
+        zone: "Subterranean Lairs • Canal Arch",
+        title: "The Umbers Ambush",
+        text: "Chittering roachling rogues and corrupt city watchmen loyal to Lord Vermin drop from the damp limestone arches with gleaming poisoned daggers!",
+        enemy: { name: "Lord Vermin's Umbers", desc: "Subterranean roachling cutthroats serving the newest Exalted.", hp: 44, ac: 14, atk: 7, dmg: 7, xp: 120, gold: 60, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1, weakCw: ["SEWER_BYPASS"] },
         choices: [
-          { t: "Claim the Shroud of Tiberesh and return to Spinel and Galena to save Etiryp!", to: 4 }
+          { t: "Press deeper along the moss-slick aqueduct toward the Vault of Tiberesh!", to: 4 }
         ]
       },
       4: {
-        zone: "Highgate Courtyard",
-        title: "Balance of the Five Exalted",
-        text: "Spinel and Galena bow deeply as you deliver the Shroud's cure—preserving Etiryp's life and gifting you a blessed replica cloak and a heavy purse!",
+        zone: "Deep Aqueduct • Plague-Bell Archway",
+        title: "The Captive Apothecary",
+        text: "Before the granite doors of the Vault of Tiberesh hangs a tarnished brass alarm-bell beside a hurried alchemy bench. A trembling, disgraced Highgate apothecary—forced by Lord Vermin to brew plague-fumes for the crypt's hounds—freezes as your lantern hits his spectacles!",
         choices: [
-          { t: "Leave Highgate before Lord Vermin's assassins regroup.", to: 5 }
+          { t: "Promise the terrified apothecary safe passage to Sister Starkfeather's sanctuary in exchange for his plague-antidote!", badge: "Persuasion DC 13", check: { stat: "spirit", skill: "Persuasion", dc: 13, pass: 5, fail: 5, passMsg: "Tears of relief! He hands you a restorative antidote (+10 HP) that neutralizes the Crypt-Warden's plague-hounds!", failMsg: "Panicking, he tugs the brass alarm-bell once before bolting into the dark!" }, onPass: { cw: "PLAGUE_ANTIDOTE", healHp: 10 } },
+          { t: "Slip past the bench with Stealth and lift a flask of plague-antidote undetected.", badge: "Stealth", reqSkill: "Stealth", to: 5, onChoose: { cw: "PLAGUE_ANTIDOTE", healHp: 6, msg: "You pocket a fresh flask of plague-antidote (+6 HP) without waking the alarm!" } },
+          { t: "Brush past the bench and shove open the heavy granite doors of the Vault!", to: 5 }
         ]
       },
       5: {
-        zone: "Lotus Trail",
-        title: "Desert Wind",
-        text: "Behind you, the limestone towers of Highgate gleam above the River Nuria.",
+        zone: "Vault of Tiberesh • Inner Crypt",
+        title: "Lord Vermin's Champion",
+        text: [
+          "Draped across an ancient limestone sarcophagus gleams the silver-woven <strong>Shroud of Tiberesh</strong>, radiating a cool, cleansing hush against the damp sewer air.",
+          "Blocking the stone steps looms Lord Vermin's carapace-armored <strong>Umber Crypt-Warden</strong> and two foaming plague-hounds! <em>'The eight-year contest belongs to Lord Vermin!'</em> it hisses!"
+        ],
+        enemy: { name: "Umber Crypt-Warden", desc: "Elite roachling assassin and plague-hounds guarding the Shroud of Tiberesh.", hp: 54, ac: 15, atk: 7, dmg: 8, xp: 170, gold: 115, items: ["bq_shroud_of_tiberesh"], weakCw: ["PLAGUE_ANTIDOTE", "FLOOD_FLUSHED"] },
         choices: [
-          { t: "Return to Oakhaven.", to: 6 }
+          { t: "Lift the sacred Shroud of Tiberesh from the limestone sarcophagus!", to: 6 }
         ]
       },
       6: {
-        zone: "Oakhaven Market",
-        title: "Southlands Intrigue",
-        text: "You pocket your gold knowing the shadow war of Highgate is far from over.",
+        zone: "Vault of Tiberesh • Offering Niche",
+        title: "The Cedar Coffer",
+        text: "As you fold the cool silver Shroud safely into your satchel, a glint behind the sarcophagus catches your eye—a hidden offering-niche holding a sealed cedar coffer heavy with ancient river-minted gold!",
         choices: [
-          { t: "Complete the adventure.", to: 7 }
+          { t: "Inspect the cedar clasp for a hidden needle-trap before lifting the lid.", badge: "Lockpicking / Perception DC 13", check: { stat: "agility", skill: "Lockpicking", dc: 13, pass: 7, fail: 7, failDmg: 4, passMsg: "You snap the poisoned brass pin harmlessly and pocket 50 GP in ancient river-gold!", failMsg: "A tiny needle pricks your thumb (-4 HP), though you still scoop up 35 GP!" }, onPass: { gold: 50 }, onFail: { gold: 35 } },
+          { t: "Leave the tomb-gold untouched and race straight for the surface before Etiryp's fever peaks!", to: 7 }
         ]
       },
       7: {
+        zone: "Highgate Rooftops • Desert Noon",
+        title: "Umber Lookout Pursuit",
+        text: "Emerging from a dry cistern wellhead into blinding desert noon, you spot Lord Vermin's chittering scouts flashing mirror-signals across the white limestone domes! Only a few streets separate you from Sister Starkfeather's sanctuary.",
+        choices: [
+          { t: "Duck beneath the crowded spice-bazaar awnings to shake the rooftop pursuit cleanly!", badge: "Stealth / Agility DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 8, fail: 8, failDmg: 3, passMsg: "You vanish cleanly through the saffron stalls and reach the sanctuary unharmed!", failMsg: "A sling-stone clips your shoulder (-3 HP) as you vault into Sister Starkfeather's courtyard!" } },
+          { t: "Sprint boldly across the high limestone bridges straight to the sanctuary doors!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Sister Starkfeather's Sanctuary",
+        title: "Balance of the Five Exalted",
+        onEnter: { healHp: 12, msg: "Sister Starkfeather's sanctuary healers tend your wounds (+12 HP)!" },
+        text: "Spinel and Galena immediately drape the Shroud of Tiberesh over fever-wracked Etiryp. A cool silver hush washes across his brow as the wasting sickness breaks! Bowing deeply, the ravenfolk agents press a heavy purse and a blessed replica cloak into your hands.",
+        choices: [
+          { t: "Slip out of Highgate's south gate before Lord Vermin's assassins regroup.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Lotus Trail • Above the River Nuria",
+        title: "Desert Wind",
+        text: "Behind you, the sun-bleached towers of Highgate gleam above the wide blue waters of the River Nuria. The balance of the Five Exalted holds for now—though Lord Vermin will not soon forget the hero who stole his prize.",
+        choices: [
+          { t: "Follow the caravan road back to Oakhaven!", to: 10 }
+        ]
+      },
+      10: {
         zone: "Epilogue",
         title: "Shadow-Walker of Highgate",
-        text: "You outsmarted the Umbers beneath Highgate and won the Shroud of Tiberesh.",
+        text: "You outsmarted the Umbers beneath Highgate, saved Etiryp, and claimed the Shroud of Tiberesh!",
         ending: { type: "true", title: "Victor Under the Devil's Thumb", xp: 215, gold: 205, trophy: "Limestone Seal of Highgate" },
         choices: []
       }

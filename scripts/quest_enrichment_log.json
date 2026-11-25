@@ -1,5 +1,5 @@
 {
-  "totalPasses": 4,
+  "totalPasses": 5,
   "history": [
     {
       "pass": 1,
@@ -28,12 +28,20 @@
       "title": "Hell Comes a' Glittering",
       "file": "data/quests/books_quests_batch_010.js",
       "summary": "Replaced 3 one-line filler pages and expanded into a full 11-page urban gothic mystery with 3 investigative leads (Morgue ruby-salt & Seventh Debt note, Alley witness coal-chute stakeout, and Vaelor's parlor interrogation), Stealth/Lockpicking/Detect Traps cellar flanking (CELLAR_FLANK), Vaelor's sonic tuning-fork confession payoff (SONIC_FORK -> CARAPACE_CRACKED), Crystal Homunculi mid-boss encounter, and interactive pentagram purification."
+    },
+    {
+      "pass": 5,
+      "questId": "bk_b6_eldritch_4_devils_thumb",
+      "title": "Under the Devil's Thumb",
+      "file": "data/quests/books_quests_batch_006.js",
+      "summary": "Replaced filler pages and expanded into a 10-page Highgate sewer heist with Detect Traps/Stealth aqueduct bypass, a bronze flood-valve shortcut washing away the Umber checkpoint (FLOOD_FLUSHED), a captive apothecary negotiation/stealth scene yielding plague-antidote (PLAGUE_ANTIDOTE), a trapped cedar coffer side-loot check, and a spice-bazaar rooftop escape back to Sister Starkfeather's sanctuary."
     }
   ],
   "questPasses": {
     "bk_b2_dib_1": 1,
     "ul_breaching_worm": 1,
     "bk_b7_eog_3_blood_marriage": 1,
-    "bk_b10_p2_5_hell_glittering": 1
+    "bk_b10_p2_5_hell_glittering": 1,
+    "bk_b6_eldritch_4_devils_thumb": 1
   }
 }
