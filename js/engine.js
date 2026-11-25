@@ -2246,73 +2246,514 @@
       }
     }
 
+    const WILDERNESS_ZONES = [
+      { id: "thornwood", name: "Thornwood Wilds", icon: "🌲", desc: "Misty pine trails, rushing river ravines, herb glades, and hidden forest ruins.", mats: ["glowcap_spores", "runed_shards"], beast: { name: "Thornwood Timber Wolves", desc: "Lean grey frontier wolves hunting along the pine ridge.", undead: false }, themeWords: ["forest", "wood", "grove", "willow", "briar", "fey", "mill", "river", "tree", "beast", "bear", "worg", "thorn"] },
+      { id: "cliffs", name: "Saltfang Coast & Cliffs", icon: "🌊", desc: "Sea-sprayed headlands, tidal caves, weathered footbridges, and smuggler coves.", mats: ["sea_salt", "iron_ore"], beast: { name: "Saltfang Reef-Stalkers", desc: "Armored tide-pool predators skittering out of coastal caves.", undead: false }, themeWords: ["sea", "coast", "ship", "pirate", "island", "harbor", "cove", "dock", "barge", "beacon", "salt", "kraken", "water", "lake"] },
+      { id: "ruins", name: "Old Abbey Moorlands", icon: "🏚️", desc: "Fog-wrapped cairns, crumbling border roads, bandit ambushes, and sunken crypts.", mats: ["bone_dust", "shadow_essence"], beast: { name: "Moorland Bone-Stalkers", desc: "Risen skeletal raiders prowling the fog-shrouded cairns.", undead: true }, themeWords: ["crypt", "tomb", "barrow", "undead", "ossuary", "abbey", "tower", "spire", "citadel", "shadow", "ghoul", "lich", "vampire", "dungeon", "ruin"] }
+    ];
+
     function renderDistrictOutskirts(box) {
-      const zones = [
-        { id:"thornwood", name:"Thornwood Forest", desc:"Misty pines rich in Glowcap Spores & hidden barrow trails.", quest:"thornwood", mat:"glowcap_spores" },
-        { id:"cliffs", name:"Coastal Cliffs", desc:"Wave-battered sea arches hiding Sea Salt Crystals & smuggler coves.", quest:"saltfang", mat:"sea_salt" },
-        { id:"ruins", name:"Old Abbey Ruins", desc:"Overgrown stonework hiding Bone Dust & quarantined catacombs.", quest:"st_jude", mat:"bone_dust" }
-      ];
+      const undiscoveredPool = Object.values(ADVENTURES).filter(
+        adv => adv && !adv.isRandomEncounter && !adv.reqQuest && !state.discoveredQuests.includes(adv.id) && !state.completedQuests[adv.id]
+      );
       box.innerHTML = `
-        <h3 class="font-display text-xl font-bold text-amber-300 mb-1">The Outskirts — Explore the Wilds</h3>
-        <p class="text-xs text-stone-400 mb-4">Scout the frontier to forage crafting materials, earn stray coins, and stumble directly upon hidden adventure entrances!</p>
-        <div id="explore-result" class="hidden mb-4 p-3.5 rounded-xl bg-stone-950 border border-amber-600/50 text-sm text-amber-100 pop-in"></div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="outskirts-grid"></div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+          <h3 class="font-display text-xl font-bold text-amber-300">The Outskirts — Wilderness Exploration</h3>
+          <span class="px-2.5 py-1 rounded-full bg-stone-950 border border-emerald-700/40 text-xs text-emerald-300 font-semibold">
+            🗺️ ${undiscoveredPool.length} Undiscovered Trails
+          </span>
+        </div>
+        <p class="text-xs text-stone-400 mb-4">Venture beyond Oakhaven's walls into living random encounters — gather wild herbs, brave rushing rivers, fend off bandit ambushes, or stumble straight upon a hidden dungeon entrance!</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3" id="outskirts-grid"></div>
+        <button id="btn-wander-random" class="w-full py-2.5 rounded-xl bg-stone-950 hover:bg-amber-950/60 border border-amber-600/50 text-xs font-display uppercase tracking-wider text-amber-200 transition">
+          🧭 Wander a Random Frontier Trail
+        </button>
       `;
       const grid = document.getElementById("outskirts-grid");
-      zones.forEach(z => {
-        const discovered = state.discoveredQuests.includes(z.quest);
+      WILDERNESS_ZONES.forEach(z => {
+        const matNames = z.mats.map(m => ITEMS_DB[m]?.name || m).join(" • ");
         const c = document.createElement("div");
-        c.className = "p-4 rounded-xl bg-stone-950/80 border border-stone-800 flex flex-col justify-between gap-3";
+        c.className = "p-4 rounded-xl bg-stone-950/85 border border-stone-800 hover:border-amber-700/50 flex flex-col justify-between gap-3 transition";
         c.innerHTML = `
           <div>
-            <h4 class="font-display text-sm font-bold text-amber-200">${z.name}</h4>
-            <p class="text-xs text-stone-400 mt-1">${z.desc}</p>
-            <div class="mt-2 text-[11px] ${discovered ? "text-emerald-400" : "text-amber-400"}">
-              ${discovered ? "✓ Hidden Dungeon Located" : "❓ Rumored Hidden Entrance"}
+            <div class="flex items-center gap-2">
+              <span class="text-xl">${z.icon}</span>
+              <h4 class="font-display text-sm font-bold text-amber-200">${z.name}</h4>
             </div>
+            <p class="text-xs text-stone-400 mt-1.5 leading-relaxed">${z.desc}</p>
+            <div class="mt-2.5 text-[10px] text-emerald-300/90">🌿 Common Finds: ${matNames}</div>
           </div>
-          <button class="w-full py-2 rounded-lg btn-gold text-xs font-display uppercase">Scout Area</button>
+          <button class="w-full py-2 rounded-lg btn-gold text-xs font-display uppercase tracking-wider">Explore Wilds →</button>
         `;
-        c.querySelector("button").onclick = () => scoutWilderness(z);
+        c.querySelector("button").onclick = () => startWildernessExpedition(z);
         grid.appendChild(c);
       });
+      box.querySelector("#btn-wander-random").onclick = () => {
+        const z = WILDERNESS_ZONES[Math.floor(Math.random() * WILDERNESS_ZONES.length)];
+        startWildernessExpedition(z);
+      };
     }
 
-    function scoutWilderness(zone) {
-      const resEl = document.getElementById("explore-result");
-      resEl.classList.remove("hidden");
-      const r = roll(6);
+    function describeDungeonEntranceForQuest(quest, zone) {
+      const blob = `${quest.title || ""} ${quest.subtitle || ""} ${quest.summary || ""}`.toLowerCase();
+      if (/crypt|tomb|barrow|undead|ossuary|grave|lich|vampire|ghoul|abbey|catacomb|ghost|haunt/.test(blob)) {
+        return {
+          title: "A Moss-Choked Crypt Archway",
+          prose: `Parting a curtain of grey brambles deep in ${zone.name}, you stop short before a sunken archway of cracked limestone. Grave-cold mist curls out between weathered skulls carved into the lintel, and faint lantern-flickers stir in the dark steps below.`
+        };
+      }
+      if (/sea|coast|ship|pirate|island|harbor|cove|dock|barge|beacon|salt|kraken|tide|reef/.test(blob)) {
+        return {
+          title: "A Tide-Carved Sea-Cave",
+          prose: `Following a narrow gull-crowded ledge along ${zone.name}, you discover a jagged sea-cave mouth half-hidden behind crashing surf. Smuggler rope-ladders dangle into the brine-scented gloom, and the echo of distant voices carries up from the dark water.`
+        };
+      }
+      if (/tower|spire|wizard|mage|arcane|clockwork|alchem|crystal|portal|rift|astral|plan/.test(blob)) {
+        return {
+          title: "A Shimmering Rune-Carved Threshold",
+          prose: `Beyond a quiet ridge in ${zone.name}, the air suddenly hums with static and the scent of ozone. Through parting mist rises an ancient, rune-etched stone threshold pulsing with restless arcane light — a gateway leading straight into a perilous mystery.`
+        };
+      }
+      if (/cavern|cave|mine|dwarf|dwarven|underworld|deep|pit|tunnel|mountain|pass|chasm/.test(blob)) {
+        return {
+          title: "A Sunken Mountain Fissure",
+          prose: `Behind a tumbled boulder slide in ${zone.name}, you uncover a yawning subterranean fissure shored up with iron-bolted dwarven timbers. Cold drafts carry the clang of distant metal and the unmistakable hush of an ancient underground lair.`
+        };
+      }
+      if (/fey|forest|willow|wood|grove|river|mill|briar|thorn|garden|hedge|swamp|marsh|oasis/.test(blob)) {
+        return {
+          title: "A Silver-Barked Woodland Arch",
+          prose: `Where the footpath narrows inside ${zone.name}, two ancient silver-barked trees lean together to form a natural living archway. Strange fireflies drift along a mossy track beyond the roots, whispering of wild magic and danger ahead.`
+        };
+      }
+      return {
+        title: "A Forgotten Frontier Trailhead",
+        prose: `Off the beaten track in ${zone.name}, you stumble upon a weathered wooden signpost half-buried in ferns beside fresh boot-tracks and scorched lantern-glass. The narrow trail winds straight toward a brewing crisis on the frontier.`
+      };
+    }
 
-      // 50% chance to stumble on undiscovered quest immediately
-      if (!state.discoveredQuests.includes(zone.quest) && r >= 3) {
-        discoverAdventure(zone.quest, `Explored ${zone.name}`);
-        resEl.innerHTML = `🗺️ <strong>Hidden Entrance Found!</strong> While scouting ${zone.name}, you stumble directly upon the entrance to <strong>${ADVENTURES[zone.quest].title}</strong>! It has been added to your Quest Board.`;
-        renderDistrictOutskirts(document.getElementById("town-district-content"));
-        document.getElementById("explore-result").innerHTML = resEl.innerHTML;
-        document.getElementById("explore-result").classList.remove("hidden");
-        return;
+    function pickWildernessDungeonQuest(zone) {
+      const heroLv = state.level || 1;
+      const undiscovered = Object.values(ADVENTURES).filter(
+        adv => adv && !adv.isRandomEncounter && !adv.reqQuest && !state.discoveredQuests.includes(adv.id) && !state.completedQuests[adv.id]
+      );
+      if (undiscovered.length === 0) return null;
+
+      // Prefer quests close to hero's level (<= heroLv + 2)
+      const nearLevel = undiscovered.filter(a => (a.recommendedLevel || 1) <= heroLv + 2);
+      const pool = nearLevel.length > 0 ? nearLevel : undiscovered;
+
+      // Gently prefer quests whose theme matches the explored region
+      const themed = pool.filter(a => {
+        const txt = `${a.title || ""} ${a.subtitle || ""} ${a.summary || ""}`.toLowerCase();
+        return (zone.themeWords || []).some(w => txt.includes(w));
+      });
+      const finalPool = themed.length > 0 ? themed : pool;
+      return finalPool[Math.floor(Math.random() * finalPool.length)];
+    }
+
+    function buildWildernessEncounter(zone) {
+      const lv = Math.max(1, state.level || 1);
+      const dc = Math.min(16, 10 + Math.floor(lv / 2));
+      const matId = zone.mats[Math.floor(Math.random() * zone.mats.length)];
+      const matName = ITEMS_DB[matId]?.name || "Wild Herbs";
+      const altMatId = zone.mats.find(m => m !== matId) || matId;
+      const altMatName = ITEMS_DB[altMatId]?.name || matName;
+      const lootRarity = lv >= 7 ? "rare" : lv >= 4 ? "uncommon" : "common";
+      const baseGold = 10 + lv * 6;
+      const baseXp = 18 + lv * 10;
+
+      // 25% chance to stumble onto a themed Dungeon / Quest Entrance (if any undiscovered quests exist)
+      const dungeonQuest = pickWildernessDungeonQuest(zone);
+      if (dungeonQuest && Math.random() < 0.25) {
+        const ent = describeDungeonEntranceForQuest(dungeonQuest, zone);
+        const cleanSub = cleanQuestSubtitle(dungeonQuest.subtitle);
+        return {
+          id: "_wilderness_encounter",
+          isRandomEncounter: true,
+          title: `${zone.icon} ${zone.name} — Hidden Entrance`,
+          subtitle: ent.title,
+          difficulty: dungeonQuest.difficulty || "Adventure",
+          recommendedLevel: dungeonQuest.recommendedLevel || lv,
+          totalPages: 1,
+          pages: {
+            1: {
+              zone: zone.name,
+              title: ent.title,
+              safeRetreat: true,
+              text: `${ent.prose}<br/><br/><strong>Discovered Adventure:</strong> ${dungeonQuest.title}${cleanSub ? ` <em>(${cleanSub})</em>` : ""} — <strong>${dungeonQuest.difficulty || "Medium"} (Lv. ${dungeonQuest.recommendedLevel || 1}+)</strong>.<br/>${dungeonQuest.summary}`,
+              choices: [
+                {
+                  t: `⚔️ Step Inside & Begin "${dungeonQuest.title}" Immediately!`,
+                  startQuestDirect: dungeonQuest.id,
+                  discoverySource: `Discovered in ${zone.name}`
+                },
+                {
+                  t: "🗺️ Mark the Entrance on Your Quest Board & Return to Oakhaven",
+                  markQuestAndReturn: dungeonQuest.id,
+                  discoverySource: `Discovered in ${zone.name}`
+                }
+              ]
+            }
+          }
+        };
       }
 
-      if (r <= 2) {
-        const ok = addToPack(zone.mat);
-        const msg = ok ? `🌿 Foraged <strong>${ITEMS_DB[zone.mat].name}</strong> in ${zone.name}!` : `🌿 Found ${ITEMS_DB[zone.mat].name}, but your backpack is full.`;
-        resEl.innerHTML = msg;
-        addLog(`Scouted ${zone.name} and found ${ITEMS_DB[zone.mat].name}.`, "good");
-      } else if (r <= 4) {
-        const gp = 6 + roll(10);
-        state.gold += gp;
-        gainXp(10);
-        resEl.innerHTML = `🪙 You drove off a lone bandit scout in ${zone.name} and claimed <strong>${gp} GP</strong> and <strong>10 XP</strong>!`;
-        addLog(`Skirmished in ${zone.name}: +${gp} GP, +10 XP.`, "gold");
-      } else {
-        const dmg = 2 + roll(2);
-        state.hp = Math.max(1, state.hp - dmg);
-        const gp = 8;
-        state.gold += gp;
-        resEl.innerHTML = `⚠️ A thicket beast ambushed you in ${zone.name} (-${dmg} HP), though you escaped with ${gp} GP from an old campsite.`;
-        addLog(`Wilderness ambush (-${dmg} HP, +${gp} GP).`, "bad");
+      // Otherwise roll from 5 rich wilderness encounter archetypes
+      const rollType = Math.random();
+
+      // 1. Peaceful Walk & Wild Herb Glade (22%)
+      if (rollType < 0.22) {
+        return {
+          id: "_wilderness_encounter",
+          isRandomEncounter: true,
+          title: `${zone.icon} ${zone.name} — Quiet Trail`,
+          subtitle: "Wilderness Foraging",
+          difficulty: "Peaceful",
+          recommendedLevel: lv,
+          totalPages: 3,
+          pages: {
+            1: {
+              zone: zone.name,
+              title: "A Sunlit Patch of Wild Herbs",
+              safeRetreat: true,
+              text: `The frontier trail winds peacefully beneath birdsong and shifting light. Just off the mossy path, you spot a thriving cluster of wild ${matName} growing beside a trickling spring — untouched by travelers.`,
+              choices: [
+                {
+                  t: `Carefully harvest the ${matName} roots and spores without bruising them.`,
+                  badge: `Survival / Lore DC ${dc}`,
+                  check: {
+                    stat: "lore", skill: "Survival", dc, pass: 2, fail: 3,
+                    passMsg: `Your deft harvest yields a double bundle of ${matName}!`,
+                    failMsg: `You gather a modest handful of ${matName} before the breeze scatters the rest.`
+                  },
+                  onPass: { item: matId, gold: Math.round(baseGold * 0.5) }
+                },
+                {
+                  t: "Pause by the cool spring to brew a soothing field poultice and catch your breath.",
+                  onChoose: { healHp: 8 + lv * 2, healMp: 3, msg: `Cool spring water and wild herbs restore +${8 + lv * 2} HP and +3 MP!` },
+                  to: 3
+                },
+                {
+                  t: "Follow faint deer tracks behind the spring to see what else grows nearby.",
+                  badge: `Perception / Luck DC ${dc}`,
+                  check: {
+                    stat: "luck", skill: "Perception", dc, pass: 2, fail: 3,
+                    passMsg: `You discover a mossy waystone hiding ${altMatName} and a few silver coins!`,
+                    failMsg: `The tracks fade into thick ferns, though the peaceful walk steadies your nerves.`
+                  },
+                  onPass: { item: altMatId, gold: baseGold }
+                }
+              ]
+            },
+            2: {
+              zone: zone.name,
+              title: "A Bountiful Walk",
+              text: `You tuck your fresh finds safely into your pack and enjoy the quiet road back toward Oakhaven's wooden palisade.`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Bountiful Foraging", xp: baseXp, gold: Math.round(baseGold * 0.4), trophy: "" },
+              choices: []
+            },
+            3: {
+              zone: zone.name,
+              title: "Peaceful Return",
+              text: `Refreshed by the open frontier air, you stroll back along the sunlit path toward Oakhaven.`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Quiet Frontier Walk", xp: Math.round(baseXp * 0.7), gold: 0, trophy: "" },
+              choices: []
+            }
+          }
+        };
       }
-      renderSheet();
+
+      // 2. Raging River & Fallen Log Crossing (22%)
+      if (rollType < 0.44) {
+        const slipDmg = Math.max(3, 2 + Math.floor(lv * 1.2));
+        return {
+          id: "_wilderness_encounter",
+          isRandomEncounter: true,
+          title: `${zone.icon} ${zone.name} — Raging River`,
+          subtitle: "Wilderness Crossing",
+          difficulty: "Hazard",
+          recommendedLevel: lv,
+          totalPages: 4,
+          pages: {
+            1: {
+              zone: zone.name,
+              title: "The Fallen Log Over the Rapids",
+              safeRetreat: true,
+              text: `Snowmelt and mountain rain have turned the creek crossing into a foaming torrent! A single moss-slick pine log spans the roaring gorge — and on the far bank gleams an abandoned pack beside a cluster of ${altMatName}.`,
+              choices: [
+                {
+                  t: "Sprint lightly across the slick fallen log, keeping your balance above the spray!",
+                  badge: `Athletics / Agility DC ${dc}`,
+                  check: {
+                    stat: "agility", skill: "Athletics", dc, pass: 2, fail: 3,
+                    failDmg: slipDmg,
+                    passMsg: "You glide across the slick bark without a single misstep!",
+                    failMsg: `Your boot slips on wet moss — icy rapids batter you (-${slipDmg} HP) before you haul yourself onto the far stones!`
+                  }
+                },
+                {
+                  t: "Test the bark, kick away loose moss, and cross slowly using a sturdy walking-branch.",
+                  badge: `Survival / Perception DC ${dc - 1}`,
+                  check: {
+                    stat: "lore", skill: "Survival", dc: Math.max(9, dc - 1), pass: 2, fail: 3,
+                    failDmg: Math.max(2, slipDmg - 2),
+                    passMsg: "Patience pays off — you pick every foothold cleanly across the torrent!",
+                    failMsg: `A chunk of wet bark gives way — you scrape your shins (-${Math.max(2, slipDmg - 2)} HP) scrambling to the bank!`
+                  }
+                },
+                {
+                  t: "Respect the raging river and follow the safer high-ridge path back to town.",
+                  to: 4
+                }
+              ]
+            },
+            2: {
+              zone: zone.name,
+              title: "Dry Boots & Far-Bank Spoils",
+              text: `Safe on the far bank, you harvest the ${altMatName} and rummage through the weathered pack — recovering dry silver coins and a corked potion!`,
+              onEnter: { item: altMatId, gold: baseGold },
+              ending: { type: "true", title: "Master of the Crossing", xp: Math.round(baseXp * 1.2), gold: Math.round(baseGold * 0.6), trophy: "" },
+              choices: []
+            },
+            3: {
+              zone: zone.name,
+              title: "Soaked, But Across",
+              text: `Dripping wet and shivering, you still manage to grab a bundle of ${altMatName} from the bank before taking the dry upper footbridge back toward Oakhaven.`,
+              onEnter: { item: altMatId },
+              ending: { type: "true", title: "Braved the Torrent", xp: baseXp, gold: Math.round(baseGold * 0.4), trophy: "" },
+              choices: []
+            },
+            4: {
+              zone: zone.name,
+              title: "A Wise Detour",
+              text: `You follow the dry pine ridge back toward Oakhaven, spotting a stray patch of ${matName} along the way.`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Safe Detour", xp: Math.round(baseXp * 0.6), gold: 0, trophy: "" },
+              choices: []
+            }
+          }
+        };
+      }
+
+      // 3. Highway Bandit Ambush (24%)
+      if (rollType < 0.68) {
+        return {
+          id: "_wilderness_encounter",
+          isRandomEncounter: true,
+          title: `${zone.icon} ${zone.name} — Bandit Ambush`,
+          subtitle: "Highway Brigands",
+          difficulty: "Combat",
+          recommendedLevel: lv,
+          totalPages: 4,
+          pages: {
+            1: {
+              zone: zone.name,
+              title: "Steel in the Brush!",
+              safeRetreat: true,
+              text: `A whistle slices through the quiet air of ${zone.name}! Three scarred frontier brigands step out from behind mossy boulders with notched blades and a strung bow: "Drop your coin-pouch, traveler — nice and slow!"`,
+              choices: [
+                {
+                  t: "Duck into the roadside brush to turn the tables and ambush their flank!",
+                  badge: `Stealth / Agility DC ${dc}`,
+                  check: {
+                    stat: "agility", skill: "Stealth", dc, pass: 2, fail: 2,
+                    passMsg: "You circle behind the lookout and strike before they can form a line!",
+                    failMsg: "A dry twig snaps — the brigands rush you with weapons raised!"
+                  },
+                  onPass: { cw: "AMBUSH_TURNED" }
+                },
+                {
+                  t: "Glare coldly at their leader and warn them they picked the wrong adventurer!",
+                  badge: `Persuasion / Might DC ${dc + 1}`,
+                  check: {
+                    stat: "might", skill: "Persuasion", dc: dc + 1, pass: 3, fail: 2,
+                    passMsg: "Their leader pales at your steely composure and mutters a hasty retreat, dropping a stolen purse!",
+                    failMsg: "The brigands laugh bitterly and lunge forward!"
+                  }
+                },
+                {
+                  t: "Draw your weapon and defend yourself!",
+                  to: 2
+                }
+              ]
+            },
+            2: {
+              zone: zone.name,
+              title: "Frontier Skirmish",
+              text: `The highway brigands close in across the dirt track, slashing wildly to take your pack!`,
+              enemy: {
+                name: "Frontier Highway Bandits",
+                desc: `Desperate road-brigands preying on travelers outside ${zone.name}.`,
+                hp: 14 + lv * 7,
+                ac: 11 + Math.floor(lv / 2),
+                atk: 3 + lv,
+                dmg: 4 + Math.floor(lv * 1.1),
+                xp: 26 + lv * 14,
+                gold: 12 + lv * 8,
+                items: rollRandomLoot(["consumable", "valuable", "weapon"], 1, lootRarity),
+                flee: 4,
+                weakCw: ["AMBUSH_TURNED"]
+              },
+              choices: [
+                { t: "Search the defeated brigands' camp-sack and head back to Oakhaven.", to: 3 }
+              ]
+            },
+            3: {
+              zone: zone.name,
+              title: "Road Cleared",
+              text: `With the brigands routed, the frontier trail is safer for Oakhaven's merchants — and you recover a bundle of stolen supplies!`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Bandit Ambush Repelled", xp: Math.round(baseXp * 1.3), gold: baseGold, trophy: "" },
+              choices: []
+            },
+            4: {
+              zone: zone.name,
+              title: "Slipped Away",
+              text: `You break contact through the treeline and circle safely back toward Oakhaven's gates.`,
+              ending: { type: "true", title: "Escaped the Ambush", xp: Math.round(baseXp * 0.4), gold: 0, trophy: "" },
+              choices: []
+            }
+          }
+        };
+      }
+
+      // 4. Region Beast / Undead Skirmish (18%)
+      if (rollType < 0.86) {
+        return {
+          id: "_wilderness_encounter",
+          isRandomEncounter: true,
+          title: `${zone.icon} ${zone.name} — Wild Predators`,
+          subtitle: "Wilderness Skirmish",
+          difficulty: "Combat",
+          recommendedLevel: lv,
+          totalPages: 4,
+          pages: {
+            1: {
+              zone: zone.name,
+              title: "Stalked on the Ridge",
+              safeRetreat: true,
+              text: `A low rattle echoes along the rocky trail in ${zone.name}. Ahead, ${zone.beast.name} emerge from the shadows, blocking the path toward a gleaming vein of ${altMatName}!`,
+              choices: [
+                {
+                  t: "Stand your ground and drive the predators back with steel and spell!",
+                  to: 2
+                },
+                {
+                  t: "Creep along the downwind ledge to slip past them and claim the cache unseen.",
+                  badge: `Stealth / Survival DC ${dc}`,
+                  check: {
+                    stat: "agility", skill: "Stealth", dc, pass: 3, fail: 2,
+                    passMsg: "You slip silently past the prowlers and snatch the materials untouched!",
+                    failMsg: "Loose gravel tumbles down the ridge — they lunge straight at you!"
+                  }
+                },
+                {
+                  t: "Back away calmly and return down the safe road to Oakhaven.",
+                  to: 4
+                }
+              ]
+            },
+            2: {
+              zone: zone.name,
+              title: zone.beast.name,
+              text: `${zone.beast.name} rush down the narrow ridge in a fury of claws and fangs!`,
+              enemy: {
+                name: zone.beast.name,
+                desc: zone.beast.desc,
+                hp: 16 + lv * 7,
+                ac: 11 + Math.floor(lv / 2),
+                atk: 3 + lv,
+                dmg: 4 + Math.floor(lv * 1.15),
+                undead: !!zone.beast.undead,
+                xp: 28 + lv * 15,
+                gold: 10 + lv * 6,
+                items: rollRandomLoot(["material", "consumable"], 1, lootRarity),
+                flee: 4
+              },
+              choices: [
+                { t: `Gather the ${altMatName} along the ridge and return to town.`, to: 3 }
+              ]
+            },
+            3: {
+              zone: zone.name,
+              title: "Spoils of the Ridge",
+              text: `You gather ${altMatName} from the cleared ridge and head back toward Oakhaven.`,
+              onEnter: { item: altMatId },
+              ending: { type: "true", title: "Cleared the Frontier Ridge", xp: Math.round(baseXp * 1.25), gold: Math.round(baseGold * 0.6), trophy: "" },
+              choices: []
+            },
+            4: {
+              zone: zone.name,
+              title: "Cautious Retreat",
+              text: `You leave the predators to their territory and stroll safely back to Oakhaven.`,
+              ending: { type: "true", title: "Returned Safely", xp: Math.round(baseXp * 0.4), gold: 0, trophy: "" },
+              choices: []
+            }
+          }
+        };
+      }
+
+      // 5. Abandoned Camp & Wayside Shrine (14%)
+      return {
+        id: "_wilderness_encounter",
+        isRandomEncounter: true,
+        title: `${zone.icon} ${zone.name} — Wayside Camp`,
+        subtitle: "Frontier Discovery",
+        difficulty: "Discovery",
+        recommendedLevel: lv,
+        totalPages: 3,
+        pages: {
+          1: {
+            zone: zone.name,
+            title: "The Old Wayfarer's Shrine",
+            safeRetreat: true,
+            text: `In a sheltered hollow of ${zone.name}, you come upon a mossy wayside shrine beside an abandoned prospector's camp. A rusted lockbox peeks out beneath a fallen canvas tarp, while clear rainwater sparkles in the shrine's stone basin.`,
+            choices: [
+              {
+                t: "Check the tarp for tripwires and pry open the prospector's lockbox.",
+                badge: `Lockpicking / Detect Traps DC ${dc}`,
+                check: {
+                  stat: "agility", skill: "Lockpicking", dc, pass: 2, fail: 3,
+                  failDmg: 3,
+                  passMsg: "Click! Inside lies dry silver coin and a corked Healing Potion!",
+                  failMsg: "A rusted needle-spring nicks your thumb (-3 HP) before you pry the lid free!"
+                },
+                onPass: { item: "health_potion", gold: baseGold }
+              },
+              {
+                t: "Kneel quietly at the wayside shrine and wash the trail-dust from your brow.",
+                onChoose: { healHp: 10 + lv * 2, healMp: 4, msg: `A calm blessing settles over you (+${10 + lv * 2} HP, +4 MP)!` },
+                to: 3
+              }
+            ]
+          },
+          2: {
+            zone: zone.name,
+            title: "Prospector's Hoard",
+            text: `You pack away the prospector's salvage and a stray pouch of ${matName} before heading back to Oakhaven.`,
+            onEnter: { item: matId },
+            ending: { type: "true", title: "Wayside Salvage", xp: baseXp, gold: Math.round(baseGold * 0.5), trophy: "" },
+            choices: []
+          },
+          3: {
+            zone: zone.name,
+            title: "Quiet Blessing",
+            text: `Steadied by the quiet hollow, you gather a handful of ${matName} and return to Oakhaven.`,
+            onEnter: { item: matId },
+            ending: { type: "true", title: "Rested at the Wayside Shrine", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+            choices: []
+          }
+        }
+      };
+    }
+
+    function startWildernessExpedition(zone) {
+      const enc = buildWildernessEncounter(zone);
+      ADVENTURES._wilderness_encounter = enc;
+      startAdventure("_wilderness_encounter");
     }
 
     function renderDistrictMarket(box) {
@@ -3036,8 +3477,10 @@
       closeBuildingModal();
       stopAutoWalk();
       state.mode = "adventure";
-      state.innRested = false;
-      state.templeBlessed = false;
+      if (!adv.isRandomEncounter) {
+        state.innRested = false;
+        state.templeBlessed = false;
+      }
       state.activeAdv = { id: advId, page: 1, codewords: [], entered: [], defeated: [], dead: false, classAbilityUsed: false, torchLit: false, itemCharges: {}, lootItems: [], lootGold: 0, lootXp: 0 };
       activeCombat = null;
       sfx("quest");
@@ -3075,30 +3518,32 @@
         state.activeAdv.entered.push(`end_${pageNum}`);
         state.gold += page.ending.gold || 0;
         gainXp(page.ending.xp || 0);
-        state.completedQuests[adv.id] = page.ending.trophy;
-        if (!Array.isArray(state.questJournal)) state.questJournal = [];
-        if (!state.questJournal.some(e => e.id === adv.id)) {
-          state.questJournal.push({
-            id: adv.id,
-            title: adv.title,
-            subtitle: cleanQuestSubtitle(adv.subtitle),
-            endingTitle: page.ending.title || "Victory",
-            trophy: page.ending.trophy || "",
-            xp: (state.activeAdv.lootXp || 0) + (page.ending.xp || 0),
-            gold: (state.activeAdv.lootGold || 0) + (page.ending.gold || 0),
-            items: [...(state.activeAdv.lootItems || [])],
-            completedAt: new Date().toISOString()
-          });
-        }
-        // Automatically unlock any follow-up chapter in a multi-part quest series
-        Object.values(ADVENTURES).forEach(nextAdv => {
-          if (nextAdv && nextAdv.reqQuest === adv.id && !state.discoveredQuests.includes(nextAdv.id)) {
-            discoverAdventure(nextAdv.id, adv.title);
+        if (!adv.isRandomEncounter) {
+          state.completedQuests[adv.id] = page.ending.trophy;
+          if (!Array.isArray(state.questJournal)) state.questJournal = [];
+          if (!state.questJournal.some(e => e.id === adv.id)) {
+            state.questJournal.push({
+              id: adv.id,
+              title: adv.title,
+              subtitle: cleanQuestSubtitle(adv.subtitle),
+              endingTitle: page.ending.title || "Victory",
+              trophy: page.ending.trophy || "",
+              xp: (state.activeAdv.lootXp || 0) + (page.ending.xp || 0),
+              gold: (state.activeAdv.lootGold || 0) + (page.ending.gold || 0),
+              items: [...(state.activeAdv.lootItems || [])],
+              completedAt: new Date().toISOString()
+            });
           }
-        });
-        state.blessing = null;
-        state.innBuff = null;
-        rollTavernPatrons(); // Refreshes the 3-6 Tavern patrons!
+          // Automatically unlock any follow-up chapter in a multi-part quest series
+          Object.values(ADVENTURES).forEach(nextAdv => {
+            if (nextAdv && nextAdv.reqQuest === adv.id && !state.discoveredQuests.includes(nextAdv.id)) {
+              discoverAdventure(nextAdv.id, adv.title);
+            }
+          });
+          state.blessing = null;
+          state.innBuff = null;
+          rollTavernPatrons(); // Refreshes Tavern rumors after completing a quest!
+        }
         sfx("victory");
         addLog(`Completed ${adv.title}: ${page.ending.title}! (+${page.ending.xp} XP, +${page.ending.gold} GP)`, "gold");
       }
@@ -3193,6 +3638,20 @@
           if (state.hp <= 0) return triggerDeath(desc);
           goToAdvPage(l.fail, { type:"bad", text:`${desc} ${l.failMsg||""}` });
         }
+        return;
+      }
+      if (ch.startQuestDirect) {
+        discoverAdventure(ch.startQuestDirect, ch.discoverySource || "Wilderness Exploration");
+        startAdventure(ch.startQuestDirect);
+        return;
+      }
+      if (ch.markQuestAndReturn) {
+        discoverAdventure(ch.markQuestAndReturn, ch.discoverySource || "Wilderness Exploration");
+        enterTown("square", true);
+        return;
+      }
+      if (ch.returnToTown) {
+        enterTown("outskirts", false);
         return;
       }
       goToAdvPage(ch.to);
