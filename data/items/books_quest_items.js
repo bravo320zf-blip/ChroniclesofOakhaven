@@ -319,7 +319,18 @@ window.OAKHAVEN.registerItems({
     source: "Book of Lairs",
     atk: 4,
     agility: 1,
-    desc: "+4 Attack, +1 Agility. Barnacle-etched boarding sabre seized from Captain Jarzon's cove."
+    passives: { critRange: 11, goldFindPct: 15, skillBonus: { Athletics: 2 } },
+    activeAbility: {
+      name: "Swashbuckler's Flourish",
+      icon: "🏴‍☠️",
+      charges: 2,
+      dmgDice: "2d6",
+      dmgStat: "agility",
+      dmgType: "physical",
+      evadeTurns: 1,
+      desc: "2/Quest: Carve a daring boarding-arc for 2d6 + Agility dmg and Evade (1t)!"
+    },
+    desc: "Barnacle-etched boarding sabre seized from Captain Jarzon's cove (+Crit, +15% Gold, +2 Athletics) with Swashbuckler's Flourish."
   },
   "bq_sanvi_lens": {
     id: "bq_sanvi_lens",
@@ -454,7 +465,20 @@ window.OAKHAVEN.registerItems({
     source: "Book of Lairs",
     atk: 6,
     might: 2,
-    desc: "+6 Attack, +2 Might. Masterwork dwarven warhammer forged to shatter Imperial Ghoul iron."
+    passives: { undeadDmgBonus: 6, bossDmgBonus: 4, critRange: 11 },
+    activeAbility: {
+      name: "Splitsoul Shatter",
+      icon: "⚒️",
+      charges: 2,
+      mp: 2,
+      dmgDice: "3d8",
+      dmgStat: "might",
+      dmgType: "physical",
+      undeadDouble: true,
+      stunTurns: 1,
+      desc: "2/Quest (2 MP): Swing masterwork duergar steel for 3d8 + Might dmg (2x vs Undead) and Stun (1t)!"
+    },
+    desc: "Masterwork dwarven warhammer forged to shatter ghoul iron (+6 vs Undead, +4 Boss Dmg, +Crit) with Splitsoul Shatter."
   },
   "bq_charun_oar_charm": {
     id: "bq_charun_oar_charm",
@@ -1968,7 +1992,18 @@ window.OAKHAVEN.registerItems({
     value: 95,
     spirit: 1,
     maxHp: 5,
-    desc: "+1 Spirit, +5 Max HP. Desert traveler's charm gifted after saving the scattered camels."
+    passives: { healBonus: 2, skillBonus: { Survival: 2 } },
+    activeAbility: {
+      name: "Oasis Draught",
+      icon: "💧",
+      charges: 2,
+      ooc: true,
+      healDice: "1d10",
+      healStat: "spirit",
+      restoreMp: 2,
+      desc: "2/Quest: Sip crisp desert spring-water to restore 1d10 + Spirit HP and +2 MP!"
+    },
+    desc: "Desert traveler's ever-chilled flask gifted by rescued camel-drovers (+2 Healing, +2 Survival) with Oasis Draught."
   },
   "bq_hundedel_dragonette_charm": {
     id: "bq_hundedel_dragonette_charm",

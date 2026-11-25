@@ -1,6 +1,6 @@
 {
-  "totalPasses": 17,
-  "totalItemsReworked": 170,
+  "totalPasses": 18,
+  "totalItemsReworked": 180,
   "history": [
     {
       "pass": 1,
@@ -273,6 +273,22 @@
         "bq_cikavak_feather_charm"
       ],
       "summary": "Reworked 5 Vault of Magic items (including Legendary Eye of the Golden God, Fellforged Armor, Arcanaphage Stone, Radiant Bracers, Cephalopod Breastplate), Venomfang Blade, Silver Lucky Coin, and 3 quest relics."
+    },
+    {
+      "pass": 18,
+      "items": [
+        "vom_armor_leaf",
+        "vom_hammer_throwing",
+        "vom_labyrs_raging_bull",
+        "vom_sea_witch_blade",
+        "vom_crook_flock",
+        "soulreaver_claymore",
+        "nf_vanisia_hammer",
+        "bq_inheritor_cutlass",
+        "bq_splitsoul_warhammer",
+        "bq_caravan_water_flask"
+      ],
+      "summary": "Reworked 5 Vault of Magic items (including Sea Witch's Blade, Crook of the Flock, Labyrs of the Raging Bull, Armor of the Leaf), Soulreaver Claymore, Vanisia's Grim Hammer, and 3 quest relics."
     }
   ],
   "itemPasses": {
@@ -445,6 +461,16 @@
     "lucky_coin": 1,
     "bq_pale_rose_rapier": 1,
     "bq_slatelight_ring": 1,
-    "bq_cikavak_feather_charm": 1
+    "bq_cikavak_feather_charm": 1,
+    "vom_armor_leaf": 1,
+    "vom_hammer_throwing": 1,
+    "vom_labyrs_raging_bull": 1,
+    "vom_sea_witch_blade": 1,
+    "vom_crook_flock": 1,
+    "soulreaver_claymore": 1,
+    "nf_vanisia_hammer": 1,
+    "bq_inheritor_cutlass": 1,
+    "bq_splitsoul_warhammer": 1,
+    "bq_caravan_water_flask": 1
   }
 }
