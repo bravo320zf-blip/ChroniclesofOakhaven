@@ -156,16 +156,40 @@
         localHadNewer = true;
       }
 
+      const collectAllSlotRecipes = (slotsArr) => {
+        const set = new Set();
+        (slotsArr || []).forEach(s => {
+          if (s && Array.isArray(s.unlockedRecipes)) {
+            s.unlockedRecipes.forEach(r => { if (typeof r === "string" && r.length > 0) set.add(r); });
+          }
+        });
+        return [...set];
+      };
+      const allSlotRecipes = collectAllSlotRecipes(mergedSlots);
+
       if (cloudVault && !localVault) {
-        mergedVault = cloudVault;
+        const unionRecipes = Array.from(new Set([
+          ...(Array.isArray(cloudVault.unlockedRecipes) ? cloudVault.unlockedRecipes : []),
+          ...allSlotRecipes
+        ]));
+        mergedVault = { ...cloudVault, unlockedRecipes: unionRecipes };
+        if (unionRecipes.length > (Array.isArray(cloudVault.unlockedRecipes) ? cloudVault.unlockedRecipes.length : 0)) {
+          localHadNewer = true;
+        }
         localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(mergedVault));
       } else if (localVault && !cloudVault) {
-        mergedVault = localVault;
+        const unionRecipes = Array.from(new Set([
+          ...(Array.isArray(localVault.unlockedRecipes) ? localVault.unlockedRecipes : []),
+          ...allSlotRecipes
+        ]));
+        mergedVault = { ...localVault, unlockedRecipes: unionRecipes };
+        localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(mergedVault));
         localHadNewer = true;
       } else if (localVault && cloudVault) {
         const unionRecipes = Array.from(new Set([
           ...(Array.isArray(localVault.unlockedRecipes) ? localVault.unlockedRecipes : []),
-          ...(Array.isArray(cloudVault.unlockedRecipes) ? cloudVault.unlockedRecipes : [])
+          ...(Array.isArray(cloudVault.unlockedRecipes) ? cloudVault.unlockedRecipes : []),
+          ...allSlotRecipes
         ]));
         const localNewer = parseTime(localVault.updatedAt) > parseTime(cloudVault.updatedAt);
         mergedVault = localNewer ? { ...localVault, unlockedRecipes: unionRecipes } : { ...cloudVault, unlockedRecipes: unionRecipes };

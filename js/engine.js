@@ -5190,20 +5190,22 @@
     }
 
     function getSharedVault() {
+      const slotRecipes = collectRecipesFromSlots(getSaveSlots());
       try {
         const raw = localStorage.getItem(SHARED_VAULT_KEY);
         if (raw) {
           const parsed = JSON.parse(raw);
           if (parsed && typeof parsed === "object") {
-            // Backfill shared crafting recipes from all hero slots if upgrading from pre-recipe shared vault
-            if (!Array.isArray(parsed.unlockedRecipes)) {
-              parsed.unlockedRecipes = collectRecipesFromSlots(getSaveSlots());
-              parsed.updatedAt = new Date().toISOString();
-              const upgraded = normalizeSharedVaultData(parsed);
-              try { localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(upgraded)); } catch (_) {}
-              return upgraded;
+            const existing = Array.isArray(parsed.unlockedRecipes) ? parsed.unlockedRecipes : [];
+            const mergedSet = new Set([...existing, ...slotRecipes]);
+            const needsSave = !Array.isArray(parsed.unlockedRecipes) || mergedSet.size > existing.length;
+            parsed.unlockedRecipes = [...mergedSet];
+            if (needsSave) parsed.updatedAt = new Date().toISOString();
+            const norm = normalizeSharedVaultData(parsed);
+            if (needsSave) {
+              try { localStorage.setItem(SHARED_VAULT_KEY, JSON.stringify(norm)); } catch (_) {}
             }
-            return normalizeSharedVaultData(parsed);
+            return norm;
           }
         }
       } catch (_) {}
