@@ -1,6 +1,6 @@
 {
-  "batchCount": 23,
-  "totalQuestsAdded": 260,
+  "batchCount": 24,
+  "totalQuestsAdded": 273,
   "pdfs": {
     "Books/Kobold Press/12 Peculiar Towers/12 Peculiar Towers Map Pack/12 Peculiar Towers.pdf": {
       "status": "skipped_no_quests",
@@ -1164,32 +1164,53 @@
       ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #50 - The Light of Memoria.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 24,
+      "quests": [
+        "bk_b24_light_of_memoria"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #51 - Casting the Longest Shadow.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 24,
+      "quests": [
+        "bk_b24_longest_shadow"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #52 - The White Worg Accord.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 24,
+      "quests": [
+        "bk_b24_white_worg_accord"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #53 - Death of a Mage.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 24,
+      "quests": [
+        "bk_b24_death_of_a_mage"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #54 - Legend of Beacon Rock.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 24,
+      "quests": [
+        "bk_b24_beacon_rock"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #55 - Beneath the Witchwillow.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 24,
+      "quests": [
+        "bk_b24_beneath_witchwillow"
+      ]
     },
     "Books/Kobold Press/Warlock/Lairs/Warlock Lair #56 - The Glowing Ossuary.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 24,
+      "quests": [
+        "bk_b24_glowing_ossuary"
+      ]
     },
     "Books/Kobold Press/Warlock/Misc/Warlock - Guide to the Shadow Realms.pdf": {
       "status": "pending",
@@ -1296,16 +1317,24 @@
       "convertedTitles": []
     },
     "Books/Kobold Press/Weresheep/Weresheep.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Monster statblock / map pack only"
     },
     "Books/Kobold Press/Wrath of the River King/Wrath of the River King Map.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "skipped_no_quests",
+      "reason": "Monster statblock / map pack only"
     },
     "Books/Kobold Press/Wrath of the River King/Wrath of the River King.pdf": {
-      "status": "pending",
-      "convertedTitles": []
+      "status": "done",
+      "batch": 24,
+      "quests": [
+        "bk_b24_river_king_1",
+        "bk_b24_river_king_2",
+        "bk_b24_river_king_3",
+        "bk_b24_river_king_4",
+        "bk_b24_river_king_5",
+        "bk_b24_river_king_6"
+      ]
     },
     "Books/Kobold Press/Zobeck Gazetteer/Zobeck Gazetteer.pdf": {
       "status": "pending",
