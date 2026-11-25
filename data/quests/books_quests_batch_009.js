@@ -278,8 +278,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 5. THE OBSIDIAN PASS (6 PAGES • LV 14)
-  // Prepared! #12 (Completes Prepared! 100%!)
+  // 5. THE OBSIDIAN PASS (12 PAGES • LV 14)
   // ==========================================================
   bk_b9_prep_11_obsidian_pass: {
     id: "bk_b9_prep_11_obsidian_pass",
@@ -290,56 +289,118 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Elders of the Sacred Grove (Oakhaven Outskirts)",
     summary: "Stand fast in the black-rock gorge of Obsidian Pass to protect an ancient woodland mirror from a once-trusted archmage corrupted by its power—and the terrifying planar aberration marching on the sacred tree!",
-    totalPages: 6,
+    totalPages: 12,
     pages: {
       1: {
-        zone: "The Obsidian Pass",
+        zone: "The Obsidian Pass • Gorge Rim",
         title: "A Friend Turned Covetous",
         safeRetreat: true,
-        text: "Black glass cliffs funnel the trail toward the elders' sacred tree and the ancient mirror they have guarded for an era. Marching up the gorge come armored soldiers loyal to the fallen archmage who once warded this very grove!",
-        enemy: { name: "Mirror-Sworn Vanguard", desc: "Enchanted elite soldiers sent to seize the grove's mirror.", hp: 108, ac: 18, atk: 13, dmg: 14, xp: 380, gold: 185, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1 },
+        text: "Towering volcanic-glass cliffs slice through the highlands, funneling the trail onto a single obsidian bridge before the Sacred Grove. Elder Sylvara—wrapped in silver-leaf robes—meets you beside the gnarled root-arch with tears in her eyes. 'For forty winters Archmage Vaeloria helped us guard the World-Mirror nested in the Heart-Tree,' she whispers. 'Now its whispers have poisoned her mind—her Mirror-Sworn soldiers march up the gorge, and something from beyond the stars walks behind their banners!'",
         choices: [
-          { t: "Hold the narrow glass bridge against her summoned planar Aberration!", to: 2 }
+          { t: "Scale the obsidian ledges overhead to rig a volcanic-glass rockslide before the vanguard crosses!", badge: "Survival / Athletics DC 16", check: { stat: "might", skill: "Survival", dc: 16, pass: 2, fail: 2, failDmg: 10, passMsg: "Razor-sharp black scree crashes onto the vanguard's shield-wall, scattering their formation!", failMsg: "Slick volcanic glass slices your palm (-10 HP) as enemy crossbowmen spot you!" }, onPass: { cw: "GORGE_AMBUSH" } },
+          { t: "Work with Elder Sylvara to weave ancient druidic root-wards across the obsidian bridge!", badge: "Arcana / Spirit DC 16", check: { stat: "arcana", skill: "Spirit", dc: 16, pass: 2, fail: 2, failDmg: 8, passMsg: "Luminous silver roots erupt across the bridge, ensnaring the vanguard's front rank!", failMsg: "Backlash from the gorge's planar distortion sears your nerves (-8 HP)!" }, onPass: { cw: "GORGE_AMBUSH" } },
+          { t: "Slip down the freezing shadow-fissure beneath the glass bridge to scout behind Vaeloria's lines!", badge: "Stealth / Agility DC 17", check: { stat: "agility", skill: "Stealth", dc: 17, pass: 3, fail: 2, failDmg: 10, passMsg: "You ghost silently beneath the marching boots and emerge behind Vaeloria's camp!", failMsg: "A loose obsidian shard rings like a bell—soldiers drop onto your trail (-10 HP)!" } },
+          { t: "Stand tall in the center of the Obsidian Bridge and meet the Mirror-Sworn Vanguard head-on!", to: 2 }
         ]
       },
       2: {
-        zone: "Threshold of the Sacred Tree",
-        title: "The Mirror-Seeker's Aberration",
-        text: "Warping the black obsidian cliffs into rippling reflections, a titanic, many-eyed Planar Aberration surges toward the ancient mirror at the tree's roots!",
-        enemy: { name: "Planar Mirror-Aberration", desc: "Nightmarish cosmic horror unleashed to shatter the grove's defenses.", hp: 138, ac: 19, atk: 14, dmg: 16, xp: 560, gold: 390, items: ["bq_obsidian_grove_mirror"] },
+        zone: "Obsidian Bridge",
+        title: "The Mirror-Sworn Vanguard",
+        text: "Clad in mirror-polished half-plate that flashes blindingly against the black basalt, Archmage Vaeloria's elite Mirror-Sworn soldiers lock tower shields across the narrow glass span!",
+        enemy: { name: "Mirror-Sworn Vanguard", desc: "Enchanted elite soldiers sent to seize the grove's mirror.", hp: 108, ac: 18, atk: 13, dmg: 14, xp: 380, gold: 185, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1, weakCw: ["GORGE_AMBUSH"] },
         choices: [
-          { t: "Turn the Ward-Glass against the aberration and seal the Obsidian Pass!", to: 3 }
+          { t: "Inspect the fallen vanguard captain's shattered visor and sealed march orders first.", badge: "Perception / Arcana DC 16", check: { stat: "spirit", skill: "Perception", dc: 16, pass: 5, fail: 4, passMsg: "You uncover a desperate handwritten warning tucked inside the captain's scroll-case!", failMsg: "Only fractured mirror-dust remains as violet lightning crackles up the gorge." } },
+          { t: "Press straight up the gorge crest to confront Archmage Vaeloria!", to: 4 }
         ]
       },
       3: {
-        zone: "The Sacred Grove",
-        title: "The Mirror Kept Safe",
-        text: "The aberration dissolves in shards of harmless light. Grateful druids weave fresh wards around the ancient tree and bless you with rare woodland treasure.",
-        onEnter: { healHp: 25, msg: "The Grove Elders restore your vigor (+25 HP)!" },
+        zone: "Shadow-Fissure",
+        title: "Behind the Mirror-Sworn Lines",
+        text: "Hugging the freezing volcanic crevices beneath the bridge, you slip completely past the marching vanguard and emerge behind Vaeloria's command tent! Inside, you recover 120 GP from a campaign coffer and witness a chilling truth through the tent-flap: Vaeloria isn't commanding the planar aberration—thin violet filaments run from the tearing sky straight into her temples, puppeteering her will!",
+        onEnter: { gold: 120, cw: "VAELORIA_TRUTH", msg: "Recovered 120 GP & uncovered the psychic tether controlling Vaeloria (VAELORIA_TRUTH)!" },
         choices: [
-          { t: "Depart the Obsidian Pass in triumph.", to: 4 }
+          { t: "Step onto the gorge crest and confront Archmage Vaeloria with the truth!", to: 4 }
         ]
       },
       4: {
-        zone: "Highland Trail",
-        title: "Prepared! Conquered",
-        text: "From Dib's wagon fortress to the Obsidian Pass, every challenge has bowed to your blade.",
+        zone: "Gorge Crest",
+        title: "The Fallen Archmage",
+        text: "At the threshold of the Sacred Tree, Archmage Vaeloria stands trembling beneath a spinning halo of fractured mirror-shards, her eyes reflecting twin violet stars. Behind her, the black obsidian cliffs ripple like liquid glass as a colossal, many-eyed silhouette presses against the veil of reality! 'Stand aside, hero!' she cries, her voice echoing doubly. 'The Mirror promised to restore everything we lost—!'",
         choices: [
-          { t: "Return to Oakhaven.", to: 5 }
+          { t: "Call out Vaeloria's own hidden warning—shattering the aberration's psychic tether over her mind!", reqCw: "VAELORIA_TRUTH", badge: "VAELORIA_TRUTH", to: 6 },
+          { t: "Appeal to her forty winters of friendship with Elder Sylvara and the Sacred Grove!", badge: "Persuasion / Spirit DC 17", check: { stat: "spirit", skill: "Persuasion", dc: 17, pass: 6, fail: 7, failDmg: 10, passMsg: "Vaeloria gasps as her true voice breaks through—shattering the violet glare in her eyes!", failMsg: "The aberration screams through her throat, lashing you with psychic shards (-10 HP)!" } },
+          { t: "Blast her floating mirror-halo with Firebolt to sever the planar summoning anchor!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 7, onChoose: { cw: "RIFT_FRACTURED", msg: "Blazing fire shatters the floating mirror-halo, bleeding the aberration's planar shield!" } },
+          { t: "Charge straight past Vaeloria toward the tearing rift before the Sacred Tree!", to: 7 }
         ]
       },
       5: {
-        zone: "Oakhaven Guildhall",
-        title: "Mythic Defender",
-        text: "Champions gather to admire your shimmering Ward-Glass of Obsidian Pass.",
+        zone: "Obsidian Bridge",
+        title: "The Captain's Glass Orders",
+        text: "Beneath the vanguard captain's cracked visor lies a silver-etched scroll written in Vaeloria's shaky, desperate hand—frantic marginalia reading 'Do NOT let the Eye open—the Mirror lies!' scribbled over her own formal march orders, alongside 95 GP in campaign pay. She is fighting a psychic compulsion from the aberration itself!",
+        onEnter: { gold: 95, cw: "VAELORIA_TRUTH", msg: "Recovered 95 GP & discovered Vaeloria is under psychic compulsion (VAELORIA_TRUTH)!" },
         choices: [
-          { t: "Complete the adventure!", to: 6 }
+          { t: "Race up the gorge crest to break the aberration's hold on Vaeloria!", to: 4 }
         ]
       },
       6: {
+        zone: "Threshold of the Sacred Tree",
+        title: "Vaeloria Awakens",
+        text: "Tears cut through the ash on Vaeloria's cheeks as the violet glare shatters from her eyes. 'By the Dawn... what have I brought to Sylvara's doorstep?!' Gripping her runed staff with both hands, she drives a blinding golden counter-ward straight into the tearing obsidian rift—cracking the Planar Aberration's defenses and knitting your wounds!",
+        onEnter: { healHp: 20, cw: "VAELORIA_ALLY", msg: "Redeemed Archmage Vaeloria (VAELORIA_ALLY)! Her ward heals +20 HP and weakens the aberration!" },
+        choices: [
+          { t: "Stand beside Vaeloria and face the emerging Planar Mirror-Aberration!", to: 8 }
+        ]
+      },
+      7: {
+        zone: "Threshold of the Sacred Tree",
+        title: "The Shattering Veil",
+        text: "With a sound like ten thousand shattering panes, the obsidian cliffside splits open. Reality folds inside out as the titanic horror drags itself into the Sacred Grove—leaving you one heartbeat to turn the grove's ancient Ward-Glass against its gaze!",
+        choices: [
+          { t: "Angle the ancient Ward-Glass into the sunbeam piercing the canopy to blind the aberration!", badge: "Arcana / Perception DC 16", check: { stat: "arcana", skill: "Perception", dc: 16, pass: 8, fail: 8, failDmg: 10, passMsg: "Pure highland sunlight refracts across its hundred eyes, searing its cosmic hide!", failMsg: "Warped reflections lash back at your mind (-10 HP) as the monster lunges!" }, onPass: { cw: "RIFT_FRACTURED" } },
+          { t: "Brace your weapon and meet the cosmic horror head-on!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Heart of the Sacred Tree",
+        title: "The Mirror-Seeker's Aberration",
+        text: "Warping the black obsidian cliffs into dizzying, impossible reflections, a titanic, many-eyed Planar Mirror-Aberration surges toward the ancient mirror nested in the Heart-Tree's roots!",
+        enemy: { name: "Planar Mirror-Aberration", desc: "Nightmarish cosmic horror unleashed to shatter the grove's defenses.", hp: 138, ac: 19, atk: 14, dmg: 16, xp: 560, gold: 390, items: ["bq_obsidian_grove_mirror"], weakCw: ["VAELORIA_ALLY", "RIFT_FRACTURED"] },
+        choices: [
+          { t: "Turn the Ward-Glass against the rift and seal the Obsidian Pass!", to: 9 }
+        ]
+      },
+      9: {
+        zone: "The Sacred Grove",
+        title: "The Mirror Kept Safe",
+        text: "With a resonant chime echoing down the canyon, the aberration dissolves into harmless motes of silver light and the black cliffs solidify once more. Elder Sylvara and the grove druids weave fresh emerald wards around the ancient tree, restoring your vigor.",
+        onEnter: { healHp: 25, msg: "The Grove Elders restore your vigor (+25 HP)!" },
+        choices: [
+          { t: "Speak with the redeemed Archmage Vaeloria beneath the Heart-Tree.", reqCw: "VAELORIA_ALLY", badge: "VAELORIA_ALLY", to: 10 },
+          { t: "Search the shattered obsidian along the gorge rim for uncorrupted planar crystals.", badge: "Perception / Arcana DC 16", check: { stat: "arcana", skill: "Perception", dc: 16, pass: 11, fail: 11, passMsg: "You gather three resonant starlight-glass prisms worth 130 GP!", failMsg: "The remaining shards crumble to ordinary volcanic dust as the rift closes." }, onPass: { gold: 130 } },
+          { t: "Accept the elders' gratitude and depart the Obsidian Pass in triumph.", to: 12 }
+        ]
+      },
+      10: {
+        zone: "Heart-Tree Roots",
+        title: "Vaeloria's Penance",
+        text: "Kneeling before Elder Sylvara, Archmage Vaeloria vows to spend the rest of her years strengthening the grove's wards against the outer planes. Turning to you, she presses a sealed velvet pouch of 150 GP in archmage stipends into your hand: 'You saved my soul as well as this forest. Carry the Ward-Glass with my deepest gratitude.'",
+        onEnter: { gold: 150, msg: "Archmage Vaeloria gifts you 150 GP for breaking the aberration's hold!" },
+        choices: [
+          { t: "Depart the Obsidian Pass and return to Oakhaven!", to: 12 }
+        ]
+      },
+      11: {
+        zone: "Highland Trail",
+        title: "Starlight Over the Gorge",
+        text: "The highland wind blows clean and pine-scented across the black-glass canyon. Behind you, the Sacred Grove shimmers peacefully beneath fresh silver wards as you turn homeward toward Oakhaven.",
+        choices: [
+          { t: "Complete the adventure!", to: 12 }
+        ]
+      },
+      12: {
         zone: "Epilogue",
         title: "Guardian of Obsidian Pass",
-        text: "The sacred mirror remains uncorrupted and the grove endures for another age.",
+        text: "The sacred mirror remains uncorrupted, the planar rift is sealed, and the elders of the Sacred Grove honor your name for another age!",
         ending: { type: "true", title: "Protector of the Obsidian Mirror", xp: 610, gold: 575, trophy: "Obsidian Grove Shard" },
         choices: []
       }

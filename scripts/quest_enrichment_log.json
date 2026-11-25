@@ -1,5 +1,5 @@
 {
-  "totalPasses": 8,
+  "totalPasses": 9,
   "history": [
     {
       "pass": 1,
@@ -56,6 +56,13 @@
       "title": "Grandmother's Fire",
       "file": "data/quests/books_quests_batch_016.js",
       "summary": "Expanded from 6 terse pages to 12 Slavic-folklore branching pages with woodcutter Vasily's rescue from Ghost Knights of Doresh (Turn Undead/Stealth), Doresh's Frost-Seal saddlebag clue (CHAIN_KNOWN), a full interactive parley at Baba Yaga's chicken-legged hut (BABA_EMBER -> POOL_BOILED & Grandmother's 50 GP parting nod), sunken anchor-chain sabotage (CHAIN_SNAPPED), and a drowned toll-chest loot branch."
+    },
+    {
+      "pass": 9,
+      "questId": "bk_b9_prep_11_obsidian_pass",
+      "title": "The Obsidian Pass",
+      "file": "data/quests/books_quests_batch_009.js",
+      "summary": "Removed sourcebook leak ('Prepared! Conquered') and expanded from 6 linear pages to 12 dramatic branching pages with Elder Sylvara's hook, volcanic rockslide/druidic root-ward/shadow-fissure stealth options (GORGE_AMBUSH), uncovering the psychic tether on Archmage Vaeloria (VAELORIA_TRUTH -> VAELORIA_ALLY redemption & 150 GP penance bonus), Firebolt/Ward-Glass sunlight sabotage (RIFT_FRACTURED), and starlight crystal loot."
     }
   ],
   "questPasses": {
@@ -66,6 +73,7 @@
     "bk_b6_eldritch_4_devils_thumb": 1,
     "ul_bastion_deranged": 1,
     "bk_b11_sc_3_barracks": 1,
-    "bk_b16_marg_grandmothers_fire": 1
+    "bk_b16_marg_grandmothers_fire": 1,
+    "bk_b9_prep_11_obsidian_pass": 1
   }
 }
