@@ -669,7 +669,9 @@ window.OAKHAVEN.registerItems({
     atk: 6,
     might: 2,
     ac: 1,
-    desc: "+6 Attack, +2 Might, +1 AC. Giant-forged frost blade recovered from crashed Skyreach Castle."
+    passives: { bossDmgBonus: 4, dmgReduce: 2, critRange: 11 },
+    activeAbility: { name: "Skyreach Glacier Cleave", icon: "❄️", charges: 2, dmgDice: "2d10", dmgStat: "might", dmgType: "cold", chillTurns: 2, stunTurns: 1, desc: "2/Quest: Bring down giant-forged frost for 2d10 + Might cold dmg, Chill (2t), and Stun (1t)!" },
+    desc: "Giant-forged frost greatsword from crashed Skyreach Castle (+4 vs Bosses, -2 dmg taken, +Crit) with Skyreach Glacier Cleave."
   },
   "bq_calling_cat_charm": {
     id: "bq_calling_cat_charm",
@@ -1147,7 +1149,9 @@ window.OAKHAVEN.registerItems({
     value: 275,
     atk: 5,
     spirit: 2,
-    desc: "+5 Attack, +2 Spirit. Ancient serpentine staff recovered from the Tangled Temple."
+    passives: { spellDmgBonus: 3, healBonus: 2, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Awaken Giant Python", icon: "🐍", charges: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "physical", stunTurns: 1, summon: { name: "Temple Constrictor Python", icon: "🐍", dmg: 7, turns: 3 }, desc: "2/Quest: Throw the glyph-carved staff — stun foe (1t) for 2d6 + Spirit dmg and summon a Giant Constrictor Python (7 dmg/t, 3t)!" },
+    desc: "Ancient serpentine staff from the Tangled Temple (+3 Spell Dmg, +2 Healing, +2 Survival) that awakens a Giant Python."
   },
   "bq_lurinax_ocular_charm": {
     id: "bq_lurinax_ocular_charm",

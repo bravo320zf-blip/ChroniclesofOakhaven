@@ -1,6 +1,6 @@
 {
-  "totalPasses": 7,
-  "totalItemsReworked": 70,
+  "totalPasses": 8,
+  "totalItemsReworked": 80,
   "history": [
     {
       "pass": 1,
@@ -113,6 +113,22 @@
         "bq_womford_tear_pendant"
       ],
       "summary": "Reworked 5 Vault of Magic items (including Legendary Book of Eibon and Fabled Trickster's Boots), 2 expansion uniques, and 3 quest relics with authentic passives and charged abilities."
+    },
+    {
+      "pass": 8,
+      "items": [
+        "vom_slick_cuirass",
+        "vom_iceblink",
+        "vom_bloodprice_armor",
+        "vom_ring_arcane_adj",
+        "vom_ring_groves_guard",
+        "vom_staff_armada",
+        "vom_windwalker_boots",
+        "vom_hat_mental_acuity",
+        "bq_skyreach_frost_greatsword",
+        "bq_tangled_python_staff"
+      ],
+      "summary": "Reworked 8 Vault of Magic items (including Legendary Bloodprice Armor, Iceblink Sword, and Staff of the Armada) plus 2 very rare quest weapons with sourcebook passives and charged abilities."
     }
   ],
   "itemPasses": {
@@ -185,6 +201,16 @@
     "nf_mirgan_grimoire": 1,
     "bq_puffing_bridge_wrench": 1,
     "bq_spore_lord_cap": 1,
-    "bq_womford_tear_pendant": 1
+    "bq_womford_tear_pendant": 1,
+    "vom_slick_cuirass": 1,
+    "vom_iceblink": 1,
+    "vom_bloodprice_armor": 1,
+    "vom_ring_arcane_adj": 1,
+    "vom_ring_groves_guard": 1,
+    "vom_staff_armada": 1,
+    "vom_windwalker_boots": 1,
+    "vom_hat_mental_acuity": 1,
+    "bq_skyreach_frost_greatsword": 1,
+    "bq_tangled_python_staff": 1
   }
 }
