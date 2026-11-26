@@ -1,6 +1,6 @@
 {
-  "totalPasses": 42,
-  "totalItemsReworked": 420,
+  "totalPasses": 43,
+  "totalItemsReworked": 430,
   "history": [
     {
       "pass": 1,
@@ -673,6 +673,22 @@
         "vom_troll_skin_armor"
       ],
       "summary": "Reworked Grandmother's Hearth-Ember Brooch, Echo of the Titan's Spark, Thyrdun's Iron-Heart Pick, Troll Skin Armor, Imsim's Mirage Band, King Sketch's Silver-Thread Mask, Recondite Shield Ring, Star-Pointed Wand of the Fingers, Bow of Accuracy, and Ring of Vitality."
+    },
+    {
+      "pass": 43,
+      "items": [
+        "nf_oversea_longsword",
+        "bq_mountain_lotus_rosary",
+        "bk_hand_cannon",
+        "vom_staff_dissolution",
+        "vom_glazed_blade",
+        "bq_sun_god_thurible",
+        "vom_scorpion_feet",
+        "nf_tatzelwurm_tiara",
+        "bq_ghost_light_lantern",
+        "vom_staff_parzelon"
+      ],
+      "summary": "Reworked Legendary Staff of Parzelon and Scorpion Feet, Staff of Dissolution, Apotropaic Oversea Sword, Sapphire Tiara of the Wyrm, Purified Mountain Lotus Beads, Gilded Sun-Spire Medallion, Hand Cannon (removed sourcebook tag), Glazed Blade, and polished Ghost-Light Marsh Lantern."
     }
   ],
   "itemPasses": {
@@ -1095,6 +1111,16 @@
     "bq_thyrdun_miner_pick": 1,
     "vom_bow_accuracy": 1,
     "bq_derende_finger_twig": 1,
-    "vom_troll_skin_armor": 1
+    "vom_troll_skin_armor": 1,
+    "nf_oversea_longsword": 1,
+    "bq_mountain_lotus_rosary": 1,
+    "bk_hand_cannon": 1,
+    "vom_staff_dissolution": 1,
+    "vom_glazed_blade": 1,
+    "bq_sun_god_thurible": 1,
+    "vom_scorpion_feet": 1,
+    "nf_tatzelwurm_tiara": 1,
+    "bq_ghost_light_lantern": 1,
+    "vom_staff_parzelon": 1
   }
 }

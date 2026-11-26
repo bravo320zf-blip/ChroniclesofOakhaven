@@ -132,7 +132,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 2,
     maxHp: 6,
-    desc: "+2 AC, +2 Spirit, +6 Max HP. Radiant relic blessed atop the Spire of the Sun God."
+    passives: { undeadDmgBonus: 5, healBonus: 4, mpRegen: 1, dmgReduce: 2 },
+    activeAbility: { name: "Solar Spire Incense", icon: "☀️", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, healDice: "2d6", healStat: "spirit", desc: "2/Quest (2 MP): Swing sacred sun-incense for 3d8 + Spirit radiant dmg (2x vs Undead) and heal 2d6 + Spirit HP!" },
+    desc: "+2 AC, +2 Spirit, +6 Max HP, +5 vs Undead, +4 Heal, +1 MP/turn, -2 Dmg Taken. Radiant relic blessed atop the Spire of the Sun God with Solar Spire Incense."
   },
   "bq_tempest_winged_helm": {
     id: "bq_tempest_winged_helm",
@@ -1154,7 +1156,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 2,
     maxHp: 8,
-    desc: "+2 AC, +2 Spirit, +8 Max HP. Consecrated prayer beads from the reclaimed Mountain Lotus Temple."
+    passives: { healBonus: 5, dmgReduce: 2, mpRegen: 2, skillBonus: { Perception: 2 } },
+    activeAbility: { name: "Lotus Serenity", icon: "🪷", charges: 2, ooc: true, healDice: "3d8", healStat: "spirit", restoreMp: 6, shieldTurns: 2, desc: "2/Quest: Chant the mountain lotus sutra to restore 3d8 + Spirit HP, +6 MP, and Shield (2t)!" },
+    desc: "+2 AC, +2 Spirit, +8 Max HP, +5 Heal, -2 Dmg Taken, +2 MP/turn, +2 Perception. Consecrated prayer beads from the Mountain Lotus Temple with Lotus Serenity."
   },
   "bq_crucible_fabricator_core": {
     id: "bq_crucible_fabricator_core",
@@ -3249,9 +3253,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 2,
     luck: 2,
-    passives: { spellDmgBonus: 2, skillBonus: { Perception: 3, Survival: 2 } },
+    passives: { spellDmgBonus: 2, undeadDmgBonus: 2, skillBonus: { Perception: 3, Survival: 2 } },
     activeAbility: { name: "Will-o'-Wisp Lure", icon: "🏮", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "fire", evadeTurns: 2, desc: "2/Quest (2 MP): Release bog-wisps for 2d8 + Arcana fire dmg and Evade (2t)!" },
-    desc: "Captive swamp-wisp lantern from Amabel's shack (+2 Spell Dmg, +3 Perception) with Will-o'-Wisp Lure."
+    desc: "+2 AC, +2 Arcana, +2 Luck, +2 Spell & Undead Dmg, +3 Perception, +2 Survival. Captive swamp-wisp lantern from Amabel's shack with Will-o'-Wisp Lure."
   },
   "bq_nichenevin_spark_wand": {
     id: "bq_nichenevin_spark_wand",

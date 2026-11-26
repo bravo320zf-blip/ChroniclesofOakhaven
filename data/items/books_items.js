@@ -699,7 +699,9 @@ window.OAKHAVEN.registerItems({
     "value": 120,
     "atk": 4,
     "might": 1,
-    "desc": "+4 Attack, +1 Might (Heavy Firearm • Tome of Heroes)"
+    "passives": { "bossDmgBonus": 3, "bombDmgBonus": 4 },
+    "activeAbility": { "name": "Thunder-Bore Blast", "icon": "💥", "charges": 2, "dmgDice": "3d6", "dmgStat": "might", "dmgType": "fire", "stunTurns": 1, "desc": "2/Quest: Touch off a double-powder iron slug for 3d6 + Might fire dmg and Stun (1t)!" },
+    "desc": "+4 Attack, +1 Might, +3 Boss Dmg, +4 Bomb Dmg. Heavy brass-bound black-powder firearm granting Thunder-Bore Blast."
   },
   "bk_powder_bomb": {
     "id": "bk_powder_bomb",
