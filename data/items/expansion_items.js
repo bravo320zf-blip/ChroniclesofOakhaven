@@ -30,7 +30,7 @@ window.OAKHAVEN.registerItems({
 
       // --- Quest 3 Uniques: The Clockwork Foundry of Brasshaven (2 Unique Items) ---
       aether_gauntlet:     { id:"aether_gauntlet", name:"Aether-Coil Gauntlet", type:"offhand", rarity:"rare", ac:3, arcana:2, value:128, unique:true, passives:{ spellDmgBonus:2, dmgReduce:1, skillBonus:{ Arcana:2, Lockpicking:1 } }, activeAbility:{ name:"Aether Arc-Pulse", icon:"⚡", charges:2, mp:2, dmgDice:"2d8", dmgStat:"arcana", dmgType:"lightning", stunTurns:1, shieldTurns:2, desc:"2/Quest (2 MP): Discharge Brasshaven's copper coils for 2d8 + Arcana lightning dmg, Stun (1t), and +3 AC (2t)!" }, desc:"Brasshaven clockwork-arcane gauntlet (+2 Spell Dmg, -1 Dmg Taken, +2 Arcana, +1 Lockpicking) with Aether Arc-Pulse." },
-      chronos_monocle:     { id:"chronos_monocle", name:"Chronos Monocle", type:"accessory", arcana:2, luck:2, value:125, unique:true, desc:"+2 Arcana, +2 Luck (Brasshaven Unique)" },
+      chronos_monocle:     { id:"chronos_monocle", name:"Chronos Monocle", type:"accessory", arcana:2, luck:2, value:125, unique:true, passives:{ critRange:19, skillBonus:{ "Detect Traps":2, Perception:2 } }, activeAbility:{ name:"Split-Second Glimpse", icon:"🧐", charges:2, ooc:true, restoreLuck:1, evadeTurns:2, desc:"2/Quest: Wind the brass lens to glimpse a heartbeat ahead — restore 1 Luck and Evade attacks (2t)!" }, desc:"+2 Arcana, +2 Luck, Crit 19-20, +2 Detect Traps & Perception. Precision Brasshaven lens that bends a heartbeat of time with Split-Second Glimpse." },
 
       // --- Quest 4 Uniques: The Ashen Keep of the Red Baron (3 Unique Items) ---
       baron_greatsword:    { id:"baron_greatsword", name:"Red Baron's Greatsword", type:"weapon", atk:5, might:1, value:165, unique:true, desc:"+5 Attack, +1 Might (Ashen Keep Unique)" },
@@ -50,7 +50,7 @@ window.OAKHAVEN.registerItems({
       keepers_oilskin:     { id:"keepers_oilskin", name:"Keeper's Storm-Coat", type:"cloak", ac:2, luck:1, value:100, unique:true, desc:"+2 AC, +1 Luck (Lighthouse Unique)" },
 
       // --- Quest 8 Uniques: The Ravencrest Bandit Citadel ---
-      ravencrest_halberd:  { id:"ravencrest_halberd", name:"Ravencrest Halberd", type:"weapon", atk:4, agility:1, value:125, unique:true, desc:"+4 Attack, +1 Agility (Ravencrest Unique)" },
+      ravencrest_halberd:  { id:"ravencrest_halberd", name:"Ravencrest Halberd", type:"weapon", atk:4, agility:1, value:125, unique:true, passives:{ bossDmgBonus:2, skillBonus:{ Athletics:2 } }, activeAbility:{ name:"Halberd Hook-Sweep", icon:"🪓", charges:2, dmgDice:"2d6", dmgStat:"might", dmgType:"slashing", stunTurns:1, desc:"2/Quest: Hook and sweep an enemy's stance for 2d6 + Might slashing dmg and Stun (1t)!" }, desc:"+4 Attack, +1 Agility, +2 Boss Dmg, +2 Athletics. Balanced steel polearm forged for Ravencrest's ridge-guard, granting Halberd Hook-Sweep." },
       mercenary_pauldron:  { id:"mercenary_pauldron", name:"Black-Banner Brigandine", type:"armor", rarity:"rare", ac:3, might:2, value:120, unique:true, passives:{ dmgReduce:2, goldFindPct:10, skillBonus:{ Athletics:2 } }, activeAbility:{ name:"Ravencrest Brace", icon:"🛡️", charges:2, shieldTurns:3, selfBuffAtk:{ atk:2, turns:2 }, desc:"2/Quest: Lock Ravencrest's blackened plates for +3 AC (3t) and +2 ATK (2t)!" }, desc:"Riveted black-banner mercenary brigandine from Ravencrest Citadel (-2 Dmg Taken, +10% Gold, +2 Athletics) with Ravencrest Brace." },
 
       // --- Quest 9 Uniques: The Amber Sanctuary of Solis ---
@@ -128,7 +128,7 @@ window.OAKHAVEN.registerItems({
       nf_blood_moon_ring:    { id:"nf_blood_moon_ring", name:"Signet of the Blood Moon", type:"accessory", rarity:"uncommon", ac:1, spirit:2, value:90, unique:true, desc:"+1 AC, +2 Spirit (Murian's dark seal)" },
 
       // --- Part II: Child of Blood ---
-      nf_circlet_last_light: { id:"nf_circlet_last_light", name:"Circlet of Last Light", type:"accessory", rarity:"rare", arcana:2, spirit:2, maxMp:4, value:140, unique:true, desc:"+2 Arcana, +2 Spirit, +4 Max MP (Child of Blood Unique)" },
+      nf_circlet_last_light: { id:"nf_circlet_last_light", name:"Circlet of Last Light", type:"accessory", rarity:"rare", arcana:2, spirit:2, maxMp:4, value:140, unique:true, passives:{ undeadDmgBonus:4, mpRegen:1, healBonus:2 }, activeAbility:{ name:"Dying Dawn-Flare", icon:"🌅", charges:2, mp:2, dmgDice:"2d8", dmgStat:"spirit", dmgType:"radiant", undeadDouble:true, healDice:"1d6", healStat:"spirit", desc:"2/Quest (2 MP): Release trapped twilight sunfire for 2d8 + Spirit radiant dmg (2x vs Undead) and heal 1d6 + Spirit HP!" }, desc:"+2 Arcana, +2 Spirit, +4 Max MP, +4 vs Undead, +1 MP/turn, +2 Heal. Silver twilight circlet holding a spark of the last dawn with Dying Dawn-Flare." },
       nf_spry_eyes_dirk:     { id:"nf_spry_eyes_dirk", name:"Iximisi's Shadow-Dirk", type:"weapon", rarity:"rare", atk:3, agility:2, value:135, unique:true, desc:"+3 Attack, +2 Agility (Spry Eyes Unique)" },
       nf_lunar_blessing_orb: { id:"nf_lunar_blessing_orb", name:"Mirithlen's Lunar Focus", type:"offhand", rarity:"rare", ac:2, spirit:2, maxHp:6, value:145, unique:true, desc:"+2 AC, +2 Spirit, +6 Max HP (Child of Blood Unique)" },
 

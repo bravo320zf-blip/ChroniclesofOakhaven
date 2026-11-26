@@ -1,6 +1,6 @@
 {
-  "totalPasses": 40,
-  "totalItemsReworked": 400,
+  "totalPasses": 41,
+  "totalItemsReworked": 410,
   "history": [
     {
       "pass": 1,
@@ -641,6 +641,22 @@
         "bq_birch_queen_mantle"
       ],
       "summary": "Milestone 400th item reworked! Upgraded 2 Fabled Vault of Magic relics (Bracers of Ganis, Wolf's Howl), Eagle Cape, Brazen Bulwark, Nargenstal Iron Maul, Brass-Arc Sextant, Horizon-Glass Lens, Spider-Crone Ivy Crown, Birch Queen Mantle, and Derro Aklys."
+    },
+    {
+      "pass": 41,
+      "items": [
+        "ravencrest_halberd",
+        "bq_qezzit_air_codex",
+        "vom_warding_icon",
+        "bq_planetar_fountain_chalice",
+        "chronos_monocle",
+        "nf_circlet_last_light",
+        "bq_bastet_ribbon_charm",
+        "vom_fab_matched_blades",
+        "bq_unhatched_bone_amulet",
+        "vom_headdress_majesty"
+      ],
+      "summary": "Reworked Fabled Matched Blades of Feudalists, Chalice of the Planetar, Headdress of Majesty, Warding Icon, Chronos Monocle, Ravencrest Halberd, Circlet of Last Light, and polished 3 quest relics (Codex of Qezzit Qire, Per-Bastet Lucky Ribbon, Talon-Clasp of the Unhatched)."
     }
   ],
   "itemPasses": {
@@ -1043,6 +1059,16 @@
     "ul_derro_aklys": 1,
     "vom_fab_wolfs_howl": 1,
     "bq_horizon_glass_lens": 1,
-    "bq_birch_queen_mantle": 1
+    "bq_birch_queen_mantle": 1,
+    "ravencrest_halberd": 1,
+    "bq_qezzit_air_codex": 1,
+    "vom_warding_icon": 1,
+    "bq_planetar_fountain_chalice": 1,
+    "chronos_monocle": 1,
+    "nf_circlet_last_light": 1,
+    "bq_bastet_ribbon_charm": 1,
+    "vom_fab_matched_blades": 1,
+    "bq_unhatched_bone_amulet": 1,
+    "vom_headdress_majesty": 1
   }
 }

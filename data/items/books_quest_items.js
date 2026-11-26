@@ -1040,7 +1040,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 3,
     maxHp: 8,
-    desc: "+2 AC, +3 Spirit, +8 Max HP. Radiant chalice blessed at the purified Fountain of the Planetar."
+    passives: { healBonus: 5, undeadDmgBonus: 5, dmgReduce: 2, mpRegen: 1 },
+    activeAbility: { name: "Planetar's Pure Draught", icon: "🏆", charges: 2, ooc: true, healDice: "3d8", healStat: "spirit", restoreMp: 6, shieldTurns: 2, desc: "2/Quest: Drink radiant fountain-water to restore 3d8 + Spirit HP, +6 MP, and gain Shield (2t)!" },
+    desc: "+2 AC, +3 Spirit, +8 Max HP, +5 Heal, +5 vs Undead, -2 Dmg Taken, +1 MP/turn. Radiant chalice blessed at the purified Fountain of the Planetar with Planetar's Pure Draught."
   },
   "bq_obsidian_grove_mirror": {
     id: "bq_obsidian_grove_mirror",
@@ -2413,9 +2415,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 2,
     maxMp: 4,
-    passives: { spellDmgBonus: 2, lifesteal: 2 },
+    passives: { spellDmgBonus: 2, lifesteal: 2, bossDmgBonus: 2 },
     activeAbility: { name: "Necrotic Breath-Shard", icon: "🐉", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "necrotic", dot: { dmg: 3, turns: 3, label: "Grave Rot" }, desc: "2/Quest (2 MP): Exhale spectral dragon-rot for 2d8 + Arcana necrotic dmg and Grave Rot (3/t, 3t)!" },
-    desc: "Bone-carved wyrmling clasp seized at Keep Yellete (+2 Spell Dmg, Lifesteal 2) that unleashes a Necrotic Breath-Shard."
+    desc: "+1 AC, +2 Arcana, +4 Max MP, +2 Spell & Boss Dmg, Lifesteal 2. Bone-carved wyrmling clasp seized at Keep Yellete that unleashes a Necrotic Breath-Shard."
   },
   "bq_illyria_edjet_blade": {
     id: "bq_illyria_edjet_blade",
@@ -2772,9 +2774,9 @@ window.OAKHAVEN.registerItems({
     value: 115,
     agility: 1,
     luck: 2,
-    passives: { goldFindPct: 12, skillBonus: { Persuasion: 2 } },
+    passives: { goldFindPct: 12, critRange: 19, skillBonus: { Persuasion: 2 } },
     activeAbility: { name: "Festival Fortune", icon: "🎀", charges: 1, ooc: true, restoreLuck: 2, evadeTurns: 2, desc: "1/Quest: Invoke Per-Bastet's festival luck — restore 2 Luck and Evade attacks (2t)!" },
-    desc: "Silk festival charm gifted by Omar-bac-Maheem (+12% Gold, +2 Persuasion) with Festival Fortune."
+    desc: "+1 Agility, +2 Luck, Crit 19-20, +12% Gold, +2 Persuasion. Silk festival charm gifted by Omar-bac-Maheem that grants Festival Fortune."
   },
   "bq_nefertari_date_pouch": {
     id: "bq_nefertari_date_pouch",
@@ -2846,9 +2848,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 3,
     maxMp: 6,
-    passives: { spellDmgBonus: 3, spellCostReduce: 1, skillBonus: { Arcana: 2 } },
+    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: 1, skillBonus: { Arcana: 2 } },
     activeAbility: { name: "Scribings of Air", icon: "📜", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "lightning", evadeTurns: 2, desc: "2/Quest (2 MP): Unleash wind-runes for 2d8 + Arcana lightning dmg and Evade (2t)!" },
-    desc: "Air-runed grimoire recovered from Tolmezo's sunken library (+3 Spell Dmg, -1 MP cost, +2 Arcana) with Scribings of Air."
+    desc: "+2 AC, +3 Arcana, +6 Max MP, +3 Spell Dmg, -1 MP cost, +1 MP/turn, +2 Arcana. Air-runed grimoire from Tolmezo's sunken library with Scribings of Air."
   },
   "bq_hellfire_horseshoe_charm": {
     id: "bq_hellfire_horseshoe_charm",
