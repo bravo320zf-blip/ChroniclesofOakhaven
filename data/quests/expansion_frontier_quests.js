@@ -608,40 +608,58 @@ window.OAKHAVEN.registerQuests({
         recommendedLevel: 3,
         autoDiscover: true,
         discoverySource: "Unlocks after completing The Whispering Barrows of Thornwood",
-        summary: "Descend beneath the healed Heart-Tree into the subterranean Root-Caverns, where a Void-corrupted Arch-Treant still poisons the forest's deep springs.",
-        totalPages: 10,
+        summary: "Descend beneath the healed Heart-Tree into the subterranean Root-Caverns, claim the Dryad's forgotten grace, sever the void-sap veins, and purge the corrupted Arch-Treant poisoning Thornwood's deep springs.",
+        totalPages: 13,
         pages: {
-          1: { zone:"Root-Caverns", title:"The Hollow Below the Heart-Tree", safeRetreat:true, text:"Beneath the barrow's ancient oak, roots coil downward into a cavernous grotto dripping with black sap. Elven Ranger Lyra has tied a silver guide-rope to the upper roots.", choices:[
-            { t:"Climb down into the Sap-Drenched Vault.", to:2 },
-            { t:"Search the Dryad's Forgotten Shrine along the ledge.", to:3 }
+          1: { zone:"Root-Caverns", title:"The Hollow Below the Heart-Tree", safeRetreat:true, text:"Beneath the barrow's healed Heart-Tree, massive roots coil downward into a mist-hung chasm reeking of bitter pitch. Elven Ranger Lyra cinches a braided silver guide-rope around a pale oak bough. 'The upper canopy breathes green again,' she says quietly, pointing to black sap weeping along the cavern walls, 'but something ancient still rots at the Deep Spring. Follow the clean water—and watch the bark.' Faint bioluminescent moss outlines three ways down: a damp ledge leading toward a forgotten Dryad Shrine, a narrow root-gallery above the main floor, and the straight drop into the Sap-Drenched Vault.", choices:[
+            { t:"Follow the moss-slick ledge toward the Dryad's Forgotten Shrine.", to:3 },
+            { t:"Slip into the narrow High Root-Gallery to scout above the vault.", badge:"Stealth / Survival DC 11", check:{ stat:"agility", skill:"Stealth", dc:11, pass:10, fail:2, passMsg:"You climb noiselessly into the upper root-gallery overlooking the cavern!", failMsg:"Slick pitch gives way beneath your boot—you slide right into the Sap-Drenched Vault!" }, onPass:{ cw:"ROOT_FLANKED", xp:20, msg:"Gained high-ground vantage (ROOT_FLANKED, +20 XP)!" } },
+            { t:"Rappel down Lyra's silver rope into the Sap-Drenched Vault.", to:2 }
           ]},
-          2: { zone:"Root-Caverns", title:"The Blight-Spriggans", text:"Three gnarled bark-creatures peel off the cavern walls with jagged thorn-claws!", enemy:{ name:"Blight-Spriggans", desc:"Void-twisted forest spirits.", hp:22, ac:11, atk:4, dmg:5, xp:52, gold:30, items:["glowcap_spores", ...rollRandomLoot(["consumable","material"], 1)], flee:1 }, choices:[
-            { t:"Follow the pulsing black roots to the Deep Spring.", to:4 }
+          2: { zone:"Root-Caverns", title:"The Blight-Spriggans", text:"Warm black sap drips from braided ceiling-roots into puddles that hiss softly against the limestone. As your boots press into the damp loam, three gnarled bark-creatures peel straight off the cavern walls with a dry splintering crack—hollow violet eyes flaring as they raise jagged thorn-claws!", enemy:{ name:"Blight-Spriggans", desc:"Void-twisted forest spirits guarding the taproots.", hp:22, ac:11, atk:4, dmg:5, xp:52, gold:30, items:["glowcap_spores", ...rollRandomLoot(["consumable","material"], 1)], flee:1, weakCw:["ROOT_FLANKED"] }, choices:[
+            { t:"Follow the pulsing black taproots deeper toward the Deep Spring.", to:4 },
+            { t:"Climb a pale-barked fissure behind their nest into the High Root-Gallery.", to:10 }
           ]},
-          3: { zone:"Dryad Shrine", title:"The Circlet of Living Thorns", text:"Resting in a bowl of clean springwater gleams the Circlet of Living Thorns alongside a random forest relic!", onEnter:{ cw:"DRYAD_GRACE", items:["crown_of_thorns", ...rollRandomLoot(["consumable","valuable"], 1)], msg:"Claimed Circlet of Living Thorns & DRYAD_GRACE!" }, choices:[
+          3: { zone:"Dryad Shrine", title:"The Circlet of Living Thorns", text:"Behind a veil of silver cavern-ferns rests a crescent stone basin brimming with untouched springwater—the last pure wellhead beneath Thornwood. Floating above the clear water on a pillow of pale blossoms gleams the Circlet of Living Thorns alongside a forest relic left by ancient wardens. A gentle emerald whisper brushes your ear: 'Carry the First Spring's memory to the elder root that forgot the sun.'", onEnter:{ cw:"DRYAD_GRACE", healHp:6, items:["crown_of_thorns", ...rollRandomLoot(["consumable","valuable"], 1)], msg:"Claimed Circlet of Living Thorns, restored 6 HP, & gained DRYAD_GRACE!" }, choices:[
+            { t:"Slip through the dryad's fern-arch into the High Root-Gallery.", to:10 },
             { t:"Descend into the Sap-Drenched Vault.", to:2 }
           ]},
-          4: { zone:"Deep Spring", title:"The Choking Vines", text:"Barbed void-vines whip across the stepping stones over the poisoned subterranean river!", choices:[
-            { t:"Incinerate the void-vines with Firebolt!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:5 },
-            { t:"Weave past them with Agility or Herbalism.", badge:"Agility / Herbalism DC 11", check:{ stat:"agility", skill:"Herbalism", dc:11, pass:5, fail:5, failDmg:4, passMsg:"You slip through untouched!", failMsg:"Black thorns lash your arm (-4 HP)!" } }
+          4: { zone:"Deep Spring", title:"The Choking Vines", text:"The cavern widens over a subterranean river turned ink-black with blight, swirling around mossy stepping stones toward the distant Root-Sanctum. Suddenly, barbed void-vines whip out from the fissures like living serpents, hissing as they lash across the narrow stone crossing!", choices:[
+            { t:"Incinerate the void-vines with Firebolt!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:5, onChoose:{ cw:"VINES_CLEARED", xp:20, msg:"Bright flames sear the void-vines to harmless ash (+20 XP)!" } },
+            { t:"Cut the pale mother-tendrils and slip past with Agility or Herbalism.", badge:"Agility / Herbalism DC 11", check:{ stat:"agility", skill:"Herbalism", dc:11, pass:5, fail:5, failDmg:4, passMsg:"You sever the mother-tendrils cleanly and cross untouched!", failMsg:"Barbed black thorns rake your arm as you sprint across (-4 HP)!" }, onPass:{ cw:"VINES_CLEARED", xp:15, msg:"Crossed the Deep Spring unscathed (+15 XP)!" } },
+            { t:"Vault across the high limestone boulders above the vines' reach.", badge:"Athletics DC 12", check:{ stat:"might", skill:"Athletics", dc:12, pass:5, fail:5, failDmg:4, passMsg:"You bound across the wet boulders high above the lashing briars!", failMsg:"A mossy stone slips and a stray vine lashes your shin (-4 HP)!" }, onPass:{ xp:15 } }
           ]},
-          5: { zone:"Deep Spring", title:"The Sunken Elven Cache", text:"Wedged between clean roots rests an ancient elven chest with 45 GP and two random treasures.", onEnter:{ gold:45, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 2), msg:"Looted 45 GP & 2 random items!" }, choices:[
-            { t:"Step into the Cavern of the Void-Treant!", to:6 }
+          5: { zone:"Deep Spring", title:"The Sunken Elven Cache", text:"Beyond the crossing, a clean eddy curls around a half-submerged silverwood coffer wedged between ancient roots. Prying its moss-bound clasp reveals 45 GP and two preserved frontier treasures. Ahead yawns the immense vaulted entrance to the Root-Sanctum—while to your right, a low fissure pulses with sickly violet spores feeding directly into the sanctum floor.", onEnter:{ gold:45, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 2), msg:"Looted 45 GP & 2 random items!" }, choices:[
+            { t:"Squeeze into the violet-lit fissure to sever the Void-Sap Node first!", to:11 },
+            { t:"Step directly into the Cavern of the Void-Treant!", to:6 }
           ]},
-          6: { zone:"Root-Sanctum", title:"Arch-Treant Malgroot", text:"Towering twenty feet tall in dripping black sap, the corrupted Arch-Treant Malgroot uproots itself, clutching the gleaming Heartwood Twinblade inside its bark!", choices:[
+          6: { zone:"Root-Sanctum", title:"Arch-Treant Malgroot", text:"The tunnel opens into a cathedral of petrified roots arching forty feet overhead. Towering at its heart in dripping black pitch stands Arch-Treant Malgroot, its ancient oak-hide encrusted with violet blight. Wedged deep within its split heartwood gleams the Heartwood Twinblade—its ward-steel choked by corruption. With a thunderous groan of wrenching timber, Malgroot tears its roots free and turns hollow amber eyes upon you!", choices:[
             { t:"Raise the Dryad's Grace to purge its black sap!", reqCw:"DRYAD_GRACE", badge:"DRYAD_GRACE", to:7 },
-            { t:"Battle Arch-Treant Malgroot!", to:8 }
+            { t:"Press the attack while the severed Void-Node drains its armor!", reqCw:"NODE_SEVERED", badge:"NODE_SEVERED", to:7 },
+            { t:"Battle Arch-Treant Malgroot at full fury!", to:8 }
           ]},
-          7: { zone:"Root-Sanctum", title:"The Splitting Bark", text:"Emerald light cracks the void-crust across Malgroot's trunk! Groaning, the weakened giant swings its massive boughs!", enemy:{ name:"Arch-Treant Malgroot (Purged)", desc:"Corrupted elder tree losing its void armor.", hp:26, ac:12, atk:5, dmg:5, xp:98, gold:75, items:["heartwood_bowblade", ...rollRandomLoot(["valuable","consumable"], 1)] }, choices:[
-            { t:"Cleanse the Deep Spring!", to:9 }
+          7: { zone:"Root-Sanctum", title:"The Splitting Bark", text:"Emerald light fractures the void-crust across Malgroot's colossal trunk! Sheets of blackened pitch hiss into harmless mist as the staggered elder tree bellows in half-remembered anguish and swings its massive boughs!", enemy:{ name:"Arch-Treant Malgroot (Purged)", desc:"Corrupted elder tree losing its void armor.", hp:26, ac:12, atk:5, dmg:5, xp:98, gold:75, items:["heartwood_bowblade", ...rollRandomLoot(["valuable","consumable"], 1)], weakCw:["NODE_SEVERED"] }, choices:[
+            { t:"Kneel beside the fallen giant and cleanse the Deep Spring!", to:9 }
           ]},
-          8: { zone:"Root-Sanctum", title:"Wrath of the Blight-Wood", text:"Tremors shake the cavern ceiling as Malgroot slams colossal root-fists down!", enemy:{ name:"Arch-Treant Malgroot", desc:"Void-corrupted heart of the forest.", hp:33, ac:13, atk:5, dmg:6, xp:118, gold:85, items:["heartwood_bowblade", ...rollRandomLoot(["valuable","accessory"], 1)] }, choices:[
-            { t:"Cleanse the Deep Spring!", to:9 }
+          8: { zone:"Root-Sanctum", title:"Wrath of the Blight-Wood", text:"Tremors shake loose stalactites from the cavern ceiling as Malgroot slams colossal root-fists down, spraying caustic black sap across the sanctum floor!", enemy:{ name:"Arch-Treant Malgroot", desc:"Void-corrupted heart of the forest.", hp:33, ac:13, atk:5, dmg:6, xp:118, gold:85, items:["heartwood_bowblade", ...rollRandomLoot(["valuable","accessory"], 1)] }, choices:[
+            { t:"Kneel beside the fallen giant and cleanse the Deep Spring!", to:9 }
           ]},
-          9: { zone:"Root-Sanctum", title:"Pure Waters Flow", text:"As the void-sap dissolves, crystal water surges upward to nourish all of Thornwood! You collect 50 GP and a random treasure washed clean by the spring.", onEnter:{ gold:50, items: rollRandomLoot(["valuable","material","consumable"], 1), msg:"Found 50 GP & random loot!" }, choices:[
-            { t:"Return to Lyra and Oakhaven!", to:10 }
+          9: { zone:"Root-Sanctum", title:"Pure Waters Flow", text:"As the last black thread of void-sap dissolves from its heartwood, Malgroot's hollow eyes soften to warm golden sap-light for a single grateful heartbeat before settling into peaceful mossy slumber. Beneath the roots, crystal springwater surges upward to nourish all of Thornwood, washing 50 GP and a gleaming relic from the cleansed silt!", onEnter:{ gold:50, items: rollRandomLoot(["valuable","material","consumable"], 1), msg:"Found 50 GP & random loot!" }, choices:[
+            { t:"Ascend Lyra's silver guide-rope back into the sunlit canopy!", to:12 }
           ]},
-          10: { zone:"Epilogue", title:"Champion of the Living Wood", text:"Green light ripples across the entire canopy of Thornwood. Lyra awards you the highest honor of the forest rangers!", ending:{ type:"true", title:"Savior of the Deep Wood (Pt. II)", xp:125, gold:135, trophy:"Evergreen Heart-Seed" }, choices:[] }
+          10: { zone:"High Root-Gallery", title:"The Ranger's Overlook", text:"Intertwined ceiling-roots form a natural catwalk above the Sap-Drenched Vault. Tucked into a dry hollow rests the weathered cairn of a long-lost elven scout holding 25 GP and fresh Glowcap Spores. From up here you can clearly see the Blight-Spriggans' blind spots below—or follow an unbroken root-bridge straight toward the Deep Spring!", onEnter:{ cw:"ROOT_FLANKED", gold:25, items:["glowcap_spores"], msg:"Found lost scout's cairn (25 GP, Glowcap Spores) & high-ground advantage (ROOT_FLANKED)!" }, choices:[
+            { t:"Follow the high root-bridge straight to the Deep Spring, bypassing the spriggans.", to:4 },
+            { t:"Drop down onto the Blight-Spriggans from above for a flanking ambush!", to:2 }
+          ]},
+          11: { zone:"Blight-Node Fissure", title:"The Pulsing Void-Cyst", text:"Inside the cramped limestone cleft throbs a melon-sized sac of violet void-sap, pumping dark ichor through twin taproots straight into Malgroot's sanctum! Golden forest-amber has crystallized along the clean stone rim beside it.", choices:[
+            { t:"Purge the void-cyst with Turn Undead or sacred radiance!", reqSpell:"Turn Undead", badge:"Turn Undead", to:6, onChoose:{ cw:"NODE_SEVERED", gold:20, xp:25, msg:"Radiant light collapses the Void-Cyst and frees 20 GP of forest-amber (+25 XP)!" } },
+            { t:"Unravel the void-tether with Arcana or cleave it clean with Might!", badge:"Arcana / Might DC 11", check:{ stat:"arcana", skill:"Arcana", dc:11, pass:6, fail:6, failDmg:4, passMsg:"You sever the void-tether cleanly, starving Malgroot's corrupted bark and pocketing 20 GP of amber!", failMsg:"Caustic ichor splashes your boots (-4 HP), though the cyst shrivels as you back out!" }, onPass:{ cw:"NODE_SEVERED", gold:20, xp:25, msg:"Severed the Void-Sap Node & claimed 20 GP of forest-amber (+25 XP)!" } },
+            { t:"Leave the volatile cyst alone and enter the Root-Sanctum.", to:6 }
+          ]},
+          12: { zone:"Thornwood Canopy", title:"The Sunlit Boughs", text:"Warm emerald sunlight greets you as you haul yourself up Lyra's silver rope. All around the Heart-Tree, clear springwater bubbles up through fresh clover and fern-fronds where black mud lay an hour ago. Lyra catches your forearm with a rare, bright smile. 'Listen—even the old oaks are sighing in relief. Oakhaven will drink clean water for a hundred summers.'", choices:[
+            { t:"Return with Lyra to Oakhaven to claim the Rangers' honor!", to:13 }
+          ]},
+          13: { zone:"Epilogue", title:"Champion of the Living Wood", text:"Green light ripples across the entire canopy of Thornwood as the healed Deep Spring restores the ancient forest. Lyra presents you with the Evergreen Heart-Seed, the highest honor of the frontier rangers!", ending:{ type:"true", title:"Savior of the Deep Wood (Pt. II)", xp:125, gold:135, trophy:"Evergreen Heart-Seed" }, choices:[] }
         }
       },
 

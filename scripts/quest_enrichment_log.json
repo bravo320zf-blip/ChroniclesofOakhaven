@@ -1,5 +1,5 @@
 {
-  "totalPasses": 16,
+  "totalPasses": 17,
   "history": [
     {
       "pass": 1,
@@ -112,6 +112,13 @@
       "title": "Lost Halls of Everforge",
       "file": "data/quests/books_quests_batch_003.js",
       "summary": "Replaced one-line filler pages and expanded from 8 linear pages to 11 richly branching pages with Polla's threshold hook, Detect Traps brass-spring salvage (DART_DISARMED), interactive Ancestral Throne blessing (EVERFORGE_BLESSED), Smelter's Alcove rift diagram & iron-ore cache (BELLOWS_CLUE), Upper Bellows Gallery stealth bypass & Firebolt/Athletics flue-damper sabotage (RIFT_STARVED), and an interactive Sage Spencius reckoning scene (SPENCIUS_BOUND / SPENCIUS_CAPTURED)."
+    },
+    {
+      "pass": 17,
+      "questId": "thornwood_part2",
+      "title": "Part II: The Heart of the Blight-Wood",
+      "file": "data/quests/expansion_frontier_quests.js",
+      "summary": "Deepened from 10 terse pages to 13 richly atmospheric branching pages with Ranger Lyra's descent briefing, a High Root-Gallery Stealth/fern-arch flank & lost scout cairn (ROOT_FLANKED, 25 GP, glowcap_spores), Athletics/Herbalism/Firebolt vine crossing (VINES_CLEARED), a new Blight-Node Fissure sabotage side-scene (Turn Undead/Arcana -> NODE_SEVERED + 20 GP amber) that also weakens Malgroot, and a sunlit canopy reunion scene with Lyra."
     }
   ],
   "questPasses": {
@@ -130,6 +137,7 @@
     "malakor_part2": 1,
     "bk_b5_trollkin_hunt": 1,
     "bk_bol_17_warlocks_crypt": 1,
-    "bk_bol_02_everforge": 1
+    "bk_bol_02_everforge": 1,
+    "thornwood_part2": 1
   }
 }
