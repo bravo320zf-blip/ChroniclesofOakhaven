@@ -1,6 +1,6 @@
 {
-  "totalPasses": 39,
-  "totalItemsReworked": 390,
+  "totalPasses": 40,
+  "totalItemsReworked": 400,
   "history": [
     {
       "pass": 1,
@@ -625,6 +625,22 @@
         "bq_twelve_goats_crossbow"
       ],
       "summary": "Reworked Compass of the First Labyrinth, Impaling War Pick, Devil's Barb Wand, Black-Banner Brigandine, Petal's Repeater Crossbow, Kolchak's Master Coin, Mossbeard's Amber Sap-Charm, Lucky Eyepatch, Mantle of Blood Vengeance, and Rod of the Disciplinarian."
+    },
+    {
+      "pass": 40,
+      "items": [
+        "vom_fab_bracers_ganis",
+        "vom_eagle_cape",
+        "bq_sextant_brass_arc",
+        "vom_brazen_bulwark",
+        "bq_coalkell_maul",
+        "bq_spider_crone_ivy_crown",
+        "ul_derro_aklys",
+        "vom_fab_wolfs_howl",
+        "bq_horizon_glass_lens",
+        "bq_birch_queen_mantle"
+      ],
+      "summary": "Milestone 400th item reworked! Upgraded 2 Fabled Vault of Magic relics (Bracers of Ganis, Wolf's Howl), Eagle Cape, Brazen Bulwark, Nargenstal Iron Maul, Brass-Arc Sextant, Horizon-Glass Lens, Spider-Crone Ivy Crown, Birch Queen Mantle, and Derro Aklys."
     }
   ],
   "itemPasses": {
@@ -1017,6 +1033,16 @@
     "ul_impaling_pick": 1,
     "vom_rod_disciplinarian": 1,
     "bq_roshgazi_compass": 1,
-    "bq_twelve_goats_crossbow": 1
+    "bq_twelve_goats_crossbow": 1,
+    "vom_fab_bracers_ganis": 1,
+    "vom_eagle_cape": 1,
+    "bq_sextant_brass_arc": 1,
+    "vom_brazen_bulwark": 1,
+    "bq_coalkell_maul": 1,
+    "bq_spider_crone_ivy_crown": 1,
+    "ul_derro_aklys": 1,
+    "vom_fab_wolfs_howl": 1,
+    "bq_horizon_glass_lens": 1,
+    "bq_birch_queen_mantle": 1
   }
 }

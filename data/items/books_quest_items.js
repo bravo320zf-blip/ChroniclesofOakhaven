@@ -180,10 +180,11 @@ window.OAKHAVEN.registerItems({
     type: "weapon",
     rarity: "rare",
     value: 140,
-    source: "The Raven's Call",
     atk: 4,
     might: 2,
-    desc: "+4 Attack, +2 Might. Heavy crimson-iron waraxe seized from the ogre lord of Nargenstal."
+    passives: { critRange: 11, bossDmgBonus: 4, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Nargenstal Cleave", icon: "🪓", charges: 2, dmgDice: "2d8", dmgStat: "might", dmgType: "fire", dot: { dmg: 3, turns: 3, label: "Red-Iron Sear" }, desc: "2/Quest: Heave Coalkell's red-hot waraxe for 2d8 + Might fire dmg and Red-Iron Sear (3/t, 3t)!" },
+    desc: "Heavy crimson-iron waraxe seized from the ogre lord of Nargenstal (+Crit, +4 vs Bosses, +2 Athletics) with Nargenstal Cleave."
   },
   "bq_dib_wagon_shield": {
     id: "bq_dib_wagon_shield",
@@ -1702,7 +1703,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     agility: 1,
     luck: 1,
-    desc: "+2 Arcana, +1 Agility, +1 Luck. Precision planar-calibrated brass keepsake from Vivi Sparksprocket."
+    passives: { spellDmgBonus: 2, skillBonus: { Perception: 2, Survival: 2, Lockpicking: 1 } },
+    activeAbility: { name: "Planar Bearing", icon: "📐", charges: 2, ooc: true, restoreLuck: 1, evadeTurns: 2, desc: "2/Quest: Sight along Vivi's calibrated brass arc to restore +1 Luck and Evade incoming strikes (2t)!" },
+    desc: "Precision planar-calibrated brass keepsake from Vivi Sparksprocket (+2 Spell Dmg, +2 Perception/Survival, +1 Lockpicking) with Planar Bearing."
   },
   "bq_arakiel_fallen_amulet": {
     id: "bq_arakiel_fallen_amulet",
@@ -1841,7 +1844,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 2,
     spirit: 2,
-    desc: "+2 AC, +2 Arcana, +2 Spirit. Rare planar glass rescued from the buried dreadwalker vault."
+    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: 1, skillBonus: { Arcana: 2, Perception: 2 } },
+    activeAbility: { name: "Refracted Starbeam", icon: "🔭", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "radiant", undeadDouble: true, shieldTurns: 2, desc: "2/Quest (2 MP): Focus planar horizon-light for 3d8 + Arcana radiant dmg (2× vs Undead) and +3 AC (2t)!" },
+    desc: "Rare planar prism rescued from the buried dreadwalker vault (+3 Spell Dmg, -1 MP Cost, +1 MP/t, +2 Arcana/Perception) with Refracted Starbeam."
   },
   "bq_chaos_moon_astrolabe": {
     id: "bq_chaos_moon_astrolabe",
@@ -1989,7 +1994,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     spirit: 2,
     luck: 1,
-    desc: "+2 Arcana, +2 Spirit, +1 Luck. Ancient woven crown reclaimed from Mavra's House."
+    passives: { spellDmgBonus: 3, healBonus: 3, mpRegen: 1, skillBonus: { Herbalism: 2, Perception: 2 } },
+    activeAbility: { name: "Oracle's Briar Vision", icon: "🌿", charges: 2, mp: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreLuck: 1, chillTurns: 2, desc: "2/Quest (2 MP): Glimpse tangled fate to heal 2d8 + Spirit HP, restore +1 Luck, and rattle foes (-2 Enemy ATK, 2t)!" },
+    desc: "Ancient living ivy crown reclaimed from Mavra's House (+3 Spell Dmg, +3 Healing, +1 MP/t, +2 Herbalism/Perception) with Oracle's Briar Vision."
   },
   "bq_briar_king_blade": {
     id: "bq_briar_king_blade",
@@ -3136,9 +3143,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     spirit: 2,
     luck: 2,
-    passives: { goldFindPct: 15, healBonus: 3, skillBonus: { Persuasion: 3 } },
-    activeAbility: { name: "Royal Fair Grace", icon: "👑", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreLuck: 2, desc: "2/Quest: Invoke the Birch Queen's favor to restore 2d8 + Spirit HP and +2 Current Luck!" },
-    desc: "White-bark silk cloak from the Birch Queen's Fair (+15% Gold, +3 Healing, +3 Persuasion) with Royal Fair Grace."
+    passives: { goldFindPct: 15, healBonus: 3, dmgReduce: 1, skillBonus: { Persuasion: 3, Survival: 1 } },
+    activeAbility: { name: "Royal Fair Grace", icon: "👑", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreLuck: 2, shieldTurns: 2, desc: "2/Quest: Invoke the Birch Queen's favor to restore 2d8 + Spirit HP, +2 Current Luck, and +3 AC (2t)!" },
+    desc: "White-bark silk cloak from the Birch Queen's Fair (+15% Gold, +3 Healing, -1 Dmg Taken, +3 Persuasion, +1 Survival) with Royal Fair Grace."
   },
   "bq_fluttering_bridge_spear": {
     id: "bq_fluttering_bridge_spear",
