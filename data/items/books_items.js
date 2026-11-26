@@ -667,7 +667,13 @@ window.OAKHAVEN.registerItems({
     "value": 45,
     "ac": 2,
     "agility": 1,
-    "desc": "+2 AC, +1 Agility (Tome of Heroes)"
+    "passives": {
+      "dmgReduce": 1,
+      "skillBonus": {
+        "Stealth": 1
+      }
+    },
+    "desc": "Supple canvas-backed armor lined with overlapping riveted steel plates (-1 Dmg Taken, +1 Stealth)."
   },
   "bk_lamellar_armor": {
     "id": "bk_lamellar_armor",

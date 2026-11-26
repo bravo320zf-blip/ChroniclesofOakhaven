@@ -27,7 +27,7 @@ window.OAKHAVEN.registerItems({
       shadow_vestments:{ id:"shadow_vestments", name:"Shadow-Weave Armor", type:"armor", ac:4, agility:2, value:130, desc:"+4 AC, +2 Agility (Crafted)" },
 
       // Offhand
-      wooden_shield:   { id:"wooden_shield", name:"Wooden Buckler", type:"offhand", ac:1, value:14, desc:"+1 AC" },
+      wooden_shield:   { id:"wooden_shield", name:"Wooden Buckler", type:"offhand", ac:1, value:14, passives:{ dmgReduce:1 }, desc:"Iron-rimmed oak buckler (+1 AC, -1 Dmg Taken)." },
       apprentice_tome: { id:"apprentice_tome", name:"Apprentice Grimoire", type:"offhand", arcana:1, maxMp:2, value:25, desc:"+1 Arcana, +2 Max MP" },
       steel_shield:    { id:"steel_shield", name:"Steel Heater Shield", type:"offhand", ac:2, value:48, desc:"+2 AC" },
       sun_buckler:     { id:"sun_buckler", name:"Sun-Forged Buckler", type:"offhand", ac:2, spirit:1, value:75, desc:"+2 AC, +1 Spirit" },
@@ -41,7 +41,7 @@ window.OAKHAVEN.registerItems({
       warding_signet:  { id:"warding_signet", name:"Runic Warding Ring", type:"accessory", ac:2, luck:1, value:105, desc:"+2 AC, +1 Luck (Crafted)" },
 
       // Cloak / Boots
-      travel_cloak:    { id:"travel_cloak", name:"Traveler's Cloak", type:"cloak", ac:0, value:8, desc:"Weathered wool cloak" },
+      travel_cloak:    { id:"travel_cloak", name:"Traveler's Cloak", type:"cloak", ac:0, value:8, passives:{ skillBonus:{ Survival:1 } }, desc:"Weathered frontier wool cloak (+1 Survival)." },
       scout_cloak:     { id:"scout_cloak", name:"Thornwood Cloak", type:"cloak", ac:1, agility:1, value:45, passives:{ skillBonus:{ Stealth:1, Survival:1 } }, desc:"Leaf-mottled ranger's cloak woven in Thornwood (+1 Stealth, +1 Survival)." },
       shadow_boots:    { id:"shadow_boots", name:"Boots of Swiftness", type:"cloak", rarity:"uncommon", ac:1, agility:2, value:78, passives:{ skillBonus:{ Stealth:2, Athletics:1 } }, activeAbility:{ name:"Fleet-Foot Sidestep", icon:"👢", charges:1, evadeTurns:2, desc:"1/Quest: Blur across the battlefield in silent strides to Evade incoming strikes (2t)!" }, desc:"Supple stitched leather boots prized by frontier scouts (+2 Stealth, +1 Athletics) with Fleet-Foot Sidestep." },
       sea_coat:        { id:"sea_coat", name:"Saltfang Sea-Coat", type:"cloak", ac:2, luck:1, value:85, desc:"+2 AC, +1 Luck" },

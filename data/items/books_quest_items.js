@@ -885,11 +885,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 225,
-    source: "Last Gasp",
     ac: 2,
     might: 1,
     maxHp: 8,
-    desc: "+2 AC, +1 Might, +8 Max HP. Desert-glass vessel brimming with cool oasis air from the Tomb of Last Gasp."
+    passives: { dmgReduce: 3, healBonus: 4, skillBonus: { Survival: 3 } },
+    activeAbility: { name: "Oasis Second Wind", icon: "🏺", charges: 2, ooc: true, healDice: "3d8", healStat: "might", restoreMp: 4, shieldTurns: 2, desc: "2/Quest: Inhale the cool oasis air inside to restore 3d8 + Might HP, +4 MP, and +3 AC (2t)!" },
+    desc: "Desert-glass vessel brimming with cool oasis air from the Tomb of Last Gasp (-3 Dmg Taken, +4 Healing, +3 Survival) with Oasis Second Wind."
   }
 });
 
@@ -1212,7 +1213,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     agility: 2,
     luck: 1,
-    desc: "+2 AC, +2 Agility, +1 Luck. Silver-inlaid sea compass gifted aboard the Silver Slipper."
+    passives: { goldFindPct: 20, critRange: 11, skillBonus: { Perception: 3, Survival: 3 } },
+    activeAbility: { name: "True North Bearing", icon: "🧭", charges: 2, ooc: true, evadeTurns: 2, restoreLuck: 2, selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest: Sight through the silver fog-compass to outmaneuver fate — Evade (2t), +2 Luck, and +3 Attack (2t)!" },
+    desc: "Silver-inlaid sea compass gifted aboard the Silver Slipper (+20% Gold, +Crit, +3 Perception/Survival) with True North Bearing."
   }
 });
 

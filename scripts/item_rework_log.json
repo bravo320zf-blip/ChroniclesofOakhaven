@@ -1,6 +1,6 @@
 {
-  "totalPasses": 28,
-  "totalItemsReworked": 280,
+  "totalPasses": 29,
+  "totalItemsReworked": 290,
   "history": [
     {
       "pass": 1,
@@ -449,6 +449,22 @@
         "vom_buzzing_blade"
       ],
       "summary": "Reworked 5 Vault of Magic items (Fabled Golden Griffon Shield with Griffon summon, Gloves of the Walking Shade, Boots of the Grandmother, Buzzing Blade, Ring of Dragon's Discernment), Parrying Dagger, Blessed Mace, Steel Horde Command Visor, Bemmean Ley-Line Chime, and Legendary Storm-Bone Scepter of Bleakspire."
+    },
+    {
+      "pass": 29,
+      "items": [
+        "travel_cloak",
+        "wooden_shield",
+        "vom_witchs_circle",
+        "bk_brigandine",
+        "bq_silver_slipper_compass",
+        "ul_paragon_rot_blade",
+        "vom_constant_dagger",
+        "bq_last_gasp_ampoule",
+        "ul_swordbreaker_blade",
+        "vom_breaker_lance"
+      ],
+      "summary": "Reworked 3 Vault of Magic weapons (Witch's Circle, Constant Dagger, Breaker Lance), 2 Underworld Lairs blades (Spore-Bitten Greatsword, Swordbreaker Longsword), Captain Sara's Fog-Compass, Ampoule of Eternal Breath, Brigandine Armor, Wooden Buckler, and Traveler's Cloak."
     }
   ],
   "itemPasses": {
@@ -731,6 +747,16 @@
     "bk_parrying_dagger": 1,
     "bq_indigo_star_chime": 1,
     "bq_bleakspire_scepter": 1,
-    "vom_buzzing_blade": 1
+    "vom_buzzing_blade": 1,
+    "travel_cloak": 1,
+    "wooden_shield": 1,
+    "vom_witchs_circle": 1,
+    "bk_brigandine": 1,
+    "bq_silver_slipper_compass": 1,
+    "ul_paragon_rot_blade": 1,
+    "vom_constant_dagger": 1,
+    "bq_last_gasp_ampoule": 1,
+    "ul_swordbreaker_blade": 1,
+    "vom_breaker_lance": 1
   }
 }
