@@ -408,7 +408,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 7. A STARRY BREACH (6 PAGES • LV 3)
+  // 7. A STARRY BREACH (10 PAGES • LV 3)
   // ==========================================================
   bk_b10_p2_1_starry_breach: {
     id: "bk_b10_p2_1_starry_breach",
@@ -418,55 +418,99 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 3,
     autoDiscover: false,
     discoverySource: "Frostbitten Scout (Rusty Flagon Tavern)",
-    summary: "Brave a shimmering cosmic rift torn open in the frozen northern wastes, defeat the hoarding Void Wyrmling that has claimed decades of fallen explorers' gear, and claim the Void-Touched Buckler!",
-    totalPages: 6,
+    summary: "Brave a shimmering cosmic rift torn open in the frozen northern wastes, uncover a lost expedition's counter-key, shatter the void anchor-cairns, and defeat the hoarding Void Wyrmling guarding the Void-Touched Buckler!",
+    totalPages: 10,
     pages: {
       1: {
-        zone: "Frozen Rift Clearing",
-        title: "Starlight in the Snow",
+        zone: "Frostbitten Trailhead",
+        title: "Twilight Above the Snowline",
         safeRetreat: true,
-        text: "Hovering over frozen explorer corpses pulses a jagged tear into starry blackness! A sleek, star-flecked Void Wyrmling swoops down with a crackling cosmic hiss!",
-        enemy: { name: "Breach Void Wyrmling", desc: "Young cosmic dragon hoarding fallen explorers' relics.", hp: 36, ac: 13, atk: 6, dmg: 6, xp: 105, gold: 75, items: ["bq_void_touched_buckler"] },
+        text: "Frostbitten scout Halvar warned you of impossible noon-day stars hanging over the northern glacier-pass. Standing atop the windswept ridge, you see it for yourself: a jagged tear into silent, starry blackness hovers twenty feet above the snow-bowl, pulling drifting snowflakes upward in slow silver spirals! Half-buried in the drifts below lie the canvas tents of an overdue surveying expedition—while strange crystalline sparks dance along the snow-rim.",
         choices: [
-          { t: "Shatter the frost-runes anchoring the Starry Breach and recover the explorers' pouch!", to: 2, onChoose: { gold: 50, msg: "Recovered 50 GP and two potions from the frozen camp!" } }
+          { t: "Study the unnatural starlight and snow-drifts to spot the breach's anchor-stones.", badge: "Perception / Survival DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 2, failDmg: 3, passMsg: "You trace three glowing frost-cairns pinning the starry tear open!", failMsg: "A sudden void-chilled squall bites your face (-3 HP) as you crest the bluff." }, onPass: { cw: "RIFT_STUDIED", xp: 20, msg: "Mapped the breach's gravity pockets (RIFT_STUDIED, +20 XP)!" } },
+          { t: "Circle leeward behind the buried expedition tents to search for supplies unseen.", badge: "Stealth DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 3, fail: 4, passMsg: "You slip silently down the snow-bank right to the surveyors' tent!", failMsg: "Crusty snow crunches loudly—crystalline shapes peel off the rift and swoop down!" } },
+          { t: "Descend straight into the snow-bowl toward the humming starry tear.", to: 4 }
         ]
       },
       2: {
-        zone: "Quiet Snowfield",
-        title: "Portal Collapsed",
-        text: "The starry rift snaps shut in a swirl of harmless snowflakes—though old legends whisper other breaches may lurk deeper in the wastes.",
+        zone: "Glacier Ridge",
+        title: "The Anchor-Cairns",
+        text: "From the wind-scoured bluff you can see the full geometry of the anomaly: three frost-encrusted standing stones etched with spiraling void-glyphs hum around the clearing, acting as anchors for the starry tear. Beside the eastern stone sits the half-collapsed expedition tent, where a shuttered brass lantern still glows faintly beneath the drift.",
         choices: [
-          { t: "Mark the ridge and head back to town.", to: 3 }
+          { t: "Slip down to the half-collapsed expedition tent to search for notes and supplies.", to: 3 },
+          { t: "Move directly on the humming eastern Rune-Cairn to destabilize the breach!", to: 5 }
         ]
       },
       3: {
-        zone: "Northern Trail",
-        title: "Safe Horizon",
-        text: "The strange twilight distortion fades from the clouds.",
+        zone: "The Frozen Camp",
+        title: "The Surveyors' Last Stand",
+        text: "Inside the wind-torn canvas tent rests the frost-preserved journal of Cartographer Elin, a sealed brass flask of spiced mountain brandy (+8 HP), 35 GP in expedition coin, and a slender silver tuning-fork tagged 'Void-Harmonic Counter-Key'. Her final scrawled entry warns: 'The rift isn't empty—a young Void Wyrmling nested inside our supply sled, hoarding our steel! Strike this silver fork against an anchor-cairn to scramble its gravity-breath!'",
+        onEnter: { cw: "SILVER_FORK", healHp: 8, gold: 35, xp: 20, msg: "Recovered Elin's journal, the Silver Counter-Fork (SILVER_FORK), +8 HP, & 35 GP (+20 XP)!" },
         choices: [
-          { t: "Report to the Oakhaven Guildhall.", to: 4 }
+          { t: "Slip toward the eastern Rune-Cairn to test the Silver Counter-Fork first!", to: 5 },
+          { t: "Stride straight into the Frozen Rift Clearing to face the wyrmling!", to: 6 }
         ]
       },
       4: {
-        zone: "Oakhaven Guildhall",
-        title: "Breach Logged",
-        text: "Guild scouts reward your swift containment.",
+        zone: "Snow-Bowl Rim",
+        title: "Star-Touched Ice Mephits",
+        text: "As you wade into the knee-deep drifts, jagged shards of starlight peel off the hovering breach and coalesce into three cackling Void-Touched Ice Mephits, their crystalline wings trailing frozen stardust!",
+        enemy: { name: "Void-Touched Ice Mephits", desc: "Crystalline frost-sprites warped by cosmic starlight.", hp: 24, ac: 12, atk: 5, dmg: 5, xp: 55, gold: 25, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["RIFT_STUDIED"] },
         choices: [
-          { t: "Collect your coin.", to: 5 }
+          { t: "Duck into the nearby half-buried surveyors' tent to search for supplies.", to: 3 },
+          { t: "Advance to the humming eastern Rune-Cairn anchoring the Starry Breach.", to: 5 }
         ]
       },
       5: {
-        zone: "Rusty Flagon Tavern",
-        title: "Warming Up",
-        text: "Your new Void-Touched Buckler shimmers faintly by the hearth.",
+        zone: "Eastern Rune-Cairn",
+        title: "Breaking the Anchor",
+        text: "Frost-rimmed void-glyphs pulse violet across the waist-high standing stone, feeding cold cosmic gravity straight into the hovering tear. High above the clearing, a sleek star-flecked shadow circles lazily over its glittering hoard of fallen explorers' gear!",
         choices: [
-          { t: "Complete the adventure.", to: 6 }
+          { t: "Strike Elin's Silver Counter-Fork against the standing stone to shatter its harmonic tether!", reqCw: "SILVER_FORK", badge: "SILVER_FORK", to: 6, onChoose: { cw: "ANCHOR_BROKEN", xp: 25, msg: "A pure silver note shatters the void-glyphs—the Starry Breach flickers violently (ANCHOR_BROKEN, +25 XP)!" } },
+          { t: "Blast the frost-runes with Firebolt to crack the anchor-stone!", reqSpell: "Firebolt", badge: "Firebolt", to: 6, onChoose: { cw: "ANCHOR_BROKEN", xp: 25, msg: "Superheated steam cracks the anchor-stone in two, destabilizing the rift (ANCHOR_BROKEN, +25 XP)!" } },
+          { t: "Unravel the void-glyphs with Arcana or topple the stone with Might!", badge: "Arcana / Might DC 12", check: { stat: "arcana", skill: "Arcana", dc: 12, pass: 6, fail: 6, failDmg: 4, passMsg: "The violet glyphs flare and die—the starry rift shudders overhead!", failMsg: "Cold void-backlash singes your hands (-4 HP) as the wyrmling dives!" }, onPass: { cw: "ANCHOR_BROKEN", xp: 25 } }
         ]
       },
       6: {
+        zone: "Frozen Rift Clearing",
+        title: "Starlight in the Snow",
+        text: "Hovering directly beneath the jagged tear into starry blackness crouches the Breach Void Wyrmling—sleek midnight scales speckled with miniature constellations, talons curled around decades of fallen explorers' relics and a gleaming Void-Touched Buckler! With a crackling cosmic hiss that bends the falling snow sideways, it lunges!",
+        enemy: { name: "Breach Void Wyrmling", desc: "Young cosmic dragon hoarding fallen explorers' relics.", hp: 36, ac: 13, atk: 6, dmg: 6, xp: 105, gold: 75, items: ["bq_void_touched_buckler"], weakCw: ["ANCHOR_BROKEN", "RIFT_STUDIED"] },
+        choices: [
+          { t: "Claim the Void-Touched Buckler and collapse the destabilized Starry Breach!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Frozen Rift Clearing",
+        title: "Closing the Starry Tear",
+        text: "With the wyrmling vanquished, the jagged tear overhead groans like ripping silk, tugging loose snow and scattered packs upward into the freezing dark! Half-pinned beneath the final frost-rune stone glints the surveyors' locked pay-pouch.",
+        choices: [
+          { t: "Use the broken anchor's leverage to seal the rift and snatch the pay-pouch cleanly!", reqCw: "ANCHOR_BROKEN", badge: "ANCHOR_BROKEN", to: 8, onChoose: { gold: 50, items: rollRandomLoot(["consumable"], 1, "uncommon"), xp: 20, msg: "Sealed the breach cleanly and recovered 50 GP plus a frost-preserved potion (+20 XP)!" } },
+          { t: "Topple the final frost-rune pillar and grab the pay-pouch before the tear snaps shut!", badge: "Athletics / Arcana DC 11", check: { stat: "might", skill: "Athletics", dc: 11, pass: 8, fail: 8, failDmg: 3, passMsg: "You kick the last stone over and snag the full pay-pouch just as the sky seals!", failMsg: "A whipped ice-shard grazes your cheek (-3 HP), though you still rescue 35 GP!" }, onPass: { gold: 50, items: rollRandomLoot(["consumable"], 1, "uncommon"), xp: 20 }, onFail: { gold: 35 } },
+          { t: "Smash the last frost-rune immediately to seal the breach without risking the debris!", to: 8, onChoose: { gold: 25, msg: "Collapsed the Starry Breach safely and gathered 25 GP from the snow!" } }
+        ]
+      },
+      8: {
+        zone: "Quiet Snowfield",
+        title: "Portal Collapsed",
+        text: "With a soft chime like shattering frost-glass, the Starry Breach folds inward and vanishes in a swirl of harmless snowflakes. The afternoon sky clears to crisp northern blue—though Elin's salvaged journal warns that other cosmic tears may slumber deeper beyond the glacier-line.",
+        choices: [
+          { t: "Carry Elin's journal and the Void-Touched Buckler back down the northern trail to Oakhaven.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Oakhaven Guildhall & Rusty Flagon",
+        title: "Warmth After the Void",
+        text: "At the Guildhall, the cartographers solemnly accept Elin's recovered field notes so her expedition is honored, paying your containment bounty in full. Later by the roaring hearth of the Rusty Flagon, scout Halvar buys you a steaming mug of mulled wine as your new Void-Touched Buckler shimmers faintly with harmless starlight.",
+        onEnter: { healHp: 10, msg: "Halvar's mulled wine and the hearthfire restore +10 HP!" },
+        choices: [
+          { t: "Complete the adventure.", to: 10 }
+        ]
+      },
+      10: {
         zone: "Epilogue",
         title: "Closer of the Starry Breach",
-        text: "The frozen rift is sealed and the wyrmling's reign is ended.",
+        text: "The frozen rift is sealed, the hoarding Void Wyrmling's reign is ended, and the northern glacier-pass lies safe beneath honest winter skies once more.",
         ending: { type: "true", title: "Warden of the Starry Breach", xp: 145, gold: 135, trophy: "Star-Frosted Wyrmling Scale" },
         choices: []
       }

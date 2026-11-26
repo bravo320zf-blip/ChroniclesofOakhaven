@@ -1,5 +1,5 @@
 {
-  "totalPasses": 19,
+  "totalPasses": 20,
   "history": [
     {
       "pass": 1,
@@ -133,6 +133,13 @@
       "title": "Lost and Found",
       "file": "data/quests/books_quests_batch_023.js",
       "summary": "Fixed invalid 'lore' stat check to Arcana and expanded from 8 linear pages to 11 branching urban-caper pages with a Bookshop Alley Courier's Dead-Drop side-scene (COURIER_KEY, +35 GP, Vesper's bribe-slip), HOUSE_KNOWN instant-trust branch with RS, coal-chute Stealth flank, Rooftop Eaves bribed watchman & Firebolt fireworks sabotage (WATCHMAN_GONE / VESPER_DAZZLED), and a Loose Ends Tied epilogue bonus (+35 GP)."
+    },
+    {
+      "pass": 20,
+      "questId": "bk_b10_p2_1_starry_breach",
+      "title": "A Starry Breach",
+      "file": "data/quests/books_quests_batch_010.js",
+      "summary": "Replaced 4 one-line filler pages and expanded from 1 single fight to a full 10-page frozen-wastes expedition with Halvar's ridge hook (RIFT_STUDIED), Stealth/camp investigation yielding Cartographer Elin's journal & Silver Counter-Fork (SILVER_FORK, +8 HP, 35 GP), Void-Touched Ice Mephits skirmish, Eastern Rune-Cairn sabotage via SILVER_FORK/Firebolt/Arcana (ANCHOR_BROKEN), and an interactive breach-closing climax."
     }
   ],
   "questPasses": {
@@ -154,6 +161,7 @@
     "bk_bol_02_everforge": 1,
     "thornwood_part2": 1,
     "bk_pt_06_rough_run": 1,
-    "bk_b23_lost_and_found": 1
+    "bk_b23_lost_and_found": 1,
+    "bk_b10_p2_1_starry_breach": 1
   }
 }
