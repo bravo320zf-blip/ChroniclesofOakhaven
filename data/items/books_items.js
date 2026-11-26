@@ -172,11 +172,25 @@ window.OAKHAVEN.registerItems({
     "type": "accessory",
     "rarity": "rare",
     "value": 135,
-    "source": "Tome of Heroes",
     "ac": 1,
     "luck": 2,
     "maxHp": 6,
-    "desc": "+1 AC, +2 Luck, +6 Max HP (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "dmgReduce": 1,
+      "skillBonus": { "Perception": 2, "Athletics": 1 }
+    },
+    "activeAbility": {
+      "name": "Catch & Return",
+      "icon": "🧤",
+      "charges": 2,
+      "dmgDice": "2d8",
+      "dmgStat": "agility",
+      "dmgType": "physical",
+      "evadeTurns": 2,
+      "desc": "2/Quest: Deflect an incoming strike and whip back a razor counter-shot for 2d8 + Agility dmg and Evade (2t)!"
+    },
+    "desc": "Reinforced archer's leather gauntlets stitched for mid-air deflection (+Crit, -1 Dmg Taken, +2 Perception, +1 Athletics) with Catch & Return."
   },
   "bk_giantstrike_cestus": {
     "id": "bk_giantstrike_cestus",

@@ -1,6 +1,6 @@
 {
-  "totalPasses": 36,
-  "totalItemsReworked": 360,
+  "totalPasses": 37,
+  "totalItemsReworked": 370,
   "history": [
     {
       "pass": 1,
@@ -577,6 +577,22 @@
         "vom_hazelwood_wand"
       ],
       "summary": "Reworked Fabled Wanderer's Book, Legendary Crown of the Pharaoh, Nightreaver's Bloodstone Dagger, Lantern Dragonette Familiar, Radka's Sanguine Whip, Crocodile Armor, Umbral Band, Slippers of the Cat, Holzanger Crypt Ward-Key, and Hazelwood Wand."
+    },
+    {
+      "pass": 37,
+      "items": [
+        "vom_grasping_shield",
+        "bk_fletcher_s_retort_gloves",
+        "vom_brass_clockwork_staff",
+        "bq_everforge_adamantine",
+        "vom_rust_monster_shell",
+        "vom_chainbreaker_blade",
+        "bq_ocras_chrono_lens",
+        "bq_gravebinder_shroud",
+        "vom_fab_red_bulette",
+        "vom_lockbreaker"
+      ],
+      "summary": "Reworked Fabled Red Bulette's Hide, Ocras's Void-Vessel Visor, Siwal Gravebinder Shroud, Everforge Adamantine Chain, Fletcher's Retort Gloves, Rust Monster Shell, Brass Clockwork Staff, Chainbreaker Blade, Grasping Shield, and Lockbreaker Stiletto."
     }
   ],
   "itemPasses": {
@@ -939,6 +955,16 @@
     "vom_slippers_cat": 1,
     "ul_radka_sanguine_whip": 1,
     "vom_crown_pharaoh": 1,
-    "vom_hazelwood_wand": 1
+    "vom_hazelwood_wand": 1,
+    "vom_grasping_shield": 1,
+    "bk_fletcher_s_retort_gloves": 1,
+    "vom_brass_clockwork_staff": 1,
+    "bq_everforge_adamantine": 1,
+    "vom_rust_monster_shell": 1,
+    "vom_chainbreaker_blade": 1,
+    "bq_ocras_chrono_lens": 1,
+    "bq_gravebinder_shroud": 1,
+    "vom_fab_red_bulette": 1,
+    "vom_lockbreaker": 1
   }
 }

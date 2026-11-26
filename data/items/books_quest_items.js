@@ -255,10 +255,11 @@ window.OAKHAVEN.registerItems({
     type: "armor",
     rarity: "rare",
     value: 160,
-    source: "Book of Lairs",
     ac: 3,
     maxHp: 6,
-    desc: "+3 AC, +6 Max HP. Masterwork dwarven mail gifted by Polla of the Lost Halls of Everforge."
+    passives: { dmgReduce: 2, thornsDmg: 2, bossDmgBonus: 3 },
+    activeAbility: { name: "Adamantine Bulwark", icon: "⛓️", charges: 2, shieldTurns: 3, healBase: 6, desc: "2/Quest: Brace the unbreakable Everforge links for +3 AC (3t) and steady yourself (+6 HP)!" },
+    desc: "Masterwork dwarven adamantine mail gifted by Polla of the Lost Halls of Everforge (-2 Dmg Taken, 2 Thorns, +3 vs Bosses) with Adamantine Bulwark."
   },
   "bq_rotten_king_mask": {
     id: "bq_rotten_king_mask",
@@ -828,11 +829,12 @@ window.OAKHAVEN.registerItems({
     type: "cloak",
     rarity: "very_rare",
     value: 295,
-    source: "Empire of the Ghouls",
     ac: 2,
     agility: 2,
     spirit: 2,
-    desc: "+2 AC, +2 Agility, +2 Spirit. Desert linen ward allowing mortals to walk unseen among the undead."
+    passives: { undeadDmgBonus: 6, dmgReduce: 2, skillBonus: { Stealth: 3, Survival: 2 } },
+    activeAbility: { name: "Veil of the Tomb-Walker", icon: "🪦", charges: 2, mp: 2, ooc: true, evadeTurns: 3, healBase: 10, desc: "2/Quest (2 MP): Wrap in consecrated desert linen to Evade strikes (3t) and restore +10 HP!" },
+    desc: "Consecrated desert linen shroud letting mortals walk unseen among the undead (+6 vs Undead, -2 Dmg Taken, +3 Stealth, +2 Survival) with Veil of the Tomb-Walker."
   },
   "bq_narosain_underworld_staff": {
     id: "bq_narosain_underworld_staff",
@@ -1768,7 +1770,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 2,
     maxMp: 5,
-    desc: "+2 AC, +2 Arcana, +5 Max MP. Star-iron optical lens salvaged from the Shattered Halls."
+    passives: { spellDmgBonus: 3, mpRegen: 1, critRange: 11, skillBonus: { Perception: 3, Arcana: 2 } },
+    activeAbility: { name: "Chrono-Sight Lock", icon: "🔭", charges: 2, mp: 2, dmgDice: "3d6", dmgStat: "arcana", dmgType: "arcane", guaranteedCrit: true, chillTurns: 2, desc: "2/Quest (2 MP): Trace future trajectories through star-iron lenses for a guaranteed critical 3d6 + Arcana arcane blast and Chill (2t)!" },
+    desc: "Star-iron optical visor salvaged from the Shattered Halls (+3 Spell Dmg, +1 MP/t, +Crit, +3 Perception, +2 Arcana) with Chrono-Sight Lock."
   },
   "bq_tumultuous_dark_mantle": {
     id: "bq_tumultuous_dark_mantle",
