@@ -1777,7 +1777,9 @@ window.OAKHAVEN.registerItems({
     agility: 2,
     arcana: 2,
     luck: 2,
-    desc: "+2 Agility, +2 Arcana, +2 Luck. Planar maze-key claimed from Everstrife's hoard."
+    passives: { spellDmgBonus: 3, mpRegen: 1, skillBonus: { Arcana: 3, Stealth: 2 } },
+    activeAbility: { name: "Planar Maze-Step", icon: "🗝️", charges: 2, mp: 2, evadeTurns: 2, restoreMp: 4, guaranteedCrit: true, desc: "2/Quest (2 MP): Fold space through the keystone — Evade attacks (2t), recover 4 MP, and guarantee a Critical Hit on your next strike!" },
+    desc: "Planar maze-key claimed from Everstrife's hoard (+3 Spell Dmg, +1 MP/turn, +3 Arcana, +2 Stealth) with Planar Maze-Step."
   },
   "bq_horizon_glass_lens": {
     id: "bq_horizon_glass_lens",
@@ -2807,9 +2809,9 @@ window.OAKHAVEN.registerItems({
     might: 2,
     spirit: 3,
     maxHp: 10,
-    passives: { dmgReduce: 3, undeadDmgBonus: 5, healBonus: 3 },
-    activeAbility: { name: "Angelic Pillar Ward", icon: "🌹", charges: 2, ooc: true, healDice: "2d10", healStat: "spirit", shieldTurns: 3, desc: "2/Quest: Invoke Hallowhall's angelic pillars — restore 2d10 + Spirit HP and gain +3 AC (3t)!" },
-    desc: "Royal kite-shield bearing Hallowhall's crossed blades, golden eye & rose (-3 dmg taken, +5 vs Undead, +3 Healing) with Angelic Pillar Ward."
+    passives: { dmgReduce: 3, thornsDmg: 3, undeadDmgBonus: 5, healBonus: 3, skillBonus: { Persuasion: 2 } },
+    activeAbility: { name: "Angelic Pillar Ward", icon: "🌹", charges: 2, ooc: true, healDice: "2d10", healStat: "spirit", shieldTurns: 3, restoreLuck: 1, desc: "2/Quest: Invoke Hallowhall's angelic pillars — restore 2d10 + Spirit HP, +1 Luck, and gain +3 AC (3t)!" },
+    desc: "Royal kite-shield bearing Hallowhall's crossed blades, golden eye & rose (-3 dmg taken, 3 Thorns, +5 vs Undead, +3 Healing, +2 Persuasion) with Angelic Pillar Ward."
   },
   "bq_dark_aerie_wingcloak": {
     id: "bq_dark_aerie_wingcloak",

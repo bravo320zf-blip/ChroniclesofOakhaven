@@ -463,10 +463,30 @@ window.OAKHAVEN.registerItems({
     "type": "weapon",
     "rarity": "uncommon",
     "value": 75,
-    "source": "Old Margreve",
     "atk": 3,
     "might": 1,
-    "desc": "+3 Attack, +1 Might (Old Margreve)"
+    "passives": {
+      "critRange": 11,
+      "skillBonus": {
+        "Herbalism": 2,
+        "Survival": 1
+      }
+    },
+    "activeAbility": {
+      "name": "Bramble-Hook Rend",
+      "icon": "🌿",
+      "charges": 2,
+      "dmgDice": "1d8",
+      "dmgStat": "might",
+      "dmgType": "physical",
+      "dot": {
+        "dmg": 3,
+        "turns": 3,
+        "label": "Briar Bleed"
+      },
+      "desc": "2/Quest: Hook and tear with living iron briars for 1d8 + Might dmg and Briar Bleed (3/t, 3t)!"
+    },
+    "desc": "Curved woodland iron sickle entwined with living thorns (+Crit, +2 Herbalism, +1 Survival) with Bramble-Hook Rend."
   },
   "bk_ward_against_wild_appetites": {
     "id": "bk_ward_against_wild_appetites",

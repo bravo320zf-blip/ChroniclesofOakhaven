@@ -106,7 +106,7 @@ window.OAKHAVEN.registerItems({
       ul_wytchlight_focus:   { id:"ul_wytchlight_focus", name:"Dru Wytchlight's Shadow-Orb", type:"offhand", rarity:"rare", ac:2, arcana:3, value:140, unique:true, desc:"+2 AC, +3 Arcana (The Throttle Unique)" },
 
       ul_breaker_lance:      { id:"ul_breaker_lance", name:"Sir Pravus's Breaker Lance", type:"weapon", rarity:"rare", atk:4, might:2, value:155, unique:true, desc:"+4 Attack, +2 Might (Shatters barriers)" },
-      ul_ghost_knight_helm:  { id:"ul_ghost_knight_helm", name:"Visor of the Closed Throat", type:"accessory", rarity:"rare", ac:2, might:1, spirit:1, value:135, unique:true, desc:"+2 AC, +1 Might, +1 Spirit (Pass Unique)" },
+      ul_ghost_knight_helm:  { id:"ul_ghost_knight_helm", name:"Visor of the Closed Throat", type:"accessory", rarity:"rare", ac:2, might:1, spirit:1, value:135, unique:true, passives:{ dmgReduce:2, undeadDmgBonus:4, skillBonus:{ Perception:2 } }, activeAbility:{ name:"Spectral Visor-Glare", icon:"🪖", charges:2, dmgDice:"2d6", dmgStat:"spirit", dmgType:"necrotic", chillTurns:2, shieldTurns:2, desc:"2/Quest: Slam the haunted visor shut to lash with chilling dread for 2d6 + Spirit necrotic dmg, Chill (2t), and +3 AC (2t)!" }, desc:"Haunted knight's visor claimed in the mountain pass (-2 Dmg Taken, +4 vs Undead, +2 Perception) with Spectral Visor-Glare." },
 
       ul_ebon_star_signet:   { id:"ul_ebon_star_signet", name:"Signet of the Ebon Star", type:"accessory", rarity:"rare", ac:2, arcana:2, luck:1, value:145, unique:true, desc:"+2 AC, +2 Arcana, +1 Luck (Starlit Unique)" },
 
@@ -118,7 +118,7 @@ window.OAKHAVEN.registerItems({
       ul_augrimm_pact_staff: { id:"ul_augrimm_pact_staff", name:"Augrimm's Pact-Lich Staff", type:"weapon", rarity:"legendary", atk:5, arcana:4, maxMp:8, value:240, unique:true, desc:"+5 Attack, +4 Arcana, +8 Max MP (Citadel Unique)" },
       ul_worm_carapace_mail: { id:"ul_worm_carapace_mail", name:"Petrified Worm-Scale Mail", type:"armor", rarity:"legendary", ac:5, might:2, maxHp:10, value:235, unique:true, desc:"+5 AC, +2 Might, +10 Max HP (Citadel Unique)" },
 
-      ul_impact_club:        { id:"ul_impact_club", name:"Savvess's Impact Club", type:"weapon", rarity:"very_rare", atk:5, might:2, value:190, unique:true, desc:"+5 Attack, +2 Might (Sunseeker Shaman's club)" },
+      ul_impact_club:        { id:"ul_impact_club", name:"Savvess's Impact Club", type:"weapon", rarity:"very_rare", atk:5, might:2, value:190, unique:true, passives:{ bossDmgBonus:4, critRange:11, skillBonus:{ Athletics:2 } }, activeAbility:{ name:"Sunseeker Concussion", icon:"🏏", charges:2, mp:2, dmgDice:"3d8", dmgStat:"might", dmgType:"radiant", stunTurns:1, selfBuffAtk:{ atk:3, turns:2 }, desc:"2/Quest (2 MP): Drive the sun-carved war club down in a shockwave for 3d8 + Might radiant dmg, Stun (1t), and +3 Attack (2t)!" }, desc:"Sun-etched heavy war club of the Sunseeker Shaman (+4 vs Bosses, +Crit, +2 Athletics) with Sunseeker Concussion." },
       ul_thunderbolt_hammer: { id:"ul_thunderbolt_hammer", name:"Reforged Hammer of Thunderbolts", type:"weapon", rarity:"legendary", atk:6, might:3, value:250, unique:true, desc:"+6 Attack, +3 Might (Dwarven Storm-Hammer)" },
 
       ul_impaling_pick:      { id:"ul_impaling_pick", name:"Impaling War Pick", type:"weapon", rarity:"very_rare", atk:5, agility:2, value:185, unique:true, desc:"+5 Attack, +2 Agility (Redoubt Unique)" },
