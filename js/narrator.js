@@ -13,13 +13,22 @@
   const STORAGE_KEY = "oakhaven_narrator_prefs_v1";
 
   const KOKORO_VOICES = [
+    { id: "bm_fable",    label: "Fable — British Storyteller (Expressive)" },
     { id: "bm_george",   label: "George — British Narrator (Warm)" },
+    { id: "am_fenrir",   label: "Fenrir — Deep Fantasy Narrator" },
+    { id: "af_heart",    label: "Heart — Expressive Narrator (Top Rated)" },
+    { id: "af_bella",    label: "Bella — Warm Storyteller" },
+    { id: "bf_lily",     label: "Lily — British Narrator (Natural)" },
     { id: "bm_lewis",    label: "Lewis — British Narrator (Deep)" },
     { id: "bm_daniel",   label: "Daniel — British Narrator (Crisp)" },
     { id: "bf_emma",     label: "Emma — British Narrator (Classic)" },
     { id: "bf_isabella", label: "Isabella — British Narrator (Lyrical)" },
+    { id: "bf_alice",    label: "Alice — British Narrator (Clear)" },
+    { id: "am_onyx",     label: "Onyx — Gravelly Deep (Blacksmith)" },
+    { id: "am_puck",     label: "Puck — Lively Rogue / Bard" },
     { id: "am_michael",  label: "Michael — American Narrator" },
-    { id: "af_heart",    label: "Heart — American (Expressive)" }
+    { id: "af_nicole",   label: "Nicole — Intimate Storyteller" },
+    { id: "af_nova",     label: "Nova — Bright & Clear" }
   ];
 
   const DEFAULT_PREFS = {
@@ -65,16 +74,16 @@
      PER-CHARACTER TOWN VOICE CASTING
      ------------------------------------------------------------ */
   const NAMED_TOWN_VOICES = {
-    bram:       { gender: "male",   kokoro: "bm_lewis",    pitch: 0.90, rateMul: 0.95, hints: ["ryan", "george", "guy", "daniel"] },
-    armory:     { gender: "male",   kokoro: "bm_lewis",    pitch: 0.80, rateMul: 0.92, hints: ["george", "brian", "christopher", "guy"] },
-    borin:      { gender: "male",   kokoro: "bm_lewis",    pitch: 0.80, rateMul: 0.92, hints: ["george", "brian", "christopher", "guy"] },
-    apothecary: { gender: "female", kokoro: "bf_emma",     pitch: 1.08, rateMul: 1.04, hints: ["sonia", "libbie", "aria", "emma", "jenny"] },
-    miri:       { gender: "female", kokoro: "bf_emma",     pitch: 1.08, rateMul: 1.04, hints: ["sonia", "libbie", "aria", "emma", "jenny"] },
-    curios:     { gender: "male",   kokoro: "bm_daniel",   pitch: 1.03, rateMul: 0.97, hints: ["daniel", "arthur", "ryan", "oliver"] },
-    orin:       { gender: "male",   kokoro: "bm_daniel",   pitch: 1.03, rateMul: 0.97, hints: ["daniel", "arthur", "ryan", "oliver"] },
-    temple:     { gender: "female", kokoro: "bf_isabella", pitch: 1.04, rateMul: 0.91, hints: ["libbie", "isabella", "serena", "sonia", "martha"] },
-    selene:     { gender: "female", kokoro: "bf_isabella", pitch: 1.04, rateMul: 0.91, hints: ["libbie", "isabella", "serena", "sonia", "martha"] },
-    tavern_bark:{ gender: "male",   kokoro: "am_michael",  pitch: 0.96, rateMul: 1.00, hints: ["guy", "michael", "ryan", "christopher"] }
+    bram:       { gender: "male",   kokoro: "bm_lewis",    pitch: 0.92, rateMul: 0.96, hints: ["andrew", "brian", "ryan", "george", "guy"] },
+    armory:     { gender: "male",   kokoro: "am_onyx",     pitch: 0.82, rateMul: 0.93, hints: ["brian", "christopher", "george", "guy"] },
+    borin:      { gender: "male",   kokoro: "am_onyx",     pitch: 0.82, rateMul: 0.93, hints: ["brian", "christopher", "george", "guy"] },
+    apothecary: { gender: "female", kokoro: "af_bella",    pitch: 1.05, rateMul: 1.03, hints: ["emma", "ava", "sonia", "libbie", "aria"] },
+    miri:       { gender: "female", kokoro: "af_bella",    pitch: 1.05, rateMul: 1.03, hints: ["emma", "ava", "sonia", "libbie", "aria"] },
+    curios:     { gender: "male",   kokoro: "bm_daniel",   pitch: 1.02, rateMul: 0.97, hints: ["ryan", "daniel", "andrew", "arthur"] },
+    orin:       { gender: "male",   kokoro: "bm_daniel",   pitch: 1.02, rateMul: 0.97, hints: ["ryan", "daniel", "andrew", "arthur"] },
+    temple:     { gender: "female", kokoro: "bf_lily",     pitch: 1.03, rateMul: 0.92, hints: ["ava", "libbie", "emma", "serena", "sonia"] },
+    selene:     { gender: "female", kokoro: "bf_lily",     pitch: 1.03, rateMul: 0.92, hints: ["ava", "libbie", "emma", "serena", "sonia"] },
+    tavern_bark:{ gender: "male",   kokoro: "am_puck",     pitch: 0.98, rateMul: 1.01, hints: ["andrew", "guy", "ryan", "brian"] }
   };
 
   function hashString(str) {
@@ -109,8 +118,8 @@
 
     const h = hashString(k || name || "npc");
     const gender = inferGender(name, role);
-    const maleKokoro = ["bm_george", "bm_lewis", "bm_daniel", "am_michael"];
-    const femaleKokoro = ["bf_emma", "bf_isabella", "af_heart"];
+    const maleKokoro = ["bm_fable", "am_fenrir", "bm_george", "bm_lewis", "bm_daniel", "am_puck", "am_onyx", "am_michael"];
+    const femaleKokoro = ["af_heart", "af_bella", "bf_lily", "bf_emma", "bf_isabella", "bf_alice", "af_nicole", "af_nova"];
     const pool = gender === "female" ? femaleKokoro : maleKokoro;
     const kokoro = pool[h % pool.length];
 
@@ -211,15 +220,16 @@
     const name = (v.name || "").toLowerCase();
     let score = 10;
 
-    // Top-tier cloud/OS neural voices
+    // Top-tier cloud/OS neural voices (Edge Multilingual Natural voices are the most lifelike!)
+    if (name.includes("multilingual") && (name.includes("natural") || name.includes("neural"))) score += 45;
     if (name.includes("natural") || name.includes("neural")) score += 100;
     if (name.includes("online")) score += 30;
     if (name.includes("enhanced") || name.includes("premium")) score += 60;
     if (name.includes("google")) score += 55;
 
-    // Fantasy audiobook feel: prefer UK English & warm narrator voices
+    // Fantasy audiobook feel: prefer UK English & top lifelike narrator voices
     if (lang.includes("gb") || name.includes("united kingdom") || name.includes("british") || name.includes("uk")) score += 22;
-    if (/(ryan|sonia|libbie|george|daniel|arthur|oliver|martha|serena|guy|aria|brian|christopher)/.test(name)) score += 16;
+    if (/(andrew|ava|brian|emma|ryan|sonia|libbie|george|daniel|arthur|oliver|martha|serena|guy|aria|christopher)/.test(name)) score += 18;
 
     // Penalize classic robotic voices so they're only used as fallback
     if (/(david|zira|mark|hazel|susan|espeak|compact)/.test(name) && !name.includes("natural") && !name.includes("neural")) {
