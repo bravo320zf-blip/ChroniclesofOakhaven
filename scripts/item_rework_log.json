@@ -1,6 +1,6 @@
 {
-  "totalPasses": 21,
-  "totalItemsReworked": 210,
+  "totalPasses": 22,
+  "totalItemsReworked": 220,
   "history": [
     {
       "pass": 1,
@@ -337,6 +337,22 @@
         "bq_rhydaas_adamantium_aegis"
       ],
       "summary": "Reworked Vengeful Coat from Vault of Magic lore, Chain Cilice, Katar Punch-Dagger, Red Craw Peacekeeper Axe, Emerald of the Spider's Eye, Cleansed Sycamore Harvest Sickle, and polished 4 signature quest relics."
+    },
+    {
+      "pass": 22,
+      "items": [
+        "bq_crystalline_prism_core",
+        "bk_knight_sergeant_s_surcoat",
+        "vom_staff_peaks",
+        "bq_yhandoulx_talon_cloak",
+        "bq_tangleside_thorn_buckler",
+        "bq_longest_shadow_blade",
+        "bq_starkfeather_cloak",
+        "frostbite_halberd",
+        "vom_searing_whip",
+        "vom_black_white_daggers"
+      ],
+      "summary": "Reworked 3 Vault of Magic items (Legendary Staff of the Peaks, Searing Whip, Black & White Daggers), Frostbite Halberd, Prism Core of the Sepulcher, Knight-Sergeant's Surcoat, Starkfeather Mantle, and polished 3 quest relics."
     }
   ],
   "itemPasses": {
@@ -549,6 +565,16 @@
     "bq_witchwillow_cloak": 1,
     "vom_vengeful_coat": 1,
     "bq_sycamore_golden_sickle": 1,
-    "bq_rhydaas_adamantium_aegis": 1
+    "bq_rhydaas_adamantium_aegis": 1,
+    "bq_crystalline_prism_core": 1,
+    "bk_knight_sergeant_s_surcoat": 1,
+    "vom_staff_peaks": 1,
+    "bq_yhandoulx_talon_cloak": 1,
+    "bq_tangleside_thorn_buckler": 1,
+    "bq_longest_shadow_blade": 1,
+    "bq_starkfeather_cloak": 1,
+    "frostbite_halberd": 1,
+    "vom_searing_whip": 1,
+    "vom_black_white_daggers": 1
   }
 }

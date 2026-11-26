@@ -219,10 +219,29 @@ window.OAKHAVEN.registerItems({
     "type": "cloak",
     "rarity": "uncommon",
     "value": 75,
-    "source": "Tome of Heroes",
     "ac": 1,
     "luck": 1,
-    "desc": "+1 AC, +1 Luck (Tome of Heroes)"
+    "passives": {
+      "dmgReduce": 1,
+      "skillBonus": {
+        "Persuasion": 2,
+        "Athletics": 1
+      }
+    },
+    "activeAbility": {
+      "name": "Sergeant's Rally",
+      "icon": "🛡️",
+      "charges": 2,
+      "ooc": true,
+      "shieldTurns": 2,
+      "selfBuffAtk": {
+        "atk": 2,
+        "turns": 2
+      },
+      "healBase": 5,
+      "desc": "2/Quest: Bark a crisp battle-order to restore 5 HP, gain +3 AC (2t), and +2 Attack (2t)!"
+    },
+    "desc": "Heraldic wool-and-mail officer's surcoat (-1 Dmg Taken, +2 Persuasion, +1 Athletics) with Sergeant's Rally."
   },
   "bk_medic_s_sash": {
     "id": "bk_medic_s_sash",

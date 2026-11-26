@@ -21,10 +21,11 @@ window.OAKHAVEN.registerItems({
     type: "cloak",
     rarity: "uncommon",
     value: 80,
-    source: "12 Peculiar Towers",
     ac: 1,
     agility: 1,
-    desc: "+1 AC, +1 Agility. Iridescent raven-plume cloak gifted by the Starkfeather Clan."
+    passives: { skillBonus: { Stealth: 2, Perception: 2 } },
+    activeAbility: { name: "Raven-Plume Sidestep", icon: "🪶", charges: 2, evadeTurns: 2, restoreLuck: 1, desc: "2/Quest: Dissolve into fluttering black feathers to Evade incoming strikes (2t) and recover +1 Luck!" },
+    desc: "Iridescent raven-plume cloak gifted by the Starkfeather Clan (+2 Stealth, +2 Perception) with Raven-Plume Sidestep."
   },
   "bq_dagny_warblade": {
     id: "bq_dagny_warblade",
@@ -1769,7 +1770,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 3,
     maxMp: 6,
-    desc: "+1 AC, +3 Arcana, +6 Max MP. Stabilized Mage-War crystal pulsing with pure focus."
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, mpRegen: 1, skillBonus: { Arcana: 3 } },
+    activeAbility: { name: "Prismatic Ray Focus", icon: "💎", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "arcane", restoreMp: 5, stunTurns: 1, desc: "2/Quest (2 MP): Refract stored Mage-War energy for 3d8 + Arcana dmg, Stun (1t), and recover 5 MP!" },
+    desc: "Stabilized Mage-War crystal pulsing with pure focus (+4 Spell Dmg, -1 MP Cost, +1 MP/turn, +3 Arcana) with Prismatic Ray Focus."
   },
   "bq_everstrife_portal_key": {
     id: "bq_everstrife_portal_key",
@@ -2774,9 +2777,9 @@ window.OAKHAVEN.registerItems({
     value: 170,
     ac: 2,
     agility: 2,
-    passives: { thornsDmg: 3, critRange: 11, skillBonus: { Stealth: 1 } },
-    activeAbility: { name: "Aviary Whirlwind", icon: "🦅", charges: 2, dmgDice: "2d6", dmgStat: "agility", dmgType: "physical", evadeTurns: 2, desc: "2/Quest: Flare razor feathers for 2d6 + Agility dmg and Evade (2t)!" },
-    desc: "Swamp-forged feather cloak seized in Yhandoulx Manor (3 Thorns, +Crit, +1 Stealth) with Aviary Whirlwind."
+    passives: { thornsDmg: 3, critRange: 11, skillBonus: { Stealth: 2, Perception: 1 } },
+    activeAbility: { name: "Aviary Whirlwind", icon: "🦅", charges: 2, dmgDice: "2d6", dmgStat: "agility", dmgType: "physical", dot: { dmg: 3, turns: 3, label: "Razor Plumes" }, evadeTurns: 2, desc: "2/Quest: Flare razor feathers for 2d6 + Agility dmg, Razor Plumes (3/t, 3t), and Evade (2t)!" },
+    desc: "Swamp-forged feather cloak seized in Yhandoulx Manor (3 Thorns, +Crit, +2 Stealth, +1 Perception) with Aviary Whirlwind."
   },
   "bq_qezzit_air_codex": {
     id: "bq_qezzit_air_codex",
@@ -2984,9 +2987,9 @@ window.OAKHAVEN.registerItems({
     atk: 3,
     agility: 2,
     arcana: 1,
-    passives: { critRange: 11, skillBonus: { Stealth: 3 } },
-    activeAbility: { name: "Twilight Twin-Strike", icon: "🌑", charges: 2, mp: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "shadow", multiStrike: 2, desc: "2/Quest (2 MP): Strike with both steel and your living shadow for 2 hits (1d8 + Agility each)!" },
-    desc: "Twin-edged shadow-fey huntsman's blade (+Crit, +3 Stealth) with Twilight Twin-Strike."
+    passives: { critRange: 11, lifesteal: 2, skillBonus: { Stealth: 3 } },
+    activeAbility: { name: "Twilight Twin-Strike", icon: "🌑", charges: 2, mp: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "shadow", multiStrike: 2, evadeTurns: 1, desc: "2/Quest (2 MP): Strike with both steel and your living shadow for 2 hits (1d8 + Agility each) and Evade (1t)!" },
+    desc: "Twin-edged shadow-fey huntsman's blade (+Crit, Lifesteal 2, +3 Stealth) with Twilight Twin-Strike."
   },
   "bq_white_worg_fang_charm": {
     id: "bq_white_worg_fang_charm",
@@ -3202,9 +3205,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     might: 2,
     maxHp: 8,
-    passives: { thornsDmg: 5, dmgReduce: 2 },
-    activeAbility: { name: "Briar-Wall Bash", icon: "🛡️", charges: 2, dmgDice: "2d6", dmgStat: "might", dmgType: "physical", shieldTurns: 2, desc: "2/Quest: Slam barbed briar-steel for 2d6 + Might dmg and +3 AC (2t)!" },
-    desc: "Wasteland buckler ringed in living iron-thorns (5 Thorns, -2 Dmg Taken) with Briar-Wall Bash."
+    passives: { thornsDmg: 5, dmgReduce: 2, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Briar-Wall Bash", icon: "🛡️", charges: 2, dmgDice: "2d6", dmgStat: "might", dmgType: "physical", dot: { dmg: 3, turns: 3, label: "Iron Thorns" }, shieldTurns: 2, desc: "2/Quest: Slam barbed briar-steel for 2d6 + Might dmg, Iron Thorns (3/t, 3t), and +3 AC (2t)!" },
+    desc: "Wasteland buckler ringed in living iron-thorns (5 Thorns, -2 Dmg Taken, +2 Survival) with Briar-Wall Bash."
   },
   "bq_chaos_drake_scale_mail": {
     id: "bq_chaos_drake_scale_mail",

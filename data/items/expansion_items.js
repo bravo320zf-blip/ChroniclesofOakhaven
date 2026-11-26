@@ -21,7 +21,7 @@ window.OAKHAVEN.registerItems({
       velvet_mantle:       { id:"velvet_mantle", name:"Velvet Mantle", type:"cloak", ac:2, spirit:1, value:65, passives:{ goldFindPct:10, skillBonus:{ Persuasion:1 } }, desc:"Plush nobleman's velvet mantle that commands respect (+1 Persuasion, +10% Gold Found)." },
 
       // --- Quest 1 Uniques: The Frostpeak Ice-Caverns (2 Unique Items) ---
-      frostbite_halberd:   { id:"frostbite_halberd", name:"Frostbite Halberd", type:"weapon", atk:4, might:1, value:135, unique:true, desc:"+4 Attack, +1 Might (Frostpeak Unique)" },
+      frostbite_halberd:   { id:"frostbite_halberd", name:"Frostbite Halberd", type:"weapon", rarity:"rare", atk:4, might:1, value:135, unique:true, passives:{ bossDmgBonus:3, critRange:11, skillBonus:{ Survival:2 } }, activeAbility:{ name:"Glacial Cleave", icon:"❄️", charges:2, dmgDice:"2d8", dmgStat:"might", dmgType:"cold", chillTurns:3, stunTurns:1, desc:"2/Quest: Sweep the rime-encrusted halberd for 2d8 + Might cold dmg, Chill (3t), and Stun (1t)!" }, desc:"Rime-encrusted Frostpeak polearm (+3 vs Bosses, +Crit, +2 Survival) with Glacial Cleave." },
       winterheart_pendant: { id:"winterheart_pendant", name:"Winterheart Pendant", type:"accessory", ac:2, spirit:2, value:120, unique:true, desc:"+2 AC, +2 Spirit (Frostpeak Unique)" },
 
       // --- Quest 2 Uniques: The Sunken Temple of Sseth (2 Unique Items) ---
