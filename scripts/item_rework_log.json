@@ -1,6 +1,6 @@
 {
-  "totalPasses": 20,
-  "totalItemsReworked": 200,
+  "totalPasses": 21,
+  "totalItemsReworked": 210,
   "history": [
     {
       "pass": 1,
@@ -321,6 +321,22 @@
         "bq_hallowhall_rose_aegis"
       ],
       "summary": "Milestone 200th item reworked! Upgraded 5 Vault of Magic items (including Legendary Ruby Crusher, Justicar's Mask, Mail of the Sword Master, Cloak of Petals, Ring of Light's Comfort), Sickle Of Thorns, Visor of the Closed Throat, Savvess's Impact Club, Everstrife's Keystone Sigil, and Rose & Blade Aegis of Hallowhall."
+    },
+    {
+      "pass": 21,
+      "items": [
+        "bq_red_craw_battleaxe",
+        "bq_spiders_eye_emerald",
+        "bk_katar",
+        "bq_blot_soul_lantern",
+        "bq_lenny_planar_cleaver",
+        "bk_chain_cilice",
+        "bq_witchwillow_cloak",
+        "vom_vengeful_coat",
+        "bq_sycamore_golden_sickle",
+        "bq_rhydaas_adamantium_aegis"
+      ],
+      "summary": "Reworked Vengeful Coat from Vault of Magic lore, Chain Cilice, Katar Punch-Dagger, Red Craw Peacekeeper Axe, Emerald of the Spider's Eye, Cleansed Sycamore Harvest Sickle, and polished 4 signature quest relics."
     }
   ],
   "itemPasses": {
@@ -523,6 +539,16 @@
     "ul_ghost_knight_helm": 1,
     "ul_impact_club": 1,
     "bq_everstrife_portal_key": 1,
-    "bq_hallowhall_rose_aegis": 1
+    "bq_hallowhall_rose_aegis": 1,
+    "bq_red_craw_battleaxe": 1,
+    "bq_spiders_eye_emerald": 1,
+    "bk_katar": 1,
+    "bq_blot_soul_lantern": 1,
+    "bq_lenny_planar_cleaver": 1,
+    "bk_chain_cilice": 1,
+    "bq_witchwillow_cloak": 1,
+    "vom_vengeful_coat": 1,
+    "bq_sycamore_golden_sickle": 1,
+    "bq_rhydaas_adamantium_aegis": 1
   }
 }

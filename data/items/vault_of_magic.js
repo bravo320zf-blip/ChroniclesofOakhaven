@@ -346,7 +346,7 @@
       ["vom_swolbold_wraps", "Swolbold Wraps", "offhand", "rare", 90, { atk:2, might:2 }, "+2 Attack, +2 Might (Power-swelling wraps)", true],
       ["vom_timeworn_timepiece", "Timeworn Timepiece", "accessory", "rare", 98, { agility:2, luck:2 }, "+2 Agility, +2 Luck (Rerolls fate)", true],
       ["vom_torc_comet", "Torc of the Comet", "accessory", "rare", 96, { arcana:2, atk:1, ac:1 }, "+1 Attack, +1 AC, +2 Arcana (Opal frost torc)", true],
-      ["vom_vengeful_coat", "Vengeful Coat", "cloak", "rare", 95, { ac:2, atk:2 }, "+2 Attack, +2 AC (Counter-striking coat)", true],
+      ["vom_vengeful_coat", "Vengeful Coat", "cloak", "rare", 95, { ac:2, atk:2, passives:{ dmgReduce:2, thornsDmg:4 }, activeAbility:{ name:"Retaliatory Surge", icon:"🧥", charges:2, shieldTurns:2, selfBuffAtk:{ atk:3, turns:3 }, guaranteedCrit:true, desc:"2/Quest: Brace the ash-sap coat to harden defenses (+3 AC, 2t), fuel +3 Attack (3t), and guarantee a Critical Hit on your counterstrike!" } }, "Stiff ash-scented coat oozing dark sap that punishes attackers (-2 Dmg Taken, 4 Thorns) with Retaliatory Surge.", true],
       ["vom_voidskin_cloak", "Voidskin Cloak", "cloak", "rare", 96, { ac:2, agility:2, spirit:1 }, "+2 AC, +2 Agility, +1 Spirit", true],
       ["vom_whispering_cloak", "Whispering Cloak", "cloak", "rare", 98, { ac:3, agility:2, passives:{ critRange:11, skillBonus:{ Stealth:3, Perception:2 } }, activeAbility:{ name:"Shadow-Form Veil", icon:"🦇", charges:2, mp:1, evadeTurns:2, selfBuffAtk:{ atk:2, turns:2 }, desc:"2/Quest (1 MP): Pull the bat-pelt hood up to dissolve into pure shadow — Evade (2t) and +2 Attack (2t)!" } }, "Stitched bat-pelt cloak granting blindsight and shadow form (+Crit, +3 Stealth, +2 Perception) with Shadow-Form Veil.", true],
 

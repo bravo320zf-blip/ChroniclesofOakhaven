@@ -95,11 +95,25 @@ window.OAKHAVEN.registerItems({
     "type": "accessory",
     "rarity": "uncommon",
     "value": 75,
-    "source": "Tome of Heroes",
     "ac": 1,
     "luck": 1,
     "maxHp": 4,
-    "desc": "+1 AC, +1 Luck, +4 Max HP (Tome of Heroes)"
+    "passives": {
+      "dmgReduce": 1,
+      "thornsDmg": 2,
+      "healBonus": 1
+    },
+    "activeAbility": {
+      "name": "Penitent's Resolve",
+      "icon": "⛓️",
+      "charges": 2,
+      "ooc": true,
+      "healBase": 6,
+      "shieldTurns": 2,
+      "restoreLuck": 1,
+      "desc": "2/Quest: Draw grit from the iron links to steady yourself — restore 6 HP, +1 Luck, and gain +3 AC (2t)!"
+    },
+    "desc": "Spiked iron penitent's chain worn beneath armor (-1 Dmg Taken, 2 Thorns, +1 Healing) with Penitent's Resolve."
   },
   "bk_cloak_of_tentacles": {
     "id": "bk_cloak_of_tentacles",
@@ -678,7 +692,13 @@ window.OAKHAVEN.registerItems({
     "value": 28,
     "atk": 1,
     "agility": 1,
-    "desc": "+1 Attack, +1 Agility (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "skillBonus": {
+        "Stealth": 1
+      }
+    },
+    "desc": "Twin-barred horizontal punch-dagger built for swift close-quarters thrusts (+Crit, +1 Stealth)."
   },
   "bk_estoc": {
     "id": "bk_estoc",

@@ -661,11 +661,12 @@ window.OAKHAVEN.registerItems({
     type: "weapon",
     rarity: "very_rare",
     value: 375,
-    source: "Creature Codex Lairs",
     atk: 6,
     might: 2,
     maxHp: 6,
-    desc: "+6 Attack, +2 Might, +6 Max HP. Honored trollkin war-axe gifted after slaying the Venom Maw Hydra."
+    passives: { bossDmgBonus: 5, critRange: 11, lifesteal: 2, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Hydra-Slayer Cleave", icon: "🪓", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "might", dmgType: "physical", dot: { dmg: 4, turns: 3, label: "Venom Maw Rend" }, selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest (2 MP): Swing the trollkin war-axe for 3d8 + Might dmg, Venom Maw Rend (4/t, 3t), and +3 Attack (2t)!" },
+    desc: "Honored trollkin war-axe gifted after slaying the Venom Maw Hydra (+5 vs Bosses, +Crit, Lifesteal 2, +2 Athletics) with Hydra-Slayer Cleave."
   }
 });
 
@@ -1718,7 +1719,9 @@ window.OAKHAVEN.registerItems({
     value: 215,
     agility: 2,
     luck: 2,
-    desc: "+2 Agility, +2 Luck. Faceted trade-canyon gemstone prized by wasteland caravan masters."
+    passives: { goldFindPct: 20, critRange: 11, skillBonus: { Perception: 2, Persuasion: 2 } },
+    activeAbility: { name: "Caravan Master's Gambit", icon: "💚", charges: 2, evadeTurns: 2, restoreLuck: 1, guaranteedCrit: true, desc: "2/Quest: Peer through the emerald's facets to outsmart danger — Evade (2t), +1 Luck, and guarantee a Critical Hit!" },
+    desc: "Faceted trade-canyon gemstone prized by wasteland caravan masters (+20% Gold, +Crit, +2 Perception/Persuasion) with Caravan Master's Gambit."
   },
   "bq_ocras_chrono_lens": {
     id: "bq_ocras_chrono_lens",
@@ -2104,7 +2107,9 @@ window.OAKHAVEN.registerItems({
     value: 155,
     atk: 4,
     spirit: 1,
-    desc: "+4 Attack, +1 Spirit. Purified silvered sickle freed from the blood-soil cult."
+    passives: { undeadDmgBonus: 4, healBonus: 2, skillBonus: { Herbalism: 2 } },
+    activeAbility: { name: "Silver Harvest Reap", icon: "🌾", charges: 2, ooc: true, dmgDice: "2d6", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, healBase: 8, desc: "2/Quest: Sweep the purified silvered sickle for 2d6 + Spirit radiant dmg (2× vs Undead) and restore 8 HP!" },
+    desc: "Purified silvered sickle freed from the blood-soil cult (+4 vs Undead, +2 Healing, +2 Herbalism) with Silver Harvest Reap."
   },
   "bq_maestro_whisper_mask": {
     id: "bq_maestro_whisper_mask",
@@ -2387,9 +2392,9 @@ window.OAKHAVEN.registerItems({
     atk: 6,
     might: 2,
     agility: 2,
-    passives: { critRange: 11, lifesteal: 3, bossDmgBonus: 3 },
-    activeAbility: { name: "Fiendish Butcher's Rend", icon: "🔪", charges: 2, dmgDice: "2d10", dmgStat: "might", dmgType: "fire", dot: { dmg: 5, turns: 3, label: "Hellfire Bleed" }, desc: "2/Quest: Carve with planar-bound steel for 2d10 + Might fire dmg and Hellfire Bleed (5/t, 3t)!" },
-    desc: "Runed butcher's cleaver from a cursed roadside workshop (+Crit, Lifesteal 3, +3 vs Bosses) with Fiendish Butcher's Rend."
+    passives: { critRange: 11, lifesteal: 3, bossDmgBonus: 3, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Fiendish Butcher's Rend", icon: "🔪", charges: 2, dmgDice: "2d10", dmgStat: "might", dmgType: "fire", selfBuffAtk: { atk: 2, turns: 2 }, dot: { dmg: 5, turns: 3, label: "Hellfire Bleed" }, desc: "2/Quest: Carve with planar-bound steel for 2d10 + Might fire dmg, Hellfire Bleed (5/t, 3t), and +2 Attack (2t)!" },
+    desc: "Runed butcher's cleaver from a cursed roadside workshop (+Crit, Lifesteal 3, +3 vs Bosses, +2 Athletics) with Fiendish Butcher's Rend."
   },
   "bq_rhydaas_adamantium_aegis": {
     id: "bq_rhydaas_adamantium_aegis",
@@ -2401,9 +2406,9 @@ window.OAKHAVEN.registerItems({
     might: 3,
     spirit: 2,
     maxHp: 14,
-    passives: { dmgReduce: 4, thornsDmg: 5, bossDmgBonus: 4 },
-    activeAbility: { name: "Volcanic Bastion", icon: "🌋", charges: 2, dmgDice: "3d8", dmgStat: "might", dmgType: "fire", shieldTurns: 3, stunTurns: 1, desc: "2/Quest: Slam the molten shield for 3d8 + Might fire dmg, Stun (1t), and gain +3 AC (3t)!" },
-    desc: "Adamantium dragon-shield forged in the volcanic heart of Rhydaas (-4 dmg taken, 5 thorns, +4 vs Bosses) with Volcanic Bastion."
+    passives: { dmgReduce: 4, thornsDmg: 5, bossDmgBonus: 4, skillBonus: { Athletics: 3 } },
+    activeAbility: { name: "Volcanic Bastion", icon: "🌋", charges: 2, dmgDice: "3d8", dmgStat: "might", dmgType: "fire", dot: { dmg: 5, turns: 3, label: "Molten Slag" }, shieldTurns: 3, stunTurns: 1, desc: "2/Quest: Slam the molten shield for 3d8 + Might fire dmg, Molten Slag (5/t, 3t), Stun (1t), and gain +3 AC (3t)!" },
+    desc: "Adamantium dragon-shield forged in the volcanic heart of Rhydaas (-4 dmg taken, 5 thorns, +4 vs Bosses, +3 Athletics) with Volcanic Bastion."
   },
   "bq_seven_steeds_lantern": {
     id: "bq_seven_steeds_lantern",
@@ -2646,9 +2651,9 @@ window.OAKHAVEN.registerItems({
     arcana: 3,
     spirit: 3,
     maxMp: 10,
-    passives: { spellDmgBonus: 4, spellCostReduce: 1, lifesteal: 3, dmgReduce: 2 },
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, mpRegen: 1, lifesteal: 3, dmgReduce: 2, skillBonus: { Arcana: 3 } },
     activeAbility: { name: "Unbind Captured Starlight", icon: "🌌", charges: 2, ooc: true, dmgDice: "3d8", dmgStat: "arcana", dmgType: "radiant", healDice: "2d8", healStat: "spirit", restoreMp: 4, desc: "2/Quest: Free bottled starlight for 3d8 + Arcana radiant dmg while restoring 2d8 + Spirit HP & 4 MP!" },
-    desc: "Planar lantern forged from the shattered Cauldron of Souls (+4 Spell Dmg, -1 MP cost, Lifesteal 3, -2 dmg taken) with Unbind Captured Starlight."
+    desc: "Planar lantern forged from the shattered Cauldron of Souls (+4 Spell Dmg, -1 MP cost, +1 MP/turn, Lifesteal 3, -2 dmg taken, +3 Arcana) with Unbind Captured Starlight."
   },
   "bq_menalcas_sea_glaive": {
     id: "bq_menalcas_sea_glaive",
@@ -3028,9 +3033,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 2,
     agility: 1,
-    passives: { healBonus: 3, thornsDmg: 3, skillBonus: { Stealth: 2 } },
-    activeAbility: { name: "Weeping Bough Ward", icon: "🌿", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", evadeTurns: 2, desc: "2/Quest: Wrap in silver willow-mist to restore 2d8 + Spirit HP and gain Evade (2t)!" },
-    desc: "Silver-leaved fey cloak from Yffreyja's bower (+3 Healing, 3 Thorns, +2 Stealth) with Weeping Bough Ward."
+    passives: { healBonus: 3, thornsDmg: 3, skillBonus: { Stealth: 2, Herbalism: 2 } },
+    activeAbility: { name: "Weeping Bough Ward", icon: "🌿", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", evadeTurns: 2, chillTurns: 2, desc: "2/Quest: Wrap in silver willow-mist to restore 2d8 + Spirit HP, Evade (2t), and Chill foes (2t)!" },
+    desc: "Silver-leaved fey cloak from Yffreyja's bower (+3 Healing, 3 Thorns, +2 Stealth/Herbalism) with Weeping Bough Ward."
   },
   "bq_nazvaza_mask": {
     id: "bq_nazvaza_mask",
