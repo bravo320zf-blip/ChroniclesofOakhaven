@@ -168,7 +168,7 @@ def split_for_kokoro(text: str, max_len: int = 260):
     return chunks
 
 
-def synth_to_mp3(kokoro: Kokoro, text: str, voice: str, speed: float, out_path: Path):
+def synth_to_mp3(kokoro: Kokoro, text: str, voice: str, speed: float, out_path: Path, bitrate: int = 48):
     chunks = split_for_kokoro(text, 260)
     if not chunks:
         return False
@@ -189,7 +189,7 @@ def synth_to_mp3(kokoro: Kokoro, text: str, voice: str, speed: float, out_path: 
     pcm = np.clip(full * 32767.0, -32768, 32767).astype(np.int16)
 
     encoder = lameenc.Encoder()
-    encoder.set_bit_rate(48)
+    encoder.set_bit_rate(bitrate)
     encoder.set_in_sample_rate(sr)
     encoder.set_channels(1)
     encoder.set_quality(4)
@@ -298,6 +298,7 @@ def collect_town_jobs(data):
     # Reactive shopkeeper greetings from js/engine.js (static ones without hero name)
     reactive_shop_lines = [
         ("armory", "shop_armory_hc", "No second chances beyond the gates, iron-nerve. Let me check every strap and edge before you head back out."),
+        ("armory", "shop_armory_karak", "That dwarven ore from Karak-Zul still sings on my anvil — you've earned a smith's respect, friend!"),
         ("armory", "shop_armory_vet", "You've got the stance of a seasoned frontier veteran now. Time to trade up to heavier steel!"),
         ("apothecary", "shop_apoth_hurt", "Mercy, you've got fresh road-scrapes on you! Stock up on tonics before those bruises stiffen up."),
         ("apothecary", "shop_apoth_thorn", "Since you pushed back the Thornwood blight, my herb-pickers finally return with full baskets!"),
@@ -318,6 +319,8 @@ def collect_town_jobs(data):
         "A scarred sellsword raises a pewter mug in your direction: \"Hardcore blood, eh? One slip beyond the palisade and it's curtains — drink deep while you still draw breath!\"",
         "A weathered dockhand grins over his ale: \"Since you cleared out Saltfang Cove, the harbor lanterns have burned twice as bright!\"",
         "Two prospectors clink mugs near the fire: \"Heard someone braved Karak-Zul and walked back out — Borin's been humming at his forge all week!\"",
+        "The hearthside bard tunes a silver string: \"Deed after deed—Oakhaven's children already trade tales of your name in the square!\"",
+        "Old Bram wipes a mug and nods your way: \"Word travels fast down the frontier road, traveler. Good to see a proven blade back by the fire.\"",
     ]
     for idx, b in enumerate(barks):
         add("tavern_bark", f"bark_{idx+1}", b)
@@ -360,11 +363,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--town", action="store_true", help="Generate all Oakhaven town NPC & tavern voices")
     ap.add_argument("--enriched", action="store_true", help="Generate all core + enriched quests")
+    ap.add_argument("--all-quests", action="store_true", help="Generate all 325 quests in data/quests/*.js")
     ap.add_argument("--quests", type=str, default="", help="Comma-separated quest IDs to generate")
+    ap.add_argument("--bitrate", type=int, default=48, help="MP3 bitrate in kbps (32 or 48)")
     ap.add_argument("--limit", type=int, default=0, help="Optional cap on newly generated clips this run")
     args = ap.parse_args()
 
-    if not args.town and not args.enriched and not args.quests:
+    if not args.town and not args.enriched and not args.all_quests and not args.quests:
         ap.print_help()
         return
 
@@ -377,7 +382,9 @@ def main():
         jobs.extend(collect_town_jobs(data))
 
     quest_ids = []
-    if args.enriched:
+    if args.all_quests:
+        quest_ids.extend(sorted(data["adventures"].keys()))
+    elif args.enriched:
         # Core quests + all enriched quests from scripts/quest_enrichment_log.json
         core_ids = ["malakor", "thornwood_part1", "thornwood_part2", "saltfang", "st_jude", "karak_zul", "crimson_spire"]
         quest_ids.extend(core_ids)
@@ -426,7 +433,7 @@ def main():
     for idx, (key, rel, txt, voice, speed) in enumerate(todo, 1):
         out_path = ROOT / rel
         try:
-            ok = synth_to_mp3(kokoro, txt, voice, speed, out_path)
+            ok = synth_to_mp3(kokoro, txt, voice, speed, out_path, bitrate=args.bitrate)
             if ok:
                 manifest[key] = rel
                 generated += 1

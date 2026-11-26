@@ -77,7 +77,10 @@
   let kokoroWorkerReqId = 0;
   const kokoroPending = new Map();
   const kokoroAudioCache = new Map(); // LRU cache of synthesized clips (instant replay for town NPCs!)
-  const MAX_AUDIO_CACHE = 45;
+  const MAX_AUDIO_CACHE = 80;
+  const preloadedMp3Urls = new Set();
+  let preloadTimer = null;
+  let preloadActive = false;
   let kokoroModel = null;
   let kokoroLoadingPromise = null;
   let kokoroState = "idle"; // "idle" | "loading" | "ready" | "error"
@@ -1042,10 +1045,88 @@
     renderControls();
   }
 
+  /* ------------------------------------------------------------
+     SILENT BACKGROUND PRELOADER (WHILE IN OAKHAVEN TOWN)
+     1) Warms browser HTTP cache for pre-recorded MP3s of all active
+        Quest Board leads (0% CPU, ~20ms per clip).
+     2) Quietly pre-synthesizes the opening chunk of any un-recorded
+        Quest Board page in the background Web Worker while idle,
+        yielding immediately whenever the player speaks to an NPC.
+     ------------------------------------------------------------ */
+  function preloadForTown(activeQuests = []) {
+    if (preloadTimer) { clearTimeout(preloadTimer); preloadTimer = null; }
+    if (prefs.engine !== "kokoro") return;
+
+    const voiceId = prefs.kokoroVoice || "bm_lewis";
+    const effSpeed = Math.max(0.8, Math.min(1.35, Number(prefs.rate) || 1.0));
+    const mp3ToWarm = [];
+    const liveChunksToWarm = [];
+
+    (activeQuests || []).slice(0, 6).forEach(adv => {
+      if (!adv || !adv.pages) return;
+      const pageNums = Object.keys(adv.pages).sort((a, b) => Number(a) - Number(b));
+      pageNums.slice(0, 4).forEach((pn, idx) => {
+        const pg = adv.pages[pn];
+        if (!pg || !pg.text) return;
+        const cleaned = cleanTextForSpeech("", pg.text);
+        if (!cleaned) return;
+        const mp3 = findPreRecordedMp3(voiceId, cleaned);
+        if (mp3) {
+          if (!preloadedMp3Urls.has(mp3)) mp3ToWarm.push(mp3);
+        } else if (idx === 0) {
+          // Queue opening chunk of Page 1 for un-recorded board quests
+          const chunks = splitIntoChunks(cleaned, 150, 52);
+          if (chunks.length) {
+            const key = `${voiceId}|${effSpeed.toFixed(2)}|${chunks[0]}`;
+            if (!kokoroAudioCache.has(key)) liveChunksToWarm.push(chunks[0]);
+          }
+        }
+      });
+    });
+
+    // 1. Gently warm pre-recorded MP3 files into browser cache (zero CPU impact!)
+    if (mp3ToWarm.length > 0) {
+      let i = 0;
+      const warmNextMp3 = () => {
+        if (i >= mp3ToWarm.length) return;
+        const url = mp3ToWarm[i++];
+        preloadedMp3Urls.add(url);
+        fetch(url, { priority: "low" }).catch(() => {}).finally(() => {
+          setTimeout(warmNextMp3, 180);
+        });
+      };
+      setTimeout(warmNextMp3, 600);
+    }
+
+    // 2. If any active Quest Board quest is not yet pre-recorded, silently warm Page 1's opening chunk
+    //    in the background Web Worker while the player is idle in town!
+    if (liveChunksToWarm.length > 0 && !preloadActive) {
+      preloadTimer = setTimeout(async () => {
+        preloadTimer = null;
+        if (prefs.engine !== "kokoro" || playbackState !== "idle" || preloadActive) return;
+        preloadActive = true;
+        try {
+          // Only warm silently if worker is supported (never block main thread!)
+          if (kokoroWorkerFailed || typeof Worker === "undefined") return;
+          const myEpoch = runToken;
+          for (const chunk of liveChunksToWarm.slice(0, 3)) {
+            if (myEpoch !== runToken || playbackState !== "idle" || prefs.engine !== "kokoro") break;
+            await synthesizeKokoroChunk(chunk, voiceId, effSpeed, myEpoch);
+          }
+        } catch (_) {
+          // Silent background optimization — ignore errors
+        } finally {
+          preloadActive = false;
+        }
+      }, 2500);
+    }
+  }
+
   global.OAKHAVEN_NARRATOR = {
     initUI,
     setPage,
     speakAs,
+    preloadForTown,
     play,
     pause,
     resume,

@@ -2082,6 +2082,7 @@
       renderTown();
       renderSheet();
       startMapLoop();
+      window.OAKHAVEN_NARRATOR?.preloadForTown(getActiveBoardLeads());
     }
 
     function renderTown() {
