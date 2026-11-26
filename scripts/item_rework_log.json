@@ -1,6 +1,6 @@
 {
-  "totalPasses": 25,
-  "totalItemsReworked": 250,
+  "totalPasses": 26,
+  "totalItemsReworked": 260,
   "history": [
     {
       "pass": 1,
@@ -401,6 +401,22 @@
         "vom_fab_scorpion_sting"
       ],
       "summary": "Milestone 250th item reworked! Upgraded 2 Fabled Vault of Magic relics (Blood Spike Armor, Scorpion Sting Scimitar), Standard of Divinity, Legendary Augrimm's Pact-Lich Staff, Crystal-Edged Pickaxe, Novice's Cudgel, and 4 signature quest relics."
+    },
+    {
+      "pass": 26,
+      "items": [
+        "bq_borgandy_signet_blade",
+        "scout_cloak",
+        "bq_royal_amber_comb",
+        "shadow_boots",
+        "bq_aldous_black_hammer_signet",
+        "vom_valkyries_bite",
+        "vom_fab_oak_heart",
+        "echo_lantern",
+        "vom_rod_thorns",
+        "nf_amelera_mantle"
+      ],
+      "summary": "Reworked Fabled Oak Heart Figurine (with Treant summon), Valkyrie's Bite, Rod of Thorns, Legendary Shroud of the Ghost Witch, Echo-Glass Lantern, Thornwood Cloak, Boots of Swiftness, and 3 quest relics."
     }
   ],
   "itemPasses": {
@@ -653,6 +669,16 @@
     "bq_deep_ones_trident": 1,
     "vom_standard_divinity": 1,
     "vom_fab_blood_spike": 1,
-    "vom_fab_scorpion_sting": 1
+    "vom_fab_scorpion_sting": 1,
+    "bq_borgandy_signet_blade": 1,
+    "scout_cloak": 1,
+    "bq_royal_amber_comb": 1,
+    "shadow_boots": 1,
+    "bq_aldous_black_hammer_signet": 1,
+    "vom_valkyries_bite": 1,
+    "vom_fab_oak_heart": 1,
+    "echo_lantern": 1,
+    "vom_rod_thorns": 1,
+    "nf_amelera_mantle": 1
   }
 }

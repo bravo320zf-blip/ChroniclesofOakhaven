@@ -1315,7 +1315,9 @@ window.OAKHAVEN.registerItems({
     value: 95,
     atk: 3,
     agility: 1,
-    desc: "+3 Attack, +1 Agility. Razor-balanced blade seized from the Four Corners hideout."
+    passives: { critRange: 11, goldFindPct: 12, skillBonus: { Stealth: 2 } },
+    activeAbility: { name: "Syndicate Quick-Cut", icon: "🗡️", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "physical", dot: { dmg: 3, turns: 3, label: "Cutthroat Bleed" }, desc: "2/Quest: Flick the balanced shortsword for 1d8 + Agility dmg and Cutthroat Bleed (3/t, 3t)!" },
+    desc: "Razor-balanced shortsword seized from the Four Corners hideout (+Crit, +12% Gold, +2 Stealth) with Syndicate Quick-Cut."
   },
   "bq_belches_rime_horn": {
     id: "bq_belches_rime_horn",
@@ -1907,7 +1909,9 @@ window.OAKHAVEN.registerItems({
     value: 115,
     spirit: 1,
     maxHp: 6,
-    desc: "+1 Spirit, +6 Max HP. Sweet amber talisman gifted by the woodland bee-kin."
+    passives: { healBonus: 3, thornsDmg: 2, skillBonus: { Herbalism: 2 } },
+    activeAbility: { name: "Royal Nectar Balm", icon: "🍯", charges: 2, ooc: true, healDice: "2d6", healStat: "spirit", restoreMp: 3, desc: "2/Quest: Draw warm golden nectar from the amber comb to restore 2d6 + Spirit HP and 3 MP!" },
+    desc: "Sweet amber talisman gifted by the woodland bee-kin (+3 Healing, 2 Sting Thorns, +2 Herbalism) with Royal Nectar Balm."
   },
   "bq_incot_vengeance_blade": {
     id: "bq_incot_vengeance_blade",
@@ -2920,9 +2924,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     might: 2,
     luck: 2,
-    passives: { goldFindPct: 15, skillBonus: { Persuasion: 2, Lockpicking: 2 } },
-    activeAbility: { name: "Treasury Writ", icon: "🔨", charges: 2, dmgDice: "2d6", dmgStat: "might", dmgType: "physical", stunTurns: 1, desc: "2/Quest: Strike with iron-sealed authority for 2d6 + Might dmg and Stun (1t)!" },
-    desc: "Onyx hammer-crested noble signet (+15% Gold, +2 Persuasion, +2 Lockpicking) with Treasury Writ."
+    passives: { goldFindPct: 15, bossDmgBonus: 2, skillBonus: { Persuasion: 2, Lockpicking: 2 } },
+    activeAbility: { name: "Treasury Writ", icon: "🔨", charges: 2, dmgDice: "2d6", dmgStat: "might", dmgType: "physical", stunTurns: 1, restoreLuck: 1, desc: "2/Quest: Strike with iron-sealed authority for 2d6 + Might dmg, Stun (1t), and +1 Luck!" },
+    desc: "Onyx hammer-crested noble signet (+15% Gold, +2 vs Bosses, +2 Persuasion, +2 Lockpicking) with Treasury Writ."
   },
   "bq_twelve_goats_crossbow": {
     id: "bq_twelve_goats_crossbow",

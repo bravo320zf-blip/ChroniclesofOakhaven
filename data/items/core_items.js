@@ -42,8 +42,8 @@ window.OAKHAVEN.registerItems({
 
       // Cloak / Boots
       travel_cloak:    { id:"travel_cloak", name:"Traveler's Cloak", type:"cloak", ac:0, value:8, desc:"Weathered wool cloak" },
-      scout_cloak:     { id:"scout_cloak", name:"Thornwood Cloak", type:"cloak", ac:1, agility:1, value:45, desc:"+1 AC, +1 Agility" },
-      shadow_boots:    { id:"shadow_boots", name:"Boots of Swiftness", type:"cloak", ac:1, agility:2, value:78, desc:"+1 AC, +2 Agility" },
+      scout_cloak:     { id:"scout_cloak", name:"Thornwood Cloak", type:"cloak", ac:1, agility:1, value:45, passives:{ skillBonus:{ Stealth:1, Survival:1 } }, desc:"Leaf-mottled ranger's cloak woven in Thornwood (+1 Stealth, +1 Survival)." },
+      shadow_boots:    { id:"shadow_boots", name:"Boots of Swiftness", type:"cloak", rarity:"uncommon", ac:1, agility:2, value:78, passives:{ skillBonus:{ Stealth:2, Athletics:1 } }, activeAbility:{ name:"Fleet-Foot Sidestep", icon:"👢", charges:1, evadeTurns:2, desc:"1/Quest: Blur across the battlefield in silent strides to Evade incoming strikes (2t)!" }, desc:"Supple stitched leather boots prized by frontier scouts (+2 Stealth, +1 Athletics) with Fleet-Foot Sidestep." },
       sea_coat:        { id:"sea_coat", name:"Saltfang Sea-Coat", type:"cloak", ac:2, luck:1, value:85, desc:"+2 AC, +1 Luck" },
 
       // Consumables
