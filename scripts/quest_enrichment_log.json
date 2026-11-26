@@ -1,5 +1,5 @@
 {
-  "totalPasses": 28,
+  "totalPasses": 29,
   "history": [
     {
       "pass": 1,
@@ -190,6 +190,13 @@
       "title": "The Clockwork Foundry of Brasshaven",
       "file": "data/quests/expansion_frontier_quests.js",
       "summary": "Expanded from 12 to 15 pages: fixed invalid Tinkering skill checks to Lockpicking/Detect Traps, added pressure-gauge VALVE_MAP route, Boiler Gallery rescue of Pip's apprentice Bramwell (BRAMWELL_SAVED + Firebolt/Athletics/VALVE_MAP options + breather heal), Capacitor Siphon sabotage (SIPHON_DRAINED), and a rescue bonus on the True Ending."
+    },
+    {
+      "pass": 29,
+      "questId": "gloomfen",
+      "title": "The Gloomfen Witch-Bog",
+      "file": "data/quests/expansion_frontier_quests.js",
+      "summary": "Expanded from 12 to 15 pages with Reedy Shallows rescue of Old Fenwick the peat-cutter (Herbalism/Firebolt/Athletics -> FENWICK_SAVED, +18 GP, +6 HP, +3 MP), the Willow of Trapped Lanterns sabotage branch (LANTERNS_BROKEN via salt-ash/Arcana/Luck), and a Fenwick & Marta gratitude bonus (+30 GP, +25 XP) on the True Ending."
     }
   ],
   "questPasses": {
@@ -220,6 +227,7 @@
     "bk_b20_rune_crypt_sianis": 1,
     "bandit_citadel": 1,
     "nf_6_vengeance_mine": 1,
-    "brasshaven": 1
+    "brasshaven": 1,
+    "gloomfen": 1
   }
 }

@@ -252,7 +252,7 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // EXPANSION QUEST 5: THE GLOOMFEN WITCH-BOG (12 PAGES)
+      // EXPANSION QUEST 5: THE GLOOMFEN WITCH-BOG (15 PAGES)
       // Uniques: witchwood_staff, bog_hag_talisman, cauldron_brew
       // ==========================================================
       gloomfen: {
@@ -262,47 +262,69 @@ window.OAKHAVEN.registerQuests({
         difficulty: "Medium",
         recommendedLevel: 2,
         discoverySource: "Herb-Wife Marta (Tavern)",
-        summary: "Navigate the eerie boardwalks of Gloomfen Bog, resist hypnotic will-o'-wisps, and confront Swamp Hag Morwenna for her Witchwood Staff, Talisman of the Mire, and Star-Brew.",
-        totalPages: 12,
+        summary: "Navigate the eerie boardwalks of Gloomfen Bog, rescue a trapped peat-cutter, shatter Morwenna's spirit-lanterns, and confront Swamp Hag Morwenna for her Witchwood Staff, Talisman of the Mire, and Star-Brew.",
+        totalPages: 15,
         pages: {
-          1: { zone:"Bog Edge", title:"The Sunken Boardwalk", safeRetreat:true, text:"Pale green lanterns bob above black peat water. A rotting cedar boardwalk winds straight toward a crooked cypress island, while a mossy log-bridge branches toward a glowing fairy-ring.", choices:[
+          1: { zone:"Bog Edge", title:"The Sunken Boardwalk", safeRetreat:true, text:"Pale green lanterns bob above black mirror-peat as bullfrogs boom from the reeds. Herb-Wife Marta's sprig of dried bog-myrtle sits tucked in your collar against the marsh chill. Ahead, a rotting cedar boardwalk winds toward a crooked cypress island; a mossy log-bridge branches left toward a glowing fairy-ring, while a faint cry for help drifts from the reedy shallows.", choices:[
             { t:"Follow the rotting boardwalk toward the cypress island.", to:2 },
-            { t:"Cross the mossy log-bridge to the glowing fairy-ring.", to:3 }
+            { t:"Cross the mossy log-bridge to the glowing fairy-ring.", to:3 },
+            { t:"Track the muffled cry through the reedy shallows.", badge:"Agility / Survival DC 10", check:{ stat:"agility", skill:"Survival", dc:10, pass:13, fail:2, passMsg:"You pick your way across dry tussocks straight to a stranded skiff!", failMsg:"Sinking peat forces you back onto the cedar boardwalk!" } }
           ]},
-          2: { zone:"Peat Mire", title:"Dance of the Will-o'-Wisps", text:"Three bobbing blue lanterns drift across the planks, whispering sweet promises to lure you into the bottomless bog!", choices:[
-            { t:"Steel your mind with Spirit or Survival.", badge:"Spirit / Survival DC 10", check:{ stat:"spirit", skill:"Survival", dc:10, pass:4, fail:4, failDmg:3, passMsg:"You ignore the phantom whispers!", failMsg:"You slip knee-deep into biting mire (-3 HP)!" } },
-            { t:"Dispel the swamp-lights with Sunburst or Turn Undead.", reqSpell:"Turn Undead", mp:4, badge:"Turn Undead (4 MP)", to:4, onChoose:{ msg:"The wisps pop in harmless sparks!" } }
+          2: { zone:"Peat Mire", title:"Dance of the Will-o'-Wisps", text:"Three bobbing blue lanterns drift across the slick cedar planks, humming a sweet, hollow lullaby that tugs at your footsteps toward the bottomless bog!", choices:[
+            { t:"Steel your mind with Spirit or Survival.", badge:"Spirit / Survival DC 10", check:{ stat:"spirit", skill:"Survival", dc:10, pass:4, fail:4, failDmg:3, passMsg:"You bite down on Marta's bog-myrtle and ignore the phantom whispers!", failMsg:"You slip knee-deep into icy, biting mire (-3 HP) before hauling yourself up!" } },
+            { t:"Dispel the swamp-lights with Turn Undead.", reqSpell:"Turn Undead", mp:4, badge:"Turn Undead (4 MP)", to:4, onChoose:{ msg:"The phantom wisps pop in harmless silver sparks, clearing the planks!" } },
+            { t:"Follow a stray bobbing lantern toward a stranded skiff in the reeds.", to:13 }
           ]},
-          3: { zone:"Fairy-Ring", title:"The Sunken Shrine", text:"Inside a ring of glowing toadstools rests a forgotten traveler's satchel containing random swamp-loot and the eerie Talisman of the Mire!", onEnter:{ items:["bog_hag_talisman", ...rollRandomLoot(["consumable","material","valuable"], 1)], msg:"Found Talisman of the Mire & random loot!" }, choices:[
-            { t:"Head back to the boardwalk toward the Cypress Island.", to:4 }
+          3: { zone:"Fairy-Ring", title:"The Sunken Shrine", text:"Inside a circle of softly glowing pale toadstools rests a moss-crusted traveler's satchel—inside wait random swamp-loot and the eerie, silver-wired Talisman of the Mire!", onEnter:{ items:["bog_hag_talisman", ...rollRandomLoot(["consumable","material","valuable"], 1)], msg:"Found Talisman of the Mire & random loot!" }, choices:[
+            { t:"Investigate a muffled shout coming from the reedy shallows.", to:13 },
+            { t:"Head back to the boardwalk toward Cypress Island.", to:4 }
           ]},
-          4: { zone:"Cypress Island", title:"The Bog-Toad Ambush", text:"The murky water explodes as a colossal, warty Giant Bog-Toad lashes out with a barbed tongue!", enemy:{ name:"Giant Bog-Toad", desc:"Morwenna's ravenous swamp guardian.", hp:20, ac:10, atk:4, dmg:4, xp:42, gold:22, items:["glowcap_spores", ...rollRandomLoot(["valuable","material"], 1)], flee:1 }, choices:[
+          4: { zone:"Cypress Island", title:"The Bog-Toad Ambush", text:"The black water erupts in a curtain of duckweed as a colossal, warty Giant Bog-Toad lunges onto the roots, snapping out a barbed tongue!", enemy:{ name:"Giant Bog-Toad", desc:"Morwenna's ravenous swamp guardian.", hp:20, ac:10, atk:4, dmg:4, xp:42, gold:22, items:["glowcap_spores", ...rollRandomLoot(["valuable","material"], 1)], flee:1 }, choices:[
             { t:"Search the Hollow Cypress Root-Cellar.", to:5 },
-            { t:"Approach Morwenna's Stilted Witch-Hut.", to:7 }
+            { t:"Creep behind the hut to the Willow of Trapped Lanterns.", to:15 },
+            { t:"Approach Morwenna's Stilted Witch-Hut directly.", to:7 }
           ]},
-          5: { zone:"Cypress Island", title:"The Hag's Root-Cellar", text:"Hanging from dry roots are glass bottles of glowing swamp brews and a chest of lost travelers' gold.", choices:[
-            { t:"Identify the true Star-Brew with Alchemy or Herbalism.", reqSkill:"Herbalism", badge:"Herbalism", to:6, onChoose:{ cw:"HEX_BROKEN", items:["cauldron_brew"], msg:"Claimed Morwenna's Star-Brew & learned HEX_BROKEN!" } },
-            { t:"Test Your Luck grabbing the shimmering bottle!", badge:"Test Your Luck", luck:{ pass:6, fail:7, failDmg:4, passMsg:"You snag the genuine Star-Brew!", failMsg:"A hex-jar bursts in green smoke (-4 HP)!", onPass:{ items:["cauldron_brew"] } } }
+          5: { zone:"Cypress Island", title:"The Hag's Root-Cellar", text:"Hanging from dry cypress roots like sinister fruit are dozens of glass bottles filled with glowing swamp brews beside a soggy chest of lost travelers' coin.", choices:[
+            { t:"Identify the true Star-Brew with Herbalism.", reqSkill:"Herbalism", badge:"Herbalism", to:6, onChoose:{ cw:"HEX_BROKEN", items:["cauldron_brew"], msg:"Claimed Morwenna's Star-Brew & learned HEX_BROKEN!" } },
+            { t:"Test Your Luck grabbing the shimmering bottle!", badge:"Test Your Luck", luck:{ pass:6, fail:7, failDmg:4, passMsg:"You snag the genuine Star-Brew!", failMsg:"A hex-jar bursts in stinging green smoke (-4 HP)!", onPass:{ items:["cauldron_brew"] } } }
           ]},
-          6: { zone:"Cypress Island", title:"Travelers' Spoils", text:"In the corner of the cellar you also recover 25 GP and a random item left by lost marsh-wanderers.", onEnter:{ gold:25, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 1), msg:"Found 25 GP & random loot!" }, choices:[
+          6: { zone:"Cypress Island", title:"Travelers' Spoils", text:"Tucked in the dry hollow behind the root-shelves you recover 25 GP and a serviceable item left behind by lost marsh-wanderers.", onEnter:{ gold:25, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 1), msg:"Found 25 GP & random loot!" }, choices:[
+            { t:"Creep around to the Willow of Trapped Lanterns before climbing up.", to:15 },
             { t:"Climb the creaking steps to Morwenna's Hut!", to:7 }
           ]},
-          7: { zone:"Witch-Hut", title:"Swamp Hag Morwenna", text:"Green fire crackles beneath an iron cauldron as Swamp Hag Morwenna cackles, lifting her gnarled Witchwood Arch-Staff. 'Fresh bones for my broth! Come closer, little hero!'", choices:[
-            { t:"Shatter her hex-charm before she can cast!", reqCw:"HEX_BROKEN", badge:"HEX_BROKEN", to:8 },
+          7: { zone:"Witch-Hut", title:"Swamp Hag Morwenna", text:"Green fire crackles beneath a soot-black iron cauldron as Swamp Hag Morwenna cackles, lifting her gnarled Witchwood Arch-Staff. 'Fresh bones for my broth, and Marta's little errand-runner to boot! Come closer, hero!'", choices:[
+            { t:"Shatter her hex-charm with the Star-Brew secret before she can cast!", reqCw:"HEX_BROKEN", badge:"HEX_BROKEN", to:8 },
+            { t:"Strike while her shattered spirit-lanterns leave her wards bare!", reqCw:"LANTERNS_BROKEN", badge:"LANTERNS_BROKEN", to:8 },
             { t:"Confront Swamp Hag Morwenna in battle!", to:9 }
           ]},
-          8: { zone:"Witch-Hut", title:"The Broken Hex", text:"Morwenna shrieks as her protective wards unravel in violet sparks! Snarling, she swings her staff!", enemy:{ name:"Swamp Hag Morwenna (Unwarded)", desc:"Cornered witch of Gloomfen.", hp:21, ac:11, atk:4, dmg:5, xp:82, gold:65, items:["witchwood_staff", ...rollRandomLoot(["consumable","valuable"], 1)] }, choices:[
+          8: { zone:"Witch-Hut", title:"The Broken Hex", text:"Morwenna shrieks as her emerald ward-rings unravel in spitting violet sparks! 'Meddling wretch!' Snarling, she lunges with her gnarled staff!", enemy:{ name:"Swamp Hag Morwenna (Unwarded)", desc:"Cornered witch of Gloomfen.", hp:21, ac:11, atk:4, dmg:5, xp:82, gold:65, items:["witchwood_staff", ...rollRandomLoot(["consumable","valuable"], 1)] }, choices:[
             { t:"Tip over the bubbling cauldron and search the hut!", to:10 }
           ]},
-          9: { zone:"Witch-Hut", title:"Wrath of the Mire-Witch", text:"Swamp-lightning and cackling hexes fill the cramped hut as Morwenna attacks!", enemy:{ name:"Swamp Hag Morwenna", desc:"Ancient ruler of the Gloomfen Bog.", hp:26, ac:12, atk:5, dmg:5, xp:98, gold:75, items:["witchwood_staff", ...rollRandomLoot(["accessory","valuable"], 1)] }, choices:[
+          9: { zone:"Witch-Hut", title:"Wrath of the Mire-Witch", text:"Crackling swamp-lightning and venomous cackles fill the cramped stilted hut as Morwenna unleashes her full fury!", enemy:{ name:"Swamp Hag Morwenna", desc:"Ancient ruler of the Gloomfen Bog.", hp:26, ac:12, atk:5, dmg:5, xp:98, gold:75, items:["witchwood_staff", ...rollRandomLoot(["accessory","valuable"], 1)] }, choices:[
             { t:"Tip over the bubbling cauldron and search the hut!", to:10 }
           ]},
-          10: { zone:"Witch-Hut", title:"The Cauldron's Hoard", text:"Under the floorboards beneath the overturned cauldron gleams a waterproof chest holding 45 GP and a random treasure!", onEnter:{ gold:45, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 1), msg:"Looted 45 GP & a random treasure!" }, choices:[
+          10: { zone:"Witch-Hut", title:"The Cauldron's Hoard", text:"Under the loosened floorboards beneath the overturned cauldron gleams a tar-sealed waterproof chest holding 45 GP and a random treasure!", onEnter:{ gold:45, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 1), msg:"Looted 45 GP & a random treasure!" }, choices:[
+            { t:"Free the remaining lantern-spirits and bring Fenwick's news back to Marta!", reqCw:"FENWICK_SAVED", badge:"FENWICK_SAVED", to:11, onChoose:{ gold:30, xp:25, msg:"Old Fenwick and Marta pool a 30 GP & 25 XP gratitude purse for rescuing him!" } },
             { t:"Free the trapped lantern-spirits and return to Marta! (True Ending)", to:11 },
             { t:"Pack the hag's hoard and hike back to Oakhaven.", to:12 }
           ]},
-          11: { zone:"Epilogue", title:"Light of the Gloomfen", text:"As you smash Morwenna's lanterns, dozens of grateful spirits rise into the night sky and the mist clears. Herb-Wife Marta rewards you warmly at the Rusty Flagon!", ending:{ type:"true", title:"Purifier of Gloomfen", xp:110, gold:105, trophy:"Silver Marsh-Lantern" }, choices:[] },
-          12: { zone:"Epilogue", title:"The Bog-Delver's Haul", text:"Mud-splattered yet grinning, you stride back through Oakhaven's gates with Morwenna's treasures and a pouch heavy with marsh gold!", ending:{ type:"victory", title:"Conqueror of Gloomfen", xp:90, gold:135, trophy:"Hag's Cauldron-Charm" }, choices:[] }
+          11: { zone:"Epilogue", title:"Light of the Gloomfen", text:"As you smash Morwenna's last green glass jars, dozens of grateful spirits rise like warm fireflies into the starry sky and the choking mist melts away. Herb-Wife Marta clasps your hands warmly at the Rusty Flagon!", ending:{ type:"true", title:"Purifier of Gloomfen", xp:110, gold:105, trophy:"Silver Marsh-Lantern" }, choices:[] },
+          12: { zone:"Epilogue", title:"The Bog-Delver's Haul", text:"Mud-splattered yet grinning, you stride back through Oakhaven's gates with Morwenna's witchwood relics and a pouch heavy with marsh gold!", ending:{ type:"victory", title:"Conqueror of Gloomfen", xp:90, gold:135, trophy:"Hag's Cauldron-Charm" }, choices:[] },
+          13: { zone:"Reedy Shallows", title:"The Trapped Peat-Cutter", text:"Half-sunk in a tangled cedar skiff clings Old Fenwick, a peat-cutter from Oakhaven's outskirts, pinned by coiling black witch-vines while a hissing green hex-lantern bobs above his cap! 'Careful, friend—they tighten if you tug the wrong stem!'", choices:[
+            { t:"Sever the feeder-tendril cleanly with Herbalism!", reqSkill:"Herbalism", badge:"Herbalism", to:14, onChoose:{ msg:"You slice the pale root-heart—the black vines go limp at once!" } },
+            { t:"Burn the cursed witch-vines away with Firebolt!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:14, onChoose:{ msg:"Amber flame shrivels the coils to wet ash without singeing Fenwick!" } },
+            { t:"Hack the black vines apart with raw strength!", badge:"Might / Athletics DC 10", check:{ stat:"might", skill:"Athletics", dc:10, pass:14, fail:14, failDmg:3, passMsg:"Two clean strokes free the skiff and haul Fenwick onto dry moss!", failMsg:"Thorny tendrils lash your wrist (-3 HP) before snapping loose!" } },
+            { t:"Leave the shallows and return to the boardwalk toward Cypress Island.", to:4 }
+          ]},
+          14: { zone:"Reedy Shallows", title:"Fenwick's Consecrated Salt", text:"Old Fenwick scrambles onto a dry hummock, rubbing his bruised wrists. 'Bless you—that hag's vines nearly dragged me under! Take my peat-coin and this pinch of Dawn-blessed salt-ash. Behind Morwenna's hut stands a crooked willow hung with green spirit-lanterns—scatter this salt beneath its roots to crack her wards!' He shares a flask of warm spiced cider (+6 HP, +3 MP) before poling his skiff toward Oakhaven.", onEnter:{ cw:"FENWICK_SAVED", gold:18, healHp:6, healMp:3, msg:"Rescued Old Fenwick (+18 GP, +6 HP, +3 MP) and received consecrated salt-ash!" }, choices:[
+            { t:"Press on toward Cypress Island.", to:4 }
+          ]},
+          15: { zone:"Cypress Island", title:"The Willow of Trapped Lanterns", text:"Behind Morwenna's stilts, a gnarled weeping willow hangs heavy with seven green glass lanterns. Inside each jar flickers a pale, captive marsh-spirit whose stolen light hums straight up into the hag's hut.", choices:[
+            { t:"Scatter Fenwick's Dawn-blessed salt-ash beneath the willow roots!", reqCw:"FENWICK_SAVED", badge:"FENWICK_SAVED", to:7, onChoose:{ cw:"LANTERNS_BROKEN", msg:"All seven lanterns crack in a chime of silver light—Morwenna's hut-wards collapse!" } },
+            { t:"Unravel the spirit-tethers cleanly with Arcana.", reqSkill:"Arcana", badge:"Arcana", to:7, onChoose:{ cw:"LANTERNS_BROKEN", msg:"You untie the hag's binding-knots, freeing the spirits and draining her shields!" } },
+            { t:"Test Your Luck knocking down the lead lantern with a stone!", badge:"Test Your Luck", luck:{ pass:7, fail:7, failDmg:3, passMsg:"The lead jar shatters cleanly, unspooling Morwenna's wards!", failMsg:"Green hex-sparks sting your hand (-3 HP) as the lantern swings wild!", onPass:{ cw:"LANTERNS_BROKEN" } } },
+            { t:"Leave the willow alone and climb straight to Morwenna's Hut.", to:7 }
+          ]}
         }
       },
 	 // ==========================================================
