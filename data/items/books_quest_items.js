@@ -2891,9 +2891,9 @@ window.OAKHAVEN.registerItems({
     atk: 4,
     arcana: 3,
     spirit: 2,
-    passives: { spellDmgBonus: 3, spellCostReduce: 1, undeadDmgBonus: 4 },
-    activeAbility: { name: "Shattering Crescendo", icon: "🎼", charges: 2, mp: 3, dmgDice: "3d8", dmgStat: "arcana", dmgType: "arcane", stunTurns: 1, desc: "2/Quest (3 MP): Conduct a lethal sonic chord for 3d8 + Arcana dmg and Stun (1t)!" },
-    desc: "Ivory-and-silver conductor's rod seized from a Virtuoso Lich (+3 Spell Dmg, -1 MP Cost, +4 vs Undead) with Shattering Crescendo."
+    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: 1, undeadDmgBonus: 5, skillBonus: { Arcana: 2 } },
+    activeAbility: { name: "Shattering Crescendo", icon: "🎼", charges: 2, mp: 3, dmgDice: "3d8", dmgStat: "arcana", dmgType: "arcane", undeadDouble: true, stunTurns: 1, desc: "2/Quest (3 MP): Conduct a lethal sonic chord for 3d8 + Arcana dmg (2× vs Undead) and Stun (1t)!" },
+    desc: "Ivory-and-silver conductor's rod seized from a Virtuoso Lich (+3 Spell Dmg, -1 MP Cost, +1 MP/t, +5 vs Undead, +2 Arcana) with Shattering Crescendo."
   },
   "bq_grizzlehide_cloak": {
     id: "bq_grizzlehide_cloak",

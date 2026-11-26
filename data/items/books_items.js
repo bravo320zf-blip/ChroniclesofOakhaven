@@ -336,10 +336,24 @@ window.OAKHAVEN.registerItems({
     "type": "weapon",
     "rarity": "uncommon",
     "value": 75,
-    "source": "Tome of Heroes",
     "atk": 3,
     "arcana": 1,
-    "desc": "+3 Attack, +1 Arcana (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "spellDmgBonus": 1,
+      "skillBonus": { "Perception": 1 }
+    },
+    "activeAbility": {
+      "name": "Spectral Piercer",
+      "icon": "🏹",
+      "charges": 2,
+      "dmgDice": "2d6",
+      "dmgStat": "arcana",
+      "dmgType": "arcane",
+      "guaranteedCrit": true,
+      "desc": "2/Quest: Loose a shimmering phase-bolt that slips straight through armor for a guaranteed critical 2d6 + Arcana arcane strike!"
+    },
+    "desc": "Ghost-silver war-shaft that slips through solid steel (+Crit, +1 Spell Dmg, +1 Perception) with Spectral Piercer."
   },
   "bk_potion_of_infinite_possibilities": {
     "id": "bk_potion_of_infinite_possibilities",
@@ -744,7 +758,11 @@ window.OAKHAVEN.registerItems({
     "rarity": "common",
     "value": 32,
     "atk": 2,
-    "desc": "+2 Attack Curved Blade (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "skillBonus": { "Athletics": 1 }
+    },
+    "desc": "Hooked bronze-and-steel desert sickle-sword balanced to tear past shields (+Crit, +1 Athletics)."
   },
   "bk_katar": {
     "id": "bk_katar",

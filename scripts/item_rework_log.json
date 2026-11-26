@@ -1,6 +1,6 @@
 {
-  "totalPasses": 33,
-  "totalItemsReworked": 330,
+  "totalPasses": 34,
+  "totalItemsReworked": 340,
   "history": [
     {
       "pass": 1,
@@ -529,6 +529,22 @@
         "vom_wolfbite_ring"
       ],
       "summary": "Reworked 6 Vault of Magic items (Ring of Sealing, Rod of Swarming Skulls, Wolfbite Ring, Mutineer's Blade, Serpent's Tooth, Rowdy's Club), Elven Sabre, Steel Chakram, Talitheos Coral Needles, and Legendary Bronze Heart-Plate of Nygethuaac."
+    },
+    {
+      "pass": 34,
+      "items": [
+        "vom_ankh_aten",
+        "vom_chillblain_armor",
+        "vom_spider_staff",
+        "vom_staff_lu_po",
+        "ember_staff",
+        "vom_agile_armor",
+        "vom_boots_quaking",
+        "bk_khopesh",
+        "bk_phase_arrow",
+        "bq_virtuoso_tuning_baton"
+      ],
+      "summary": "Reworked 6 Vault of Magic items (including Legendary Staff of Master Lu Po, Chillblain Armor, Boots of Quaking, Ankh of Aten), Staff of Embers, Khopesh, Phase Arrow, and Virtuoso's Bone Baton."
     }
   ],
   "itemPasses": {
@@ -861,6 +877,16 @@
     "bk_chakram": 1,
     "bq_colossus_heart_plate": 1,
     "vom_ring_sealing": 1,
-    "vom_wolfbite_ring": 1
+    "vom_wolfbite_ring": 1,
+    "vom_ankh_aten": 1,
+    "vom_chillblain_armor": 1,
+    "vom_spider_staff": 1,
+    "vom_staff_lu_po": 1,
+    "ember_staff": 1,
+    "vom_agile_armor": 1,
+    "vom_boots_quaking": 1,
+    "bk_khopesh": 1,
+    "bk_phase_arrow": 1,
+    "bq_virtuoso_tuning_baton": 1
   }
 }
