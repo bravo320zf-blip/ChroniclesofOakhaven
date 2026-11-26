@@ -1,5 +1,5 @@
 {
-  "totalPasses": 20,
+  "totalPasses": 21,
   "history": [
     {
       "pass": 1,
@@ -140,6 +140,13 @@
       "title": "A Starry Breach",
       "file": "data/quests/books_quests_batch_010.js",
       "summary": "Replaced 4 one-line filler pages and expanded from 1 single fight to a full 10-page frozen-wastes expedition with Halvar's ridge hook (RIFT_STUDIED), Stealth/camp investigation yielding Cartographer Elin's journal & Silver Counter-Fork (SILVER_FORK, +8 HP, 35 GP), Void-Touched Ice Mephits skirmish, Eastern Rune-Cairn sabotage via SILVER_FORK/Firebolt/Arcana (ANCHOR_BROKEN), and an interactive breach-closing climax."
+    },
+    {
+      "pass": 21,
+      "questId": "saltfang",
+      "title": "The Smuggler's Cove of Saltfang",
+      "file": "data/quests/core_quests.js",
+      "summary": "Deepened from 22 to 24 atmospheric pages: wired previously orphaned Page 20 into 'The Silver Wake' ghost-crew farewell (+20 GP, +15 XP), added a new Sunken Bell-Buoy side-branch (BELL_RUNG weakens all Dreadtide undead + 20 GP), added interactive Firebolt powder-keg sabotage on the Gun Deck (DECK_SHAKEN), added Spirit/Persuasion prayer option at the Sea-Witch's Alcove, added Might chest-pry at Barnacle Arch, and added Vex's Dockside Rendezvous (+6 HP) before the Rogue Ending."
     }
   ],
   "questPasses": {
@@ -162,6 +169,7 @@
     "thornwood_part2": 1,
     "bk_pt_06_rough_run": 1,
     "bk_b23_lost_and_found": 1,
-    "bk_b10_p2_1_starry_breach": 1
+    "bk_b10_p2_1_starry_breach": 1,
+    "saltfang": 1
   }
 }

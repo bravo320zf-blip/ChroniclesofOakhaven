@@ -474,7 +474,7 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // ADVENTURE 5: THE SMUGGLER'S COVE OF SALTFANG (22 PAGES)
+      // ADVENTURE 5: THE SMUGGLER'S COVE OF SALTFANG (24 PAGES)
       // ==========================================================
       saltfang: {
         id: "saltfang",
@@ -483,85 +483,97 @@ window.OAKHAVEN.registerQuests({
         difficulty: "Easy-Medium",
         recommendedLevel: 1,
         discoverySource: "Hooded Smuggler Vex (Tavern) or Coastal Cliffs",
-        summary: "Descend the fog-bound cliffs into Saltfang's tidal grottoes, battle sahuagin raiders, disarm pirate traps, and board Captain Marrowbone's ghost ship.",
-        totalPages: 22,
+        summary: "Descend the fog-bound cliffs into Saltfang's tidal grottoes, uncover Vex's smuggler charts, brave sahuagin raiders and pirate traps, and board Captain Marrowbone's ghost ship Dreadtide.",
+        totalPages: 24,
         pages: {
-          1: { zone:"Coastal Cliffs", title:"The Smuggler's Rope-Way", safeRetreat:true, text:"Salt spray stings your cheeks as waves boom inside the jagged sea-arch of Saltfang Cove. A knotted hemp rope drops down into a lantern-lit grotto, while a low tidal ledge skirts the foaming surf.", choices:[
-            { t:"Climb down the knotted smuggler's rope.", to:2 },
-            { t:"Creep along the low tidal ledge.", to:3, badge:"Agility / Stealth DC 8", check:{ stat:"agility", skill:"Stealth", dc:8, pass:3, fail:3, failDmg:2, failMsg:"A cold wave slams you against barnacles (-2 HP)." } },
-            { t:"Scout the clifftop signal tower first.", to:4 }
+          1: { zone:"Coastal Cliffs", title:"The Smuggler's Rope-Way", safeRetreat:true, text:"Cold salt spray stings your cheeks as breakers boom inside the jagged sea-arch of Saltfang Cove. Hooded Smuggler Vex's chalk mark gleams beside a knotted hemp rope dropping into a lantern-lit grotto. Below, a slick tidal ledge skirts the foaming surf—while atop the wind-scoured bluff looms an abandoned stone signal tower.", choices:[
+            { t:"Climb down the knotted smuggler's rope into the grotto.", to:2 },
+            { t:"Creep silently along the low tidal ledge.", to:3, badge:"Agility / Stealth DC 8", check:{ stat:"agility", skill:"Stealth", dc:8, pass:3, fail:3, failDmg:2, passMsg:"You time the swells cleanly and slip under the sea-arch dry-shod!", failMsg:"A cold wave slams you against razor barnacles (-2 HP)." } },
+            { t:"Scout the ruined clifftop signal tower first.", to:4 }
           ]},
-          2: { zone:"Tidal Caves", title:"The Rum-Runner's Landing", text:"Sodden crates of spiced rum line a sandy beach inside the cave. Two scaly Sahuagin Raiders hiss, leveling barbed harpoons!", enemy:{ name:"Sahuagin Raiders", desc:"Finned sea-devil scavengers.", hp:15, ac:10, atk:3, dmg:4, xp:30, gold:20, items:["sea_salt"], flee:1 }, choices:[
-            { t:"Search the stacked smuggler crates.", to:5 },
-            { t:"Follow the echoing sea-tunnel deeper.", to:6 }
+          2: { zone:"Tidal Caves", title:"The Rum-Runner's Landing", text:"Sodden crates of spiced rum and tarred smuggler casks line a crescent sandy beach inside the cave. Two green-scaled Sahuagin Raiders hiss over a cracked barrel, leveling barbed bone harpoons!", enemy:{ name:"Sahuagin Raiders", desc:"Finned sea-devil scavengers looting the smuggler landing.", hp:15, ac:10, atk:3, dmg:4, xp:30, gold:20, items:["sea_salt"], flee:1 }, choices:[
+            { t:"Search the stacked smuggler crates behind the tide-line.", to:5 },
+            { t:"Follow the echoing sea-tunnel deeper into the cliff.", to:6 }
           ]},
-          3: { zone:"Tidal Caves", title:"The Barnacle Arch", text:"Ducking under dripping stalactites, you bypass the beach patrol and spot a half-buried brass spyglass and a sealed Sea-Chest.", choices:[
-            { t:"Pick the corroded Sea-Chest lock.", reqSkill:"Lockpicking", badge:"Lockpicking", to:5, onChoose:{ gold:30, items:["pearl_chest"], msg:"Looted 30 GP & a Lustrous Pearl!" } },
-            { t:"Slip onward into the Echoing Sea-Tunnel.", to:6 }
+          3: { zone:"Tidal Caves", title:"The Barnacle Arch", text:"Ducking beneath dripping limestone stalactites, you bypass the noisy beach patrol completely. Half-buried in wet shingle glints a tarnished brass spyglass beside a salt-crusted Sea-Chest bound with an iron padlock.", choices:[
+            { t:"Pick the corroded Sea-Chest lock.", reqSkill:"Lockpicking", badge:"Lockpicking", to:5, onChoose:{ gold:30, items:["pearl_chest"], xp:15, msg:"Popped the rusted clasp! Looted 30 GP & a Lustrous Pearl (+15 XP)!" } },
+            { t:"Pry the swollen lid with sheer muscle.", badge:"Might DC 9", check:{ stat:"might", skill:"Athletics", dc:9, pass:5, fail:6, failDmg:2, passMsg:"The rusted hasp snaps cleanly—revealing Vex's hidden side-cache!", failMsg:"Splintered oak jabs your palm (-2 HP) as the tide forces you deeper into the tunnel!" }, onPass:{ gold:20, xp:10 } },
+            { t:"Leave the chest and slip onward into the Echoing Sea-Tunnel.", to:6 }
           ]},
-          4: { zone:"Coastal Cliffs", title:"The Signal Brazier", text:"Inside the ruined watchtower lies a waterproof logbook detailing the safe low-tide reef path and a Saltfang Sea-Coat hung on a peg!", onEnter:{ cw:"TIDE_CHART", items:["sea_coat"], msg:"Found TIDE_CHART & Saltfang Sea-Coat!" }, choices:[
-            { t:"Descend the knotted rope into the cove.", to:2 }
+          4: { zone:"Coastal Cliffs", title:"The Signal Brazier", text:"Inside the drafty watchtower, wind whistles through an unlit iron fire-basket. Tucked beneath a loose hearthstone lies a waxed smuggler's logbook charting the safe low-tide reef path—and hanging on a rusted peg waits a salt-cured Saltfang Sea-Coat!", onEnter:{ cw:"TIDE_CHART", items:["sea_coat"], xp:15, msg:"Found TIDE_CHART & Saltfang Sea-Coat (+15 XP)!" }, choices:[
+            { t:"Use the chart's ledge-marks to slip straight to the Barnacle Arch!", to:3 },
+            { t:"Descend the knotted smuggler's rope into the main landing.", to:2 }
           ]},
-          5: { zone:"Tidal Caves", title:"Vex's Hidden Stash", text:"Behind a false rum cask you find an Alchemist's Bomb, a Health Potion, and a tarnished silver compass pointing toward the Ghost Ship.", onEnter:{ cw:"COMPASS_FOUND", items:["alchemist_bomb","health_potion"], msg:"Found COMPASS_FOUND, Bomb & Health Potion!" }, choices:[
+          5: { zone:"Tidal Caves", title:"Vex's Hidden Stash", text:"Behind a false-bottomed rum cask stamped with a grinning shark sits Vex's emergency locker: an Alchemist's Bomb, a ruby Health Potion, and a tarnished silver compass whose needle spins past north to point straight toward the ghostly Dreadtide.", onEnter:{ cw:"COMPASS_FOUND", items:["alchemist_bomb","health_potion"], msg:"Found COMPASS_FOUND, Alchemist's Bomb & Health Potion!" }, choices:[
             { t:"Enter the Echoing Sea-Tunnel.", to:6 }
           ]},
-          6: { zone:"Tidal Caves", title:"The Rising Tide Tunnel", text:"Green seawater swirls knee-deep around jagged coral pillars. Ahead, the cavern opens onto an underground lagoon lit by eerie green lanterns.", choices:[
-            { t:"Use the Tide Chart to cross on dry stepping-stones.", reqCw:"TIDE_CHART", badge:"TIDE_CHART", to:8 },
-            { t:"Wade swiftly through the surging current.", badge:"Might / Athletics DC 9", check:{ stat:"might", skill:"Athletics", dc:9, pass:8, fail:7, passMsg:"You brace cleanly against the surf!", failMsg:"An undertow sweeps you into a reef pool!" } }
+          6: { zone:"Tidal Caves", title:"The Rising Tide Tunnel", text:"Emerald seawater swirls knee-deep around jagged coral pillars, booming like a distant drum as the tide rolls in. Ahead, the cavern opens onto a vast underground lagoon lit by eerie green ship-lanterns.", choices:[
+            { t:"Follow the Tide Chart across the hidden dry stepping-stones.", reqCw:"TIDE_CHART", badge:"TIDE_CHART", to:8, onChoose:{ xp:15, msg:"Crossed the surging tunnel dry-shod (+15 XP)!" } },
+            { t:"Brace against the coral pillars and wade swiftly through the current.", badge:"Might / Athletics DC 9", check:{ stat:"might", skill:"Athletics", dc:9, pass:8, fail:7, passMsg:"You brace cleanly against the surf and reach the pier!", failMsg:"A sudden undertow sweeps you sideways into a deep reef pool!" } }
           ]},
-          7: { zone:"Tidal Caves", title:"The Reef Ambush", text:"A giant Reef Crab with barnacle-crusted pincers snaps out of the foam!", enemy:{ name:"Giant Reef Crab", desc:"Armored tide-pool monster.", hp:17, ac:11, atk:3, dmg:4, xp:34, gold:15, items:["sea_salt"], flee:6 }, choices:[
-            { t:"Clamber ashore at the Lagoon Pier.", to:8 }
+          7: { zone:"Tidal Caves", title:"The Reef Ambush", text:"Bubbles erupt from the kelp-choked pool as a massive Giant Reef Crab rises on barnacle-crusted legs, snapping colossal pincers!", enemy:{ name:"Giant Reef Crab", desc:"Armored tide-pool monster.", hp:17, ac:11, atk:3, dmg:4, xp:34, gold:15, items:["sea_salt"], flee:6 }, choices:[
+            { t:"Clamber ashore onto the lantern-lit Lagoon Pier.", to:8 }
           ]},
-          8: { zone:"Underground Lagoon", title:"The Sunken Lagoon Pier", text:"Moored in the subterranean bay floats the rotting three-masted galleon <em>Dreadtide</em>, its tattered sails glowing faintly green. A rowboat rests by the pier, and a narrow cliff bridge leads to a Sea-Witch's Alcove.", choices:[
+          8: { zone:"Underground Lagoon", title:"The Sunken Lagoon Pier", text:"Moored in the subterranean bay floats the rotting three-masted galleon <em>Dreadtide</em>, its tattered sails glowing with pale sea-fire. A weathered skiff bobs beside the mossy pier, a narrow stone footbridge winds to a glowing Sea-Witch's Alcove, and out in the mist leans a half-sunken silver Harbor Bell-Buoy.", choices:[
             { t:"Row silently out to the Dreadtide's anchor chain.", to:10 },
-            { t:"Visit the glowing Sea-Witch's Alcove across the bridge.", to:9 }
+            { t:"Visit the glowing Sea-Witch's Alcove across the footbridge.", to:9 },
+            { t:"Row past the leaning Harbor Bell-Buoy in the lagoon mist first.", to:23 }
           ]},
-          9: { zone:"Underground Lagoon", title:"The Sea-Witch's Alcove", text:"Glass fishing floats hang over a stone basin. An old spirit-lamp whispers: 'Leave 15 gold or cast light, and take the Cutlass of the Tides.'", choices:[
-            { t:"Offer a prayer / Turn Undead to bless the basin.", reqSpell:"Turn Undead", mp:4, badge:"Turn Undead (4 MP)", to:10, onChoose:{ items:["cutlass_tides","mana_elixir"], msg:"Claimed Cutlass of the Tides & Mana Elixir!" } },
-            { t:"Search the alcove for salt crystals and head to the ship.", to:10, onChoose:{ items:["sea_salt","antidote"], msg:"Gathered Sea Salt Crystals & Antidote." } }
+          9: { zone:"Underground Lagoon", title:"The Sea-Witch's Alcove", text:"Emerald glass fishing floats hang like captive moons above a salt-rimmed stone basin. A tiny spirit-lamp flickers and whispers in a voice like surf over pebbles: 'Bless the drowned with sacred light, or offer a sailor's tribute of faith, and the Cutlass of the Tides is yours.'", choices:[
+            { t:"Cast Turn Undead to bless the sea-witch's basin!", reqSpell:"Turn Undead", mp:4, badge:"Turn Undead (4 MP)", to:10, onChoose:{ items:["cutlass_tides","mana_elixir"], xp:20, msg:"Silver light calms the basin—claimed Cutlass of the Tides & Mana Elixir (+20 XP)!" } },
+            { t:"Speak a heartfelt sailor's prayer and place a silver coin in the bowl.", badge:"Spirit / Persuasion DC 10", check:{ stat:"spirit", skill:"Persuasion", dc:10, pass:10, fail:10, passMsg:"The spirit-lamp flares warmly—rising from the water gleams the Cutlass of the Tides!", failMsg:"The lamp dims politely, leaving only pure sea-salt crystals and an Antidote." }, onPass:{ items:["cutlass_tides"], xp:15 }, onFail:{ items:["sea_salt","antidote"] } },
+            { t:"Gather the loose sea-salt crystals and row out to the ghost ship.", to:10, onChoose:{ items:["sea_salt","antidote"], msg:"Gathered Sea Salt Crystals & Antidote." } }
           ]},
-          10: { zone:"The Dreadtide", title:"Main Deck of the Dreadtide", text:"Barnacle-crusted planks creak beneath your boots. Skeletal deckhands coil ghostly ropes around the mainmast—two turn their hollow sockets toward you!", enemy:{ name:"Skeletal Buccaneers", desc:"Undead crew of the Dreadtide.", hp:18, ac:10, atk:3, dmg:4, undead:true, xp:40, gold:26, items:["bone_dust"], flee:8 }, choices:[
-            { t:"Descend the hatch into the Gun Deck.", to:11 },
-            { t:"Climb straight to the Quarterdeck Cabin.", to:14 }
+          10: { zone:"The Dreadtide", title:"Main Deck of the Dreadtide", text:"Barnacle-crusted deck planks groan beneath your boots as cold sea-fog curls around the shattered mainmast. Two Skeletal Buccaneers in rotted coats coil phantom rigging—then snap their hollow jaws open and lunge with rusted cutlasses!", enemy:{ name:"Skeletal Buccaneers", desc:"Undead crew of the Dreadtide.", hp:18, ac:10, atk:3, dmg:4, undead:true, xp:40, gold:26, items:["bone_dust"], flee:8, weakCw:["BELL_RUNG"] }, choices:[
+            { t:"Descend the creaking cargo hatch into the Flooded Gun Deck.", to:11 },
+            { t:"Climb straight up the stern steps to the Quarterdeck Cabin.", to:14 }
           ]},
-          11: { zone:"The Dreadtide", title:"The Flooded Gun Deck", text:"Rusting bronze cannons line the dark hold. A glowing powder keg sits beside a locked iron strongbox.", choices:[
-            { t:"Pick the Quartermaster's strongbox.", reqSkill:"Lockpicking", badge:"Lockpicking", to:12 },
-            { t:"Test Your Luck prying open the strongbox.", badge:"Test Your Luck", luck:{ pass:12, fail:13, failDmg:4, passMsg:"The lid pops cleanly!", failMsg:"A spring-needle traps your wrist (-4 HP)!" } },
+          11: { zone:"The Dreadtide", title:"The Flooded Gun Deck", text:"Black seawater sloshes around rusting bronze cannons in the low-ceilinged hold. Beside a locked iron Quartermaster's strongbox rests a salt-crusted powder keg braced directly beneath the Captain's cabin floorboards!", choices:[
+            { t:"Pick the Quartermaster's strongbox silently.", reqSkill:"Lockpicking", badge:"Lockpicking", to:12 },
+            { t:"Ignite the damp powder keg with Firebolt to blast the cabin floorboards above!", reqSpell:"Firebolt", badge:"Firebolt", to:14, onChoose:{ cw:"DECK_SHAKEN", xp:20, msg:"Boom! Splinters erupt beneath the Quarterdeck, staggering Captain Marrowbone (+20 XP)!" } },
+            { t:"Test Your Luck prying open the strongbox.", badge:"Test Your Luck", luck:{ pass:12, fail:13, failDmg:4, passMsg:"The rusted lock pops cleanly!", failMsg:"A spring-needle traps your wrist (-4 HP) and clangs down the hold!" } },
             { t:"Climb back up to the Quarterdeck Cabin.", to:14 }
           ]},
-          12: { zone:"The Dreadtide", title:"The Quartermaster's Chest", text:"Inside gleams a Lustrous Pearl, 45 GP, and Captain Marrowbone's cursed Black Doubloon—which strips him of his phantom immunity!", onEnter:{ cw:"BLACK_DOUBLOON", gold:45, items:["pearl_chest"], msg:"Found BLACK_DOUBLOON, Pearl & 45 GP!" }, choices:[
-            { t:"Storm the Quarterdeck Cabin!", to:14 }
+          12: { zone:"The Dreadtide", title:"The Quartermaster's Chest", text:"Inside the velvet-lined strongbox gleams a Lustrous Pearl, 45 GP in stamped sovereigns, and Captain Marrowbone's cursed Black Doubloon—cold as abyssal brine, etched with the oath that binds his phantom ward!", onEnter:{ cw:"BLACK_DOUBLOON", gold:45, items:["pearl_chest"], msg:"Found BLACK_DOUBLOON, Lustrous Pearl & 45 GP!" }, choices:[
+            { t:"Storm up the stern steps into the Quarterdeck Cabin!", to:14 }
           ]},
-          13: { zone:"The Dreadtide", title:"The Bilge Lurker", text:"The noise draws a bloated Drowned Bosun from the bilge water!", enemy:{ name:"Drowned Bosun", desc:"Heavy-chained undead officer.", hp:20, ac:11, atk:4, dmg:4, undead:true, xp:42, gold:25, items:["sea_salt"], flee:10 }, choices:[
+          13: { zone:"The Dreadtide", title:"The Bilge Lurker", text:"The metallic clang draws a bloated Drowned Bosun dragging rusted anchor-chains out of the black bilge water!", enemy:{ name:"Drowned Bosun", desc:"Heavy-chained undead officer.", hp:20, ac:11, atk:4, dmg:4, undead:true, xp:42, gold:25, items:["sea_salt"], flee:10, weakCw:["BELL_RUNG"] }, choices:[
             { t:"Climb up to the Quarterdeck Cabin.", to:14 }
           ]},
-          14: { zone:"The Dreadtide", title:"The Captain's Cabin", text:"Lanterns sway over maps of sunken fleets. Behind a mahogany helm-desk stands Captain Marrowbone in a feathered tricorne, skeletal hand resting on a glowing cutlass!", choices:[
-            { t:"Toss his Black Doubloon onto the table to break his ward!", reqCw:"BLACK_DOUBLOON", badge:"BLACK_DOUBLOON", to:16 },
-            { t:"Parley with the pirate captain for a share of the vault.", badge:"Persuasion DC 11", check:{ stat:"spirit", skill:"Persuasion", dc:11, pass:15, fail:17, passMsg:"Marrowbone laughs and offers a wager!", failMsg:"'Dead men tell no bargains!' he roars!" } },
+          14: { zone:"The Dreadtide", title:"The Captain's Cabin", text:"Green storm-lanterns sway over brine-stained charts of sunken fleets. Behind a carved mahogany helm-desk stands Captain Marrowbone in a salt-crusted feathered tricorne, bony fingers resting on a glowing cutlass. 'Another landlubber come to rob the Dreadtide?' he rasps.", choices:[
+            { t:"Toss his cursed Black Doubloon onto the chart table to shatter his ward!", reqCw:"BLACK_DOUBLOON", badge:"BLACK_DOUBLOON", to:16 },
+            { t:"Parley with the pirate captain for a gambler's wager over the vault.", badge:"Persuasion DC 11", check:{ stat:"spirit", skill:"Persuasion", dc:11, pass:15, fail:17, passMsg:"Marrowbone barks a hollow laugh and rattles a leather dice-cup!", failMsg:"'Dead men strike no bargains!' he roars, vaulting the desk!" } },
             { t:"Draw steel and challenge Captain Marrowbone!", to:17 }
           ]},
-          15: { zone:"The Dreadtide", title:"The Pirate's Wager", text:"'Roll bones with me, landlubber!' Marrowbone grins, rattling ivory dice. 'Beat my luck and take half my chest!'", choices:[
-            { t:"Test Your Luck at Marrowbone's dice table!", badge:"Test Your Luck", luck:{ pass:22, fail:17, passMsg:"Snake-eyes for the Captain! He honors his oath!", failMsg:"Loaded bones! Marrowbone draws his steel!" } },
-            { t:"Flip the table and strike!", to:17 }
+          15: { zone:"The Dreadtide", title:"The Pirate's Wager", text:"'Roll bones with me, landlubber!' Marrowbone grins, spilling carved whalebone dice across the sea-charts. 'Beat my luck and take half my chest—lose, and ye join my crew forever!'", choices:[
+            { t:"Test Your Luck at Marrowbone's dice table!", badge:"Test Your Luck", luck:{ pass:22, fail:17, passMsg:"Snake-eyes for the Captain! With a tipping of his tricorne, he honors his pirate's oath!", failMsg:"Loaded bones! Marrowbone laughs and draws his cutlass!" } },
+            { t:"Flip the mahogany table and strike first!", to:17 }
           ]},
-          16: { zone:"The Dreadtide", title:"The Broken Oath", text:"The Black Doubloon hisses on the wood, shattering Marrowbone's ghostly aura! 'Curse ye, thief!' he bellows as steel meets bone!", enemy:{ name:"Captain Marrowbone (Weakened)", desc:"Cursed pirate lord without his ward.", hp:21, ac:11, atk:4, dmg:5, undead:true, xp:80, gold:75, items:["cutlass_tides","pearl_chest"] }, choices:[
+          16: { zone:"The Dreadtide", title:"The Broken Oath", text:"The Black Doubloon hisses upon the mahogany, shattering Marrowbone's emerald ward in a shower of salt-sparks! 'Curse ye, thief!' he bellows as steel meets bone!", enemy:{ name:"Captain Marrowbone (Weakened)", desc:"Cursed pirate lord stripped of his phantom ward.", hp:21, ac:11, atk:4, dmg:5, undead:true, xp:80, gold:75, items:["cutlass_tides","pearl_chest"], weakCw:["DECK_SHAKEN","BELL_RUNG"] }, choices:[
             { t:"Claim the Captain's Treasure Chest!", to:18 }
           ]},
-          17: { zone:"The Dreadtide", title:"Duel on the Quarterdeck", text:"Captain Marrowbone leaps atop the chart table with a chilling laugh, slashing in blinding arcs!", enemy:{ name:"Captain Marrowbone", desc:"Undying scourge of Saltfang Cove.", hp:27, ac:12, atk:4, dmg:5, undead:true, xp:95, gold:85, items:["cutlass_tides","sea_salt"], weakCw:["COMPASS_FOUND"] }, choices:[
+          17: { zone:"The Dreadtide", title:"Duel on the Quarterdeck", text:"Captain Marrowbone leaps atop the chart table with a chilling cackle, slashing through the lantern-smoke in blinding green arcs!", enemy:{ name:"Captain Marrowbone", desc:"Undying scourge of Saltfang Cove.", hp:27, ac:12, atk:4, dmg:5, undead:true, xp:95, gold:85, items:["cutlass_tides","sea_salt"], weakCw:["COMPASS_FOUND","DECK_SHAKEN","BELL_RUNG"] }, choices:[
             { t:"Open the Captain's Treasure Chest!", to:18 }
           ]},
-          18: { zone:"The Dreadtide", title:"The Sunken Booty", text:"With Captain Marrowbone reduced to sea-foam and dust, the ship begins to settle lower in the lagoon! You snatch a chest overflowing with Spanish gold and pearls.", choices:[
-            { t:"Free the trapped ghost-ship souls by burning the cursed ledger! (True Ending)", to:21 },
-            { t:"Row back to the smuggler's rope before the tide rises!", to:19 }
+          18: { zone:"The Dreadtide", title:"The Sunken Booty", text:"With Captain Marrowbone reduced to sea-foam and quiet bone, the Dreadtide groans and begins to settle lower in the lagoon! Inside the iron-bound helm-chest gleams a hoard of sovereigns and pearls—resting right atop the cursed ship's ledger binding the crew's souls.", choices:[
+            { t:"Burn the cursed ship's ledger to free the trapped ghost-ship souls! (True Ending)", to:20 },
+            { t:"Grab the pirate hoard and row back to the smuggler's rope before high tide!", to:19 }
           ]},
-          19: { zone:"Tidal Caves", title:"Escape Before High Tide", text:"Foam surges up the cave stairs as you haul yourself up the knotted rope into the crisp sea breeze.", choices:[
+          19: { zone:"Tidal Caves", title:"Escape Before High Tide", text:"White foam surges up the cave ledges as you pull hard on the oars and haul yourself up Vex's knotted rope into the crisp night breeze.", choices:[
+            { t:"Meet Hooded Smuggler Vex on the moonlit shingle.", to:24 }
+          ]},
+          20: { zone:"Underground Lagoon", title:"The Silver Wake", text:"As the cursed ledger curls into bright blue ash, the phantom crew lines the rail in silent salute. Golden dawn-light breaks through the sea-arch as the Dreadtide slips peacefully into silver mist, washing 20 GP of clean merchant silver onto the shingle at your feet.", onEnter:{ gold:20, xp:15, msg:"Freed the Dreadtide's crew and gathered 20 GP of washed-up silver (+15 XP)!" }, choices:[
+            { t:"Return to Oakhaven with word of the quieted cove.", to:21 }
+          ]},
+          21: { zone:"Epilogue", title:"Liberator of Saltfang", text:"With the ghost ship laid to rest, Saltfang's fishing boats sail unmolested once more. Hooded Smuggler Vex raises a glass at the Rusty Flagon and slides a handsome bounty across the bar for clearing the cove.", ending:{ type:"true", title:"Liberator of Saltfang Cove", xp:105, gold:115, trophy:"Captain's Silver Compass" }, choices:[] },
+          22: { zone:"Epilogue", title:"King of the Smugglers", text:"Your boots squelch with seawater, but your pouch clinks with pirate sovereigns and lustrous pearls—enough to fund any expedition in Oakhaven!", ending:{ type:"rogue", title:"Saltfang Plunderer", xp:85, gold:145, trophy:"Marrowbone's Tricorne" }, choices:[] },
+          23: { zone:"Underground Lagoon", title:"The Sunken Bell-Buoy", text:"Half-submerged in the mist leans an old silver-rimmed harbor bell-buoy, draped in seaweed and wedged with a small barnacle-crusted pouch of 20 GP. Old sailors swear a clear harbor bell breaks a ghost ship's rhythm.", choices:[
+            { t:"Free the rusted clapper and ring a clear harbor chime across the lagoon!", badge:"Athletics / Perception DC 9", check:{ stat:"might", skill:"Athletics", dc:9, pass:10, fail:10, passMsg:"A pure silver toll rings across the bay—the Dreadtide's undead crew shudders!", failMsg:"The clapper groans softly, though you still snag the 20 GP pouch before rowing to the ship!" }, onPass:{ cw:"BELL_RUNG", gold:20, xp:15, msg:"Rang the Harbor Bell (BELL_RUNG) & claimed 20 GP (+15 XP)!" }, onFail:{ gold:20 } },
+            { t:"Pocket the 20 GP pouch silently and row to the Dreadtide's anchor chain.", to:10, onChoose:{ gold:20, msg:"Salvaged 20 GP from the sunken buoy." } }
+          ]},
+          24: { zone:"Coastal Cliffs", title:"Vex's Dockside Rendezvous", text:"Hooded Smuggler Vex steps out from behind a stack of salt-barrels, whistling low at the heavy clink of your pack. 'By the brine—you actually took Marrowbone's chest and walked out breathing!' He uncorks a flask of dark spiced rum (+6 HP) and salutes you.", onEnter:{ healHp:6, msg:"Vex's dark Saltfang rum warms your bones (+6 HP)!" }, choices:[
             { t:"March back to Oakhaven with your pirate gold.", to:22 }
-          ]},
-          20: { zone:"Tidal Caves", title:"Calm Waters", text:"The sea caves quiet as sunlight breaks over the cliffs.", choices:[
-            { t:"Return to Oakhaven.", to:21 }
-          ]},
-          21: { zone:"Epilogue", title:"Liberator of Saltfang", text:"As the cursed ledger turns to ash, the Dreadtide sails peacefully into silver mist. Hooded Smuggler Vex buys your drinks at the Rusty Flagon and pays a handsome bounty for clearing the cove.", ending:{ type:"true", title:"Liberator of Saltfang Cove", xp:105, gold:115, trophy:"Captain's Silver Compass" }, choices:[] },
-          22: { zone:"Epilogue", title:"King of the Smugglers", text:"Your boots squelch with seawater, but your pouch clinks with pirate sovereigns and lustrous pearls—enough to fund any expedition in Oakhaven!", ending:{ type:"rogue", title:"Saltfang Plunderer", xp:85, gold:145, trophy:"Marrowbone's Tricorne" }, choices:[] }
+          ]}
         }
       },
 
