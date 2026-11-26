@@ -313,6 +313,8 @@ window.OAKHAVEN.registerQuests({
   // ==========================================================
   // 17. THE WARLOCK'S CRYPT (7 PAGES • LV 9)
   // ==========================================================
+  // 17. THE WARLOCK'S CRYPT (11 PAGES • LV 9)
+  // ==========================================================
   bk_bol_17_warlocks_crypt: {
     id: "bk_bol_17_warlocks_crypt",
     title: "The Warlock's Crypt",
@@ -322,65 +324,105 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Grieving Noble Family (Temple of the Dawn)",
     summary: "Enter the burial mound where the ancient King in Silver traded his two sons' souls to Death for undeath as fext—rescue their latest captive and lay the three death-sworn royals to final rest.",
-    totalPages: 7,
+    totalPages: 11,
     pages: {
       1: {
         zone: "Burial Chamber",
         title: "Three Open Coffins",
         safeRetreat: true,
-        text: "Three elaborate stone coffins stand empty in circular alcoves around a pitted black iron brazier. Deep frantic scratches score the inside of the stone lids—and a hidden stair descends behind a slashed royal tapestry!",
+        text: "Three carved marble coffins stand empty inside circular alcoves around a pitted black iron brazier. Deep, frantic claw-scratches score the inside of the two smaller stone lids where the sacrificed princes first woke in undeath—and behind a slashed silver-threaded royal tapestry descends a freezing spiral stair.",
         choices: [
-          { t: "Examine the defaced royal sigils for clues to the pact with Death.", badge: "Arcana / Lore DC 14", check: { stat: "arcana", skill: "Lore", dc: 14, pass: 2, fail: 2, passMsg: "Fext! Undead warlocks bound to Death—blessed steel and radiant light disrupt their immortality!", failMsg: "Only cold grave-dust clings to the torn silk." }, onPass: { cw: "FEXT_LORE" } },
-          { t: "Descend the secret stone stairs into the lower crypt.", to: 2 }
+          { t: "Examine the defaced royal sigils for clues to the King's pact with Death.", badge: "Arcana / Lore DC 14", check: { stat: "arcana", skill: "Lore", dc: 14, pass: 2, fail: 2, passMsg: "Fext! Undead warlocks bound to Death—blessed steel and radiant light disrupt their immortality!", failMsg: "Only cold grave-dust and brittle silver thread cling to the torn tapestry." }, onPass: { cw: "FEXT_LORE" } },
+          { t: "Search the two smaller coffins for a hidden keepsake left by the princes' mother.", badge: "Perception / Lockpicking DC 14", check: { stat: "lore", skill: "Perception", dc: 14, pass: 3, fail: 2, passMsg: "You pry up a loose marble slab inside the Red Prince's coffin, uncovering a hidden alcove!", failMsg: "Cold draft rattles the stone lids as chittering shapes stir down the stairwell." }, onPass: { cw: "MOTHER_LOCKET" } },
+          { t: "Descend the secret stone stairs directly into the lower catacombs.", to: 2 }
         ]
       },
       2: {
         zone: "Lower Catacombs",
         title: "Noctiny Cultists",
-        text: "Chittering shadow-bat humanoids—Noctiny followers serving the undead princes—drop from the vaulted arches!",
-        enemy: { name: "Noctiny Crypt-Servants", desc: "Feral nocturnal followers of the fext royals.", hp: 70, ac: 16, atk: 9, dmg: 10, xp: 210, gold: 90, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1 },
+        text: "Leathery wings snap out of the vaulted gloom as chittering Noctiny crypt-servants—shadow-bat fanatics bound to the undead princes—drop from the arches with hooked obsidian knives!",
+        enemy: { name: "Noctiny Crypt-Servants", desc: "Feral nocturnal followers of the fext royals.", hp: 70, ac: 16, atk: 9, dmg: 10, xp: 210, gold: 90, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1, weakCw: ["MOTHER_LOCKET"] },
         choices: [
-          { t: "Follow the muffled sobs toward the Sacrificial Antechamber.", to: 3 }
+          { t: "Duck into the Moon-Shaft Reliquary beside the vaulted arch to scout the upper chute.", to: 4 },
+          { t: "Follow the muffled sobs straight toward the Sacrificial Antechamber.", to: 5 }
         ]
       },
       3: {
-        zone: "Sacrificial Antechamber",
-        title: "The Black and Red Princes",
-        text: "Beneath a narrow ceiling shaft used to drop prisoners in gaseous form, the terrified noblewoman huddles in chains! Stepping forward with blazing dark blades are the cursed Black Prince and Red Prince—and behind them looms the King in Silver!",
-        enemy: { name: "King in Silver & Fext Princes", desc: "Death-sworn undead warlock king and his sacrificed sons.", hp: 90, ac: 17, atk: 11, dmg: 12, undead: true, xp: 310, gold: 215, items: ["bq_king_silver_blade"], weakCw: ["FEXT_LORE"] },
+        zone: "Queen's Alcove",
+        title: "The Silver Locket",
+        text: "Resting beneath the loose marble slab lies a tarnished silver locket engraved with the two princes' living names—Aurelian and Cassian—beside a crystal flask of consecrated Dawn-oil hidden by their grieving mother.",
+        onEnter: { healHp: 12, xp: 35, msg: "Recovered the Queen's Locket (MOTHER_LOCKET) and consecrated Dawn-oil (+12 HP, +35 XP)!" },
         choices: [
-          { t: "Shatter the dark pact-altar and free the captive noblewoman!", to: 4 }
+          { t: "Slip the locket into your palm and descend into the Lower Catacombs.", to: 2 }
         ]
       },
       4: {
-        zone: "Royal Crypt",
-        title: "Release From Death's Pact",
-        text: "As the King in Silver crumbles to ash, the two princes' hollow eyes flicker with brief peace before dissolving. You lift the shaken noblewoman up the hidden exit shaft into cool moonlight.",
-        onEnter: { healHp: 15, msg: "Safely escaped the Warlock's Crypt (+15 HP)!" },
+        zone: "Moon-Shaft Reliquary",
+        title: "The Gaseous Drop-Chute",
+        text: "A narrow stone chimney pierces the ceiling, letting in a silver ribbon of moonlight where the fext royals drag captives down in gaseous form. Against the damp wall stands a tarnished silver mirror and an iron-bound offertory chest.",
         choices: [
-          { t: "Escort the rescued woman back to her grateful family.", to: 5 }
+          { t: "Angle the silver mirror to pour pure moonlight straight down into the Sacrificial Antechamber!", badge: "Perception / Arcana DC 15", check: { stat: "arcana", skill: "Perception", dc: 15, pass: 5, fail: 5, passMsg: "A lance of cold silver light floods the altar below, blistering the fext royals' shadows!", failMsg: "The rusted hinge shrieks—alerting the undead princes just beyond the archway!" }, onPass: { cw: "MOONLIGHT_REFLECTED" } },
+          { t: "Pick the silver-locked offertory chest before stepping into the antechamber.", badge: "Lockpicking / Agility DC 15", check: { stat: "agility", skill: "Lockpicking", dc: 15, pass: 5, fail: 5, passMsg: "Click! You recover +105 GP in ancient royal silver before advancing!", failMsg: "The lock jams as cold laughter echoes from the antechamber!" }, onPass: { cw: "OFFERTORY_LOOTED", gold: 105, xp: 30 } },
+          { t: "[Turn Undead] Flood the drop-chute with radiant light to shatter the crypt's wards!", reqSpell: "Turn Undead", to: 5, onChoose: { cw: "SHAFT_BLESSED", msg: "Radiant sunlight cascades down the stone shaft, weakening the fext royals ahead!" } }
         ]
       },
       5: {
-        zone: "Noble Estate",
-        title: "Reunion in Tears",
-        text: "The noble house showers you with coin and pledges lasting political friendship.",
+        zone: "Sacrificial Antechamber",
+        title: "The Black and Red Princes",
+        text: "Beneath the narrow ceiling shaft, the kidnapped noblewoman Lady Evelyn huddles in frost-rimmed chains! Stepping through the candle-smoke with blazing dark blades are the cursed Black Prince and Red Prince—and behind them looms their gaunt father, the King in Silver, crowned in tarnished moonlight!",
         choices: [
-          { t: "Return to Oakhaven.", to: 6 }
+          { t: "Hold up the Queen's tarnished locket and call the princes by their living names—Aurelian and Cassian!", reqCw: "MOTHER_LOCKET", to: 6, onChoose: { cw: "SONS_SHAKEN", msg: "The Black and Red Princes stagger in grief as their living names break their father's hold!" } },
+          { t: "Draw steel and charge the dark pact-altar to save Lady Evelyn!", to: 6 }
         ]
       },
       6: {
-        zone: "Temple of the Dawn",
-        title: "Mound Sealed",
-        text: "Priests consecrate the burial mound so the King in Silver can never rise again.",
+        zone: "Altar of the Silver Pact",
+        title: "The King in Silver",
+        text: "Cold silver fire roars across the obsidian altar as the King in Silver raises his cursed warlock blade and commands his death-sworn sons to strike!",
+        enemy: { name: "King in Silver & Fext Princes", desc: "Death-sworn undead warlock king and his sacrificed sons.", hp: 90, ac: 17, atk: 11, dmg: 12, undead: true, xp: 310, gold: 215, items: ["bq_king_silver_blade"], weakCw: ["FEXT_LORE", "MOONLIGHT_REFLECTED", "SHAFT_BLESSED", "SONS_SHAKEN"] },
         choices: [
-          { t: "Complete the adventure.", to: 7 }
+          { t: "Shatter the dark pact-altar and strike off Lady Evelyn's chains!", to: 7 }
         ]
       },
       7: {
+        zone: "Royal Crypt",
+        title: "Release From Death's Pact",
+        text: "As the King in Silver crumbles into cold metallic ash, the two princes lower their dark blades—for one quiet heartbeat, the haunted bitterness leaves their eyes before they dissolve peacefully into pale starlight. You unlock Lady Evelyn's chains and steady her trembling shoulders.",
+        onEnter: { healHp: 15, msg: "The Silver Pact shatters—warm relief restores +15 HP!" },
+        choices: [
+          { t: "Inspect the hollow plinth beneath the shattered pact-altar before climbing out.", to: 8 },
+          { t: "Lift Lady Evelyn straight up the hidden exit shaft into cool moonlight.", to: 9 }
+        ]
+      },
+      8: {
+        zone: "Shattered Plinth",
+        title: "The King's Regret",
+        text: "Inside the cracked plinth rests a velvet-wrapped signet pouch and a faded ledger naming every debt the King in Silver tried to bargain away—evidence that will free three border families from ruin!",
+        onEnter: { gold: 75, xp: 25, msg: "Recovered +75 GP and the King's debt-ledger (+25 XP)!" },
+        choices: [
+          { t: "Ascend the hidden exit shaft with Lady Evelyn into the night air.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Noble Estate",
+        title: "Reunion in Tears",
+        text: "Lanterns blaze across the estate courtyard as Lady Evelyn runs into her weeping family's arms. Her father clasps your gauntlets in gratitude, showering you with coin and pledging his house's enduring friendship.",
+        choices: [
+          { t: "Accompany the Temple of the Dawn's priests back to consecrate the mound.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Temple of the Dawn",
+        title: "Mound Sealed",
+        text: "At sunrise, Dawn-priests pour salt and sunlit water over the three empty coffins and seal the burial mound with iron wards so the King in Silver can never rise again.",
+        choices: [
+          { t: "Return to Oakhaven as ender of the Silver Pact.", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Ender of the Silver Pact",
-        text: "The nights around Oakhaven are free of the fext royals' ghostly raids.",
+        text: "The nights around Oakhaven are free of the fext royals' ghostly raids, and the sacrificed princes finally know peace.",
         ending: { type: "true", title: "Slayer of the King in Silver", xp: 355, gold: 340, trophy: "Crown of the Silver Fext" },
         choices: []
       }
