@@ -1,5 +1,5 @@
 {
-  "totalPasses": 15,
+  "totalPasses": 16,
   "history": [
     {
       "pass": 1,
@@ -105,6 +105,13 @@
       "title": "The Warlock's Crypt",
       "file": "data/quests/books_quests_batch_004.js",
       "summary": "Expanded from 7 terse pages to 11 gothic branching pages with the hidden Queen's Alcove silver locket & Dawn-oil (MOTHER_LOCKET -> SONS_SHAKEN payoff naming Aurelian & Cassian), a Moon-Shaft Reliquary mirror-angle & Turn Undead tactical branch (MOONLIGHT_REFLECTED, SHAFT_BLESSED, OFFERTORY_LOOTED +105 GP), and the Shattered Plinth debt-ledger salvage (+75 GP, +25 XP)."
+    },
+    {
+      "pass": 16,
+      "questId": "bk_bol_02_everforge",
+      "title": "Lost Halls of Everforge",
+      "file": "data/quests/books_quests_batch_003.js",
+      "summary": "Replaced one-line filler pages and expanded from 8 linear pages to 11 richly branching pages with Polla's threshold hook, Detect Traps brass-spring salvage (DART_DISARMED), interactive Ancestral Throne blessing (EVERFORGE_BLESSED), Smelter's Alcove rift diagram & iron-ore cache (BELLOWS_CLUE), Upper Bellows Gallery stealth bypass & Firebolt/Athletics flue-damper sabotage (RIFT_STARVED), and an interactive Sage Spencius reckoning scene (SPENCIUS_BOUND / SPENCIUS_CAPTURED)."
     }
   ],
   "questPasses": {
@@ -122,6 +129,7 @@
     "bk_b9_prep_7_betting": 1,
     "malakor_part2": 1,
     "bk_b5_trollkin_hunt": 1,
-    "bk_bol_17_warlocks_crypt": 1
+    "bk_bol_17_warlocks_crypt": 1,
+    "bk_bol_02_everforge": 1
   }
 }

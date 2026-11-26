@@ -80,7 +80,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 2. LOST HALLS OF EVERFORGE (8 PAGES • LV 2)
+  // 2. LOST HALLS OF EVERFORGE (11 PAGES • LV 2)
   // ==========================================================
   bk_bol_02_everforge: {
     id: "bk_bol_02_everforge",
@@ -90,75 +90,111 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 2,
     autoDiscover: false,
     discoverySource: "Dwarven Smith Polla (Oakhaven Forge)",
-    summary: "Enter the ancient dwarven Halls of Everforge, receive the blessing of the Presentation Hall, and stop the young flame dragon Igbalneum from completing a fiery planar ritual.",
-    totalPages: 8,
+    summary: "Enter the ancient dwarven Halls of Everforge, seek the ancestral blessing of the Presentation Hall, sabotage the fiery bellows-rift, and stop the young flame dragon Igbalneum before its planar ritual consumes the valley.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Hall of Armaments",
-        title: "Marble Statues & Kobold Tracks",
+        title: "The Soot-Stained Threshold",
         safeRetreat: true,
-        text: "Torchlight glints off towering marble carvings of dwarven hammers and shields. Thick dust shows recent bootprints and tiny reptilian tracks leading toward the Great Forge—lined with suspicious pressure plates!",
+        text: "At the mouth of the mountain tunnel, dwarven smith Polla grips a wax-sealed jug of consecrated spring water. 'My clan sealed Everforge a century ago,' she mutters, eyes fixed on the acrid orange smoke curling from the upper vents. 'Three nights past, a human scholar named Spencius hired kobold sappers to crack our outer lock—and now something fiery breathes inside.' Beyond the sundered bronze doors, torchlight glints across towering marble carvings of dwarven hammers and shields. Thick soot shows fresh leather bootprints alongside clawed reptilian tracks leading toward the central archway—lined with suspiciously recessed flagstones. To the left, a side arch bears an inlaid hammer-and-crown rune.",
         choices: [
-          { t: "Carefully spot and step around the kobold dart-plates.", badge: "Perception DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 2, failDmg: 4, passMsg: "You weave safely past four spring-loaded dart plates!", failMsg: "Click! Kobold darts nick your shoulder (-4 HP) and echo down the hall!" } },
-          { t: "Duck first into the carved Presentation Hall.", to: 2 }
+          { t: "Study the recessed flagstones and disarm the kobold dart-plates.", badge: "Perception DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 3, failDmg: 4, passMsg: "You wedge four spring-loaded dart plates shut before moving into the side hall!", failMsg: "Click! Hidden kobold darts nick your shoulder (-4 HP) and echo down the corridor!" }, onPass: { cw: "DART_DISARMED", xp: 15, msg: "Disabled the kobold dart-plates (+15 XP)!" } },
+          { t: "Jammed trigger-wires! Disarm the traps silently and pocket their brass springs.", badge: "Detect Traps", reqSkill: "Detect Traps", to: 2, onChoose: { cw: "DART_DISARMED", gold: 12, xp: 20, msg: "Disarmed the kobold traps silently and salvaged 12 GP of brass springs (+20 XP)!" } },
+          { t: "Slip quietly through the hammer-and-crown arch into the Presentation Hall first.", to: 2 }
         ]
       },
       2: {
         zone: "Presentation Hall",
-        title: "Blessing of the Ancestors",
-        text: "Two stone thrones sit beneath frescoes of dwarven lords presenting radiant steel to honored guests. Sitting respectfully upon the stone seat awakens an ancestral smith's spirit!",
-        onEnter: { healHp: 8, cw: "EVERFORGE_BLESSED", msg: "An Everforge ancestor blesses your weapon and restores vigor (+8 HP)!" },
+        title: "Thrones of the Everforge Clan",
+        text: "Two soot-free granite thrones sit beneath gilded frescoes depicting ancient dwarven runesmiths presenting bright steel to sworn friends of the mountain. An inscription carved in deep Khazad letters reads: 'Let none who bring honest iron kneel in fear; sit as a guest of stone, and the Forge remembers.' Beside the cold hearth stands a carved marble plinth with a half-open smelter's alcove behind it.",
         choices: [
-          { t: "Proceed through the Room of Respite toward the Great Forge.", to: 3 }
+          { t: "Seat yourself respectfully upon the guest throne and swear to defend the hearth.", to: 3, onChoose: { healHp: 8, cw: "EVERFORGE_BLESSED", msg: "A warm golden phantom of an Everforge runesmith lays a gloved hand upon your weapon (+8 HP, Ancestral Blessing)!" } },
+          { t: "Examine the marble plinth and the smelter's alcove behind the hearth first.", to: 4 },
+          { t: "Leave the silent hall undisturbed and press on toward the Room of Respite.", to: 5 }
         ]
       },
       3: {
-        zone: "Room of Respite",
-        title: "Kobold Patrol",
-        text: "Eight fanatical kobold minions scramble from behind crumbled stone benches, shrieking in Draconic to defend their dragon master!",
-        enemy: { name: "Everforge Kobold Patrol", desc: "Frenzied kobold servants loyal to Igbalneum.", hp: 22, ac: 11, atk: 4, dmg: 4, xp: 45, gold: 25, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1 },
+        zone: "Presentation Hall",
+        title: "The Ancestor's Charge",
+        text: "Golden sparks drift from your weapon as the spectral runesmith bows his bearded head. His voice rings like a struck tuning-anvil inside your mind: 'A flame-scaled wyrmling nests upon our Great Anvil, fed by a mortal's reckless rift. Look above the hearth-hall—the upper Bellows Gallery still commands the forge's air-flues.' The phantom fades into the marble, leaving your lungs clear and your grip steady.",
         choices: [
-          { t: "Push open the great double doors into the blazing Great Forge!", to: 4 }
+          { t: "Check the smelter's alcove behind the plinth for clues before moving on.", to: 4 },
+          { t: "Slip up the hidden soot-stairs toward the Upper Bellows Gallery.", badge: "Stealth DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 6, fail: 5, passMsg: "You ghost up the narrow iron stair completely unseen by the kobolds below!", failMsg: "Loose cinders clatter down the stairwell—kobold sentries shriek and charge from the Room of Respite!" } },
+          { t: "Stride directly into the Room of Respite to clear the kobold guards.", to: 5 }
         ]
       },
       4: {
-        zone: "The Great Forge",
-        title: "Igbalneum & Sage Spencius",
-        text: "Under a thirty-foot soot-blackened vault roars an eternal elemental furnace! Before the anvil crouches the flame dragon wyrmling Igbalneum while elderly sage Spencius chants to widen a rift to the Plane of Fire!",
-        enemy: { name: "Igbalneum, Flame Wyrmling", desc: "Smoldering flame dragon attempting a planar transformation.", hp: 32, ac: 12, atk: 5, dmg: 5, xp: 80, gold: 55, items: rollRandomLoot(["material", "valuable"], 1, "rare"), weakCw: ["EVERFORGE_BLESSED"] },
+        zone: "Smelter's Alcove",
+        title: "Spencius's Dropped Ledger",
+        text: "Tucked behind the marble plinth beside a dry quenching-trough lies a scorched leather satchel dropped by Sage Spencius in his haste. Inside is a charcoal diagram of the Great Forge: the planar rift feeding Igbalneum relies on two heavy iron counterweight chains in the Upper Bellows Gallery to keep the furnace roaring at white-hot intensity. Beneath the satchel rests a forgotten clan coffer holding twenty gold coins and a heavy bar of mountain iron.",
+        onEnter: { cw: "BELLOWS_CLUE", gold: 20, items: ["iron_ore"], xp: 20, msg: "Claimed Spencius's rift diagram (Bellows Clue), 20 GP, and Iron Ore (+20 XP)!" },
         choices: [
-          { t: "Halt Spencius's chanting and summon Polla to quench the fire-link!", to: 5 }
+          { t: "Follow the diagram's service ladder straight into the Upper Bellows Gallery.", badge: "Bellows Clue", reqCw: "BELLOWS_CLUE", to: 6 },
+          { t: "Head into the Room of Respite to confront the kobold patrol directly.", to: 5 }
         ]
       },
       5: {
-        zone: "The Great Forge",
-        title: "The Quenching Ritual",
-        text: "Dwarven smith Polla hurries in and pours consecrated mountain water over the glowing anvil. With a hiss of silver steam, the rift to the Plane of Fire seals shut!",
-        onEnter: { items: ["bq_everforge_adamantine"], msg: "Polla gifts you a suit of Everforge Adamantine Chain!" },
+        zone: "Room of Respite",
+        title: "The Kobold Guardpost",
+        text: "Crumbled stone benches and overturned pewter flagons litter the dwarves' old break-hall. Eight fanatical kobold sappers with soot-smeared snouts scramble from behind the barricaded tables, brandishing iron pokers and shrieking in jagged Draconic to defend their young flame-lord!",
+        enemy: { name: "Everforge Kobold Patrol", desc: "Frenzied kobold sappers loyal to Igbalneum.", hp: 22, ac: 11, atk: 4, dmg: 4, xp: 45, gold: 25, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["DART_DISARMED"] },
         choices: [
-          { t: "Help Polla seal the outer vault doors.", to: 6 }
+          { t: "Climb the iron service ladder into the Upper Bellows Gallery before entering the Great Forge.", to: 6 },
+          { t: "Shove open the massive bronze double doors and march straight into the blazing Great Forge!", to: 7 }
         ]
       },
       6: {
-        zone: "Mountain Pass",
-        title: "Gratitude of the Clan",
-        text: "Polla vows that the Everforge smithy will sing with honest hammers once more.",
+        zone: "Upper Bellows Gallery",
+        title: "The Counterweight Chains",
+        text: "Heat shimmers like liquid glass along a narrow iron catwalk overlooking the thirty-foot vault of the Great Forge. Far below, the flame wyrmling Igbalneum coils atop the glowing anvil while gray-bearded Sage Spencius chants before a crackling crimson tear in the air. Right beside your boots groan the two massive iron counterweight chains feeding oxygen into the elemental furnace—and a dry hemp rope suspends an ash-filled coal hopper directly over the ritual circle!",
         choices: [
-          { t: "Return to Oakhaven with Polla's reward.", to: 7 }
+          { t: "Use Spencius's diagram to trip the counterweight release and slam the flue-damper shut!", badge: "Bellows Clue", reqCw: "BELLOWS_CLUE", to: 7, onChoose: { cw: "RIFT_STARVED", xp: 25, msg: "The heavy iron damper slams shut, choking the fire-rift and staggering Igbalneum (+25 XP)!" } },
+          { t: "Heave the jammed counterweight lever by sheer muscle to starve the furnace!", badge: "Might DC 11", check: { stat: "might", skill: "Athletics", dc: 11, pass: 7, fail: 7, failDmg: 3, passMsg: "With a screech of iron, the flue-damper crashes down and chokes the crimson rift!", failMsg: "Scalding steam bursts from the vent (-3 HP) as you leap down to the forge floor!" }, onPass: { cw: "RIFT_STARVED", xp: 25, msg: "Starved the planar fire-rift (+25 XP)!" } },
+          { t: "Snap the coal-hopper's hemp tether with a Firebolt to douse the ritual circle in blinding soot!", badge: "Firebolt", reqSpell: "Firebolt", to: 7, onChoose: { cw: "RIFT_STARVED", xp: 30, msg: "A cascade of black coal-dust erupts over Igbalneum, blinding the wyrmling and choking the rift (+30 XP)!" } },
+          { t: "Drop straight onto the foundry floor to face Igbalneum and Spencius head-on.", to: 7 }
         ]
       },
       7: {
-        zone: "Oakhaven Forge",
-        title: "Heirloom of Stone",
-        text: "Even the local blacksmith marvels at the adamantine links crafted by the ancient Everforge clan.",
+        zone: "The Great Forge",
+        title: "Igbalneum & Sage Spencius",
+        text: "Under a thirty-foot soot-blackened vault roars an eternal elemental furnace! Sparks cascade like falling stars around the runed Great Anvil, where the young flame dragon Igbalneum coils with ember-bright eyes and a throat full of molten fire. Beside him, elderly Sage Spencius waves a smoking copper censer to widen the shrieking planar rift. 'Foolish interloper!' Spencius cries as Igbalneum spreads its blazing wings. 'Witness a true flame dragon's apotheosis!'",
+        enemy: { name: "Igbalneum, Flame Wyrmling", desc: "Smoldering flame dragon attempting a planar transformation.", hp: 32, ac: 12, atk: 5, dmg: 5, xp: 80, gold: 55, items: rollRandomLoot(["material", "valuable"], 1, "rare"), weakCw: ["EVERFORGE_BLESSED", "RIFT_STARVED"] },
         choices: [
-          { t: "Complete the quest.", to: 8 }
+          { t: "Corner the trembling Sage Spencius before he can stabilize the fading rift!", to: 8 },
+          { t: "Kick the copper censer into the ash-pit and shout for Polla to bring the consecrated water!", to: 9 }
         ]
       },
       8: {
+        zone: "The Great Forge",
+        title: "The Reckoning of Spencius",
+        text: "With Igbalneum vanquished and its cinder-bright scales cooling upon the flagstones, Sage Spencius stumbles backward against the anvil, clutching his singed cloak. 'Wait—spare me!' he gasps, eyes wide with sudden terror as the unstable fire-rift crackles above his head. 'I only wanted to prove the First Flame still burned beneath these mountains! Let me live, and I will unwind the chalk binding-sigils myself and surrender my expedition purse!'",
+        choices: [
+          { t: "Compel Spencius to reverse his binding-sigils carefully before Polla quenches the anvil.", badge: "Persuasion / Arcana DC 11", check: { stat: "arcana", skill: "Arcana", dc: 11, pass: 9, fail: 9, passMsg: "Under your watchful eye, Spencius erases the anchor-runes and hands over his heavy coin purse!", failMsg: "Spencius fumbles a rune and bolts through a side smoke-vent, dropping a handful of coins behind!" }, onPass: { cw: "SPENCIUS_BOUND", gold: 35, xp: 25, msg: "Spencius safely unwound the ritual and surrendered 35 GP (+25 XP)!" }, onFail: { gold: 15, msg: "Collected 15 GP dropped by the fleeing sage." } },
+          { t: "Bind Spencius's wrists for the Oakhaven watch and call Polla in immediately.", to: 9, onChoose: { cw: "SPENCIUS_CAPTURED", xp: 20, msg: "Secured Sage Spencius for the Oakhaven magistrates (+20 XP)!" } }
+        ]
+      },
+      9: {
+        zone: "The Great Forge",
+        title: "The Quenching Ritual",
+        text: "Dwarven smith Polla hurries through the smoke-veiled doors, uncorking her stone jug of consecrated mountain water. Together you pour the cold, shimmering torrent across the incandescent Great Anvil. With a thunderous hiss of silver steam, the crimson tear to the Plane of Fire snaps shut, leaving only the steady, honest warmth of a dwarven hearth. Tears of relief glinting in her eyes, Polla unlocks a soot-free cabinet behind the anvil and lifts out a gleaming hauberk of ancient clan links.",
+        onEnter: { items: ["bq_everforge_adamantine"], msg: "Polla gifts you a suit of Everforge Adamantine Chain!" },
+        choices: [
+          { t: "Help Polla bar the outer vault doors and escort her back down the mountain pass.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Mountain Pass & Oakhaven Forge",
+        title: "Heirloom of Stone",
+        text: "Crisp pine-scented air greets you beyond the cairn as Polla locks the outer bronze bar with a resonant clang. High above the ridge, only harmless wisps of gray smoke curl from the vents. 'The Everforge will sing with honest hammers again,' she vows. Back at the Oakhaven Forge, even the town's veteran blacksmith halts his bellows to marvel at the flawless adamantine rings draped across your shoulders.",
+        choices: [
+          { t: "Accept Polla's clan bounty and complete the quest.", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Champion of Everforge",
-        text: "By quenching Igbalneum's ritual before the wyrmling grew into a full flame dragon, you saved the valley from fire and earned dwarven renown.",
+        text: "By quenching Igbalneum's planar ritual before the wyrmling could ascend into a full flame dragon, you spared the valley from wildfire, restored an ancient dwarven sanctuary, and earned the lasting respect of Clan Everforge.",
         ending: { type: "true", title: "Savior of Everforge", xp: 125, gold: 130, trophy: "Everforge Anvil Token" },
         choices: []
       }
