@@ -1,6 +1,6 @@
 {
-  "totalPasses": 23,
-  "totalItemsReworked": 230,
+  "totalPasses": 24,
+  "totalItemsReworked": 240,
   "history": [
     {
       "pass": 1,
@@ -369,6 +369,22 @@
         "bk_spiked_buckler"
       ],
       "summary": "Reworked 3 Vault of Magic items (Legendary Stonedrift Staff, Amulet of the Oracle, Cape of Targeting), Fabricator's Arcane Core, Tallenya's Boatman Token, Baurjien's Skull Necklace, Charm Of Restoration, Spiked Buckler, and polished 2 nautical quest relics."
+    },
+    {
+      "pass": 24,
+      "items": [
+        "bk_pouch_of_runestones",
+        "vom_living_juggernaut",
+        "bq_freejus_ember_orb",
+        "vom_garments_winter_knt",
+        "vom_retribution_armor",
+        "vom_stone_staff",
+        "vom_staff_fate",
+        "bq_chaos_drake_scale_mail",
+        "bq_big_briar_trollstone",
+        "bq_fjellgard_frost_cloak"
+      ],
+      "summary": "Reworked 5 Vault of Magic items (Legendary Garments of Winter's Knight, Retribution Armor, Stone Staff, Staff of Fate, Living Juggernaut Plate), Pouch of Runestones, Quenched Agnibarra Ember, Purified Leer Trollstone, and polished 2 quest relics."
     }
   ],
   "itemPasses": {
@@ -601,6 +617,16 @@
     "bq_charun_oar_charm": 1,
     "nf_baurjien_necklace": 1,
     "vom_amulet_oracle": 1,
-    "bk_spiked_buckler": 1
+    "bk_spiked_buckler": 1,
+    "bk_pouch_of_runestones": 1,
+    "vom_living_juggernaut": 1,
+    "bq_freejus_ember_orb": 1,
+    "vom_garments_winter_knt": 1,
+    "vom_retribution_armor": 1,
+    "vom_stone_staff": 1,
+    "vom_staff_fate": 1,
+    "bq_chaos_drake_scale_mail": 1,
+    "bq_big_briar_trollstone": 1,
+    "bq_fjellgard_frost_cloak": 1
   }
 }

@@ -580,10 +580,11 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "uncommon",
     value: 95,
-    source: "Creature Codex Lairs",
     arcana: 1,
     maxMp: 4,
-    desc: "+1 Arcana, +4 Max MP. Warm ruby cinder cooled from Dr. Freejus's asylum basement."
+    passives: { spellDmgBonus: 2, skillBonus: { Arcana: 1 } },
+    activeAbility: { name: "Rekindle Ruby Cinder", icon: "🔥", charges: 2, dmgDice: "1d8", dmgStat: "arcana", dmgType: "fire", dot: { dmg: 3, turns: 3, label: "Asylum Ember" }, desc: "2/Quest: Flare the quenched ruby cinder for 1d8 + Arcana fire dmg and Asylum Ember (3/t, 3t)!" },
+    desc: "Warm ruby cinder cooled from Dr. Freejus's asylum basement (+2 Spell Dmg, +1 Arcana) with Rekindle Ruby Cinder."
   },
   "bq_rathsys_cloak": {
     id: "bq_rathsys_cloak",
@@ -1523,7 +1524,9 @@ window.OAKHAVEN.registerItems({
     value: 195,
     might: 2,
     maxHp: 10,
-    desc: "+2 Might, +10 Max HP. Heavy moss-carved charm cleansed of Big Briar's curse."
+    passives: { dmgReduce: 2, healBonus: 3, lifesteal: 2, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Trollblood Vigour", icon: "💚", charges: 2, ooc: true, healDice: "2d8", healStat: "might", selfBuffAtk: { atk: 2, turns: 3 }, desc: "2/Quest: Draw pure troll-stone resilience to restore 2d8 + Might HP and gain +2 Attack (3t)!" },
+    desc: "Heavy moss-carved charm cleansed of Big Briar's curse (-2 Dmg Taken, +3 Healing, Lifesteal 2, +2 Survival) with Trollblood Vigour."
   },
   "bq_melgros_vault_circlet": {
     id: "bq_melgros_vault_circlet",
@@ -2682,8 +2685,8 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     agility: 1,
     passives: { dmgReduce: 1, skillBonus: { Stealth: 2, Survival: 1 } },
-    activeAbility: { name: "Snowcat Pounce", icon: "🐆", charges: 1, dmgDice: "1d10", dmgStat: "agility", dmgType: "cold", evadeTurns: 1, desc: "1/Quest: Strike from winter mist for 1d10 + Agility cold dmg and Evade (1t)!" },
-    desc: "Frost-lined hunter's cloak won at Fjellgard (-1 dmg taken, +2 Stealth, +1 Survival) with Snowcat Pounce."
+    activeAbility: { name: "Snowcat Pounce", icon: "🐆", charges: 2, dmgDice: "1d10", dmgStat: "agility", dmgType: "cold", chillTurns: 2, evadeTurns: 1, desc: "2/Quest: Strike from winter mist for 1d10 + Agility cold dmg, Chill (2t), and Evade (1t)!" },
+    desc: "Frost-lined hunter's cloak won at Fjellgard (-1 dmg taken, +2 Stealth, +1 Survival) with 2 charges of Snowcat Pounce."
   },
   "bq_frosttuft_silver_axe": {
     id: "bq_frosttuft_silver_axe",
@@ -3222,9 +3225,9 @@ window.OAKHAVEN.registerItems({
     might: 2,
     arcana: 2,
     maxHp: 12,
-    passives: { dmgReduce: 3, thornsDmg: 4, spellDmgBonus: 3 },
-    activeAbility: { name: "Prismatic Scale Burst", icon: "🐉", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "fire", shieldTurns: 2, desc: "2/Quest (2 MP): Flare prismatic drake scales for 3d8 + Arcana fire dmg and +3 AC (2t)!" },
-    desc: "Shifting prismatic scale-mail from the Maze Caverns (-3 Dmg Taken, 4 Thorns, +3 Spell Dmg) with Prismatic Scale Burst."
+    passives: { dmgReduce: 3, thornsDmg: 4, spellDmgBonus: 3, bossDmgBonus: 3 },
+    activeAbility: { name: "Prismatic Scale Burst", icon: "🐉", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "fire", stunTurns: 1, shieldTurns: 2, desc: "2/Quest (2 MP): Flare prismatic drake scales for 3d8 + Arcana fire dmg, Stun (1t), and +3 AC (2t)!" },
+    desc: "Shifting prismatic scale-mail from the Maze Caverns (-3 Dmg Taken, 4 Thorns, +3 Spell Dmg, +3 vs Bosses) with Prismatic Scale Burst."
   },
   "bq_colossus_heart_plate": {
     id: "bq_colossus_heart_plate",

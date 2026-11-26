@@ -357,11 +357,28 @@ window.OAKHAVEN.registerItems({
     "type": "accessory",
     "rarity": "rare",
     "value": 135,
-    "source": "Tome of Heroes",
     "ac": 1,
     "spirit": 2,
     "maxHp": 6,
-    "desc": "+1 AC, +2 Spirit, +6 Max HP (Tome of Heroes)"
+    "passives": {
+      "spellDmgBonus": 2,
+      "healBonus": 2,
+      "skillBonus": {
+        "Arcana": 2,
+        "Perception": 2
+      }
+    },
+    "activeAbility": {
+      "name": "Cast the Runes",
+      "icon": "🪨",
+      "charges": 2,
+      "ooc": true,
+      "restoreMp": 4,
+      "restoreLuck": 1,
+      "shieldTurns": 2,
+      "desc": "2/Quest: Scatter carved stone runes to read the omen — restore 4 MP, +1 Luck, and gain +3 AC (2t)!"
+    },
+    "desc": "Weathered leather pouch of hand-carved divination runestones (+2 Spell Dmg, +2 Healing, +2 Arcana/Perception) with Cast the Runes."
   },
   "bk_serpentine_sandals": {
     "id": "bk_serpentine_sandals",
