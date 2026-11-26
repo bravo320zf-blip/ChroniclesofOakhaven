@@ -1,6 +1,6 @@
 {
-  "totalPasses": 26,
-  "totalItemsReworked": 260,
+  "totalPasses": 27,
+  "totalItemsReworked": 270,
   "history": [
     {
       "pass": 1,
@@ -417,6 +417,22 @@
         "nf_amelera_mantle"
       ],
       "summary": "Reworked Fabled Oak Heart Figurine (with Treant summon), Valkyrie's Bite, Rod of Thorns, Legendary Shroud of the Ghost Witch, Echo-Glass Lantern, Thornwood Cloak, Boots of Swiftness, and 3 quest relics."
+    },
+    {
+      "pass": 27,
+      "items": [
+        "bq_river_king_crown",
+        "vom_lucky_charm_monkey",
+        "vom_armor_warding_1",
+        "bq_bramble_king_circlet",
+        "bq_lamassu_golden_diadem",
+        "winterheart_pendant",
+        "heartwood_bowblade",
+        "bq_hommal_botanical_vial",
+        "bq_crimson_hood_cloak",
+        "phylactery_shard"
+      ],
+      "summary": "Reworked 2 Vault of Magic items (Armor of Warding +1, Lucky Charm of the Monkey King), 3 Frontier Pt.2 Uniques (Heartwood Twinblade, Purified Phylactery Shard, Winterheart Pendant), Hommal's Golden Conservatory Vial, Crimson Cloak of the Fang, and polished 3 royal quest diadems."
     }
   ],
   "itemPasses": {
@@ -679,6 +695,16 @@
     "vom_fab_oak_heart": 1,
     "echo_lantern": 1,
     "vom_rod_thorns": 1,
-    "nf_amelera_mantle": 1
+    "nf_amelera_mantle": 1,
+    "bq_river_king_crown": 1,
+    "vom_lucky_charm_monkey": 1,
+    "vom_armor_warding_1": 1,
+    "bq_bramble_king_circlet": 1,
+    "bq_lamassu_golden_diadem": 1,
+    "winterheart_pendant": 1,
+    "heartwood_bowblade": 1,
+    "bq_hommal_botanical_vial": 1,
+    "bq_crimson_hood_cloak": 1,
+    "phylactery_shard": 1
   }
 }

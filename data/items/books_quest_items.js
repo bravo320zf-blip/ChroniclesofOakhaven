@@ -1406,7 +1406,9 @@ window.OAKHAVEN.registerItems({
     spirit: 2,
     luck: 2,
     maxHp: 10,
-    desc: "+2 Spirit, +2 Luck, +10 Max HP. Rare rooftop elixir pulsing with restorative life."
+    passives: { healBonus: 5, dmgReduce: 2, skillBonus: { Herbalism: 4, Survival: 2 } },
+    activeAbility: { name: "Conservatory Panacea", icon: "🧪", charges: 2, ooc: true, healDice: "3d8", healStat: "spirit", restoreMp: 4, restoreLuck: 1, desc: "2/Quest: Uncork the endlessly refilling botanical elixir to heal 3d8 + Spirit HP, +4 MP, and +1 Luck!" },
+    desc: "Rare rooftop conservatory elixir pulsing with restorative life (+5 Healing, -2 Dmg Taken, +4 Herbalism, +2 Survival) with Conservatory Panacea."
   },
   "bq_xazagra_hell_blade": {
     id: "bq_xazagra_hell_blade",
@@ -1931,7 +1933,9 @@ window.OAKHAVEN.registerItems({
     value: 185,
     ac: 2,
     agility: 2,
-    desc: "+2 AC, +2 Agility. Enchanted scarlet hood blessed by the song of Gamayun."
+    passives: { critRange: 11, skillBonus: { Stealth: 3, Perception: 2 } },
+    activeAbility: { name: "Gamayun's Scarlet Pounce", icon: "🐺", charges: 2, dmgDice: "2d6", dmgStat: "agility", dmgType: "physical", evadeTurns: 2, selfBuffAtk: { atk: 2, turns: 2 }, desc: "2/Quest: Dart beneath the scarlet hood for 2d6 + Agility dmg, Evade (2t), and +2 Attack (2t)!" },
+    desc: "Enchanted scarlet hood blessed by the song of Gamayun (+Crit, +3 Stealth, +2 Perception) with Gamayun's Scarlet Pounce."
   },
   "bq_lesharrkk_feather_cloak": {
     id: "bq_lesharrkk_feather_cloak",
@@ -2555,9 +2559,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     spirit: 3,
     might: 2,
-    passives: { healBonus: 3, bossDmgBonus: 4, undeadDmgBonus: 4 },
-    activeAbility: { name: "Roar of the Golden Lion", icon: "🦁", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", selfBuffAtk: { atk: 4, turns: 3 }, desc: "2/Quest: Channel Mesannaki's celestial grace — heal 2d8 + Spirit HP and gain +4 ATK (3t)!" },
-    desc: "Sun-gilded diadem gifted by Mesannaki (+3 Healing, +4 vs Bosses & Undead) with Roar of the Golden Lion."
+    passives: { healBonus: 3, dmgReduce: 2, bossDmgBonus: 4, undeadDmgBonus: 4, skillBonus: { Persuasion: 3 } },
+    activeAbility: { name: "Roar of the Golden Lion", icon: "🦁", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", selfBuffAtk: { atk: 4, turns: 3 }, shieldTurns: 2, desc: "2/Quest: Channel Mesannaki's celestial grace — heal 2d8 + Spirit HP, +4 ATK (3t), and +3 AC (2t)!" },
+    desc: "Sun-gilded diadem gifted by Mesannaki (+3 Healing, -2 Dmg Taken, +4 vs Bosses & Undead, +3 Persuasion) with Roar of the Golden Lion."
   },
   "bq_moon_poet_keyblade": {
     id: "bq_moon_poet_keyblade",
@@ -2642,9 +2646,9 @@ window.OAKHAVEN.registerItems({
     value: 105,
     ac: 1,
     spirit: 2,
-    passives: { thornsDmg: 3, skillBonus: { Survival: 2 } },
-    activeAbility: { name: "Briar-Hound Lash", icon: "🌿", charges: 2, dmgDice: "1d8", dmgStat: "spirit", dmgType: "physical", dot: { dmg: 2, turns: 3, label: "Rose Thorns" }, desc: "2/Quest: Whip living thorns for 1d8 + Spirit dmg and Rose Thorns (2/t, 3t)!" },
-    desc: "Silver-thorn circlet gifted by the calmed Bramble King (3 Thorns, +2 Survival) with Briar-Hound Lash."
+    passives: { thornsDmg: 3, skillBonus: { Survival: 2, Herbalism: 1 } },
+    activeAbility: { name: "Briar-Hound Lash", icon: "🌿", charges: 2, dmgDice: "1d8", dmgStat: "spirit", dmgType: "physical", chillTurns: 1, dot: { dmg: 2, turns: 3, label: "Rose Thorns" }, desc: "2/Quest: Whip living thorns for 1d8 + Spirit dmg, Chill (1t), and Rose Thorns (2/t, 3t)!" },
+    desc: "Silver-thorn circlet gifted by the calmed Bramble King (3 Thorns, +2 Survival, +1 Herbalism) with Briar-Hound Lash."
   },
   "bq_enoki_spore_scepter": {
     id: "bq_enoki_spore_scepter",
@@ -3142,9 +3146,9 @@ window.OAKHAVEN.registerItems({
     arcana: 3,
     spirit: 3,
     maxHp: 12,
-    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: 1, healBonus: 3 },
-    activeAbility: { name: "Wrath of the Cataract", icon: "🌊", charges: 2, mp: 3, dmgDice: "3d10", dmgStat: "spirit", dmgType: "frost", chillTurns: 2, healBase: 10, desc: "2/Quest (3 MP): Unleash the River King's tide for 3d10 + Spirit cold dmg, Chill (2t), and +10 HP!" },
-    desc: "Storm-sapphire fey crown of the Summer Rivers (+3 Spell Dmg, -1 MP Cost, +1 MP/t, +3 Healing) with Wrath of the Cataract."
+    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: 1, healBonus: 3, skillBonus: { Persuasion: 3, Arcana: 2 } },
+    activeAbility: { name: "Wrath of the Cataract", icon: "🌊", charges: 2, mp: 3, dmgDice: "3d10", dmgStat: "spirit", dmgType: "frost", stunTurns: 1, chillTurns: 2, healBase: 10, desc: "2/Quest (3 MP): Unleash the River King's tide for 3d10 + Spirit cold dmg, Stun (1t), Chill (2t), and +10 HP!" },
+    desc: "Storm-sapphire fey crown of the Summer Rivers (+3 Spell Dmg, -1 MP Cost, +1 MP/t, +3 Healing, +3 Persuasion, +2 Arcana) with Wrath of the Cataract."
   },
   // Batch 025 Signature Items (Places of Chaos)
   "bq_bleakspire_scepter": {
