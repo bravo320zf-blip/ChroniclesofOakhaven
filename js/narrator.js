@@ -13,8 +13,8 @@
   const STORAGE_KEY = "oakhaven_narrator_prefs_v1";
 
   const KOKORO_VOICES = [
+    { id: "bm_lewis",    label: "⚡ Lewis — British Narrator (Instant MP3)" },
     { id: "bm_george",   label: "George — British Narrator (Warm)" },
-    { id: "bm_lewis",    label: "Lewis — British Narrator (Deep • Bram/Borin)" },
     { id: "bm_daniel",   label: "Daniel — British Narrator (Crisp • Orin)" },
     { id: "bf_emma",     label: "Emma — British Narrator (Classic • Miri)" },
     { id: "bf_isabella", label: "Isabella — British Narrator (Lyrical • Selene)" },
@@ -37,13 +37,20 @@
     autoRead: false,
     rate: 1.0,
     browserVoiceName: "",
-    kokoroVoice: "bm_lewis"
+    kokoroVoice: "bm_lewis",
+    v2LewisDefaulted: false
   };
 
   let prefs = { ...DEFAULT_PREFS };
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
     if (saved && typeof saved === "object") prefs = { ...prefs, ...saved };
+    // One-time migration: switch legacy default bm_george -> bm_lewis so pre-recorded instant MP3s hit immediately!
+    if (!prefs.v2LewisDefaulted && prefs.kokoroVoice === "bm_george") {
+      prefs.kokoroVoice = "bm_lewis";
+      prefs.v2LewisDefaulted = true;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+    }
   } catch (_) {}
 
   function savePrefs() {
@@ -622,7 +629,8 @@
     }
 
     // 2. Live Kokoro Web Worker fallback (dynamic Outskirts encounters or custom voices)
-    const chunks = splitIntoChunks(text, 170, 90);
+    // Ultra-short first chunk (~50 chars) so live speech starts in ~2-3 seconds while prefetching the rest!
+    const chunks = splitIntoChunks(text, 150, 52);
     if (chunks.length === 0) {
       setStatus("idle", "Nothing to read");
       return;
@@ -913,12 +921,18 @@
     }
     if (menuStatusEl) {
       if (prefs.engine === "kokoro") {
-        menuStatusEl.textContent = kokoroStatusMsg;
-        menuStatusEl.className = kokoroState === "ready"
-          ? "text-[11px] font-semibold text-emerald-300"
-          : kokoroState === "error"
-            ? "text-[11px] font-semibold text-rose-300"
-            : "text-[11px] font-medium text-amber-200";
+        const preCount = global.OAKHAVEN_VOICE_MANIFEST ? Object.keys(global.OAKHAVEN_VOICE_MANIFEST).length : 0;
+        if (kokoroState === "idle" && preCount > 0) {
+          menuStatusEl.textContent = `⚡ ${preCount} Instant Pre-Recorded Studio Voices Ready (live AI loads on demand)`;
+          menuStatusEl.className = "text-[11px] font-semibold text-emerald-300";
+        } else {
+          menuStatusEl.textContent = kokoroStatusMsg;
+          menuStatusEl.className = kokoroState === "ready"
+            ? "text-[11px] font-semibold text-emerald-300"
+            : kokoroState === "error"
+              ? "text-[11px] font-semibold text-rose-300"
+              : "text-[11px] font-medium text-amber-200";
+        }
       } else {
         const topName = browserVoices[0]?.name ? browserVoices[0].name.replace(/Microsoft |Google |Online \(Natural\) - /g, "").trim() : "System Voice";
         menuStatusEl.textContent = `✅ Smart Browser Voice Ready (${topName})`;
@@ -966,10 +980,8 @@
       if (voiceSel) voiceSel.dataset.populated = "";
       if (menuVoiceSel) menuVoiceSel.dataset.populated = "";
       renderControls();
-      if (prefs.engine === "kokoro" && !kokoroModel && kokoroState !== "loading") {
-        // Begin downloading Studio AI immediately so user sees live progress & completion badge
-        ensureKokoroModel().catch(() => {});
-      }
+      // Do NOT eagerly download the 86 MB ONNX model on switch if pre-recorded MP3s are available;
+      // live Kokoro loads automatically on demand only for un-recorded pages!
       if (wasPlaying && currentText) play();
     };
     if (engineSel) engineSel.onchange = () => handleEngineChange(engineSel.value);
@@ -1011,7 +1023,8 @@
       menuTestBtn.onclick = () => {
         stop(true);
         const myToken = ++runToken;
-        const sample = "The lantern light flickers across the frontier road as a new adventure begins beyond Oakhaven's gates.";
+        // Use Old Bram's pre-recorded welcome line so Test previews instant Studio AI immediately when Lewis is chosen
+        const sample = "Welcome to the Flagon, traveler! A warm bed restores your HP, MP, and Luck for 10 GP. Need news of the frontier?";
         if (prefs.engine === "kokoro") startKokoroSpeech(sample, myToken, null);
         else startBrowserSpeech(sample, myToken, null);
       };
@@ -1027,9 +1040,6 @@
 
     refreshBrowserVoices();
     renderControls();
-    if (prefs.engine === "kokoro" && !kokoroModel && kokoroState === "idle") {
-      ensureKokoroModel().catch(() => {});
-    }
   }
 
   global.OAKHAVEN_NARRATOR = {

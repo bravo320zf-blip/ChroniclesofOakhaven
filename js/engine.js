@@ -2234,9 +2234,9 @@
         pool.push(`Two prospectors clink mugs near the fire: "Heard someone braved Karak-Zul and walked back out — Borin's been humming at his forge all week!"`);
       }
       if (doneCount >= 5) {
-        pool.push(`The hearthside bard tunes a silver string: "${doneCount} deeds and counting — Oakhaven's children already trade tales of ${state.name || "your name"} in the square!"`);
+        pool.push(`The hearthside bard tunes a silver string: "Deed after deed—Oakhaven's children already trade tales of your name in the square!"`);
       } else if (doneCount >= 1) {
-        pool.push(`Old Bram wipes a mug and nods your way: "Word travels fast down the frontier road, ${state.name || "traveler"}. Good to see a proven blade back by the fire."`);
+        pool.push(`Old Bram wipes a mug and nods your way: "Word travels fast down the frontier road, traveler. Good to see a proven blade back by the fire."`);
       }
 
       lastTavernBarkKey = key;
@@ -2249,7 +2249,7 @@
       const d = getDerived(state);
       if (shopKey === "armory") {
         if (state.hardcore) return `"No second chances beyond the gates, iron-nerve. Let me check every strap and edge before you head back out."`;
-        if (done.karak_zul) return `"That dwarven ore from Karak-Zul still sings on my anvil — you've earned a smith's respect, ${state.name || "hero"}!"`;
+        if (done.karak_zul) return `"That dwarven ore from Karak-Zul still sings on my anvil — you've earned a smith's respect, friend!"`;
         if ((state.level || 1) >= 5) return `"You've got the stance of a seasoned frontier veteran now. Time to trade up to heavier steel!"`;
       }
       if (shopKey === "apothecary") {
