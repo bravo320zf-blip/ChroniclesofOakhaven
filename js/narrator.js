@@ -37,7 +37,7 @@
     autoRead: false,
     rate: 1.0,
     browserVoiceName: "",
-    kokoroVoice: "bm_george"
+    kokoroVoice: "bm_lewis"
   };
 
   let prefs = { ...DEFAULT_PREFS };
@@ -78,6 +78,7 @@
   let kokoroStatusMsg = "Not downloaded yet (~86 MB, cached once)";
   let audioCtx = null;
   let activeSource = null;
+  let activeHtmlAudio = null; // Instant pre-recorded Kokoro MP3 player
 
   /* ------------------------------------------------------------
      PER-CHARACTER TOWN VOICE CASTING
@@ -569,9 +570,58 @@
     });
   }
 
+  function hashHex(str) {
+    return hashString(str).toString(16).padStart(8, "0");
+  }
+
+  function findPreRecordedMp3(voiceId, text) {
+    const manifest = global.OAKHAVEN_VOICE_MANIFEST;
+    if (!manifest || !voiceId || !text) return null;
+    const norm = String(text).trim().replace(/^[“”"']+|[“”"']+$/g, "").trim();
+    const key = `${voiceId}|${hashHex(norm)}`;
+    return manifest[key] || null;
+  }
+
+  function playPreRecordedMp3(url, voiceLabel, myToken) {
+    return new Promise((resolve, reject) => {
+      if (myToken !== runToken) return resolve(true);
+      const a = new Audio(url);
+      a.playbackRate = Math.max(0.8, Math.min(1.35, Number(prefs.rate) || 1.0));
+      activeHtmlAudio = a;
+      setStatus("playing", `Studio AI (${voiceLabel}) • Instant`);
+      a.onended = () => {
+        if (activeHtmlAudio === a) activeHtmlAudio = null;
+        if (myToken === runToken) setStatus("idle", "Finished");
+        resolve(true);
+      };
+      a.onerror = (err) => {
+        if (activeHtmlAudio === a) activeHtmlAudio = null;
+        reject(err);
+      };
+      a.play().catch((err) => {
+        if (activeHtmlAudio === a) activeHtmlAudio = null;
+        reject(err);
+      });
+    });
+  }
+
   async function startKokoroSpeech(text, myToken, profile = null) {
-    // Fast-start first chunk (~90 chars) so voice starts speaking 3-4x faster while
-    // the background Web Worker prefetches the remaining chunks!
+    const voiceId = profile?.kokoro || prefs.kokoroVoice || "bm_lewis";
+    const voiceLabel = (KOKORO_VOICES.find(v => v.id === voiceId)?.label || voiceId).split(" — ")[0];
+
+    // 1. Instant pre-recorded Kokoro MP3 check (0.0s delay, zero pauses, zero CPU!)
+    const mp3Url = findPreRecordedMp3(voiceId, text);
+    if (mp3Url) {
+      try {
+        await playPreRecordedMp3(mp3Url, voiceLabel, myToken);
+        return;
+      } catch (err) {
+        if (myToken !== runToken) return;
+        console.warn("Pre-recorded MP3 failed, falling back to live Kokoro:", err);
+      }
+    }
+
+    // 2. Live Kokoro Web Worker fallback (dynamic Outskirts encounters or custom voices)
     const chunks = splitIntoChunks(text, 170, 90);
     if (chunks.length === 0) {
       setStatus("idle", "Nothing to read");
@@ -591,9 +641,7 @@
 
     if (myToken !== runToken) return;
 
-    const voiceId = profile?.kokoro || prefs.kokoroVoice || "bm_george";
     const effSpeed = Math.max(0.8, Math.min(1.35, (Number(prefs.rate) || 1.0) * (profile?.rateMul || 1.0)));
-    const voiceLabel = (KOKORO_VOICES.find(v => v.id === voiceId)?.label || voiceId).split(" — ")[0];
     setStatus("loading", `Synthesizing (${voiceLabel})…`);
 
     // Synthesize in the background Web Worker (prefetching next sentence off-thread
@@ -643,6 +691,10 @@
     if (global.speechSynthesis) {
       try { global.speechSynthesis.cancel(); } catch (_) {}
     }
+    if (activeHtmlAudio) {
+      try { activeHtmlAudio.onended = null; activeHtmlAudio.onerror = null; activeHtmlAudio.pause(); activeHtmlAudio.currentTime = 0; } catch (_) {}
+      activeHtmlAudio = null;
+    }
     if (activeSource) {
       try { activeSource.onended = null; activeSource.stop(); } catch (_) {}
       activeSource = null;
@@ -675,6 +727,11 @@
 
   function pause() {
     if (playbackState !== "playing") return;
+    if (activeHtmlAudio && !activeHtmlAudio.paused) {
+      activeHtmlAudio.pause();
+      setStatus("paused", "Paused");
+      return;
+    }
     if (prefs.engine === "browser" && global.speechSynthesis) {
       global.speechSynthesis.pause();
       setStatus("paused", "Paused");
@@ -685,6 +742,10 @@
 
   function resume() {
     if (playbackState !== "paused") return;
+    if (activeHtmlAudio && activeHtmlAudio.paused) {
+      activeHtmlAudio.play().then(() => setStatus("playing", "Studio AI speaking…")).catch(() => {});
+      return;
+    }
     if (prefs.engine === "browser" && global.speechSynthesis) {
       global.speechSynthesis.resume();
       setStatus("playing", "Speaking…");
