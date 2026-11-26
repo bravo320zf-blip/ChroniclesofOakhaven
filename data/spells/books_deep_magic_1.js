@@ -798,7 +798,7 @@ window.OAKHAVEN.registerSpells([
     "mp": 3,
     "combat": true,
     "ooc": false,
-    "icon": "✨",
+    "icon": "🎲",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 1",
@@ -807,7 +807,8 @@ window.OAKHAVEN.registerSpells([
     "dmgDice": "2d6",
     "dmgStat": "spirit",
     "dmgType": "arcane",
-    "desc": "Deals 2d6 + spirit arcane dmg. [Lv.2 Enchantment • Deep Magic Vol. 1]"
+    "evadeTurns": 2,
+    "desc": "Weave a reckless gambler's glamour that rattles your foe for 2d6 + Spirit arcane dmg and grants Evade (2t). [Lv.2 Enchantment]"
   },
   {
     "name": "Benediction",
@@ -4166,7 +4167,9 @@ window.OAKHAVEN.registerSpells([
     "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "frost",
-    "desc": "Deals 2d6 + 2 + arcana frost dmg. [Lv.3 Conjuration • Deep Magic Vol. 1]"
+    "chillTurns": 2,
+    "evadeTurns": 1,
+    "desc": "Blanket the battlefield in bitter hoarfrost mist for 2d6 + 2 + Arcana frost dmg, Chill (2t), and Evade (1t). [Lv.3 Conjuration]"
   },
   {
     "name": "Frenzied Bolt",
@@ -7887,16 +7890,18 @@ window.OAKHAVEN.registerSpells([
     "mp": 2,
     "combat": true,
     "ooc": false,
-    "icon": "☀️",
+    "icon": "🌟",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 1",
     "school": "Evocation",
     "spellLevel": 0,
     "dmgDice": "1d6",
+    "dmgBonus": 1,
     "dmgStat": "arcana",
     "dmgType": "radiant",
-    "desc": "Deals 1d6 + arcana radiant dmg. [Cantrip Evocation • Deep Magic Vol. 1]"
+    "undeadDouble": true,
+    "desc": "Snap a dazzling flare of silver starlight in your foe's face for 1d6 + 1 + Arcana radiant dmg (2x vs Undead). [Cantrip Evocation]"
   },
   {
     "name": "Starfall",

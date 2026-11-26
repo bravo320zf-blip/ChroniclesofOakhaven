@@ -1094,7 +1094,8 @@ window.OAKHAVEN.registerSpells([
     "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "psychic",
-    "desc": "Deals 1d6 + 2 + arcana psychic dmg. [Lv.1 Abjuration • Tome of Heroes]"
+    "shieldTurns": 2,
+    "desc": "Wrap yourself in a silver-warded veil against the outer dark, dealing 1d6 + 2 + Arcana psychic dmg and granting Shield (2t). [Lv.1 Abjuration]"
   },
   {
     "name": "Reaper's Knell",

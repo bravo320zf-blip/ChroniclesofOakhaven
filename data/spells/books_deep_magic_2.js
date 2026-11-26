@@ -5292,7 +5292,7 @@ window.OAKHAVEN.registerSpells([
     "mp": 2,
     "combat": true,
     "ooc": false,
-    "icon": "☀️",
+    "icon": "⛓️",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 2",
@@ -5302,7 +5302,8 @@ window.OAKHAVEN.registerSpells([
     "dmgStat": "spirit",
     "dmgType": "radiant",
     "undeadDouble": true,
-    "desc": "Deals 1d6 + spirit radiant dmg (2x vs undead). [Cantrip Abjuration • Deep Magic Vol. 2]"
+    "chillTurns": 1,
+    "desc": "Bind a foe in glowing links of consecrated light for 1d6 + Spirit radiant dmg (2x vs Undead) and Chill (1t). [Cantrip Abjuration]"
   },
   {
     "name": "Shadow Adaptation",

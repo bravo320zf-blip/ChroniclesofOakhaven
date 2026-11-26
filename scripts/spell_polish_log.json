@@ -1,6 +1,6 @@
 {
-  "totalPasses": 2,
-  "totalSpellsPolished": 10,
+  "totalPasses": 3,
+  "totalSpellsPolished": 15,
   "totalCatalogSpells": 1209,
   "spellPasses": {
     "Ambush": 1,
@@ -12,7 +12,12 @@
     "Lance of the Sun God": 1,
     "Outmaneuver": 1,
     "Hematomancy": 1,
-    "Converse with Dragon": 1
+    "Converse with Dragon": 1,
+    "Protection from the Void": 1,
+    "Shackle": 1,
+    "Freezing Fog": 1,
+    "Beguiling Bet": 1,
+    "Starburst": 1
   },
   "history": [
     {
@@ -36,6 +41,17 @@
         "Converse with Dragon"
       ],
       "summary": "Polished Jagged Forcelance, Lance of the Sun God, Outmaneuver, Hematomancy, and Converse with Dragon with thematic damage/healing/undead/evasion synergy and removed sourcebook tags."
+    },
+    {
+      "pass": 3,
+      "spells": [
+        "Protection from the Void",
+        "Shackle",
+        "Freezing Fog",
+        "Beguiling Bet",
+        "Starburst"
+      ],
+      "summary": "Polished Protection from the Void (+Shield 2t), Shackle (+Chill 1t), Freezing Fog (+Chill 2t & Evade 1t), Beguiling Bet (+Evade 2t), and Starburst (+1 bonus & 2x vs Undead), removing all sourcebook tags."
     }
   ]
 }
