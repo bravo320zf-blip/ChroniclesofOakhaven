@@ -202,11 +202,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 265,
-    source: "An Enigma Lost in a Maze",
     ac: 2,
     arcana: 2,
     luck: 2,
-    desc: "+2 AC, +2 Arcana, +2 Luck. Minotaur wayfinder attuned to the healed Heart of Roshgazi."
+    passives: { spellDmgBonus: 3, mpRegen: 1, skillBonus: { Survival: 3, Perception: 3, "Detect Traps": 2 } },
+    activeAbility: { name: "Labyrinth True-Path", icon: "🧭", charges: 2, ooc: true, restoreLuck: 2, evadeTurns: 2, shieldTurns: 2, desc: "2/Quest: Follow the minotaur wayfinder's golden needle to restore +2 Luck, Evade (2t), and gain +3 AC (2t)!" },
+    desc: "Minotaur wayfinder attuned to the healed Heart of Roshgazi (+3 Spell Dmg, +1 MP/t, +3 Survival/Perception, +2 Detect Traps) with Labyrinth True-Path."
   },
   "bq_alkava_chalice": {
     id: "bq_alkava_chalice",
@@ -1058,10 +1059,11 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "uncommon",
     value: 95,
-    source: "Tome of Beasts 2 Lairs",
     luck: 2,
     ac: 1,
-    desc: "+2 Luck, +1 AC. Heavy stamped gold medallion that once commanded Mammon's greed swarm."
+    passives: { goldFindPct: 18, skillBonus: { Persuasion: 2 } },
+    activeAbility: { name:"Gilded Swarm-Flip", icon:"🪙", charges:1, ooc:true, restoreLuck:1, dmgDice:"2d6", dmgStat:"luck", dmgType:"physical", desc:"1/Quest: Flip the heavy gold medallion to restore +1 Luck and batter a foe with spectral coins for 2d6 + Luck dmg!" },
+    desc: "Heavy stamped gold medallion that once commanded Mammon's greed swarm (+18% Gold, +2 Persuasion) with Gilded Swarm-Flip."
   },
   "bq_ilkarayda_vine_band": {
     id: "bq_ilkarayda_vine_band",
@@ -2366,9 +2368,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     spirit: 1,
     maxHp: 4,
-    passives: { healBonus: 2, skillBonus: { Survival: 1 } },
-    activeAbility: { name: "Oaken Sap Mend", icon: "🌿", charges: 2, ooc: true, healDice: "1d8", healStat: "spirit", desc: "2/Quest: Tap ancient treant sap to restore 1d8 + Spirit HP!" },
-    desc: "Luminous vial of silver-moss sap gifted by the ancient treant's grove (+2 Healing, +1 Survival) with Oaken Sap Mend."
+    passives: { healBonus: 2, skillBonus: { Survival: 1, Herbalism: 2 } },
+    activeAbility: { name: "Oaken Sap Mend", icon: "🌿", charges: 2, ooc: true, healDice: "1d8", healStat: "spirit", shieldTurns: 2, desc: "2/Quest: Tap ancient treant sap to restore 1d8 + Spirit HP and harden bark-skin (+3 AC, 2t)!" },
+    desc: "Luminous vial of silver-moss sap gifted by the ancient treant's grove (+2 Healing, +2 Herbalism, +1 Survival) with Oaken Sap Mend."
   },
   "bq_blight_ward_brooch": {
     id: "bq_blight_ward_brooch",
@@ -2969,9 +2971,9 @@ window.OAKHAVEN.registerItems({
     atk: 4,
     agility: 2,
     luck: 1,
-    passives: { critRange: 11, bossDmgBonus: 3 },
-    activeAbility: { name: "Barroom Volley", icon: "🏹", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "physical", multiStrike: 2, desc: "2/Quest: Loose two rapid iron bolts for 1d8 + Agility damage each!" },
-    desc: "Well-oiled tavernkeeper's repeating crossbow (+Crit, +3 Boss Dmg) with Barroom Volley."
+    passives: { critRange: 11, bossDmgBonus: 3, skillBonus: { Perception: 2 } },
+    activeAbility: { name: "Barroom Volley", icon: "🏹", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "physical", multiStrike: 2, chillTurns: 1, desc: "2/Quest: Loose two rapid iron bolts for 1d8 + Agility dmg each and rattle the foe (-2 Enemy ATK, 1t)!" },
+    desc: "Well-oiled tavernkeeper's repeating crossbow (+Crit, +3 vs Bosses, +2 Perception) with Barroom Volley."
   },
   "bq_clurichaun_lucky_tankard": {
     id: "bq_clurichaun_lucky_tankard",

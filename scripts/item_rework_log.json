@@ -1,6 +1,6 @@
 {
-  "totalPasses": 38,
-  "totalItemsReworked": 380,
+  "totalPasses": 39,
+  "totalItemsReworked": 390,
   "history": [
     {
       "pass": 1,
@@ -609,6 +609,22 @@
         "ul_charnel_maul"
       ],
       "summary": "Reworked Legendary Rod of Ghastly Might, Aganatha's Woven Shroud, Espolmar Iron-Bound Basalt Maul, Aether-Coil Gauntlet, Curate's Venom Fang, Bone-Midden Crusher, Serpent's Scales, Whip of Fangs, Wand of Flame Control, and Iron Longsword."
+    },
+    {
+      "pass": 39,
+      "items": [
+        "vom_lucky_eyepatch",
+        "bq_mossbeard_sap_vial",
+        "bq_kolchak_master_coin",
+        "mercenary_pauldron",
+        "vom_mantle_blood_veng",
+        "vom_devils_barb",
+        "ul_impaling_pick",
+        "vom_rod_disciplinarian",
+        "bq_roshgazi_compass",
+        "bq_twelve_goats_crossbow"
+      ],
+      "summary": "Reworked Compass of the First Labyrinth, Impaling War Pick, Devil's Barb Wand, Black-Banner Brigandine, Petal's Repeater Crossbow, Kolchak's Master Coin, Mossbeard's Amber Sap-Charm, Lucky Eyepatch, Mantle of Blood Vengeance, and Rod of the Disciplinarian."
     }
   ],
   "itemPasses": {
@@ -991,6 +1007,16 @@
     "ul_curate_venom_blade": 1,
     "vom_rod_ghastly_might": 1,
     "vom_serpents_scales": 1,
-    "ul_charnel_maul": 1
+    "ul_charnel_maul": 1,
+    "vom_lucky_eyepatch": 1,
+    "bq_mossbeard_sap_vial": 1,
+    "bq_kolchak_master_coin": 1,
+    "mercenary_pauldron": 1,
+    "vom_mantle_blood_veng": 1,
+    "vom_devils_barb": 1,
+    "ul_impaling_pick": 1,
+    "vom_rod_disciplinarian": 1,
+    "bq_roshgazi_compass": 1,
+    "bq_twelve_goats_crossbow": 1
   }
 }
