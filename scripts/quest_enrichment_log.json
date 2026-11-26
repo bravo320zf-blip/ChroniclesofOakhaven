@@ -1,5 +1,5 @@
 {
-  "totalPasses": 29,
+  "totalPasses": 30,
   "history": [
     {
       "pass": 1,
@@ -197,6 +197,13 @@
       "title": "The Gloomfen Witch-Bog",
       "file": "data/quests/expansion_frontier_quests.js",
       "summary": "Expanded from 12 to 15 pages with Reedy Shallows rescue of Old Fenwick the peat-cutter (Herbalism/Firebolt/Athletics -> FENWICK_SAVED, +18 GP, +6 HP, +3 MP), the Willow of Trapped Lanterns sabotage branch (LANTERNS_BROKEN via salt-ash/Arcana/Luck), and a Fenwick & Marta gratitude bonus (+30 GP, +25 XP) on the True Ending."
+    },
+    {
+      "pass": 30,
+      "questId": "bk_b25_river_of_alchemy",
+      "title": "The River of Alchemy",
+      "file": "data/quests/books_quests_batch_025.js",
+      "summary": "Expanded from 7 to 11 pages: fixed invalid stat:'lore' to stat:'arcana', added Reedy Weir encounter with Haldor the Mill-Wright (Herbalism/Athletics -> SLUICE_KEY, +45 GP, +12 HP/+4 MP, waterwheel crab-bypass), Reagent Vault side-scene (Detect Traps/Luck -> VESSIK_LEDGER + 65 GP, Firebolt condenser sabotage), and dual endings."
     }
   ],
   "questPasses": {
@@ -228,6 +235,7 @@
     "bandit_citadel": 1,
     "nf_6_vengeance_mine": 1,
     "brasshaven": 1,
-    "gloomfen": 1
+    "gloomfen": 1,
+    "bk_b25_river_of_alchemy": 1
   }
 }

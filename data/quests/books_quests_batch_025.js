@@ -699,7 +699,7 @@ window.OAKHAVEN.registerQuests({
     }
   },
 
-  // 10. RIVER OF ALCHEMY (7 PAGES • LV 6)
+  // 10. RIVER OF ALCHEMY (11 PAGES • LV 6)
   bk_b25_river_of_alchemy: {
     id: "bk_b25_river_of_alchemy",
     title: "The River of Alchemy",
@@ -708,42 +708,46 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 6,
     autoDiscover: false,
     discoverySource: "Rusty Flagon Inn Rumor",
-    summary: "Trace a rainbow-slick river of glowing alchemical runoff to a mad wizard's riverside distillery before his volatile experiments poison Oakhaven's watershed!",
-    totalPages: 7,
+    summary: "Trace a rainbow-slick river of glowing alchemical runoff to Master Vessik's riverside distillery, aid the ousted mill-wright, and halt his volatile experiments before they poison Oakhaven's watershed!",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Rainbow Riverbank",
         title: "Glowing Waters",
         safeRetreat: true,
-        text: "Upstream from the frontier farms, the river shimmers in unnatural bands of gold, crimson, and acid-green! Upstream stands a smoking brass-piped watermill belonging to a deranged alchemist whose mutated guardians prowl the sluice!",
+        text: "Upstream from Oakhaven's orchard-farms, the mountain river shimmers in unnatural oil-slick bands of gold, crimson, and acid-green, reeking of sulfur and burnt sugar. Through the mist rises a smoking brass-piped watermill belonging to the deranged transmuter Master Vessik, while mutated claws click along the foaming sluice and a half-sunk skiff bobs by the willow weir.",
         choices: [
-          { t: "Test the shimmering foam to mix a quick neutralizing salve before approaching.", badge: "Lore / Arcana DC 14", check: { stat: "lore", skill: "Arcana", dc: 14, pass: 2, fail: 2, passMsg: "Your salve coats your armor against acid-splash and weakens the slime-beasts!", failMsg: "The foam hisses wildly—awakening tentacled river-crabs along the bank!" }, onPass: { cw: "SALVE_MIXED" } },
+          { t: "Test the shimmering foam to mix a quick chalk-and-ash neutralizing salve.", badge: "Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 2, fail: 2, passMsg: "Your salve coats your armor against acid-splash and weakens the slime-beasts!", failMsg: "The foam hisses wildly—awakening tentacled river-crabs along the bank!" }, onPass: { cw: "SALVE_MIXED" } },
+          { t: "Skirt the reeds silently toward the overturned skiff by the willow weir.", badge: "Stealth / Agility DC 13", check: { stat: "agility", skill: "Stealth", dc: 13, pass: 8, fail: 2, passMsg: "You slip past the foaming sluice unseen and reach the willow weir!", failMsg: "Loose river-shale clatters underfoot—giant claws erupt from the mill-race!" } },
           { t: "Follow the smoking brass pipes straight to the alchemical watermill!", to: 2 }
         ]
       },
       2: {
         zone: "Alchemical Sluice",
         title: "Mutated River-Crabs",
-        text: "Towering tentacled crabs dripping iridescent sludge scuttle out of the glowing mill-race!",
+        text: "Towering tentacled crabs dripping iridescent sludge scuttle out of the glowing mill-race, their barnacled shells crackling with unstable reagents!",
         enemy: { name: "Alchemical Tentacled Crabs", desc: "River crustaceans mutated by volatile runoff into armored horrors.", hp: 56, ac: 15, atk: 7, dmg: 10, xp: 140, gold: 75, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["SALVE_MIXED"] },
         choices: [
+          { t: "Investigate the beached skiff by the willow weir before entering.", to: 8 },
           { t: "Kick open the brass-bolted door of the bubbling distillery!", to: 3 }
         ]
       },
       3: {
         zone: "Glass Alembic Hall",
         title: "The Pressure Valves",
-        text: "Giant glass retorts hiss with rainbow steam, feeding directly into the river sluice!",
+        text: "Inside the thundering mill, giant glass retorts hiss with rainbow steam, pumping shimmering violet liquor straight into the river sluice and up toward the rafters!",
         onEnter: { healHp: 10, msg: "You uncork a pure ruby healing elixir from the cooling rack (+10 HP)!" },
         choices: [
-          { t: "Reverse the main brass spillway to cut off the mad wizard's reagent supply!", badge: "Lockpicking / Detect Traps DC 14", check: { stat: "agility", skill: "Lockpicking", dc: 14, pass: 4, fail: 4, passMsg: "The retorts drain safely into lead vats—starving the wizard's abomination!", failMsg: "A glass pipe shatters—the Mad Alchemist unleashes his prized horror!" }, onPass: { cw: "VALVES_REVERSED" } },
-          { t: "Charge into the upper laboratory to stop the Mad Alchemist!", to: 4 }
+          { t: "Unlock the main brass spillway cleanly with Haldor's Sluice-Key!", reqCw: "SLUICE_KEY", badge: "SLUICE_KEY", to: 4, onChoose: { cw: "VALVES_REVERSED", msg: "The key turns like butter—the retorts drain into lead vats, starving Vessik's abomination!" } },
+          { t: "Reverse the main brass spillway by hand to cut off the reagent supply!", badge: "Lockpicking / Agility DC 14", check: { stat: "agility", skill: "Lockpicking", dc: 14, pass: 4, fail: 4, passMsg: "The retorts drain safely into lead vats—starving the wizard's abomination!", failMsg: "A glass pipe shatters—Master Vessik unleashes his prized horror!" }, onPass: { cw: "VALVES_REVERSED" } },
+          { t: "Duck into the smoky glass Reagent Vault behind the cooling rack first.", to: 10 },
+          { t: "Charge up the iron stairs into the Distillery Loft!", to: 4 }
         ]
       },
       4: {
         zone: "Distillery Loft",
         title: "The Mad Alchemist & Abomination",
-        text: "Cackling behind brass goggles, the Mad Alchemist hurls volatile flasks while his stitched alchemical abomination stomps forward!",
+        text: "Cackling behind cracked brass goggles, Master Vessik hurls volatile flasks from the catwalk while his stitched, vat-born abomination stomps forward in a cloud of glowing mist! 'My golden river! My masterpiece! You'll dissolve like the rest!'",
         enemy: { name: "Mad Alchemist & Abomination", desc: "A reckless borderland transmuter and his glowing vat-born guardian.", hp: 70, ac: 15, atk: 8, dmg: 12, xp: 205, gold: 135, items: ["bq_alchemy_river_flask"], weakCw: ["SALVE_MIXED", "VALVES_REVERSED"] },
         choices: [
           { t: "Shut down the distillery furnaces and flush the sluice with clean spring water!", to: 5 }
@@ -752,15 +756,17 @@ window.OAKHAVEN.registerQuests({
       5: {
         zone: "Clearing Stream",
         title: "Clear Waters Flow",
-        text: "Within minutes, the rainbow sheen washes away, leaving crisp, drinkable mountain water tumbling downstream.",
+        text: "As you crank open the cold-water floodgate, the distillery's furnaces hiss dead in clouds of harmless white steam. Within minutes, the rainbow sheen washes away, leaving crisp mountain water tumbling downstream past the cheering silhouette of the mill-wright.",
         choices: [
-          { t: "Pack the salvaged pure alchemical reagents and return to the valley farms.", to: 6 }
+          { t: "Present Vessik's gilded ledger and pure reagents to the valley magistrates!", reqCw: "VESSIK_LEDGER", badge: "VESSIK_LEDGER", to: 6, onChoose: { gold: 55, xp: 35, msg: "The magistrates add a 55 GP & 35 XP bonus for Vessik's alchemical ledger!" } },
+          { t: "Pack the salvaged pure alchemical reagents and return to the valley farms.", to: 6 },
+          { t: "Bottle the last glowing gold-sediment for your own arcane trade before leaving.", to: 11 }
         ]
       },
       6: {
         zone: "River Road",
         title: "Watershed Saved",
-        text: "Grateful farmers and millers pool a generous bounty for saving their crops and wells.",
+        text: "At the stone bridge below the gorge, grateful orchardists, farmers, and millers press mugs of cold cider into your hands and pool a generous silver bounty for saving their crops and wells.",
         choices: [
           { t: "Return to Oakhaven.", to: 7 }
         ]
@@ -768,8 +774,46 @@ window.OAKHAVEN.registerQuests({
       7: {
         zone: "Epilogue",
         title: "Pure Waters Restored",
-        text: "The River of Alchemy runs clear again, and the mad distillery's furnaces lie cold.",
+        text: "The River of Alchemy runs crystal-clear again, trout leap beneath the stone bridge, and Master Vessik's mad distillery lies cold and silent.",
         ending: { type: "true", title: "Cleanser of the Alchemy River", xp: 295, gold: 220, trophy: "Iridescent Alembic Vial" },
+        choices: []
+      },
+      8: {
+        zone: "Reedy Weir",
+        title: "The Ousted Mill-Wright",
+        text: "Crouched behind a stranded cedar skiff is Haldor the Mill-Wright, coughing behind a wet wool kerchief. 'Vessik went off his rocker three moons ago,' he rasps, gesturing at the smoking mill. 'Drove me out with his acid-crabs when I tried to shut his sluice!'",
+        choices: [
+          { t: "Brew a soothing mint-and-ash lung-tonic for Haldor with Herbalism.", reqSkill: "Herbalism", badge: "Herbalism", to: 9, onChoose: { msg: "Haldor's coughing eases at once—he clasps your forearm in gratitude!" } },
+          { t: "Share clean water and haul his waterlogged skiff onto dry gravel.", badge: "Might / Athletics DC 13", check: { stat: "might", skill: "Athletics", dc: 13, pass: 9, fail: 9, failDmg: 4, passMsg: "With a heave you drag the skiff clear of the caustic foam!", failMsg: "Acidspray stings your boot-top (-4 HP) as you drag the skiff ashore!" } },
+          { t: "Thank Haldor for the warning and head back toward the Alchemical Sluice.", to: 2 }
+        ]
+      },
+      9: {
+        zone: "Reedy Weir",
+        title: "Haldor's Master Sluice-Key",
+        text: "Haldor catches his breath and presses a heavy brass Master Sluice-Key plus 45 GP in saved mill-wages into your palm. 'That key reverses the main spillway clean—no shattered glass, no boom! And there's a dry maintenance arch behind the waterwheel if you want to slip right past those crabs.' He points you to a cold hillside spring (+12 HP, +4 MP) before heading downriver to warn the farms.",
+        onEnter: { cw: "SLUICE_KEY", gold: 45, healHp: 12, healMp: 4, msg: "Gained Haldor's SLUICE_KEY, 45 GP, +12 HP & +4 MP!" },
+        choices: [
+          { t: "Slip through the dry waterwheel arch straight into the Glass Alembic Hall!", to: 3 },
+          { t: "Ambushed the mutated river-crabs at the sluice first for their salvage.", to: 2 }
+        ]
+      },
+      10: {
+        zone: "Reagent Vault",
+        title: "Vessik's Ledger & Condenser",
+        text: "Behind a smoky glass partition sit racks of distilled quicksilver, a brass-bound strongbox holding Vessik's gilded transmutation ledger, and a pressurized reagent-condenser feeding the upper loft.",
+        choices: [
+          { t: "Disarm the acid-needle latch on the strongbox with Detect Traps.", reqSkill: "Detect Traps", badge: "Detect Traps", to: 4, onChoose: { gold: 65, cw: "VESSIK_LEDGER", msg: "You disarm the needle-trap cleanly—claiming 65 GP and Vessik's gilded ledger!" } },
+          { t: "Pop the condenser's brass relief-seal with Firebolt to drain the upper vat!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 4, onChoose: { cw: "VALVES_REVERSED", msg: "A crisp flare pops the relief-seal, draining Vessik's reagent-vat in a roar of steam!" } },
+          { t: "Test Your Luck prying open the ledger-strongbox!", badge: "Test Your Luck", luck: { pass: 4, fail: 4, failDmg: 6, passMsg: "You snag 65 GP and Vessik's gilded ledger without tripping the latch!", failMsg: "An acid-vial cracks across your gauntlet (-6 HP) as you force the lid!", onPass: { gold: 65, cw: "VESSIK_LEDGER" } } },
+          { t: "Leave the vault alone and climb to the Distillery Loft.", to: 4 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Alchemist's Salvage",
+        text: "You march back to Oakhaven with sealed flasks of rare luminous sediment and purified quicksilver—fetching a princely sum from the market apothecaries while the river clears behind you.",
+        ending: { type: "victory", title: "Salvager of the Alchemy Mill", xp: 265, gold: 265, trophy: "Vessik's Brass Alembic" },
         choices: []
       }
     }
