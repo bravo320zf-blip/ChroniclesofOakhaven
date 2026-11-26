@@ -156,11 +156,11 @@ window.OAKHAVEN.registerItems({
     type: "weapon",
     rarity: "very_rare",
     value: 360,
-    source: "12 Peculiar Towers",
     atk: 6,
     arcana: 2,
-    lifesteal: 2,
-    desc: "+6 Attack, +2 Arcana, +2 Lifesteal. Crimson-veined ritual blade of Bloodstone Tower."
+    passives: { critRange: 10, lifesteal: 4, spellDmgBonus: 2, skillBonus: { Stealth: 2 } },
+    activeAbility: { name: "Bloodstone Siphon", icon: "🩸", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "necrotic", healBase: 12, dot: { dmg: 4, turns: 3, label: "Crimson Bleed" }, desc: "2/Quest (2 MP): Drive the bloodstone fang for 3d8 + Arcana necrotic dmg, Crimson Bleed (4/t, 3t), and siphon +12 HP!" },
+    desc: "Crimson-veined ritual blade of Bloodstone Tower (Crit 10+, +4 Lifesteal, +2 Spell Dmg, +2 Stealth) with Bloodstone Siphon."
   },
   "bq_lunar_knight_spurs": {
     id: "bq_lunar_knight_spurs",
@@ -563,11 +563,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 290,
-    source: "Courts of the Shadow Fey",
     arcana: 2,
     luck: 2,
     maxMp: 6,
-    desc: "+2 Arcana, +2 Luck, +6 Max MP. Glowing miniature fey dragonette gifted by the Lords of Light."
+    passives: { spellDmgBonus: 3, undeadDmgBonus: 5, mpRegen: 1, skillBonus: { Perception: 3, "Detect Traps": 2 } },
+    activeAbility: { name: "Fey Lantern Breath", icon: "🏮", charges: 2, mp: 2, summon: { name: "Lantern Dragonette", icon: "🐉", dmg: 6, turns: 3 }, dmgDice: "2d8", dmgStat: "arcana", dmgType: "radiant", undeadDouble: true, restoreLuck: 1, desc: "2/Quest (2 MP): Your fey dragonette swoops for 2d8 + Arcana radiant dmg (2× vs Undead), fights beside you (6 dmg/t, 3t), and restores +1 Luck!" },
+    desc: "Glowing miniature fey dragonette gifted by the Lords of Light (+3 Spell Dmg, +5 vs Undead, +1 MP/t, +3 Perception, +2 Detect Traps) with Fey Lantern Breath."
   },
   "bq_orb_of_rule_shard": {
     id: "bq_orb_of_rule_shard",
@@ -1236,7 +1237,9 @@ window.OAKHAVEN.registerItems({
     value: 95,
     ac: 1,
     luck: 1,
-    desc: "+1 AC, +1 Luck. Heavy iron signet-ring taken from the Gaoler beneath Redtower."
+    passives: { undeadDmgBonus: 3, skillBonus: { Lockpicking: 2, "Detect Traps": 1 } },
+    activeAbility: { name: "Gaoler's Iron Shackle", icon: "🔑", charges: 1, chillTurns: 2, shieldTurns: 2, desc: "1/Quest: Clank the warded crypt-keys to rattle foes (-2 Enemy ATK, 2t) and raise +3 AC (2t)!" },
+    desc: "Heavy iron signet-ring taken from the Gaoler beneath Redtower (+3 vs Undead, +2 Lockpicking, +1 Detect Traps) with Gaoler's Iron Shackle."
   },
   "bq_time_construct_gear": {
     id: "bq_time_construct_gear",

@@ -1,6 +1,6 @@
 {
-  "totalPasses": 35,
-  "totalItemsReworked": 350,
+  "totalPasses": 36,
+  "totalItemsReworked": 360,
   "history": [
     {
       "pass": 1,
@@ -561,6 +561,22 @@
         "bq_trombei_smuggler_blade"
       ],
       "summary": "Reworked 5 Vault of Magic items (including Legendary Blacktooth Wand, Dragonstooth Blade, Trident of the Vortex, Howling Rod), Legendary Streck's Consecrated Ruby Signet, Deepstone Cestus, Victory Banner, Scholar's Robes, and Graydion's Swamp-Venom Saber."
+    },
+    {
+      "pass": 36,
+      "items": [
+        "vom_crocodile_armor",
+        "vom_umbral_band",
+        "bq_lantern_dragonette",
+        "vom_fab_wanderers_book",
+        "bq_nightreaver_fang",
+        "bq_gaoler_iron_keys",
+        "vom_slippers_cat",
+        "ul_radka_sanguine_whip",
+        "vom_crown_pharaoh",
+        "vom_hazelwood_wand"
+      ],
+      "summary": "Reworked Fabled Wanderer's Book, Legendary Crown of the Pharaoh, Nightreaver's Bloodstone Dagger, Lantern Dragonette Familiar, Radka's Sanguine Whip, Crocodile Armor, Umbral Band, Slippers of the Cat, Holzanger Crypt Ward-Key, and Hazelwood Wand."
     }
   ],
   "itemPasses": {
@@ -913,6 +929,16 @@
     "vom_blacktooth": 1,
     "scholar_robes": 1,
     "bk_victory_banner": 1,
-    "bq_trombei_smuggler_blade": 1
+    "bq_trombei_smuggler_blade": 1,
+    "vom_crocodile_armor": 1,
+    "vom_umbral_band": 1,
+    "bq_lantern_dragonette": 1,
+    "vom_fab_wanderers_book": 1,
+    "bq_nightreaver_fang": 1,
+    "bq_gaoler_iron_keys": 1,
+    "vom_slippers_cat": 1,
+    "ul_radka_sanguine_whip": 1,
+    "vom_crown_pharaoh": 1,
+    "vom_hazelwood_wand": 1
   }
 }
