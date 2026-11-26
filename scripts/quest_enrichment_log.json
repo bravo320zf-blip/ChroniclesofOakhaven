@@ -1,5 +1,5 @@
 {
-  "totalPasses": 21,
+  "totalPasses": 22,
   "history": [
     {
       "pass": 1,
@@ -147,6 +147,12 @@
       "title": "The Smuggler's Cove of Saltfang",
       "file": "data/quests/core_quests.js",
       "summary": "Deepened from 22 to 24 atmospheric pages: wired previously orphaned Page 20 into 'The Silver Wake' ghost-crew farewell (+20 GP, +15 XP), added a new Sunken Bell-Buoy side-branch (BELL_RUNG weakens all Dreadtide undead + 20 GP), added interactive Firebolt powder-keg sabotage on the Gun Deck (DECK_SHAKEN), added Spirit/Persuasion prayer option at the Sea-Witch's Alcove, added Might chest-pry at Barnacle Arch, and added Vex's Dockside Rendezvous (+6 HP) before the Rogue Ending."
+    },
+    {
+      "pass": 22,
+      "questId": "bk_b17_tob3_lonely_cove",
+      "title": "Salvage at Lonely Cove",
+      "summary": "Expanded from 6 to 10 pages with Tamsin the sea-cave survivor side-scene, Sunken Chart-Room manifest & lockbox, hidden strongbox compartment, cliff-winch spring tide hazard, and dual harbor broker endings."
     }
   ],
   "questPasses": {
@@ -170,6 +176,7 @@
     "bk_pt_06_rough_run": 1,
     "bk_b23_lost_and_found": 1,
     "bk_b10_p2_1_starry_breach": 1,
-    "saltfang": 1
+    "saltfang": 1,
+    "bk_b17_tob3_lonely_cove": 1
   }
 }

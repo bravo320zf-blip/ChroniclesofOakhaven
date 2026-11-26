@@ -209,7 +209,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 4. SALVAGE AT LONELY COVE (6 PAGES • LV 2)
+  // 4. SALVAGE AT LONELY COVE (10 PAGES • LV 2)
   // ==========================================================
   bk_b17_tob3_lonely_cove: {
     id: "bk_b17_tob3_lonely_cove",
@@ -219,59 +219,121 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 2,
     autoDiscover: false,
     discoverySource: "Harbor Salvage Broker (Rusty Flagon Tavern)",
-    summary: "Descend the treacherous sea cliffs to Lonely Cove—where a storm-sunk merchant ship's prized cargo washed ashore—and survive the Beach Weird, Guardian Archaeopteryx, and Pescavitus guarding the tide!",
-    totalPages: 6,
+    summary: "Descend the treacherous sea cliffs to Lonely Cove—where the storm-wrecked merchant ship Gilded Tern washed ashore—rescue any survivors, and brave the Beach Weird, Guardian Archaeopteryx, and Pescavitus guarding the rising tide!",
+    totalPages: 10,
     pages: {
       1: {
-        zone: "Lonely Cove • Cliffside Path",
+        zone: "Lonely Cove • Cliffside Rim",
         title: "Flotsam on the Hidden Beach",
         safeRetreat: true,
-        text: "Far below sheer coastal cliffs lies Lonely Cove, littered with splintered oak ribs and brass-bound merchant chests from last night's storm! Strange ripples swirl in the tide pools as feathered shapes swoop overhead.",
+        text: [
+          "Salt spray stings your cheeks as you peer over the knife-edged chalk cliffs above Lonely Cove. Far below, the broken hull of the merchant brig <em>Gilded Tern</em> lies impaled across black basalt teeth, surrounded by splintered oak ribs, sodden spice barrels, and brass-bound strongboxes glinting in the ebb tide.",
+          "Strange whorls churn unnaturally inside the quiet tide pools while sharp-beaked, feathered shapes wheel beneath the overhanging rocks. Halfway down the cliff face, a faint amber lantern winks twice from a narrow sea-cleft—someone from the crew may still be alive."
+        ],
         choices: [
-          { t: "Anchor a taut climbing rope along the dry shale ledge to avoid triggering the loose talus flow!", badge: "Athletics DC 11", check: { stat: "might", skill: "Athletics", dc: 11, pass: 2, fail: 2, passMsg: "You descend cleanly to the beach without waking the rock-slide or cove beasts!", failMsg: "Sliding shale tumbles into the cove, alerting every predator on the sand!" }, onPass: { cw: "CLEAN_DESCENT" } },
-          { t: "Scramble swiftly down the wet cliff-stairs to the shipwreck!", to: 2 }
+          { t: "Anchor a taut climbing line along the dry chalk ledge to descend silently without triggering loose shale.", badge: "Athletics / Might DC 11", check: { stat: "might", skill: "Athletics", dc: 11, pass: 2, fail: 2, passMsg: "Your knots hold true—you rappel cleanly onto the shingle without alerting the cove predators!", failMsg: "Loose chalk clatters down the cliffside, snapping every predator on the beach to attention!" }, onPass: { cw: "CLEAN_DESCENT" } },
+          { t: "Follow the narrow smuggler's ledge toward the winking lantern in the sea-cleft.", badge: "Perception / Agility DC 11", check: { stat: "agility", skill: "Perception", dc: 11, pass: 7, fail: 2, passMsg: "You spot carved toe-holds in the damp chalk and slip straight into the sheltered lantern cleft!", failMsg: "Slick kelp forces you to abandon the ledge and slide down onto the open beach!" } },
+          { t: "Scramble straight down the wet cliff-stairs to reach the shipwreck before the tide turns.", to: 2 }
         ]
       },
       2: {
         zone: "Lonely Cove • Wrecked Hull",
         title: "Tide-Pool Predators",
-        text: "A swooping **Guardian Archaeopteryx** and a surging elemental **Beach Weird** erupt from the surf beside the shattered cargo hold!",
-        enemy: { name: "Beach Weird & Guardian Archaeopteryx", desc: "Elemental surf-spirit and razor-beaked cliff scavenger.", hp: 26, ac: 12, atk: 5, dmg: 5, xp: 75, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "common"), flee: 1, weakCw: ["CLEAN_DESCENT"] },
+        text: [
+          "Your boots crunch onto wet shingle beside the <em>Gilded Tern</em>'s shattered waist. Cold brine hisses through broken planking, carrying the scent of crushed cinnamon and ozone.",
+          "Without warning, the nearest tide pool rears up into a translucent, grasping <strong>Beach Weird</strong> while a razor-beaked <strong>Guardian Archaeopteryx</strong> shrieks down from the splintered mainmast to defend its newfound hoard!"
+        ],
+        enemy: { name: "Beach Weird & Guardian Archaeopteryx", desc: "Elemental surf-spirit and razor-beaked cliff scavenger guarding the wreck.", hp: 26, ac: 12, atk: 5, dmg: 5, xp: 75, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "common"), flee: 1, weakCw: ["CLEAN_DESCENT", "BOSUN_TIP"] },
         choices: [
-          { t: "Pry open the captain's brass strongbox inside the flooded stern!", to: 3 }
+          { t: "Duck into the tilted forecastle to search the sunken chart-room before the tide seals it.", to: 8 },
+          { t: "Wade straight through the foaming mid-deck toward the captain's flooded stern cabin.", to: 3 }
         ]
       },
       3: {
         zone: "Lonely Cove • Flooded Stern",
         title: "The Pescavitus",
-        text: "Coiled around the merchant captain's strongbox lurks a spiny, sea-dwelling **Pescavitus**, jaws snapping through the rising tide!",
-        enemy: { name: "Cove Pescavitus", desc: "Ferocious coastal ambush predator hoarding shipwreck salvage.", hp: 32, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 70, items: ["bq_lonely_cove_spyglass"], weakCw: ["CLEAN_DESCENT"] },
+        text: [
+          "Ankle-deep turquoise surf surges through the shattered stern windows of the captain's quarters. Barnacled charts bob across the water, framing a heavy brass-bound strongbox bolted beside the rudder-post.",
+          "Coiled protectively around the chest lurks a spiny, armored <strong>Cove Pescavitus</strong>—its dorsal fins flaring like rusted daggers as its jaws snap through the rising foam!"
+        ],
+        enemy: { name: "Cove Pescavitus", desc: "Ferocious spine-backed coastal ambush predator hoarding shipwreck salvage.", hp: 32, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 70, items: ["bq_lonely_cove_spyglass"], flee: 2, weakCw: ["CLEAN_DESCENT", "BOSUN_TIP"] },
         choices: [
-          { t: "Hoist the salvaged strongbox up the cliffs before high tide floods the beach!", to: 4 }
+          { t: "Run your fingertips along the strongbox's base to check for a hidden smuggler's compartment.", badge: "Detect Traps / Luck DC 12", check: { stat: "luck", skill: "Detect Traps", dc: 12, pass: 9, fail: 4, passMsg: "Click! A spring-loaded panel slides open beneath the waxed velvet lining!", failMsg: "Nothing hidden turns up—and a booming breaker warns that high tide is minutes away!" } },
+          { t: "Lash the brass strongbox into a rope sling and haul it toward the cliff-winch before high tide floods the cove!", to: 4 }
         ]
       },
       4: {
-        zone: "Harbor Quay",
-        title: "Salvage Claimed",
-        text: "The harbor broker whistles at the intact brass-bound chests and pays out your full salvage share.",
-        onEnter: { healHp: 8, msg: "Dry wool and hot chowder warm you up (+8 HP)!" },
+        zone: "Lonely Cove • Cliff Winch",
+        title: "Race Against the Spring Tide",
+        text: [
+          "White surf roars over the black basalt just as you hook the heavy brass strongbox onto the broker's cliff-side rope sling. Halfway up the sheer chalk face, a salt-stiffened hemp strand groans and begins to fray as the chest swings dangerously against the rock!"
+        ],
         choices: [
-          { t: "Pocket your coin.", to: 5 }
+          { t: "Brace your boots against the timber winch-posts and haul the line hand-over-hand.", badge: "Athletics / Might DC 11", check: { stat: "might", skill: "Athletics", dc: 11, pass: 5, fail: 5, failDmg: 3, passMsg: "Muscles burning, you heave the chest cleanly over the cliff rim before the rope gives!", failMsg: "Rough hemp scorches your palms (-3 HP) as you wrestle the heavy chest onto solid grass!" } },
+          { t: "Throw a quick sailor's hitch around the drum to steady the pendulum swing and ease it up.", badge: "Survival / Agility DC 11", check: { stat: "agility", skill: "Survival", dc: 11, pass: 5, fail: 5, passMsg: "Textbook seamanship! The strongbox glides smoothly over the chalk lip without a scratch!", failMsg: "The chest bangs hard against the rock face, though the iron bands hold all the way up." } },
+          { t: "Weave a lifting gust of wind to take the weight off the fraying hemp.", badge: "Arcana DC 11", check: { stat: "arcana", skill: "Arcana", dc: 11, pass: 5, fail: 5, passMsg: "A whistling updraft buoys the brass chest effortlessly onto the clifftop (+20 XP)!", failMsg: "The salt breeze scatters your focus, forcing you to haul the last few yards by hand." }, onPass: { xp: 20 } }
         ]
       },
       5: {
-        zone: "Coastal Road",
-        title: "Tide Turns",
-        text: "Waves wash cleanly over Lonely Cove once more.",
+        zone: "Oakhaven Harbor Quay",
+        title: "Settlement at the Quay",
+        text: [
+          "Lanterns bob along the timber pilings as you cart the salvaged strongbox back to the Harbor Quay. Master Fenwick, the sharp-eyed salvage broker, runs a thumb over the unbroken wax seals and lets out a low, delighted whistle.",
+          "\"Still dry inside, by the tides!\" Fenwick grins, sliding a steaming bowl of clam chowder and a dry wool blanket across his counting-table. \"Sit a spell while I tally your share.\""
+        ],
+        onEnter: { healHp: 8, msg: "Dry wool and hot harbor chowder warm you up (+8 HP)!" },
         choices: [
-          { t: "Complete the adventure!", to: 6 }
+          { t: "Lay the recovered ship's manifest on Fenwick's ledger to claim the full Merchant Guild bonus!", reqCw: "SHIP_MANIFEST", badge: "Manifest Bonus", to: 10 },
+          { t: "Point out the Pescavitus claw-marks on the brass lid and haggle for hazard pay.", badge: "Persuasion / Spirit DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 10, fail: 6, passMsg: "Fenwick laughs ruefully and stacks an extra thirty gold sovereigns onto your share!", failMsg: "Fenwick shakes his head with a crooked smile: 'Fair try, friend, but a contract's a contract.'" }, onPass: { gold: 30 } },
+          { t: "Accept your honest salvage share and watch the evening tide roll over the coast.", to: 6 }
         ]
       },
       6: {
         zone: "Epilogue",
         title: "Master of Lonely Cove",
-        text: "You braved the sea cliffs and recovered the shipwreck salvage!",
+        text: "As twilight settles over the chalk headlands, waves wash cleanly over the empty ribs of the <em>Gilded Tern</em>. Back in Oakhaven, sailors raise their mugs to the adventurer who outpaced the spring tide and brought Lonely Cove's treasure home.",
         ending: { type: "true", title: "Salvager of Lonely Cove", xp: 130, gold: 125, trophy: "Barnacle-Etched Ship Compass" },
+        choices: []
+      },
+      7: {
+        zone: "Lonely Cove • Lantern Cleft",
+        title: "The Sea-Cave Survivor",
+        text: [
+          "Inside the damp chalk niche you find <strong>Tamsin</strong>, the <em>Gilded Tern</em>'s bruised bosun's mate, clutching a shuttered oil-lantern. Relief floods her face as you duck beneath the rock arch.",
+          "\"Thank the harbor lights!\" she whispers, pointing down at the wreck. \"Watch the tide pools—the storm woke a water-spirit and a feathered cliff-fiend, and some spine-backed sea-beast crawled into Captain Harrow's stern cabin! Its belly-scales are soft if you strike low when it lunges.\""
+        ],
+        choices: [
+          { t: "Bind Tamsin's scraped forearm with a soothing sea-herb compress and take her spare vial.", badge: "Herbalism / Spirit DC 10", check: { stat: "spirit", skill: "Herbalism", dc: 10, pass: 2, fail: 2, passMsg: "Tamsin clasps your hand gratefully, pressing a Bramble Antidote into your palm (+4 HP)!", failMsg: "The bandage is rough, yet Tamsin thanks you warmly and marks the safest path down to the hull." }, onPass: { cw: "BOSUN_TIP", items: ["antidote"], healHp: 4 } },
+          { t: "Thank Tamsin for the warning, help her up the safe cliff-rope, and drop down to the wreck.", onChoose: { cw: "BOSUN_TIP", msg: "Tamsin's warning gives you the upper hand against the cove beasts!" }, to: 2 }
+        ]
+      },
+      8: {
+        zone: "Lonely Cove • Tilted Forecastle",
+        title: "The Sunken Chart-Room",
+        text: [
+          "The forecastle tilts at a dizzying angle, its walls lined with brass compasses and soggy parchment rolls. Wedged beneath an overturned chart-table sits the ship's wax-sealed <strong>Cargo Manifest</strong>—worth a handsome bonus to the Merchant Guild—alongside a salt-crusted navigator's lockbox and a dry medicine rack."
+        ],
+        choices: [
+          { t: "Pick the salt-corroded brass lock on the navigator's box before the cabin floods.", badge: "Lockpicking / Agility DC 12", onChoose: { cw: "SHIP_MANIFEST" }, check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 3, fail: 3, failDmg: 3, passMsg: "Pop! Inside rest 30 dry gold coins, Sea Salt Crystals, and the Cargo Manifest!", failMsg: "The rusted hinge snaps shut on your knuckles (-3 HP), though you still snatch the Cargo Manifest!" }, onPass: { gold: 30, items: ["sea_salt"] } },
+          { t: "Tuck the Cargo Manifest into your oilskin pouch and grab a corked Health Potion from the rack.", onChoose: { cw: "SHIP_MANIFEST", items: ["health_potion"], msg: "Recovered the Cargo Manifest and a dry Health Potion!" }, to: 3 }
+        ]
+      },
+      9: {
+        zone: "Lonely Cove • Rising Tide",
+        title: "The Captain's Secret Compartment",
+        text: [
+          "Beneath the strongbox's waxed velvet lining lies a shallow false bottom built for quiet frontier tariffs! Inside glints a dry leather purse of imperial gold sovereigns alongside an engraved <strong>Silver Signet</strong>."
+        ],
+        onEnter: { gold: 35, items: ["silver_signet"], msg: "Hidden compartment! Found +35 GP and a Silver Signet!" },
+        choices: [
+          { t: "Snap the false bottom shut and hoist the chest up the cliff before the tide surges!", to: 4 }
+        ]
+      },
+      10: {
+        zone: "Epilogue",
+        title: "Master Salvager of Lonely Cove",
+        text: "Master Fenwick stamps the recovered manifest with the Merchant Guild's red wax seal and counts out a brimming purse of gold sovereigns. Word of your fearless cliffside salvage—and sharp eye for every hidden ledger and lockbox—spreads across Oakhaven's docks before sundown.",
+        ending: { type: "true", title: "Master Salvager of Lonely Cove", xp: 155, gold: 165, trophy: "Barnacle-Etched Ship Compass" },
         choices: []
       }
     }
