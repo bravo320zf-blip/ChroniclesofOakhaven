@@ -1,5 +1,5 @@
 {
-  "totalPasses": 25,
+  "totalPasses": 26,
   "history": [
     {
       "pass": 1,
@@ -171,6 +171,12 @@
       "questId": "bk_b20_rune_crypt_sianis",
       "title": "The Rune Crypt of Sianis",
       "summary": "Expanded from 7 to 11 pages with Korrak the ravenfolk doom croaker parley, Mourning Reliquary counter-rune side-scene, dark rune unmaking ritual, Helari Silver Alcove, and Redeemer of House Helari bonus ending."
+    },
+    {
+      "pass": 26,
+      "questId": "bandit_citadel",
+      "title": "The Ravencrest Bandit Citadel",
+      "summary": "Expanded from 10 to 13 pages with North Watchtower signal brazier sabotage, Captured Caravan Drivers cellar rescue (DRIVERS_FREED + secret stair bypass), richer Warlord Vane prose, and Savior of the Trade Road bonus ending."
     }
   ],
   "questPasses": {
@@ -198,6 +204,7 @@
     "bk_b17_tob3_lonely_cove": 1,
     "bk_b18_tob3_lost_forge": 1,
     "ul_fungal_forgetting": 1,
-    "bk_b20_rune_crypt_sianis": 1
+    "bk_b20_rune_crypt_sianis": 1,
+    "bandit_citadel": 1
   }
 }

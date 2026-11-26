@@ -381,8 +381,10 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // QUEST 3: THE RAVENCREST BANDIT CITADEL (10 PAGES)
+      // ==========================================================
+      // QUEST 3: THE RAVENCREST BANDIT CITADEL (13 PAGES • LV 2)
       // Uniques: ravencrest_halberd, mercenary_pauldron
+      // (Enriched Pass 1)
       // ==========================================================
       bandit_citadel: {
         id: "bandit_citadel",
@@ -391,41 +393,153 @@ window.OAKHAVEN.registerQuests({
         difficulty: "Medium",
         recommendedLevel: 2,
         discoverySource: "Captain Mireille (Tavern)",
-        summary: "Infiltrate the captured hilltop fort of Ravencrest, sabotage the brigands' armory, and duel Warlord Vane for his halberd and black-banner armor.",
-        totalPages: 10,
+        summary: "Infiltrate the captured hilltop fort of Ravencrest, sabotage the brigands' armory, rescue captive Oakhaven caravan drivers, and duel Warlord Vane for his halberd and black-banner armor.",
+        totalPages: 13,
         pages: {
-          1: { zone:"Fort Approach", title:"The Black Banner Gate", safeRetreat:true, text:"Tattered black pennants snap above Ravencrest's stone walls. Archers patrol the main gate, while a mossy drainage grate lies hidden in the eastern ditch.", choices:[
-            { t:"Slip through the eastern drainage grate.", badge:"Stealth / Lockpicking DC 9", check:{ stat:"agility", skill:"Stealth", dc:9, pass:2, fail:3, passMsg:"You sneak straight into the fort's barracks!", failMsg:"A sentry spots you and sounds the horn!" } },
-            { t:"Kick open the sally-gate and storm the courtyard!", to:3 }
-          ]},
-          2: { zone:"Fort Barracks", title:"The Unwatched Armory", text:"While the bandits dice outside, you lift a suit of Black-Banner Brigandine from a rack, pocket random supplies, and spike their crossbow bolts!", onEnter:{ cw:"ARROWS_SPIKED", items:["mercenary_pauldron", ...rollRandomLoot(["consumable","valuable"], 1)], msg:"Claimed Black-Banner Brigandine & spiked their arrows!" }, choices:[
-            { t:"Step into the Courtyard to face the garrison.", to:3 }
-          ]},
-          3: { zone:"Courtyard", title:"The Black Banner Patrol", text:"Three scarred Mercenary Cutthroats leap from behind supply wagons with curved blades!", enemy:{ name:"Black Banner Cutthroats", desc:"Hardened caravan raiders.", hp:20, ac:11, atk:4, dmg:4, xp:42, gold:28, items: rollRandomLoot(["consumable","valuable","material"], 1), weakCw:["ARROWS_SPIKED"], flee:1 }, choices:[
-            { t:"Raid the Quartermaster's Wagon.", to:4 },
-            { t:"Climb the steps to Warlord Vane's Keep.", to:5 }
-          ]},
-          4: { zone:"Courtyard", title:"The Stolen Caravan Chest", text:"Inside a locked merchant wagon you recover 35 GP and two random items looted from Oakhaven traders.", onEnter:{ gold:35, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 2), msg:"Recovered 35 GP & 2 random items!" }, choices:[
-            { t:"Storm Warlord Vane's Keep!", to:5 }
-          ]},
-          5: { zone:"Keep Hall", title:"The Iron Portcullis", text:"Heavy spears line the hall leading to the Warlord's dais.", choices:[
-            { t:"Bluff the door-guards with Persuasion.", badge:"Persuasion DC 10", check:{ stat:"spirit", skill:"Persuasion", dc:10, pass:6, fail:6, failDmg:3, passMsg:"They step aside in confusion!", failMsg:"A spear-butt catches your shoulder (-3 HP) as you burst through!" } },
-            { t:"Charge straight through the doorway!", to:6 }
-          ]},
-          6: { zone:"Warlord's Dais", title:"Warlord Vane of the Black Banner", text:"A towering mercenary captain rises from a stolen gilded chair, spinning the gleaming Ravencrest Halberd. 'Mireille sent one hero to do an army's work? Come then!'", choices:[
-            { t:"Taunt his weakened garrison and strike!", reqCw:"ARROWS_SPIKED", badge:"ARROWS_SPIKED", to:7 },
-            { t:"Cross steel with Warlord Vane!", to:8 }
-          ]},
-          7: { zone:"Warlord's Dais", title:"The Cornered Warlord", text:"Realizing his archers can't back him up, Vane snarls and charges recklessly!", enemy:{ name:"Warlord Vane (Cornered)", desc:"Black Banner commander without support.", hp:23, ac:11, atk:4, dmg:5, xp:82, gold:65, items:["ravencrest_halberd", ...rollRandomLoot(["valuable","consumable"], 1)] }, choices:[
-            { t:"Seize the Citadel War-Chest!", to:9 }
-          ]},
-          8: { zone:"Warlord's Dais", title:"Duel of the Black Banner", text:"Vane's heavy halberd whistles through the air with deadly reach!", enemy:{ name:"Warlord Vane", desc:"Ruthless leader of Ravencrest Citadel.", hp:28, ac:12, atk:5, dmg:6, xp:98, gold:75, items:["ravencrest_halberd", ...rollRandomLoot(["valuable","accessory"], 1)] }, choices:[
-            { t:"Seize the Citadel War-Chest!", to:9 }
-          ]},
-          9: { zone:"Warlord's Dais", title:"Spoils of Ravencrest", text:"With Vane defeated, the remaining brigands scatter down the hillside. You claim 45 GP and a random treasure from his coffer.", onEnter:{ gold:45, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 1), msg:"Claimed 45 GP & random treasure!" }, choices:[
-            { t:"Return to Captain Mireille in Oakhaven!", to:10 }
-          ]},
-          10: { zone:"Epilogue", title:"Breaker of the Black Banner", text:"Captain Mireille salutes you on the Town Square as Oakhaven's trade road reopens. The merchants chip in a handsome gold reward!", ending:{ type:"true", title:"Liberator of Ravencrest", xp:100, gold:115, trophy:"Black Banner Standard" }, choices:[] }
+          1: {
+            zone: "Fort Approach • Hilltop Palisade",
+            title: "The Black Banner Gate",
+            safeRetreat: true,
+            text: [
+              "Tattered black pennants snap sharply in the ridge wind above Ravencrest's grey limestone walls. Smoke from cook-fires curls over the battlements, where bored crossbowmen pace beside the timber gatehouse.",
+              "Below the eastern ditch, a moss-choked drainage grate sits half-submerged in rain-rutted mud, while thick climbing ivy drapes the unguarded north watchtower."
+            ],
+            choices: [
+              { t: "Slip silently through the mossy eastern drainage grate into the fort's lower barracks.", badge: "Stealth / Agility DC 9", check: { stat: "agility", skill: "Stealth", dc: 9, pass: 2, fail: 3, passMsg: "You ease the rusted grate aside and slip straight into the unwatched barracks!", failMsg: "Rusted iron shrieks—a wall sentry spots you and blows a brass alarm-horn!" } },
+              { t: "Scale the ivy-choked north watchtower to douse their alarm brazier before dropping inside.", badge: "Athletics / Might DC 10", check: { stat: "might", skill: "Athletics", dc: 10, pass: 12, fail: 3, passMsg: "You haul yourself cleanly onto the quiet north rampart above the courtyard!", failMsg: "Dry ivy tears loose—you land hard in the ditch as cutthroats rush the sally-gate!" } },
+              { t: "Kick open the timber sally-gate and storm straight into the courtyard!", to: 3 }
+            ]
+          },
+          2: {
+            zone: "Fort Barracks • Unwatched Armory",
+            title: "The Unwatched Armory",
+            text: [
+              "Loud laughter and clattering bone dice drift through the shuttered window from the courtyard outside. Inside the empty barracks, racks of oiled brigandine and bundled crossbow quarrels stand completely unguarded!",
+              "You lift a gleaming suit of <strong>Black-Banner Brigandine</strong> off the armor-stand, pocket loose supplies, and snap the bowstrings of every spare crossbow on the wall."
+            ],
+            onEnter: { cw: "ARROWS_SPIKED", items: ["mercenary_pauldron", ...rollRandomLoot(["consumable", "valuable"], 1)], msg: "Claimed Black-Banner Brigandine & sabotaged the bandits' crossbows!" },
+            choices: [
+              { t: "Step out into the Courtyard to take the Black Banner patrol by surprise!", to: 3 }
+            ]
+          },
+          3: {
+            zone: "Ravencrest Courtyard",
+            title: "The Black Banner Patrol",
+            text: [
+              "Stolen Oakhaven supply wagons crowd the cobbled courtyard beneath Ravencrest's keep. Three scarred <strong>Black Banner Cutthroats</strong> vault over the wagon-rails with curved sabers drawn: <em>\"Look what wandered into Vane's hill!\"</em>"
+            ],
+            enemy: { name: "Black Banner Cutthroats", desc: "Hardened caravan raiders guarding Ravencrest's courtyard.", hp: 20, ac: 11, atk: 4, dmg: 4, xp: 42, gold: 28, items: rollRandomLoot(["consumable", "valuable", "material"], 1), weakCw: ["ARROWS_SPIKED"], flee: 1 },
+            choices: [
+              { t: "Check the iron-barred cellar hatch where muffled voices are calling for help!", to: 11 },
+              { t: "Raid the Quartermaster's locked merchant wagon before climbing to the keep.", to: 4 },
+              { t: "Climb the stone steps straight toward Warlord Vane's Keep!", to: 5 }
+            ]
+          },
+          4: {
+            zone: "Ravencrest Courtyard • Supply Wagons",
+            title: "The Stolen Caravan Chest",
+            text: [
+              "Prying back the oilcloth tarp of the Quartermaster's wagon reveals stamped crates from Oakhaven's Market District—inside rest <strong>35 GP</strong> in trade coin and two intact pieces of salvaged gear!"
+            ],
+            onEnter: { gold: 35, items: rollRandomLoot(["weapon", "armor", "consumable", "valuable"], 2), msg: "Recovered 35 GP & 2 random items!" },
+            choices: [
+              { t: "Ascend the stone steps to Warlord Vane's Keep!", to: 5 }
+            ]
+          },
+          5: {
+            zone: "Keep Hall • Iron Portcullis",
+            title: "The Iron Portcullis",
+            text: [
+              "Torches gutter along the vaulted stone hall leading to Warlord Vane's dais. Two burly pike-guards stand beneath a raised iron portcullis, squinting suspiciously through the smoke as you approach."
+            ],
+            choices: [
+              { t: "Snap a sharp mercenary salute and bluff them that Vane called for urgent reinforcements!", badge: "Persuasion / Spirit DC 10", check: { stat: "spirit", skill: "Persuasion", dc: 10, pass: 6, fail: 6, failDmg: 3, passMsg: "Caught off guard by your crisp command, the guards step aside in confusion!", failMsg: "A pike-butt clips your shoulder (-3 HP) as you shoulder past them into the hall!" } },
+              { t: "Use the secret servant's stair the rescued caravan drivers told you about!", reqCw: "DRIVERS_FREED", badge: "DRIVERS_FREED", onChoose: { xp: 20, msg: "You bypass the portcullis guards completely (+20 XP)!" }, to: 6 },
+              { t: "Lower your shoulder and charge straight through the doorway!", to: 6 }
+            ]
+          },
+          6: {
+            zone: "Warlord's Dais",
+            title: "Warlord Vane of the Black Banner",
+            text: [
+              "At the far end of the banner-draped hall, a towering mercenary captain rises from a stolen gilded chair, spinning the gleaming steel of the <strong>Ravencrest Halberd</strong> in one gloved hand.",
+              "<em>\"Mireille sent one lone adventurer to do an army's work?\"</em> Warlord Vane laughs darkly, planting his boots across the stone dais. <em>\"Come then—let's see what Oakhaven steel is worth!\"</em>"
+            ],
+            choices: [
+              { t: "Toss a snapped crossbow-string at his boots and taunt his sabotaged garrison!", reqCw: "ARROWS_SPIKED", badge: "ARROWS_SPIKED", to: 7 },
+              { t: "Raise your weapon and cross steel with Warlord Vane!", to: 8 }
+            ]
+          },
+          7: {
+            zone: "Warlord's Dais",
+            title: "The Cornered Warlord",
+            text: [
+              "Vane's grin vanishes as he realizes his crossbowmen cannot back him up! With a furious snarl, the cornered warlord charges recklessly off the dais!"
+            ],
+            enemy: { name: "Warlord Vane (Cornered)", desc: "Black Banner commander isolated without his archers.", hp: 23, ac: 11, atk: 4, dmg: 5, xp: 82, gold: 65, items: ["ravencrest_halberd", ...rollRandomLoot(["valuable", "consumable"], 1)], flee: 5 },
+            choices: [
+              { t: "Seize the Citadel War-Chest behind Vane's chair!", to: 9 }
+            ]
+          },
+          8: {
+            zone: "Warlord's Dais",
+            title: "Duel of the Black Banner",
+            text: [
+              "Vane's heavy halberd whistles through the torchlit air in wide, deadly arcs as the Black Banner warlord presses his advantage!"
+            ],
+            enemy: { name: "Warlord Vane", desc: "Ruthless mercenary leader of Ravencrest Citadel.", hp: 28, ac: 12, atk: 5, dmg: 6, xp: 98, gold: 75, items: ["ravencrest_halberd", ...rollRandomLoot(["valuable", "accessory"], 1)], flee: 5 },
+            choices: [
+              { t: "Seize the Citadel War-Chest behind Vane's chair!", to: 9 }
+            ]
+          },
+          9: {
+            zone: "Warlord's Dais • Citadel Coffer",
+            title: "Spoils of Ravencrest",
+            text: [
+              "With Warlord Vane stretched cold upon the flagstones, the remaining Black Banner brigands throw down their spears and scatter down the hillside. Behind the gilded chair, Vane's iron war-chest yields <strong>45 GP</strong> and a prized piece of plunder!"
+            ],
+            onEnter: { gold: 45, items: rollRandomLoot(["weapon", "armor", "accessory", "valuable"], 1), msg: "Claimed 45 GP & random treasure!" },
+            choices: [
+              { t: "Escort the freed Oakhaven caravan drivers triumphantly back to Captain Mireille!", reqCw: "DRIVERS_FREED", badge: "Rescue Bonus", to: 13 },
+              { t: "Haul down the Black Banner and return to Captain Mireille in Oakhaven!", to: 10 }
+            ]
+          },
+          10: {
+            zone: "Epilogue",
+            title: "Breaker of the Black Banner",
+            text: "Captain Mireille salutes you smartly on Oakhaven's Town Square as the captured Black Banner is nailed above the watch-post. With the trade road open once more, grateful merchants chip in a handsome purse of gold!",
+            ending: { type: "true", title: "Liberator of Ravencrest", xp: 100, gold: 115, trophy: "Black Banner Standard" },
+            choices: []
+          },
+          11: {
+            zone: "Fort Cellar • Iron Cage",
+            title: "The Captured Caravan Drivers",
+            text: [
+              "Beneath the courtyard cellar hatch sit two bruised Oakhaven teamsters locked inside a rusted holding-cage. Their eyes light up as you descend the steps: <em>\"Thank the Dawn! Free us, friend—we know the old servant's stair straight up behind Vane's dais!\"</em>"
+            ],
+            choices: [
+              { t: "Pick the rusted padlock cleanly with Lockpicking.", badge: "Lockpicking / Agility DC 10", check: { stat: "agility", skill: "Lockpicking", dc: 10, pass: 5, fail: 5, passMsg: "Click! The grateful drivers slip you a Health Potion and point out the secret keep-stair!", failMsg: "The pin jams—you smash the hinge loose anyway so the drivers can escape to the gate!" }, onPass: { cw: "DRIVERS_FREED", items: ["health_potion"] }, onChoose: { cw: "DRIVERS_FREED" } },
+              { t: "Wrench the corroded iron hasp apart with brute strength!", badge: "Athletics / Might DC 11", check: { stat: "might", skill: "Athletics", dc: 11, pass: 5, fail: 5, passMsg: "The rusted iron snaps clean—the freed drivers hand you a Health Potion and point to the secret stair!", failMsg: "It takes two heavy kicks, yet the cage pops open and the drivers scramble safely free!" }, onPass: { cw: "DRIVERS_FREED", items: ["health_potion"] }, onChoose: { cw: "DRIVERS_FREED" } }
+            ]
+          },
+          12: {
+            zone: "Ravencrest Ramparts • North Watchtower",
+            title: "The Signal Brazier",
+            text: [
+              "From the windy north watchtower you overlook the entire courtyard—and right beside the ladder smolders a pitch-soaked signal brazier meant to rally Vane's archers."
+            ],
+            choices: [
+              { t: "Smother the signal brazier quietly with damp turf and drop into the unwatched armory!", badge: "Survival / Agility DC 10", check: { stat: "agility", skill: "Survival", dc: 10, pass: 2, fail: 2, passMsg: "The brazier dies without a whisper of smoke—you pocket 20 GP from the lookout's stool (+25 XP)!", failMsg: "A hiss of steam rises, yet you slip down the ladder into the unwatched armory before anyone looks up." }, onPass: { gold: 20, xp: 25 } },
+              { t: "Climb straight down the inner ladder into the unwatched barracks below.", to: 2 }
+            ]
+          },
+          13: {
+            zone: "Epilogue",
+            title: "Savior of the Trade Road",
+            text: "Cheers erupt across Oakhaven's Town Square as you march back through the gates beside the rescued caravan drivers and Warlord Vane's torn Black Banner! Captain Mireille and the Merchant Guild pool an extra bounty in your honor, and drinks flow freely at the Rusty Flagon all evening.",
+            ending: { type: "true", title: "Savior of Ravencrest & the Trade Road", xp: 135, gold: 155, trophy: "Black Banner Standard" },
+            choices: []
+          }
         }
       },
 
