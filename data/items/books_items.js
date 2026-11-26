@@ -132,11 +132,27 @@ window.OAKHAVEN.registerItems({
     "type": "accessory",
     "rarity": "very_rare",
     "value": 200,
-    "source": "Tome of Heroes",
     "ac": 2,
     "luck": 3,
     "maxHp": 8,
-    "desc": "+2 AC, +3 Luck, +8 Max HP (Tome of Heroes)"
+    "passives": {
+      "dmgReduce": 2,
+      "thornsDmg": 3,
+      "bossDmgBonus": 4,
+      "skillBonus": { "Athletics": 2 }
+    },
+    "activeAbility": {
+      "name": "Deepstone Haymaker",
+      "icon": "🪨",
+      "charges": 2,
+      "dmgDice": "3d6",
+      "dmgStat": "might",
+      "dmgType": "physical",
+      "stunTurns": 1,
+      "shieldTurns": 2,
+      "desc": "2/Quest: Drive rune-carved stone knuckles for 3d6 + Might dmg, Stun (1t), and +3 AC (2t)!"
+    },
+    "desc": "Subterranean basalt knuckle-guards etched with mountain wards (-2 Dmg Taken, 3 Thorns, +4 vs Bosses, +2 Athletics) with Deepstone Haymaker."
   },
   "bk_esquire_s_rowels": {
     "id": "bk_esquire_s_rowels",
@@ -457,11 +473,27 @@ window.OAKHAVEN.registerItems({
     "type": "accessory",
     "rarity": "very_rare",
     "value": 200,
-    "source": "Tome of Heroes",
     "ac": 2,
     "arcana": 3,
     "maxMp": 8,
-    "desc": "+2 AC, +3 Arcana, +8 Max MP (Tome of Heroes)"
+    "passives": {
+      "spellDmgBonus": 3,
+      "healBonus": 2,
+      "bossDmgBonus": 4,
+      "skillBonus": { "Persuasion": 2 }
+    },
+    "activeAbility": {
+      "name": "Rallying Standard",
+      "icon": "🚩",
+      "charges": 2,
+      "ooc": true,
+      "healDice": "2d6",
+      "healStat": "arcana",
+      "selfBuffAtk": { "atk": 3, "turns": 3 },
+      "shieldTurns": 2,
+      "desc": "2/Quest: Plant the radiant war-standard to heal 2d6 + Arcana HP, +3 ATK (3t), and +3 AC (2t)!"
+    },
+    "desc": "Gold-braided battle standard stitched with triumphant sigils (+3 Spell Dmg, +2 Healing, +4 vs Bosses, +2 Persuasion) with Rallying Standard."
   },
   "bk_bracelet_of_the_fire_tender": {
     "id": "bk_bracelet_of_the_fire_tender",

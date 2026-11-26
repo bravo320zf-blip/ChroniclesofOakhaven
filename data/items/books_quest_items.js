@@ -1445,7 +1445,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     spirit: 2,
     maxHp: 10,
-    desc: "+3 AC, +2 Arcana, +2 Spirit, +10 Max HP. Warded noble seal gifted after breaking Konrad's plot."
+    passives: { dmgReduce: 2, undeadDmgBonus: 6, healBonus: 4, mpRegen: 1, skillBonus: { Persuasion: 2, Perception: 2 } },
+    activeAbility: { name: "Consecrated Ruby Ward", icon: "💍", charges: 2, mp: 2, ooc: true, healDice: "3d6", healStat: "spirit", dmgDice: "3d8", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, shieldTurns: 3, desc: "2/Quest (2 MP): Invoke the consecrated ruby seal to heal 3d6 + Spirit HP, sear foes for 3d8 + Spirit radiant dmg (2× vs Undead), and gain +3 AC (3t)!" },
+    desc: "Legendary warded noble seal gifted after breaking Konrad's plot (-2 Dmg Taken, +6 vs Undead, +4 Healing, +1 MP/t, +2 Persuasion/Perception) with Consecrated Ruby Ward."
   }
 });
 
@@ -2649,9 +2651,9 @@ window.OAKHAVEN.registerItems({
     value: 210,
     atk: 5,
     agility: 2,
-    passives: { critRange: 11, goldFindPct: 15, skillBonus: { Stealth: 2 } },
-    activeAbility: { name: "Smuggler's Riposte", icon: "🗡️", charges: 2, dmgDice: "2d6", dmgStat: "agility", dmgType: "poison", evadeTurns: 2, desc: "2/Quest: Feint with poisoned steel for 2d6 + Agility poison dmg and Evade (2t)!" },
-    desc: "Curved smuggler's saber claimed in Trombei's swamp grotto (+Crit, +15% Gold, +2 Stealth) with Smuggler's Riposte."
+    passives: { critRange: 11, goldFindPct: 15, skillBonus: { Stealth: 2, Survival: 1 } },
+    activeAbility: { name: "Smuggler's Riposte", icon: "🗡️", charges: 2, dmgDice: "2d6", dmgStat: "agility", dmgType: "poison", dot: { dmg: 3, turns: 3, label: "Swamp Venom" }, evadeTurns: 2, desc: "2/Quest: Feint with poisoned steel for 2d6 + Agility poison dmg, Swamp Venom (3/t, 3t), and Evade (2t)!" },
+    desc: "Curved smuggler's saber claimed in Trombei's swamp grotto (+Crit, +15% Gold, +2 Stealth, +1 Survival) with Smuggler's Riposte."
   },
   "bq_bramble_king_circlet": {
     id: "bq_bramble_king_circlet",

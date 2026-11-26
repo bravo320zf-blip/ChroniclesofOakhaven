@@ -19,7 +19,7 @@ window.OAKHAVEN.registerItems({
       cutlass_tides:   { id:"cutlass_tides", name:"Cutlass of the Tides", type:"weapon", atk:3, agility:2, value:95, desc:"+3 Attack, +2 Agility" },
 
       // Armor
-      scholar_robes:   { id:"scholar_robes", name:"Scholar's Robes", type:"armor", ac:1, arcana:1, value:20, desc:"+1 AC, +1 Arcana" },
+      scholar_robes:   { id:"scholar_robes", name:"Scholar's Robes", type:"armor", ac:1, arcana:1, value:20, passives:{ spellDmgBonus:1, skillBonus:{ Arcana:1 } }, desc:"Ink-stained academy robes stitched with minor focusing threads (+1 Spell Dmg, +1 Arcana)." },
       leather_armor:   { id:"leather_armor", name:"Studded Leather", type:"armor", ac:2, value:28, desc:"+2 AC" },
       chainmail:       { id:"chainmail", name:"Chainmail Hauberk", type:"armor", ac:3, value:65, desc:"+3 AC" },
       briarweave_mail: { id:"briarweave_mail", name:"Briarweave Jerkin", type:"armor", ac:3, agility:1, value:75, desc:"+3 AC, +1 Agility" },

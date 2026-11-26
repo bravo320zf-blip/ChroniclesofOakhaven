@@ -1,6 +1,6 @@
 {
-  "totalPasses": 34,
-  "totalItemsReworked": 340,
+  "totalPasses": 35,
+  "totalItemsReworked": 350,
   "history": [
     {
       "pass": 1,
@@ -545,6 +545,22 @@
         "bq_virtuoso_tuning_baton"
       ],
       "summary": "Reworked 6 Vault of Magic items (including Legendary Staff of Master Lu Po, Chillblain Armor, Boots of Quaking, Ankh of Aten), Staff of Embers, Khopesh, Phase Arrow, and Virtuoso's Bone Baton."
+    },
+    {
+      "pass": 35,
+      "items": [
+        "bk_deepstone_cestus",
+        "vom_circlet_persuasion",
+        "vom_trident_vortex",
+        "bq_konrad_soul_signet",
+        "vom_howling_rod",
+        "vom_dragonstooth_blade",
+        "vom_blacktooth",
+        "scholar_robes",
+        "bk_victory_banner",
+        "bq_trombei_smuggler_blade"
+      ],
+      "summary": "Reworked 5 Vault of Magic items (including Legendary Blacktooth Wand, Dragonstooth Blade, Trident of the Vortex, Howling Rod), Legendary Streck's Consecrated Ruby Signet, Deepstone Cestus, Victory Banner, Scholar's Robes, and Graydion's Swamp-Venom Saber."
     }
   ],
   "itemPasses": {
@@ -887,6 +903,16 @@
     "vom_boots_quaking": 1,
     "bk_khopesh": 1,
     "bk_phase_arrow": 1,
-    "bq_virtuoso_tuning_baton": 1
+    "bq_virtuoso_tuning_baton": 1,
+    "bk_deepstone_cestus": 1,
+    "vom_circlet_persuasion": 1,
+    "vom_trident_vortex": 1,
+    "bq_konrad_soul_signet": 1,
+    "vom_howling_rod": 1,
+    "vom_dragonstooth_blade": 1,
+    "vom_blacktooth": 1,
+    "scholar_robes": 1,
+    "bk_victory_banner": 1,
+    "bq_trombei_smuggler_blade": 1
   }
 }
