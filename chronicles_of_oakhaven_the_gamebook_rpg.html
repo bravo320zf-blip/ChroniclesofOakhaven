@@ -663,7 +663,24 @@
               <option value="browser">Smart Browser (Instant)</option>
               <option value="kokoro">✨ Studio AI (Kokoro)</option>
             </select>
-            <button id="btn-menu-narrator-test" type="button" class="px-2.5 py-1.5 rounded-lg bg-amber-950/90 hover:bg-amber-900 border border-amber-600/50 text-xs font-semibold text-amber-200 transition" title="Test narrator voice now">🔊 Test</button>
+            <button id="btn-menu-narrator-test" type="button" class="px-2.5 py-1.5 rounded-lg bg-amber-950/90 hover:bg-amber-900 border border-amber-600/50 text-xs font-semibold text-amber-200 transition" title="Test your default quest narrator voice">🔊 Test</button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <label for="menu-narrator-lang" class="block text-[10px] uppercase tracking-wider text-stone-400 mb-0.5">Language</label>
+              <select id="menu-narrator-lang" class="w-full px-2 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-200 text-xs focus:outline-none">
+                <option value="en">English (All)</option>
+                <option value="en-GB">English (UK)</option>
+                <option value="en-US">English (US)</option>
+                <option value="en-AU">English (AU)</option>
+              </select>
+            </div>
+            <div>
+              <label for="menu-narrator-voice" class="block text-[10px] uppercase tracking-wider text-stone-400 mb-0.5">Default Quest Narrator</label>
+              <select id="menu-narrator-voice" class="w-full px-2 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-200 text-xs focus:outline-none">
+                <option value="">Default Voice</option>
+              </select>
+            </div>
           </div>
           <div id="menu-narrator-status" class="text-[11px] font-medium text-stone-300">Ready</div>
           <div id="menu-narrator-progress-wrap" class="hidden w-full h-2 rounded-full bg-stone-900 overflow-hidden border border-amber-700/40">
@@ -896,7 +913,7 @@
 
   <!-- Audio Engine, Narrator & Core Game Engine -->
   <script src="js/audio.js?v=2"></script>
-  <script src="js/narrator.js?v=5"></script>
+  <script src="js/narrator.js?v=6"></script>
   <script src="js/engine.js?v=27"></script>
 </body>
 </html>

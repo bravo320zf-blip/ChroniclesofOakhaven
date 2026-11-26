@@ -13,26 +13,27 @@
   const STORAGE_KEY = "oakhaven_narrator_prefs_v1";
 
   const KOKORO_VOICES = [
-    { id: "bm_fable",    label: "Fable — British Storyteller (Expressive)" },
     { id: "bm_george",   label: "George — British Narrator (Warm)" },
+    { id: "bm_lewis",    label: "Lewis — British Narrator (Deep • Bram/Borin)" },
+    { id: "bm_daniel",   label: "Daniel — British Narrator (Crisp • Orin)" },
+    { id: "bf_emma",     label: "Emma — British Narrator (Classic • Miri)" },
+    { id: "bf_isabella", label: "Isabella — British Narrator (Lyrical • Selene)" },
+    { id: "am_michael",  label: "Michael — American Narrator" },
+    { id: "af_heart",    label: "Heart — Expressive Narrator" },
+    { id: "bm_fable",    label: "Fable — British Storyteller" },
     { id: "am_fenrir",   label: "Fenrir — Deep Fantasy Narrator" },
-    { id: "af_heart",    label: "Heart — Expressive Narrator (Top Rated)" },
     { id: "af_bella",    label: "Bella — Warm Storyteller" },
     { id: "bf_lily",     label: "Lily — British Narrator (Natural)" },
-    { id: "bm_lewis",    label: "Lewis — British Narrator (Deep)" },
-    { id: "bm_daniel",   label: "Daniel — British Narrator (Crisp)" },
-    { id: "bf_emma",     label: "Emma — British Narrator (Classic)" },
-    { id: "bf_isabella", label: "Isabella — British Narrator (Lyrical)" },
     { id: "bf_alice",    label: "Alice — British Narrator (Clear)" },
-    { id: "am_onyx",     label: "Onyx — Gravelly Deep (Blacksmith)" },
+    { id: "am_onyx",     label: "Onyx — Gravelly Deep" },
     { id: "am_puck",     label: "Puck — Lively Rogue / Bard" },
-    { id: "am_michael",  label: "Michael — American Narrator" },
     { id: "af_nicole",   label: "Nicole — Intimate Storyteller" },
     { id: "af_nova",     label: "Nova — Bright & Clear" }
   ];
 
   const DEFAULT_PREFS = {
     engine: "browser",       // "browser" | "kokoro"
+    language: "en",          // "en" | "en-GB" | "en-US" | "en-AU"
     autoRead: false,
     rate: 1.0,
     browserVoiceName: "",
@@ -74,16 +75,16 @@
      PER-CHARACTER TOWN VOICE CASTING
      ------------------------------------------------------------ */
   const NAMED_TOWN_VOICES = {
-    bram:       { gender: "male",   kokoro: "bm_lewis",    pitch: 0.92, rateMul: 0.96, hints: ["andrew", "brian", "ryan", "george", "guy"] },
-    armory:     { gender: "male",   kokoro: "am_onyx",     pitch: 0.82, rateMul: 0.93, hints: ["brian", "christopher", "george", "guy"] },
-    borin:      { gender: "male",   kokoro: "am_onyx",     pitch: 0.82, rateMul: 0.93, hints: ["brian", "christopher", "george", "guy"] },
-    apothecary: { gender: "female", kokoro: "af_bella",    pitch: 1.05, rateMul: 1.03, hints: ["emma", "ava", "sonia", "libbie", "aria"] },
-    miri:       { gender: "female", kokoro: "af_bella",    pitch: 1.05, rateMul: 1.03, hints: ["emma", "ava", "sonia", "libbie", "aria"] },
-    curios:     { gender: "male",   kokoro: "bm_daniel",   pitch: 1.02, rateMul: 0.97, hints: ["ryan", "daniel", "andrew", "arthur"] },
-    orin:       { gender: "male",   kokoro: "bm_daniel",   pitch: 1.02, rateMul: 0.97, hints: ["ryan", "daniel", "andrew", "arthur"] },
-    temple:     { gender: "female", kokoro: "bf_lily",     pitch: 1.03, rateMul: 0.92, hints: ["ava", "libbie", "emma", "serena", "sonia"] },
-    selene:     { gender: "female", kokoro: "bf_lily",     pitch: 1.03, rateMul: 0.92, hints: ["ava", "libbie", "emma", "serena", "sonia"] },
-    tavern_bark:{ gender: "male",   kokoro: "am_puck",     pitch: 0.98, rateMul: 1.01, hints: ["andrew", "guy", "ryan", "brian"] }
+    bram:       { gender: "male",   kokoro: "bm_lewis",    pitch: 0.90, rateMul: 0.95, hints: ["ryan", "george", "guy", "daniel"] },
+    armory:     { gender: "male",   kokoro: "bm_lewis",    pitch: 0.80, rateMul: 0.92, hints: ["george", "brian", "christopher", "guy"] },
+    borin:      { gender: "male",   kokoro: "bm_lewis",    pitch: 0.80, rateMul: 0.92, hints: ["george", "brian", "christopher", "guy"] },
+    apothecary: { gender: "female", kokoro: "bf_emma",     pitch: 1.08, rateMul: 1.04, hints: ["sonia", "libbie", "aria", "emma", "jenny"] },
+    miri:       { gender: "female", kokoro: "bf_emma",     pitch: 1.08, rateMul: 1.04, hints: ["sonia", "libbie", "aria", "emma", "jenny"] },
+    curios:     { gender: "male",   kokoro: "bm_daniel",   pitch: 1.03, rateMul: 0.97, hints: ["daniel", "arthur", "ryan", "oliver"] },
+    orin:       { gender: "male",   kokoro: "bm_daniel",   pitch: 1.03, rateMul: 0.97, hints: ["daniel", "arthur", "ryan", "oliver"] },
+    temple:     { gender: "female", kokoro: "bf_isabella", pitch: 1.04, rateMul: 0.91, hints: ["libbie", "isabella", "serena", "sonia", "martha"] },
+    selene:     { gender: "female", kokoro: "bf_isabella", pitch: 1.04, rateMul: 0.91, hints: ["libbie", "isabella", "serena", "sonia", "martha"] },
+    tavern_bark:{ gender: "male",   kokoro: "am_michael",  pitch: 0.96, rateMul: 1.00, hints: ["guy", "michael", "ryan", "christopher"] }
   };
 
   function hashString(str) {
@@ -118,8 +119,8 @@
 
     const h = hashString(k || name || "npc");
     const gender = inferGender(name, role);
-    const maleKokoro = ["bm_fable", "am_fenrir", "bm_george", "bm_lewis", "bm_daniel", "am_puck", "am_onyx", "am_michael"];
-    const femaleKokoro = ["af_heart", "af_bella", "bf_lily", "bf_emma", "bf_isabella", "bf_alice", "af_nicole", "af_nova"];
+    const maleKokoro = ["bm_george", "bm_lewis", "bm_daniel", "am_michael"];
+    const femaleKokoro = ["bf_emma", "bf_isabella", "af_heart"];
     const pool = gender === "female" ? femaleKokoro : maleKokoro;
     const kokoro = pool[h % pool.length];
 
@@ -213,6 +214,26 @@
   /* ------------------------------------------------------------
      SMART BROWSER VOICE RANKING (PREFERS NATURAL / NEURAL VOICES)
      ------------------------------------------------------------ */
+  function matchesLanguageFilter(v, langFilter) {
+    if (!v || !v.lang) return false;
+    const vl = v.lang.toLowerCase().replace("_", "-");
+    const fl = String(langFilter || "en").toLowerCase();
+    if (fl === "en") return vl.startsWith("en");
+    return vl === fl || vl.startsWith(fl + "-");
+  }
+
+  function getFilteredBrowserVoices() {
+    const filtered = browserVoices.filter(v => matchesLanguageFilter(v, prefs.language));
+    return filtered.length ? filtered : browserVoices;
+  }
+
+  function getFilteredKokoroVoices() {
+    const fl = String(prefs.language || "en").toLowerCase();
+    if (fl === "en-gb") return KOKORO_VOICES.filter(v => v.id.startsWith("b"));
+    if (fl === "en-us") return KOKORO_VOICES.filter(v => v.id.startsWith("a"));
+    return KOKORO_VOICES;
+  }
+
   function scoreBrowserVoice(v) {
     if (!v || !v.lang) return -999;
     const lang = v.lang.toLowerCase();
@@ -220,16 +241,16 @@
     const name = (v.name || "").toLowerCase();
     let score = 10;
 
-    // Top-tier cloud/OS neural voices (Edge Multilingual Natural voices are the most lifelike!)
-    if (name.includes("multilingual") && (name.includes("natural") || name.includes("neural"))) score += 45;
+    // Top-tier native English neural voices (avoid Multilingual auto-detect voices speaking wrong languages)
     if (name.includes("natural") || name.includes("neural")) score += 100;
     if (name.includes("online")) score += 30;
     if (name.includes("enhanced") || name.includes("premium")) score += 60;
     if (name.includes("google")) score += 55;
+    if (name.includes("multilingual")) score -= 45;
 
-    // Fantasy audiobook feel: prefer UK English & top lifelike narrator voices
+    // Fantasy audiobook feel: prefer UK English & warm narrator voices
     if (lang.includes("gb") || name.includes("united kingdom") || name.includes("british") || name.includes("uk")) score += 22;
-    if (/(andrew|ava|brian|emma|ryan|sonia|libbie|george|daniel|arthur|oliver|martha|serena|guy|aria|christopher)/.test(name)) score += 18;
+    if (/(ryan|sonia|libbie|george|daniel|arthur|oliver|martha|serena|guy|aria|brian|christopher)/.test(name)) score += 16;
 
     // Penalize classic robotic voices so they're only used as fallback
     if (/(david|zira|mark|hazel|susan|espeak|compact)/.test(name) && !name.includes("natural") && !name.includes("neural")) {
@@ -245,10 +266,11 @@
       .filter(v => v.lang && v.lang.toLowerCase().startsWith("en"))
       .sort((a, b) => scoreBrowserVoice(b) - scoreBrowserVoice(a));
 
-    if (browserVoices.length > 0) {
-      const stillExists = browserVoices.some(v => v.name === prefs.browserVoiceName);
+    const pool = getFilteredBrowserVoices();
+    if (pool.length > 0) {
+      const stillExists = pool.some(v => v.name === prefs.browserVoiceName);
       if (!prefs.browserVoiceName || !stillExists) {
-        prefs.browserVoiceName = browserVoices[0].name;
+        prefs.browserVoiceName = pool[0].name;
       }
     }
     renderControls();
@@ -633,41 +655,49 @@
       rateSel.value = String(prefs.rate);
     }
 
-    if (voiceSel) {
-      const targetKey = prefs.engine === "kokoro" ? "kokoro" : `browser:${browserVoices.length}`;
-      if (voiceSel.dataset.populated !== targetKey) {
-        voiceSel.dataset.populated = targetKey;
-        voiceSel.innerHTML = "";
+    const voiceSelectors = [
+      document.getElementById("narrator-voice"),
+      document.getElementById("menu-narrator-voice")
+    ].filter(Boolean);
+
+    const targetKey = prefs.engine === "kokoro"
+      ? `kokoro:${prefs.language}`
+      : `browser:${prefs.language}:${browserVoices.length}`;
+
+    voiceSelectors.forEach(sel => {
+      if (sel.dataset.populated !== targetKey) {
+        sel.dataset.populated = targetKey;
+        sel.innerHTML = "";
         if (prefs.engine === "kokoro") {
-          KOKORO_VOICES.forEach(v => {
+          getFilteredKokoroVoices().forEach(v => {
             const opt = document.createElement("option");
             opt.value = v.id;
             opt.textContent = v.label;
-            voiceSel.appendChild(opt);
+            sel.appendChild(opt);
           });
         } else {
-          const list = browserVoices.length ? browserVoices : [];
+          const list = getFilteredBrowserVoices();
           if (list.length === 0) {
             const opt = document.createElement("option");
             opt.value = "";
             opt.textContent = "Default Browser Voice";
-            voiceSel.appendChild(opt);
+            sel.appendChild(opt);
           } else {
-            list.slice(0, 25).forEach(v => {
+            list.slice(0, 30).forEach(v => {
               const opt = document.createElement("option");
               opt.value = v.name;
-              const isNat = /natural|neural|google/i.test(v.name);
+              const isNat = /natural|neural|google/i.test(v.name) && !/multilingual/i.test(v.name);
               opt.textContent = `${isNat ? "★ " : ""}${v.name}`;
-              voiceSel.appendChild(opt);
+              sel.appendChild(opt);
             });
           }
         }
       }
       const desiredVal = prefs.engine === "kokoro" ? prefs.kokoroVoice : prefs.browserVoiceName;
-      if (desiredVal && voiceSel.value !== desiredVal) {
-        voiceSel.value = desiredVal;
+      if (desiredVal && Array.from(sel.options).some(o => o.value === desiredVal) && sel.value !== desiredVal) {
+        sel.value = desiredVal;
       }
-    }
+    });
 
     if (statusEl) {
       statusEl.textContent = statusText;
@@ -675,12 +705,16 @@
 
     // Sync Menu Narrator controls (accessible from Town as well as Adventures)
     const menuEngineSel = document.getElementById("menu-narrator-engine");
+    const menuLangSel = document.getElementById("menu-narrator-lang");
     const menuAutoBtn = document.getElementById("menu-narrator-auto");
     const menuStatusEl = document.getElementById("menu-narrator-status");
     const menuProgWrap = document.getElementById("menu-narrator-progress-wrap");
     const menuProgBar = document.getElementById("menu-narrator-progress-bar");
     if (menuEngineSel && menuEngineSel.value !== prefs.engine) {
       menuEngineSel.value = prefs.engine;
+    }
+    if (menuLangSel && menuLangSel.value !== (prefs.language || "en")) {
+      menuLangSel.value = prefs.language || "en";
     }
     if (menuAutoBtn) {
       menuAutoBtn.textContent = prefs.autoRead ? "🎙️ Auto-Voice: ON" : "🎙️ Auto-Voice: OFF";
@@ -717,6 +751,8 @@
     const voiceSel = document.getElementById("narrator-voice");
     const rateSel = document.getElementById("narrator-rate");
     const menuEngineSel = document.getElementById("menu-narrator-engine");
+    const menuLangSel = document.getElementById("menu-narrator-lang");
+    const menuVoiceSel = document.getElementById("menu-narrator-voice");
     const menuAutoBtn = document.getElementById("menu-narrator-auto");
     const menuTestBtn = document.getElementById("btn-menu-narrator-test");
 
@@ -739,6 +775,7 @@
       prefs.engine = val === "kokoro" ? "kokoro" : "browser";
       savePrefs();
       if (voiceSel) voiceSel.dataset.populated = "";
+      if (menuVoiceSel) menuVoiceSel.dataset.populated = "";
       renderControls();
       if (prefs.engine === "kokoro" && !kokoroModel && kokoroState !== "loading") {
         // Begin downloading Studio AI immediately so user sees live progress & completion badge
@@ -748,19 +785,46 @@
     };
     if (engineSel) engineSel.onchange = () => handleEngineChange(engineSel.value);
     if (menuEngineSel) menuEngineSel.onchange = () => handleEngineChange(menuEngineSel.value);
-    if (menuTestBtn) {
-      menuTestBtn.onclick = () => {
-        speakAs("bram", "Welcome back to Oakhaven, traveler! The hearth is warm and fresh rumors await at the Rusty Flagon.", { name: "Old Bram", role: "Innkeeper" });
+
+    if (menuLangSel) {
+      menuLangSel.onchange = () => {
+        prefs.language = menuLangSel.value || "en";
+        if (prefs.engine === "kokoro") {
+          const kList = getFilteredKokoroVoices();
+          if (kList.length && !kList.some(v => v.id === prefs.kokoroVoice)) {
+            prefs.kokoroVoice = kList[0].id;
+          }
+        } else {
+          const bList = getFilteredBrowserVoices();
+          if (bList.length && !bList.some(v => v.name === prefs.browserVoiceName)) {
+            prefs.browserVoiceName = bList[0].name;
+          }
+        }
+        savePrefs();
+        if (voiceSel) voiceSel.dataset.populated = "";
+        if (menuVoiceSel) menuVoiceSel.dataset.populated = "";
+        renderControls();
       };
     }
 
-    if (voiceSel) {
-      voiceSel.onchange = () => {
-        const wasPlaying = playbackState === "playing";
-        if (prefs.engine === "kokoro") prefs.kokoroVoice = voiceSel.value;
-        else prefs.browserVoiceName = voiceSel.value;
-        savePrefs();
-        if (wasPlaying && currentText) play();
+    const handleVoiceChange = (val) => {
+      const wasPlaying = playbackState === "playing";
+      if (prefs.engine === "kokoro") prefs.kokoroVoice = val;
+      else prefs.browserVoiceName = val;
+      savePrefs();
+      renderControls();
+      if (wasPlaying && currentText) play();
+    };
+    if (voiceSel) voiceSel.onchange = () => handleVoiceChange(voiceSel.value);
+    if (menuVoiceSel) menuVoiceSel.onchange = () => handleVoiceChange(menuVoiceSel.value);
+
+    if (menuTestBtn) {
+      menuTestBtn.onclick = () => {
+        stop(true);
+        const myToken = ++runToken;
+        const sample = "The lantern light flickers across the frontier road as a new adventure begins beyond Oakhaven's gates.";
+        if (prefs.engine === "kokoro") startKokoroSpeech(sample, myToken, null);
+        else startBrowserSpeech(sample, myToken, null);
       };
     }
     if (rateSel) {
