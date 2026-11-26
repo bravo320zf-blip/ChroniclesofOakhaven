@@ -1,0 +1,25 @@
+{
+  "totalPasses": 1,
+  "totalSpellsPolished": 5,
+  "totalCatalogSpells": 1209,
+  "spellPasses": {
+    "Ambush": 1,
+    "Greater Ley Protection": 1,
+    "Lesser Ley Protection": 1,
+    "Ley Disturbance": 1,
+    "Shadow's Brand": 1
+  },
+  "history": [
+    {
+      "pass": 1,
+      "spells": [
+        "Ambush",
+        "Greater Ley Protection",
+        "Lesser Ley Protection",
+        "Ley Disturbance",
+        "Shadow's Brand"
+      ],
+      "summary": "Polished 5 woodland ley/shadow spells with distinct healing/ward/chill/damage scaling and removed sourcebook tags from descriptions."
+    }
+  ]
+}
