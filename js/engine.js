@@ -1694,7 +1694,11 @@
       }
     }
 
+    let lastTownAutoSpokenKey = "";
+
     function closeBuildingModal() {
+      window.OAKHAVEN_NARRATOR?.stop(true);
+      lastTownAutoSpokenKey = "";
       const wasOpen = buildingModalOpen;
       buildingModalOpen = false;
       const modal = document.getElementById("modal-building");
@@ -2274,12 +2278,18 @@
             ${alreadyRested ? `✓ Rested${buffLbl ? ` (+1 ${buffLbl})` : ""} • Quest to Rest Again` : "🛏️ Rest at Inn (10 GP)"}
           </button>
         </div>
-        <div class="mb-4 px-3.5 py-2.5 rounded-xl bg-stone-950/70 border border-amber-800/35 text-xs text-amber-100/85 italic font-story leading-relaxed">
-          🔥 ${tavernBark}
+        <div class="mb-4 px-3.5 py-2.5 rounded-xl bg-stone-950/70 border border-amber-800/35 text-xs text-amber-100/85 italic font-story leading-relaxed flex items-center justify-between gap-2">
+          <span>🔥 ${tavernBark}</span>
+          <button id="btn-speak-tavern-bark" type="button" class="shrink-0 px-2 py-1 rounded-lg bg-stone-900 hover:bg-amber-950/80 border border-amber-700/40 text-[11px] not-italic font-sans text-amber-200 transition" title="Hear tavern rumor">🔊</button>
         </div>
         <div id="tavern-dialogue-box" class="${activeNpcDialogue ? "" : "hidden"} mb-4 p-4 rounded-xl bg-stone-950 border border-amber-500/50 space-y-2 pop-in"></div>
         <div id="tavern-npc-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
       `;
+
+      const barkBtn = box.querySelector("#btn-speak-tavern-bark");
+      if (barkBtn) {
+        barkBtn.onclick = () => window.OAKHAVEN_NARRATOR?.speakAs("tavern_bark", tavernBark, { name: "Rusty Flagon Patron" });
+      }
 
       box.querySelector("#btn-inn-rest").onclick = () => {
         if (state.innRested || state.innBuff) {
@@ -2312,14 +2322,21 @@
         const npc = TAVERN_NPCS.find(n => n.id === activeNpcDialogue.npcId);
         if (npc) {
           dBox.innerHTML = `
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between gap-2">
               <div class="font-display text-sm font-bold text-amber-300">${npc.name} <span class="text-xs text-stone-400 font-normal">— ${npc.role}</span></div>
-              <button id="btn-close-npc" class="text-xs text-stone-400 hover:text-stone-200">Close ✕</button>
+              <div class="flex items-center gap-2 shrink-0">
+                <button id="btn-speak-npc" type="button" class="px-2 py-0.5 rounded-lg bg-stone-900 hover:bg-amber-950/80 border border-amber-700/40 text-[11px] text-amber-200 transition" title="Hear ${npc.name} speak">🔊 Speak</button>
+                <button id="btn-close-npc" class="text-xs text-stone-400 hover:text-stone-200">Close ✕</button>
+              </div>
             </div>
             <p class="font-story text-base text-stone-200 leading-relaxed">${activeNpcDialogue.text}</p>
             <div id="npc-options" class="flex flex-wrap gap-2 pt-1"></div>
           `;
+          dBox.querySelector("#btn-speak-npc").onclick = () => {
+            window.OAKHAVEN_NARRATOR?.speakAs(npc.id, activeNpcDialogue.text, { name: npc.name, role: npc.role });
+          };
           dBox.querySelector("#btn-close-npc").onclick = () => {
+            window.OAKHAVEN_NARRATOR?.stop(true);
             activeNpcDialogue = null;
             renderDistrictTavern(box);
           };
@@ -2331,6 +2348,7 @@
             b.onclick = () => {
               if (opt.unlock) discoverAdventure(opt.unlock, npc.name);
               activeNpcDialogue = { npcId: npc.id, text: opt.reply };
+              window.OAKHAVEN_NARRATOR?.speakAs(npc.id, opt.reply, { name: npc.name, role: npc.role, autoOnly: true });
               renderDistrictTavern(box);
             };
             optWrap.appendChild(b);
@@ -2373,6 +2391,7 @@
         `;
         c.onclick = () => {
           activeNpcDialogue = { npcId: npc.id, text: npc.greeting };
+          window.OAKHAVEN_NARRATOR?.speakAs(npc.id, npc.greeting, { name: npc.name, role: npc.role, autoOnly: true });
           renderDistrictTavern(box);
         };
         grid.appendChild(c);
@@ -3111,6 +3130,7 @@
 
     function renderDistrictMarket(box) {
       const shop = SHOPS[currentShop];
+      const shopGreeting = getShopkeeperGreeting(currentShop, shop);
       box.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
           <h3 class="font-display text-xl font-bold text-amber-300">Market District</h3>
@@ -3119,18 +3139,31 @@
           </div>
         </div>
         <div class="p-3 rounded-xl bg-stone-950/70 border border-amber-700/30 mb-4 flex flex-wrap items-center justify-between gap-2">
-          <div>
+          <div class="flex-1 min-w-[200px]">
             <div class="font-display text-sm font-bold text-amber-200">${shop.name} — <span class="text-stone-400 font-normal">${shop.npc}</span></div>
-            <div class="text-xs text-stone-300 italic">${getShopkeeperGreeting(currentShop, shop)}</div>
+            <div class="text-xs text-stone-300 italic">${shopGreeting}</div>
           </div>
-          ${currentShop==="armory" && !state.discoveredQuests.includes("karak_zul") ? `<button id="btn-shop-rumor" class="px-3 py-1.5 rounded-lg btn-gold text-xs">Ask about Dwarven Ore</button>` : ""}
-          ${currentShop==="curios" && !state.discoveredQuests.includes("crimson_spire") ? `<button id="btn-shop-rumor" class="px-3 py-1.5 rounded-lg btn-gold text-xs">Ask about Arcane Towers</button>` : ""}
+          <div class="flex items-center gap-2 shrink-0">
+            <button id="btn-speak-shopkeeper" type="button" class="px-2.5 py-1.5 rounded-lg bg-stone-900 hover:bg-amber-950/80 border border-amber-700/40 text-xs text-amber-200 transition" title="Hear ${shop.npc} speak">🔊</button>
+            ${currentShop==="armory" && !state.discoveredQuests.includes("karak_zul") ? `<button id="btn-shop-rumor" class="px-3 py-1.5 rounded-lg btn-gold text-xs">Ask about Dwarven Ore</button>` : ""}
+            ${currentShop==="curios" && !state.discoveredQuests.includes("crimson_spire") ? `<button id="btn-shop-rumor" class="px-3 py-1.5 rounded-lg btn-gold text-xs">Ask about Arcane Towers</button>` : ""}
+          </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div><h4 class="font-display text-xs uppercase text-emerald-400 mb-2">Buy Gear &amp; Supplies</h4><div id="mkt-buy" class="space-y-1.5 max-h-72 overflow-y-auto pr-1"></div></div>
           <div><h4 class="font-display text-xs uppercase text-amber-400 mb-2">Sell From Backpack</h4><div id="mkt-sell" class="space-y-1.5 max-h-72 overflow-y-auto pr-1"></div></div>
         </div>
       `;
+
+      const speakShopBtn = box.querySelector("#btn-speak-shopkeeper");
+      if (speakShopBtn) {
+        speakShopBtn.onclick = () => window.OAKHAVEN_NARRATOR?.speakAs(currentShop, shopGreeting, { name: shop.npc, role: shop.name });
+      }
+      const shopVisitKey = `market:${currentShop}`;
+      if (lastTownAutoSpokenKey !== shopVisitKey) {
+        lastTownAutoSpokenKey = shopVisitKey;
+        window.OAKHAVEN_NARRATOR?.speakAs(currentShop, shopGreeting, { name: shop.npc, role: shop.name, autoOnly: true });
+      }
 
       box.querySelectorAll(".shop-tab").forEach(b => b.onclick = () => { currentShop = b.dataset.shop; renderDistrictMarket(box); });
       const rumorBtn = box.querySelector("#btn-shop-rumor");
@@ -3755,7 +3788,10 @@
         <p class="text-xs text-stone-400 mb-4">Sanctuary of healing, blessings, and soul-resurrection. High Priestess Selene tends the golden brazier.</p>
 
         <div class="p-4 rounded-xl bg-stone-950/80 border border-amber-600/40 mb-4">
-          <div class="font-display text-sm font-bold text-amber-200">High Priestess Selene</div>
+          <div class="flex items-center justify-between gap-2">
+            <div class="font-display text-sm font-bold text-amber-200">High Priestess Selene</div>
+            <button id="btn-speak-selene" type="button" class="px-2 py-0.5 rounded-lg bg-stone-900 hover:bg-amber-950/80 border border-amber-700/40 text-[11px] text-amber-200 transition" title="Hear High Priestess Selene speak">🔊 Speak</button>
+          </div>
           <p class="font-story text-base text-stone-200 mt-1 mb-3">
             "May the Dawn guard your steps. Should you fall in the dark, our bells will summon your spirit back to this altar—though whatever gold and gear you carried will be lost."
           </p>
@@ -3777,6 +3813,14 @@
           </div>
         </div>
       `;
+
+      const seleneQuote = "May the Dawn guard your steps. Should you fall in the dark, our bells will summon your spirit back to this altar—though whatever gold and gear you carried will be lost.";
+      const seleneBtn = box.querySelector("#btn-speak-selene");
+      if (seleneBtn) seleneBtn.onclick = () => window.OAKHAVEN_NARRATOR?.speakAs("selene", seleneQuote, { name: "High Priestess Selene", role: "High Priestess" });
+      if (lastTownAutoSpokenKey !== "temple:selene") {
+        lastTownAutoSpokenKey = "temple:selene";
+        window.OAKHAVEN_NARRATOR?.speakAs("selene", seleneQuote, { name: "High Priestess Selene", role: "High Priestess", autoOnly: true });
+      }
 
       const sq = box.querySelector("#btn-selene-quest");
       if (sq) sq.onclick = () => { discoverAdventure("st_jude", "High Priestess Selene"); renderDistrictTemple(box); };

@@ -59,6 +59,98 @@
   let activeSource = null;
 
   /* ------------------------------------------------------------
+     PER-CHARACTER TOWN VOICE CASTING
+     ------------------------------------------------------------ */
+  const NAMED_TOWN_VOICES = {
+    bram:       { gender: "male",   kokoro: "bm_lewis",    pitch: 0.90, rateMul: 0.95, hints: ["ryan", "george", "guy", "daniel"] },
+    armory:     { gender: "male",   kokoro: "bm_lewis",    pitch: 0.80, rateMul: 0.92, hints: ["george", "brian", "christopher", "guy"] },
+    borin:      { gender: "male",   kokoro: "bm_lewis",    pitch: 0.80, rateMul: 0.92, hints: ["george", "brian", "christopher", "guy"] },
+    apothecary: { gender: "female", kokoro: "bf_emma",     pitch: 1.08, rateMul: 1.04, hints: ["sonia", "libbie", "aria", "emma", "jenny"] },
+    miri:       { gender: "female", kokoro: "bf_emma",     pitch: 1.08, rateMul: 1.04, hints: ["sonia", "libbie", "aria", "emma", "jenny"] },
+    curios:     { gender: "male",   kokoro: "bm_daniel",   pitch: 1.03, rateMul: 0.97, hints: ["daniel", "arthur", "ryan", "oliver"] },
+    orin:       { gender: "male",   kokoro: "bm_daniel",   pitch: 1.03, rateMul: 0.97, hints: ["daniel", "arthur", "ryan", "oliver"] },
+    temple:     { gender: "female", kokoro: "bf_isabella", pitch: 1.04, rateMul: 0.91, hints: ["libbie", "isabella", "serena", "sonia", "martha"] },
+    selene:     { gender: "female", kokoro: "bf_isabella", pitch: 1.04, rateMul: 0.91, hints: ["libbie", "isabella", "serena", "sonia", "martha"] },
+    tavern_bark:{ gender: "male",   kokoro: "am_michael",  pitch: 0.96, rateMul: 1.00, hints: ["guy", "michael", "ryan", "christopher"] }
+  };
+
+  function hashString(str) {
+    let h = 2166136261;
+    const s = String(str || "");
+    for (let i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return h >>> 0;
+  }
+
+  function inferGender(name = "", role = "") {
+    const blob = `${name} ${role}`.toLowerCase();
+    if (/\b(lady|dame|sister|mistress|priestess|witch|queen|duchess|maiden|widow|mother|herbalist|sorceress|baroness|countess|matron|abbess|she|her)\b/.test(blob)) {
+      return "female";
+    }
+    if (/\b(elara|lyra|mira|miri|sera|selene|nadia|freya|kira|astrid|rowena|talia|sylvia|helena|morgana|evelyn|isolde|maeve|clara|maren|yara|nora|anya|zara|fiona|gwen|lila|tess|wren|aria|elena|iris|vera|cora|astrid|vespera|lydia|nadya|sasha|sonya|katya|olga)\b/.test(blob)) {
+      return "female";
+    }
+    return "male";
+  }
+
+  function isLikelyFemaleBrowserVoice(v) {
+    const n = (v?.name || "").toLowerCase();
+    return /(female|sonia|libbie|aria|jenny|emma|isabella|serena|martha|samantha|victoria|karen|moira|tessa|hazel|susan|zira|eva|clara|ava|michelle|natasha|neerja|clara)/.test(n);
+  }
+
+  function getCharacterVoiceProfile(characterKey, name = "", role = "") {
+    const k = String(characterKey || "").toLowerCase();
+    if (NAMED_TOWN_VOICES[k]) return NAMED_TOWN_VOICES[k];
+
+    const h = hashString(k || name || "npc");
+    const gender = inferGender(name, role);
+    const maleKokoro = ["bm_george", "bm_lewis", "bm_daniel", "am_michael"];
+    const femaleKokoro = ["bf_emma", "bf_isabella", "af_heart"];
+    const pool = gender === "female" ? femaleKokoro : maleKokoro;
+    const kokoro = pool[h % pool.length];
+
+    // Subtle deterministic pitch & cadence variation so every town patron sounds distinct
+    const pitchSteps = gender === "female" ? [0.98, 1.03, 1.07, 1.11] : [0.85, 0.91, 0.97, 1.03];
+    const rateSteps = [0.93, 0.97, 1.01, 1.05];
+    return {
+      gender,
+      kokoro,
+      pitch: pitchSteps[(h >>> 3) % pitchSteps.length],
+      rateMul: rateSteps[(h >>> 6) % rateSteps.length],
+      hints: [],
+      hash: h
+    };
+  }
+
+  function pickBrowserVoiceForProfile(profile) {
+    const voices = browserVoices.length ? browserVoices : refreshBrowserVoices();
+    if (!voices.length) return null;
+    if (!profile) {
+      return voices.find(v => v.name === prefs.browserVoiceName) || voices[0];
+    }
+
+    // 1. Try explicit named hints first (matching top-ranked voices)
+    if (profile.hints && profile.hints.length) {
+      for (const hint of profile.hints) {
+        const hit = voices.find(v => v.name.toLowerCase().includes(hint));
+        if (hit) return hit;
+      }
+    }
+
+    // 2. Filter top-quality English voices by inferred gender so men & women sound distinct
+    const topTier = voices.filter(v => scoreBrowserVoice(v) >= 50);
+    const searchPool = topTier.length >= 2 ? topTier : voices;
+    const genderMatches = searchPool.filter(v =>
+      profile.gender === "female" ? isLikelyFemaleBrowserVoice(v) : !isLikelyFemaleBrowserVoice(v)
+    );
+    const finalPool = genderMatches.length ? genderMatches : searchPool;
+    const idx = (profile.hash || 0) % finalPool.length;
+    return finalPool[idx];
+  }
+
+  /* ------------------------------------------------------------
      TEXT CLEANING & SENTENCE CHUNKING
      ------------------------------------------------------------ */
   function cleanTextForSpeech(title, rawParas) {
@@ -158,7 +250,7 @@
   /* ------------------------------------------------------------
      ENGINE 1: BROWSER NEURAL SPEECH SYNTHESIS
      ------------------------------------------------------------ */
-  function startBrowserSpeech(text, myToken) {
+  function startBrowserSpeech(text, myToken, profile = null) {
     if (!global.speechSynthesis) {
       setStatus("idle", "Browser speech unsupported — try Studio AI!");
       return;
@@ -172,9 +264,10 @@
       return;
     }
 
-    const voices = browserVoices.length ? browserVoices : refreshBrowserVoices();
-    const chosen = voices.find(v => v.name === prefs.browserVoiceName) || voices[0] || null;
+    const chosen = pickBrowserVoiceForProfile(profile);
     const shortVoice = chosen ? chosen.name.replace(/Microsoft |Google |Online \(Natural\) - |English \(United Kingdom\)|English \(United States\)/g, "").trim() : "System";
+    const effRate = Math.max(0.75, Math.min(1.45, (Number(prefs.rate) || 1.0) * (profile?.rateMul || 1.0)));
+    const effPitch = profile?.pitch || 1.0;
 
     setStatus("playing", `Speaking (${shortVoice || "Neural"})…`);
 
@@ -188,8 +281,8 @@
       const u = new SpeechSynthesisUtterance(chunk);
       if (chosen) u.voice = chosen;
       u.lang = chosen?.lang || "en-GB";
-      u.rate = Number(prefs.rate) || 1.0;
-      u.pitch = 1.0;
+      u.rate = effRate;
+      u.pitch = effPitch;
       u.onend = () => {
         if (myToken !== runToken) return;
         speakNext();
@@ -271,7 +364,7 @@
     return audioCtx;
   }
 
-  function playRawAudioBuffer(rawAudio, myToken) {
+  function playRawAudioBuffer(rawAudio, myToken, rateMul = 1.0) {
     return new Promise((resolve) => {
       if (myToken !== runToken) return resolve();
       const ctx = ensureAudioContext();
@@ -282,7 +375,7 @@
 
       const src = ctx.createBufferSource();
       src.buffer = buf;
-      src.playbackRate.value = Number(prefs.rate) || 1.0;
+      src.playbackRate.value = Math.max(0.75, Math.min(1.45, (Number(prefs.rate) || 1.0) * (rateMul || 1.0)));
       src.connect(ctx.destination);
       activeSource = src;
       src.onended = () => {
@@ -293,7 +386,7 @@
     });
   }
 
-  async function startKokoroSpeech(text, myToken) {
+  async function startKokoroSpeech(text, myToken, profile = null) {
     const chunks = splitIntoChunks(text, 240);
     if (chunks.length === 0) {
       setStatus("idle", "Nothing to read");
@@ -307,13 +400,14 @@
       if (myToken !== runToken) return;
       console.warn("Kokoro AI Narrator failed to load, falling back to Smart Browser Voice:", err);
       setStatus("idle", "AI Voice unavailable — using Browser Voice");
-      startBrowserSpeech(text, myToken);
+      startBrowserSpeech(text, myToken, profile);
       return;
     }
 
     if (myToken !== runToken) return;
 
-    const voiceId = prefs.kokoroVoice || "bm_george";
+    const voiceId = profile?.kokoro || prefs.kokoroVoice || "bm_george";
+    const rateMul = profile?.rateMul || 1.0;
     const voiceLabel = (KOKORO_VOICES.find(v => v.id === voiceId)?.label || voiceId).split(" — ")[0];
     setStatus("loading", `Synthesizing (${voiceLabel})…`);
 
@@ -331,10 +425,10 @@
         }
 
         setStatus("playing", `Studio AI (${voiceLabel}) • ${i + 1}/${chunks.length}`);
-        await playRawAudioBuffer(rawAudio, myToken);
+        await playRawAudioBuffer(rawAudio, myToken, rateMul);
       }
       if (myToken === runToken) {
-        setStatus("idle", "Finished page");
+        setStatus("idle", "Finished");
       }
     } catch (err) {
       if (myToken !== runToken) return;
@@ -408,6 +502,20 @@
     else if (playbackState === "paused") resume();
     else if (playbackState === "loading") stop();
     else play();
+  }
+
+  function speakAs(characterKey, rawText, opts = {}) {
+    if (opts.autoOnly && !prefs.autoRead) return;
+    const cleaned = cleanTextForSpeech("", [rawText]).replace(/^[“”"']+|[“”"']+$/g, "").trim();
+    if (!cleaned) return;
+    stop(true);
+    const myToken = ++runToken;
+    const profile = getCharacterVoiceProfile(characterKey, opts.name || "", opts.role || "");
+    if (prefs.engine === "kokoro") {
+      startKokoroSpeech(cleaned, myToken, profile);
+    } else {
+      startBrowserSpeech(cleaned, myToken, profile);
+    }
   }
 
   function setPage(title, rawParas, allowAutoRead = true) {
@@ -512,6 +620,19 @@
     if (statusEl) {
       statusEl.textContent = statusText;
     }
+
+    // Sync Menu Narrator controls (accessible from Town as well as Adventures)
+    const menuEngineSel = document.getElementById("menu-narrator-engine");
+    const menuAutoBtn = document.getElementById("menu-narrator-auto");
+    if (menuEngineSel && menuEngineSel.value !== prefs.engine) {
+      menuEngineSel.value = prefs.engine;
+    }
+    if (menuAutoBtn) {
+      menuAutoBtn.textContent = prefs.autoRead ? "🎙️ Auto-Voice: ON" : "🎙️ Auto-Voice: OFF";
+      menuAutoBtn.className = prefs.autoRead
+        ? "px-2.5 py-1.5 rounded-lg bg-emerald-900 hover:bg-emerald-800 border border-emerald-500/60 text-xs font-semibold text-emerald-100 transition"
+        : "px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-700 text-xs font-semibold text-stone-300 transition";
+    }
   }
 
   function initUI() {
@@ -521,30 +642,34 @@
     const engineSel = document.getElementById("narrator-engine");
     const voiceSel = document.getElementById("narrator-voice");
     const rateSel = document.getElementById("narrator-rate");
+    const menuEngineSel = document.getElementById("menu-narrator-engine");
+    const menuAutoBtn = document.getElementById("menu-narrator-auto");
 
     if (playBtn) playBtn.onclick = togglePlayPause;
     if (stopBtn) stopBtn.onclick = () => stop(false);
-    if (autoBtn) {
-      autoBtn.onclick = () => {
-        prefs.autoRead = !prefs.autoRead;
-        savePrefs();
-        renderControls();
-        if (prefs.autoRead && playbackState === "idle" && currentText) {
-          play();
-        }
-      };
-    }
-    if (engineSel) {
-      engineSel.onchange = () => {
-        const wasPlaying = playbackState === "playing" || playbackState === "loading";
-        stop(false);
-        prefs.engine = engineSel.value === "kokoro" ? "kokoro" : "browser";
-        savePrefs();
-        if (voiceSel) voiceSel.dataset.populated = "";
-        renderControls();
-        if (wasPlaying && currentText) play();
-      };
-    }
+    const handleToggleAuto = () => {
+      prefs.autoRead = !prefs.autoRead;
+      savePrefs();
+      renderControls();
+      if (prefs.autoRead && playbackState === "idle" && currentText) {
+        play();
+      }
+    };
+    if (autoBtn) autoBtn.onclick = handleToggleAuto;
+    if (menuAutoBtn) menuAutoBtn.onclick = handleToggleAuto;
+
+    const handleEngineChange = (val) => {
+      const wasPlaying = playbackState === "playing" || playbackState === "loading";
+      stop(false);
+      prefs.engine = val === "kokoro" ? "kokoro" : "browser";
+      savePrefs();
+      if (voiceSel) voiceSel.dataset.populated = "";
+      renderControls();
+      if (wasPlaying && currentText) play();
+    };
+    if (engineSel) engineSel.onchange = () => handleEngineChange(engineSel.value);
+    if (menuEngineSel) menuEngineSel.onchange = () => handleEngineChange(menuEngineSel.value);
+
     if (voiceSel) {
       voiceSel.onchange = () => {
         const wasPlaying = playbackState === "playing";
@@ -570,6 +695,7 @@
   global.OAKHAVEN_NARRATOR = {
     initUI,
     setPage,
+    speakAs,
     play,
     pause,
     resume,
