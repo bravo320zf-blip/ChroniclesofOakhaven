@@ -1,5 +1,5 @@
 {
-  "totalPasses": 23,
+  "totalPasses": 24,
   "history": [
     {
       "pass": 1,
@@ -159,6 +159,12 @@
       "questId": "bk_b18_tob3_lost_forge",
       "title": "The Lost Forge",
       "summary": "Expanded from 6 to 10 pages with Captain Thorek Ironpike voice, Upper Bellows Gallery furnace sabotage, Ancestral Clan Vault reliquary, stolen caravan strongboxes, molten crucible quenching hazard, and dual mountain clan endings."
+    },
+    {
+      "pass": 24,
+      "questId": "ul_fungal_forgetting",
+      "title": "Fungal Forest of Forgetting",
+      "summary": "Expanded from 10 to 13 pages with Memory-Cap Hollow (SPORE_IMMUNITY), Spore-Distillery Vat (LYE_FLASK), Perception tripwire option, Athletics toadstool-cut option, richer prose/voice, and Savior of the Forgotten bonus ending."
     }
   ],
   "questPasses": {
@@ -184,6 +190,7 @@
     "bk_b10_p2_1_starry_breach": 1,
     "saltfang": 1,
     "bk_b17_tob3_lonely_cove": 1,
-    "bk_b18_tob3_lost_forge": 1
+    "bk_b18_tob3_lost_forge": 1,
+    "ul_fungal_forgetting": 1
   }
 }

@@ -530,7 +530,8 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // 11. FUNGAL FOREST OF FORGETTING (10 PAGES • LV 5)
+      // 11. FUNGAL FOREST OF FORGETTING (13 PAGES • LV 5)
+      // (Enriched Pass 1)
       // ==========================================================
       ul_fungal_forgetting: {
         id: "ul_fungal_forgetting",
@@ -539,41 +540,153 @@ window.OAKHAVEN.registerQuests({
         difficulty: "Very Hard",
         recommendedLevel: 5,
         discoverySource: "Deep-Gnome Bimbil (Tavern)",
-        summary: "Trek through memory-stealing spores, writhing acid-cap mushrooms, and explosive worm corpses to defeat Ilxanthiard, Paragon of Rot.",
-        totalPages: 10,
+        summary: "Trek through memory-stealing spores, writhing acid-cap mushrooms, and explosive worm corpses to rescue trapped explorers and defeat Ilxanthiard, Paragon of Rot.",
+        totalPages: 13,
         pages: {
-          1: { zone:"Spore Jungle", title:"The Acid-Cap Field", safeRetreat:true, text:"Writhing Acid-Cap tendrils and paper-thin Giant Puffballs choke the cavern entrance. A twitching explorer lies half-buried in thick fungus ahead!", choices:[
-            { t:"Cut the explorer free with Herbalism / Survival.", badge:"Spirit / Herbalism DC 11", check:{ stat:"spirit", skill:"Herbalism", dc:11, pass:2, fail:2, failDmg:4, passMsg:"You save the scout—she reveals Ilxanthiard's explosive worm trap!", failMsg:"A puffball bursts, stinging your eyes (-4 HP)!" }, onPass:{ cw:"WORM_TRAP_KNOWN", items: rollRandomLoot(["consumable"], 1, "rare") } },
-            { t:"Burn a path straight through with Firebolt!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:2 }
-          ]},
-          2: { zone:"Spore Jungle", title:"Deathcap Ambush", text:"Six bulbous Deathcap Myconids detach from the fungal floor, slinging choking clouds!", enemy:{ name:"Waktwaza's Deathcaps", desc:"Fanatical fungal servants.", hp:30, ac:12, atk:5, dmg:6, xp:85, gold:35, items: rollRandomLoot(["weapon","valuable","consumable"], 1, "very_rare"), flee:1 }, choices:[
-            { t:"Advance to the rotting Giant Worm Corpses.", to:3 }
-          ]},
-          3: { zone:"Worm Corpses", title:"The Rigged Cadavers", text:"Colossal decaying purple worms lie draped in glowing rot—while Iron Ghouls and a Necrophage Ghast burrow out to ambush you!", choices:[
-            { t:"Detonate their rigged explosive worm corpse from afar!", reqCw:"WORM_TRAP_KNOWN", badge:"WORM_TRAP_KNOWN", to:4, onChoose:{ cw:"GHOULS_BLASTED", msg:"BOOM! Fiery blasts tear through the ghoul ambush!" } },
-            { t:"Meet the burrowing ghouls in melee!", to:4 }
-          ]},
-          4: { zone:"Worm Corpses", title:"Rotting Defenders", text:"Iron Ghouls and Imperial Ghouls lunge from the cavernous ribs of the dead worms!", enemy:{ name:"Ilxanthiard's Rot-Ghouls", desc:"Fungal-infected undead raiders.", hp:32, ac:13, atk:5, dmg:6, undead:true, xp:92, gold:48, items: rollRandomLoot(["consumable","valuable"], 1, "very_rare"), weakCw:["GHOULS_BLASTED"], flee:1 }, choices:[
-            { t:"Carefully lift the spore-trapped treasure sack.", to:5 },
-            { t:"Step through the spore-curtain into the Circle of Toadstools!", to:6 }
-          ]},
-          5: { zone:"Worm Corpses", title:"The Feeblemind Spores", text:"Strange thrumming spores surround a bulging treasure sack!", choices:[
-            { t:"Snatch the sack cleanly with Stealth / Agility.", badge:"Agility / Stealth DC 11", check:{ stat:"agility", skill:"Stealth", dc:11, pass:6, fail:6, failDmg:5, passMsg:"You snag 55 GP & a rare item untouched!", failMsg:"Thrumming spores scramble your senses (-5 HP)!" }, onPass:{ gold:55, items: rollRandomLoot(["accessory","valuable"], 1, "very_rare") } }
-          ]},
-          6: { zone:"Toadstool Circle", title:"Ilxanthiard, Paragon of Rot", text:"Inside a ring of ten-foot multicolored toadstools towers Ilxanthiard—a darakhul grotesquely bloomed with putrescent fungi! Living prisoners hang bound to the stalks.", choices:[
-            { t:"Torch the giant toadstools with Firebolt to stop them crushing you!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:7, onChoose:{ cw:"STALKS_BURNED", msg:"Flames wither Ilxanthiard's living toadstools!" } },
-            { t:"Charge the Paragon of Rot!", to:7 }
-          ]},
-          7: { zone:"Toadstool Circle", title:"Stream of Putrid Spores", text:"Ilxanthiard vomits streams of deadly Waktwaza spores that burn even the hardiest flesh!", enemy:{ name:"Ilxanthiard, Paragon of Rot", desc:"Fungal-mutated darakhul champion.", hp:42, ac:14, atk:6, dmg:7, undead:true, xp:185, gold:135, items:["ul_paragon_rot_blade", ...rollRandomLoot(["armor","accessory","valuable"], 1, "legendary")], weakCw:["STALKS_BURNED"] }, choices:[
-            { t:"Cut down the captive explorers and claim the cavern hoard!", to:8 }
-          ]},
-          8: { zone:"Toadstool Circle", title:"Prisoners of the Forest", text:"You free deep gnomes, dwarves, and surface merchants alike, recovering 70 GP and a random treasure from Ilxanthiard's discarded pile!", onEnter:{ gold:70, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 1, "very_rare"), msg:"Claimed 70 GP & random treasure!" }, choices:[
-            { t:"Guide the survivors out of the Forest of Forgetting!", to:9 }
-          ]},
-          9: { zone:"Cavern Exit", title:"Clear Air Ahead", text:"The memory-stealing haze thins as you reach the upper tunnels.", choices:[
-            { t:"Return to Deep-Gnome Bimbil in Oakhaven!", to:10 }
-          ]},
-          10: { zone:"Epilogue", title:"Purifier of the Rot", text:"Bimbil and the rescued explorers celebrate your victory in the Rusty Flagon—though whispers remain of the deeper myconid prophet Waktwaza...", ending:{ type:"true", title:"Slayer of the Paragon of Rot", xp:185, gold:200, trophy:"Fungal Crown of Ilxanthiard" }, choices:[] }
+          1: {
+            zone: "Spore Jungle • Cavern Threshold",
+            title: "The Acid-Cap Field",
+            safeRetreat: true,
+            text: [
+              "Bioluminescent indigo mist drifts across a sunken cavern choked with writhing Acid-Cap tendrils and paper-thin Giant Puffballs. Every breath tastes faintly of sweet mold and fading memories—forgotten names, blurred faces, half-remembered songs.",
+              "Ten paces ahead, a twitching surface scout lies half-buried in pulsing white mycelium, clutching a cracked lantern and mouthing a silent warning toward the deeper fungal canopy."
+            ],
+            choices: [
+              { t: "Cut the trapped scout free carefully using Herbalism without rupturing the puffballs.", badge: "Herbalism / Spirit DC 11", check: { stat: "spirit", skill: "Herbalism", dc: 11, pass: 2, fail: 2, failDmg: 4, passMsg: "You pull Sera free—gasping, she warns you about Ilxanthiard's explosive worm-corpse traps!", failMsg: "A giant puffball bursts in your face, stinging your eyes (-4 HP)!" }, onPass: { cw: "WORM_TRAP_KNOWN", items: rollRandomLoot(["consumable"], 1, "rare") } },
+              { t: "Burn a clean lane straight through the tendrils with Firebolt!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", onChoose: { cw: "WORM_TRAP_KNOWN", msg: "Fire sears the tendrils cleanly—the freed scout warns you of the explosive worm traps ahead!" }, to: 2 },
+              { t: "Creep along the dry limestone ledge to inspect a softly murmuring ring of silver mushrooms first.", badge: "Stealth / Agility DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 11, fail: 2, passMsg: "You slip silently onto the dry overhang above the whispering Memory-Cap Hollow!", failMsg: "Slick fungus gives way beneath your boot, tumbling you straight into the spore jungle!" } }
+            ]
+          },
+          2: {
+            zone: "Spore Jungle • Myconid Canopy",
+            title: "Deathcap Ambush",
+            text: [
+              "Beneath twenty-foot violet toadstools, the soft fungal carpet suddenly heaves upright! Six bulbous <strong>Deathcap Myconids</strong> detach from the moss, rattling hollow caps as they sling clouds of choking spores across the trail!"
+            ],
+            enemy: { name: "Waktwaza's Deathcaps", desc: "Fanatical fungal servants guarding the approach to Ilxanthiard's lair.", hp: 30, ac: 12, atk: 5, dmg: 6, xp: 85, gold: 35, items: rollRandomLoot(["weapon", "valuable", "consumable"], 1, "very_rare"), flee: 1, weakCw: ["SPORE_IMMUNITY"] },
+            choices: [
+              { t: "Inspect a flickering amber lantern beside a ruined alchemist's still off the main path.", to: 12 },
+              { t: "Advance deeper toward the rotting Giant Worm Corpses.", to: 3 }
+            ]
+          },
+          3: {
+            zone: "Worm Corpses • Rib-Vault",
+            title: "The Rigged Cadavers",
+            text: [
+              "Colossal decaying purple worms lie draped in glowing emerald rot across the cavern floor, their hollowed ribcages forming jagged ivory arches. Between the ribs, pallid <strong>Iron Ghouls</strong> and a grinning <strong>Necrophage Ghast</strong> burrow upward through the damp mulch to spring an ambush!"
+            ],
+            choices: [
+              { t: "Detonate their rigged explosive worm corpse from afar using Sera's warning!", reqCw: "WORM_TRAP_KNOWN", badge: "WORM_TRAP_KNOWN", to: 4, onChoose: { cw: "GHOULS_BLASTED", msg: "BOOM! Fiery gas-blasts tear straight through the ghoul ambush!" } },
+              { t: "Scan the rotting worm ribs for a taut bone-tripwire you can trigger early.", badge: "Perception / Luck DC 13", check: { stat: "luck", skill: "Perception", dc: 13, pass: 4, fail: 4, passMsg: "A well-aimed stone snaps the hidden tripwire—blasting the burrowing ghouls before they close!", failMsg: "Too late—the ghouls erupt from the worm-ribs with rusted claws raised!" }, onPass: { cw: "GHOULS_BLASTED" } },
+              { t: "Meet the burrowing rot-ghouls head-on in melee!", to: 4 }
+            ]
+          },
+          4: {
+            zone: "Worm Corpses • Rib-Vault",
+            title: "Rotting Defenders",
+            text: [
+              "Draped in luminous lichen and rusted underworld mail, <strong>Iron Ghouls</strong> and <strong>Imperial Ghouls</strong> lunge out of the cavernous ribs of the dead worms!"
+            ],
+            enemy: { name: "Ilxanthiard's Rot-Ghouls", desc: "Fungal-infected undead raiders prowling the worm cadavers.", hp: 32, ac: 13, atk: 5, dmg: 6, undead: true, xp: 92, gold: 48, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), weakCw: ["GHOULS_BLASTED"], flee: 1 },
+            choices: [
+              { t: "Carefully inspect the spore-ringed treasure sack wedged between the worm's ribs.", to: 5 },
+              { t: "Step through the shimmering spore-curtain into the Circle of Toadstools!", to: 6 }
+            ]
+          },
+          5: {
+            zone: "Worm Corpses • Spore Cache",
+            title: "The Feeblemind Spores",
+            text: [
+              "A bulging explorer's satchel sits nestled inside a halo of thrumming violet spores that hum softly against the edge of your thoughts, daring you to reach in without breathing."
+            ],
+            choices: [
+              { t: "Use your memory-warding focus to claim the satchel calmly without losing a thought!", reqCw: "SPORE_IMMUNITY", badge: "SPORE_IMMUNITY", onChoose: { gold: 55, items: rollRandomLoot(["accessory", "valuable"], 1, "very_rare"), msg: "Your clear mind ignores the haze—you claim 55 GP and a rare relic untouched!" }, to: 6 },
+              { t: "Snatch the satchel swiftly with Stealth before the spores stir.", badge: "Stealth / Agility DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 6, fail: 6, failDmg: 5, passMsg: "You snag 55 GP & a rare item untouched!", failMsg: "Thrumming spores scramble your senses (-5 HP) as you stagger back!" }, onPass: { gold: 55, items: rollRandomLoot(["accessory", "valuable"], 1, "very_rare") } },
+              { t: "Leave the volatile satchel untouched and head into the Circle of Toadstools.", to: 6 }
+            ]
+          },
+          6: {
+            zone: "Toadstool Circle • Rot Throne",
+            title: "Ilxanthiard, Paragon of Rot",
+            text: [
+              "Inside a pulsing ring of ten-foot multicolored toadstools towers <strong>Ilxanthiard</strong>—a fearsome darakhul knight grotesquely bloomed with shelf-fungi and weeping emerald spores. Living prisoners—deep gnomes, dwarven miners, and surface merchants—hang bound in pale vines against the swaying stalks.",
+              "<em>\"Another bright mind come to feed the Forest,\"</em> Ilxanthiard rasps, lifting a weeping runeblade as the giant stalks lean inward to crush you!"
+            ],
+            choices: [
+              { t: "Torch the giant toadstools with Firebolt to stop them from crushing you!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 7, onChoose: { cw: "STALKS_BURNED", msg: "Flames wither Ilxanthiard's living toadstools into curling ash!" } },
+              { t: "Hurl the caustic Alchemical Lye Flask into the central toadstool roots!", reqCw: "LYE_FLASK", badge: "LYE_FLASK", to: 7, onChoose: { cw: "STALKS_BURNED", msg: "HISS! Caustic lye dissolves the crushing toadstools before Ilxanthiard can command them!" } },
+              { t: "Hack through the nearest anchoring vine-tendril before charging the Paragon of Rot!", badge: "Athletics / Might DC 13", check: { stat: "might", skill: "Athletics", dc: 13, pass: 7, fail: 7, passMsg: "SNAP! The felled stalk topples across Ilxanthiard's flank, throwing him off balance!", failMsg: "Tough fungal sinew deflects your cut as Ilxanthiard lunges forward!" }, onPass: { cw: "STALKS_BURNED" } }
+            ]
+          },
+          7: {
+            zone: "Toadstool Circle • Rot Throne",
+            title: "Stream of Putrid Spores",
+            text: [
+              "Ilxanthiard unleashes a roaring torrent of deadly Waktwaza spores while sweeping his corroded blade across the circle!"
+            ],
+            enemy: { name: "Ilxanthiard, Paragon of Rot", desc: "Fungal-mutated darakhul champion of the Forest of Forgetting.", hp: 42, ac: 14, atk: 6, dmg: 7, undead: true, xp: 185, gold: 135, items: ["ul_paragon_rot_blade", ...rollRandomLoot(["armor", "accessory", "valuable"], 1, "legendary")], weakCw: ["STALKS_BURNED", "SPORE_IMMUNITY"], flee: 4 },
+            choices: [
+              { t: "Cut down the captive explorers and claim the cavern hoard!", to: 8 }
+            ]
+          },
+          8: {
+            zone: "Toadstool Circle • Liberated Alcove",
+            title: "Prisoners of the Forest",
+            text: [
+              "With Ilxanthiard reduced to crumbling lichen and ash, the binding vines slacken. You cut down deep gnomes, dwarven prospectors, and surface merchants alike—and recover <strong>70 GP</strong> alongside a gleaming relic from the Paragon's discarded hoard!"
+            ],
+            onEnter: { gold: 70, items: rollRandomLoot(["weapon", "armor", "accessory", "valuable"], 1, "very_rare"), msg: "Claimed 70 GP & random treasure!" },
+            choices: [
+              { t: "Guide the shaken survivors up through the clearing mist toward the upper tunnels!", to: 9 }
+            ]
+          },
+          9: {
+            zone: "Cavern Exit • Upper Passage",
+            title: "Clear Air Ahead",
+            text: [
+              "Cool frontier air sweeps down the limestone steps as the memory-stealing indigo haze finally thins behind you. One by one, the freed prisoners recall their names, their homes, and the faces of their kin."
+            ],
+            choices: [
+              { t: "Share the purified Memory-Cap lore with Deep-Gnome Bimbil so no future delver loses their mind!", reqCw: "SPORE_IMMUNITY", badge: "Purified Lore Bonus", to: 13 },
+              { t: "Return with the rescued explorers to Deep-Gnome Bimbil in Oakhaven!", to: 10 }
+            ]
+          },
+          10: {
+            zone: "Epilogue",
+            title: "Purifier of the Rot",
+            text: "Deep-Gnome Bimbil and the rescued explorers celebrate your triumph in the Rusty Flagon with roaring toasts—though hushed whispers still linger of the deeper myconid prophet Waktwaza...",
+            ending: { type: "true", title: "Slayer of the Paragon of Rot", xp: 185, gold: 200, trophy: "Fungal Crown of Ilxanthiard" },
+            choices: []
+          },
+          11: {
+            zone: "Spore Jungle • Memory-Cap Hollow",
+            title: "Whispers of Stolen Names",
+            text: [
+              "A ring of silver-gilled mushrooms hums softly on the dry limestone shelf, replaying faint echoes of lost travelers' voices—road-songs, recipes, and a deep-gnome alchemist's chant for steeling the mind against forgetting-spores."
+            ],
+            choices: [
+              { t: "Steady your breathing and memorize the deep-gnome's mental ward from the spore-echoes.", badge: "Arcana / Spirit DC 12", check: { stat: "spirit", skill: "Arcana", dc: 12, pass: 2, fail: 2, failDmg: 3, passMsg: "Your mind locks clear as crystal! You gain Spore Immunity, a Bramble Antidote, and +30 XP!", failMsg: "A wave of dizzying whispers brushes your temples (-3 HP) before you step away!" }, onPass: { cw: "SPORE_IMMUNITY", items: ["antidote"], xp: 30 } },
+              { t: "Gather a pouch of luminous Glowcap Spores from the ledge and drop down to the main trail.", onChoose: { items: ["glowcap_spores"], msg: "Gathered fresh Glowcap Spores!" }, to: 2 }
+            ]
+          },
+          12: {
+            zone: "Spore Jungle • Ruined Distillery",
+            title: "The Spore-Distillery Vat",
+            text: [
+              "Beside an overturned deep-gnome pack stands a copper still bubbling with pungent, caustic anti-fungal lye—a fierce solvent brewed specifically to wither giant underworld toadstools."
+            ],
+            choices: [
+              { t: "Safely tap the pressurized valve to fill a throwable Alchemical Lye Flask!", badge: "Detect Traps / Arcana DC 12", check: { stat: "arcana", skill: "Detect Traps", dc: 12, pass: 3, fail: 3, failDmg: 4, passMsg: "You seal a potent Lye Flask and recover 35 GP from the alchemist's belt!", failMsg: "A hiss of caustic vapor blisters your glove (-4 HP) before you hurry on!" }, onPass: { cw: "LYE_FLASK", gold: 35 } },
+              { t: "Take the intact Mana Elixir from the dry satchel and press on toward the Worm Corpses.", onChoose: { items: ["mana_elixir"], msg: "Recovered a Mana Elixir!" }, to: 3 }
+            ]
+          },
+          13: {
+            zone: "Epilogue",
+            title: "Savior of the Forgotten",
+            text: "Deep-Gnome Bimbil weeps openly with relief as you hand over the purified Memory-Cap notes alongside every rescued prisoner. Oakhaven's Guildhall rewards you with a double purse of underworld gold, and songs of the hero who broke the Forest of Forgetting echo through the Rusty Flagon long into the night.",
+            ending: { type: "true", title: "Savior of the Forgotten Forest", xp: 225, gold: 250, trophy: "Fungal Crown of Ilxanthiard" },
+            choices: []
+          }
         }
       },
 
