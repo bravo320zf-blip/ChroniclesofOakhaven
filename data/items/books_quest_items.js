@@ -272,7 +272,9 @@ window.OAKHAVEN.registerItems({
     source: "Book of Lairs",
     agility: 1,
     luck: 2,
-    desc: "+1 Agility, +2 Luck. Feathered silver-thread mask taken from the Den of the Rotten Kings."
+    passives: { critRange: 19, goldFindPct: 15, skillBonus: { Stealth: 2, Persuasion: 2 } },
+    activeAbility: { name: "Rotten Court Feint", icon: "🎭", charges: 2, evadeTurns: 2, selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest: Slip behind a dazzling silver-thread flourish — Evade (2t) and +3 Attack (2t)!" },
+    desc: "+1 Agility, +2 Luck, Crit 19-20, +15% Gold, +2 Stealth & Persuasion. Feathered silver-thread mask from the Den of the Rotten Kings with Rotten Court Feint."
   },
   "bq_clockwork_chime": {
     id: "bq_clockwork_chime",
@@ -318,7 +320,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 1,
     luck: 2,
-    desc: "+1 AC, +1 Arcana, +2 Luck. Shimmering desert trickster's ring from the Castle of Sand."
+    passives: { spellDmgBonus: 2, skillBonus: { Stealth: 2, Persuasion: 2 } },
+    activeAbility: { name: "Desert Shimmer", icon: "🏜️", charges: 2, mp: 2, evadeTurns: 2, dmgDice: "2d6", dmgStat: "arcana", dmgType: "fire", desc: "2/Quest (2 MP): Split into heat-haze doubles, dealing 2d6 + Arcana fire dmg and Evade (2t)!" },
+    desc: "+1 AC, +1 Arcana, +2 Luck, +2 Spell Dmg, +2 Stealth & Persuasion. Shimmering desert trickster's ring from the Castle of Sand with Desert Shimmer."
   },
   "bq_inheritor_cutlass": {
     id: "bq_inheritor_cutlass",
@@ -387,7 +391,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     might: 1,
     maxMp: 6,
-    desc: "+2 Arcana, +1 Might, +6 Max MP. Crackling amber relic recovered from the Monument of the Thunderer."
+    passives: { spellDmgBonus: 4, mpRegen: 1, bossDmgBonus: 3 },
+    activeAbility: { name: "Titan's Thunderclap", icon: "⚡", charges: 2, mp: 3, dmgDice: "3d8", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, desc: "2/Quest (3 MP): Crack the amber core for 3d8 + Arcana lightning dmg and Stun (1t)!" },
+    desc: "+2 Arcana, +1 Might, +6 Max MP, +4 Spell Dmg, +1 MP/turn, +3 Boss Dmg. Crackling amber relic from the Monument of the Thunderer with Titan's Thunderclap."
   }
 });
 
@@ -1099,7 +1105,9 @@ window.OAKHAVEN.registerItems({
     source: "Tome of Beasts 2 Lairs",
     atk: 5,
     might: 2,
-    desc: "+5 Attack, +2 Might. Heavy dwarven war-pick recovered from the shadows of Thyrdun Outpost."
+    passives: { bossDmgBonus: 4, dmgReduce: 2, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Deep-Vein Sundering", icon: "⛏️", charges: 2, dmgDice: "3d6", dmgStat: "might", dmgType: "piercing", stunTurns: 1, guaranteedCrit: true, desc: "2/Quest: Drive the iron-heart spike through stone and plate for a guaranteed critical 3d6 + Might dmg and Stun (1t)!" },
+    desc: "+5 Attack, +2 Might, +4 Boss Dmg, -2 Dmg Taken, +2 Athletics. Heavy dwarven war-pick from Thyrdun Outpost with Deep-Vein Sundering."
   },
   "bq_monolith_crystal_lens": {
     id: "bq_monolith_crystal_lens",
@@ -2023,7 +2031,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     spirit: 2,
     maxHp: 10,
-    desc: "+1 AC, +2 Arcana, +2 Spirit, +10 Max HP. Ever-warm coal gifted by the hut in the deep woods."
+    passives: { spellDmgBonus: 3, healBonus: 4, dmgReduce: 2, mpRegen: 1 },
+    activeAbility: { name: "Hearthfire Blessing", icon: "🔥", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 5, shieldTurns: 2, desc: "2/Quest: Wake Grandmother's coal to restore 2d8 + Spirit HP, +5 MP, and gain Shield (2t)!" },
+    desc: "+1 AC, +2 Arcana, +2 Spirit, +10 Max HP, +3 Spell Dmg, +4 Heal, -2 Dmg Taken, +1 MP/turn. Ever-warm coal gifted by the hut in the deep woods with Hearthfire Blessing."
   },
   "bq_zmey_triple_scale_mail": {
     id: "bq_zmey_triple_scale_mail",
@@ -2044,7 +2054,9 @@ window.OAKHAVEN.registerItems({
     value: 115,
     atk: 3,
     arcana: 2,
-    desc: "+3 Attack, +2 Arcana. Living wood focus taken from the Finger-Fortress of Family Starless."
+    passives: { spellDmgBonus: 2, mpRegen: 1, skillBonus: { Arcana: 1 } },
+    activeAbility: { name: "Starless Lash", icon: "🌿", charges: 2, mp: 1, dmgDice: "2d6", dmgStat: "arcana", dmgType: "force", chillTurns: 1, desc: "2/Quest (1 MP): Whip a pale star-vine for 2d6 + Arcana force dmg and Chill (1t)!" },
+    desc: "+3 Attack, +2 Arcana, +2 Spell Dmg, +1 MP/turn, +1 Arcana. Living wood focus from the Finger-Fortress of Family Starless with Starless Lash."
   },
   "bq_thoulous_iron_spear": {
     id: "bq_thoulous_iron_spear",

@@ -1,6 +1,6 @@
 {
-  "totalPasses": 41,
-  "totalItemsReworked": 410,
+  "totalPasses": 42,
+  "totalItemsReworked": 420,
   "history": [
     {
       "pass": 1,
@@ -657,6 +657,22 @@
         "vom_headdress_majesty"
       ],
       "summary": "Reworked Fabled Matched Blades of Feudalists, Chalice of the Planetar, Headdress of Majesty, Warding Icon, Chronos Monocle, Ravencrest Halberd, Circlet of Last Light, and polished 3 quest relics (Codex of Qezzit Qire, Per-Bastet Lucky Ribbon, Talon-Clasp of the Unhatched)."
+    },
+    {
+      "pass": 42,
+      "items": [
+        "bq_grandmothers_ember_brooch",
+        "vom_recondite_shield",
+        "bq_imsim_mirage_ring",
+        "bq_rotten_king_mask",
+        "ring_vitality",
+        "bq_thunderer_spark_orb",
+        "bq_thyrdun_miner_pick",
+        "vom_bow_accuracy",
+        "bq_derende_finger_twig",
+        "vom_troll_skin_armor"
+      ],
+      "summary": "Reworked Grandmother's Hearth-Ember Brooch, Echo of the Titan's Spark, Thyrdun's Iron-Heart Pick, Troll Skin Armor, Imsim's Mirage Band, King Sketch's Silver-Thread Mask, Recondite Shield Ring, Star-Pointed Wand of the Fingers, Bow of Accuracy, and Ring of Vitality."
     }
   ],
   "itemPasses": {
@@ -1069,6 +1085,16 @@
     "bq_bastet_ribbon_charm": 1,
     "vom_fab_matched_blades": 1,
     "bq_unhatched_bone_amulet": 1,
-    "vom_headdress_majesty": 1
+    "vom_headdress_majesty": 1,
+    "bq_grandmothers_ember_brooch": 1,
+    "vom_recondite_shield": 1,
+    "bq_imsim_mirage_ring": 1,
+    "bq_rotten_king_mask": 1,
+    "ring_vitality": 1,
+    "bq_thunderer_spark_orb": 1,
+    "bq_thyrdun_miner_pick": 1,
+    "vom_bow_accuracy": 1,
+    "bq_derende_finger_twig": 1,
+    "vom_troll_skin_armor": 1
   }
 }
