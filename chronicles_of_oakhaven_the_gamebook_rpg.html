@@ -656,12 +656,19 @@
             <input id="audio-vol-slider" type="range" min="0" max="100" value="42" class="w-28 accent-amber-400 cursor-pointer h-1.5" title="Master Volume" />
           </div>
         </div>
-        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-stone-800/80">
-          <button id="menu-narrator-auto" type="button" class="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-700 text-xs font-semibold text-stone-300 transition" title="Automatically speak town NPCs and quest pages">🎙️ Auto-Voice: OFF</button>
-          <select id="menu-narrator-engine" aria-label="Narrator Voice Engine" class="px-2 py-1.5 rounded-lg bg-stone-900 border border-amber-700/40 text-amber-200 text-xs font-semibold focus:outline-none">
-            <option value="browser">Smart Browser (Instant)</option>
-            <option value="kokoro">✨ Studio AI (Kokoro)</option>
-          </select>
+        <div class="pt-2 border-t border-stone-800/80 space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <button id="menu-narrator-auto" type="button" class="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-700 text-xs font-semibold text-stone-300 transition" title="Automatically speak town NPCs and quest pages">🎙️ Auto-Voice: OFF</button>
+            <select id="menu-narrator-engine" aria-label="Narrator Voice Engine" class="px-2 py-1.5 rounded-lg bg-stone-900 border border-amber-700/40 text-amber-200 text-xs font-semibold focus:outline-none">
+              <option value="browser">Smart Browser (Instant)</option>
+              <option value="kokoro">✨ Studio AI (Kokoro)</option>
+            </select>
+            <button id="btn-menu-narrator-test" type="button" class="px-2.5 py-1.5 rounded-lg bg-amber-950/90 hover:bg-amber-900 border border-amber-600/50 text-xs font-semibold text-amber-200 transition" title="Test narrator voice now">🔊 Test</button>
+          </div>
+          <div id="menu-narrator-status" class="text-[11px] font-medium text-stone-300">Ready</div>
+          <div id="menu-narrator-progress-wrap" class="hidden w-full h-2 rounded-full bg-stone-900 overflow-hidden border border-amber-700/40">
+            <div id="menu-narrator-progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-emerald-400 transition-all duration-300" style="width: 4%"></div>
+          </div>
         </div>
       </div>
 
@@ -889,7 +896,7 @@
 
   <!-- Audio Engine, Narrator & Core Game Engine -->
   <script src="js/audio.js?v=2"></script>
-  <script src="js/narrator.js?v=2"></script>
+  <script src="js/narrator.js?v=3"></script>
   <script src="js/engine.js?v=27"></script>
 </body>
 </html>

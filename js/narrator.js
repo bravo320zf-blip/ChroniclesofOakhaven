@@ -55,6 +55,9 @@
   // Kokoro AI state
   let kokoroModel = null;
   let kokoroLoadingPromise = null;
+  let kokoroState = "idle"; // "idle" | "loading" | "ready" | "error"
+  let kokoroPct = 0;
+  let kokoroStatusMsg = "Not downloaded yet (~86 MB, cached once)";
   let audioCtx = null;
   let activeSource = null;
 
@@ -301,37 +304,73 @@
   /* ------------------------------------------------------------
      ENGINE 2: KOKORO-82M IN-BROWSER STUDIO AI NARRATOR
      ------------------------------------------------------------ */
-  async function ensureKokoroModel(myToken) {
-    if (kokoroModel) return kokoroModel;
+  function setKokoroState(st, msg, pct = null) {
+    kokoroState = st;
+    if (msg) kokoroStatusMsg = msg;
+    if (typeof pct === "number") kokoroPct = Math.max(0, Math.min(100, Math.round(pct)));
+    if (st === "ready") kokoroPct = 100;
+    if (prefs.engine === "kokoro" && playbackState !== "playing") {
+      statusText = kokoroStatusMsg;
+    }
+    renderControls();
+  }
+
+  async function importKokoroModule() {
+    const urls = [
+      "https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/+esm",
+      "https://esm.sh/kokoro-js@1.2.1"
+    ];
+    let lastErr = null;
+    for (const url of urls) {
+      try {
+        const mod = await import(url);
+        const KokoroTTS = mod.KokoroTTS || mod.default?.KokoroTTS;
+        if (KokoroTTS) return KokoroTTS;
+      } catch (err) {
+        lastErr = err;
+        console.warn(`Kokoro CDN import failed (${url}):`, err);
+      }
+    }
+    throw lastErr || new Error("Could not load kokoro-js from CDN");
+  }
+
+  async function ensureKokoroModel() {
+    if (kokoroModel) {
+      if (kokoroState !== "ready") setKokoroState("ready", "✅ Studio AI (Kokoro) Ready!", 100);
+      return kokoroModel;
+    }
     if (kokoroLoadingPromise) return kokoroLoadingPromise;
 
     kokoroLoadingPromise = (async () => {
-      setStatus("loading", "Loading Studio AI engine…");
-      const mod = await import("https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/+esm");
-      const KokoroTTS = mod.KokoroTTS || mod.default?.KokoroTTS;
-      if (!KokoroTTS) throw new Error("KokoroTTS export not found");
+      setKokoroState("loading", "⏳ Connecting to Studio AI engine…", 3);
+      const KokoroTTS = await importKokoroModule();
 
-      const hasWebGpu = typeof navigator !== "undefined" && !!navigator.gpu;
       const progressCb = (p) => {
-        if (myToken !== runToken) return;
-        if (p && typeof p.progress === "number") {
-          const pct = Math.min(99, Math.max(1, Math.round(p.progress)));
-          setStatus("loading", `Downloading AI Voice (${pct}%) — cached once…`);
-        } else if (p && p.status) {
-          setStatus("loading", `Preparing AI Voice (${p.status})…`);
+        if (!p) return;
+        if (typeof p.progress === "number") {
+          const pct = Math.min(99, Math.max(4, Math.round(p.progress)));
+          const fileHint = p.file ? ` (${p.file.split("/").pop()})` : "";
+          setKokoroState("loading", `⏳ Downloading Studio AI: ${pct}%${fileHint}`, pct);
+        } else if (p.status === "initiate") {
+          setKokoroState("loading", "⏳ Starting Studio AI model download…", Math.max(kokoroPct, 5));
+        } else if (p.status === "ready") {
+          setKokoroState("loading", "⏳ Initializing Studio AI voice engine…", 99);
         }
       };
 
       const modelId = "onnx-community/Kokoro-82M-v1.0-ONNX";
+      // Use compact q8 (~86 MB) instead of fp32 (~326 MB) for fast, reliable browser download
+      const hasWebGpu = typeof navigator !== "undefined" && !!navigator.gpu;
       try {
         kokoroModel = await KokoroTTS.from_pretrained(modelId, {
-          dtype: hasWebGpu ? "fp32" : "q8",
+          dtype: "q8",
           device: hasWebGpu ? "webgpu" : "wasm",
           progress_callback: progressCb
         });
       } catch (gpuErr) {
         if (hasWebGpu) {
-          setStatus("loading", "Switching AI Voice to WASM…");
+          console.warn("Kokoro WebGPU init failed, switching to WASM:", gpuErr);
+          setKokoroState("loading", "⏳ Switching Studio AI to WASM mode…", Math.max(kokoroPct, 10));
           kokoroModel = await KokoroTTS.from_pretrained(modelId, {
             dtype: "q8",
             device: "wasm",
@@ -341,6 +380,7 @@
           throw gpuErr;
         }
       }
+      setKokoroState("ready", "✅ Studio AI (Kokoro) Downloaded & Ready!", 100);
       return kokoroModel;
     })();
 
@@ -349,6 +389,8 @@
       return m;
     } catch (err) {
       kokoroLoadingPromise = null;
+      const reason = (err && (err.message || String(err))) || "Download blocked";
+      setKokoroState("error", `⚠️ Studio AI unavailable (${reason.slice(0, 60)}) — using Browser Voice`, 0);
       throw err;
     }
   }
@@ -395,11 +437,11 @@
 
     let model;
     try {
-      model = await ensureKokoroModel(myToken);
+      setStatus("loading", kokoroState === "loading" ? kokoroStatusMsg : "⏳ Loading Studio AI…");
+      model = await ensureKokoroModel();
     } catch (err) {
       if (myToken !== runToken) return;
       console.warn("Kokoro AI Narrator failed to load, falling back to Smart Browser Voice:", err);
-      setStatus("idle", "AI Voice unavailable — using Browser Voice");
       startBrowserSpeech(text, myToken, profile);
       return;
     }
@@ -624,6 +666,9 @@
     // Sync Menu Narrator controls (accessible from Town as well as Adventures)
     const menuEngineSel = document.getElementById("menu-narrator-engine");
     const menuAutoBtn = document.getElementById("menu-narrator-auto");
+    const menuStatusEl = document.getElementById("menu-narrator-status");
+    const menuProgWrap = document.getElementById("menu-narrator-progress-wrap");
+    const menuProgBar = document.getElementById("menu-narrator-progress-bar");
     if (menuEngineSel && menuEngineSel.value !== prefs.engine) {
       menuEngineSel.value = prefs.engine;
     }
@@ -632,6 +677,25 @@
       menuAutoBtn.className = prefs.autoRead
         ? "px-2.5 py-1.5 rounded-lg bg-emerald-900 hover:bg-emerald-800 border border-emerald-500/60 text-xs font-semibold text-emerald-100 transition"
         : "px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-700 text-xs font-semibold text-stone-300 transition";
+    }
+    if (menuStatusEl) {
+      if (prefs.engine === "kokoro") {
+        menuStatusEl.textContent = kokoroStatusMsg;
+        menuStatusEl.className = kokoroState === "ready"
+          ? "text-[11px] font-semibold text-emerald-300"
+          : kokoroState === "error"
+            ? "text-[11px] font-semibold text-rose-300"
+            : "text-[11px] font-medium text-amber-200";
+      } else {
+        const topName = browserVoices[0]?.name ? browserVoices[0].name.replace(/Microsoft |Google |Online \(Natural\) - /g, "").trim() : "System Voice";
+        menuStatusEl.textContent = `✅ Smart Browser Voice Ready (${topName})`;
+        menuStatusEl.className = "text-[11px] font-medium text-stone-300";
+      }
+    }
+    if (menuProgWrap && menuProgBar) {
+      const showBar = prefs.engine === "kokoro" && kokoroState === "loading";
+      menuProgWrap.classList.toggle("hidden", !showBar);
+      if (showBar) menuProgBar.style.width = `${Math.max(4, kokoroPct)}%`;
     }
   }
 
@@ -644,6 +708,7 @@
     const rateSel = document.getElementById("narrator-rate");
     const menuEngineSel = document.getElementById("menu-narrator-engine");
     const menuAutoBtn = document.getElementById("menu-narrator-auto");
+    const menuTestBtn = document.getElementById("btn-menu-narrator-test");
 
     if (playBtn) playBtn.onclick = togglePlayPause;
     if (stopBtn) stopBtn.onclick = () => stop(false);
@@ -665,10 +730,19 @@
       savePrefs();
       if (voiceSel) voiceSel.dataset.populated = "";
       renderControls();
+      if (prefs.engine === "kokoro" && !kokoroModel && kokoroState !== "loading") {
+        // Begin downloading Studio AI immediately so user sees live progress & completion badge
+        ensureKokoroModel().catch(() => {});
+      }
       if (wasPlaying && currentText) play();
     };
     if (engineSel) engineSel.onchange = () => handleEngineChange(engineSel.value);
     if (menuEngineSel) menuEngineSel.onchange = () => handleEngineChange(menuEngineSel.value);
+    if (menuTestBtn) {
+      menuTestBtn.onclick = () => {
+        speakAs("bram", "Welcome back to Oakhaven, traveler! The hearth is warm and fresh rumors await at the Rusty Flagon.", { name: "Old Bram", role: "Innkeeper" });
+      };
+    }
 
     if (voiceSel) {
       voiceSel.onchange = () => {
@@ -690,6 +764,9 @@
 
     refreshBrowserVoices();
     renderControls();
+    if (prefs.engine === "kokoro" && !kokoroModel && kokoroState === "idle") {
+      ensureKokoroModel().catch(() => {});
+    }
   }
 
   global.OAKHAVEN_NARRATOR = {
