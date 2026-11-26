@@ -573,7 +573,7 @@
   function setPage(title, rawParas, allowAutoRead = true) {
     stop(true);
     currentTitle = title || "";
-    currentText = cleanTextForSpeech(title, rawParas);
+    currentText = cleanTextForSpeech("", rawParas);
     setStatus("idle", prefs.autoRead ? "Auto-Read active" : "Ready");
     if (allowAutoRead && prefs.autoRead && currentText) {
       play();
