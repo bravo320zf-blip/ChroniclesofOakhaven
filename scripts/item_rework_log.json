@@ -1,6 +1,6 @@
 {
-  "totalPasses": 30,
-  "totalItemsReworked": 300,
+  "totalPasses": 31,
+  "totalItemsReworked": 310,
   "history": [
     {
       "pass": 1,
@@ -481,6 +481,22 @@
         "bq_blight_ward_brooch"
       ],
       "summary": "Milestone 300th item reworked! Upgraded 4 Vault of Magic items (Legendary Tenebrous Mantle, Wolf Brush, Hexen Blade, Briarthorn Bracers), Steel Heater Shield, Rough Run Twin-Blade, Marblehead Beacon Lantern, and polished 3 quest relics including Legendary Bioluminescent Crest of the Deep King."
+    },
+    {
+      "pass": 31,
+      "items": [
+        "bq_clockwork_chime",
+        "bq_grimalkin_eye",
+        "vom_staff_spores",
+        "vom_meteoric_plate",
+        "vom_staff_camazotz",
+        "sunfire_amulet",
+        "silver_rapier",
+        "bq_hellfire_horseshoe_charm",
+        "sea_coat",
+        "vom_swarmfoe_suit"
+      ],
+      "summary": "Reworked 4 Vault of Magic items (Staff of Camazotz with Bat Swarm summon, Meteoric Plate, Staff of Spores, Swarmfoe Suit), Sunfire Amulet, Saltfang Sea-Coat, Silver Duelsword, Gyre's Spark-Chime, The Grimalkin Eye, and Brimstone Horseshoe of Rosedale."
     }
   ],
   "itemPasses": {
@@ -783,6 +799,16 @@
     "vom_wolf_brush": 1,
     "vom_hexen_blade": 1,
     "bq_marblehead_lantern": 1,
-    "bq_blight_ward_brooch": 1
+    "bq_blight_ward_brooch": 1,
+    "bq_clockwork_chime": 1,
+    "bq_grimalkin_eye": 1,
+    "vom_staff_spores": 1,
+    "vom_meteoric_plate": 1,
+    "vom_staff_camazotz": 1,
+    "sunfire_amulet": 1,
+    "silver_rapier": 1,
+    "bq_hellfire_horseshoe_charm": 1,
+    "sea_coat": 1,
+    "vom_swarmfoe_suit": 1
   }
 }

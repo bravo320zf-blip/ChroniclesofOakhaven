@@ -37,14 +37,14 @@ window.OAKHAVEN.registerItems({
       lucky_coin:      { id:"lucky_coin", name:"Silver Lucky Coin", type:"accessory", luck:1, value:28, passives:{ goldFindPct:8 }, activeAbility:{ name:"Heads I Win", icon:"🪙", charges:1, ooc:true, restoreLuck:1, desc:"1/Quest: Flip the worn silver coin to steady fate and regain +1 Current Luck!" }, desc:"Worn Oakhaven silver piece that always lands on edge (+8% Gold) with Heads I Win." },
       ring_vitality:   { id:"ring_vitality", name:"Ring of Vitality", type:"accessory", maxHp:6, ac:1, value:65, desc:"+6 Max HP, +1 AC" },
       ring_arcana:     { id:"ring_arcana", name:"Ring of Spellweave", type:"accessory", arcana:2, maxMp:4, value:75, desc:"+2 Arcana, +4 Max MP" },
-      sunfire_amulet:  { id:"sunfire_amulet", name:"Sunfire Amulet", type:"accessory", ac:1, spirit:2, value:110, desc:"+1 AC, +2 Spirit" },
+      sunfire_amulet:  { id:"sunfire_amulet", name:"Sunfire Amulet", type:"accessory", rarity:"rare", ac:1, spirit:2, value:110, passives:{ undeadDmgBonus:5, healBonus:2, spellDmgBonus:2 }, activeAbility:{ name:"Sunfire Radiance", icon:"☀️", charges:2, ooc:true, dmgDice:"2d6", dmgStat:"spirit", dmgType:"radiant", undeadDouble:true, healBase:8, desc:"2/Quest: Flare solar warmth for 2d6 + Spirit radiant dmg (2× vs Undead) and restore 8 HP!" }, desc:"Sun-forged gold amulet radiating dawn-light (+5 vs Undead, +2 Healing, +2 Spell Dmg) with Sunfire Radiance." },
       warding_signet:  { id:"warding_signet", name:"Runic Warding Ring", type:"accessory", ac:2, luck:1, value:105, desc:"+2 AC, +1 Luck (Crafted)" },
 
       // Cloak / Boots
       travel_cloak:    { id:"travel_cloak", name:"Traveler's Cloak", type:"cloak", ac:0, value:8, passives:{ skillBonus:{ Survival:1 } }, desc:"Weathered frontier wool cloak (+1 Survival)." },
       scout_cloak:     { id:"scout_cloak", name:"Thornwood Cloak", type:"cloak", ac:1, agility:1, value:45, passives:{ skillBonus:{ Stealth:1, Survival:1 } }, desc:"Leaf-mottled ranger's cloak woven in Thornwood (+1 Stealth, +1 Survival)." },
       shadow_boots:    { id:"shadow_boots", name:"Boots of Swiftness", type:"cloak", rarity:"uncommon", ac:1, agility:2, value:78, passives:{ skillBonus:{ Stealth:2, Athletics:1 } }, activeAbility:{ name:"Fleet-Foot Sidestep", icon:"👢", charges:1, evadeTurns:2, desc:"1/Quest: Blur across the battlefield in silent strides to Evade incoming strikes (2t)!" }, desc:"Supple stitched leather boots prized by frontier scouts (+2 Stealth, +1 Athletics) with Fleet-Foot Sidestep." },
-      sea_coat:        { id:"sea_coat", name:"Saltfang Sea-Coat", type:"cloak", ac:2, luck:1, value:85, desc:"+2 AC, +1 Luck" },
+      sea_coat:        { id:"sea_coat", name:"Saltfang Sea-Coat", type:"cloak", rarity:"uncommon", ac:2, luck:1, value:85, passives:{ dmgReduce:1, goldFindPct:12, skillBonus:{ Survival:2 } }, activeAbility:{ name:"Smuggler's Salt-Guard", icon:"🧥", charges:2, evadeTurns:1, restoreLuck:1, shieldTurns:2, desc:"2/Quest: Billow the salt-cured sea-coat to Evade (1t), recover +1 Luck, and gain +3 AC (2t)!" }, desc:"Salt-cured smuggler's greatcoat from Saltfang Cove (-1 Dmg Taken, +12% Gold, +2 Survival) with Smuggler's Salt-Guard." },
 
       // Consumables
       health_potion:   { id:"health_potion", name:"Health Potion", type:"consumable", healHp:12, value:16, desc:"Restores 12 HP" },

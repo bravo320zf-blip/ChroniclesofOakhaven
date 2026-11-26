@@ -226,10 +226,11 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "rare",
     value: 95,
-    source: "Cat and Mouse",
     agility: 1,
     luck: 2,
-    desc: "+1 Agility, +2 Luck. Sand-touched feline amber relic washed ashore in Per-Bastet."
+    passives: { critRange: 11, goldFindPct: 15, skillBonus: { Stealth: 2, Perception: 2 } },
+    activeAbility: { name: "Nine-Lives Sidestep", icon: "🐱", charges: 2, evadeTurns: 2, restoreLuck: 2, desc: "2/Quest: Blink with feline grace to Evade incoming strikes (2t) and restore +2 Current Luck!" },
+    desc: "Sand-touched feline amber relic washed ashore in Per-Bastet (+Crit, +15% Gold, +2 Stealth/Perception) with Nine-Lives Sidestep."
   },
   "bq_spore_lord_cap": {
     id: "bq_spore_lord_cap",
@@ -276,10 +277,11 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "rare",
     value: 125,
-    source: "Book of Lairs",
     arcana: 2,
     maxMp: 4,
-    desc: "+2 Arcana, +4 Max MP. Brass lightning-coil salvaged from Jenneline Gyre's Clockwork Tower."
+    passives: { spellDmgBonus: 2, mpRegen: 1, skillBonus: { Arcana: 2, Lockpicking: 1 } },
+    activeAbility: { name: "Clockwork Arc-Discharge", icon: "⚡", charges: 2, dmgDice: "2d6", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, restoreMp: 3, desc: "2/Quest: Trigger Gyre's brass coil for 2d6 + Arcana lightning dmg, Stun (1t), and +3 MP!" },
+    desc: "Brass lightning-coil salvaged from Jenneline Gyre's Clockwork Tower (+2 Spell Dmg, +1 MP/turn, +2 Arcana, +1 Lockpicking) with Clockwork Arc-Discharge."
   },
   "bq_lindwurm_amulet": {
     id: "bq_lindwurm_amulet",
@@ -2830,9 +2832,9 @@ window.OAKHAVEN.registerItems({
     might: 2,
     agility: 2,
     luck: 2,
-    passives: { critRange: 11, thornsDmg: 4, bossDmgBonus: 3 },
-    activeAbility: { name: "Hell-Gallop Stampede", icon: "🔥", charges: 2, dmgDice: "2d10", dmgStat: "might", dmgType: "fire", dot: { dmg: 4, turns: 3, label: "Brimstone Burn" }, desc: "2/Quest: Channel blazing hoof-sparks for 2d10 + Might fire dmg and Brimstone Burn (4/t, 3t)!" },
-    desc: "Brimstone-forged iron charm cleansed in Rosedale (+Crit, 4 Fire Thorns, +3 vs Bosses) with Hell-Gallop Stampede."
+    passives: { critRange: 11, thornsDmg: 4, bossDmgBonus: 3, skillBonus: { Athletics: 2, Survival: 2 } },
+    activeAbility: { name: "Hell-Gallop Stampede", icon: "🔥", charges: 2, dmgDice: "2d10", dmgStat: "might", dmgType: "fire", selfBuffAtk: { atk: 3, turns: 2 }, dot: { dmg: 4, turns: 3, label: "Brimstone Burn" }, desc: "2/Quest: Channel blazing hoof-sparks for 2d10 + Might fire dmg, Brimstone Burn (4/t, 3t), and +3 Attack (2t)!" },
+    desc: "Brimstone-forged iron charm cleansed in Rosedale (+Crit, 4 Fire Thorns, +3 vs Bosses, +2 Athletics/Survival) with Hell-Gallop Stampede."
   },
   "bq_hallowhall_rose_aegis": {
     id: "bq_hallowhall_rose_aegis",

@@ -7,7 +7,7 @@ window.OAKHAVEN.registerItems({
       alchemical_oil:      { id:"alchemical_oil", name:"Alchemical Oil", type:"material", value:16, desc:"Crafting Material (Forge/Alchemy)" },
       amber_gem:           { id:"amber_gem", name:"Sun-Trapped Amber", type:"valuable", value:44, desc:"Valuable — Sell in Town" },
       gilded_compass:      { id:"gilded_compass", name:"Gilded Astrolabe", type:"valuable", value:58, desc:"Valuable — Sell in Town" },
-      silver_rapier:       { id:"silver_rapier", name:"Silver Duelsword", type:"weapon", atk:2, agility:2, value:64, desc:"+2 Attack, +2 Agility" },
+      silver_rapier:       { id:"silver_rapier", name:"Silver Duelsword", type:"weapon", rarity:"uncommon", atk:2, agility:2, value:64, passives:{ critRange:11, undeadDmgBonus:3, skillBonus:{ Persuasion:1 } }, activeAbility:{ name:"Silvered Lunge", icon:"🤺", charges:2, dmgDice:"1d10", dmgStat:"agility", dmgType:"radiant", undeadDouble:true, evadeTurns:1, desc:"2/Quest: Lunge with silvered steel for 1d10 + Agility dmg (2× vs Undead) and Evade (1t)!" }, desc:"Silver-chased dueling rapier feared by undead and lycanthropes (+Crit, +3 vs Undead, +1 Persuasion) with Silvered Lunge." },
       elixir_heroism:      { id:"elixir_heroism", name:"Elixir of Heroism", type:"consumable", healHp:16, healMp:5, value:42, desc:"Restores 16 HP & 5 MP" },
 	  moonstone_shard:     { id:"moonstone_shard", name:"Moonstone Shard", type:"material", value:22, desc:"Crafting Material (Enchanting)" },
       dragonscale_scrap:   { id:"dragonscale_scrap", name:"Dragonscale Scrap", type:"material", value:28, desc:"Crafting Material (Master Forge)" },
