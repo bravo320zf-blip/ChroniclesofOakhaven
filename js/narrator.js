@@ -64,7 +64,11 @@
   let activeUtterance = null; // Prevent Chrome GC mid-sentence bug
   let browserStartTimer = null;
 
-  // Kokoro AI state
+  // Kokoro AI state (runs in a background Web Worker so UI NEVER freezes!)
+  let kokoroWorker = null;
+  let kokoroWorkerFailed = false;
+  let kokoroWorkerReqId = 0;
+  const kokoroPending = new Map();
   let kokoroModel = null;
   let kokoroLoadingPromise = null;
   let kokoroState = "idle"; // "idle" | "loading" | "ready" | "error"
@@ -378,14 +382,80 @@
     throw lastErr || new Error("Could not load kokoro-js from CDN");
   }
 
+  function getKokoroWorker() {
+    if (kokoroWorkerFailed || typeof Worker === "undefined") return null;
+    if (kokoroWorker) return kokoroWorker;
+    try {
+      const w = new Worker("js/kokoro_worker.js?v=1", { type: "module" });
+      w.onmessage = (ev) => {
+        const msg = ev.data || {};
+        if (msg.type === "progress") {
+          setKokoroState("loading", msg.msg, msg.pct);
+        } else if (msg.type === "ready") {
+          setKokoroState("ready", msg.msg, 100);
+        } else if (msg.type === "init_ok") {
+          const p = kokoroPending.get(msg.reqId);
+          if (p) { kokoroPending.delete(msg.reqId); p.resolve(true); }
+        } else if (msg.type === "init_err") {
+          const p = kokoroPending.get(msg.reqId);
+          if (p) { kokoroPending.delete(msg.reqId); p.reject(new Error(msg.error || "Worker init failed")); }
+        } else if (msg.type === "audio") {
+          const p = kokoroPending.get(msg.reqId);
+          if (p) { kokoroPending.delete(msg.reqId); p.resolve({ audio: msg.samples, sampling_rate: msg.sampleRate }); }
+        } else if (msg.type === "gen_err") {
+          const p = kokoroPending.get(msg.reqId);
+          if (p) { kokoroPending.delete(msg.reqId); p.reject(new Error(msg.error || "Synthesis failed")); }
+        }
+      };
+      w.onerror = (err) => {
+        console.warn("Kokoro Web Worker error, will fallback:", err);
+        kokoroWorkerFailed = true;
+        kokoroWorker = null;
+        kokoroPending.forEach(p => p.reject(new Error("Web Worker error")));
+        kokoroPending.clear();
+      };
+      kokoroWorker = w;
+      return w;
+    } catch (err) {
+      console.warn("Kokoro Web Worker unavailable:", err);
+      kokoroWorkerFailed = true;
+      return null;
+    }
+  }
+
+  function workerRequest(payload) {
+    return new Promise((resolve, reject) => {
+      const w = getKokoroWorker();
+      if (!w) return reject(new Error("Worker unavailable"));
+      const reqId = ++kokoroWorkerReqId;
+      kokoroPending.set(reqId, { resolve, reject });
+      w.postMessage({ ...payload, reqId });
+    });
+  }
+
   async function ensureKokoroModel() {
-    if (kokoroModel) {
-      if (kokoroState !== "ready") setKokoroState("ready", "✅ Studio AI (Kokoro) Ready!", 100);
-      return kokoroModel;
+    if (kokoroState === "ready" && (kokoroWorker || kokoroModel)) {
+      return true;
     }
     if (kokoroLoadingPromise) return kokoroLoadingPromise;
 
     kokoroLoadingPromise = (async () => {
+      // Primary path: Background Web Worker (zero UI freeze!)
+      const w = getKokoroWorker();
+      if (w) {
+        try {
+          setKokoroState("loading", "⏳ Connecting to Studio AI engine…", 3);
+          await workerRequest({ type: "init" });
+          setKokoroState("ready", "✅ Studio AI (Kokoro) Downloaded & Ready!", 100);
+          return true;
+        } catch (workerErr) {
+          console.warn("Kokoro Worker init failed, falling back to main thread:", workerErr);
+          kokoroWorkerFailed = true;
+          if (kokoroWorker) { try { kokoroWorker.terminate(); } catch (_) {} kokoroWorker = null; }
+        }
+      }
+
+      // Fallback path if module workers are blocked
       setKokoroState("loading", "⏳ Connecting to Studio AI engine…", 3);
       const KokoroTTS = await importKokoroModule();
 
@@ -403,8 +473,6 @@
       };
 
       const modelId = "onnx-community/Kokoro-82M-v1.0-ONNX";
-      // Always use WASM + q8 (~86 MB): WebGPU + q8 is known to produce choppy/garbled audio in kokoro-js,
-      // whereas WASM + q8 produces crisp, clean studio audio reliably across Chrome, Edge, and Firefox.
       kokoroModel = await KokoroTTS.from_pretrained(modelId, {
         dtype: "q8",
         device: "wasm",
@@ -423,6 +491,14 @@
       setKokoroState("error", `⚠️ Studio AI unavailable (${reason.slice(0, 60)}) — using Browser Voice`, 0);
       throw err;
     }
+  }
+
+  async function synthesizeKokoroChunk(text, voiceId, speed) {
+    if (kokoroWorker && !kokoroWorkerFailed) {
+      return workerRequest({ type: "generate", text, voice: voiceId, speed });
+    }
+    if (!kokoroModel) await ensureKokoroModel();
+    return kokoroModel.generate(text, { voice: voiceId, speed });
   }
 
   function ensureAudioContext() {
@@ -491,17 +567,27 @@
     const voiceLabel = (KOKORO_VOICES.find(v => v.id === voiceId)?.label || voiceId).split(" — ")[0];
     setStatus("loading", `Synthesizing (${voiceLabel})…`);
 
-    // Generate each sentence cleanly BEFORE playing it (never run heavy WASM inference
-    // concurrently with active audio playback, which causes audio dropouts/stuttering!)
+    // Synthesize in the background Web Worker (prefetching next sentence off-thread
+    // so playback flows seamlessly with ZERO UI freeze and ZERO audio stutter!)
     try {
+      let nextPromise = synthesizeKokoroChunk(chunks[0], voiceId, effSpeed);
       for (let i = 0; i < chunks.length; i++) {
         if (myToken !== runToken) return;
         setStatus("loading", `Synthesizing (${voiceLabel}) • ${i + 1}/${chunks.length}…`);
-        const rawAudio = await model.generate(chunks[i], { voice: voiceId, speed: effSpeed });
+        const rawAudio = await nextPromise;
         if (myToken !== runToken) return;
+
+        // Only prefetch in parallel when running inside the off-thread Web Worker!
+        if (i + 1 < chunks.length && kokoroWorker && !kokoroWorkerFailed) {
+          nextPromise = synthesizeKokoroChunk(chunks[i + 1], voiceId, effSpeed);
+        }
 
         setStatus("playing", `Studio AI (${voiceLabel}) • ${i + 1}/${chunks.length}`);
         await playRawAudioBuffer(rawAudio, myToken);
+
+        if (i + 1 < chunks.length && (!kokoroWorker || kokoroWorkerFailed)) {
+          nextPromise = synthesizeKokoroChunk(chunks[i + 1], voiceId, effSpeed);
+        }
       }
       if (myToken === runToken) {
         setStatus("idle", "Finished");
@@ -589,11 +675,17 @@
     stop(true);
     const myToken = ++runToken;
     const profile = getCharacterVoiceProfile(characterKey, opts.name || "", opts.role || "");
-    if (prefs.engine === "kokoro") {
-      startKokoroSpeech(cleaned, myToken, profile);
-    } else {
-      startBrowserSpeech(cleaned, myToken, profile);
-    }
+    const launch = () => {
+      if (myToken !== runToken) return;
+      if (prefs.engine === "kokoro") {
+        startKokoroSpeech(cleaned, myToken, profile);
+      } else {
+        startBrowserSpeech(cleaned, myToken, profile);
+      }
+    };
+    // Defer auto-voice slightly so building modal fade-in paints immediately
+    if (opts.autoOnly) setTimeout(launch, 120);
+    else launch();
   }
 
   function setPage(title, rawParas, allowAutoRead = true) {
