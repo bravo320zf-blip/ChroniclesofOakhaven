@@ -3349,6 +3349,233 @@
               }
             }
           };
+        },
+
+        // 12. The Whispering Herb-Grove
+        () => {
+          const thornDmg = Math.max(2, 1 + Math.floor(lv * 0.6));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Whispering Herb-Grove`,
+            subtitle: "Rare Botanical Find",
+            difficulty: "Discovery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "The Dew-Bright Hollow",
+                safeRetreat: true,
+                text: `Just off the winding track of ${zone.name}, sunlight pools inside a sheltered hollow thick with silverleaf and pale moon-blossoms. A tiny emerald-winged sprite darts around a mossy stump, guarding the richest cluster.`,
+                choices: [
+                  {
+                    t: "Trim the silverleaf stalks gently with Herbalism so the roots stay whole.",
+                    badge: `Herbalism / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Herbalism", dc, pass: 2, fail: 3,
+                      passMsg: "The sprite trills approvingly as you harvest pure essences—even nudging a forgotten Health Potion from the moss!",
+                      failMsg: "A bruised stem releases bitter sap, sending the sprite darting away into the canopy."
+                    },
+                    onPass: { item: "health_potion", gold: baseGold }
+                  },
+                  {
+                    t: "Keep still and track where the darting sprite hides its brightest cache.",
+                    badge: `Perception / Luck DC ${dc}`,
+                    check: {
+                      stat: "luck", skill: "Perception", dc, pass: 2, fail: 3,
+                      failDmg: thornDmg,
+                      passMsg: "Your keen eye spots a hollow knot holding a shimmering Mana Elixir and stray silver coins!",
+                      failMsg: `Snagging briars scratch your wrist (-${thornDmg} HP) as the sprite vanishes in a shower of pollen!`
+                    },
+                    onPass: { item: "mana_elixir", gold: Math.round(baseGold * 0.9) }
+                  },
+                  {
+                    t: `Gather a modest handful of ${matName} from the outer verge and leave the hollow in peace.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Bounty of the Wilds",
+                text: `Your satchel smells of sweet wild mint and rain-washed moss as you tuck away fresh ${matName} and stride back toward Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Master Forager", xp: Math.round(baseXp * 1.25), gold: Math.round(baseGold * 0.4), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Wilted Pickings",
+                text: `With the grove quiet again, you collect a spare bundle of ${matName} along the trail and head back to town.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Brushed the Wild Grove", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Respect for the Hollow",
+                text: `Leaving the hidden hollow undisturbed, you pocket fresh ${matName} from the verge and walk peacefully home to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Gentle Traveler", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 13. The Riddle of the Moss-Covered Cairn
+        () => {
+          const sparkDmg = Math.max(2, 2 + Math.floor(lv * 0.7));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Moss-Covered Cairn`,
+            subtitle: "Old Frontier Puzzle",
+            difficulty: "Mystery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Three Stones and a Chime-Lock",
+                safeRetreat: true,
+                text: `Where an old surveyor's path crosses ${zone.name}, three moss-draped standing stones ring an iron chime-lock etched with a rising sun, a cresting wave, and a watchman's lantern. Inside the barred niche glints a sealed wayfarer's coffer.`,
+                choices: [
+                  {
+                    t: "Decode the archaic Oakhaven rhyme carved around the chime-lock with Arcana.",
+                    badge: `Arcana DC ${dc}`,
+                    check: {
+                      stat: "arcana", skill: "Arcana", dc, pass: 2, fail: 3,
+                      failDmg: sparkDmg,
+                      passMsg: "You tap Lantern, Wave, then Sun—the chime-lock rings true, yielding Alchemical Oil and old coin!",
+                      failMsg: `A dissonant ward-spark snaps across your knuckles (-${sparkDmg} HP) as the coffer seals shut!`
+                    },
+                    onPass: { item: "alchemical_oil", gold: baseGold }
+                  },
+                  {
+                    t: "Feel for the worn brass tumbler pins along the chime-lock's rim.",
+                    badge: `Lockpicking / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Lockpicking", dc, pass: 2, fail: 3,
+                      passMsg: "Your pick clicks the final pin home—revealing a tarnished Silver Signet and frontier silver!",
+                      failMsg: "The old mechanism jams tight, refusing to budge any further."
+                    },
+                    onPass: { item: "silver_signet", gold: Math.round(baseGold * 0.85) }
+                  },
+                  {
+                    t: `Leave the old surveyor's cairn untouched, collect ${matName} nearby, and return to town.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "The Wayfarer's Coffer",
+                text: `You close the niche neatly behind you, stow a bundle of ${matName} from the cairn's base, and head back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Solved the Cairn Riddle", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.45), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Silent Stones",
+                text: `The cairn keeps its secrets for another day. You gather ${matName} along the road and turn back toward Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Tested the Old Cairn", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Road-Builder's Peace",
+                text: `With a respectful nod to Oakhaven's early scouts, you pocket fresh ${matName} and stroll safely home.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Cautious Wayfarer", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 14. The Poacher's Snare-Camp
+        () => {
+          const poacherHp = 14 + lv * 4;
+          const poacherAc = 10 + Math.min(4, Math.floor(lv / 2));
+          const poacherAtk = 2 + Math.floor(lv * 0.8);
+          const poacherDmg = 3 + Math.floor(lv * 0.7);
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Poacher's Snare-Camp`,
+            subtitle: "Frontier Ambush",
+            difficulty: "Skirmish",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Smoke in the Brush",
+                safeRetreat: true,
+                text: `Thin grey woodsmoke curls above a brush-choked hollow in ${zone.name}. Peering through the leaves, you spot a scarred frontier poacher sharpening a skinning-knife beside a trapped white-tailed stag—and a stolen Oakhaven supply pack leaning against a log.`,
+                choices: [
+                  {
+                    t: "Creep around the windward brush to cut the snare-rope and snatch the supply pack unseen!",
+                    badge: `Stealth / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Stealth", dc, pass: 2, fail: 3,
+                      passMsg: "You slice the rope cleanly—the stag bolts through the camp in a panic, letting you snag the pack and slip away!",
+                      failMsg: "A dry twig snaps underfoot! The poacher whirls around with a snarl and draws a heavy hunting blade!"
+                    },
+                    onPass: { item: "health_potion", gold: baseGold }
+                  },
+                  {
+                    t: "Step into the clearing with weapon drawn and drive the poacher out of Oakhaven's wilds!",
+                    to: 3
+                  },
+                  {
+                    t: `Circle wide around the snare-camp, gather ${matName} along the ridge, and head home.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "The Stag Runs Free",
+                text: `Leaving the bewildered poacher empty-handed, you claim a fresh bundle of ${matName} along the ridge and carry the recovered supplies back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Outfoxed the Poacher", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Clash at the Snare-Camp",
+                text: `'Mind your own business, town-folk!' The poacher kicks embers toward your boots and lunges across the clearing!`,
+                enemy: {
+                  name: "Frontier Poacher",
+                  desc: "Wiry outlaw armed with barbed snares and a heavy hunting knife.",
+                  hp: poacherHp,
+                  ac: poacherAc,
+                  atk: poacherAtk,
+                  dmg: poacherDmg,
+                  xp: Math.round(baseXp * 1.4),
+                  gold: Math.round(baseGold * 1.15),
+                  items: [altMatId],
+                  flee: 4
+                },
+                choices: [
+                  { t: "Cut the stag's snare free and claim the poacher's camp supplies!", to: 2 }
+                ]
+              },
+              4: {
+                zone: zone.name,
+                title: "Safe Detour",
+                text: `You skirt the hollow quietly, collect fresh ${matName} along the outer ridge, and return safely to Oakhaven's gates.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Avoided Trouble", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
         }
       ];
 
