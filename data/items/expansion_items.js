@@ -29,7 +29,7 @@ window.OAKHAVEN.registerItems({
       scales_of_sseth:     { id:"scales_of_sseth", name:"Jade Scales of Sseth", type:"armor", ac:4, spirit:1, value:130, unique:true, desc:"+4 AC, +1 Spirit (Sseth Unique)" },
 
       // --- Quest 3 Uniques: The Clockwork Foundry of Brasshaven (2 Unique Items) ---
-      aether_gauntlet:     { id:"aether_gauntlet", name:"Aether-Coil Gauntlet", type:"offhand", ac:3, arcana:2, value:128, unique:true, desc:"+3 AC, +2 Arcana (Brasshaven Unique)" },
+      aether_gauntlet:     { id:"aether_gauntlet", name:"Aether-Coil Gauntlet", type:"offhand", rarity:"rare", ac:3, arcana:2, value:128, unique:true, passives:{ spellDmgBonus:2, dmgReduce:1, skillBonus:{ Arcana:2, Lockpicking:1 } }, activeAbility:{ name:"Aether Arc-Pulse", icon:"⚡", charges:2, mp:2, dmgDice:"2d8", dmgStat:"arcana", dmgType:"lightning", stunTurns:1, shieldTurns:2, desc:"2/Quest (2 MP): Discharge Brasshaven's copper coils for 2d8 + Arcana lightning dmg, Stun (1t), and +3 AC (2t)!" }, desc:"Brasshaven clockwork-arcane gauntlet (+2 Spell Dmg, -1 Dmg Taken, +2 Arcana, +1 Lockpicking) with Aether Arc-Pulse." },
       chronos_monocle:     { id:"chronos_monocle", name:"Chronos Monocle", type:"accessory", arcana:2, luck:2, value:125, unique:true, desc:"+2 Arcana, +2 Luck (Brasshaven Unique)" },
 
       // --- Quest 4 Uniques: The Ashen Keep of the Red Baron (3 Unique Items) ---
@@ -90,7 +90,7 @@ window.OAKHAVEN.registerItems({
       ul_derro_aklys:        { id:"ul_derro_aklys", name:"Graknir's Hooked Aklys", type:"weapon", rarity:"uncommon", atk:3, agility:1, value:90, unique:true, desc:"+3 Attack, +1 Agility (Deranged Bastion Unique)" },
       ul_stone_flesh_balm:   { id:"ul_stone_flesh_balm", name:"Stone-to-Flesh Balm", type:"consumable", rarity:"rare", healHp:24, value:50, unique:true, desc:"Restores 24 HP & reverses petrification" },
 
-      ul_charnel_maul:       { id:"ul_charnel_maul", name:"Bone-Midden Crusher", type:"weapon", rarity:"rare", atk:3, might:2, value:125, unique:true, desc:"+3 Attack, +2 Might (Flayed Midden Unique)" },
+      ul_charnel_maul:       { id:"ul_charnel_maul", name:"Bone-Midden Crusher", type:"weapon", rarity:"rare", atk:3, might:2, value:125, unique:true, passives:{ undeadDmgBonus:5, bossDmgBonus:3, skillBonus:{ Athletics:1 } }, activeAbility:{ name:"Midden Bone-Shatter", icon:"🦴", charges:2, dmgDice:"2d8", dmgStat:"might", dmgType:"physical", undeadDouble:true, stunTurns:1, desc:"2/Quest: Swing the heavy bone-forged maul for 2d8 + Might dmg (2× vs Undead) and Stun (1t)!" }, desc:"Heavy ossuary war-maul from the Flayed Midden (+5 vs Undead, +3 vs Bosses, +1 Athletics) with Midden Bone-Shatter." },
       ul_onyx_fang_dagger:   { id:"ul_onyx_fang_dagger", name:"Otyugh's Onyx Dagger", type:"weapon", rarity:"rare", atk:3, agility:2, value:120, unique:true, passives:{ critRange:11, lifesteal:2, skillBonus:{ Stealth:2 } }, activeAbility:{ name:"Midden-Venom Fang", icon:"🗡️", charges:2, dmgDice:"2d6", dmgStat:"agility", dmgType:"poison", dot:{ dmg:4, turns:3, label:"Carrion Rot" }, desc:"2/Quest: Drive the onyx fang for 2d6 + Agility poison dmg and Carrion Rot (4/t, 3t)!" }, desc:"Onyx dagger gifted by the Carrion Collector of the Flayed Midden (+Crit, Lifesteal 2, +2 Stealth) with Midden-Venom Fang." },
 
       ul_sicarius_silk:      { id:"ul_sicarius_silk", name:"Spidersilk Mantle of Sicarius", type:"cloak", rarity:"rare", ac:2, agility:2, value:130, unique:true, desc:"+2 AC, +2 Agility (Camp Sicarius Unique)" },
@@ -100,7 +100,7 @@ window.OAKHAVEN.registerItems({
       ul_luminescent_cloak:  { id:"ul_luminescent_cloak", name:"Skullcap Spore-Cloak", type:"cloak", rarity:"rare", ac:2, spirit:2, value:125, unique:true, desc:"+2 AC, +2 Spirit (Skullcap Forest Unique)" },
 
       ul_soulflame_candle:   { id:"ul_soulflame_candle", name:"Eternal Soulflame Candle", type:"offhand", rarity:"rare", ac:2, spirit:2, maxMp:4, value:140, unique:true, desc:"+2 AC, +2 Spirit, +4 Max MP (Cathedral Unique)" },
-      ul_curate_venom_blade: { id:"ul_curate_venom_blade", name:"Curate's Venom Fang", type:"weapon", rarity:"rare", atk:4, agility:1, value:145, unique:true, desc:"+4 Attack, +1 Agility (Cathedral Unique)" },
+      ul_curate_venom_blade: { id:"ul_curate_venom_blade", name:"Curate's Venom Fang", type:"weapon", rarity:"rare", atk:4, agility:1, value:145, unique:true, passives:{ critRange:11, lifesteal:2, skillBonus:{ Stealth:2 } }, activeAbility:{ name:"Cathedral Blight-Cut", icon:"🗡️", charges:2, dmgDice:"2d8", dmgStat:"agility", dmgType:"poison", dot:{ dmg:4, turns:3, label:"Cathedral Venom" }, chillTurns:2, desc:"2/Quest: Slice with weeping ritual steel for 2d8 + Agility poison dmg, Cathedral Venom (4/t, 3t), and Chill (2t)!" }, desc:"Grooved ceremonial fang-blade from the sunken cathedral (+Crit, +2 Lifesteal, +2 Stealth) with Cathedral Blight-Cut." },
 
       ul_ellsmark_plate:     { id:"ul_ellsmark_plate", name:"Commander Ellsmark's Plate", type:"armor", rarity:"rare", ac:4, might:1, value:145, unique:true, desc:"+4 AC, +1 Might (The Throttle Unique)" },
       ul_wytchlight_focus:   { id:"ul_wytchlight_focus", name:"Dru Wytchlight's Shadow-Orb", type:"offhand", rarity:"rare", ac:2, arcana:3, value:140, unique:true, desc:"+2 AC, +3 Arcana (The Throttle Unique)" },

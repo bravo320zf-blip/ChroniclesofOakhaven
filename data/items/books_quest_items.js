@@ -1318,7 +1318,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     spirit: 2,
     maxHp: 8,
-    desc: "+3 AC, +2 Spirit, +8 Max HP. Silver-threaded funerary mantle consecrated for Aganatha."
+    passives: { dmgReduce: 3, undeadDmgBonus: 6, healBonus: 3, skillBonus: { Stealth: 2, Persuasion: 2 } },
+    activeAbility: { name: "Consecrated Veil", icon: "🕊️", charges: 2, mp: 2, ooc: true, healDice: "3d6", healStat: "spirit", shieldTurns: 3, evadeTurns: 2, desc: "2/Quest (2 MP): Draw Aganatha's silver-threaded mantle close to heal 3d6 + Spirit HP, +3 AC (3t), and Evade (2t)!" },
+    desc: "Silver-threaded funerary mantle consecrated for Aganatha (-3 Dmg Taken, +6 vs Undead, +3 Healing, +2 Stealth/Persuasion) with Consecrated Veil."
   }
 });
 
@@ -1798,7 +1800,9 @@ window.OAKHAVEN.registerItems({
     value: 240,
     atk: 5,
     might: 2,
-    desc: "+5 Attack, +2 Might. Heavy volcanic-stone war-maul forged from the Espolmar Mine."
+    passives: { bossDmgBonus: 5, dmgReduce: 1, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Volcanic Crater Slam", icon: "🔨", charges: 2, dmgDice: "3d8", dmgStat: "might", dmgType: "fire", stunTurns: 1, dot: { dmg: 4, turns: 2, label: "Cinder Burn" }, desc: "2/Quest: Bring the iron-bound basalt head crashing down for 3d8 + Might fire dmg, Stun (1t), and Cinder Burn (4/t, 2t)!" },
+    desc: "Heavy volcanic-stone war-maul forged from the Espolmar Mine (+5 vs Bosses, -1 Dmg Taken, +2 Athletics) with Volcanic Crater Slam."
   },
   "bq_crystalline_prism_core": {
     id: "bq_crystalline_prism_core",

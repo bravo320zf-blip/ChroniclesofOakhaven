@@ -4,7 +4,7 @@
 window.OAKHAVEN.registerItems({
       // Weapons
       novice_cudgel:   { id:"novice_cudgel", name:"Novice's Cudgel", type:"weapon", atk:0, value:2, passives:{ healBonus:1, undeadDmgBonus:1 }, desc:"Humble temple-blessed oak club (+1 Healing, +1 vs Undead)." },
-      iron_sword:      { id:"iron_sword", name:"Iron Longsword", type:"weapon", atk:1, value:18, desc:"+1 Attack" },
+      iron_sword:      { id:"iron_sword", name:"Iron Longsword", type:"weapon", atk:1, value:18, passives:{ skillBonus:{ Athletics:1 } }, desc:"Dependable Oakhaven-forged frontier arming sword (+1 Athletics)." },
       steel_dagger:    { id:"steel_dagger", name:"Steel Dagger", type:"weapon", atk:1, agility:1, value:22, desc:"+1 Attack, +1 Agility" },
       runed_staff:     { id:"runed_staff", name:"Runed Oak Staff", type:"weapon", atk:1, arcana:1, value:22, passives:{ spellDmgBonus:1, skillBonus:{ Arcana:1 } }, desc:"Carved oaken staff etched with focusing runes (+1 Spell Dmg, +1 Arcana)." },
       blessed_mace:    { id:"blessed_mace", name:"Blessed Mace", type:"weapon", atk:1, spirit:1, value:22, passives:{ undeadDmgBonus:2, healBonus:1 }, desc:"Silver-chased temple mace (+2 vs Undead, +1 Healing)." },
