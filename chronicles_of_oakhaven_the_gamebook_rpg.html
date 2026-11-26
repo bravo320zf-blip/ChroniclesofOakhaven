@@ -303,7 +303,7 @@
     <!-- MODE B: ACTIVE ADVENTURE PAGE VIEW -->
     <div id="adventure-view" class="hidden max-w-4xl mx-auto px-3 sm:px-6 pt-6 pb-28 space-y-4">
           <article class="parchment-card rounded-2xl p-5 sm:p-8">
-            <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-amber-900/25">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-amber-900/25">
               <div>
                 <span id="adv-header-meta" class="text-[11px] font-bold uppercase tracking-widest text-red-900/80 block">
                   Adventure &bull; Zone
@@ -315,6 +315,37 @@
               <span class="font-display px-3 py-1.5 rounded-lg bg-[#241910] text-amber-300 text-xs sm:text-sm font-bold shadow">
                 Page <span id="adv-page-num">1</span>
               </span>
+            </div>
+
+            <!-- Story Narrator Bar (Smart Browser Neural + Free In-Browser Kokoro AI) -->
+            <div id="adv-narrator-bar" class="mb-4 px-3 py-2 rounded-xl bg-amber-900/10 border border-amber-900/25 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button id="btn-narrator-play" type="button" class="px-3 py-1.5 rounded-lg bg-[#241910] hover:bg-[#3b2718] text-amber-200 border border-amber-700/50 text-xs font-bold shadow transition">
+                  🔊 Read Page
+                </button>
+                <button id="btn-narrator-stop" type="button" class="hidden px-2.5 py-1.5 rounded-lg bg-red-950/90 hover:bg-red-900 text-rose-100 border border-red-700/50 text-xs font-bold transition" title="Stop Narration">
+                  ⏹ Stop
+                </button>
+                <button id="btn-narrator-auto" type="button" class="px-2.5 py-1.5 rounded-lg bg-amber-900/15 hover:bg-amber-900/25 text-[#3b210a] border border-amber-900/30 text-[11px] font-semibold transition" title="Automatically narrate each new adventure page">
+                  Auto-Read: OFF
+                </button>
+                <span id="narrator-status" class="text-[11px] text-[#584330] font-medium ml-1">Ready</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <select id="narrator-engine" aria-label="Narrator Engine" class="px-2 py-1 rounded-lg bg-[#fbf4e4] border border-amber-900/30 text-[#241910] text-[11px] font-semibold focus:outline-none">
+                  <option value="browser">Smart Browser (Instant)</option>
+                  <option value="kokoro">✨ Studio AI (Kokoro)</option>
+                </select>
+                <select id="narrator-voice" aria-label="Narrator Voice" class="max-w-[180px] px-2 py-1 rounded-lg bg-[#fbf4e4] border border-amber-900/30 text-[#241910] text-[11px] font-medium focus:outline-none">
+                  <option value="">Default Voice</option>
+                </select>
+                <select id="narrator-rate" aria-label="Narration Speed" class="px-1.5 py-1 rounded-lg bg-[#fbf4e4] border border-amber-900/30 text-[#241910] text-[11px] font-semibold focus:outline-none">
+                  <option value="0.9">0.9×</option>
+                  <option value="1">1.0×</option>
+                  <option value="1.1">1.1×</option>
+                  <option value="1.25">1.25×</option>
+                </select>
+              </div>
             </div>
 
             <div id="adv-roll-banner" class="hidden mb-5 p-3 rounded-xl border text-xs sm:text-sm font-medium"></div>
@@ -849,8 +880,9 @@
   <script src="js/firebase_config.js?v=2"></script>
   <script src="js/cloud_save.js?v=5"></script>
 
-  <!-- Audio Engine & Core Game Engine -->
+  <!-- Audio Engine, Narrator & Core Game Engine -->
   <script src="js/audio.js?v=2"></script>
-  <script src="js/engine.js?v=25"></script>
+  <script src="js/narrator.js?v=1"></script>
+  <script src="js/engine.js?v=26"></script>
 </body>
 </html>

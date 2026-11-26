@@ -2054,6 +2054,8 @@
     }
 
     function enterTown(district = "square", openModal = false) {
+      window.OAKHAVEN_NARRATOR?.stop(true);
+      lastNarratedPageKey = "";
       bgm("town");
       state.mode = "town";
       state.activeAdv = null;
@@ -3825,6 +3827,8 @@
       if (state.completedQuests[advId]) {
         return toast("You have already completed this adventure! Check your Hero Journal for its record.", "info");
       }
+      window.OAKHAVEN_NARRATOR?.stop(true);
+      lastNarratedPageKey = "";
       closeBuildingModal();
       stopAutoWalk();
       state.mode = "adventure";
@@ -4009,6 +4013,7 @@
     }
 
     function triggerDeath(lastNote = "") {
+      window.OAKHAVEN_NARRATOR?.stop(true);
       activeCombat = null;
       sfx("death");
       bgm("adventure");
@@ -4035,6 +4040,8 @@
     }
 
     function returnToLaunchScreen() {
+      window.OAKHAVEN_NARRATOR?.stop(true);
+      lastNarratedPageKey = "";
       stopAutoWalk();
       closeBuildingModal();
       activeCombat = null;
@@ -4805,6 +4812,8 @@
       renderSheet();
     }
 
+    let lastNarratedPageKey = "";
+
     function renderAdvPage(banner = null) {
       const adv = ADVENTURES[state.activeAdv.id];
       const page = adv.pages[state.activeAdv.page];
@@ -4825,9 +4834,14 @@
 
       const paras = Array.isArray(page.text) ? page.text : [page.text];
       document.getElementById("adv-prose").innerHTML = paras.map(p => `<p>${p}</p>`).join("");
-      document.getElementById("adv-merchant-box").classList.toggle("hidden", !page.merchant || state.activeAdv.dead);
-
       const dead = state.activeAdv.dead;
+      const narrKey = `${adv.id}:${state.activeAdv.page}:${page.title || ""}`;
+      if (narrKey !== lastNarratedPageKey) {
+        lastNarratedPageKey = narrKey;
+        window.OAKHAVEN_NARRATOR?.setPage(page.title, paras, !dead);
+      }
+      document.getElementById("adv-merchant-box").classList.toggle("hidden", !page.merchant || dead);
+
       const deathPanel = document.getElementById("adv-death-panel");
       deathPanel.classList.toggle("hidden", !dead);
       if (dead) {
@@ -6164,7 +6178,8 @@
       });
     }
 
-    // Initialize Launch Screen & queue Town Theme music
+    // Initialize Narrator UI, Launch Screen & queue Town Theme music
+    window.OAKHAVEN_NARRATOR?.initUI();
     bgm("town");
     initLaunchScreen();
   })();
