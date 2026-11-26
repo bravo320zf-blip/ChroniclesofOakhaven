@@ -2203,11 +2203,67 @@
       state.tavernPatrons = [pickPool[0].id];
     }
 
+    let lastTavernBarkKey = "";
+    let lastTavernBarkText = "";
+
+    function getTavernAmbientBark() {
+      const done = state.completedQuests || {};
+      const doneCount = Object.keys(done).length;
+      const key = `${state.name || ""}|${doneCount}|${state.innRested ? 1 : 0}|${state.level || 1}`;
+      if (key === lastTavernBarkKey && lastTavernBarkText) return lastTavernBarkText;
+
+      const pool = [
+        `A timber-hauler warms his palms by the hearth: "Fog's rolling thick off the Thornwood pines tonight — keep a dry torch in your pack."`,
+        `Two off-duty watchmen clack bone dice in the corner, arguing whether Saltfang's tide-caves hide smugglers or sea-beasts.`,
+        `Old Bram slides a foaming tankard across the oak bar: "Hearth's hot, stew's thick, and half the frontier's secrets pass through this door."`,
+        `A traveling lutist plucks a quiet frontier ballad as rain patters softly against the Rusty Flagon's leaded windows.`
+      ];
+      if (state.hardcore) {
+        pool.push(`A scarred sellsword raises a pewter mug in your direction: "Hardcore blood, eh? One slip beyond the palisade and it's curtains — drink deep while you still draw breath!"`);
+      }
+      if (done.saltfang) {
+        pool.push(`A weathered dockhand grins over his ale: "Since you cleared out Saltfang Cove, the harbor lanterns have burned twice as bright!"`);
+      }
+      if (done.karak_zul) {
+        pool.push(`Two prospectors clink mugs near the fire: "Heard someone braved Karak-Zul and walked back out — Borin's been humming at his forge all week!"`);
+      }
+      if (doneCount >= 5) {
+        pool.push(`The hearthside bard tunes a silver string: "${doneCount} deeds and counting — Oakhaven's children already trade tales of ${state.name || "your name"} in the square!"`);
+      } else if (doneCount >= 1) {
+        pool.push(`Old Bram wipes a mug and nods your way: "Word travels fast down the frontier road, ${state.name || "traveler"}. Good to see a proven blade back by the fire."`);
+      }
+
+      lastTavernBarkKey = key;
+      lastTavernBarkText = pool[Math.floor(Math.random() * pool.length)];
+      return lastTavernBarkText;
+    }
+
+    function getShopkeeperGreeting(shopKey, shop) {
+      const done = state.completedQuests || {};
+      const d = getDerived(state);
+      if (shopKey === "armory") {
+        if (state.hardcore) return `"No second chances beyond the gates, iron-nerve. Let me check every strap and edge before you head back out."`;
+        if (done.karak_zul) return `"That dwarven ore from Karak-Zul still sings on my anvil — you've earned a smith's respect, ${state.name || "hero"}!"`;
+        if ((state.level || 1) >= 5) return `"You've got the stance of a seasoned frontier veteran now. Time to trade up to heavier steel!"`;
+      }
+      if (shopKey === "apothecary") {
+        if (state.hp < d.maxHp) return `"Mercy, you've got fresh road-scrapes on you! Stock up on tonics before those bruises stiffen up."`;
+        if (done.thornwood_part1) return `"Since you pushed back the Thornwood blight, my herb-pickers finally return with full baskets!"`;
+        if ((state.skills || []).includes("Herbalism")) return `"Ah, a fellow hand with roots and poultices! Smell that fresh glowcap tincture — finest batch all season."`;
+      }
+      if (shopKey === "curios") {
+        if (done.crimson_spire) return `"The astral tides have calmed since your venture to the Crimson Spire — my brass astrolabe finally spins true again."`;
+        if ((state.arcana || 0) >= 4 || (state.spells || []).length >= 3) return `"A bright arcane resonance follows you in today! Step close — half these charms only wake for a true spellcaster."`;
+      }
+      return shop.quote;
+    }
+
     function renderDistrictTavern(box) {
       const alreadyRested = !!(state.innRested || state.innBuff);
       const buffLbl = state.innBuff ? state.innBuff.charAt(0).toUpperCase() + state.innBuff.slice(1) : "";
+      const tavernBark = getTavernAmbientBark();
       box.innerHTML = `
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div>
             <h3 class="font-display text-xl font-bold text-amber-300">The Rusty Flagon Tavern</h3>
             <p class="text-xs text-stone-400">Hearthfire, warm beds, and frontier rumors from seasoned travelers.</p>
@@ -2215,6 +2271,9 @@
           <button id="btn-inn-rest" ${alreadyRested ? "disabled" : ""} class="px-4 py-2 rounded-xl text-xs font-display uppercase shadow ${alreadyRested ? "bg-stone-800/80 border border-stone-700 text-stone-400 cursor-not-allowed" : "btn-gold"}">
             ${alreadyRested ? `✓ Rested${buffLbl ? ` (+1 ${buffLbl})` : ""} • Quest to Rest Again` : "🛏️ Rest at Inn (10 GP)"}
           </button>
+        </div>
+        <div class="mb-4 px-3.5 py-2.5 rounded-xl bg-stone-950/70 border border-amber-800/35 text-xs text-amber-100/85 italic font-story leading-relaxed">
+          🔥 ${tavernBark}
         </div>
         <div id="tavern-dialogue-box" class="${activeNpcDialogue ? "" : "hidden"} mb-4 p-4 rounded-xl bg-stone-950 border border-amber-500/50 space-y-2 pop-in"></div>
         <div id="tavern-npc-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
@@ -3060,7 +3119,7 @@
         <div class="p-3 rounded-xl bg-stone-950/70 border border-amber-700/30 mb-4 flex flex-wrap items-center justify-between gap-2">
           <div>
             <div class="font-display text-sm font-bold text-amber-200">${shop.name} — <span class="text-stone-400 font-normal">${shop.npc}</span></div>
-            <div class="text-xs text-stone-300 italic">${shop.quote}</div>
+            <div class="text-xs text-stone-300 italic">${getShopkeeperGreeting(currentShop, shop)}</div>
           </div>
           ${currentShop==="armory" && !state.discoveredQuests.includes("karak_zul") ? `<button id="btn-shop-rumor" class="px-3 py-1.5 rounded-lg btn-gold text-xs">Ask about Dwarven Ore</button>` : ""}
           ${currentShop==="curios" && !state.discoveredQuests.includes("crimson_spire") ? `<button id="btn-shop-rumor" class="px-3 py-1.5 rounded-lg btn-gold text-xs">Ask about Arcane Towers</button>` : ""}
