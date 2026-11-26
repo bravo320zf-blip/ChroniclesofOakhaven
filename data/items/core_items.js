@@ -7,7 +7,7 @@ window.OAKHAVEN.registerItems({
       iron_sword:      { id:"iron_sword", name:"Iron Longsword", type:"weapon", atk:1, value:18, desc:"+1 Attack" },
       steel_dagger:    { id:"steel_dagger", name:"Steel Dagger", type:"weapon", atk:1, agility:1, value:22, desc:"+1 Attack, +1 Agility" },
       runed_staff:     { id:"runed_staff", name:"Runed Oak Staff", type:"weapon", atk:1, arcana:1, value:22, passives:{ spellDmgBonus:1, skillBonus:{ Arcana:1 } }, desc:"Carved oaken staff etched with focusing runes (+1 Spell Dmg, +1 Arcana)." },
-      blessed_mace:    { id:"blessed_mace", name:"Blessed Mace", type:"weapon", atk:1, spirit:1, value:22, desc:"+1 Attack, +1 Spirit" },
+      blessed_mace:    { id:"blessed_mace", name:"Blessed Mace", type:"weapon", atk:1, spirit:1, value:22, passives:{ undeadDmgBonus:2, healBonus:1 }, desc:"Silver-chased temple mace (+2 vs Undead, +1 Healing)." },
       hunting_blade:   { id:"hunting_blade", name:"Hunting Blade", type:"weapon", atk:1, agility:1, value:20, desc:"+1 Attack, +1 Agility" },
       fine_steel_blade:{ id:"fine_steel_blade", name:"Fine Steel Sword", type:"weapon", atk:2, value:45, passives:{ critRange:11 }, desc:"Cleanly tempered frontier arming sword balanced for crisp parries and strikes (+Crit)." },
       dwarven_waraxe:  { id:"dwarven_waraxe", name:"Dwarven Waraxe", type:"weapon", atk:3, might:1, value:85, desc:"+3 Attack, +1 Might" },

@@ -709,10 +709,11 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 255,
-    source: "Eldritch Lairs",
     arcana: 3,
     maxMp: 6,
-    desc: "+3 Arcana, +6 Max MP. Resonant crystal chime attuned to the Leystone of the Indigo Star."
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, mpRegen: 1, skillBonus: { Arcana: 3 } },
+    activeAbility: { name: "Indigo Ley-Resonance", icon: "🔔", charges: 2, ooc: true, restoreMp: 6, dmgDice: "2d8", dmgStat: "arcana", dmgType: "arcane", stunTurns: 1, desc: "2/Quest: Ring the star-attuned crystal chime to restore +6 MP, blast for 2d8 + Arcana dmg, and Stun (1t)!" },
+    desc: "Resonant crystal chime attuned to the Leystone of the Indigo Star (+4 Spell Dmg, -1 MP Cost, +1 MP/turn, +3 Arcana) with Indigo Ley-Resonance."
   },
   "bq_leyla_wind_ring": {
     id: "bq_leyla_wind_ring",
@@ -1188,7 +1189,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     might: 1,
     maxHp: 4,
-    desc: "+3 AC, +1 Might, +4 Max HP. Riveted iron helm salvaged from the Fellforged war-machine."
+    passives: { dmgReduce: 2, thornsDmg: 3, bossDmgBonus: 3, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Iron-Boiler Override", icon: "⚙️", charges: 2, shieldTurns: 3, selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest: Lock the riveted visor plates for +3 AC (3t) and +3 Attack (2t)!" },
+    desc: "Riveted iron helm salvaged from the Fellforged war-machine (-2 Dmg Taken, 3 Thorns, +3 vs Bosses, +2 Athletics) with Iron-Boiler Override."
   },
   "bq_crystal_heart_prism": {
     id: "bq_crystal_heart_prism",
@@ -3160,9 +3163,9 @@ window.OAKHAVEN.registerItems({
     atk: 5,
     arcana: 4,
     maxMp: 10,
-    passives: { spellDmgBonus: 5, spellCostReduce: 1, undeadDmgBonus: 6 },
-    activeAbility: { name: "Bleakspire Storm-Bolt", icon: "⚡", charges: 3, mp: 3, dmgDice: "4d8", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, desc: "3/Quest (3 MP): Call Bleakspire's black lightning for 4d8 + Arcana dmg and Stun (1t)!" },
-    desc: "Black-bone storm scepter seized from Bleakspire (+5 Spell Dmg, -1 MP Cost, +6 vs Undead) with Bleakspire Storm-Bolt."
+    passives: { spellDmgBonus: 5, spellCostReduce: 1, mpRegen: 2, undeadDmgBonus: 6, skillBonus: { Arcana: 4 } },
+    activeAbility: { name: "Bleakspire Storm-Bolt", icon: "⚡", charges: 3, mp: 3, dmgDice: "4d8", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, chillTurns: 2, desc: "3/Quest (3 MP): Call Bleakspire's black lightning for 4d8 + Arcana dmg, Stun (1t), and Chill (2t)!" },
+    desc: "Black-bone storm scepter seized from Bleakspire (+5 Spell Dmg, -1 MP Cost, +2 MP/turn, +6 vs Undead, +4 Arcana) with Bleakspire Storm-Bolt."
   },
   "bq_rustspike_glaive": {
     id: "bq_rustspike_glaive",

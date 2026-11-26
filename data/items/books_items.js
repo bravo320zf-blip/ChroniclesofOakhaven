@@ -875,6 +875,23 @@ window.OAKHAVEN.registerItems({
     "ac": 1,
     "atk": 1,
     "agility": 1,
-    "desc": "+1 AC, +1 Attack, +1 Agility (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "thornsDmg": 2,
+      "skillBonus": {
+        "Athletics": 1
+      }
+    },
+    "activeAbility": {
+      "name": "Main-Gauche Riposte",
+      "icon": "🗡️",
+      "charges": 2,
+      "evadeTurns": 1,
+      "dmgDice": "1d8",
+      "dmgStat": "agility",
+      "dmgType": "physical",
+      "desc": "2/Quest: Catch the foe's blade on the forked guard to Evade (1t) and riposte for 1d8 + Agility dmg!"
+    },
+    "desc": "Fork-guarded duelist's offhand dagger (+Crit, 2 Counter Thorns, +1 Athletics) with Main-Gauche Riposte."
   }
 });

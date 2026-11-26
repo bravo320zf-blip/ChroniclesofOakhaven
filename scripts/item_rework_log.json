@@ -1,6 +1,6 @@
 {
-  "totalPasses": 27,
-  "totalItemsReworked": 270,
+  "totalPasses": 28,
+  "totalItemsReworked": 280,
   "history": [
     {
       "pass": 1,
@@ -433,6 +433,22 @@
         "phylactery_shard"
       ],
       "summary": "Reworked 2 Vault of Magic items (Armor of Warding +1, Lucky Charm of the Monkey King), 3 Frontier Pt.2 Uniques (Heartwood Twinblade, Purified Phylactery Shard, Winterheart Pendant), Hommal's Golden Conservatory Vial, Crimson Cloak of the Fang, and polished 3 royal quest diadems."
+    },
+    {
+      "pass": 28,
+      "items": [
+        "vom_fab_golden_griffon",
+        "blessed_mace",
+        "vom_gloves_walking_shade",
+        "vom_boots_grandmother",
+        "vom_ring_dragons_disc",
+        "bq_fellforged_helm",
+        "bk_parrying_dagger",
+        "bq_indigo_star_chime",
+        "bq_bleakspire_scepter",
+        "vom_buzzing_blade"
+      ],
+      "summary": "Reworked 5 Vault of Magic items (Fabled Golden Griffon Shield with Griffon summon, Gloves of the Walking Shade, Boots of the Grandmother, Buzzing Blade, Ring of Dragon's Discernment), Parrying Dagger, Blessed Mace, Steel Horde Command Visor, Bemmean Ley-Line Chime, and Legendary Storm-Bone Scepter of Bleakspire."
     }
   ],
   "itemPasses": {
@@ -705,6 +721,16 @@
     "heartwood_bowblade": 1,
     "bq_hommal_botanical_vial": 1,
     "bq_crimson_hood_cloak": 1,
-    "phylactery_shard": 1
+    "phylactery_shard": 1,
+    "vom_fab_golden_griffon": 1,
+    "blessed_mace": 1,
+    "vom_gloves_walking_shade": 1,
+    "vom_boots_grandmother": 1,
+    "vom_ring_dragons_disc": 1,
+    "bq_fellforged_helm": 1,
+    "bk_parrying_dagger": 1,
+    "bq_indigo_star_chime": 1,
+    "bq_bleakspire_scepter": 1,
+    "vom_buzzing_blade": 1
   }
 }
