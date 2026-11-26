@@ -2477,12 +2477,10 @@
         };
       }
 
-      // Otherwise roll from 5 rich wilderness encounter archetypes
-      const rollType = Math.random();
-
-      // 1. Peaceful Walk & Wild Herb Glade (22%)
-      if (rollType < 0.22) {
-        return {
+      // Otherwise roll from 8 rich wilderness encounter archetypes
+      const encounterBuilders = [
+        // 1. Peaceful Walk & Wild Herb Glade
+        () => ({
           id: "_wilderness_encounter",
           isRandomEncounter: true,
           title: `${zone.icon} ${zone.name} — Quiet Trail`,
@@ -2499,9 +2497,9 @@
               choices: [
                 {
                   t: `Carefully harvest the ${matName} roots and spores without bruising them.`,
-                  badge: `Survival / Lore DC ${dc}`,
+                  badge: `Survival / Spirit DC ${dc}`,
                   check: {
-                    stat: "lore", skill: "Survival", dc, pass: 2, fail: 3,
+                    stat: "spirit", skill: "Survival", dc, pass: 2, fail: 3,
                     passMsg: `Your deft harvest yields a double bundle of ${matName}!`,
                     failMsg: `You gather a modest handful of ${matName} before the breeze scatters the rest.`
                   },
@@ -2541,84 +2539,82 @@
               choices: []
             }
           }
-        };
-      }
+        }),
 
-      // 2. Raging River & Fallen Log Crossing (22%)
-      if (rollType < 0.44) {
-        const slipDmg = Math.max(3, 2 + Math.floor(lv * 1.2));
-        return {
-          id: "_wilderness_encounter",
-          isRandomEncounter: true,
-          title: `${zone.icon} ${zone.name} — Raging River`,
-          subtitle: "Wilderness Crossing",
-          difficulty: "Hazard",
-          recommendedLevel: lv,
-          totalPages: 4,
-          pages: {
-            1: {
-              zone: zone.name,
-              title: "The Fallen Log Over the Rapids",
-              safeRetreat: true,
-              text: `Snowmelt and mountain rain have turned the creek crossing into a foaming torrent! A single moss-slick pine log spans the roaring gorge — and on the far bank gleams an abandoned pack beside a cluster of ${altMatName}.`,
-              choices: [
-                {
-                  t: "Sprint lightly across the slick fallen log, keeping your balance above the spray!",
-                  badge: `Athletics / Agility DC ${dc}`,
-                  check: {
-                    stat: "agility", skill: "Athletics", dc, pass: 2, fail: 3,
-                    failDmg: slipDmg,
-                    passMsg: "You glide across the slick bark without a single misstep!",
-                    failMsg: `Your boot slips on wet moss — icy rapids batter you (-${slipDmg} HP) before you haul yourself onto the far stones!`
+        // 2. Raging River & Fallen Log Crossing
+        () => {
+          const slipDmg = Math.max(3, 2 + Math.floor(lv * 1.2));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Raging River`,
+            subtitle: "Wilderness Crossing",
+            difficulty: "Hazard",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "The Fallen Log Over the Rapids",
+                safeRetreat: true,
+                text: `Snowmelt and mountain rain have turned the creek crossing into a foaming torrent! A single moss-slick pine log spans the roaring gorge — and on the far bank gleams an abandoned pack beside a cluster of ${altMatName}.`,
+                choices: [
+                  {
+                    t: "Sprint lightly across the slick fallen log, keeping your balance above the spray!",
+                    badge: `Athletics / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Athletics", dc, pass: 2, fail: 3,
+                      failDmg: slipDmg,
+                      passMsg: "You glide across the slick bark without a single misstep!",
+                      failMsg: `Your boot slips on wet moss — icy rapids batter you (-${slipDmg} HP) before you haul yourself onto the far stones!`
+                    }
+                  },
+                  {
+                    t: "Test the bark, kick away loose moss, and cross slowly using a sturdy walking-branch.",
+                    badge: `Survival / Spirit DC ${dc - 1}`,
+                    check: {
+                      stat: "spirit", skill: "Survival", dc: Math.max(9, dc - 1), pass: 2, fail: 3,
+                      failDmg: Math.max(2, slipDmg - 2),
+                      passMsg: "Patience pays off — you pick every foothold cleanly across the torrent!",
+                      failMsg: `A chunk of wet bark gives way — you scrape your shins (-${Math.max(2, slipDmg - 2)} HP) scrambling to the bank!`
+                    }
+                  },
+                  {
+                    t: "Respect the raging river and follow the safer high-ridge path back to town.",
+                    to: 4
                   }
-                },
-                {
-                  t: "Test the bark, kick away loose moss, and cross slowly using a sturdy walking-branch.",
-                  badge: `Survival / Perception DC ${dc - 1}`,
-                  check: {
-                    stat: "lore", skill: "Survival", dc: Math.max(9, dc - 1), pass: 2, fail: 3,
-                    failDmg: Math.max(2, slipDmg - 2),
-                    passMsg: "Patience pays off — you pick every foothold cleanly across the torrent!",
-                    failMsg: `A chunk of wet bark gives way — you scrape your shins (-${Math.max(2, slipDmg - 2)} HP) scrambling to the bank!`
-                  }
-                },
-                {
-                  t: "Respect the raging river and follow the safer high-ridge path back to town.",
-                  to: 4
-                }
-              ]
-            },
-            2: {
-              zone: zone.name,
-              title: "Dry Boots & Far-Bank Spoils",
-              text: `Safe on the far bank, you harvest the ${altMatName} and rummage through the weathered pack — recovering dry silver coins and a corked potion!`,
-              onEnter: { item: altMatId, gold: baseGold },
-              ending: { type: "true", title: "Master of the Crossing", xp: Math.round(baseXp * 1.2), gold: Math.round(baseGold * 0.6), trophy: "" },
-              choices: []
-            },
-            3: {
-              zone: zone.name,
-              title: "Soaked, But Across",
-              text: `Dripping wet and shivering, you still manage to grab a bundle of ${altMatName} from the bank before taking the dry upper footbridge back toward Oakhaven.`,
-              onEnter: { item: altMatId },
-              ending: { type: "true", title: "Braved the Torrent", xp: baseXp, gold: Math.round(baseGold * 0.4), trophy: "" },
-              choices: []
-            },
-            4: {
-              zone: zone.name,
-              title: "A Wise Detour",
-              text: `You follow the dry pine ridge back toward Oakhaven, spotting a stray patch of ${matName} along the way.`,
-              onEnter: { item: matId },
-              ending: { type: "true", title: "Safe Detour", xp: Math.round(baseXp * 0.6), gold: 0, trophy: "" },
-              choices: []
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Dry Boots & Far-Bank Spoils",
+                text: `Safe on the far bank, you harvest the ${altMatName} and rummage through the weathered pack — recovering dry silver coins and a corked potion!`,
+                onEnter: { item: altMatId, gold: baseGold },
+                ending: { type: "true", title: "Master of the Crossing", xp: Math.round(baseXp * 1.2), gold: Math.round(baseGold * 0.6), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Soaked, But Across",
+                text: `Dripping wet and shivering, you still manage to grab a bundle of ${altMatName} from the bank before taking the dry upper footbridge back toward Oakhaven.`,
+                onEnter: { item: altMatId },
+                ending: { type: "true", title: "Braved the Torrent", xp: baseXp, gold: Math.round(baseGold * 0.4), trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "A Wise Detour",
+                text: `You follow the dry pine ridge back toward Oakhaven, spotting a stray patch of ${matName} along the way.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Safe Detour", xp: Math.round(baseXp * 0.6), gold: 0, trophy: "" },
+                choices: []
+              }
             }
-          }
-        };
-      }
+          };
+        },
 
-      // 3. Highway Bandit Ambush (24%)
-      if (rollType < 0.68) {
-        return {
+        // 3. Highway Bandit Ambush
+        () => ({
           id: "_wilderness_encounter",
           isRandomEncounter: true,
           title: `${zone.icon} ${zone.name} — Bandit Ambush`,
@@ -2695,12 +2691,10 @@
               choices: []
             }
           }
-        };
-      }
+        }),
 
-      // 4. Region Beast / Undead Skirmish (18%)
-      if (rollType < 0.86) {
-        return {
+        // 4. Region Beast / Undead Skirmish
+        () => ({
           id: "_wilderness_encounter",
           isRandomEncounter: true,
           title: `${zone.icon} ${zone.name} — Wild Predators`,
@@ -2721,7 +2715,7 @@
                 },
                 {
                   t: "Creep along the downwind ledge to slip past them and claim the cache unseen.",
-                  badge: `Stealth / Survival DC ${dc}`,
+                  badge: `Stealth / Agility DC ${dc}`,
                   check: {
                     stat: "agility", skill: "Stealth", dc, pass: 3, fail: 2,
                     passMsg: "You slip silently past the prowlers and snatch the materials untouched!",
@@ -2771,61 +2765,281 @@
               choices: []
             }
           }
-        };
-      }
+        }),
 
-      // 5. Abandoned Camp & Wayside Shrine (14%)
-      return {
-        id: "_wilderness_encounter",
-        isRandomEncounter: true,
-        title: `${zone.icon} ${zone.name} — Wayside Camp`,
-        subtitle: "Frontier Discovery",
-        difficulty: "Discovery",
-        recommendedLevel: lv,
-        totalPages: 3,
-        pages: {
-          1: {
-            zone: zone.name,
-            title: "The Old Wayfarer's Shrine",
-            safeRetreat: true,
-            text: `In a sheltered hollow of ${zone.name}, you come upon a mossy wayside shrine beside an abandoned prospector's camp. A rusted lockbox peeks out beneath a fallen canvas tarp, while clear rainwater sparkles in the shrine's stone basin.`,
-            choices: [
-              {
-                t: "Check the tarp for tripwires and pry open the prospector's lockbox.",
-                badge: `Lockpicking / Detect Traps DC ${dc}`,
-                check: {
-                  stat: "agility", skill: "Lockpicking", dc, pass: 2, fail: 3,
-                  failDmg: 3,
-                  passMsg: "Click! Inside lies dry silver coin and a corked Healing Potion!",
-                  failMsg: "A rusted needle-spring nicks your thumb (-3 HP) before you pry the lid free!"
+        // 5. Abandoned Camp & Wayside Shrine
+        () => ({
+          id: "_wilderness_encounter",
+          isRandomEncounter: true,
+          title: `${zone.icon} ${zone.name} — Wayside Camp`,
+          subtitle: "Frontier Discovery",
+          difficulty: "Discovery",
+          recommendedLevel: lv,
+          totalPages: 3,
+          pages: {
+            1: {
+              zone: zone.name,
+              title: "The Old Wayfarer's Shrine",
+              safeRetreat: true,
+              text: `In a sheltered hollow of ${zone.name}, you come upon a mossy wayside shrine beside an abandoned prospector's camp. A rusted lockbox peeks out beneath a fallen canvas tarp, while clear rainwater sparkles in the shrine's stone basin.`,
+              choices: [
+                {
+                  t: "Check the tarp for tripwires and pry open the prospector's lockbox.",
+                  badge: `Lockpicking / Agility DC ${dc}`,
+                  check: {
+                    stat: "agility", skill: "Lockpicking", dc, pass: 2, fail: 3,
+                    failDmg: 3,
+                    passMsg: "Click! Inside lies dry silver coin and a corked Healing Potion!",
+                    failMsg: "A rusted needle-spring nicks your thumb (-3 HP) before you pry the lid free!"
+                  },
+                  onPass: { item: "health_potion", gold: baseGold }
                 },
-                onPass: { item: "health_potion", gold: baseGold }
-              },
-              {
-                t: "Kneel quietly at the wayside shrine and wash the trail-dust from your brow.",
-                onChoose: { healHp: 10 + lv * 2, healMp: 4, msg: `A calm blessing settles over you (+${10 + lv * 2} HP, +4 MP)!` },
-                to: 3
-              }
-            ]
-          },
-          2: {
-            zone: zone.name,
-            title: "Prospector's Hoard",
-            text: `You pack away the prospector's salvage and a stray pouch of ${matName} before heading back to Oakhaven.`,
-            onEnter: { item: matId },
-            ending: { type: "true", title: "Wayside Salvage", xp: baseXp, gold: Math.round(baseGold * 0.5), trophy: "" },
-            choices: []
-          },
-          3: {
-            zone: zone.name,
-            title: "Quiet Blessing",
-            text: `Steadied by the quiet hollow, you gather a handful of ${matName} and return to Oakhaven.`,
-            onEnter: { item: matId },
-            ending: { type: "true", title: "Rested at the Wayside Shrine", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
-            choices: []
+                {
+                  t: "Kneel quietly at the wayside shrine and wash the trail-dust from your brow.",
+                  onChoose: { healHp: 10 + lv * 2, healMp: 4, msg: `A calm blessing settles over you (+${10 + lv * 2} HP, +4 MP)!` },
+                  to: 3
+                }
+              ]
+            },
+            2: {
+              zone: zone.name,
+              title: "Prospector's Hoard",
+              text: `You pack away the prospector's salvage and a stray pouch of ${matName} before heading back to Oakhaven.`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Wayside Salvage", xp: baseXp, gold: Math.round(baseGold * 0.5), trophy: "" },
+              choices: []
+            },
+            3: {
+              zone: zone.name,
+              title: "Quiet Blessing",
+              text: `Steadied by the quiet hollow, you gather a handful of ${matName} and return to Oakhaven.`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Rested at the Wayside Shrine", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+              choices: []
+            }
           }
+        }),
+
+        // 6. Wandering Frontier Peddler
+        () => ({
+          id: "_wilderness_encounter",
+          isRandomEncounter: true,
+          title: `${zone.icon} ${zone.name} — Traveling Peddler`,
+          subtitle: "Roadside Bargain",
+          difficulty: "Encounter",
+          recommendedLevel: lv,
+          totalPages: 4,
+          pages: {
+            1: {
+              zone: zone.name,
+              title: "Barnaby Quill's Tin-Bell Cart",
+              safeRetreat: true,
+              text: `The cheerful clatter of tin pots and brass bells echoes along the winding track of ${zone.name}. A dappled mule pulls a canvas-topped cart led by Barnaby Quill, a grinning frontier peddler in a patched oilskin coat. "Ho there, road-walker! Care to haggle over field supplies, test your eye on my curiosity tray, or share a mug of spiced cider?"`,
+              choices: [
+                {
+                  t: "Haggle sharply with Barnaby for a road-weary discount on his healing stock.",
+                  badge: `Persuasion / Spirit DC ${dc}`,
+                  check: {
+                    stat: "spirit", skill: "Persuasion", dc, pass: 2, fail: 3,
+                    passMsg: "Barnaby roars with laughter at your sharp tongue and tosses in a Health Potion and loose silver!",
+                    failMsg: "Barnaby winks and taps his nose: 'Fair try, friend, but a peddler's got to eat!'"
+                  },
+                  onPass: { item: "health_potion", gold: Math.round(baseGold * 0.5) }
+                },
+                {
+                  t: "Scan his dusty brass curiosity tray for a mispriced treasure he overlooked.",
+                  badge: `Perception / Luck DC ${dc + 1}`,
+                  check: {
+                    stat: "luck", skill: "Perception", dc: dc + 1, pass: 2, fail: 3,
+                    passMsg: `Beneath tarnished spoons you spot a pristine bundle of ${altMatName} and a stray silver trade-bar!`,
+                    failMsg: "Nothing but bent candlesticks and chipped teacups today — though Barnaby appreciates your company."
+                  },
+                  onPass: { item: altMatId, gold: baseGold }
+                },
+                {
+                  t: "Sit on the wagon tailboard, sip hot spiced cider, and swap frontier news.",
+                  onChoose: { healHp: 8 + lv * 2, healMp: 4, msg: `Spiced cider and good company restore +${8 + lv * 2} HP and +4 MP!` },
+                  to: 4
+                }
+              ]
+            },
+            2: {
+              zone: zone.name,
+              title: "A Bargain Well Struck",
+              text: `Barnaby tips his waxed cap and hands over a spare pouch of ${matName} for the road before clicking his tongue to start the mule onward.`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Frontier Bargain", xp: Math.round(baseXp * 1.15), gold: Math.round(baseGold * 0.4), trophy: "" },
+              choices: []
+            },
+            3: {
+              zone: zone.name,
+              title: "No Hard Feelings",
+              text: `Barnaby chuckles, hands you a complimentary pinch of ${matName} "for next time," and rolls on down the frontier track.`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Met the Road Peddler", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+              choices: []
+            },
+            4: {
+              zone: zone.name,
+              title: "Warm Cider on the Trail",
+              text: `Warmed by the cider and richer in frontier gossip, you pocket a gifted bundle of ${matName} and stroll back toward Oakhaven.`,
+              onEnter: { item: matId },
+              ending: { type: "true", title: "Roadside Hospitality", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+              choices: []
+            }
+          }
+        }),
+
+        // 7. Wounded Frontier Scout
+        () => {
+          const grazeDmg = Math.max(2, 1 + Math.floor(lv * 0.8));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Wounded Scout`,
+            subtitle: "Frontier Rescue",
+            difficulty: "Rescue",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "A Watch-Cloak Beneath the Boulders",
+                safeRetreat: true,
+                text: `Tucked beneath a wind-bent boulder in ${zone.name}, a young Oakhaven watch-scout presses a torn cloak against a bleeding shoulder while snapped arrow-shafts litter the mud. "Thank the lanterns... raiders drove me off the ridge! Could you bind this cut or help me back toward the palisade?"`,
+                choices: [
+                  {
+                    t: "Crush wild roadside herbs into a field poultice and bind the scout's shoulder cleanly.",
+                    badge: `Herbalism / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Herbalism", dc, pass: 2, fail: 3,
+                      passMsg: "Your steady hands stanch the bleeding immediately — the scout rises with renewed color!",
+                      failMsg: "The bandage holds well enough to walk, though the march back is slow and tense."
+                    }
+                  },
+                  {
+                    t: "Shoulder the scout's pack, brace their arm, and haul them briskly off the ridge.",
+                    badge: `Athletics / Might DC ${dc}`,
+                    check: {
+                      stat: "might", skill: "Athletics", dc, pass: 2, fail: 3,
+                      passMsg: "You power down the rocky switchback without breaking stride, outpacing any pursuit!",
+                      failMsg: "Steep shale slows your footing, yet you stubbornly drag the scout into safe treeline."
+                    }
+                  },
+                  {
+                    t: "Keep watch over the ridge-line while they catch their breath, spotting any raiders early.",
+                    badge: `Perception / Agility DC ${dc - 1}`,
+                    check: {
+                      stat: "agility", skill: "Perception", dc: Math.max(9, dc - 1), pass: 2, fail: 4,
+                      failDmg: grazeDmg,
+                      passMsg: "You spot a flanking patrol in time to slip cleanly down a hidden ravine!",
+                      failMsg: `A stray arrow grazes your sleeve (-${grazeDmg} HP) as you pull the scout into the brush!`
+                    }
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Gratitude of the Watch",
+                text: `At Oakhaven's outer lantern-post, the watch-sergeant salutes your bravery and presses a silver bounty purse, a Bramble Antidote, and a fresh satchel of ${altMatName} into your hands!`,
+                onEnter: { item: "antidote", gold: baseGold },
+                ending: { type: "true", title: "Frontier Rescue", xp: Math.round(baseXp * 1.35), gold: Math.round(baseGold * 0.6), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Rough March Home",
+                text: `Mud-spattered and breathless, you guide the scout safely through Oakhaven's palisade. Before heading to the healer, they insist you take their gathered pouch of ${matName}.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Escorted the Scout", xp: baseXp, gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Dodged the Pursuit",
+                text: `You lose the pursuing shadows in thick brambles and bring the scout home by the long river-road, gathering a stray bundle of ${matName} along the bank.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Outran the Raiders", xp: Math.round(baseXp * 0.9), gold: Math.round(baseGold * 0.35), trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 8. Ancient Moss-Covered Waystone Riddle
+        () => {
+          const shockDmg = Math.max(2, 2 + Math.floor(lv * 0.8));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Ancient Waystone`,
+            subtitle: "Arcane Mystery",
+            difficulty: "Mystery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "The Obelisk of Three Moons",
+                safeRetreat: true,
+                text: `In a quiet clearing of ${zone.name}, a leaning obelisk of pale granite rises from a ring of silver-tipped wildflowers. Faint blue runes pulse along its weathered face, framing a recessed stone basin carved with three interlocking crescent moons.`,
+                choices: [
+                  {
+                    t: "Trace the lunar glyphs in sequence and intone the old frontier cadence aloud.",
+                    badge: `Arcana DC ${dc}`,
+                    check: {
+                      stat: "arcana", skill: "Arcana", dc, pass: 2, fail: 3,
+                      failDmg: shockDmg,
+                      passMsg: "The runes flare azure — a hidden plinth glides open with a chime like crystal bells!",
+                      failMsg: `A discordant spark snaps across your knuckles (-${shockDmg} HP) as the ward flickers out!`
+                    }
+                  },
+                  {
+                    t: "Inspect the moss-choked seams beneath the basin for a mechanical counter-latch.",
+                    badge: `Detect Traps / Luck DC ${dc}`,
+                    check: {
+                      stat: "luck", skill: "Detect Traps", dc, pass: 2, fail: 3,
+                      failDmg: Math.max(2, shockDmg - 1),
+                      passMsg: "Your fingers find a recessed brass peg — clicking it disarms the ward and pops the secret vault!",
+                      failMsg: `A frost-ward hisses across your fingers (-${Math.max(2, shockDmg - 1)} HP) before the stone seals shut!`
+                    }
+                  },
+                  {
+                    t: "Bow respectfully to the old road-spirits and harvest the wildflower ring untouched.",
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "The Waystone's Cache",
+                text: `Inside the dry stone hollow rests an ancient traveler's offering: a glowing Mana Elixir, tarnished frontier silver, and a preserved bundle of ${altMatName}!`,
+                onEnter: { item: "mana_elixir", gold: baseGold },
+                ending: { type: "true", title: "Unlocked the Ancient Waystone", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Stung by Old Wards",
+                text: `Shaking the tingle from your fingertips, you leave the dormant obelisk behind and collect a handful of ${matName} along the trail back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Braved the Waystone Ward", xp: Math.round(baseXp * 0.85), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Respect for the Old Roads",
+                text: `A cool breeze whispers across the clearing as if in quiet approval. You gather fresh ${matName} from the ring of wildflowers and return peacefully to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Keeper of the Old Roads", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
         }
-      };
+      ];
+
+      return encounterBuilders[Math.floor(Math.random() * encounterBuilders.length)]();
     }
 
     function startWildernessExpedition(zone) {
