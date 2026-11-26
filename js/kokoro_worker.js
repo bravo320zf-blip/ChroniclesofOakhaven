@@ -1,12 +1,13 @@
 /* ============================================================
    CHRONICLES OF OAKHAVEN — KOKORO STUDIO AI WEB WORKER
-   Runs Kokoro-82M WASM inference completely off the main UI thread
-   so entering town buildings, turning pages, and audio playback
-   NEVER freeze or stutter!
+   Runs Kokoro-82M WASM inference off the main UI thread with
+   epoch-based cancellation so stale/cancelled lines are skipped
+   immediately instead of piling up in a backlog!
    ============================================================ */
 
 let kokoroModel = null;
 let loadingPromise = null;
+let latestEpoch = 0;
 
 async function importKokoroModule() {
   const urls = [
@@ -66,6 +67,13 @@ async function ensureModel() {
 
 self.onmessage = async (ev) => {
   const msg = ev.data || {};
+  if (msg.type === "cancel") {
+    if (typeof msg.epoch === "number" && msg.epoch > latestEpoch) {
+      latestEpoch = msg.epoch;
+    }
+    return;
+  }
+
   if (msg.type === "init") {
     try {
       await ensureModel();
@@ -77,10 +85,22 @@ self.onmessage = async (ev) => {
   }
 
   if (msg.type === "generate") {
-    const { reqId, text, voice, speed } = msg;
+    const { reqId, text, voice, speed, epoch } = msg;
+    if (typeof epoch === "number" && epoch < latestEpoch) {
+      self.postMessage({ type: "cancelled", reqId });
+      return;
+    }
     try {
       const model = await ensureModel();
+      if (typeof epoch === "number" && epoch < latestEpoch) {
+        self.postMessage({ type: "cancelled", reqId });
+        return;
+      }
       const rawAudio = await model.generate(text, { voice: voice || "bm_george", speed: speed || 1.0 });
+      if (typeof epoch === "number" && epoch < latestEpoch) {
+        self.postMessage({ type: "cancelled", reqId });
+        return;
+      }
       const raw = rawAudio.audio || rawAudio.data || rawAudio;
       const samples = raw instanceof Float32Array ? raw : new Float32Array(raw);
       const sampleRate = rawAudio.sampling_rate || 24000;

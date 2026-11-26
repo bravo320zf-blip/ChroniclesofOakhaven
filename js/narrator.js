@@ -69,6 +69,8 @@
   let kokoroWorkerFailed = false;
   let kokoroWorkerReqId = 0;
   const kokoroPending = new Map();
+  const kokoroAudioCache = new Map(); // LRU cache of synthesized clips (instant replay for town NPCs!)
+  const MAX_AUDIO_CACHE = 45;
   let kokoroModel = null;
   let kokoroLoadingPromise = null;
   let kokoroState = "idle"; // "idle" | "loading" | "ready" | "error"
@@ -189,7 +191,7 @@
     return parts.join(". ").replace(/\.\s*\./g, ".").replace(/!\./g, "!").replace(/\?\./g, "?").trim();
   }
 
-  function splitIntoChunks(text, maxLen = 210) {
+  function splitIntoChunks(text, maxLen = 210, firstMaxLen = null) {
     if (!text) return [];
     // Split on sentence boundaries first
     const rawSentences = text.match(/[^.!?]+(?:[.!?]+["”’)]*|$)/g) || [text];
@@ -197,14 +199,16 @@
     for (let s of rawSentences) {
       s = s.trim();
       if (!s) continue;
-      if (s.length <= maxLen) {
+      const limit = (chunks.length === 0 && firstMaxLen) ? firstMaxLen : maxLen;
+      if (s.length <= limit) {
         chunks.push(s);
       } else {
-        // Split very long sentences cleanly at commas/semicolons/em-dashes
+        // Split long sentences cleanly at commas/semicolons/em-dashes
         const subParts = s.split(/(?<=[,;:\u2014—])\s+/);
         let cur = "";
         for (const part of subParts) {
-          if ((cur + " " + part).trim().length <= maxLen) {
+          const curLimit = (chunks.length === 0 && firstMaxLen) ? firstMaxLen : maxLen;
+          if ((cur + " " + part).trim().length <= curLimit) {
             cur = (cur + " " + part).trim();
           } else {
             if (cur) chunks.push(cur);
@@ -386,7 +390,7 @@
     if (kokoroWorkerFailed || typeof Worker === "undefined") return null;
     if (kokoroWorker) return kokoroWorker;
     try {
-      const w = new Worker("js/kokoro_worker.js?v=1", { type: "module" });
+      const w = new Worker("js/kokoro_worker.js?v=2", { type: "module" });
       w.onmessage = (ev) => {
         const msg = ev.data || {};
         if (msg.type === "progress") {
@@ -402,6 +406,9 @@
         } else if (msg.type === "audio") {
           const p = kokoroPending.get(msg.reqId);
           if (p) { kokoroPending.delete(msg.reqId); p.resolve({ audio: msg.samples, sampling_rate: msg.sampleRate }); }
+        } else if (msg.type === "cancelled") {
+          const p = kokoroPending.get(msg.reqId);
+          if (p) { kokoroPending.delete(msg.reqId); p.resolve(null); }
         } else if (msg.type === "gen_err") {
           const p = kokoroPending.get(msg.reqId);
           if (p) { kokoroPending.delete(msg.reqId); p.reject(new Error(msg.error || "Synthesis failed")); }
@@ -493,12 +500,32 @@
     }
   }
 
-  async function synthesizeKokoroChunk(text, voiceId, speed) {
-    if (kokoroWorker && !kokoroWorkerFailed) {
-      return workerRequest({ type: "generate", text, voice: voiceId, speed });
+  async function synthesizeKokoroChunk(text, voiceId, speed, epoch) {
+    const cacheKey = `${voiceId}|${speed.toFixed(2)}|${text}`;
+    if (kokoroAudioCache.has(cacheKey)) {
+      const cached = kokoroAudioCache.get(cacheKey);
+      // Refresh LRU position
+      kokoroAudioCache.delete(cacheKey);
+      kokoroAudioCache.set(cacheKey, cached);
+      return cached;
     }
-    if (!kokoroModel) await ensureKokoroModel();
-    return kokoroModel.generate(text, { voice: voiceId, speed });
+
+    let result;
+    if (kokoroWorker && !kokoroWorkerFailed) {
+      result = await workerRequest({ type: "generate", text, voice: voiceId, speed, epoch });
+    } else {
+      if (!kokoroModel) await ensureKokoroModel();
+      result = await kokoroModel.generate(text, { voice: voiceId, speed });
+    }
+
+    if (result && result.audio) {
+      if (kokoroAudioCache.size >= MAX_AUDIO_CACHE) {
+        const oldestKey = kokoroAudioCache.keys().next().value;
+        kokoroAudioCache.delete(oldestKey);
+      }
+      kokoroAudioCache.set(cacheKey, result);
+    }
+    return result;
   }
 
   function ensureAudioContext() {
@@ -543,7 +570,9 @@
   }
 
   async function startKokoroSpeech(text, myToken, profile = null) {
-    const chunks = splitIntoChunks(text, 280);
+    // Fast-start first chunk (~90 chars) so voice starts speaking 3-4x faster while
+    // the background Web Worker prefetches the remaining chunks!
+    const chunks = splitIntoChunks(text, 170, 90);
     if (chunks.length === 0) {
       setStatus("idle", "Nothing to read");
       return;
@@ -570,23 +599,23 @@
     // Synthesize in the background Web Worker (prefetching next sentence off-thread
     // so playback flows seamlessly with ZERO UI freeze and ZERO audio stutter!)
     try {
-      let nextPromise = synthesizeKokoroChunk(chunks[0], voiceId, effSpeed);
+      let nextPromise = synthesizeKokoroChunk(chunks[0], voiceId, effSpeed, myToken);
       for (let i = 0; i < chunks.length; i++) {
         if (myToken !== runToken) return;
         setStatus("loading", `Synthesizing (${voiceLabel}) • ${i + 1}/${chunks.length}…`);
         const rawAudio = await nextPromise;
-        if (myToken !== runToken) return;
+        if (!rawAudio || myToken !== runToken) return;
 
         // Only prefetch in parallel when running inside the off-thread Web Worker!
         if (i + 1 < chunks.length && kokoroWorker && !kokoroWorkerFailed) {
-          nextPromise = synthesizeKokoroChunk(chunks[i + 1], voiceId, effSpeed);
+          nextPromise = synthesizeKokoroChunk(chunks[i + 1], voiceId, effSpeed, myToken);
         }
 
         setStatus("playing", `Studio AI (${voiceLabel}) • ${i + 1}/${chunks.length}`);
         await playRawAudioBuffer(rawAudio, myToken);
 
         if (i + 1 < chunks.length && (!kokoroWorker || kokoroWorkerFailed)) {
-          nextPromise = synthesizeKokoroChunk(chunks[i + 1], voiceId, effSpeed);
+          nextPromise = synthesizeKokoroChunk(chunks[i + 1], voiceId, effSpeed, myToken);
         }
       }
       if (myToken === runToken) {
@@ -604,6 +633,9 @@
      ------------------------------------------------------------ */
   function stop(quiet = false) {
     runToken++;
+    if (kokoroWorker && !kokoroWorkerFailed) {
+      try { kokoroWorker.postMessage({ type: "cancel", epoch: runToken }); } catch (_) {}
+    }
     if (browserStartTimer) { clearTimeout(browserStartTimer); browserStartTimer = null; }
     activeUtterance = null;
     browserQueue = [];
