@@ -619,7 +619,50 @@
       return `<div class="${sizeCls} rounded-lg bg-stone-900 border border-amber-700/50 flex items-center justify-center ${iconCls} shrink-0">${meta.icon}</div>`;
     }
 
-    function buildItemTooltipHtml(it, opts = {}) {
+    const EQUIP_COMPARE_SLOTS = ["weapon", "armor", "offhand", "accessory", "cloak"];
+
+    function getCompareEquippedItem(it, opts = {}) {
+      if (!it || !EQUIP_COMPARE_SLOTS.includes(it.type)) return null;
+      if (!state || !state.equipment) return null;
+      if ((opts.slotLabel || "").startsWith("Equipped")) return null;
+      const eqId = state.equipment[it.type];
+      if (!eqId || !ITEMS_DB[eqId]) return null;
+      return ITEMS_DB[eqId];
+    }
+
+    function buildStatDeltaStripHtml(newItem, eqItem) {
+      if (!newItem || !eqItem) return "";
+      const keys = [
+        ["atk",     "Attack", "⚔️"],
+        ["ac",      "AC",     "🛡️"],
+        ["might",   "Might",  "💪"],
+        ["agility", "Agility","🏃"],
+        ["arcana",  "Arcana", "🔮"],
+        ["spirit",  "Spirit", "🌟"],
+        ["luck",    "Luck",   "🍀"],
+        ["maxHp",   "Max HP", "❤️"],
+        ["maxMp",   "Max MP", "🔷"]
+      ];
+      const diffs = [];
+      for (const [k, lbl, icon] of keys) {
+        const diff = (Number(newItem[k]) || 0) - (Number(eqItem[k]) || 0);
+        if (diff > 0) {
+          diffs.push(`<span class="px-1.5 py-0.5 rounded bg-emerald-950/90 border border-emerald-500/60 text-emerald-300 text-[10px] font-bold">▲ +${diff} ${lbl}</span>`);
+        } else if (diff < 0) {
+          diffs.push(`<span class="px-1.5 py-0.5 rounded bg-rose-950/90 border border-rose-500/60 text-rose-300 text-[10px] font-bold">▼ ${diff} ${lbl}</span>`);
+        }
+      }
+      if (!diffs.length) {
+        return `<div class="px-2 py-1 rounded-lg bg-stone-900/80 border border-stone-700/60 text-[10px] text-stone-400">⚖️ Same base stats as equipped item (compare passives &amp; abilities →)</div>`;
+      }
+      return `
+        <div class="p-2 rounded-lg bg-stone-900/80 border border-amber-700/40 space-y-1">
+          <div class="text-[9px] font-bold uppercase tracking-wider text-amber-300/90">⚖️ Stat Change vs. Equipped</div>
+          <div class="flex flex-wrap gap-1">${diffs.join("")}</div>
+        </div>`;
+    }
+
+    function buildSingleItemCardHtml(it, opts = {}) {
       const meta = ITEM_TYPE_META[it.type] || { label: (it.type || "Item"), icon: "🎒" };
       const imgSrc = getItemArtSrc(it);
       const qty = opts.qty || 1;
@@ -719,12 +762,13 @@
       }
 
       return `
+        ${opts.headerBanner || ""}
         <div class="flex items-start gap-2.5 border-b border-amber-700/40 pb-2">
           ${pictureHtml}
           <div class="min-w-0 flex-1">
             <div class="flex items-start justify-between gap-1.5">
               <div class="font-display text-sm font-bold text-amber-200 leading-snug">${it.name}${qty > 1 ? ` <span class="text-amber-400 text-xs">x${qty}</span>` : ""}</div>
-              ${opts.pinned ? `<button type="button" id="item-tip-close" class="text-stone-400 hover:text-amber-200 text-xs font-bold px-1 shrink-0" title="Close">✕</button>` : ""}
+              ${opts.showClose ? `<button type="button" id="item-tip-close" class="text-stone-400 hover:text-amber-200 text-xs font-bold px-1 shrink-0" title="Close">✕</button>` : ""}
             </div>
             <div class="flex flex-wrap items-center gap-1.5 mt-1">
               <span class="text-[10px] uppercase tracking-wider text-stone-400 font-semibold">${meta.label}</span>
@@ -736,14 +780,39 @@
         ${stats.length ? `<div class="flex flex-wrap gap-1.5">${stats.map(s => `<span class="px-2 py-0.5 rounded border text-[11px] font-semibold ${s.cls}">${s.lbl}</span>`).join("")}</div>` : ""}
         ${passivePills.length ? `<div class="flex flex-wrap gap-1.5">${passivePills.map(p => `<span class="px-2 py-0.5 rounded border bg-purple-950/70 border-purple-500/50 text-purple-200 text-[10px] font-semibold">${p}</span>`).join("")}</div>` : ""}
         ${activeBoxHtml}
+        ${opts.deltaHtml || ""}
         ${spellPreviewHtml}
         ${recipePreviewHtml}
         ${it.desc ? `<p class="text-[11px] text-stone-200 leading-relaxed">${it.desc}</p>` : ""}
+        ${opts.emptySlotHint || ""}
         <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-stone-800 text-[10px] text-stone-400">
           ${priceLine}
           ${opts.slotLabel ? `<span class="uppercase text-stone-500">${opts.slotLabel}</span>` : ""}
         </div>
       `;
+    }
+
+    function buildItemTooltipHtml(it, opts = {}) {
+      const eqItem = getCompareEquippedItem(it, opts);
+      if (eqItem) {
+        const meta = ITEM_TYPE_META[it.type] || { label: (it.type || "Item"), icon: "🎒" };
+        const leftBanner = `<div class="flex items-center justify-between gap-2 pb-1 mb-1 border-b border-amber-600/30"><span class="text-[10px] font-bold uppercase tracking-wider text-amber-300">🔍 Selected Item</span><span class="text-[9px] uppercase text-stone-400">${opts.slotLabel || meta.label}</span></div>`;
+        const rightBanner = `<div class="flex items-center justify-between gap-2 pb-1 mb-1 border-b border-emerald-600/40"><span class="text-[10px] font-bold uppercase tracking-wider text-emerald-300">✓ Currently Wearing</span>${opts.pinned ? `<button type="button" id="item-tip-close" class="text-stone-400 hover:text-amber-200 text-xs font-bold px-1 shrink-0" title="Close">✕</button>` : `<span class="text-[9px] uppercase text-emerald-400/80">${meta.label}</span>`}</div>`;
+        const deltaHtml = buildStatDeltaStripHtml(it, eqItem);
+        const leftHtml = buildSingleItemCardHtml(it, { ...opts, headerBanner: leftBanner, deltaHtml, showClose: false });
+        const rightHtml = buildSingleItemCardHtml(eqItem, { qty: 1, slotLabel: `Equipped (${meta.label})`, headerBanner: rightBanner, showClose: false });
+        return `
+          <div class="flex flex-col sm:flex-row gap-3 items-stretch">
+            <div class="flex-1 min-w-0 space-y-2">${leftHtml}</div>
+            <div class="flex-1 min-w-0 space-y-2 pt-2.5 sm:pt-0 sm:pl-3 border-t sm:border-t-0 sm:border-l border-emerald-600/40 bg-emerald-950/15 sm:rounded-r-lg">${rightHtml}</div>
+          </div>`;
+      }
+      let emptySlotHint = "";
+      if (EQUIP_COMPARE_SLOTS.includes(it.type) && state && state.equipment && !(opts.slotLabel || "").startsWith("Equipped")) {
+        const meta = ITEM_TYPE_META[it.type] || { label: it.type };
+        emptySlotHint = `<div class="px-2 py-1 rounded-lg bg-emerald-950/50 border border-emerald-600/40 text-[10px] text-emerald-300 font-semibold">✨ Your ${meta.label} slot is currently empty.</div>`;
+      }
+      return buildSingleItemCardHtml(it, { ...opts, showClose: !!opts.pinned, emptySlotHint });
     }
 
     function positionItemTooltip(evtOrRect) {
@@ -776,7 +845,14 @@
       const it = ITEMS_DB[itemId];
       if (!tip || !it) return;
       const pinned = !!opts.pinned;
+      const isComparing = !!getCompareEquippedItem(it, opts);
       tip.classList.toggle("pointer-events-none", !pinned);
+      tip.classList.toggle("w-80", !isComparing);
+      tip.classList.toggle("max-w-sm", !isComparing);
+      tip.classList.toggle("w-[40rem]", isComparing);
+      tip.classList.toggle("max-w-[calc(100vw-20px)]", isComparing);
+      tip.classList.toggle("max-h-[calc(100vh-20px)]", pinned);
+      tip.classList.toggle("overflow-y-auto", pinned);
       tip.innerHTML = buildItemTooltipHtml(it, opts);
       tip.classList.remove("hidden");
       const closeBtn = tip.querySelector("#item-tip-close");
