@@ -183,7 +183,21 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "atk": 3,
     "might": 1,
-    "desc": "+3 Attack, +1 Might (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "skillBonus": { "Athletics": 1 }
+    },
+    "activeAbility": {
+      "name": "Blink-Spear Lunge",
+      "icon": "⚡",
+      "charges": 2,
+      "dmgDice": "1d10",
+      "dmgStat": "might",
+      "dmgType": "arcane",
+      "evadeTurns": 1,
+      "desc": "2/Quest: Hurl the rune-etched javelin and blink straight to its point of impact for 1d10 + Might dmg and Evade (1t)!"
+    },
+    "desc": "Rune-etched throwing javelin that flashes its wielder across the battlefield (+Crit, +1 Athletics) with Blink-Spear Lunge."
   },
   "bk_knight_sergeant_s_surcoat": {
     "id": "bk_knight_sergeant_s_surcoat",
@@ -663,7 +677,21 @@ window.OAKHAVEN.registerItems({
     "rarity": "uncommon",
     "value": 58,
     "atk": 3,
-    "desc": "+3 Attack Polearm (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "lifesteal": 0.08
+    },
+    "activeAbility": {
+      "name": "Reaping Arc",
+      "icon": "🌾",
+      "charges": 2,
+      "dmgDice": "1d10",
+      "dmgStat": "might",
+      "dmgType": "physical",
+      "dot": { "dmg": 3, "turns": 2, "label": "Deep Gash" },
+      "desc": "2/Quest: Sweep the curved polearm blade for 1d10 + Might dmg and Deep Gash (3 dmg/t, 2t)!"
+    },
+    "desc": "Long-hafted curved steel war scythe built for sweeping cuts (+Crit, 8% Lifesteal) with Reaping Arc."
   },
   "bk_spiked_chain": {
     "id": "bk_spiked_chain",

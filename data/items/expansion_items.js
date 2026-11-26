@@ -58,7 +58,7 @@ window.OAKHAVEN.registerItems({
       amber_aegis:         { id:"amber_aegis", name:"Resin-Forged Aegis", type:"offhand", ac:3, spirit:1, value:125, unique:true, desc:"+3 AC, +1 Spirit (Solis Unique)" },
 
       // --- Quest 10 Uniques: The Scorched Nest of Wyrm Ridge (Part 1) ---
-      drakefang_spear:     { id:"drakefang_spear", name:"Drakefang Spear", type:"weapon", atk:4, might:2, value:145, unique:true, desc:"+4 Attack, +2 Might (Wyrm Ridge Unique)" },
+      drakefang_spear:     { id:"drakefang_spear", name:"Drakefang Spear", type:"weapon", atk:4, might:2, value:145, unique:true, passives:{ bossDmgBonus:4, critRange:11 }, activeAbility:{ name:"Wyrm-Fang Skewer", icon:"🐉", charges:2, mp:2, dmgDice:"2d10", dmgStat:"might", dmgType:"fire", dot:{ dmg:4, turns:2, label:"Drake-Burn" }, desc:"2/Quest (2 MP): Drive the drake-tooth spear home for 2d10 + Might fire dmg and Drake-Burn (4/t, 2t)!" }, desc:"Ash-hafted spear tipped with a blazing Wyrm Ridge drake fang (+4 Boss Dmg, +Crit) with Wyrm-Fang Skewer." },
       cinderhide_vest:     { id:"cinderhide_vest", name:"Cinderhide Scale-Vest", type:"armor", ac:4, agility:1, value:138, unique:true, desc:"+4 AC, +1 Agility (Wyrm Ridge Unique)" },
 
       // --- Quest 11 Uniques (PART 2 of Malakor): The Phylactery Throne ---

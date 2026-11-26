@@ -1,6 +1,6 @@
 {
-  "totalPasses": 18,
-  "totalItemsReworked": 180,
+  "totalPasses": 19,
+  "totalItemsReworked": 190,
   "history": [
     {
       "pass": 1,
@@ -289,6 +289,22 @@
         "bq_caravan_water_flask"
       ],
       "summary": "Reworked 5 Vault of Magic items (including Sea Witch's Blade, Crook of the Flock, Labyrs of the Raging Bull, Armor of the Leaf), Soulreaver Claymore, Vanisia's Grim Hammer, and 3 quest relics."
+    },
+    {
+      "pass": 19,
+      "items": [
+        "vom_slimeblade",
+        "vom_sand_suit",
+        "vom_shimmer_ring",
+        "bk_javelin_of_teleportation",
+        "bk_war_scythe",
+        "drakefang_spear",
+        "bq_king_silver_blade",
+        "bq_cherufe_magma_mantle",
+        "bq_pluming_lantern_charm",
+        "bq_alchemy_river_flask"
+      ],
+      "summary": "Reworked 3 Vault of Magic items (Slimeblade, Sand Suit, Shimmer Ring), 2 Tome of Heroes weapons, Drakefang Spear, Legendary Olov Yurak Cinder-Mantle, Silver-King's Crypt Blade, Pluming Lantern Dream-Vial, and Ever-Brewing Alchemy Flask."
     }
   ],
   "itemPasses": {
@@ -471,6 +487,16 @@
     "nf_vanisia_hammer": 1,
     "bq_inheritor_cutlass": 1,
     "bq_splitsoul_warhammer": 1,
-    "bq_caravan_water_flask": 1
+    "bq_caravan_water_flask": 1,
+    "vom_slimeblade": 1,
+    "vom_sand_suit": 1,
+    "vom_shimmer_ring": 1,
+    "bk_javelin_of_teleportation": 1,
+    "bk_war_scythe": 1,
+    "drakefang_spear": 1,
+    "bq_king_silver_blade": 1,
+    "bq_cherufe_magma_mantle": 1,
+    "bq_pluming_lantern_charm": 1,
+    "bq_alchemy_river_flask": 1
   }
 }

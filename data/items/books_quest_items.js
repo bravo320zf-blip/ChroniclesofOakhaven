@@ -431,7 +431,19 @@ window.OAKHAVEN.registerItems({
     atk: 6,
     might: 1,
     arcana: 1,
-    desc: "+6 Attack, +1 Might, +1 Arcana. Death-forged runeblade won in the Warlock's Crypt."
+    passives: { undeadDmgBonus: 6, lifesteal: 0.12, critRange: 10 },
+    activeAbility: {
+      name: "Silver Pact Cleave",
+      icon: "🗡️",
+      charges: 2,
+      mp: 2,
+      dmgDice: "3d8",
+      dmgStat: "might",
+      dmgType: "shadow",
+      undeadDouble: true,
+      desc: "2/Quest (2 MP): Slash with tarnished silver-fext power for 3d8 + Might shadow dmg (2x vs Undead)!"
+    },
+    desc: "Death-forged silver runeblade won in the Warlock's Crypt (+6 vs Undead, 12% Lifesteal, Crit 10+) with Silver Pact Cleave."
   },
   "bq_springwell_aegis": {
     id: "bq_springwell_aegis",
@@ -1133,7 +1145,20 @@ window.OAKHAVEN.registerItems({
     might: 2,
     arcana: 2,
     maxHp: 8,
-    desc: "+3 AC, +2 Might, +2 Arcana, +8 Max HP. Volcanic cloak forged from the fallen Cherufe's embers."
+    passives: { dmgReduce: 4, thornsDmg: 6, spellDmgBonus: 4, bossDmgBonus: 4 },
+    activeAbility: {
+      name: "Cherufe Eruption",
+      icon: "🌋",
+      charges: 3,
+      mp: 3,
+      dmgDice: "4d8",
+      dmgStat: "arcana",
+      dmgType: "fire",
+      dot: { dmg: 6, turns: 3, label: "Molten Cinder" },
+      shieldTurns: 2,
+      desc: "3/Quest (3 MP): Unleash volcanic embers for 4d8 + Arcana fire dmg, Molten Cinder (6/t, 3t), and +3 AC (2t)!"
+    },
+    desc: "Legendary volcanic cloak woven from the Cherufe's embers (-4 Dmg Taken, 6 Thorns, +4 Spell & Boss Dmg) with Cherufe Eruption."
   },
   "bq_void_touched_buckler": {
     id: "bq_void_touched_buckler",
@@ -1549,7 +1574,18 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     luck: 2,
     maxMp: 6,
-    desc: "+2 Arcana, +2 Luck, +6 Max MP. Iridescent memory-charm seized from the Dream-Thieves."
+    passives: { mpRegen: 1, spellCostReduce: 1, skillBonus: { Perception: 2, Lore: 2 } },
+    activeAbility: {
+      name: "Lucid Dream-Surge",
+      icon: "💭",
+      charges: 2,
+      ooc: true,
+      restoreMp: 6,
+      restoreLuck: 2,
+      evadeTurns: 2,
+      desc: "2/Quest: Uncork stolen dream-mist — restore +6 MP, +2 Current Luck, and gain Evade (2t)!"
+    },
+    desc: "Iridescent memory-charm seized from the Dream-Thieves (+1 MP/t, -1 MP Cost, +2 Perception & Lore) with Lucid Dream-Surge."
   },
   "bq_oshragora_hourglass": {
     id: "bq_oshragora_hourglass",
@@ -3212,9 +3248,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     spirit: 2,
     luck: 1,
-    passives: { bombDmgBonus: 4, healBonus: 3 },
-    activeAbility: { name: "Rainbow Concoction", icon: "🧪", charges: 3, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 3, desc: "3/Quest: Uncork a shifting alchemical draught to restore 2d8 + Spirit HP and +3 MP!" },
-    desc: "Iridescent crystal flask from the River of Alchemy (+4 Bomb Dmg, +3 Healing) with Rainbow Concoction."
+    passives: { bombDmgBonus: 4, healBonus: 3, mpRegen: 1 },
+    activeAbility: { name: "Rainbow Concoction", icon: "🧪", charges: 3, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 4, desc: "3/Quest: Uncork a shifting alchemical draught to restore 2d8 + Spirit HP and +4 MP!" },
+    desc: "Iridescent crystal flask from the River of Alchemy (+4 Bomb Dmg, +3 Healing, +1 MP/t) with Rainbow Concoction."
   },
   "bq_god_king_khopesh": {
     id: "bq_god_king_khopesh",
