@@ -117,7 +117,7 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // EXPANSION QUEST 3: THE CLOCKWORK FOUNDRY OF BRASSHAVEN (12 PAGES)
+      // EXPANSION QUEST 3: THE CLOCKWORK FOUNDRY OF BRASSHAVEN (15 PAGES)
       // Uniques: aether_gauntlet, chronos_monocle
       // ==========================================================
       brasshaven: {
@@ -127,48 +127,71 @@ window.OAKHAVEN.registerQuests({
         difficulty: "Medium-Hard",
         recommendedLevel: 3,
         discoverySource: "Tinkerer Pip Cogsworth (Tavern)",
-        summary: "Infiltrate a ticking brass foundry overrun by rogue automatons, disarm steam-valves, and shut down the Arch-Machinist Core to claim the Aether-Coil Gauntlet and Chronos Monocle.",
-        totalPages: 12,
+        summary: "Infiltrate a ticking brass foundry overrun by rogue automatons, rescue Pip's trapped apprentice, disarm steam-valves, and shut down the Arch-Machinist Core to claim the Aether-Coil Gauntlet and Chronos Monocle.",
+        totalPages: 15,
         pages: {
-          1: { zone:"Gear-Gate", title:"The Ticking Portal", safeRetreat:true, text:"Brass pistons hiss in unison behind Brasshaven's iron doors. A maintenance hatch ticks quietly on the left, while the main conveyor belt rumbles straight ahead.", choices:[
+          1: { zone:"Gear-Gate", title:"The Ticking Portal", safeRetreat:true, text:"Heavy brass pistons slam in mechanical unison behind Brasshaven's riveted iron doors, puffing warm clouds of machine-oil and ozone into the ravine. Tinkerer Pip Cogsworth's hurried chalk arrows mark the threshold: the main conveyor belt rumbles straight into the Assembly Floor, a grease-slick maintenance hatch ticks softly on the left, and a wall of brass pressure-gauges shudders beside the lintel.", choices:[
             { t:"Ride the main conveyor belt into the Assembly Floor.", to:2 },
-            { t:"Unbolt the maintenance hatch.", badge:"Tinkering / Lockpicking DC 10", check:{ stat:"arcana", skill:"Tinkering", dc:10, pass:3, fail:2, passMsg:"You slip neatly into the Control Loft!", failMsg:"A steam jet forces you onto the main conveyor!" } }
+            { t:"Unbolt the ticking maintenance hatch.", badge:"Agility / Lockpicking DC 10", check:{ stat:"agility", skill:"Lockpicking", dc:10, pass:3, fail:2, passMsg:"The brass latch gives with a crisp click—you slip unseen into the Control Loft!", failMsg:"A scalding steam-vent hisses from the hinge, forcing you onto the main conveyor!" } },
+            { t:"Study the shuddering pressure-gauge manifold for a safe service route.", badge:"Arcana / Detect Traps DC 11", check:{ stat:"arcana", skill:"Detect Traps", dc:11, pass:13, fail:2, passMsg:"You memorize the exhaust rhythm and slip up to the Boiler Gallery!", failMsg:"A relief whistle shrieks overhead—you duck onto the conveyor belt!" }, onChoose:{ cw:"VALVE_MAP" } }
           ]},
-          2: { zone:"Assembly Floor", title:"The Steam-Hound Patrol", text:"Two brass-plated Clockwork Hounds pivot on squealing gears, spitting sparks from their copper jaws!", enemy:{ name:"Clockwork Hounds", desc:"Relentless mechanical watchdogs.", hp:22, ac:12, atk:4, dmg:5, xp:48, gold:28, items:["alchemical_oil", ...rollRandomLoot(["material","consumable"], 1)], flee:1 }, choices:[
-            { t:"Climb to the Artificer's Control Loft.", to:3 },
-            { t:"Enter the Spinning Gear-Maze.", to:4 }
+          2: { zone:"Assembly Floor", title:"The Steam-Hound Patrol", text:"The conveyor dumps you onto oil-stained grating beneath swinging iron cranes. Two brass-plated Clockwork Hounds pivot on squealing bevel-gears, emerald lens-eyes locking onto your chest as copper sparks spit from their hinged jaws!", enemy:{ name:"Clockwork Hounds", desc:"Relentless mechanical watchdogs.", hp:22, ac:12, atk:4, dmg:5, xp:48, gold:28, items:["alchemical_oil", ...rollRandomLoot(["material","consumable"], 1)], flee:1 }, choices:[
+            { t:"Climb the brass ladder to Pip's Control Loft.", to:3 },
+            { t:"Follow the catwalk toward a desperate shout in the Boiler Gallery.", to:13 },
+            { t:"Enter the Spinning Gear-Maze directly.", to:4 }
           ]},
-          3: { zone:"Control Loft", title:"Pip's Calibration Desk", text:"Atop a mahogany drafting bench rests the gleaming Chronos Monocle, a master override punch-card, and a random crate of spare gear!", onEnter:{ cw:"PUNCH_CARD", items:["chronos_monocle", ...rollRandomLoot(["consumable","valuable","material"], 1)], msg:"Found Chronos Monocle, PUNCH_CARD & random loot!" }, choices:[
-            { t:"Descend into the Spinning Gear-Maze.", to:4 }
+          3: { zone:"Control Loft", title:"Pip's Calibration Desk", text:"High above the clanking floor, Pip's mahogany drafting bench sits buried under brass calipers and torn schematics. Nestled in a velvet lens-case rests the gleaming Chronos Monocle beside a perforated brass Override Punch-Card stamped 'CORE EMERGENCY HALT'—and a spare salvage crate!", onEnter:{ cw:"PUNCH_CARD", items:["chronos_monocle", ...rollRandomLoot(["consumable","valuable","material"], 1)], msg:"Found Chronos Monocle, PUNCH_CARD & random loot!" }, choices:[
+            { t:"Cross the overhead catwalk to investigate a banging noise in the Boiler Gallery.", to:13 },
+            { t:"Descend the spiral iron stair into the Spinning Gear-Maze.", to:4 }
           ]},
-          4: { zone:"Gear-Maze", title:"The Pressurized Piston Hall", text:"Colossal brass gears churn across the walkway while superheated steam vents every three seconds!", choices:[
-            { t:"Re-time the valves with Tinkering!", reqSkill:"Tinkering", badge:"Tinkering", to:5, onChoose:{ msg:"The pistons lock safely in place!" } },
-            { t:"Sprint between steam bursts!", badge:"Agility DC 11", check:{ stat:"agility", skill:"Athletics", dc:11, pass:5, fail:5, failDmg:4, passMsg:"Clean dash through the gears!", failMsg:"Scalding steam blisters your arm (-4 HP)!" } }
+          4: { zone:"Gear-Maze", title:"The Pressurized Piston Hall", text:"Colossal brass gears the size of millwheels churn across the narrow walkway while superheated steam vents from copper nozzles every three heartbeats, fogging the air white!", choices:[
+            { t:"Re-time the brass governor valves with Detect Traps.", reqSkill:"Detect Traps", badge:"Detect Traps", to:5, onChoose:{ msg:"You slip a brass shim into the governor—the pistons lock safely in place!" } },
+            { t:"Pace your steps to the pressure-gauge rhythm you memorized.", reqCw:"VALVE_MAP", badge:"VALVE_MAP", to:5, onChoose:{ msg:"You glide through the dead-zones between steam bursts without a scratch!" } },
+            { t:"Sprint straight through the hissing steam bursts!", badge:"Agility / Athletics DC 11", check:{ stat:"agility", skill:"Athletics", dc:11, pass:5, fail:5, failDmg:4, passMsg:"You vault a turning spoke and roll cleanly through the steam!", failMsg:"Scalding white vapor blisters your forearm (-4 HP)!" } }
           ]},
-          5: { zone:"Dynamo Wing", title:"The Aether Dynamo", text:"Blue lightning arcs between two copper coils. Inside a glass containment cylinder hovers the Aether-Coil Gauntlet, guarded by a Brass Sentinel!", enemy:{ name:"Brass Sentinel", desc:"Heavy-armored foundry guardian.", hp:24, ac:12, atk:4, dmg:5, xp:55, gold:34, items:["aether_gauntlet", ...rollRandomLoot(["material","valuable"], 1)], flee:1 }, choices:[
-            { t:"Salvage the Dynamo Locker for extra supplies.", to:6 },
-            { t:"March straight to the Arch-Machinist Core.", to:7 }
+          5: { zone:"Dynamo Wing", title:"The Aether Dynamo", text:"Crackling blue lightning arcs between twin copper coils that smell like a summer storm. Inside a fluted glass containment cylinder hovers the Aether-Coil Gauntlet—guarded by a towering Brass Sentinel whose furnace-chest glows furnace-orange!", enemy:{ name:"Brass Sentinel", desc:"Heavy-armored foundry guardian.", hp:24, ac:12, atk:4, dmg:5, xp:55, gold:34, items:["aether_gauntlet", ...rollRandomLoot(["material","valuable"], 1)], flee:1 }, choices:[
+            { t:"Salvage the Artificer's Locker for extra supplies.", to:6 },
+            { t:"Inspect the humming Capacitor Siphon feeding the Core Chamber.", to:15 },
+            { t:"March straight into the Arch-Machinist Core Chamber.", to:7 }
           ]},
-          6: { zone:"Dynamo Wing", title:"The Artificer's Locker", text:"You crack open a brass tool-chest containing 30 GP and random workshop salvage.", onEnter:{ gold:30, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 2), msg:"Looted 30 GP & 2 random items!" }, choices:[
+          6: { zone:"Dynamo Wing", title:"The Artificer's Locker", text:"Behind a snapped padlock you crack open a brass tool-chest lined with oiled felt, recovering 30 GP in guild wages and fresh workshop salvage.", onEnter:{ gold:30, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 2), msg:"Looted 30 GP & 2 random items!" }, choices:[
+            { t:"Inspect the humming Capacitor Siphon beside the Core doors.", to:15 },
             { t:"Enter the Core Chamber.", to:7 }
           ]},
-          7: { zone:"Core Chamber", title:"The Arch-Machinist Core", text:"Suspended from golden chains hovers a twelve-foot brass sphere bristling with lightning-rods: the rogue Arch-Machinist Core! 'INTRUDER DETECTED. INITIATING PURGE.'", choices:[
-            { t:"Slot Pip's Override Punch-Card into the console!", reqCw:"PUNCH_CARD", badge:"PUNCH_CARD", to:8 },
-            { t:"Overload its coils with Chain Lightning!", reqSpell:"Chain Lightning", mp:4, badge:"Chain Lightning (4 MP)", to:8, onChoose:{ msg:"Sparks cascade across the Core's plating!" } },
+          7: { zone:"Core Chamber", title:"The Arch-Machinist Core", text:"Suspended from golden chains at the heart of a domed brass rotunda hovers a twelve-foot sphere bristling with crackling lightning-rods. Its shuttered brass iris snaps open in blinding blue light: 'INTRUDER DETECTED. FOUNDRY DIRECTIVE SEVEN: INITIATING PURGE.'", choices:[
+            { t:"Slot Pip's Override Punch-Card into the brass console!", reqCw:"PUNCH_CARD", badge:"PUNCH_CARD", to:8 },
+            { t:"Exploit the drained capacitor shields before the Core can recharge!", reqCw:"SIPHON_DRAINED", badge:"SIPHON_DRAINED", to:8 },
+            { t:"Overload its coils with Chain Lightning!", reqSpell:"Chain Lightning", mp:4, badge:"Chain Lightning (4 MP)", to:8, onChoose:{ msg:"Arcing bolts cascade across the Core's plating, blowing its surge-fuses!" } },
             { t:"Attack the Arch-Machinist Core head-on!", to:9 }
           ]},
-          8: { zone:"Core Chamber", title:"System Malfunction!", text:"Warning bells clang as the Core's shields drop! Sparks fly as it lashes out with erratic arcs!", enemy:{ name:"Arch-Machinist Core (Glitched)", desc:"Overloaded mechanical mastermind.", hp:24, ac:12, atk:4, dmg:5, xp:95, gold:80, items:["runed_shards", ...rollRandomLoot(["valuable","accessory"], 1)] }, choices:[
+          8: { zone:"Core Chamber", title:"System Malfunction!", text:"Warning bells clang across the rotunda as the Core's shield-rings drop in showers of white sparks! 'ERR-RROR—DIRECTIVE CORRUPT!' Its brass arms whip wildly as it lunges!", enemy:{ name:"Arch-Machinist Core (Glitched)", desc:"Overloaded mechanical mastermind.", hp:24, ac:12, atk:4, dmg:5, xp:95, gold:80, items:["runed_shards", ...rollRandomLoot(["valuable","accessory"], 1)] }, choices:[
             { t:"Pull the Master Shutdown Lever!", to:10 }
           ]},
-          9: { zone:"Core Chamber", title:"Full-Power Purge", text:"Twin Tesla arcs roar to life as the Arch-Machinist Core spins at lethal speed!", enemy:{ name:"Arch-Machinist Core", desc:"Apex construct of Brasshaven.", hp:32, ac:13, atk:5, dmg:6, xp:120, gold:95, items:["runed_shards", ...rollRandomLoot(["valuable","weapon"], 1)] }, choices:[
+          9: { zone:"Core Chamber", title:"Full-Power Purge", text:"Twin Tesla arcs roar to life with a deafening crack as the Arch-Machinist Core spins at lethal speed, bathing the rotunda in blinding blue fire!", enemy:{ name:"Arch-Machinist Core", desc:"Apex construct of Brasshaven.", hp:32, ac:13, atk:5, dmg:6, xp:120, gold:95, items:["runed_shards", ...rollRandomLoot(["valuable","weapon"], 1)] }, choices:[
             { t:"Pull the Master Shutdown Lever!", to:10 }
           ]},
-          10: { zone:"Core Chamber", title:"Silence in the Gearworks", text:"With a long, sighing hiss of steam, every piston in Brasshaven grinds to a peaceful halt. A hidden vault door clicks open, revealing 50 GP and a random treasure!", onEnter:{ gold:50, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 1), msg:"Claimed 50 GP & a random vault treasure!" }, choices:[
+          10: { zone:"Core Chamber", title:"Silence in the Gearworks", text:"With a long, sighing hiss of steam, every piston and flywheel in Brasshaven grinds to a peaceful halt. Beneath the silenced Core, a hidden brass vault clicks open, revealing 50 GP and a gleaming artificer treasure!", onEnter:{ gold:50, items: rollRandomLoot(["weapon","armor","accessory","valuable"], 1), msg:"Claimed 50 GP & a random vault treasure!" }, choices:[
+            { t:"Escort Bramwell out and return the Foundry Keys to Pip Cogsworth!", reqCw:"BRAMWELL_SAVED", badge:"BRAMWELL_SAVED", to:11, onChoose:{ gold:35, xp:25, msg:"Pip adds a 35 GP & 25 XP rescue bonus for bringing his apprentice home safely!" } },
             { t:"Return the Foundry Keys to Pip Cogsworth!", to:11 },
             { t:"Strip the finest brass cores for yourself before leaving.", to:12 }
           ]},
-          11: { zone:"Epilogue", title:"Savior of Brasshaven", text:"Pip Cogsworth dances a jig in the Rusty Flagon as you hand over the Foundry Keys, paying a generous guild bounty for restoring Brasshaven!", ending:{ type:"true", title:"Master of Brasshaven", xp:125, gold:125, trophy:"Golden Gear-Key" }, choices:[] },
-          12: { zone:"Epilogue", title:"The Brass Plunderer", text:"Your satchel clinks with rare coils, gears, and artificer gold—enough to buy half the Ironclad Armory!", ending:{ type:"victory", title:"Foundry Raider", xp:105, gold:155, trophy:"Aether Dynamo Core" }, choices:[] }
+          11: { zone:"Epilogue", title:"Savior of Brasshaven", text:"Pip Cogsworth leaps onto a table in the Rusty Flagon and dances a clattering jig as you hand over the Foundry Keys, thrusting a heavy guild purse into your palm while the tavern cheers the quieted gearworks of Brasshaven!", ending:{ type:"true", title:"Master of Brasshaven", xp:125, gold:125, trophy:"Golden Gear-Key" }, choices:[] },
+          12: { zone:"Epilogue", title:"The Brass Plunderer", text:"Your satchel clinks with rare copper coils, precision gears, and artificer gold—enough to buy half the Ironclad Armory while the foundry's secrets remain yours alone!", ending:{ type:"victory", title:"Foundry Raider", xp:105, gold:155, trophy:"Aether Dynamo Core" }, choices:[] },
+          13: { zone:"Boiler Gallery", title:"The Trapped Apprentice", text:"On a narrow iron catwalk above the boilers, Pip's soot-streaked apprentice Bramwell is pinned behind an overturned brass slag-cart while a jammed steam-valve hisses furiously across his only exit. 'Don't touch the red wheel!' he shouts, waving a copper grounding-spool. 'Unjam the counterweight latch!'", choices:[
+            { t:"Bleed the relief pipe safely using your pressure-gauge rhythm.", reqCw:"VALVE_MAP", badge:"VALVE_MAP", to:14, onChoose:{ msg:"You twist the brass bypass in perfect tempo—the steam dies instantly!" } },
+            { t:"Weld-snap the jammed counterweight pin with Firebolt!", reqSpell:"Firebolt", mp:3, badge:"Firebolt (3 MP)", to:14, onChoose:{ msg:"A crisp bolt shears the rusted pin and the slag-cart rolls clear!" } },
+            { t:"Heave the brass slag-cart aside with raw strength!", badge:"Might / Athletics DC 11", check:{ stat:"might", skill:"Athletics", dc:11, pass:14, fail:14, failDmg:3, passMsg:"With a grunt of effort you tip the cart clear of the catwalk!", failMsg:"You shove the cart free, though hot steam nips your shoulder (-3 HP)!" } },
+            { t:"Leave the catwalk and drop down to the Spinning Gear-Maze.", to:4 }
+          ]},
+          14: { zone:"Boiler Gallery", title:"Bramwell's Grounding Spool", text:"Bramwell scrambles clear, coughing soot and grinning with relief. 'Thought I'd be boiled like a turnip! Take this—my emergency wage purse and a copper grounding-spool. If you find the Capacitor Siphon outside the Core, clamp that spool onto the brass busbar to drop its shields!' He points you to a cool air-vent where you catch your breath (+6 HP, +3 MP) before he slips out the service shaft.", onEnter:{ cw:"BRAMWELL_SAVED", gold:20, healHp:6, healMp:3, msg:"Rescued Bramwell (+20 GP, +6 HP, +3 MP) and received his grounding-spool tip!" }, choices:[
+            { t:"Descend into the Spinning Gear-Maze.", to:4 }
+          ]},
+          15: { zone:"Dynamo Wing", title:"The Capacitor Siphon", text:"Beside the vaulted Core doors stands a humming glass manifold feeding raw blue lightning straight into the Arch-Machinist's defensive shields. Thick copper busbars thrum with enough voltage to drop a bull.", choices:[
+            { t:"Clamp Bramwell's copper grounding-spool onto the busbar!", reqCw:"BRAMWELL_SAVED", badge:"BRAMWELL_SAVED", to:7, onChoose:{ cw:"SIPHON_DRAINED", msg:"Blue arcs drain harmlessly into the slag-vat—the Core's shield hum dies!" } },
+            { t:"Shunt the arcane current into the floor-plates with Arcana.", reqSkill:"Arcana", badge:"Arcana", to:7, onChoose:{ cw:"SIPHON_DRAINED", msg:"You redirect the aether-flow cleanly, starving the Core's shield coils!" } },
+            { t:"Test Your Luck yanking the master breaker lever!", badge:"Test Your Luck", luck:{ pass:7, fail:7, failDmg:4, passMsg:"The breaker snaps down cleanly—the Core's shields flicker out!", failMsg:"A blue arc jolts your gauntlet (-4 HP), though the breaker trips!", onPass:{ cw:"SIPHON_DRAINED" } } },
+            { t:"Leave the manifold alone and step into the Core Chamber.", to:7 }
+          ]}
         }
       },
 

@@ -1,5 +1,5 @@
 {
-  "totalPasses": 27,
+  "totalPasses": 28,
   "history": [
     {
       "pass": 1,
@@ -183,6 +183,13 @@
       "questId": "nf_6_vengeance_mine",
       "title": "Nightfell VI: Vengeance is Mine",
       "summary": "Expanded 6-chapter finale from 12 to 15 pages with Alacia Deserete's Ward-Chamber (ALCHEMICAL_COUNTER/ENCLAVE_MAP), Six Names on the Cairn memorial (DAUGHTERS_NAMED), Turn Undead & merciful skull ritual (fixed invalid Lore skill), and Redeemer of Nightfell bonus ending."
+    },
+    {
+      "pass": 28,
+      "questId": "brasshaven",
+      "title": "The Clockwork Foundry of Brasshaven",
+      "file": "data/quests/expansion_frontier_quests.js",
+      "summary": "Expanded from 12 to 15 pages: fixed invalid Tinkering skill checks to Lockpicking/Detect Traps, added pressure-gauge VALVE_MAP route, Boiler Gallery rescue of Pip's apprentice Bramwell (BRAMWELL_SAVED + Firebolt/Athletics/VALVE_MAP options + breather heal), Capacitor Siphon sabotage (SIPHON_DRAINED), and a rescue bonus on the True Ending."
     }
   ],
   "questPasses": {
@@ -212,6 +219,7 @@
     "ul_fungal_forgetting": 1,
     "bk_b20_rune_crypt_sianis": 1,
     "bandit_citadel": 1,
-    "nf_6_vengeance_mine": 1
+    "nf_6_vengeance_mine": 1,
+    "brasshaven": 1
   }
 }
