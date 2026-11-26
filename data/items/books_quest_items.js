@@ -396,11 +396,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 250,
-    source: "Book of Lairs",
     arcana: 2,
     spirit: 1,
     maxMp: 5,
-    desc: "+2 Arcana, +1 Spirit, +5 Max MP. Sunken red-hag coral needles sealed in ironwood."
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, mpRegen: 1, skillBonus: { Arcana: 3, Herbalism: 2 } },
+    activeAbility: { name: "Red-Hag Weave-Hex", icon: "🪸", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "psychic", chillTurns: 3, dot: { dmg: 5, turns: 3, label: "Coral Hex" }, desc: "2/Quest (2 MP): Stitch a sunken hag-curse for 3d8 + Arcana psychic dmg, Coral Hex (5/t, 3t), and Chill (3t)!" },
+    desc: "Sunken red-hag coral needles sealed in ironwood (+4 Spell Dmg, -1 MP Cost, +1 MP/turn, +3 Arcana, +2 Herbalism) with Red-Hag Weave-Hex."
   },
   "bq_scorpion_prince_dagger": {
     id: "bq_scorpion_prince_dagger",
@@ -3265,9 +3266,9 @@ window.OAKHAVEN.registerItems({
     ac: 6,
     might: 3,
     maxHp: 16,
-    passives: { dmgReduce: 4, thornsDmg: 5, bossDmgBonus: 5 },
-    activeAbility: { name: "Colossus Bulwark", icon: "🗿", charges: 2, ooc: true, healBase: 16, shieldTurns: 3, selfBuffAtk: { atk: 4, turns: 3 }, desc: "2/Quest: Awaken the titan's heart-furnace — restore 16 HP, gain +3 AC (3t) and +4 Attack (3t)!" },
-    desc: "Monumental bronze plate forged from Nygethuaac's core (-4 Dmg Taken, 5 Thorns, +5 Boss Dmg) with Colossus Bulwark."
+    passives: { dmgReduce: 4, thornsDmg: 5, bossDmgBonus: 5, skillBonus: { Athletics: 4 } },
+    activeAbility: { name: "Colossus Bulwark", icon: "🗿", charges: 2, ooc: true, healBase: 16, restoreLuck: 1, shieldTurns: 3, selfBuffAtk: { atk: 4, turns: 3 }, desc: "2/Quest: Awaken the titan's heart-furnace — restore 16 HP, +1 Luck, +3 AC (3t), and +4 Attack (3t)!" },
+    desc: "Monumental bronze plate forged from Nygethuaac's core (-4 Dmg Taken, 5 Thorns, +5 Boss Dmg, +4 Athletics) with Colossus Bulwark."
   },
   "bq_chaos_portal_ring": {
     id: "bq_chaos_portal_ring",

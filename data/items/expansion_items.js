@@ -17,7 +17,7 @@ window.OAKHAVEN.registerItems({
       starlight_vial:      { id:"starlight_vial", name:"Starlight Vial", type:"consumable", healMp:10, value:30, desc:"Restores 10 MP" },
       phoenix_tonic:       { id:"phoenix_tonic", name:"Phoenix Tonic", type:"consumable", healHp:20, healMp:6, value:55, desc:"Restores 20 HP & 6 MP" },
       mithril_buckler:     { id:"mithril_buckler", name:"Mithril Buckler", type:"offhand", ac:3, value:85, desc:"+3 AC" },
-      elven_sabre:         { id:"elven_sabre", name:"Elven Sabre", type:"weapon", atk:3, agility:1, value:78, desc:"+3 Attack, +1 Agility" },
+      elven_sabre:         { id:"elven_sabre", name:"Elven Sabre", type:"weapon", rarity:"uncommon", atk:3, agility:1, value:78, passives:{ critRange:11, skillBonus:{ Stealth:1, Athletics:1 } }, activeAbility:{ name:"Crescent Leaf-Cut", icon:"⚔️", charges:2, dmgDice:"1d10", dmgStat:"agility", dmgType:"physical", evadeTurns:1, desc:"2/Quest: Flow through an elven blade-dance for 1d10 + Agility dmg and Evade (1t)!" }, desc:"Graceful leaf-curved elven steel sabre (+Crit, +1 Stealth/Athletics) with Crescent Leaf-Cut." },
       velvet_mantle:       { id:"velvet_mantle", name:"Velvet Mantle", type:"cloak", ac:2, spirit:1, value:65, passives:{ goldFindPct:10, skillBonus:{ Persuasion:1 } }, desc:"Plush nobleman's velvet mantle that commands respect (+1 Persuasion, +10% Gold Found)." },
 
       // --- Quest 1 Uniques: The Frostpeak Ice-Caverns (2 Unique Items) ---

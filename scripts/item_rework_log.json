@@ -1,6 +1,6 @@
 {
-  "totalPasses": 32,
-  "totalItemsReworked": 320,
+  "totalPasses": 33,
+  "totalItemsReworked": 330,
   "history": [
     {
       "pass": 1,
@@ -513,6 +513,22 @@
         "bq_ylia_war_crown"
       ],
       "summary": "Reworked 5 Vault of Magic items (Legendary Buckle of Blasting, Encouraging Armor, Undine Plate, Amulet of Sustaining Health, Boots of Solid Footing), Abyssal Tide-Trident, Signet of the Ebon Star, King Qalqat's Ring of Free Action, Mavros Pilgrim's War-Band, and Addlebury's Wisp-Ward Lantern."
+    },
+    {
+      "pass": 33,
+      "items": [
+        "vom_rod_swarming_skulls",
+        "vom_mutineers_blade",
+        "bq_coral_knitting_needles",
+        "vom_serpents_tooth",
+        "elven_sabre",
+        "vom_rowdys_club",
+        "bk_chakram",
+        "bq_colossus_heart_plate",
+        "vom_ring_sealing",
+        "vom_wolfbite_ring"
+      ],
+      "summary": "Reworked 6 Vault of Magic items (Ring of Sealing, Rod of Swarming Skulls, Wolfbite Ring, Mutineer's Blade, Serpent's Tooth, Rowdy's Club), Elven Sabre, Steel Chakram, Talitheos Coral Needles, and Legendary Bronze Heart-Plate of Nygethuaac."
     }
   ],
   "itemPasses": {
@@ -835,6 +851,16 @@
     "bq_qalqat_free_ring": 1,
     "vom_encouraging_armor": 1,
     "ul_ebon_star_signet": 1,
-    "bq_ylia_war_crown": 1
+    "bq_ylia_war_crown": 1,
+    "vom_rod_swarming_skulls": 1,
+    "vom_mutineers_blade": 1,
+    "bq_coral_knitting_needles": 1,
+    "vom_serpents_tooth": 1,
+    "elven_sabre": 1,
+    "vom_rowdys_club": 1,
+    "bk_chakram": 1,
+    "bq_colossus_heart_plate": 1,
+    "vom_ring_sealing": 1,
+    "vom_wolfbite_ring": 1
   }
 }

@@ -836,7 +836,13 @@ window.OAKHAVEN.registerItems({
     "value": 26,
     "atk": 1,
     "agility": 1,
-    "desc": "+1 Attack, +1 Agility (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "skillBonus": {
+        "Athletics": 1
+      }
+    },
+    "desc": "Balanced steel throwing ring honed along its outer rim (+Crit, +1 Athletics)."
   },
   "bk_war_fan": {
     "id": "bk_war_fan",
