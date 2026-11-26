@@ -3116,6 +3116,226 @@
               }
             }
           };
+        },
+
+        // 9. Sudden Frontier Tempest
+        () => {
+          const stormDmg = Math.max(2, 2 + Math.floor(lv * 0.9));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Frontier Tempest`,
+            subtitle: "Weather Hazard",
+            difficulty: "Hazard",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Squall Over the Ridge",
+                safeRetreat: true,
+                text: `Iron-grey thunderheads roll fast across ${zone.name}, driving stinging sleet and howling gusts across the trail! A lightning-split pine nearby exposes a gleaming pocket of ${altMatName}, while a low granite overhang offers quick shelter.`,
+                choices: [
+                  {
+                    t: `Sprint across the wind-lashed scree to snatch the exposed ${altMatName} before the squall peaks!`,
+                    badge: `Athletics / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Athletics", dc, pass: 2, fail: 3,
+                      failDmg: stormDmg,
+                      passMsg: `You scoop up the ${altMatName} and dive under cover just as hail hammers the ridge!`,
+                      failMsg: `Driving sleet and flying branches batter you (-${stormDmg} HP) as you scramble for shelter!`
+                    },
+                    onPass: { item: altMatId, gold: Math.round(baseGold * 0.7) }
+                  },
+                  {
+                    t: "Read the wind-break along the cliff to find a dry, hidden smuggler's cave.",
+                    badge: `Survival / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Survival", dc, pass: 2, fail: 3,
+                      passMsg: "Tucked behind dry brambles you find a sheltered alcove with a dry Pitch Torch and loose coin!",
+                      failMsg: "No cave turns up—you huddle beneath a pine bough until the downpour passes."
+                    },
+                    onPass: { item: "torch", gold: baseGold }
+                  },
+                  {
+                    t: "Duck beneath the granite overhang, kindle a tiny tinder-fire, and wait out the storm.",
+                    onChoose: { healHp: 6 + lv * 2, healMp: 3, msg: `Warm tinder-smoke and dry stone restore +${6 + lv * 2} HP and +3 MP!` },
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Outsmarted the Squall",
+                text: `As silver sunbeams break through the parting clouds, you pack your storm-won spoils and a damp bundle of ${matName} before returning to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Weathered the Tempest", xp: Math.round(baseXp * 1.2), gold: Math.round(baseGold * 0.4), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Drenched to the Bone",
+                text: `Shivering as the gale finally blows eastward, you still pluck a handful of ${matName} from the rain-washed verge on your walk home.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Survived the Squall", xp: baseXp, gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "After the Rain",
+                text: `The air smells crisp with wet pine and ozone as you leave the overhang, gathering fresh ${matName} along the glistening trail back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Sheltered from the Storm", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 10. Overturned Caravan Wagon
+        () => {
+          const snareDmg = Math.max(2, 1 + Math.floor(lv * 0.7));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Overturned Wagon`,
+            subtitle: "Frontier Salvage",
+            difficulty: "Discovery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Broken Axle in the Mud",
+                safeRetreat: true,
+                text: `Half-sunk in a muddy rut along ${zone.name} lies an abandoned merchant supply-wagon with a snapped oak axle. Torn canvas snaps in the breeze, and the heavy driver's box glints beneath the tilted timber frame.`,
+                choices: [
+                  {
+                    t: "Brace your shoulders and heave the heavy wagon-frame aside to open the driver's lockbox!",
+                    badge: `Athletics / Might DC ${dc}`,
+                    check: {
+                      stat: "might", skill: "Athletics", dc, pass: 2, fail: 3,
+                      passMsg: "With a grunt of effort, the timber shifts—revealing a dry Health Potion and trade silver!",
+                      failMsg: "The waterlogged frame refuses to budge, forcing you to settle for loose tailgate scraps."
+                    },
+                    onPass: { item: "health_potion", gold: baseGold }
+                  },
+                  {
+                    t: "Inspect the mud-caked undercarriage for hidden smuggler compartments and bandit snares.",
+                    badge: `Detect Traps / Luck DC ${dc}`,
+                    check: {
+                      stat: "luck", skill: "Detect Traps", dc, pass: 2, fail: 3,
+                      failDmg: snareDmg,
+                      passMsg: "You disarm a rusted wire-snare and slide out a hidden drawer holding a Silver Signet!",
+                      failMsg: `A bandit's iron snare snaps across your wrist (-${snareDmg} HP) before you wrench free!`
+                    },
+                    onPass: { item: "silver_signet", gold: Math.round(baseGold * 0.5) }
+                  },
+                  {
+                    t: `Grab a dry sack of ${matName} from the tailgate and slip away before scavengers arrive.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Clean Frontier Salvage",
+                text: `You stow the merchant's unclaimed salvage along with a spare bundle of ${matName} and head back toward Oakhaven's gates.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Caravan Salvager", xp: Math.round(baseXp * 1.2), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Empty Pickings",
+                text: `Distant crow-calls warn you not to linger—you grab a handful of ${matName} from the roadside and make for Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Scouted the Wreck", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Quick Hands, Safe Road",
+                text: `You leave the broken wagon to the crows and stroll safely back to Oakhaven with fresh ${matName} tucked in your pack.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Roadside Scavenger", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 11. The Whispering Lantern-Ghost
+        () => {
+          const chillDmg = Math.max(2, 2 + Math.floor(lv * 0.8));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Lantern-Ghost`,
+            subtitle: "Eerie Encounter",
+            difficulty: "Mystery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "The Spectral Courier",
+                safeRetreat: true,
+                text: `A pale azure lantern bobs silently along the mist-veiled track of ${zone.name}. Beneath its cold glow floats the translucent figure of an old frontier courier, pointing with a gloved hand toward a sunken milestone beside the road.`,
+                choices: [
+                  {
+                    t: "Speak a gentle blessing of the Dawn to release the courier from their long watch.",
+                    badge: `Persuasion / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Persuasion", dc, pass: 2, fail: 3,
+                      passMsg: "The courier bows in silent gratitude—dissolving into warm motes above a hidden Mana Elixir and silver!",
+                      failMsg: "The apparition flickers sadly and drifts away into the mist without a sound."
+                    },
+                    onPass: { item: "mana_elixir", gold: baseGold }
+                  },
+                  {
+                    t: "Trace the ghost's fading ley-trail with Arcana to uncover what lies buried by the milestone.",
+                    badge: `Arcana DC ${dc}`,
+                    check: {
+                      stat: "arcana", skill: "Arcana", dc, pass: 2, fail: 3,
+                      failDmg: chillDmg,
+                      passMsg: `Your arcane sight reveals a dry stone cache packed with ${altMatName} and old frontier coin!`,
+                      failMsg: `A wave of grave-cold mist numbs your fingers (-${chillDmg} HP) as the lantern winks out!`
+                    },
+                    onPass: { item: altMatId, gold: Math.round(baseGold * 1.1) }
+                  },
+                  {
+                    t: `Step respectfully off the road, let the pale lantern pass, and gather ${matName} nearby.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Rest for the Old Courier",
+                text: `With the sunken milestone's cache recovered and the mist lifting cleanly from the road, you collect a pouch of ${matName} and return to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Laid the Courier to Rest", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Faded Into Mist",
+                text: `Only cold twilight remains along the trail. You gather a bundle of ${matName} and briskly walk back to Oakhaven's warm lanterns.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Crossed a Frontier Ghost", xp: Math.round(baseXp * 0.85), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Quiet Passage",
+                text: `The azure lantern drifts peacefully over the treeline as you gather fresh ${matName} and return safely to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Respected the Road-Spirits", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
         }
       ];
 
