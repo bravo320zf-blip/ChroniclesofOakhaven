@@ -1,5 +1,5 @@
 {
-  "totalPasses": 24,
+  "totalPasses": 25,
   "history": [
     {
       "pass": 1,
@@ -165,6 +165,12 @@
       "questId": "ul_fungal_forgetting",
       "title": "Fungal Forest of Forgetting",
       "summary": "Expanded from 10 to 13 pages with Memory-Cap Hollow (SPORE_IMMUNITY), Spore-Distillery Vat (LYE_FLASK), Perception tripwire option, Athletics toadstool-cut option, richer prose/voice, and Savior of the Forgotten bonus ending."
+    },
+    {
+      "pass": 25,
+      "questId": "bk_b20_rune_crypt_sianis",
+      "title": "The Rune Crypt of Sianis",
+      "summary": "Expanded from 7 to 11 pages with Korrak the ravenfolk doom croaker parley, Mourning Reliquary counter-rune side-scene, dark rune unmaking ritual, Helari Silver Alcove, and Redeemer of House Helari bonus ending."
     }
   ],
   "questPasses": {
@@ -191,6 +197,7 @@
     "saltfang": 1,
     "bk_b17_tob3_lonely_cove": 1,
     "bk_b18_tob3_lost_forge": 1,
-    "ul_fungal_forgetting": 1
+    "ul_fungal_forgetting": 1,
+    "bk_b20_rune_crypt_sianis": 1
   }
 }

@@ -86,7 +86,8 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 2. THE RUNE CRYPT OF SIANIS (7 PAGES • LV 7)
+  // 2. THE RUNE CRYPT OF SIANIS (11 PAGES • LV 7)
+  // (Enriched Pass 1)
   // ==========================================================
   bk_b20_rune_crypt_sianis: {
     id: "bk_b20_rune_crypt_sianis",
@@ -97,66 +98,128 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Rusty Flagon Inn Rumor",
     summary: "Delve into the cursed Helari family crypt where desperate ravenfolk treasure-hunters are trapped by risen kinsmen and a psoglav demon guarding Sianis's dark resurrection rune.",
-    totalPages: 7,
+    totalPages: 11,
     pages: {
       1: {
         zone: "Disturbed Mourning Chamber",
         title: "Feathers in the Dust",
         safeRetreat: true,
-        text: "A secret panel stands pried ajar inside the ransacked Helari mourning chamber. Black ravenfolk feathers and shattered ward-candles trail deeper into the crypt—while hollow groans echo from the family alcoves!",
+        text: [
+          "Cold graveyard air spills through a secret marble panel pried ajar behind the faded Helari family tapestry. Glossy black ravenfolk feathers and shattered beeswax ward-candles trail down the spiral steps into the dark.",
+          "From the burial hall below rises a hollow, frost-choked chorus of moans—punctuated by the frantic, muffled croaking of someone still alive behind an overturned stone urn."
+        ],
         choices: [
-          { t: "Move silently and parley with the trapped ravenfolk doom croaker ahead!", badge: "Stealth / Persuasion DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 2, fail: 2, failDmg: 6, passMsg: "The surviving ravenfolk whisper the demon's weakness in exchange for safe passage!", failMsg: "Loose rubble clatters—undead Helari kin lunge from the alcoves (-6 HP)!" }, onPass: { cw: "RAVENFOLK_INTEL" } },
-          { t: "Stride boldly into the candle-strewn burial hall!", to: 2 }
+          { t: "Slip silently along the carved columns to parley with the trapped ravenfolk doom croaker ahead.", badge: "Stealth / Agility DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 8, fail: 2, failDmg: 6, passMsg: "You glide unseen behind the overturned urn—the startled ravenfolk lowers his staff to whisper!", failMsg: "Loose rubble clatters down the stairs—undead Helari kin lunge from the alcoves (-6 HP)!" } },
+          { t: "Examine the fractured ward-sigils on the secret panel to read Chernobog's binding geometry.", badge: "Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 2, fail: 2, passMsg: "You trace the flaw in Chernobog's ward-chain—revealing how to shatter the crypt guardians' defenses (+35 XP)!", failMsg: "The jagged dark runes blur in the gloom as cold footsteps shuffle closer." }, onPass: { cw: "RAVENFOLK_INTEL", xp: 35 } },
+          { t: "Stride boldly with steel drawn into the candle-strewn burial hall!", to: 2 }
         ]
       },
       2: {
         zone: "Helari Catacombs",
         title: "The Betrayed Family",
-        text: "Pale, frost-rimmed undead bearing the Helari family crest rise from overturned biers to defend Sianis's forbidden rune!",
+        text: [
+          "Frost rims the gilded arches of the Helari catacombs. One by one, pale undead kinsmen wearing tarnished family signets heave aside their overturned stone lids, eyes burning with bitter winter flame to guard Sianis's forbidden rune!"
+        ],
         enemy: { name: "Undead Helari Kinsmen", desc: "Risen victims of Sianis's desperate pact with Chernobog.", hp: 64, ac: 15, atk: 9, dmg: 9, undead: true, xp: 210, gold: 105, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1, weakCw: ["RAVENFOLK_INTEL"] },
         choices: [
-          { t: "Cross the threshold into Sianis's Inner Sanctum!", to: 3 }
+          { t: "Search the quiet side-chapel Mourning Reliquary before stepping into the Inner Sanctum.", to: 9 },
+          { t: "Cross the frost-slick threshold straight into Sianis's Inner Sanctum!", to: 3 }
         ]
       },
       3: {
         zone: "Inner Sanctum",
         title: "The Psoglav Demon",
-        text: "Snarling over Sianis Helari's rune-carved sarcophagus crouches a towering, dog-headed Psoglav Demon—Chernobog's enforcer sent to guard the cursed resurrection rune!",
-        enemy: { name: "Psoglav Crypt-Warden", desc: "Savage abyssal fiend guarding Sianis's sarcophagus.", hp: 78, ac: 16, atk: 10, dmg: 10, xp: 300, gold: 195, items: ["bq_sianis_rune_signet"], weakCw: ["RAVENFOLK_INTEL"] },
+        text: [
+          "Black ice coats the floor of Sianis Helari's Inner Sanctum, converging on an obsidian sarcophagus etched with a pulsing crimson resurrection rune.",
+          "Crouched atop the lid snarls a towering, dog-headed <strong>Psoglav Crypt-Warden</strong>—Chernobog's abyssal enforcer—its iron claws showering blue sparks off the stone as it leaps!"
+        ],
+        enemy: { name: "Psoglav Crypt-Warden", desc: "Savage abyssal fiend guarding Sianis's sarcophagus.", hp: 78, ac: 16, atk: 10, dmg: 10, xp: 300, gold: 195, items: ["bq_sianis_rune_signet"], flee: 2, weakCw: ["RAVENFOLK_INTEL", "COUNTER_RUNE"] },
         choices: [
-          { t: "Purify Sianis's dark rune and open the sealed Helari Vault!", to: 4 }
+          { t: "Step up to Sianis's pulsing obsidian sarcophagus to unmake Chernobog's dark rune!", to: 4 }
         ]
       },
       4: {
-        zone: "Helari Vault",
-        title: "Rest for the House of Helari",
-        text: "With the Psoglav banished and Chernobog's rune shattered, the trapped ravenfolk slip away in silence while you claim 95 GP from the family reliquary.",
-        onEnter: { gold: 95, healHp: 16, msg: "Purified the crypt (+95 GP, +16 HP)!" },
+        zone: "Inner Sanctum • Obsidian Sarcophagus",
+        title: "Unmaking the Dark Rune",
+        text: [
+          "Even with the Psoglav banished back to the abyss, the jagged crimson resurrection rune still throbs across Sianis's sarcophagus like an open wound—humming with dark power that will summon another warden if broken carelessly."
+        ],
         choices: [
-          { t: "Ascend the moss-grown crypt steps into fresh night air.", to: 5 }
+          { t: "Inscribe Sianis's true counter-sigil over the crimson rune to dissolve Chernobog's pact cleanly!", reqCw: "COUNTER_RUNE", badge: "COUNTER_RUNE", onChoose: { cw: "RUNE_PURIFIED", xp: 45, msg: "Pure silver light washes across the lid, dissolving Chernobog's curse cleanly (+45 XP)!" }, to: 5 },
+          { t: "Channel steady sacred fire to unravel the dark binding without cracking the stone.", badge: "Arcana / Spirit DC 14", check: { stat: "spirit", skill: "Arcana", dc: 14, pass: 5, fail: 5, failDmg: 6, passMsg: "The crimson sigil sighs into harmless silver mist—the pact is completely undone!", failMsg: "Abyssal backlash scorches your palms (-6 HP) as the dark rune shatters!" }, onPass: { cw: "RUNE_PURIFIED" } },
+          { t: "Smash the crimson rune-stone outright with brute strength before it can call another fiend!", badge: "Athletics / Might DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 5, fail: 5, failDmg: 6, passMsg: "One thunderous blow splits the cursed inlay cleanly in two!", failMsg: "Shards of frost-cursed obsidian slice your arm (-6 HP) as the rune dies!" } }
         ]
       },
       5: {
-        zone: "Hillside Graveyard",
-        title: "Quiet Stones",
-        text: "The oppressive shadow over the Helari mausoleum lifts at last.",
+        zone: "Helari Vault",
+        title: "Rest for the House of Helari",
+        text: [
+          "As the last crimson ember fades, the freezing mist drains out of the catacombs like a long-held breath. The surviving ravenfolk slip quietly past you toward the exit with grateful nods, while the sealed Helari family reliquary clicks open—yielding <strong>95 GP</strong> and quiet restorative warmth."
+        ],
+        onEnter: { gold: 95, healHp: 16, msg: "Purified the crypt (+95 GP, +16 HP)!" },
         choices: [
-          { t: "Return to Oakhaven with proof of the crypt's cleansing.", to: 6 }
+          { t: "Inspect the carved Helari crests along the vault wall for a hidden silver alcove.", badge: "Perception / Luck DC 13", check: { stat: "luck", skill: "Perception", dc: 13, pass: 10, fail: 6, passMsg: "A loose marble crest slides back, revealing a velvet-lined family coffer!", failMsg: "Only ancient dust and quiet stonework remain—time to return to the surface." } },
+          { t: "Ascend the moss-grown crypt steps into the fresh hillside night air.", to: 6 }
         ]
       },
       6: {
-        zone: "Oakhaven",
-        title: "Tale of the Rune Crypt",
-        text: "Local clerics praise you for sealing away Chernobog's dark relic.",
+        zone: "Hillside Graveyard • Return to Oakhaven",
+        title: "Quiet Stones",
+        text: [
+          "Stars shine clearly above the hillside graveyard as the oppressive shadow over the Helari mausoleum lifts at last. Back at Oakhaven's gates, Temple acolytes hurry out with lanterns to hear word of the cursed tomb's fate."
+        ],
         choices: [
-          { t: "Complete the quest!", to: 7 }
+          { t: "Present the cleanly purified rune-stone and Sianis's ledger to High Priestess Selene's clerics!", reqCw: "RUNE_PURIFIED", badge: "Pure Cleansing Bonus", to: 11 },
+          { t: "Report the Psoglav's defeat and claim your cleansing bounty.", to: 7 }
         ]
       },
       7: {
         zone: "Epilogue",
         title: "Purifier of the Rune Crypt",
-        text: "Sianis's tragic pact is undone, and the House of Helari sleeps in peace!",
+        text: "Sianis's tragic pact with Chernobog is undone at last. Local clerics ring the evening bells in gratitude, and the House of Helari finally sleeps in peace.",
         ending: { type: "true", title: "Purifier of Sianis's Crypt", xp: 330, gold: 300, trophy: "Helari Silver Rune-Seal" },
+        choices: []
+      },
+      8: {
+        zone: "Helari Catacombs • Collapsed Alcove",
+        title: "Parley With the Doom Croaker",
+        text: [
+          "Crouched behind a fallen urn sits <strong>Korrak</strong>, a ruffled ravenfolk doom croaker clutching a notched silver-banded staff. He lowers his beak with a raspy sigh of relief.",
+          "<em>\"Easy, surface-walker! We only came for a stray censer—we didn't know Sianis sold his whole house to Chernobog! Listen: the dog-headed demon inside wears a cracked iron ward-collar. Strike that seam, and its abyssal hide splits like thin ice!\"</em>"
+        ],
+        choices: [
+          { t: "Promise Korrak's surviving crew safe passage out of the crypt in exchange for his ward-supplies.", badge: "Persuasion / Spirit DC 13", check: { stat: "spirit", skill: "Persuasion", dc: 13, pass: 2, fail: 2, passMsg: "Korrak clicks his beak approvingly, tossing you a Mana Elixir and 40 GP alongside his intel!", failMsg: "Korrak keeps his coin, yet still shares the Psoglav's collar weakness before ducking back into cover." }, onPass: { items: ["mana_elixir"], gold: 40 }, onChoose: { cw: "RAVENFOLK_INTEL" } },
+          { t: "Accept Korrak's warning about the Psoglav's collar and advance into the catacombs.", onChoose: { cw: "RAVENFOLK_INTEL", msg: "Korrak's intel reveals the weakness of the crypt's guardians!" }, to: 2 }
+        ]
+      },
+      9: {
+        zone: "Helari Catacombs • Side Chapel",
+        title: "The Mourning Reliquary",
+        text: [
+          "Inside a dusty side chapel, Sianis Helari's tear-stained leather journal lies open beside a gilded family censer. Its final trembling entries sketch the exact silver counter-rune needed to unmake Chernobog's bargain without harming the House of Helari."
+        ],
+        choices: [
+          { t: "Check the silver plinth for frost-needle traps before lifting the Golden Censer and counter-rune!", badge: "Detect Traps / Luck DC 14", check: { stat: "luck", skill: "Detect Traps", dc: 14, pass: 3, fail: 3, failDmg: 5, passMsg: "You disarm the hair-thin frost needle—claiming a Golden Censer and memorizing Sianis's counter-rune!", failMsg: "A frost-dart nicks your hand (-5 HP), though you still catch a glimpse of the counter-rune!" }, onPass: { cw: "COUNTER_RUNE", items: ["golden_censer"] }, onChoose: { cw: "COUNTER_RUNE" } },
+          { t: "Read Sianis's final journal pages carefully to memorize the cleansing counter-rune.", badge: "Arcana / Spirit DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 3, fail: 3, passMsg: "Every line of the silver counter-rune locks cleanly into memory (+35 XP)!", failMsg: "Blotted ink obscures half the diagram, forcing you onward toward the Sanctum." }, onPass: { cw: "COUNTER_RUNE", xp: 35 } },
+          { t: "Leave the chapel relics undisturbed and step into the Inner Sanctum.", to: 3 }
+        ]
+      },
+      10: {
+        zone: "Helari Vault • Hidden Niche",
+        title: "The Helari Silver Alcove",
+        text: [
+          "Behind the sliding marble crest rests a dry velvet-lined coffer untouched since before Sianis's fall—holding <strong>55 GP</strong> in stamped Helari silver and a sealed <strong>Greater Health Potion</strong>!"
+        ],
+        onEnter: { gold: 55, items: ["greater_potion"], msg: "Hidden alcove! Found +55 GP and a Greater Health Potion!" },
+        choices: [
+          { t: "Close the marble panel respectfully and ascend into the quiet hillside night.", to: 6 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Redeemer of House Helari",
+        text: "High Priestess Selene personally blesses Sianis's ledger and the purified silver rune-seal, declaring the ancient curse completely broken. The Temple of the Dawn honors your wisdom and mercy with a generous consecration purse, and the hillside mausoleum stands peaceful beneath the stars.",
+        ending: { type: "true", title: "Redeemer of the Rune Crypt", xp: 385, gold: 365, trophy: "Helari Silver Rune-Seal" },
         choices: []
       }
     }
