@@ -61,6 +61,8 @@
   let browserVoices = [];
   let browserQueue = [];
   let browserQueueIdx = 0;
+  let activeUtterance = null; // Prevent Chrome GC mid-sentence bug
+  let browserStartTimer = null;
 
   // Kokoro AI state
   let kokoroModel = null;
@@ -290,8 +292,9 @@
       setStatus("idle", "Browser speech unsupported — try Studio AI!");
       return;
     }
+    if (browserStartTimer) { clearTimeout(browserStartTimer); browserStartTimer = null; }
     global.speechSynthesis.cancel();
-    browserQueue = splitIntoChunks(text, 220);
+    browserQueue = splitIntoChunks(text, 180);
     browserQueueIdx = 0;
 
     if (browserQueue.length === 0) {
@@ -301,7 +304,7 @@
 
     const chosen = pickBrowserVoiceForProfile(profile);
     const shortVoice = chosen ? chosen.name.replace(/Microsoft |Google |Online \(Natural\) - |English \(United Kingdom\)|English \(United States\)/g, "").trim() : "System";
-    const effRate = Math.max(0.75, Math.min(1.45, (Number(prefs.rate) || 1.0) * (profile?.rateMul || 1.0)));
+    const effRate = Math.max(0.8, Math.min(1.35, (Number(prefs.rate) || 1.0) * (profile?.rateMul || 1.0)));
     const effPitch = profile?.pitch || 1.0;
 
     setStatus("playing", `Speaking (${shortVoice || "Neural"})…`);
@@ -309,28 +312,37 @@
     const speakNext = () => {
       if (myToken !== runToken) return;
       if (browserQueueIdx >= browserQueue.length) {
-        setStatus("idle", "Finished page");
+        activeUtterance = null;
+        setStatus("idle", "Finished");
         return;
       }
       const chunk = browserQueue[browserQueueIdx++];
       const u = new SpeechSynthesisUtterance(chunk);
+      activeUtterance = u; // Keep strong ref so Chrome GC cannot cut off speech
       if (chosen) u.voice = chosen;
-      u.lang = chosen?.lang || "en-GB";
+      u.lang = chosen?.lang || "en-US";
       u.rate = effRate;
       u.pitch = effPitch;
       u.onend = () => {
         if (myToken !== runToken) return;
+        activeUtterance = null;
         speakNext();
       };
       u.onerror = (ev) => {
         if (myToken !== runToken) return;
+        activeUtterance = null;
         if (ev?.error === "interrupted" || ev?.error === "canceled") return;
         setStatus("idle", "Voice stopped");
       };
       global.speechSynthesis.speak(u);
     };
 
-    speakNext();
+    // Short 45ms settle after cancel() prevents Chrome/Edge from clipping the first word
+    browserStartTimer = setTimeout(() => {
+      browserStartTimer = null;
+      if (myToken !== runToken) return;
+      speakNext();
+    }, 45);
   }
 
   /* ------------------------------------------------------------
@@ -391,27 +403,13 @@
       };
 
       const modelId = "onnx-community/Kokoro-82M-v1.0-ONNX";
-      // Use compact q8 (~86 MB) instead of fp32 (~326 MB) for fast, reliable browser download
-      const hasWebGpu = typeof navigator !== "undefined" && !!navigator.gpu;
-      try {
-        kokoroModel = await KokoroTTS.from_pretrained(modelId, {
-          dtype: "q8",
-          device: hasWebGpu ? "webgpu" : "wasm",
-          progress_callback: progressCb
-        });
-      } catch (gpuErr) {
-        if (hasWebGpu) {
-          console.warn("Kokoro WebGPU init failed, switching to WASM:", gpuErr);
-          setKokoroState("loading", "⏳ Switching Studio AI to WASM mode…", Math.max(kokoroPct, 10));
-          kokoroModel = await KokoroTTS.from_pretrained(modelId, {
-            dtype: "q8",
-            device: "wasm",
-            progress_callback: progressCb
-          });
-        } else {
-          throw gpuErr;
-        }
-      }
+      // Always use WASM + q8 (~86 MB): WebGPU + q8 is known to produce choppy/garbled audio in kokoro-js,
+      // whereas WASM + q8 produces crisp, clean studio audio reliably across Chrome, Edge, and Firefox.
+      kokoroModel = await KokoroTTS.from_pretrained(modelId, {
+        dtype: "q8",
+        device: "wasm",
+        progress_callback: progressCb
+      });
       setKokoroState("ready", "✅ Studio AI (Kokoro) Downloaded & Ready!", 100);
       return kokoroModel;
     })();
@@ -438,18 +436,26 @@
     return audioCtx;
   }
 
-  function playRawAudioBuffer(rawAudio, myToken, rateMul = 1.0) {
-    return new Promise((resolve) => {
-      if (myToken !== runToken) return resolve();
-      const ctx = ensureAudioContext();
-      const samples = rawAudio.audio || rawAudio.data || rawAudio;
-      const sampleRate = rawAudio.sampling_rate || 24000;
-      const buf = ctx.createBuffer(1, samples.length, sampleRate);
-      buf.copyToChannel(samples instanceof Float32Array ? samples : new Float32Array(samples), 0);
+  async function playRawAudioBuffer(rawAudio, myToken) {
+    if (myToken !== runToken) return;
+    const ctx = ensureAudioContext();
+    if (ctx.state === "suspended") {
+      try { await ctx.resume(); } catch (_) {}
+    }
+    if (myToken !== runToken) return;
 
+    const raw = rawAudio.audio || rawAudio.data || rawAudio;
+    const samples = raw instanceof Float32Array ? raw : new Float32Array(raw);
+    const sampleRate = rawAudio.sampling_rate || 24000;
+    const buf = ctx.createBuffer(1, samples.length, sampleRate);
+    buf.copyToChannel(samples, 0);
+
+    await new Promise((resolve) => {
+      if (myToken !== runToken) return resolve();
       const src = ctx.createBufferSource();
       src.buffer = buf;
-      src.playbackRate.value = Math.max(0.75, Math.min(1.45, (Number(prefs.rate) || 1.0) * (rateMul || 1.0)));
+      // Keep native playbackRate = 1.0 (speed is passed natively to Kokoro to avoid pitch distortion)
+      src.playbackRate.value = 1.0;
       src.connect(ctx.destination);
       activeSource = src;
       src.onended = () => {
@@ -461,7 +467,7 @@
   }
 
   async function startKokoroSpeech(text, myToken, profile = null) {
-    const chunks = splitIntoChunks(text, 240);
+    const chunks = splitIntoChunks(text, 280);
     if (chunks.length === 0) {
       setStatus("idle", "Nothing to read");
       return;
@@ -481,25 +487,21 @@
     if (myToken !== runToken) return;
 
     const voiceId = profile?.kokoro || prefs.kokoroVoice || "bm_george";
-    const rateMul = profile?.rateMul || 1.0;
+    const effSpeed = Math.max(0.8, Math.min(1.35, (Number(prefs.rate) || 1.0) * (profile?.rateMul || 1.0)));
     const voiceLabel = (KOKORO_VOICES.find(v => v.id === voiceId)?.label || voiceId).split(" — ")[0];
     setStatus("loading", `Synthesizing (${voiceLabel})…`);
 
-    // Generate sentence 0, then prefetch sentence i+1 while sentence i plays!
+    // Generate each sentence cleanly BEFORE playing it (never run heavy WASM inference
+    // concurrently with active audio playback, which causes audio dropouts/stuttering!)
     try {
-      let nextPromise = model.generate(chunks[0], { voice: voiceId });
       for (let i = 0; i < chunks.length; i++) {
         if (myToken !== runToken) return;
-        const rawAudio = await nextPromise;
+        setStatus("loading", `Synthesizing (${voiceLabel}) • ${i + 1}/${chunks.length}…`);
+        const rawAudio = await model.generate(chunks[i], { voice: voiceId, speed: effSpeed });
         if (myToken !== runToken) return;
 
-        // Kick off synthesis of the next sentence in parallel while playing this one
-        if (i + 1 < chunks.length) {
-          nextPromise = model.generate(chunks[i + 1], { voice: voiceId });
-        }
-
         setStatus("playing", `Studio AI (${voiceLabel}) • ${i + 1}/${chunks.length}`);
-        await playRawAudioBuffer(rawAudio, myToken, rateMul);
+        await playRawAudioBuffer(rawAudio, myToken);
       }
       if (myToken === runToken) {
         setStatus("idle", "Finished");
@@ -516,6 +518,8 @@
      ------------------------------------------------------------ */
   function stop(quiet = false) {
     runToken++;
+    if (browserStartTimer) { clearTimeout(browserStartTimer); browserStartTimer = null; }
+    activeUtterance = null;
     browserQueue = [];
     browserQueueIdx = 0;
     if (global.speechSynthesis) {
