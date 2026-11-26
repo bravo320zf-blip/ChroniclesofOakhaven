@@ -499,11 +499,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 320,
-    source: "Book of Lairs",
     ac: 2,
     spirit: 2,
     luck: 1,
-    desc: "+2 AC, +2 Spirit, +1 Luck. Sacred bronze oar-amulet of Charun from the Cistern."
+    passives: { undeadDmgBonus: 6, healBonus: 3, dmgReduce: 2, skillBonus: { Perception: 2 } },
+    activeAbility: { name: "Ferryman's Passage", icon: "🛶", charges: 2, ooc: true, dmgDice: "2d8", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, healDice: "2d6", healStat: "spirit", desc: "2/Quest: Invoke the Boatman's bronze oar for 2d8 + Spirit radiant dmg (2× vs Undead) and restore 2d6 + Spirit HP!" },
+    desc: "Sacred bronze oar-amulet of Charun from the Cistern (+6 vs Undead, +3 Healing, -2 Dmg Taken, +2 Perception) with Ferryman's Passage."
   },
   "bq_void_star_sapphire": {
     id: "bq_void_star_sapphire",
@@ -1135,7 +1136,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     arcana: 2,
     maxMp: 6,
-    desc: "+3 AC, +2 Arcana, +6 Max MP. Humming ancient construct lens from the Crucible of Golems."
+    passives: { dmgReduce: 2, spellDmgBonus: 4, mpRegen: 1, skillBonus: { Arcana: 3 } },
+    activeAbility: { name: "Golem-Lens Overdrive", icon: "⚙️", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "arcane", shieldTurns: 3, restoreMp: 4, desc: "2/Quest (2 MP): Fire a focused construct beam for 3d8 + Arcana dmg, +3 AC (3t), and recover 4 MP!" },
+    desc: "Humming ancient construct lens from the Crucible of Golems (-2 Dmg Taken, +4 Spell Dmg, +1 MP/turn, +3 Arcana) with Golem-Lens Overdrive."
   },
   "bq_cherufe_magma_mantle": {
     id: "bq_cherufe_magma_mantle",
@@ -2577,9 +2580,9 @@ window.OAKHAVEN.registerItems({
     value: 160,
     ac: 2,
     spirit: 2,
-    passives: { healBonus: 2, mpRegen: true },
-    activeAbility: { name: "Geyser of Endless Surf", icon: "🏺", charges: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "cold", stunTurns: 1, healBase: 6, desc: "2/Quest: Unleash a roaring tidal jet for 2d6 + Spirit cold dmg, Stun (1t), and restore 6 HP!" },
-    desc: "Ancient coral-etched decanter from Crab Island's sacral stones (+2 Healing, +1 MP regen) with Geyser of Endless Surf."
+    passives: { healBonus: 2, mpRegen: 1, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Geyser of Endless Surf", icon: "🏺", charges: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "cold", stunTurns: 1, chillTurns: 2, healBase: 6, desc: "2/Quest: Unleash a roaring tidal jet for 2d6 + Spirit cold dmg, Stun (1t), Chill (2t), and restore 6 HP!" },
+    desc: "Ancient coral-etched decanter from Crab Island's sacral stones (+2 Healing, +1 MP/turn, +2 Survival) with Geyser of Endless Surf."
   },
   // Batch 021 — 7 Standalone Lair Relics + 3 Trollheim Chronicles Relics
   "bq_efreeti_monkey_flask": {
@@ -3113,9 +3116,9 @@ window.OAKHAVEN.registerItems({
     atk: 4,
     might: 3,
     agility: 2,
-    passives: { critRange: 11, bossDmgBonus: 4, dmgReduce: 1 },
-    activeAbility: { name: "Cataract Riposte", icon: "🔱", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "might", dmgType: "frost", shieldTurns: 2, desc: "2/Quest (2 MP): Strike like a breaking wave for 3d8 + Might cold dmg and +3 AC (2t)!" },
-    desc: "Pearl-hilted dueling trident of the River Court (+Crit, +4 Boss Dmg, -1 Dmg Taken) with Cataract Riposte."
+    passives: { critRange: 11, bossDmgBonus: 4, dmgReduce: 1, skillBonus: { Athletics: 2, Persuasion: 2 } },
+    activeAbility: { name: "Cataract Riposte", icon: "🔱", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "might", dmgType: "frost", chillTurns: 2, shieldTurns: 2, desc: "2/Quest (2 MP): Strike like a breaking wave for 3d8 + Might cold dmg, Chill (2t), and +3 AC (2t)!" },
+    desc: "Pearl-hilted dueling trident of the River Court (+Crit, +4 Boss Dmg, -1 Dmg Taken, +2 Athletics/Persuasion) with Cataract Riposte."
   },
   "bq_river_king_crown": {
     id: "bq_river_king_crown",

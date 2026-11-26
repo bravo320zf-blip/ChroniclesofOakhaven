@@ -450,10 +450,24 @@ window.OAKHAVEN.registerItems({
     "type": "accessory",
     "rarity": "common",
     "value": 30,
-    "source": "Old Margreve",
     "arcana": 1,
     "maxMp": 2,
-    "desc": "+1 Arcana, +2 Max MP (Old Margreve)"
+    "passives": {
+      "healBonus": 1,
+      "skillBonus": {
+        "Herbalism": 1
+      }
+    },
+    "activeAbility": {
+      "name": "Woodland Mend",
+      "icon": "🌿",
+      "charges": 1,
+      "ooc": true,
+      "healBase": 5,
+      "restoreMp": 2,
+      "desc": "1/Quest: Warm the carved charm to restore 5 HP and 2 MP!"
+    },
+    "desc": "Carved woodland bone-and-amber charm (+1 Healing, +1 Herbalism) with 1 charge of Woodland Mend."
   },
   "bk_circlet_of_holly": {
     "id": "bk_circlet_of_holly",
@@ -692,7 +706,13 @@ window.OAKHAVEN.registerItems({
     "value": 35,
     "ac": 1,
     "atk": 1,
-    "desc": "+1 AC, +1 Attack (Tome of Heroes)"
+    "passives": {
+      "thornsDmg": 2,
+      "skillBonus": {
+        "Athletics": 1
+      }
+    },
+    "desc": "Compact iron-rimmed buckler fitted with a sharpened center boss (2 Thorns, +1 Athletics)."
   },
   "bk_khopesh": {
     "id": "bk_khopesh",

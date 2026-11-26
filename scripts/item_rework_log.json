@@ -1,6 +1,6 @@
 {
-  "totalPasses": 22,
-  "totalItemsReworked": 220,
+  "totalPasses": 23,
+  "totalItemsReworked": 230,
   "history": [
     {
       "pass": 1,
@@ -353,6 +353,22 @@
         "vom_black_white_daggers"
       ],
       "summary": "Reworked 3 Vault of Magic items (Legendary Staff of the Peaks, Searing Whip, Black & White Daggers), Frostbite Halberd, Prism Core of the Sepulcher, Knight-Sergeant's Surcoat, Starkfeather Mantle, and polished 3 quest relics."
+    },
+    {
+      "pass": 23,
+      "items": [
+        "bq_leeward_endless_flask",
+        "vom_stonedrift_staff",
+        "vom_cape_targeting",
+        "bq_troutscales_trident",
+        "bk_charm_of_restoration",
+        "bq_crucible_fabricator_core",
+        "bq_charun_oar_charm",
+        "nf_baurjien_necklace",
+        "vom_amulet_oracle",
+        "bk_spiked_buckler"
+      ],
+      "summary": "Reworked 3 Vault of Magic items (Legendary Stonedrift Staff, Amulet of the Oracle, Cape of Targeting), Fabricator's Arcane Core, Tallenya's Boatman Token, Baurjien's Skull Necklace, Charm Of Restoration, Spiked Buckler, and polished 2 nautical quest relics."
     }
   ],
   "itemPasses": {
@@ -575,6 +591,16 @@
     "bq_starkfeather_cloak": 1,
     "frostbite_halberd": 1,
     "vom_searing_whip": 1,
-    "vom_black_white_daggers": 1
+    "vom_black_white_daggers": 1,
+    "bq_leeward_endless_flask": 1,
+    "vom_stonedrift_staff": 1,
+    "vom_cape_targeting": 1,
+    "bq_troutscales_trident": 1,
+    "bk_charm_of_restoration": 1,
+    "bq_crucible_fabricator_core": 1,
+    "bq_charun_oar_charm": 1,
+    "nf_baurjien_necklace": 1,
+    "vom_amulet_oracle": 1,
+    "bk_spiked_buckler": 1
   }
 }
