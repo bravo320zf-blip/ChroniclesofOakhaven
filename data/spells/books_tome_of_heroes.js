@@ -782,18 +782,17 @@ window.OAKHAVEN.registerSpells([
     "mp": 4,
     "combat": true,
     "ooc": false,
-    "icon": "✨",
+    "icon": "🔱",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Tome of Heroes",
     "school": "Evocation",
     "spellLevel": 3,
-    "dmgDice": "2d6",
+    "dmgDice": "2d8",
     "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "force",
     "chillTurns": 2,
-    "desc": "Deals 2d6 + 2 + arcana force dmg; weakens foe (-2 enemy atk, 2t). [Lv.3 Evocation • Tome of Heroes]"
+    "desc": "Hurl a serrated spear of crackling force for 2d8 + 2 + Arcana force dmg, staggering your foe (-2 Enemy Atk for 2 turns)."
   },
   {
     "name": "Jarring Growl",
@@ -1009,14 +1008,17 @@ window.OAKHAVEN.registerSpells([
     "mp": 3,
     "combat": true,
     "ooc": true,
-    "icon": "🛡️",
+    "icon": "🥾",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Tome of Heroes",
     "school": "Enchantment",
     "spellLevel": 1,
-    "shieldTurns": 3,
-    "desc": "+3 ac for 3 turns. [Lv.1 Enchantment • Tome of Heroes]"
+    "dmgDice": "1d6",
+    "dmgStat": "agility",
+    "dmgType": "physical",
+    "evadeTurns": 3,
+    "chillTurns": 1,
+    "desc": "Feint past your foe's guard for 1d6 + Agility dmg, throw them off balance (-2 Enemy Atk, 1t), and gain +2 AC for 3 turns (in or out of combat)."
   },
   {
     "name": "Oversized Paws",

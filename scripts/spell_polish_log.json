@@ -1,13 +1,18 @@
 {
-  "totalPasses": 1,
-  "totalSpellsPolished": 5,
+  "totalPasses": 2,
+  "totalSpellsPolished": 10,
   "totalCatalogSpells": 1209,
   "spellPasses": {
     "Ambush": 1,
     "Greater Ley Protection": 1,
     "Lesser Ley Protection": 1,
     "Ley Disturbance": 1,
-    "Shadow's Brand": 1
+    "Shadow's Brand": 1,
+    "Jagged Forcelance": 1,
+    "Lance of the Sun God": 1,
+    "Outmaneuver": 1,
+    "Hematomancy": 1,
+    "Converse with Dragon": 1
   },
   "history": [
     {
@@ -20,6 +25,17 @@
         "Shadow's Brand"
       ],
       "summary": "Polished 5 woodland ley/shadow spells with distinct healing/ward/chill/damage scaling and removed sourcebook tags from descriptions."
+    },
+    {
+      "pass": 2,
+      "spells": [
+        "Jagged Forcelance",
+        "Lance of the Sun God",
+        "Outmaneuver",
+        "Hematomancy",
+        "Converse with Dragon"
+      ],
+      "summary": "Polished Jagged Forcelance, Lance of the Sun God, Outmaneuver, Hematomancy, and Converse with Dragon with thematic damage/healing/undead/evasion synergy and removed sourcebook tags."
     }
   ]
 }

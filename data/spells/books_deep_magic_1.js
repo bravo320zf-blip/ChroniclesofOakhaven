@@ -2418,14 +2418,15 @@ window.OAKHAVEN.registerSpells([
     "mp": 3,
     "combat": true,
     "ooc": true,
-    "icon": "🛡️",
+    "icon": "🐉",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 1",
     "school": "Divination",
     "spellLevel": 1,
     "shieldTurns": 3,
-    "desc": "+3 ac for 3 turns. [Lv.1 Divination • Deep Magic Vol. 1]"
+    "healDice": "1d6",
+    "healStat": "spirit",
+    "desc": "Commune with ancient draconic memory—harden your resolve for +3 AC (3t) and restore 1d6 + Spirit HP (usable in or out of combat)."
   },
   {
     "name": "Convoluted Dictum",
@@ -4826,14 +4827,18 @@ window.OAKHAVEN.registerSpells([
     "mp": 4,
     "combat": true,
     "ooc": true,
-    "icon": "🛡️",
+    "icon": "🩸",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 1",
     "school": "Divination",
     "spellLevel": 3,
-    "shieldTurns": 3,
-    "desc": "+3 ac for 3 turns. [Lv.3 Divination • Deep Magic Vol. 1]"
+    "dmgDice": "2d6",
+    "dmgStat": "arcana",
+    "dmgType": "necrotic",
+    "healDice": "1d8",
+    "healStat": "spirit",
+    "evadeTurns": 2,
+    "desc": "Read omens in spilled blood—deal 2d6 + Arcana necrotic dmg, siphon 1d8 + Spirit HP, and foresee strikes (+2 AC, 2t; usable in or out of combat)."
   },
   {
     "name": "Hero's Steel",
@@ -5572,14 +5577,14 @@ window.OAKHAVEN.registerSpells([
     "icon": "☀️",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 1",
     "school": "Evocation",
     "spellLevel": 3,
-    "dmgDice": "2d6",
+    "dmgDice": "2d8",
     "dmgBonus": 2,
-    "dmgStat": "arcana",
+    "dmgStat": "spirit",
     "dmgType": "radiant",
-    "desc": "Deals 2d6 + 2 + arcana radiant dmg. [Lv.3 Evocation • Deep Magic Vol. 1]"
+    "undeadDouble": true,
+    "desc": "Call down a blinding javelin of noon-day radiance dealing 2d8 + 2 + Spirit radiant dmg (2× vs Undead)."
   },
   {
     "name": "Last Rays of the Dying Sun",
