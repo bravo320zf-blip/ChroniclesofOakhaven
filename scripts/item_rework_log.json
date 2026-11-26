@@ -1,6 +1,6 @@
 {
-  "totalPasses": 31,
-  "totalItemsReworked": 310,
+  "totalPasses": 32,
+  "totalItemsReworked": 320,
   "history": [
     {
       "pass": 1,
@@ -497,6 +497,22 @@
         "vom_swarmfoe_suit"
       ],
       "summary": "Reworked 4 Vault of Magic items (Staff of Camazotz with Bat Swarm summon, Meteoric Plate, Staff of Spores, Swarmfoe Suit), Sunfire Amulet, Saltfang Sea-Coat, Silver Duelsword, Gyre's Spark-Chime, The Grimalkin Eye, and Brimstone Horseshoe of Rosedale."
+    },
+    {
+      "pass": 32,
+      "items": [
+        "vom_buckle_blasting",
+        "bq_mikos_marsh_lantern",
+        "vom_amulet_sustaining",
+        "vom_undine_plate",
+        "abyssal_trident",
+        "vom_boots_solid_footing",
+        "bq_qalqat_free_ring",
+        "vom_encouraging_armor",
+        "ul_ebon_star_signet",
+        "bq_ylia_war_crown"
+      ],
+      "summary": "Reworked 5 Vault of Magic items (Legendary Buckle of Blasting, Encouraging Armor, Undine Plate, Amulet of Sustaining Health, Boots of Solid Footing), Abyssal Tide-Trident, Signet of the Ebon Star, King Qalqat's Ring of Free Action, Mavros Pilgrim's War-Band, and Addlebury's Wisp-Ward Lantern."
     }
   ],
   "itemPasses": {
@@ -809,6 +825,16 @@
     "silver_rapier": 1,
     "bq_hellfire_horseshoe_charm": 1,
     "sea_coat": 1,
-    "vom_swarmfoe_suit": 1
+    "vom_swarmfoe_suit": 1,
+    "vom_buckle_blasting": 1,
+    "bq_mikos_marsh_lantern": 1,
+    "vom_amulet_sustaining": 1,
+    "vom_undine_plate": 1,
+    "abyssal_trident": 1,
+    "vom_boots_solid_footing": 1,
+    "bq_qalqat_free_ring": 1,
+    "vom_encouraging_armor": 1,
+    "ul_ebon_star_signet": 1,
+    "bq_ylia_war_crown": 1
   }
 }

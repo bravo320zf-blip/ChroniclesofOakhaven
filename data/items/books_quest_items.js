@@ -659,11 +659,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 335,
-    source: "Creature Codex Lairs",
     ac: 2,
     agility: 2,
     luck: 2,
-    desc: "+2 AC, +2 Agility, +2 Luck. Kobold king's gilded band surrendered atop the Tower of Ill Fortune."
+    passives: { dmgReduce: 2, goldFindPct: 20, skillBonus: { Athletics: 3, Lockpicking: 3 } },
+    activeAbility: { name: "Unfettered Slip", icon: "💍", charges: 2, evadeTurns: 3, restoreLuck: 2, desc: "2/Quest: Invoke the gilded band of free action to slip every snare — Evade (3t) and +2 Luck!" },
+    desc: "Kobold king's gilded band surrendered atop the Tower of Ill Fortune (-2 Dmg Taken, +20% Gold, +3 Athletics/Lockpicking) with Unfettered Slip."
   },
   "bq_red_craw_battleaxe": {
     id: "bq_red_craw_battleaxe",
@@ -955,11 +956,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 265,
-    source: "Midgard Sagas",
     ac: 2,
     might: 2,
     maxHp: 6,
-    desc: "+2 AC, +2 Might, +6 Max HP. Blessed bronze circlet gifted by War-Angel Ylia at the Seat of Mavros."
+    passives: { bossDmgBonus: 4, dmgReduce: 2, healBonus: 2, skillBonus: { Athletics: 3 } },
+    activeAbility: { name: "War-Angel's Battle-Hymn", icon: "👑", charges: 2, ooc: true, selfBuffAtk: { atk: 4, turns: 3 }, shieldTurns: 2, healBase: 10, desc: "2/Quest: Sound Ylia's bronze battle-blessing — restore 10 HP, +4 Attack (3t), and +3 AC (2t)!" },
+    desc: "Blessed bronze circlet gifted by War-Angel Ylia (+4 vs Bosses, -2 Dmg Taken, +2 Healing, +3 Athletics) with War-Angel's Battle-Hymn."
   },
   "bq_migo_neural_rod": {
     id: "bq_migo_neural_rod",
@@ -1722,7 +1724,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     spirit: 2,
     luck: 1,
-    desc: "+1 AC, +2 Spirit, +1 Luck. Brass marsh lantern that cuts through ghostly fog and illusions."
+    passives: { undeadDmgBonus: 5, healBonus: 2, skillBonus: { Perception: 3, Survival: 2 } },
+    activeAbility: { name: "Pierce the Wisp-Fog", icon: "🏮", charges: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, stunTurns: 1, restoreLuck: 1, desc: "2/Quest: Flare the brass marsh lantern for 2d6 + Spirit radiant dmg (2× vs Undead), Stun (1t), and +1 Luck!" },
+    desc: "Brass marsh lantern that cuts through ghostly fog and illusions (+5 vs Undead, +2 Healing, +3 Perception, +2 Survival) with Pierce the Wisp-Fog."
   },
   "bq_flaying_star_diadem": {
     id: "bq_flaying_star_diadem",
