@@ -447,7 +447,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 6. LOST AND FOUND (8 PAGES • LV 4)
+  // 6. LOST AND FOUND (11 PAGES • LV 4)
   // ==========================================================
   bk_b23_lost_and_found: {
     id: "bk_b23_lost_and_found",
@@ -457,76 +457,110 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 4,
     autoDiscover: false,
     discoverySource: "Rusty Flagon Inn Rumor",
-    summary: "A cryptic note stamped with House Aldous-Donner's black hammer drags you into a high-stakes festival-eve caper between Walker Market and the Bearowl Alehouse!",
-    totalPages: 8,
+    summary: "A cryptic note stamped with House Aldous-Donner's black hammer drags you into a high-stakes festival-eve caper between Walker Market, the Bearowl Alehouse, and the lantern-lit rooftops!",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Walker Market",
         title: "A Brush With the Treasury",
         safeRetreat: true,
-        text: "Festival banners snap above Walker Market as revelers and robed clerics jostle past spice stalls. A fleeing courier collides with you, slips a folded note into your pocket, and vanishes into the crowd: 'After recovery, deliver the stone with all haste, then come to the Bearowl for your 500 pieces. — RS.' At the bottom sits the wax mark of a black hammer!",
+        text: "Saffron festival banners snap above Walker Market as revelers, spice-hawkers, and student buskers jostle across the cobbles. Suddenly a breathless courier in a torn gray cloak collides with your shoulder, slips a folded note into your pocket, and dives behind a puppet-cart: 'After recovery, deliver the stone with all haste, then come to the Bearowl for your 500 pieces. — RS.' At the bottom sits the unmistakable wax mark of a black hammer!",
         choices: [
-          { t: "Examine the black-hammer crest to identify its noble house.", badge: "Lore / Perception DC 12", check: { stat: "lore", skill: "Lore", dc: 12, pass: 2, fail: 2, passMsg: "That's the crest of House Aldous-Donner—corrupt treasury brokers!", failMsg: "The crest looks noble and dangerous, though its exact name eludes you." }, onPass: { cw: "HOUSE_KNOWN" } },
+          { t: "Examine the black-hammer crest and the ink's faint arcane shimmer.", badge: "Arcana / Perception DC 12", check: { stat: "arcana", skill: "Arcana", dc: 12, pass: 2, fail: 2, passMsg: "That's the crest of House Aldous-Donner—corrupt treasury brokers—with a tiny bookshop stamp along the margin!", failMsg: "The crest looks noble and dangerous, though its exact house eludes you." }, onPass: { cw: "HOUSE_KNOWN", xp: 20, msg: "Identified House Aldous-Donner (+20 XP)!" } },
+          { t: "Follow the courier's hurried footprints into the side-alley beside the bookshop.", badge: "Perception / Survival DC 12", check: { stat: "spirit", skill: "Perception", dc: 12, pass: 3, fail: 2, passMsg: "You spot a torn gray satchel ditched behind a crate of lamp-oil jars!", failMsg: "A troupe of festival stilt-walkers cuts across the lane—you head for the Bearowl instead." } },
           { t: "Head straight to the Bearowl Alehouse between the student boarding house and bookshop.", to: 2 }
         ]
       },
       2: {
         zone: "The Bearowl Alehouse",
         title: "Whispers Over Cheap Ale",
-        text: "The Bearowl Alehouse buzzes with scholars, minstrels, and nervous eyes. In the back booth sits a cloaked woman nursing spiced cider—while two burly treasury toughs watch the doorway from the bar!",
+        text: "The Bearowl Alehouse buzzes with scholars, minstrels, and the warm tang of spiced cider. In the shadowed rear booth sits a sharp-eyed woman in a dark wool mantle—'RS'—rolling a copper coin across her knuckles. Near the taproom doorway, two burly treasury bailiffs pretend to nurse warm ale while scanning every newcomer's hands.",
         choices: [
-          { t: "Slide quietly into the booth and use House Aldous-Donner's name to earn 'RS's' trust.", badge: "Persuasion / Spirit DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 3, fail: 4, passMsg: "RS hands you the back-alley key to the treasury courier's lockbox!", failMsg: "The toughs at the bar spot the wax seal and overturn a table!" }, onPass: { cw: "RS_TRUST" } },
-          { t: "Slip out the bookshop back-door to ambush the treasury toughs in the alley!", badge: "Stealth / Agility DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 3, fail: 4, passMsg: "You catch the toughs' captain peeking into the cellar window!", failMsg: "A stack of dusty tomes topples—bringing the toughs charging!" }, onPass: { cw: "ALLEY_DROP" } }
+          { t: "Slide quietly into the booth and name House Aldous-Donner to earn RS's trust immediately.", reqCw: "HOUSE_KNOWN", badge: "HOUSE_KNOWN", to: 4, onChoose: { cw: "RS_TRUST", xp: 25, msg: "RS grins, confirms she's auditing the house's embezzlement, and slips you the cellar key (+25 XP)!" } },
+          { t: "Join RS in the back booth and feel out her intentions over spiced cider.", badge: "Persuasion / Spirit DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 4, fail: 5, passMsg: "RS trusts your nerve and slips you the back-alley key to the courier's lockbox!", failMsg: "The bailiffs at the bar spot the black-hammer wax seal and overturn a table!" }, onPass: { cw: "RS_TRUST", xp: 20 } },
+          { t: "Slip out the bookshop back-door to flank the treasury bailiffs in the alley!", badge: "Stealth / Agility DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 4, fail: 5, passMsg: "You catch the bailiffs' lookout peeking into the cellar window and slip past unseen!", failMsg: "A stack of dusty almanacs topples—bringing the bailiffs charging!" }, onPass: { cw: "ALLEY_DROP", xp: 20 } }
         ]
       },
       3: {
-        zone: "Bookshop Cellar",
-        title: "The Stolen Treasury Stone",
-        text: "Behind a false shelf of mislabeled grimoires, you pry open the iron lockbox and lift out a glowing blue ledger-stone pulsing with treasury ward-magic—just as armed House Aldous-Donner enforcers kick down the cellar door!",
-        onEnter: { xp: 25, msg: "You secure the glowing Treasury Stone (+25 XP)!" },
+        zone: "Bookshop Alley",
+        title: "The Courier's Dead-Drop",
+        text: "Behind a stack of lamp-oil crates beside the neighboring bookshop lies the courier's abandoned gray satchel. Inside sit 35 GP, a brass skeleton-key tagged 'Cellar — Shelf VII', and a folded bribe-slip proving House Aldous-Donner's chief fixer—a duelist named Vesper—paid off the bell-tower watchman for the night!",
+        onEnter: { cw: "COURIER_KEY", gold: 35, xp: 25, msg: "Claimed the courier's brass cellar-key (COURIER_KEY), 35 GP, and Vesper's bribe-slip (+25 XP)!" },
         choices: [
-          { t: "Stand your ground in the narrow cellar doorway!", to: 4 }
+          { t: "Slip into the Bearowl taproom to meet RS with the bribe-slip in hand.", to: 2 },
+          { t: "Use the brass key immediately to raid the Bookshop Cellar before the bailiffs arrive!", to: 4 }
         ]
       },
       4: {
-        zone: "Alehouse Back-Alley",
-        title: "House Aldous-Donner's Enforcers",
-        text: "Cloaked bailiffs bearing black-hammer maces block the alley, snarling: 'Hand over the stone, thief—or sleep in the river!'",
-        enemy: { name: "Aldous-Donner Enforcers", desc: "Corrupt noble house toughs sent to silence witnesses and seize the treasury stone.", hp: 40, ac: 13, atk: 6, dmg: 8, xp: 95, gold: 50, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1, weakCw: ["ALLEY_DROP", "HOUSE_KNOWN"] },
+        zone: "Bookshop Cellar",
+        title: "The Stolen Treasury Stone",
+        text: "Down a creaking cedar stair behind a false shelf of mislabeled grimoires sits an iron-banded courier lockbox. Inside pulses a palm-sized blue ledger-stone engraved with glowing treasury ward-runes—living proof of House Aldous-Donner's skimming! Just as you lift it clear, heavy boots crash against the cellar bulkhead overhead!",
+        onEnter: { xp: 25, msg: "You secure the glowing Treasury Stone (+25 XP)!" },
         choices: [
-          { t: "Race across the festival rooftops toward the secret exchange point!", to: 5 }
+          { t: "Wedge an iron book-press beneath the stair and slip out the coal-chute behind them!", badge: "Stealth / Lockpicking DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 5, fail: 5, passMsg: "You emerge right behind the startled bailiffs in the back alley!", failMsg: "The coal-chute grates loudly—the bailiffs spin with raised maces!" }, onPass: { cw: "ALLEY_DROP", xp: 20 } },
+          { t: "Kick the bulkhead open and stand your ground in the narrow alley!", to: 5 }
         ]
       },
       5: {
-        zone: "Bell-Tower Rooftop",
-        title: "The Black-Hammer Collector",
-        text: "At the bell-tower arch awaits House Aldous-Donner's chief fixer—a silver-tongued duelist in dark chainmail who draws a rune-etched rapier to claim the stone for himself!",
-        enemy: { name: "Aldous-Donner Chief Fixer", desc: "A ruthless noble-house duelist wearing the Black Hammer Signet.", hp: 48, ac: 14, atk: 7, dmg: 9, xp: 140, gold: 90, items: ["bq_aldous_black_hammer_signet"], weakCw: ["RS_TRUST", "HOUSE_KNOWN"] },
+        zone: "Alehouse Back-Alley",
+        title: "House Aldous-Donner's Enforcers",
+        text: "Cloaked bailiffs bearing black-hammer iron maces block both ends of the cobble lane, snarling: 'Hand over the stone, runner—or sleep beneath the river pilings!'",
+        enemy: { name: "Aldous-Donner Enforcers", desc: "Corrupt noble house toughs sent to silence witnesses and seize the treasury stone.", hp: 40, ac: 13, atk: 6, dmg: 8, xp: 95, gold: 50, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1, weakCw: ["ALLEY_DROP", "HOUSE_KNOWN"] },
         choices: [
-          { t: "Deliver the recovered stone to RS beneath the festival lanterns.", to: 6 }
+          { t: "Scale the timber rain-gutter onto the festival rooftops toward the bell-tower exchange!", to: 6 }
         ]
       },
       6: {
-        zone: "Festival Square",
-        title: "Debt Paid in Full",
-        text: "Fireworks bloom over Walker Market as RS inspects the unharmed stone and smiles. 'House Aldous-Donner's embezzlement ends tonight—and you've earned every coin of your fee.'",
+        zone: "Rooftop Eaves",
+        title: "The Bribed Watchman's Perch",
+        text: "Fireworks crackle over Walker Market as you race across slate gables toward the old clock-tower arch. On a narrow timber catwalk just below the belfry sits a nervous bribed watchman beside a crate of festival-eve Roman candles aimed right across the rooftop platform!",
         choices: [
-          { t: "Toast to honest coin at the Bearowl Alehouse before heading home.", to: 7 }
+          { t: "Flash Vesper's bribe-slip and order the watchman to run before the magistrates arrive!", reqCw: "COURIER_KEY", badge: "COURIER_KEY", to: 7, onChoose: { cw: "WATCHMAN_GONE", gold: 30, xp: 25, msg: "The terrified watchman drops his 30 GP bribe-pouch and bolts down the stair (+25 XP)!" } },
+          { t: "Bluff the watchman off his post before he can signal the belfry.", badge: "Persuasion DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 7, fail: 7, passMsg: "He buys your warning, abandons his post, and drops 30 GP in his hurry!", failMsg: "He rings a quick warning chime before ducking down the ladder!" }, onPass: { cw: "WATCHMAN_GONE", gold: 30, xp: 25 } },
+          { t: "Touch off the crate of festival Roman candles with Firebolt to dazzle Vesper!", reqSpell: "Firebolt", badge: "Firebolt", to: 7, onChoose: { cw: "VESPER_DAZZLED", xp: 30, msg: "Blinding emerald fireworks shower the bell-tower arch, throwing Vesper off balance (+30 XP)!" } },
+          { t: "Vault silently across the slate ridge straight onto the Bell-Tower Rooftop!", to: 7 }
         ]
       },
       7: {
-        zone: "The Bearowl Taproom",
-        title: "A Scholar's Toast",
-        text: "The Bearowl's bard strikes up a jaunty tune while RS slides a heavy purse of festival gold across the scarred oak table.",
-        onEnter: { healHp: 10, msg: "Spiced cider and a warm fire restore +10 HP!" },
+        zone: "Bell-Tower Rooftop",
+        title: "The Black-Hammer Collector",
+        text: "Beneath the great bronze bell waits House Aldous-Donner's chief fixer—Vesper, a silver-tongued duelist in dark chainmail with the onyx Black Hammer Signet glinting on his sword-hand. 'Such enthusiasm for a simple rock,' he purrs, drawing a rune-etched rapier as fireworks paint the sky crimson. 'Hand it over, and I'll let you walk down the stairs.'",
+        enemy: { name: "Aldous-Donner Chief Fixer", desc: "A ruthless noble-house duelist wearing the Black Hammer Signet.", hp: 48, ac: 14, atk: 7, dmg: 9, xp: 140, gold: 90, items: ["bq_aldous_black_hammer_signet"], weakCw: ["RS_TRUST", "HOUSE_KNOWN", "VESPER_DAZZLED", "WATCHMAN_GONE"] },
         choices: [
-          { t: "Slip back into the night road toward Oakhaven.", to: 8 }
+          { t: "Deliver the recovered ledger-stone to RS beneath the festival lanterns.", to: 8 }
         ]
       },
       8: {
+        zone: "Festival Square",
+        title: "Debt Paid in Full",
+        text: "Gold and violet fireworks bloom over Walker Market as RS steps from a garlanded arch, inspecting the unharmed crystal with crisp satisfaction. 'Every forged toll, every skimmed mint-bar—recorded right inside this stone,' she smiles. 'House Aldous-Donner's embezzlement ends tonight—and you've earned every coin of your fee.'",
+        choices: [
+          { t: "Ask RS what became of the courier and the bookshop owner before heading inside.", to: 9 },
+          { t: "Toast straight to honest coin at the Bearowl Alehouse.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Festival Square",
+        title: "Loose Ends Tied",
+        text: "RS chuckles softly over the roar of street musicians. 'The courier is already across the river with a fat purse, and the bookshop's debt to House Aldous-Donner just evaporated. Here—take Vesper's forfeited retainer as a bonus for keeping your head.'",
+        onEnter: { gold: 35, xp: 20, msg: "RS slips you an extra 35 GP retainer bonus (+20 XP)!" },
+        choices: [
+          { t: "Join RS inside the Bearowl taproom for spiced cider and a warm fire.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "The Bearowl Taproom",
+        title: "A Scholar's Toast",
+        text: "The Bearowl's bard strikes up a jaunty festival reel while RS slides a heavy purse of festival gold across the scarred oak table, raising her mug to the sharpest runner in town.",
+        onEnter: { healHp: 10, msg: "Spiced cider and a warm fire restore +10 HP!" },
+        choices: [
+          { t: "Slip back into the lantern-lit night road toward Oakhaven.", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Canny, Swift, and Safe",
-        text: "The stolen stone is safely returned, House Aldous-Donner's fixer is out of business, and your purse jingles merrily.",
+        text: "The stolen ledger-stone is safely delivered, House Aldous-Donner's chief fixer is out of business, and your purse jingles merrily all the way back to Oakhaven.",
         ending: { type: "true", title: "Runner of the Bearowl", xp: 200, gold: 165, trophy: "Wax Seal of RS" },
         choices: []
       }

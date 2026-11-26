@@ -1,5 +1,5 @@
 {
-  "totalPasses": 18,
+  "totalPasses": 19,
   "history": [
     {
       "pass": 1,
@@ -126,6 +126,13 @@
       "title": "Respite at Rough Run",
       "file": "data/quests/books_quests_batch_001.js",
       "summary": "Expanded from 8 linear pages to 11 richly branching infiltration pages with Detect Traps sluice-pinning, a new Smuggler's Barge-Loft entry & captive river-pilot Oren rescue (GALLERY_FLANKED, +40 GP, dumbwaiter Stealth bypass), a Gear-Shaft Vault flywheel/Firebolt sabotage branch (SWORDS_JAMMED, +55 GP), a copper speaking-tube bluff against Kael & Korra (TWINS_RATTLED), and a celebratory dockside bonfire scene."
+    },
+    {
+      "pass": 19,
+      "questId": "bk_b23_lost_and_found",
+      "title": "Lost and Found",
+      "file": "data/quests/books_quests_batch_023.js",
+      "summary": "Fixed invalid 'lore' stat check to Arcana and expanded from 8 linear pages to 11 branching urban-caper pages with a Bookshop Alley Courier's Dead-Drop side-scene (COURIER_KEY, +35 GP, Vesper's bribe-slip), HOUSE_KNOWN instant-trust branch with RS, coal-chute Stealth flank, Rooftop Eaves bribed watchman & Firebolt fireworks sabotage (WATCHMAN_GONE / VESPER_DAZZLED), and a Loose Ends Tied epilogue bonus (+35 GP)."
     }
   ],
   "questPasses": {
@@ -146,6 +153,7 @@
     "bk_bol_17_warlocks_crypt": 1,
     "bk_bol_02_everforge": 1,
     "thornwood_part2": 1,
-    "bk_pt_06_rough_run": 1
+    "bk_pt_06_rough_run": 1,
+    "bk_b23_lost_and_found": 1
   }
 }
