@@ -271,8 +271,9 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // NIGHTFELL PART VI: VENGEANCE IS MINE (12 PAGES • LV 7+ FINALE)
+      // NIGHTFELL PART VI: VENGEANCE IS MINE (15 PAGES • LV 7+ FINALE)
       // Prerequisite: nf_5_drowning_house
+      // (Enriched Pass 1)
       // ==========================================================
       nf_6_vengeance_mine: {
         id: "nf_6_vengeance_mine",
@@ -283,44 +284,179 @@ window.OAKHAVEN.registerQuests({
         recommendedLevel: 7,
         autoDiscover: true,
         discoverySource: "Unlocks after Nightfell V: The House that Drowns in the Woods",
-        summary: "Save White Town's burning Temple of Truths, track a deadly alchemical conspiracy through Ervenrun's subterranean Enclave, and shatter Amelera the Ghost Witch in the Pit of Tears!",
-        totalPages: 12,
+        summary: "Save White Town's burning Temple of Truths, track a deadly alchemical conspiracy through Ervenrun's subterranean Enclave, and confront Amelera the Ghost Witch in the Pit of Tears!",
+        totalPages: 15,
         pages: {
-          1: { zone:"Ervenrun Upper City", title:"Shattered Truth", safeRetreat:true, text:"At midnight, a thunderous green-flame explosion blows the face off Ervenrun's sacred Temple of Truths! Heavy toxic black-green smoke floods the alabaster streets as five Fire Elementals rampage through the courtyard!", enemy:{ name:"Alchemical Fire Elementals", desc:"Roaring green-flame spirits unleashed by the bomb.", hp:48, ac:14, atk:7, dmg:8, xp:185, gold:65, items: rollRandomLoot(["consumable","valuable"], 1, "very_rare"), flee:1 }, choices:[
-            { t:"Accept Master of Tradition Gideon Reth's commission to uncover the bombers!", to:2, onChoose:{ cw:"RETH_PATRON", msg:"Gideon Reth hires you to save Ervenrun from civil war!" } }
-          ]},
-          2: { zone:"Ervenrun Lower City", title:"Alchemical Stains", text:"Gideon's mage friend Alacia Deserete gifts you healing draughts and names three alchemists capable of brewing the green fire: dying professor Malleon the Chemyst, bitter recluse Popin Porphyr, and murdered Febrick Mandleson. At Porphyr's shabby house, he unleashes two Flesh Golems!", enemy:{ name:"Popin Porphyr & Flesh Golems", desc:"Bitter alchemist and his stitched guardians.", hp:52, ac:14, atk:7, dmg:8, xp:205, gold:110, items:["nf_alchemy_jug_relic", ...rollRandomLoot(["consumable"], 1, "very_rare")], flee:1 }, choices:[
-            { t:"Force Porphyr to confess (he names Anireth agent Cryster Clem) & check missing guard Urid!", to:3, onChoose:{ cw:"CLEM_NAMED", msg:"Porphyr confesses: he made FIVE more bombs for the Enclave!" } }
-          ]},
-          3: { zone:"Moonlight Boarding House", title:"Shattered Oaths", text:"At the boarding house next to Olga's Moonlight Tavern, little Syra points across the hall from missing Temple guard Urid's room. Inside hangs Urid's murdered corpse—which tears free in a buzzing cloud of vermin as an Unspeakable Revenant!", enemy:{ name:"Urid, Unspeakable Revenant", desc:"Vermin-swarming undead fueled by betrayal.", hp:56, ac:15, atk:8, dmg:8, undead:true, xp:225, gold:75, items: rollRandomLoot(["weapon","accessory"], 1, "legendary"), flee:1 }, choices:[
-            { t:"Descend beneath the mountain into the crowded refugee tunnels of the Enclave!", to:4 }
-          ]},
-          4: { zone:"The Enclave", title:"Mob Rules", text:"Three factions vie for power in the dark tunnels: United Enclave (Amresh Kai), the outspoken PLA (Father Euclides), and EROC (Maia Rent). Talking with Father Euclides confirms the PLA is being framed—the real saboteurs are possessed lieutenants inside United Enclave and EROC!", choices:[
-            { t:"Confront the ghost-possessed lieutenants & expose the conspiracy!", to:5 },
-            { t:"Negotiate a truce with Amresh Kai & Father Euclides first.", badge:"Persuasion / Insight DC 13", check:{ stat:"spirit", skill:"Persuasion", dc:13, pass:5, fail:5, failDmg:6, passMsg:"Kai realizes her lieutenants are possessed and backs you!", failMsg:"Ambush blades graze you (-6 HP) in the crowded tunnels!" }, onPass:{ cw:"ENCLAVE_TRUCE" } }
-          ]},
-          5: { zone:"The Enclave", title:"The Possessing Daughters", text:"Cutting down the possessed faction enforcers rips burned ghostly girls from their bodies—they shriek 'MOTHER!' and flee toward the Pit of Tears, sending a squad of possessed assassins to cover their escape!", enemy:{ name:"Possessed Enclave Assassins", desc:"Shadow-driven killers possessed by Amelera's daughters.", hp:54, ac:15, atk:8, dmg:8, xp:230, gold:120, items: rollRandomLoot(["consumable","valuable"], 2, "legendary"), weakCw:["ENCLAVE_TRUCE"], flee:1 }, choices:[
-            { t:"Follow the fleeing ghosts into the Hypogea of the Lost!", to:6 }
-          ]},
-          6: { zone:"Hypogea of the Lost", title:"Visions of Loss", text:"Psychic visions pierce your mind as you descend: a noblewoman robbed at Ervenrun's gates... her six daughters trapped in a burning orphanage during a riot... a mob stoning her and throwing her corpse into the Pit of Tears! In the Broken Vault, starving Ghasts drop from the ceiling!", enemy:{ name:"Broken Vault Ghasts", desc:"Cunning undead ambushers of the deep tunnels.", hp:52, ac:14, atk:7, dmg:8, undead:true, xp:210, gold:130, items: rollRandomLoot(["consumable","valuable"], 1, "very_rare"), flee:1 }, choices:[
-            { t:"Descend the 210-foot switchback stair toward the Pit of Tears!", to:7 }
-          ]},
-          7: { zone:"Pit of Tears Stair", title:"Daughters of Vengeance", text:"Six horribly burned ghosts—Amelera's daughters—fly up from the chasm, trying to hurl you off the narrow stone stairs!", enemy:{ name:"Daughters of Vengeance", desc:"Six vengeful ghosts guarding their mother.", hp:54, ac:15, atk:8, dmg:8, undead:true, xp:240, gold:80, items: rollRandomLoot(["accessory","consumable"], 1, "legendary"), flee:1 }, choices:[
-            { t:"Reach the overhang overlooking the Pit of Tears!", to:8 }
-          ]},
-          8: { zone:"The Pit of Tears", title:"The Maggot Men", text:"Lights shining down the 300-foot chasm wake writhing humanoid swarms of corpse-eating Maggot Men slithering up the cliff walls!", enemy:{ name:"Swarm of Maggot Men", desc:"Sentient mounds of flesh-eating larvae.", hp:56, ac:14, atk:8, dmg:8, xp:245, gold:115, items: rollRandomLoot(["weapon","armor","accessory"], 1, "legendary"), flee:1 }, choices:[
-            { t:"Call out 'AMELERA!' across the Pit of Tears to summon the Ghost Witch!", to:9 }
-          ]},
-          9: { zone:"Pit of Tears Overhang", title:"Amelera, The Ghost Witch", text:"From the abyss rises Amelera, her aristocratic visage unfolding into writhing shadow-serpents! 'Masters and Enclave alike—ALL OF ERVENRUN SHALL BURN FOR MY DAUGHTERS!'", enemy:{ name:"Amelera, The Ghost Witch", desc:"18th-level undead arch-witch of vengeance.", hp:68, ac:16, atk:9, dmg:9, undead:true, xp:320, gold:240, items:["nf_amelera_mantle", ...rollRandomLoot(["weapon","armor","accessory"], 1, "fabled")] }, choices:[
-            { t:"Pursue her screaming spirit across the pit into the Chamber of the Skull!", to:10 }
-          ]},
-          10: { zone:"Chamber of the Skull", title:"Bone Spiders & The Blackened Skull", text:"Squeezing through a crack guarded by Bone Spiders, you find Amelera's mortal anchor resting on a cairn of stones—her blackened skull! Without shattering it, she will reform in 24 hours!", choices:[
-            { t:"Shatter Amelera's skull with Turn Undead or a decisive strike!", badge:"Might / Spirit DC 13", check:{ stat:"might", skill:"Lore", dc:13, pass:11, fail:11, failDmg:8, passMsg:"The skull shatters cleanly—releasing Amelera and her six daughters into peace!", failMsg:"Bone spiders bite (-8 HP) as you smash the skull to dust!" } }
-          ]},
-          11: { zone:"Temple of Truths", title:"Peace Restored to White Town", text:"With Amelera laid to rest, the madness gripping the Enclave evaporates before full war can consume Ervenrun. Archmaster Gherek Viiruk and Gideon Reth present you with the city's greatest treasure: the Alabaster Plate of Erven and 300 GP!", onEnter:{ gold:300, items:["nf_erven_truth_plate"], msg:"Awarded Alabaster Plate of Erven & 300 GP!" }, choices:[
-            { t:"Return to Oakhaven as Conqueror of the Eternal Night!", to:12 }
-          ]},
-          12: { zone:"Epilogue", title:"Legend of Nightfell", text:"From the frozen blood-snows of Alper to the cursed streets of Owlrock, the ghost village of Vaas, and the deep Pit of Tears beneath Ervenrun, you have conquered all six chapters of the Eternal Night of Iùrmen!", ending:{ type:"true", title:"Conqueror of Nightfell (All 6 Chapters)", xp:350, gold:350, trophy:"Crown of the Eternal Night" }, choices:[] }
+          1: {
+            zone: "Ervenrun Upper City • Temple Plaza",
+            title: "Shattered Truth",
+            safeRetreat: true,
+            text: [
+              "At the stroke of midnight, a thunderous green-flame detonation blows the sculpted alabaster face clean off Ervenrun's sacred <strong>Temple of Truths</strong>! Acrid emerald smoke boils across White Town's marble colonnades while bells clang in frantic alarm.",
+              "Out of the shattered nave surge roaring <strong>Alchemical Fire Elementals</strong>, tearing across the courtyard as panicked pilgrims scatter for cover!"
+            ],
+            enemy: { name: "Alchemical Fire Elementals", desc: "Roaring green-flame spirits unleashed by the temple bomb.", hp: 48, ac: 14, atk: 7, dmg: 8, xp: 185, gold: 65, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1 },
+            choices: [
+              { t: "Accept Master of Tradition Gideon Reth's commission and consult his mage ally Alacia Deserete first.", onChoose: { cw: "RETH_PATRON", msg: "Gideon Reth hires you to stop civil war in Ervenrun!" }, to: 13 },
+              { t: "Accept Gideon Reth's commission and head straight into the Lower City to confront the suspect alchemists!", onChoose: { cw: "RETH_PATRON", msg: "Gideon Reth hires you to save Ervenrun from civil war!" }, to: 2 }
+            ]
+          },
+          2: {
+            zone: "Ervenrun Lower City • Porphyr's Workshop",
+            title: "Alchemical Stains",
+            text: [
+              "Alacia Deserete's shortlist points to three minds capable of brewing emerald wildfire: dying professor Malleon the Chemyst, murdered Febrick Mandleson, and bitter recluse <strong>Popin Porphyr</strong>.",
+              "The moment you force the latched shutter of Porphyr's reeking workshop, green residue gleams across his benches—and Porphyr shrieks, unleashing two hulking <strong>Flesh Golems</strong> to silence you!"
+            ],
+            enemy: { name: "Popin Porphyr & Flesh Golems", desc: "Bitter alchemist and his stitched workshop guardians.", hp: 52, ac: 14, atk: 7, dmg: 8, xp: 205, gold: 110, items: ["nf_alchemy_jug_relic", ...rollRandomLoot(["consumable"], 1, "very_rare")], weakCw: ["ALCHEMICAL_COUNTER"], flee: 1 },
+            choices: [
+              { t: "Force Porphyr to confess—he names agent Cryster Clem and admits FIVE more bombs went to the Enclave—then check missing guard Urid!", to: 3, onChoose: { cw: "CLEM_NAMED", msg: "Porphyr confesses: five more green-fire bombs are hidden inside the Enclave!" } }
+            ]
+          },
+          3: {
+            zone: "Moonlight Boarding House",
+            title: "Shattered Oaths",
+            text: [
+              "Beside Olga's Moonlight Tavern, wide-eyed little Syra points trembling fingers across the narrow corridor toward missing Temple guard Urid's locked door. A dry, sickening hum vibrates through the timber.",
+              "Inside hangs Urid's betrayed corpse—which suddenly snaps free in a choking cloud of black vermin, rising as an <strong>Unspeakable Revenant</strong>!"
+            ],
+            enemy: { name: "Urid, Unspeakable Revenant", desc: "Vermin-swarming undead fueled by bitter betrayal.", hp: 56, ac: 15, atk: 8, dmg: 8, undead: true, xp: 225, gold: 75, items: rollRandomLoot(["weapon", "accessory"], 1, "legendary"), flee: 1 },
+            choices: [
+              { t: "Descend beneath the mountain into the crowded refugee tunnels of the Enclave!", to: 4 }
+            ]
+          },
+          4: {
+            zone: "The Enclave • Subterranean Crossroads",
+            title: "Mob Rules",
+            text: [
+              "Torchlight flickers over damp stonework where thousands of mountain refugees huddle in tense silence. Three factions circle one another like wolves: <strong>United Enclave</strong> (Amresh Kai), the outspoken <strong>PLA</strong> (Father Euclides), and <strong>EROC</strong> (Maia Rent).",
+              "A whispered meeting with Father Euclides confirms the truth—the PLA is being framed, while pale, hollow-eyed lieutenants inside United Enclave and EROC quietly plant the remaining green-fire bombs!"
+            ],
+            choices: [
+              { t: "Negotiate a calm truce with Amresh Kai & Father Euclides before exposing the traitors!", badge: "Persuasion / Spirit DC 13", check: { stat: "spirit", skill: "Persuasion", dc: 13, pass: 5, fail: 5, failDmg: 6, passMsg: "Amresh Kai sees the unnatural frost in her lieutenants' eyes and backs your strike!", failMsg: "Hidden blades slash out of the crowded tunnel (-6 HP) as panic erupts!" }, onPass: { cw: "ENCLAVE_TRUCE" } },
+              { t: "Use Alacia's subterranean service-map to flank the possessed lieutenants directly!", reqCw: "ENCLAVE_MAP", badge: "ENCLAVE_MAP", onChoose: { cw: "ENCLAVE_TRUCE", msg: "You flank the saboteurs cleanly through a forgotten drainage arch!" }, to: 5 },
+              { t: "Confront the ghost-possessed lieutenants openly and expose the conspiracy!", to: 5 }
+            ]
+          },
+          5: {
+            zone: "The Enclave • Bomb-Store Archway",
+            title: "The Possessing Daughters",
+            text: [
+              "As you disarm the green-fire fuses and cut down the traitor captains, six soot-blackened spectral girls tear straight out of their hosts' chests—shrieking <em>\"MOTHER!\"</em> as they stream downward toward the Pit of Tears, leaving a squad of possessed shadow-assassins to cover their flight!"
+            ],
+            enemy: { name: "Possessed Enclave Assassins", desc: "Shadow-driven killers puppets of Amelera's daughters.", hp: 54, ac: 15, atk: 8, dmg: 8, xp: 230, gold: 120, items: rollRandomLoot(["consumable", "valuable"], 2, "legendary"), weakCw: ["ENCLAVE_TRUCE"], flee: 1 },
+            choices: [
+              { t: "Follow the wailing spectral trail deep into the Hypogea of the Lost!", to: 6 }
+            ]
+          },
+          6: {
+            zone: "Hypogea of the Lost • Broken Vault",
+            title: "Visions of Loss",
+            text: [
+              "Searing psychic visions hammer your mind as you descend into the ancient ossuary: a proud noblewoman stripped of everything at Ervenrun's gates... her six young daughters trapped inside a burning orphanage during a city riot... a frightened mob stoning her and casting her broken body into the Pit of Tears!",
+              "From the shadowed arches of the Broken Vault, starving <strong>Ghasts</strong> drop silently onto the flagstones!"
+            ],
+            enemy: { name: "Broken Vault Ghasts", desc: "Cunning undead ambushers haunting the deep ossuary.", hp: 52, ac: 14, atk: 7, dmg: 8, undead: true, xp: 210, gold: 130, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1 },
+            choices: [
+              { t: "Pause by a charred stone memorial alcove glinting with six small bronze medallions.", to: 14 },
+              { t: "Descend the 210-foot switchback stair straight toward the Pit of Tears!", to: 7 }
+            ]
+          },
+          7: {
+            zone: "Pit of Tears • Switchback Stair",
+            title: "Daughters of Vengeance",
+            text: [
+              "Freezing wind howls up the vertical abyss as six horribly burned apparitions—<strong>Amelera's Daughters</strong>—swoop out of the gloom, clawing furiously to hurl you off the narrow stone steps!"
+            ],
+            enemy: { name: "Daughters of Vengeance", desc: "Six vengeful ghosts fiercely defending their mother.", hp: 54, ac: 15, atk: 8, dmg: 8, undead: true, xp: 240, gold: 80, items: rollRandomLoot(["accessory", "consumable"], 1, "legendary"), weakCw: ["DAUGHTERS_NAMED"], flee: 1 },
+            choices: [
+              { t: "Press down onto the cold stone overhang overlooking the Pit of Tears!", to: 8 }
+            ]
+          },
+          8: {
+            zone: "The Pit of Tears • Chasm Rim",
+            title: "The Maggot Men",
+            text: [
+              "Lantern-light spilling down the 300-foot chasm wakes horrific, writhing silhouettes along the damp rock—sentient swarms of corpse-eating <strong>Maggot Men</strong> slithering up the cliff walls toward your ledge!"
+            ],
+            enemy: { name: "Swarm of Maggot Men", desc: "Sentient mounds of flesh-eating abyssal larvae.", hp: 56, ac: 14, atk: 8, dmg: 8, xp: 245, gold: 115, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "legendary"), flee: 1 },
+            choices: [
+              { t: "Step to the rim and call out 'AMELERA!' across the Pit of Tears to summon the Ghost Witch!", to: 9 }
+            ]
+          },
+          9: {
+            zone: "Pit of Tears Overhang",
+            title: "Amelera, The Ghost Witch",
+            text: [
+              "Silence drops like a shroud across the chasm. Then, rising slow as smoke from the bottomless dark, <strong>Amelera</strong> ascends—her pale aristocratic face splitting into writhing serpents of violet shadow!",
+              "<em>\"Masters and Enclave alike—ALL OF ERVENRUN SHALL BURN FOR MY DAUGHTERS!\"</em>"
+            ],
+            enemy: { name: "Amelera, The Ghost Witch", desc: "Ancient undead arch-witch of grief and vengeance.", hp: 68, ac: 16, atk: 9, dmg: 9, undead: true, xp: 320, gold: 240, items: ["nf_amelera_mantle", ...rollRandomLoot(["weapon", "armor", "accessory"], 1, "fabled")], weakCw: ["DAUGHTERS_NAMED", "ALCHEMICAL_COUNTER"] },
+            choices: [
+              { t: "Pursue her screaming spirit across the narrow ledge into the Chamber of the Skull!", to: 10 }
+            ]
+          },
+          10: {
+            zone: "Chamber of the Skull",
+            title: "Bone Spiders & The Blackened Skull",
+            text: [
+              "Squeezing through a jagged fissure swarming with clicking <strong>Bone Spiders</strong>, you discover Amelera's mortal anchor resting upon a cairn of wet stones—her blackened, rune-scarred skull! Unless it is shattered or laid cleanly to rest, the Ghost Witch will reform within a day."
+            ],
+            choices: [
+              { t: "Speak the six daughters' true names over the cairn and shatter the blackened skull with sacred mercy!", reqCw: "DAUGHTERS_NAMED", badge: "DAUGHTERS_NAMED", onChoose: { cw: "MERCIFUL_REST", xp: 50, msg: "Amelera's weeping shadow softens into pale silver light as the skull crumbles to peaceful dust (+50 XP)!" }, to: 11 },
+              { t: "Invoke Turn Undead to purify Amelera's mortal anchor cleanly!", reqSpell: "Turn Undead", mp: 4, badge: "Turn Undead (4 MP)", onChoose: { cw: "MERCIFUL_REST", xp: 40, msg: "Radiant dawn-fire turns the blackened skull to harmless ash (+40 XP)!" }, to: 11 },
+              { t: "Cleave straight through the bone spiders and smash the blackened skull to dust!", badge: "Athletics / Might DC 13", check: { stat: "might", skill: "Athletics", dc: 13, pass: 11, fail: 11, failDmg: 8, passMsg: "The skull shatters cleanly—releasing Amelera and her six daughters into silence!", failMsg: "Bone spiders sink venomous fangs into your arm (-8 HP) as you smash the skull to dust!" } }
+            ]
+          },
+          11: {
+            zone: "Temple of Truths • White Town",
+            title: "Peace Restored to White Town",
+            text: [
+              "The moment Amelera's anchor turns to dust, the feverish madness gripping Ervenrun's tunnels vanishes before civil war can ignite. Beneath the dawn sky, Archmaster Gherek Viiruk and Gideon Reth present you with the city's greatest heirloom: the gleaming <strong>Alabaster Plate of Erven</strong> and <strong>300 GP</strong>!"
+            ],
+            onEnter: { gold: 300, items: ["nf_erven_truth_plate"], msg: "Awarded Alabaster Plate of Erven & 300 GP!" },
+            choices: [
+              { t: "Dedicate a quiet memorial to Amelera's six daughters before returning to Oakhaven!", reqCw: "MERCIFUL_REST", badge: "Merciful Finale", to: 15 },
+              { t: "Return to Oakhaven as Conqueror of the Eternal Night!", to: 12 }
+            ]
+          },
+          12: {
+            zone: "Epilogue",
+            title: "Legend of Nightfell",
+            text: "From the frozen blood-snows of Alper to the cursed streets of Owlrock, the drowned house in the woods, and the deep Pit of Tears beneath Ervenrun, you have conquered all six chapters of the Eternal Night!",
+            ending: { type: "true", title: "Conqueror of Nightfell (All 6 Chapters)", xp: 350, gold: 350, trophy: "Crown of the Eternal Night" },
+            choices: []
+          },
+          13: {
+            zone: "Ervenrun Upper City • Alacia's Study",
+            title: "Alacia Deserete's Ward-Chamber",
+            text: [
+              "Silver astrolabes and glass retorts crowd <strong>Alacia Deserete</strong>'s candlelit study. She presses a cool tonic into your palm and points toward two tables: one holds a smoking shard of the temple's green-fire bomb; the other displays an ancient parchment map of Ervenrun's subterranean refugee tunnels."
+            ],
+            choices: [
+              { t: "Analyze the green-fire residue with Alacia to brew a neutralizing counter-tincture.", badge: "Arcana DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 2, fail: 2, passMsg: "You isolate the alchemical binder—gaining a Greater Health Potion, +12 HP, and an edge against Porphyr & Amelera!", failMsg: "The volatile ash fizzles out, though Alacia still hands you her shortlist of suspect alchemists." }, onPass: { cw: "ALCHEMICAL_COUNTER", healHp: 12, items: ["greater_potion"] } },
+              { t: "Study the old drainage blueprints of Ervenrun's Enclave to memorize hidden flank passages.", badge: "Perception / Agility DC 13", check: { stat: "agility", skill: "Perception", dc: 13, pass: 2, fail: 2, passMsg: "You trace a forgotten service arch into the Enclave and pocket Alacia's 45 GP expense purse!", failMsg: "Half the map is water-damaged, yet you still head straight into the Lower City." }, onPass: { cw: "ENCLAVE_MAP", gold: 45 } }
+            ]
+          },
+          14: {
+            zone: "Hypogea of the Lost • Memorial Alcove",
+            title: "The Six Names on the Cairn",
+            text: [
+              "Beneath a cracked limestone arch lie six tiny charred bronze medallions arranged in a neat semicircle—each engraved with the name of one of Amelera's lost daughters. Cold sorrow hangs heavy in the air, yet the medallions hum softly when touched."
+            ],
+            choices: [
+              { t: "Read all six engraved names aloud with quiet reverence so their spirits remember who they were.", badge: "Persuasion / Spirit DC 14", check: { stat: "spirit", skill: "Persuasion", dc: 14, pass: 7, fail: 7, passMsg: "A soft sigh echoes down the chasm—the Daughters' wrath falters (+45 XP, DAUGHTERS_NAMED)!", failMsg: "Cold wind snuffs your torch before you finish, though the sorrow lingers in your heart." }, onPass: { cw: "DAUGHTERS_NAMED", xp: 45 } },
+              { t: "Trace the residual grief-magic on the medallions with Arcana to weaken Amelera's tether.", badge: "Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 7, fail: 7, passMsg: "You bind all six names into a calming counter-litany (+45 XP, DAUGHTERS_NAMED)!", failMsg: "The sorrowful echo slips away into the dark abyss below." }, onPass: { cw: "DAUGHTERS_NAMED", xp: 45 } },
+              { t: "Leave the memorial undisturbed and descend the switchback stair toward the Pit of Tears.", to: 7 }
+            ]
+          },
+          15: {
+            zone: "Epilogue",
+            title: "Redeemer of Nightfell",
+            text: "Six white lanterns burn gently beside the rebuilt Temple of Truths, honoring the daughters whose names you restored to peace. From the frozen blood-snows of Alper to the Pit of Tears beneath Ervenrun, your mercy and courage have brought the Eternal Night to a triumphant close!",
+            ending: { type: "true", title: "Redeemer of Nightfell (All 6 Chapters)", xp: 420, gold: 420, trophy: "Crown of the Eternal Night" },
+            choices: []
+          }
         }
       },
 });
