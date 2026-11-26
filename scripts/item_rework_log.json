@@ -1,6 +1,6 @@
 {
-  "totalPasses": 29,
-  "totalItemsReworked": 290,
+  "totalPasses": 30,
+  "totalItemsReworked": 300,
   "history": [
     {
       "pass": 1,
@@ -465,6 +465,22 @@
         "vom_breaker_lance"
       ],
       "summary": "Reworked 3 Vault of Magic weapons (Witch's Circle, Constant Dagger, Breaker Lance), 2 Underworld Lairs blades (Spore-Bitten Greatsword, Swordbreaker Longsword), Captain Sara's Fog-Compass, Ampoule of Eternal Breath, Brigandine Armor, Wooden Buckler, and Traveler's Cloak."
+    },
+    {
+      "pass": 30,
+      "items": [
+        "steel_shield",
+        "vom_tenebrous_mantle",
+        "bq_whirling_edge",
+        "bq_menalcas_sea_glaive",
+        "vom_briarthorn_bracers",
+        "bq_deep_king_sovereign_crown",
+        "vom_wolf_brush",
+        "vom_hexen_blade",
+        "bq_marblehead_lantern",
+        "bq_blight_ward_brooch"
+      ],
+      "summary": "Milestone 300th item reworked! Upgraded 4 Vault of Magic items (Legendary Tenebrous Mantle, Wolf Brush, Hexen Blade, Briarthorn Bracers), Steel Heater Shield, Rough Run Twin-Blade, Marblehead Beacon Lantern, and polished 3 quest relics including Legendary Bioluminescent Crest of the Deep King."
     }
   ],
   "itemPasses": {
@@ -757,6 +773,16 @@
     "vom_constant_dagger": 1,
     "bq_last_gasp_ampoule": 1,
     "ul_swordbreaker_blade": 1,
-    "vom_breaker_lance": 1
+    "vom_breaker_lance": 1,
+    "steel_shield": 1,
+    "vom_tenebrous_mantle": 1,
+    "bq_whirling_edge": 1,
+    "bq_menalcas_sea_glaive": 1,
+    "vom_briarthorn_bracers": 1,
+    "bq_deep_king_sovereign_crown": 1,
+    "vom_wolf_brush": 1,
+    "vom_hexen_blade": 1,
+    "bq_marblehead_lantern": 1,
+    "bq_blight_ward_brooch": 1
   }
 }

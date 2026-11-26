@@ -29,7 +29,7 @@ window.OAKHAVEN.registerItems({
       // Offhand
       wooden_shield:   { id:"wooden_shield", name:"Wooden Buckler", type:"offhand", ac:1, value:14, passives:{ dmgReduce:1 }, desc:"Iron-rimmed oak buckler (+1 AC, -1 Dmg Taken)." },
       apprentice_tome: { id:"apprentice_tome", name:"Apprentice Grimoire", type:"offhand", arcana:1, maxMp:2, value:25, desc:"+1 Arcana, +2 Max MP" },
-      steel_shield:    { id:"steel_shield", name:"Steel Heater Shield", type:"offhand", ac:2, value:48, desc:"+2 AC" },
+      steel_shield:    { id:"steel_shield", name:"Steel Heater Shield", type:"offhand", ac:2, value:48, passives:{ dmgReduce:1, skillBonus:{ Athletics:1 } }, desc:"Tempered steel heater shield forged for frontier line-fighters (+2 AC, -1 Dmg Taken, +1 Athletics)." },
       sun_buckler:     { id:"sun_buckler", name:"Sun-Forged Buckler", type:"offhand", ac:2, spirit:1, value:75, desc:"+2 AC, +1 Spirit" },
       aegis_bastion:   { id:"aegis_bastion", name:"Aegis of Oakhaven", type:"offhand", ac:3, maxHp:5, value:115, desc:"+3 AC, +5 Max HP (Crafted)" },
 

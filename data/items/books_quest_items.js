@@ -10,10 +10,11 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "uncommon",
     value: 65,
-    source: "12 Peculiar Towers",
     spirit: 1,
     luck: 1,
-    desc: "+1 Spirit, +1 Luck. Brass storm-lantern recovered from Old Marblehead Lighthouse."
+    passives: { undeadDmgBonus: 3, skillBonus: { Perception: 2, Survival: 1 } },
+    activeAbility: { name: "Lighthouse Storm-Flare", icon: "🏮", charges: 2, dmgDice: "1d8", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, stunTurns: 1, desc: "2/Quest: Open the brass storm-shutter to blind foes for 1d8 + Spirit radiant dmg (2× vs Undead) and Stun (1t)!" },
+    desc: "Brass storm-lantern recovered from Old Marblehead Lighthouse (+3 vs Undead, +2 Perception, +1 Survival) with Lighthouse Storm-Flare."
   },
   "bq_starkfeather_cloak": {
     id: "bq_starkfeather_cloak",
@@ -89,11 +90,12 @@ window.OAKHAVEN.registerItems({
     type: "weapon",
     rarity: "rare",
     value: 185,
-    source: "12 Peculiar Towers",
     atk: 4,
     might: 1,
     ac: 1,
-    desc: "+4 Attack, +1 Might, +1 AC. Tempered steel seized from the marauder twins of Rough Run."
+    passives: { critRange: 11, thornsDmg: 3, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Twin-Warlord Flurry", icon: "⚔️", charges: 2, dmgDice: "1d10", dmgStat: "might", dmgType: "physical", multiStrike: 2, shieldTurns: 2, desc: "2/Quest: Unleash the Marauder Twins' synchronized twin-cut for 2× (1d10 + Might) dmg and +3 AC (2t)!" },
+    desc: "Tempered twin-edge steel seized from the Marauder Twins of Rough Run (+Crit, 3 Counter Thorns, +2 Athletics) with Twin-Warlord Flurry."
   },
   "bq_solanna_keyblade": {
     id: "bq_solanna_keyblade",
@@ -2330,9 +2332,9 @@ window.OAKHAVEN.registerItems({
     arcana: 3,
     spirit: 3,
     maxMp: 10,
-    passives: { spellDmgBonus: 3, mpRegen: 1, lifesteal: 2 },
-    activeAbility: { name: "Sovereign Essence Drain", icon: "👑", charges: 2, dmgDice: "3d6", dmgStat: "arcana", dmgType: "psychic", healDice: "2d6", healStat: "spirit", restoreMp: 4, desc: "2/Quest: Rend foe for 3d6 + Arcana psychic dmg while draining 2d6 + Spirit HP & +4 MP!" },
-    desc: "Luminous alien diadem claimed from the Cave Sovereign deep beneath the world."
+    passives: { spellDmgBonus: 3, spellCostReduce: 1, mpRegen: 1, lifesteal: 2, skillBonus: { Arcana: 4, Perception: 3 } },
+    activeAbility: { name: "Sovereign Essence Drain", icon: "👑", charges: 2, dmgDice: "3d6", dmgStat: "arcana", dmgType: "psychic", stunTurns: 1, healDice: "2d6", healStat: "spirit", restoreMp: 4, desc: "2/Quest: Rend foe for 3d6 + Arcana psychic dmg, Stun (1t), while draining 2d6 + Spirit HP & +4 MP!" },
+    desc: "Luminous alien diadem claimed from the Cave Sovereign (+3 Spell Dmg, -1 MP Cost, +1 MP/turn, Lifesteal 2, +4 Arcana, +3 Perception) with Sovereign Essence Drain."
   },
   // Batch 019 — Trouble at Mossbeard Mill (3) + 8 Lair Quests
   "bq_mossbeard_sap_vial": {
@@ -2356,9 +2358,9 @@ window.OAKHAVEN.registerItems({
     value: 110,
     ac: 1,
     spirit: 2,
-    passives: { undeadDmgBonus: 3, dmgReduce: 1 },
-    activeAbility: { name: "Silver-Bark Ward", icon: "🛡️", charges: 1, ooc: true, healBase: 6, shieldTurns: 3, desc: "1/Quest: Wrap yourself in silver bark to restore 6 HP and gain +3 AC (3t)!" },
-    desc: "Carved oaken brooch warded against barrow-rot (+3 vs Undead, -1 dmg taken) with Silver-Bark Ward."
+    passives: { undeadDmgBonus: 3, dmgReduce: 1, healBonus: 2 },
+    activeAbility: { name: "Silver-Bark Ward", icon: "🛡️", charges: 2, ooc: true, healBase: 6, shieldTurns: 3, desc: "2/Quest: Wrap yourself in silver bark to restore 6 HP and gain +3 AC (3t)!" },
+    desc: "Carved oaken brooch warded against barrow-rot (+3 vs Undead, -1 dmg taken, +2 Healing) with 2 charges of Silver-Bark Ward."
   },
   "bq_mossbeard_heartwood_staff": {
     id: "bq_mossbeard_heartwood_staff",
@@ -2691,9 +2693,9 @@ window.OAKHAVEN.registerItems({
     value: 215,
     atk: 5,
     might: 2,
-    passives: { undeadDmgBonus: 4, critRange: 11 },
+    passives: { undeadDmgBonus: 4, bossDmgBonus: 3, critRange: 11, skillBonus: { Athletics: 2 } },
     activeAbility: { name: "Salt-Wave Cleave", icon: "🔱", charges: 2, dmgDice: "2d8", dmgStat: "might", dmgType: "cold", undeadDouble: true, chillTurns: 2, desc: "2/Quest: Sweep the brine-tempered glaive for 2d8 + Might cold dmg (2× vs Undead) and Chill (2t)!" },
-    desc: "Salt-tempered naval glaive of the Nameless Warrior (+4 vs Undead, +Crit) with Salt-Wave Cleave."
+    desc: "Salt-tempered naval glaive of the Nameless Warrior (+4 vs Undead, +3 vs Bosses, +Crit, +2 Athletics) with Salt-Wave Cleave."
   },
   "bq_fjellgard_frost_cloak": {
     id: "bq_fjellgard_frost_cloak",
