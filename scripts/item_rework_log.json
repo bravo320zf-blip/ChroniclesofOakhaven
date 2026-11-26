@@ -1,6 +1,6 @@
 {
-  "totalPasses": 24,
-  "totalItemsReworked": 240,
+  "totalPasses": 25,
+  "totalItemsReworked": 250,
   "history": [
     {
       "pass": 1,
@@ -385,6 +385,22 @@
         "bq_fjellgard_frost_cloak"
       ],
       "summary": "Reworked 5 Vault of Magic items (Legendary Garments of Winter's Knight, Retribution Armor, Stone Staff, Staff of Fate, Living Juggernaut Plate), Pouch of Runestones, Quenched Agnibarra Ember, Purified Leer Trollstone, and polished 2 quest relics."
+    },
+    {
+      "pass": 25,
+      "items": [
+        "novice_cudgel",
+        "ul_augrimm_pact_staff",
+        "bq_xazagra_hell_blade",
+        "crystal_pickaxe",
+        "bq_vaine_shadow_mantle",
+        "bq_alkava_chalice",
+        "bq_deep_ones_trident",
+        "vom_standard_divinity",
+        "vom_fab_blood_spike",
+        "vom_fab_scorpion_sting"
+      ],
+      "summary": "Milestone 250th item reworked! Upgraded 2 Fabled Vault of Magic relics (Blood Spike Armor, Scorpion Sting Scimitar), Standard of Divinity, Legendary Augrimm's Pact-Lich Staff, Crystal-Edged Pickaxe, Novice's Cudgel, and 4 signature quest relics."
     }
   ],
   "itemPasses": {
@@ -627,6 +643,16 @@
     "vom_staff_fate": 1,
     "bq_chaos_drake_scale_mail": 1,
     "bq_big_briar_trollstone": 1,
-    "bq_fjellgard_frost_cloak": 1
+    "bq_fjellgard_frost_cloak": 1,
+    "novice_cudgel": 1,
+    "ul_augrimm_pact_staff": 1,
+    "bq_xazagra_hell_blade": 1,
+    "crystal_pickaxe": 1,
+    "bq_vaine_shadow_mantle": 1,
+    "bq_alkava_chalice": 1,
+    "bq_deep_ones_trident": 1,
+    "vom_standard_divinity": 1,
+    "vom_fab_blood_spike": 1,
+    "vom_fab_scorpion_sting": 1
   }
 }

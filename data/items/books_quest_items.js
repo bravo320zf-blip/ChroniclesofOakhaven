@@ -113,11 +113,12 @@ window.OAKHAVEN.registerItems({
     type: "cloak",
     rarity: "very_rare",
     value: 255,
-    source: "12 Peculiar Towers",
     ac: 2,
     agility: 2,
     luck: 2,
-    desc: "+2 AC, +2 Agility, +2 Luck. Masterwork thief-lord's cloak from Windward Tower."
+    passives: { critRange: 11, goldFindPct: 25, skillBonus: { Stealth: 4, Lockpicking: 3 } },
+    activeAbility: { name: "Thief-Lord's Vanish", icon: "🗡️", charges: 2, evadeTurns: 3, guaranteedCrit: true, restoreLuck: 1, desc: "2/Quest: Melt into Windward Tower shadows — Evade attacks (3t), +1 Luck, and guarantee a Critical Hit!" },
+    desc: "Masterwork thief-lord's cloak from Windward Tower (+Crit, +25% Gold, +4 Stealth, +3 Lockpicking) with Thief-Lord's Vanish."
   },
   "bq_sun_god_thurible": {
     id: "bq_sun_god_thurible",
@@ -211,10 +212,11 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "rare",
     value: 175,
-    source: "Blood Vaults of Sister Alkava",
     spirit: 2,
     maxHp: 8,
-    desc: "+2 Spirit, +8 Max HP. Consecrated silver vessel cleansed of Sister Alkava's blood magic."
+    passives: { healBonus: 4, undeadDmgBonus: 4, lifesteal: 2 },
+    activeAbility: { name: "Karvolia's Crimson Grace", icon: "🏆", charges: 2, ooc: true, healDice: "2d10", healStat: "spirit", restoreMp: 4, shieldTurns: 2, desc: "2/Quest: Drink from the consecrated silver chalice to restore 2d10 + Spirit HP, +4 MP, and +3 AC (2t)!" },
+    desc: "Consecrated silver vessel cleansed of Sister Alkava's blood magic (+4 Healing, +4 vs Undead, Lifesteal 2) with Karvolia's Crimson Grace."
   },
   "bq_grimalkin_eye": {
     id: "bq_grimalkin_eye",
@@ -362,10 +364,11 @@ window.OAKHAVEN.registerItems({
     type: "weapon",
     rarity: "very_rare",
     value: 255,
-    source: "Book of Lairs",
     atk: 5,
     might: 2,
-    desc: "+5 Attack, +2 Might. Storm-forged trident won atop the sunken Temple of the Deep Ones."
+    passives: { bossDmgBonus: 4, critRange: 11, spellDmgBonus: 2, skillBonus: { Athletics: 2, Survival: 2 } },
+    activeAbility: { name: "Abyssal Tide-Breaker", icon: "🔱", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "might", dmgType: "lightning", stunTurns: 1, chillTurns: 2, desc: "2/Quest (2 MP): Call down crashing storm-surf for 3d8 + Might lightning dmg, Stun (1t), and Chill (2t)!" },
+    desc: "Storm-forged coral trident won atop the sunken Temple of the Deep Ones (+4 vs Bosses, +Crit, +2 Spell Dmg, +2 Athletics/Survival) with Abyssal Tide-Breaker."
   },
   "bq_thunderer_spark_orb": {
     id: "bq_thunderer_spark_orb",
@@ -1411,7 +1414,9 @@ window.OAKHAVEN.registerItems({
     value: 365,
     atk: 6,
     agility: 2,
-    desc: "+6 Attack, +2 Agility. Purified infernal steel wrested from the demon Xazagra."
+    passives: { critRange: 11, bossDmgBonus: 5, lifesteal: 2, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Cinder-Ripper Flurry", icon: "🔥", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "agility", dmgType: "fire", multiStrike: 2, dot: { dmg: 5, turns: 3, label: "Infernal Cinders" }, desc: "2/Quest (2 MP): Slash twice with purified infernal steel for 2× (2d8 + Agility) fire dmg and Infernal Cinders (5/t, 3t)!" },
+    desc: "Purified infernal steel saber wrested from the demon Xazagra (+Crit, +5 vs Bosses, Lifesteal 2, +2 Athletics) with Cinder-Ripper Flurry."
   },
   "bq_konrad_soul_signet": {
     id: "bq_konrad_soul_signet",
