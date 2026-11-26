@@ -1,5 +1,5 @@
 {
-  "totalPasses": 22,
+  "totalPasses": 23,
   "history": [
     {
       "pass": 1,
@@ -153,6 +153,12 @@
       "questId": "bk_b17_tob3_lonely_cove",
       "title": "Salvage at Lonely Cove",
       "summary": "Expanded from 6 to 10 pages with Tamsin the sea-cave survivor side-scene, Sunken Chart-Room manifest & lockbox, hidden strongbox compartment, cliff-winch spring tide hazard, and dual harbor broker endings."
+    },
+    {
+      "pass": 23,
+      "questId": "bk_b18_tob3_lost_forge",
+      "title": "The Lost Forge",
+      "summary": "Expanded from 6 to 10 pages with Captain Thorek Ironpike voice, Upper Bellows Gallery furnace sabotage, Ancestral Clan Vault reliquary, stolen caravan strongboxes, molten crucible quenching hazard, and dual mountain clan endings."
     }
   ],
   "questPasses": {
@@ -177,6 +183,7 @@
     "bk_b23_lost_and_found": 1,
     "bk_b10_p2_1_starry_breach": 1,
     "saltfang": 1,
-    "bk_b17_tob3_lonely_cove": 1
+    "bk_b17_tob3_lonely_cove": 1,
+    "bk_b18_tob3_lost_forge": 1
   }
 }

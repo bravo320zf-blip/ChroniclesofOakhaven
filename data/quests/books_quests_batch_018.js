@@ -142,7 +142,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 3. THE LOST FORGE (6 PAGES • LV 6)
+  // 3. THE LOST FORGE (10 PAGES • LV 6)
   // ==========================================================
   bk_b18_tob3_lost_forge: {
     id: "bk_b18_tob3_lost_forge",
@@ -153,58 +153,120 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Dwarf Pike Guard Captain (Rusty Flagon Tavern)",
     summary: "Reclaim a dragon-scarred mountain dwarven fort whose ancient forge has blazed back to life under twin Thursir Giants and their Ogre Alleybashers raiding ore-and-ale caravans!",
-    totalPages: 6,
+    totalPages: 10,
     pages: {
       1: {
         zone: "Mountain Fort • Dragon-Scarred Gate",
         title: "Smoke Over the Dormant Anvil",
         safeRetreat: true,
-        text: "Abandoned for decades after a dragon attack, the high dwarven stronghold's chimneys once again belch black smoke! Twin Thursir Giants—an Armorer and a Hearth Priestess—have seized the Lost Forge and send ogres to raid passing dwarven ore-and-ale caravans!",
+        text: [
+          "Black coal-smoke curls above the timberline from basalt chimneys that stood cold for forty winters. Far below the dragon-clawed battlements, deep hammer-blows vibrate through the frost-rimmed scree as sparks drift across the snow.",
+          "<strong>Captain Thorek Ironpike</strong> spits into the slush and grips his rune-etched halberd. \"Twin Thursir Giants—an Armorer and a Hearth Priestess—have relit our ancestors' forge, and their ogre thugs are looting every ore-and-ale caravan on the pass. Give the word, friend, and we take it back.\""
+        ],
         choices: [
-          { t: "Coordinate with the Dwarf Pike Guard to slip through the old ventilation aqueduct behind the ogre gate!", badge: "Athletics / Stealth DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 2, fail: 2, passMsg: "You breach the upper foundry walkway, dropping straight behind the ogres!", failMsg: "Clanging hammers stop suddenly as Ogre Alleybashers charge the main gate!" }, onPass: { cw: "FOUNDRY_FLANK" } },
-          { t: "March up the stone switchback alongside the dwarven pike-wall!", to: 2 }
+          { t: "Slip with two dwarven scouts through the frozen ventilation aqueduct to flank the courtyard!", badge: "Athletics / Might DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 2, fail: 2, passMsg: "You breach the upper foundry walkway unseen, dropping straight behind the ogres!", failMsg: "Ringing hammers stop dead as Ogre Alleybashers roar and charge the main gate!" }, onPass: { cw: "FOUNDRY_FLANK" } },
+          { t: "Scale the dragon-cracked watchtower to reach the upper bellows gallery and sabotage their furnace.", badge: "Stealth / Agility DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 7, fail: 2, passMsg: "You slip silently over the soot-black parapet into the roaring bellows gallery!", failMsg: "Loose masonry clatters down the wall—ogre lookouts bellow an alarm!" } },
+          { t: "March straight up the stone switchback alongside Captain Thorek's pike-wall!", to: 2 }
         ]
       },
       2: {
         zone: "Dwarven Fort • Bellows Courtyard",
         title: "Ogre Alleybashers",
-        text: "Brutal **Ogre Alleybashers** hoisting stolen ale-kegs and iron crowbars smash through the courtyard barricades!",
-        enemy: { name: "Ogre Alleybashers", desc: "Hulking street-brawling ogres serving the Thursir twins.", hp: 54, ac: 14, atk: 7, dmg: 8, xp: 190, gold: 110, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["FOUNDRY_FLANK"] },
+        text: [
+          "Broken dwarven ale-kegs bleed dark stout across the steaming cobblestones while molten slag gutters hiss beside the inner foundry gates.",
+          "With a booming laugh, brutal <strong>Ogre Alleybashers</strong> hoist iron crowbars and banded casks, smashing straight through the courtyard barricades!"
+        ],
+        enemy: { name: "Ogre Alleybashers", desc: "Hulking street-brawling ogres serving the Thursir twins.", hp: 54, ac: 14, atk: 7, dmg: 8, xp: 190, gold: 110, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["FOUNDRY_FLANK", "FURNACE_CHOKED"] },
         choices: [
-          { t: "Storm the blazing Great Anvil Hall where the Twin Thursir Giants forge runic iron!", to: 3 }
+          { t: "Inspect the soot-stained Clan Vault off the courtyard before the giants bar the Great Hall.", to: 8 },
+          { t: "Storm straight into the blazing Great Anvil Hall where the Twin Thursir Giants forge runic iron!", to: 3 }
         ]
       },
       3: {
         zone: "Lost Forge • Great Anvil Hall",
         title: "Twin Thursir Giants",
-        text: "Sparks shower from the white-hot forge as the **Thursir Armorer Giant** and **Thursir Hearth Priestess** lift glowing runic hammers: 'This mountain iron belongs to the Thursir now!'",
-        enemy: { name: "Twin Thursir Forge-Giants", desc: "Runic frost-giant armorer and flame-channeling hearth priestess.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 180, items: ["bq_lost_forge_tongs"], weakCw: ["FOUNDRY_FLANK"] },
+        text: [
+          "Heat hits like a hammer as you burst beneath the vaulted granite arches of the Great Anvil Hall. White-hot embers rain like falling stars from a colossal central crucible.",
+          "Towering beside the sacred anvil, the frost-bearded <strong>Thursir Armorer Giant</strong> and flame-crowned <strong>Thursir Hearth Priestess</strong> lift glowing runic hammers: <em>\"This mountain iron belongs to the Thursir now!\"</em>"
+        ],
+        enemy: { name: "Twin Thursir Forge-Giants", desc: "Runic frost-giant armorer and flame-channeling hearth priestess.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 180, items: ["bq_lost_forge_tongs"], flee: 2, weakCw: ["FOUNDRY_FLANK", "FURNACE_CHOKED"] },
         choices: [
-          { t: "Dethrone the giants and hand the Lost Forge back to the dwarven clans!", to: 4 }
+          { t: "Search behind the Hearth Priestess's basalt heat-shields for the stolen caravan strongboxes!", badge: "Perception / Luck DC 13", check: { stat: "luck", skill: "Perception", dc: 13, pass: 9, fail: 4, passMsg: "Behind the iron screens sit three intact dwarven caravan chests!", failMsg: "The crucible groans violently—no time to search before it blows!" } },
+          { t: "Rush to stabilize the runaway runic crucible before it cracks the Great Anvil!", to: 4 }
         ]
       },
       4: {
-        zone: "Great Anvil Hall • Victory Ale",
-        title: "Caravans Safe",
-        text: "The Dwarf Pike Captain raises a foaming tankard of recovered stout in your honor, paying out a hefty chest of clan silver.",
-        onEnter: { healHp: 14, msg: "Stout dwarven ale and warm hearth-rest mend your bruises (+14 HP)!" },
+        zone: "Great Anvil Hall • Molten Hearth",
+        title: "Quenching the Runic Crucible",
+        text: [
+          "With the Hearth Priestess fallen, the unfinished runic ingot boiling inside the central crucible flares blinding white! Cracks spiderweb across the hearth-stone—if the molten charge detonates, the dwarves' sacred Great Anvil will be ruined forever."
+        ],
         choices: [
-          { t: "Descend the mountain with the dwarves' gratitude.", to: 5 }
+          { t: "Heave the rusted iron floodgate lever to douse the crucible in glacial snowmelt!", badge: "Athletics / Might DC 13", check: { stat: "might", skill: "Athletics", dc: 13, pass: 5, fail: 5, failDmg: 5, passMsg: "Steam roars up the flue as snowmelt quenches the forge cleanly (+35 XP)!", failMsg: "Scalding steam blisters your arms (-5 HP) before the heavy gate slams open!" }, onPass: { xp: 35 } },
+          { t: "Trace a cooling ward over the crucible's runes to vent the excess fire up the chimney.", badge: "Arcana / Spirit DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 5, fail: 5, failDmg: 4, passMsg: "The runes sigh and dim to a calm amber glow (+35 XP, +4 MP)!", failMsg: "A spark leaps across your sleeve (-4 HP) as the molten charge finally settles!" }, onPass: { xp: 35, healMp: 4 } },
+          { t: "Duck behind Captain Thorek's tower-shields and let the crucible burn itself out.", to: 5 }
         ]
       },
       5: {
-        zone: "High Ore-Road",
-        title: "Peace in the Peaks",
-        text: "Dwarven hammers ring honestly across the valley once more.",
+        zone: "Great Anvil Hall • Victory Ale",
+        title: "Caravans Safe",
+        text: [
+          "Cheers echo through the vaulted stonework as dwarven pike-guards tap an unbroken barrel of highland stout. Captain Thorek Ironpike raises a foaming iron tankard in your honor and slides a hefty clan silver chest across the cooled anvil.",
+          "\"You fought like granite, friend! The ore-road is ours again, and our hammers will sing your name across the peaks.\""
+        ],
+        onEnter: { healHp: 14, msg: "Stout dwarven ale and warm hearth-rest mend your bruises (+14 HP)!" },
         choices: [
-          { t: "Complete the adventure!", to: 6 }
+          { t: "Present the recovered Ancestral Hammer-Seal so the clans can reconsecrate the Lost Forge!", reqCw: "ANCESTRAL_SEAL", badge: "Clan Relic Bonus", to: 10 },
+          { t: "Ask Captain Thorek for a champion's share of the newly tempered runic iron.", badge: "Persuasion / Spirit DC 14", check: { stat: "spirit", skill: "Persuasion", dc: 14, pass: 10, fail: 6, passMsg: "Thorek booms with laughter and adds fifty gold sovereigns to your chest!", failMsg: "Thorek grins under his braided beard: 'Fair ask, hero, though the clan needs every ingot to rebuild.'" }, onPass: { gold: 50 } },
+          { t: "Clink tankards with the pike-guard and descend the high ore-road back toward Oakhaven.", to: 6 }
         ]
       },
       6: {
         zone: "Epilogue",
         title: "Liberator of the Lost Forge",
-        text: "You toppled the Twin Thursir Giants and restored the mountain stronghold!",
+        text: "As you descend the winding mountain pass, honest dwarven hammers ring cleanly across the valley once more. Back in Oakhaven, caravan masters toast the adventurer who toppled the Twin Thursir Giants and reclaimed the Lost Forge.",
         ending: { type: "true", title: "Reclaimer of the Lost Forge", xp: 295, gold: 280, trophy: "Dwarven Master-Anvil Token" },
+        choices: []
+      },
+      7: {
+        zone: "Lost Forge • Upper Bellows Gallery",
+        title: "Sabotaging the Giant Furnace",
+        text: [
+          "From the soot-blackened iron catwalk, you look straight down onto colossal leather bellows pumping white-hot air into the Great Anvil Hall. Brass pressure-valves hiss beside a rack of runic quenching-oils."
+        ],
+        choices: [
+          { t: "Wedge the brass pressure-valves shut to choke the Hearth Priestess's furnace and pocket refined Iron Ore!", badge: "Lockpicking / Agility DC 13", check: { stat: "agility", skill: "Lockpicking", dc: 13, pass: 2, fail: 2, passMsg: "HISS! Superheated steam blasts across the foundry floor—the giants' forge-wards falter (+45 GP, Iron Ore)!", failMsg: "The stubborn valve jams halfway, though you still drop cleanly onto the courtyard flank!" }, onPass: { cw: "FURNACE_CHOKED", gold: 45, items: ["iron_ore"] }, onChoose: { cw: "FOUNDRY_FLANK" } },
+          { t: "Snatch a corked Greater Health Potion from the side rack and drop quietly onto the courtyard flank.", onChoose: { cw: "FOUNDRY_FLANK", items: ["greater_potion"], msg: "Secured a Greater Health Potion and flanked the courtyard!" }, to: 2 }
+        ]
+      },
+      8: {
+        zone: "Lost Forge • Ancestral Clan Vault",
+        title: "The Soot-Stained Reliquary",
+        text: [
+          "Dragon-claw furrows scar the granite lintel of the old Clan Vault, yet its amber dwarven wards still hum faintly. Inside a recessed stone alcove gleams the clan's ceremonial <strong>Ancestral Hammer-Seal</strong> beside a tray of uncut Runed Shards."
+        ],
+        choices: [
+          { t: "Unweave the dwarven fire-wards to claim the Ancestral Hammer-Seal and Runed Shards.", badge: "Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 3, fail: 3, failDmg: 5, passMsg: "The amber sigils part smoothly—you claim the Ancestral Hammer-Seal, Runed Shards, and +55 GP!", failMsg: "A flame-glyph singes your gauntlet (-5 HP), forcing you back into the hall!" }, onPass: { cw: "ANCESTRAL_SEAL", items: ["runed_shards"], gold: 55 } },
+          { t: "Inspect the flagstones for pressure-triggers and lift the Ancestral Hammer-Seal cleanly.", badge: "Detect Traps / Luck DC 14", check: { stat: "luck", skill: "Detect Traps", dc: 14, pass: 3, fail: 3, failDmg: 4, passMsg: "You wedge the hidden trigger-stone and recover the Ancestral Hammer-Seal, Iron Ore, and +45 GP!", failMsg: "A soot-dart grazes your shoulder (-4 HP) as you retreat toward the Great Hall!" }, onPass: { cw: "ANCESTRAL_SEAL", items: ["iron_ore"], gold: 45 } },
+          { t: "Leave the ancient clan wards untouched and charge into the Great Anvil Hall.", to: 3 }
+        ]
+      },
+      9: {
+        zone: "Lost Forge • Priestess's Alcove",
+        title: "The Stolen Caravan Strongboxes",
+        text: [
+          "Tucked behind the Hearth Priestess's basalt heat-shields sit three iron-banded dwarven trade chests—their locks still intact! Inside glints highland silver alongside a preserved <strong>Mana Elixir</strong>."
+        ],
+        onEnter: { gold: 65, items: ["mana_elixir"], msg: "Recovered stolen caravan silver (+65 GP) and a Mana Elixir!" },
+        choices: [
+          { t: "Hurry back to the roaring crucible before it cracks the Great Anvil!", to: 4 }
+        ]
+      },
+      10: {
+        zone: "Epilogue",
+        title: "Hearth-Friend of the Mountain Clans",
+        text: "Captain Thorek kneels in solemn respect as the Ancestral Hammer-Seal is set back into the Great Anvil's plinth. The mountain clans declare you a sworn Hearth-Friend of the Lost Forge, sending you back to Oakhaven with a brimming chest of runic gold and eternal dwarven gratitude.",
+        ending: { type: "true", title: "Hearth-Friend of the Lost Forge", xp: 345, gold: 340, trophy: "Dwarven Master-Anvil Token" },
         choices: []
       }
     }
