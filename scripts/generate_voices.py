@@ -299,12 +299,14 @@ def collect_town_jobs(data):
     reactive_shop_lines = [
         ("armory", "shop_armory_hc", "No second chances beyond the gates, iron-nerve. Let me check every strap and edge before you head back out."),
         ("armory", "shop_armory_karak", "That dwarven ore from Karak-Zul still sings on my anvil — you've earned a smith's respect, friend!"),
+        ("armory", "shop_armory_raven", "Since you cleared Ravencrest Citadel, fresh iron bars are rolling into Oakhaven again—pick yourself a proper edge!"),
         ("armory", "shop_armory_vet", "You've got the stance of a seasoned frontier veteran now. Time to trade up to heavier steel!"),
         ("apothecary", "shop_apoth_hurt", "Mercy, you've got fresh road-scrapes on you! Stock up on tonics before those bruises stiffen up."),
         ("apothecary", "shop_apoth_thorn", "Since you pushed back the Thornwood blight, my herb-pickers finally return with full baskets!"),
         ("apothecary", "shop_apoth_herb", "Ah, a fellow hand with roots and poultices! Smell that fresh glowcap tincture — finest batch all season."),
         ("curios", "shop_curios_spire", "The astral tides have calmed since your venture to the Crimson Spire — my brass astrolabe finally spins true again."),
         ("curios", "shop_curios_arc", "A bright arcane resonance follows you in today! Step close — half these charms only wake for a true spellcaster."),
+        ("curios", "shop_curios_luck", "Curious... the silver pendulum behind my counter swings toward you. Fortune favors your steps today, traveler!"),
         ("selene", "temple_selene", "May the Dawn guard your steps. Should you fall in the dark, our bells will summon your spirit back to this altar—though whatever gold and gear you carried will be lost."),
     ]
     for ck, slug, txt in reactive_shop_lines:
@@ -316,9 +318,13 @@ def collect_town_jobs(data):
         "Two off-duty watchmen clack bone dice in the corner, arguing whether Saltfang's tide-caves hide smugglers or sea-beasts.",
         "Old Bram slides a foaming tankard across the oak bar: \"Hearth's hot, stew's thick, and half the frontier's secrets pass through this door.\"",
         "A traveling lutist plucks a quiet frontier ballad as rain patters softly against the Rusty Flagon's leaded windows.",
+        "Sparks snap up the stone chimney while a hooded mapmaker traces charcoal lines across a stained frontier chart.",
         "A scarred sellsword raises a pewter mug in your direction: \"Hardcore blood, eh? One slip beyond the palisade and it's curtains — drink deep while you still draw breath!\"",
+        "An old marsh-trapper leans across the table: \"Folks still whisper about Malakor's Sunken Vault—few ever walked back out of that bog with their boots dry!\"",
+        "A caravan driver hoists a mug toward you: \"With Warlord Vane gone from Ravencrest, the east road's finally safe for honest wagons!\"",
         "A weathered dockhand grins over his ale: \"Since you cleared out Saltfang Cove, the harbor lanterns have burned twice as bright!\"",
         "Two prospectors clink mugs near the fire: \"Heard someone braved Karak-Zul and walked back out — Borin's been humming at his forge all week!\"",
+        "A hush falls near the hearth as younger sellswords study your scarred gear—word of a frontier legend travels fast in Oakhaven.",
         "The hearthside bard tunes a silver string: \"Deed after deed—Oakhaven's children already trade tales of your name in the square!\"",
         "Old Bram wipes a mug and nods your way: \"Word travels fast down the frontier road, traveler. Good to see a proven blade back by the fire.\"",
     ]

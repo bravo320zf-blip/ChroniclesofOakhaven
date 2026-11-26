@@ -2223,16 +2223,26 @@
         `A timber-hauler warms his palms by the hearth: "Fog's rolling thick off the Thornwood pines tonight — keep a dry torch in your pack."`,
         `Two off-duty watchmen clack bone dice in the corner, arguing whether Saltfang's tide-caves hide smugglers or sea-beasts.`,
         `Old Bram slides a foaming tankard across the oak bar: "Hearth's hot, stew's thick, and half the frontier's secrets pass through this door."`,
-        `A traveling lutist plucks a quiet frontier ballad as rain patters softly against the Rusty Flagon's leaded windows.`
+        `A traveling lutist plucks a quiet frontier ballad as rain patters softly against the Rusty Flagon's leaded windows.`,
+        `Sparks snap up the stone chimney while a hooded mapmaker traces charcoal lines across a stained frontier chart.`
       ];
       if (state.hardcore) {
         pool.push(`A scarred sellsword raises a pewter mug in your direction: "Hardcore blood, eh? One slip beyond the palisade and it's curtains — drink deep while you still draw breath!"`);
+      }
+      if (done.malakor) {
+        pool.push(`An old marsh-trapper leans across the table: "Folks still whisper about Malakor's Sunken Vault—few ever walked back out of that bog with their boots dry!"`);
+      }
+      if (done.bandit_citadel) {
+        pool.push(`A caravan driver hoists a mug toward you: "With Warlord Vane gone from Ravencrest, the east road's finally safe for honest wagons!"`);
       }
       if (done.saltfang) {
         pool.push(`A weathered dockhand grins over his ale: "Since you cleared out Saltfang Cove, the harbor lanterns have burned twice as bright!"`);
       }
       if (done.karak_zul) {
         pool.push(`Two prospectors clink mugs near the fire: "Heard someone braved Karak-Zul and walked back out — Borin's been humming at his forge all week!"`);
+      }
+      if ((state.level || 1) >= 7) {
+        pool.push(`A hush falls near the hearth as younger sellswords study your scarred gear—word of a frontier legend travels fast in Oakhaven.`);
       }
       if (doneCount >= 5) {
         pool.push(`The hearthside bard tunes a silver string: "Deed after deed—Oakhaven's children already trade tales of your name in the square!"`);
@@ -2251,6 +2261,7 @@
       if (shopKey === "armory") {
         if (state.hardcore) return `"No second chances beyond the gates, iron-nerve. Let me check every strap and edge before you head back out."`;
         if (done.karak_zul) return `"That dwarven ore from Karak-Zul still sings on my anvil — you've earned a smith's respect, friend!"`;
+        if (done.bandit_citadel) return `"Since you cleared Ravencrest Citadel, fresh iron bars are rolling into Oakhaven again—pick yourself a proper edge!"`;
         if ((state.level || 1) >= 5) return `"You've got the stance of a seasoned frontier veteran now. Time to trade up to heavier steel!"`;
       }
       if (shopKey === "apothecary") {
@@ -2261,6 +2272,7 @@
       if (shopKey === "curios") {
         if (done.crimson_spire) return `"The astral tides have calmed since your venture to the Crimson Spire — my brass astrolabe finally spins true again."`;
         if ((state.arcana || 0) >= 4 || (state.spells || []).length >= 3) return `"A bright arcane resonance follows you in today! Step close — half these charms only wake for a true spellcaster."`;
+        if ((d.s?.luck || 0) >= 6) return `"Curious... the silver pendulum behind my counter swings toward you. Fortune favors your steps today, traveler!"`;
       }
       return shop.quote;
     }
