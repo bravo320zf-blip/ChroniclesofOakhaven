@@ -1,5 +1,5 @@
 {
-  "totalPasses": 17,
+  "totalPasses": 18,
   "history": [
     {
       "pass": 1,
@@ -119,6 +119,13 @@
       "title": "Part II: The Heart of the Blight-Wood",
       "file": "data/quests/expansion_frontier_quests.js",
       "summary": "Deepened from 10 terse pages to 13 richly atmospheric branching pages with Ranger Lyra's descent briefing, a High Root-Gallery Stealth/fern-arch flank & lost scout cairn (ROOT_FLANKED, 25 GP, glowcap_spores), Athletics/Herbalism/Firebolt vine crossing (VINES_CLEARED), a new Blight-Node Fissure sabotage side-scene (Turn Undead/Arcana -> NODE_SEVERED + 20 GP amber) that also weakens Malgroot, and a sunlit canopy reunion scene with Lyra."
+    },
+    {
+      "pass": 18,
+      "questId": "bk_pt_06_rough_run",
+      "title": "Respite at Rough Run",
+      "file": "data/quests/books_quests_batch_001.js",
+      "summary": "Expanded from 8 linear pages to 11 richly branching infiltration pages with Detect Traps sluice-pinning, a new Smuggler's Barge-Loft entry & captive river-pilot Oren rescue (GALLERY_FLANKED, +40 GP, dumbwaiter Stealth bypass), a Gear-Shaft Vault flywheel/Firebolt sabotage branch (SWORDS_JAMMED, +55 GP), a copper speaking-tube bluff against Kael & Korra (TWINS_RATTLED), and a celebratory dockside bonfire scene."
     }
   ],
   "questPasses": {
@@ -138,6 +145,7 @@
     "bk_b5_trollkin_hunt": 1,
     "bk_bol_17_warlocks_crypt": 1,
     "bk_bol_02_everforge": 1,
-    "thornwood_part2": 1
+    "thornwood_part2": 1,
+    "bk_pt_06_rough_run": 1
   }
 }

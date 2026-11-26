@@ -473,7 +473,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 6. RESPITE AT ROUGH RUN (8 PAGES • LV 6)
+  // 6. RESPITE AT ROUGH RUN (11 PAGES • LV 6)
   // ==========================================================
   bk_pt_06_rough_run: {
     id: "bk_pt_06_rough_run",
@@ -483,76 +483,108 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 6,
     autoDiscover: false,
     discoverySource: "Riverfolk Council (Oakhaven Market)",
-    summary: "While local militia stage a diversion at the marauders' river dam, infiltrate the heavily trapped island tower in the Rough Run rapids and topple the twin warlords within.",
-    totalPages: 8,
+    summary: "While Captain Maren's riverfolk stage a diversion at the marauders' timber dam, infiltrate the heavily trapped island tower in the Rough Run rapids, sabotage its clockwork defenses, and topple the Marauder Twins.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "The Rough Run Rapids",
         title: "Island in the Whitewater",
         safeRetreat: true,
-        text: "Horn-blasts echo downstream—the locals' diversion at the dam has begun! Perched on a slick crag mid-river stands the marauders' fortified tower. You lash a grapnel across the foaming rapids and haul yourself onto the stone quay.",
+        text: "Brass horn-blasts echo downstream—Captain Maren and the riverfolk have begun their diversion at the timber dam! Perched on a slick basalt crag mid-river rises the marauders' four-story toll tower, cold whitewater hissing over its mossy stone quay. You lash a grapnel across the foaming rapids and haul yourself ashore. Ahead, a heavy bronze sluice-door opens onto the ground hall, while along the spray-drenched leeward cliff runs a narrow iron boat-winch ledge leading to a shuttered barge-loft.",
         choices: [
-          { t: "Cross the slick narrow causeway with careful balance.", badge: "Agility / Athletics DC 13", check: { stat: "agility", skill: "Athletics", dc: 13, pass: 2, fail: 2, failDmg: 6, passMsg: "You vault onto the landing dry-shod!", failMsg: "Spray slams you against the rocks (-6 HP) before you climb ashore!" } },
-          { t: "Study the iron entrance sluice for mechanical triggers.", badge: "Perception DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 2, fail: 2, passMsg: "You spot pressure-plate grooves leading into the Hall of a Hundred Spears!", failMsg: "The roar of the river drowns out any mechanical clicks." }, onPass: { cw: "SPEAR_TRAP_SPOTTED", msg: "Spotted the pressure plates in advance!" } }
+          { t: "Scale the slick boat-winch ledge to slip into the shuttered barge-loft.", badge: "Athletics / Stealth DC 13", check: { stat: "agility", skill: "Athletics", dc: 13, pass: 2, fail: 3, failDmg: 6, passMsg: "You vault onto the iron hoist-beam dry-shod and pry open the barge-loft shutter!", failMsg: "Foaming spray slams you against the crag (-6 HP) before you scramble through the main gate!" } },
+          { t: "Study the bronze entrance sluice for mechanical pressure-plates.", badge: "Perception DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 3, fail: 3, passMsg: "You spot recessed pressure-plate grooves leading into the Hall of a Hundred Spears!", failMsg: "The thunder of the rapids drowns out any mechanical clicks." }, onPass: { cw: "SPEAR_TRAP_SPOTTED", xp: 30, msg: "Spotted the spear-plates in advance (+30 XP)!" } },
+          { t: "Wedge the bronze trigger-plates silently before breaching.", badge: "Detect Traps", reqSkill: "Detect Traps", to: 3, onChoose: { cw: "SPEAR_TRAP_SPOTTED", xp: 35, msg: "Jam-pinned the entrance spear-plates silently (+35 XP)!" } }
         ]
       },
       2: {
-        zone: "Hall of a Hundred Spears",
-        title: "The Skewer Corridor",
-        text: "Iron-tipped spears jut from concealed wall slots the length of the ground hall, guarding the spiral stair. Marauder crossbowmen take aim from an overhead gallery!",
-        enemy: { name: "Rough Run Tower Guards", desc: "Hardened river-bandit veterans.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 120, gold: 55, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1 },
+        zone: "Smuggler's Barge-Loft",
+        title: "The Captive River-Pilot",
+        text: "Inside the shadowed hoist-loft, tarred rope coils and stolen flour sacks surround a trussed riverfolk pilot named Oren, gagged with oiled canvas. Cutting his ropes, he gasps in relief: 'Bless you! Listen—the twins' whirling blade-traps on the third floor run off a brass drive-chain right behind the second-floor maze's east wall, and the crossbowmen below never look up from the spear-hall!' He presses 40 GP of hidden river-silver into your palm.",
+        onEnter: { cw: "GALLERY_FLANKED", gold: 40, xp: 35, msg: "Freed pilot Oren (+40 GP, +35 XP) and gained the tower's blind spots (GALLERY_FLANKED)!" },
         choices: [
-          { t: "Weave past the spear-ports into the Defensive Maze above.", to: 3 }
+          { t: "Climb Oren's narrow rope-dumbwaiter directly into the second-floor Defensive Maze!", badge: "Stealth DC 13", check: { stat: "agility", skill: "Stealth", dc: 13, pass: 4, fail: 3, passMsg: "You haul yourself up the silent chute, bypassing the ground-floor guards entirely!", failMsg: "The rusted pulley shrieks—marauder crossbowmen spot you from the hall below!" }, onPass: { xp: 25 } },
+          { t: "Slip out onto the overhead gallery to ambush the Tower Guards from behind!", to: 3 }
         ]
       },
       3: {
-        zone: "Defensive Maze",
-        title: "Murder-Holes & False Doors",
-        text: "The second floor is a claustrophobic stone labyrinth studded with murder-holes and jammed iron doors designed to bleed intruders dry.",
+        zone: "Hall of a Hundred Spears",
+        title: "The Skewer Corridor",
+        text: "Iron-tipped spears jut from concealed wall slots the length of the ground hall, guarding the spiral stair. Hardened marauder crossbowmen crouch behind overturned oak tables along the overhead gallery, bolts glinting in the lantern-light!",
+        enemy: { name: "Rough Run Tower Guards", desc: "Hardened river-bandit veterans.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 120, gold: 55, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1, weakCw: ["SPEAR_TRAP_SPOTTED", "GALLERY_FLANKED"] },
         choices: [
-          { t: "Track the fresh boot-scuffs through the true corridor.", badge: "Survival / Perception DC 13", check: { stat: "spirit", skill: "Survival", dc: 13, pass: 4, fail: 4, failDmg: 7, passMsg: "You bypass three dead-end bolt traps cleanly!", failMsg: "A spring-loaded bolt grazes your ribs (-7 HP) before you find the stair!" } },
-          { t: "Smash straight through a weakened timber partition.", badge: "Might DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 4, fail: 4, failDmg: 6, passMsg: "Splinters fly—you cut straight to the third floor!", failMsg: "The reinforced oak jars your arm (-6 HP) before giving way!" } }
+          { t: "Weave past the spear-ports and climb into the Defensive Maze above.", to: 4 }
         ]
       },
       4: {
-        zone: "Room of Whirling Death",
-        title: "The Sword Trees",
-        text: "Clockwork iron 'sword trees' bristling with spinning longswords shriek along floor tracks! You must dash between their lethal arcs—or jam their central gearwheel!",
+        zone: "Defensive Maze",
+        title: "Murder-Holes & False Doors",
+        text: "The second floor is a claustrophobic stone labyrinth studded with slit murder-holes, false oak doors, and jammed iron grilles designed to bleed boarders dry. Behind the eastern masonry hums the rhythmic clack-clack of a heavy brass drive-chain feeding the floor above.",
         choices: [
-          { t: "Time the spinning arcs and dash cleanly to the far stair!", badge: "Agility DC 14", check: { stat: "agility", skill: "Acrobatics", dc: 14, pass: 5, fail: 5, failDmg: 8, passMsg: "You tumble gracefully between the whirling blades unscathed!", failMsg: "A spinning steel edge slashes your shoulder (-8 HP)!" } },
-          { t: "Jam the brass floor track with a fallen spear!", reqCw: "SPEAR_TRAP_SPOTTED", badge: "SPEAR_TRAP_SPOTTED", to: 5, onChoose: { cw: "SWORDS_JAMMED", msg: "The sword trees grind to a screeching halt!" } }
+          { t: "Pry open the eastern masonry panel to reach the humming brass drive-chain!", badge: "Athletics / Lockpicking DC 13", check: { stat: "might", skill: "Athletics", dc: 13, pass: 5, fail: 6, failDmg: 6, passMsg: "The iron service plate groans open, revealing the greased gear-shaft!", failMsg: "A concealed spring-bar snaps across your knuckles (-6 HP) as you force the main stair!" } },
+          { t: "Track the fresh river-mud boot-scuffs through the true corridor.", badge: "Survival / Perception DC 13", check: { stat: "spirit", skill: "Survival", dc: 13, pass: 6, fail: 6, failDmg: 7, passMsg: "You bypass three dead-end bolt traps cleanly!", failMsg: "A spring-loaded bolt grazes your ribs (-7 HP) before you find the stair!" }, onPass: { xp: 25 } },
+          { t: "Smash straight through a weakened timber partition.", badge: "Might DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 6, fail: 6, failDmg: 6, passMsg: "Splinters fly—you cut straight to the third floor!", failMsg: "The reinforced oak jars your arm (-6 HP) before giving way!" }, onPass: { xp: 25 } }
         ]
       },
       5: {
-        zone: "Bedroom of the Twins",
-        title: "The Marauders' Payroll",
-        text: "Plush fur rugs and maps of the dammed river valley fill the twins' lavish quarters. An iron-bound payroll chest sits locked at the foot of the bed.",
+        zone: "Gear-Shaft Vault",
+        title: "The Brass Drive-Chain",
+        text: "Inside a grease-slick service shaft, a massive bronze flywheel spins furiously, driving the clockwork gears of the Room of Whirling Death directly overhead. Tucked into a mechanic's niche sits a leather pouch holding 55 GP and a jar of thick axle-grease.",
+        onEnter: { gold: 55, xp: 30, msg: "Claimed the marauders' gear-vault cache (+55 GP, +30 XP)!" },
         choices: [
-          { t: "Crack open the payroll chest before confronting the twins on the roof!", badge: "Lockpicking DC 13", check: { stat: "agility", skill: "Lockpicking", dc: 13, pass: 6, fail: 6, failDmg: 5, passMsg: "Popped the lock! Claimed 110 GP and a Rough Run Twin-Blade!", failMsg: "A poison needle snaps (-5 HP), though you still seize the blade!" }, onPass: { gold: 110, items: ["bq_whirling_edge"] }, onFail: { items: ["bq_whirling_edge"] } },
-          { t: "Leave the chest and climb immediately to the Rooftop!", to: 6 }
+          { t: "Wedge a heavy iron crowbar straight into the flywheel teeth to jam the sword-trees!", to: 6, onChoose: { cw: "SWORDS_JAMMED", xp: 30, msg: "With a thunderous shriek of sheared brass, the sword-trees overhead grind to a dead halt (SWORDS_JAMMED, +30 XP)!" } },
+          { t: "Ignite the grease-coated flywheel axle with Firebolt to fuse the gears!", badge: "Firebolt", reqSpell: "Firebolt", to: 6, onChoose: { cw: "SWORDS_JAMMED", xp: 35, msg: "Roaring grease-fire warps the drive-shaft, ruining the clockwork traps above (SWORDS_JAMMED, +35 XP)!" } }
         ]
       },
       6: {
-        zone: "Tower Rooftop",
-        title: "The Marauder Twins",
-        text: "Mist rises from the roaring rapids around the open parapet. Back-to-back stand the notorious Marauder Twins—twin warlords fighting in deadly synchronized rhythm! 'Our dam, our river, our toll!' they roar in unison!",
-        enemy: { name: "The Marauder Twins", desc: "Synchronized twin warlords commanding the Rough Run.", hp: 62, ac: 15, atk: 8, dmg: 9, xp: 190, gold: 130, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["SWORDS_JAMMED"] },
+        zone: "Room of Whirling Death",
+        title: "The Sword Trees",
+        text: "The third floor opens into a circular stone chamber scored with concentric brass floor-tracks. Towering iron 'sword trees' bristling with spinning longswords line the room—ready to shred any intruder who missteps!",
         choices: [
-          { t: "Light the green signal flare atop the parapet for the riverfolk!", to: 7 }
+          { t: "Stride calmly past the sheared, motionless sword-trees straight to the upper stair!", reqCw: "SWORDS_JAMMED", badge: "SWORDS_JAMMED", to: 7 },
+          { t: "Jam the nearest brass floor-track with a fallen spear from the ground hall!", reqCw: "SPEAR_TRAP_SPOTTED", badge: "SPEAR_TRAP_SPOTTED", to: 7, onChoose: { cw: "SWORDS_JAMMED", xp: 25, msg: "The steel spear wedges the track—the sword trees shudder to a screeching halt (+25 XP)!" } },
+          { t: "Time the spinning arcs and dash cleanly to the far stair!", badge: "Agility / Athletics DC 14", check: { stat: "agility", skill: "Athletics", dc: 14, pass: 7, fail: 7, failDmg: 8, passMsg: "You tumble gracefully between the whirling blades unscathed!", failMsg: "A spinning steel edge slashes your shoulder (-8 HP)!" }, onPass: { xp: 30 } }
         ]
       },
       7: {
-        zone: "The Broken Dam",
-        title: "Waters Unleashed",
-        text: "Seeing their warlords' standard topple from the island spire, the marauders guarding the dam throw down their weapons and flee. The riverfolk break the sluice gates, sending fresh water roaring downstream!",
+        zone: "Quarters of the Twins",
+        title: "The Marauders' Payroll",
+        text: "Plush wolf-fur rugs, stolen silk tapestries, and charted maps of the dammed river valley fill the twins' lavish quarters. An iron-bound payroll chest sits locked at the foot of the bunks, while a tarnished copper speaking-tube runs straight up to the roof parapet—carrying the muffled voices of Kael and Korra arguing over the dam diversion!",
         choices: [
-          { t: "Return to Oakhaven to accept the Riverfolk Council's reward.", to: 8 }
+          { t: "Crack open the payroll chest before confronting the twins on the roof!", badge: "Lockpicking DC 13", check: { stat: "agility", skill: "Lockpicking", dc: 13, pass: 8, fail: 8, failDmg: 5, passMsg: "Popped the lock! Claimed 110 GP and a Rough Run Twin-Blade!", failMsg: "A poison needle snaps (-5 HP), though you still seize the blade!" }, onPass: { gold: 110, items: ["bq_whirling_edge"] }, onFail: { items: ["bq_whirling_edge"] } },
+          { t: "Bark a false alarm up the speaking-tube ('Dam's breached—militia on the north wall!') to rattle them!", badge: "Persuasion DC 13", check: { stat: "spirit", skill: "Persuasion", dc: 13, pass: 8, fail: 8, passMsg: "Curses erupt overhead as the twins break formation to check the north wall!", failMsg: "They laugh down the copper tube and draw their blades at the trapdoor!" }, onPass: { cw: "TWINS_RATTLED", xp: 30, msg: "Rattled the Marauder Twins' coordination (TWINS_RATTLED, +30 XP)!" } },
+          { t: "Leave the quarters untouched and burst immediately onto the Rooftop!", to: 8 }
         ]
       },
       8: {
+        zone: "Tower Rooftop",
+        title: "The Marauder Twins",
+        text: "Cold mist rises from the roaring rapids around the open parapet. Back-to-back beneath their tattered black river-banner stand Kael and Korra, the notorious Marauder Twins—twin warlords fighting in deadly synchronized rhythm! 'Our dam, our river, our toll!' they roar in unison as steel flashes through the spray!",
+        enemy: { name: "The Marauder Twins", desc: "Synchronized twin warlords commanding the Rough Run.", hp: 62, ac: 15, atk: 8, dmg: 9, xp: 190, gold: 130, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["SWORDS_JAMMED", "TWINS_RATTLED"] },
+        choices: [
+          { t: "Light the green alchemical signal flare atop the parapet for Captain Maren!", to: 9 }
+        ]
+      },
+      9: {
+        zone: "The Broken Dam",
+        title: "Waters Unleashed",
+        text: "Emerald fire streaks into the dusk above the rapids. Seeing their warlords' black standard topple from the island spire, the marauders guarding the dam fling down their weapons and scatter into the pines. Moments later, Captain Maren's riverfolk knock loose the sluice-pins, sending fresh water roaring downstream!",
+        choices: [
+          { t: "Ferry the salvaged toll-ledgers back to the Oakhaven river quay.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Oakhaven River Quay",
+        title: "The Tolls Burned",
+        text: "Lanterns bob along the crowded dock as cheering bargemen toss the marauders' extortion ledgers onto a crackling bonfire. The Riverfolk Council presents you with the twins' shattered bronze crest and your full share of the bounty.",
+        choices: [
+          { t: "Accept the Council's reward and complete the quest.", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Freedom of the Rough Run",
-        text: "Barges glide along the restored river once more, and the merchants of the valley hail you as the breaker of the Rough Run tyranny.",
+        text: "Merchant barges glide freely along the restored Rough Run once more, and the riverfolk of the valley hail you as the breaker of the Marauder Twins' tyranny.",
         ending: { type: "true", title: "Breaker of the Rough Run", xp: 240, gold: 220, trophy: "Twin Warlords' Crest" },
         choices: []
       }
