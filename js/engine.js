@@ -4266,6 +4266,232 @@
               }
             }
           };
+        },
+
+        // 24. The Travelling Tinker's Jammed Strongbox
+        () => {
+          const snapDmg = Math.max(2, 2 + Math.floor(lv * 0.6));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Tinker's Jammed Strongbox`,
+            subtitle: "Roadside Campfire Favor",
+            difficulty: "Encounter",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "A Stubborn Brass Latch",
+                safeRetreat: true,
+                text: `Beside a crackling birchwood campfire in ${zone.name} sits a soot-smudged dwarven tinker muttering over a jammed brass strongbox. "My own safety-spring seized!" he grumbles. "Pop it clean without shattering my stock inside, and I'll pay you in silver and a fresh vial!"`,
+                choices: [
+                  {
+                    t: "Work the jammed brass clockwork tumblers carefully with your picks.",
+                    badge: `Lockpicking / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Lockpicking", dc, pass: 2, fail: 3, failDmg: snapDmg,
+                      passMsg: "Click! The lid springs open intact—the delighted tinker hands you a Health Potion and a handful of silver!",
+                      failMsg: `The tensioned brass pin snaps against your thumb (-${snapDmg} HP) before the latch finally yields.`
+                    },
+                    onPass: { item: "health_potion", gold: Math.round(baseGold * 1.25) }
+                  },
+                  {
+                    t: "Trace the tiny dwarven ward-grooves to release the hidden safety catch.",
+                    badge: `Detect Traps / Arcana DC ${dc}`,
+                    check: {
+                      stat: "arcana", skill: "Detect Traps", dc, pass: 2, fail: 3, failDmg: snapDmg,
+                      passMsg: "You slip the hidden detent cleanly! The tinker rewards you with a Mana Potion and grateful coin!",
+                      failMsg: `A tiny static spark pops across your knuckles (-${snapDmg} HP) as the lid pops ajar.`
+                    },
+                    onPass: { item: "mana_potion", gold: Math.round(baseGold * 1.15) }
+                  },
+                  {
+                    t: `Share a warm mug of pine-needle tea, gather ${matName} nearby, and return to Oakhaven.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "A Tinker's Thanks",
+                text: `The dwarven tinker packs his clinking wares with a booming laugh and waves you down the trail as you gather fresh ${matName} on your way back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Helped the Roadside Tinker", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.45), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Bruised Knuckles, Open Lid",
+                text: `Rubbing your stung fingers, you accept a few apology coins from the sheepish tinker, gather ${matName} along the verge, and head home to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Sprung the Tinker's Box", xp: Math.round(baseXp * 0.9), gold: Math.round(baseGold * 0.45), trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Warm Campfire Rest",
+                text: `You trade road-news over pine-needle tea, collect ${matName} beyond the clearing, and return refreshed to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Roadside Companionship", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 25. The Sun-Bleached Antler Shrine
+        () => {
+          const wispHp = 14 + lv * 4;
+          const wispAc = 11 + Math.min(4, Math.floor(lv / 2));
+          const wispAtk = 2 + Math.floor(lv * 0.9);
+          const wispDmg = 3 + Math.floor(lv * 0.75);
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Sun-Bleached Antler Shrine`,
+            subtitle: "Forgotten Frontier Cairn",
+            difficulty: "Skirmish",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Lantern-Light in the Hawthorn",
+                safeRetreat: true,
+                text: `Beneath a twisted hawthorn in ${zone.name} rises an old frontier shrine of stacked antlers and pale river-stones. A flickering pale-blue Moor-Wisp hovers uneasily above a tarnished copper offering bowl.`,
+                choices: [
+                  {
+                    t: "Right the toppled river-stones and speak a calm traveler's blessing.",
+                    badge: `Persuasion / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Persuasion", dc, pass: 2, fail: 3,
+                      passMsg: "The blue flame warms to soft gold and fades in peace—leaving a Mana Potion and old silver in the bowl!",
+                      failMsg: "The restless Moor-Wisp flares violet and darts straight at your face!"
+                    },
+                    onPass: { item: "mana_potion", gold: Math.round(baseGold * 1.1) }
+                  },
+                  {
+                    t: "Draw steel and disperse the restless Moor-Wisp!",
+                    to: 3
+                  },
+                  {
+                    t: `Bow quietly to the old shrine, gather ${matName} nearby, and return to Oakhaven.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Shrine at Peace",
+                text: `A gentle breeze rustles the hawthorn blossoms as you claim the shrine's blessing, gather ${matName}, and follow the footpath back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Calmed the Frontier Shrine", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Cold Blue Fire",
+                text: `Crackling arcs of pale spirit-fire hiss through the hawthorn branches as the Moor-Wisp lunges!`,
+                enemy: {
+                  name: "Restless Moor-Wisp",
+                  desc: "Wandering lantern-spirit haunting an untended frontier cairn.",
+                  hp: wispHp,
+                  ac: wispAc,
+                  atk: wispAtk,
+                  dmg: wispDmg,
+                  undead: true,
+                  xp: Math.round(baseXp * 1.4),
+                  gold: Math.round(baseGold * 1.15),
+                  items: [altMatId],
+                  flee: 4
+                },
+                choices: [
+                  { t: "Gather the offerings from the copper bowl and return to Oakhaven!", to: 2 }
+                ]
+              },
+              4: {
+                zone: zone.name,
+                title: "Quiet Reverence",
+                text: `You leave the old cairn undisturbed, harvest ${matName} along the outer verge, and return safely to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Respected the Old Stones", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 26. The Silver-Dew Bramble Patch
+        () => {
+          const thornDmg = Math.max(2, 2 + Math.floor(lv * 0.6));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Silver-Dew Bramble Patch`,
+            subtitle: "Rare Apothecary Harvest",
+            difficulty: "Foraging",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Shimmering Thorns",
+                safeRetreat: true,
+                text: `Cool mist beads into liquid silver along a dense bramble thicket in ${zone.name}—rare silver-dew buds prized by Oakhaven apothecaries! Fresh tusker tracks score the mud nearby, and razor-sharp vines guard the richest clusters.`,
+                choices: [
+                  {
+                    t: "Trim the delicate silver-dew buds cleanly without snagging the razor-thorns.",
+                    badge: `Herbalism / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Herbalism", dc, pass: 2, fail: 3, failDmg: thornDmg,
+                      passMsg: "You harvest a pristine bundle—brewing a fresh Health Potion and pocketing apothecary-grade silver-dew!",
+                      failMsg: `Springing briars score your forearm (-${thornDmg} HP) as you yank your satchel free.`
+                    },
+                    onPass: { item: "health_potion", gold: Math.round(baseGold * 1.2) }
+                  },
+                  {
+                    t: "Read the tusker tracks and circle downwind to forage the far bank safely.",
+                    badge: `Survival / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Survival", dc, pass: 2, fail: 3, failDmg: thornDmg,
+                      passMsg: "Keeping downwind of a browsing boar, you claim a lost traveler's Mana Potion and bright silver-dew!",
+                      failMsg: `A startled bristle-boar bursts through the brush, clipping your boot (-${thornDmg} HP) before vanishing!`
+                    },
+                    onPass: { item: "mana_potion", gold: Math.round(baseGold * 1.15) }
+                  },
+                  {
+                    t: `Clip only the outer sprigs of ${matName} and head safely back to Oakhaven.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Apothecary's Prize",
+                text: `Your satchel smells of crisp winter-mint and silver dew as you gather extra ${matName} and stride back toward Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Harvested the Silver-Dew", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Thorn-Scratched Forage",
+                text: `Wrapping a strip of linen around your scratches, you still salvage fresh ${matName} from the thicket edge and return to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Braved the Briar Patch", xp: Math.round(baseXp * 0.9), gold: Math.round(baseGold * 0.35), trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Careful Gathering",
+                text: `You keep clear of the deepest thorns, collect ${matName} along the sunlit edge, and return unscathed to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Cautious Forager", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
         }
       ];
 
