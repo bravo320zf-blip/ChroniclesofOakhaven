@@ -2225,7 +2225,8 @@
         `Old Bram slides a foaming tankard across the oak bar: "Hearth's hot, stew's thick, and half the frontier's secrets pass through this door."`,
         `A traveling lutist plucks a quiet frontier ballad as rain patters softly against the Rusty Flagon's leaded windows.`,
         `Sparks snap up the stone chimney while a hooded mapmaker traces charcoal lines across a stained frontier chart.`,
-        `A silver-haired cartographer taps a cracked brass compass: "The ley-winds shift every new moon—even old frontier trails hide fresh surprises."`
+        `A silver-haired cartographer taps a cracked brass compass: "The ley-winds shift every new moon—even old frontier trails hide fresh surprises."`,
+        `A lantern-maker wipes soot from his spectacles: "Strange bells have been chiming out over the Old Abbey Moorlands—even when there's not a breath of wind."`
       ];
       if (state.hardcore) {
         pool.push(`A scarred sellsword raises a pewter mug in your direction: "Hardcore blood, eh? One slip beyond the palisade and it's curtains — drink deep while you still draw breath!"`);
@@ -2248,6 +2249,12 @@
       if (done.gloomfen) {
         pool.push(`Herb-Wife Marta grins from a corner booth: "Ever since you shattered Morwenna's marsh-lanterns, the evening mist off Gloomfen smells of sweet cedar again!"`);
       }
+      if (done.ashen_keep) {
+        pool.push(`Ser Garrick lifts a spiced cider toward you from the corner bench: "Oakhaven's banner still flies clean over Ashen Keep—never thought I'd live to see the Red Baron's fires out!"`);
+      }
+      if (done.whispering_mines) {
+        pool.push(`Foreman Durn laughs beside the hearth: "No more singing quartz keeping my miners awake at night—drinks are on the salt-guild whenever you're in town!"`);
+      }
       if ((state.level || 1) >= 7) {
         pool.push(`A hush falls near the hearth as younger sellswords study your scarred gear—word of a frontier legend travels fast in Oakhaven.`);
       }
@@ -2269,6 +2276,7 @@
         if (state.hardcore) return `"No second chances beyond the gates, iron-nerve. Let me check every strap and edge before you head back out."`;
         if (done.karak_zul) return `"That dwarven ore from Karak-Zul still sings on my anvil — you've earned a smith's respect, friend!"`;
         if (done.brasshaven) return `"Pip sent over a whole crate of salvaged Brasshaven springs—fine temper, too! Need anything reinforced before you head out?"`;
+        if (done.ashen_keep) return `"Word of Ashen Keep's fall has every young sellsword asking for crimson-enameled pauldrons! Take first pick of my finest blades."`;
         if (done.bandit_citadel) return `"Since you cleared Ravencrest Citadel, fresh iron bars are rolling into Oakhaven again—pick yourself a proper edge!"`;
         if ((state.level || 1) >= 5) return `"You've got the stance of a seasoned frontier veteran now. Time to trade up to heavier steel!"`;
       }
@@ -2280,6 +2288,7 @@
       }
       if (shopKey === "curios") {
         if (done.crimson_spire) return `"The astral tides have calmed since your venture to the Crimson Spire — my brass astrolabe finally spins true again."`;
+        if (done.whispering_mines) return `"That crystal shard you brought up from the Whispering Salt-Mines still hums softly in my display case! Come see what else I've turned up."`;
         if ((state.arcana || 0) >= 4 || (state.spells || []).length >= 3) return `"A bright arcane resonance follows you in today! Step close — half these charms only wake for a true spellcaster."`;
         if ((d.s?.luck || 0) >= 6) return `"Curious... the silver pendulum behind my counter swings toward you. Fortune favors your steps today, traveler!"`;
       }
