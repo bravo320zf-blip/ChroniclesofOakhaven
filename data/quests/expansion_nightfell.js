@@ -59,7 +59,7 @@ window.OAKHAVEN.registerQuests({
       },
 
       // ==========================================================
-      // NIGHTFELL PART II: CHILD OF BLOOD (12 PAGES • LV 3)
+      // NIGHTFELL PART II: CHILD OF BLOOD (15 PAGES • LV 3)
       // Prerequisite: nf_1_secrets_ice
       // ==========================================================
       nf_2_child_blood: {
@@ -72,45 +72,58 @@ window.OAKHAVEN.registerQuests({
         autoDiscover: true,
         discoverySource: "Unlocks after Nightfell I: Secrets in the Ice",
         summary: "Survive Murian's arena test, hunt dissident vampires beneath Northern Lookout, meet Lyvar thief-lord Iximisi Darkeye, and decide the fate of the prophesied Child of Blood.",
-        totalPages: 12,
+        totalPages: 15,
         pages: {
-          1: { zone:"Black Log Arena", title:"A Test of Loyalty", safeRetreat:true, text:"Beneath Murian's cold gaze in Black Log's underground arena, two enslaved Garnar Bear Warriors charge with one-handed greataxes! Murian demands you prove your worth before sending you to Northern Lookout to hunt a coven of dissident vampires.", enemy:{ name:"Garnar Bear Warriors", desc:"Desperate enslaved warriors fighting in Murian's pit.", hp:28, ac:12, atk:5, dmg:6, xp:70, gold:30, items: rollRandomLoot(["consumable","valuable"], 1, "rare"), flee:1 }, choices:[
+          1: { zone:"Black Log Arena", title:"A Test of Loyalty", safeRetreat:true, text:"Beneath Murian's cold gaze in Black Log's torch-lit underground arena, two enslaved Garnar Bear Warriors charge with one-handed greataxes! Murian demands you prove your worth in blood before dispatching you to Northern Lookout to hunt a coven of dissident vampires.", enemy:{ name:"Garnar Bear Warriors", desc:"Desperate enslaved warriors fighting in Murian's pit.", hp:28, ac:12, atk:5, dmg:6, xp:70, gold:30, items: rollRandomLoot(["consumable","valuable"], 1, "rare"), flee:1 }, choices:[
             { t:"Accept Murian's mission and depart with her two Vampire Acolyte watchers.", to:2 }
           ]},
-          2: { zone:"Northern Range", title:"The Cold Night Road", text:"Five freezing days lie between Black Log and Northern Lookout, with Murian's two Vampire Acolytes watching your every whisper. On the third night, a Shadow of the Echoes detaches from the snow!", enemy:{ name:"Shadow of the Echoes", desc:"Soul-hungry entity from the Dark Mirror.", hp:29, ac:13, atk:5, dmg:6, undead:true, xp:75, gold:25, items: rollRandomLoot(["material","consumable"], 1, "rare"), flee:1 }, choices:[
-            { t:"Enter the underground district of Northern Lookout.", to:3 }
+          2: { zone:"Northern Range", title:"The Cold Night Road", text:"Five freezing days lie between Black Log and Northern Lookout, with Murian's two pale Vampire Acolytes watching your every whisper. On the third night, a Shadow of the Echoes detaches silently from the wind-blown snow!", enemy:{ name:"Shadow of the Echoes", desc:"Soul-hungry entity from the Dark Mirror.", hp:29, ac:13, atk:5, dmg:6, undead:true, xp:75, gold:25, items: rollRandomLoot(["material","consumable"], 1, "rare"), flee:1 }, choices:[
+            { t:"Make camp beside a sheltered crag before descending into Northern Lookout.", to:3 }
           ]},
-          3: { zone:"Northern Lookout Hypogea", title:"The Tavern of the Last Sun", text:"Carved deep beneath the fortress-city, the Last Sun district houses Rizadrin moon-satyrs and Lyvar faelings. Murian's acolytes remain at the tavern while you explore the Deep Alleys and Sanctuary of Mirithlen.", choices:[
-            { t:"Rescue a Night Faeling from Cursed Fanatics in the Deep Alleys!", to:4 },
-            { t:"Seek information at the Sanctuary of Mirithlen.", badge:"Persuasion / Lore DC 11", check:{ stat:"spirit", skill:"Persuasion", dc:11, pass:5, fail:4, passMsg:"The priestesses praise peaceful vampires and whisper of Darkeye!", failMsg:"Suspicious of Black Log, they turn you away toward the alleys!" } }
+          3: { zone:"Northern Range • Snow-Bound Watchfire", title:"Eyes in the Frost", text:"While Murian's two Vampire Acolytes murmur in low Blood-Sect cant across the dying embers, pale snow-sage sprouts beside the leeward boulders.", choices:[
+            { t:"Listen closely to the acolytes' hushed fencing-signals and patrol habits.", badge:"Spirit / Perception DC 11", check:{ stat:"spirit", skill:"Perception", dc:11, pass:4, fail:4, passMsg:"You catch their twin-flank tells—useful if blades ever cross with Murian's watchers!", failMsg:"They fall silent the instant your shadow shifts across the snow." }, onPass:{ cw:"ACOLYTE_TELL", xp:20 } },
+            { t:"Steep wild alpine snow-sage into a steaming mug to warm your frostbitten limbs.", badge:"Spirit / Herbalism DC 11", check:{ stat:"spirit", skill:"Herbalism", dc:11, pass:4, fail:4, passMsg:"The bitter silver tea restores +8 HP and +4 MP before you reach the gates!", failMsg:"The frost-blackened leaves yield only lukewarm snowmelt." }, onPass:{ hp:8, mp:4, xp:15 } },
+            { t:"Pack your cloak and descend into the underground district of Northern Lookout.", to:4 }
           ]},
-          4: { zone:"Deep Alleys", title:"Foiling a Kidnapping", text:"Two Cursed Fanatics corner the tavern-keeper's Lyvar son in a dead-end alley!", enemy:{ name:"Cursed Fanatics", desc:"Undead cultists stalking the hypogea.", hp:28, ac:12, atk:5, dmg:6, undead:true, xp:72, gold:35, items: rollRandomLoot(["consumable","valuable"], 1, "rare"), flee:3 }, choices:[
-            { t:"Light four candles at the Tavern of the Last Sun to summon Iximisi Darkeye!", to:5, onChoose:{ cw:"LYVAR_TRUST", msg:"Earned the gratitude of the Last Sun (LYVAR_TRUST)!" } }
+          4: { zone:"Northern Lookout Hypogea", title:"The Tavern of the Last Sun", text:"Carved deep beneath the fortress-city, the Last Sun district shelters Rizadrin moon-satyrs and Lyvar faelings under amber lantern-light. Murian's acolytes linger at the bar while you slip into the winding stone lanes.", choices:[
+            { t:"Investigate panicked cries echoing from the Deep Alleys!", to:5 },
+            { t:"Seek quiet counsel at the candlelit Sanctuary of Mirithlen.", badge:"Spirit / Persuasion DC 11", check:{ stat:"spirit", skill:"Persuasion", dc:11, pass:6, fail:5, passMsg:"The moon-priestesses sense your honest heart and invite you behind the silver curtain!", failMsg:"Suspicious of Black Log's scent on your cloak, they turn you away toward the alleys!" } }
           ]},
-          5: { zone:"Abandoned Sanctuary", title:"Iximisi Darkeye's Trap", text:"Mohawked Lyvar thief-lord Iximisi Darkeye of the Spry Eyes Guild leads you into a ruined underground hall—where Lyvar Raiders drop from the rafters with poisoned blades!", choices:[
-            { t:"Prove you oppose Murian and offer an alliance against the Blood Moon!", reqCw:"LYVAR_TRUST", badge:"LYVAR_TRUST", to:7, onChoose:{ cw:"IXIMISI_ALLY", items:["nf_spry_eyes_dirk"], msg:"Iximisi lowers his blades and gifts Iximisi's Shadow-Dirk!" } },
-            { t:"Fight through Iximisi Darkeye and his Spry Eyes ambush!", to:6 }
+          5: { zone:"Deep Alleys", title:"Foiling a Kidnapping", text:"Two Cursed Fanatics corner the tavern-keeper's young Lyvar son in a lantern-lit dead-end alley!", enemy:{ name:"Cursed Fanatics", desc:"Undead cultists stalking the hypogea.", hp:28, ac:12, atk:5, dmg:6, undead:true, xp:72, gold:35, items: rollRandomLoot(["consumable","valuable"], 1, "rare"), flee:4 }, choices:[
+            { t:"Light four candles at the Tavern of the Last Sun to summon Iximisi Darkeye!", to:7, onChoose:{ cw:"LYVAR_TRUST", msg:"Earned the gratitude of the Last Sun (LYVAR_TRUST)!" } }
           ]},
-          6: { zone:"Abandoned Sanctuary", title:"Clash With the Spry Eyes", text:"Iximisi Darkeye weaves through shadows with poisoned shortswords!", enemy:{ name:"Iximisi Darkeye & Raiders", desc:"Cunning Lyvar guildmaster and assassins.", hp:32, ac:13, atk:5, dmg:6, xp:85, gold:50, items:["nf_spry_eyes_dirk"], flee:3 }, choices:[
-            { t:"Spare Iximisi in exchange for leading you to the dissident vampires' temple.", to:7, onChoose:{ cw:"IXIMISI_SPARED", msg:"Iximisi agrees to guide you to the hidden temple." } }
+          6: { zone:"Sanctuary of Mirithlen", title:"Whispers of the Pale Moon", text:"Beneath a silver lunar mirror, Sister Lyra anoints your brow with cool moon-water. 'Not all who bear the dark blood serve Murian's cruelty,' she whispers, pressing 25 GP and the four-candle sign for thief-lord Iximisi Darkeye into your hand.", onEnter:{ cw:"MIRITHLEN_WARD", mp:4, xp:20, gold:25, msg:"Received Mirithlen's lunar blessing (MIRITHLEN_WARD, +4 MP, +25 GP, +20 XP)!" }, choices:[
+            { t:"Light four candles at the Last Sun to meet Iximisi Darkeye!", to:7, onChoose:{ cw:"LYVAR_TRUST", msg:"Carried Sister Lyra's four-candle sign (LYVAR_TRUST)!" } }
           ]},
-          7: { zone:"Hidden Lunar Temple", title:"Birth of the Child of Blood", text:"Through a rift in the cave ceiling, a pure beam of moonlight illuminates a stone altar where pacifist Vampire Cultists chant around a dying mother—birthing the prophesied Child of Blood, Mirithlen's chosen weapon against Acirenzia! Suddenly, Murian's Vampire Acolytes burst in with drawn steel!", choices:[
-            { t:"REBEL against the Sect: Defend the Child & escort him to the Apostates of Rahidra!", to:8, onChoose:{ cw:"REBEL_PATH", msg:"Chose to defend the Child of Blood!" } },
-            { t:"SERVE the Sect: Slay the Cultists & bring the Child to the Strix witches!", to:9, onChoose:{ cw:"SECT_PATH", msg:"Chose to serve Murian's Sect!" } }
+          7: { zone:"Abandoned Sanctuary", title:"Iximisi Darkeye's Trap", text:"Mohawked Lyvar thief-lord Iximisi Darkeye of the Spry Eyes Guild leads you into a ruined underground hall—where Lyvar Raiders drop from the rafters with poisoned blades!", choices:[
+            { t:"Prove you oppose Murian and offer an alliance against the Blood Moon!", reqCw:"LYVAR_TRUST", badge:"LYVAR_TRUST", to:9, onChoose:{ cw:"IXIMISI_ALLY", items:["nf_spry_eyes_dirk"], msg:"Iximisi lowers his blades and gifts Iximisi's Shadow-Dirk!" } },
+            { t:"Fight through Iximisi Darkeye and his Spry Eyes ambush!", to:8 }
           ]},
-          8: { zone:"Hidden Lunar Temple", title:"Defending Mirithlen's Chosen", text:"Murian's Vampire Acolytes hiss in fury as you turn your blade against the Sect!", enemy:{ name:"Murian's Vampire Acolytes", desc:"Loyal blood-hunters of Black Log.", hp:33, ac:13, atk:5, dmg:6, undead:true, xp:90, gold:45, items:["nf_lunar_blessing_orb"], flee:3 }, choices:[
-            { t:"Climb the frozen Northern Range toward the Wailing Mire!", to:10 }
+          8: { zone:"Abandoned Sanctuary", title:"Clash With the Spry Eyes", text:"Iximisi Darkeye weaves through the pillar shadows with poisoned shortswords!", enemy:{ name:"Iximisi Darkeye & Raiders", desc:"Cunning Lyvar guildmaster and assassins.", hp:32, ac:13, atk:5, dmg:6, xp:85, gold:50, items:["nf_spry_eyes_dirk"], flee:4 }, choices:[
+            { t:"Spare Iximisi in exchange for leading you to the dissident vampires' temple.", to:9, onChoose:{ cw:"IXIMISI_SPARED", msg:"Iximisi agrees to guide you to the hidden temple." } }
           ]},
-          9: { zone:"Hidden Lunar Temple", title:"Purge of the Dissidents", text:"The Vampire Cultists of the Child raise lunar magic to shield the newborn!", enemy:{ name:"Vampire Cultists of the Child", desc:"Devout dissident vampires.", hp:32, ac:12, atk:5, dmg:6, undead:true, xp:90, gold:55, items: rollRandomLoot(["valuable","accessory"], 1, "rare"), flee:3 }, choices:[
-            { t:"Drag the unharmable Child across the Northern Range to the Wailing Mire!", to:10 }
+          9: { zone:"Hidden Lunar Temple", title:"Birth of the Child of Blood", text:"Through a rift in the cave ceiling, a pure beam of moonlight illuminates a stone altar where pacifist Vampire Cultists chant around a dying mother—birthing the prophesied Child of Blood, Mirithlen's chosen weapon against Acirenzia! Suddenly, Murian's Vampire Acolytes burst in with drawn steel!", choices:[
+            { t:"REBEL against the Sect: Defend the Child & escort him to the Apostates of Rahidra!", to:10, onChoose:{ cw:"REBEL_PATH", msg:"Chose to defend the Child of Blood!" } },
+            { t:"SERVE the Sect: Slay the Cultists & bring the Child to the Strix witches!", to:11, onChoose:{ cw:"SECT_PATH", msg:"Chose to serve Murian's Sect!" } }
           ]},
-          10: { zone:"Northern Range", title:"The Long Climb & Centicores", text:"On a sheer frozen ridge, howling Centicores trigger a snowslide! Reaching the summit reveals a gleaming Circlet of Last Light wedged in the ice.", choices:[
-            { t:"Scale the ridge with Athletics / Survival to claim the Circlet!", badge:"Might / Survival DC 12", check:{ stat:"might", skill:"Survival", dc:12, pass:11, fail:11, failDmg:5, passMsg:"Flawless climb! Claimed Circlet of Last Light!", failMsg:"Avalanche stone batters you (-5 HP), yet you snatch the Circlet!" }, onPass:{ items:["nf_circlet_last_light"] } }
+          10: { zone:"Hidden Lunar Temple", title:"Defending Mirithlen's Chosen", text:"Murian's Vampire Acolytes hiss in fury as you turn your blade against the Blood Moon Sect!", enemy:{ name:"Murian's Vampire Acolytes", desc:"Loyal blood-hunters of Black Log.", hp:33, ac:13, atk:5, dmg:6, undead:true, xp:90, gold:45, items:["nf_lunar_blessing_orb"], flee:4, weakCw:["ACOLYTE_TELL", "IXIMISI_ALLY"] }, choices:[
+            { t:"Climb the frozen Northern Range toward the Wailing Mire!", to:12 }
           ]},
-          11: { zone:"The Wailing Mire", title:"Showdown in the Fog", text:"Ghostly fog blankets the Wailing Mire as the Child of Blood stands between the coven of Strix witches and the howling Apostates of Rahidra! Steel and dark magic collide!", enemy:{ name:"Lesser Strix & Mire Coven", desc:"Ancient bog-witches and rivals of the Wailing Mire.", hp:38, ac:13, atk:6, dmg:7, xp:135, gold:95, items: rollRandomLoot(["weapon","armor","accessory"], 1, "very_rare"), weakCw:["IXIMISI_ALLY"] }, choices:[
-            { t:"Witness the Prime soul of the Child surge into the night!", to:12 }
+          11: { zone:"Hidden Lunar Temple", title:"Purge of the Dissidents", text:"The Vampire Cultists of the Child raise lunar magic to shield the newborn!", enemy:{ name:"Vampire Cultists of the Child", desc:"Devout dissident vampires.", hp:32, ac:12, atk:5, dmg:6, undead:true, xp:90, gold:55, items: rollRandomLoot(["valuable","accessory"], 1, "rare"), flee:4, weakCw:["ACOLYTE_TELL"] }, choices:[
+            { t:"Carry the unharmable Child across the Northern Range to the Wailing Mire!", to:12 }
           ]},
-          12: { zone:"Epilogue", title:"Tides of War", text:"The Child's radiant essence shatters across the mire, empowering your spirit—yet war between Murian's Blood Moon army and Northern Lookout is now unavoidable! <strong>Nightfell Part III: Under a Pale Moon</strong> is now unlocked on your Quest Board!", ending:{ type:"true", title:"Bearer of the Child's Fate (Nightfell II)", xp:140, gold:135, trophy:"Lunar Shard of Mirithlen" }, choices:[] }
+          12: { zone:"Northern Range", title:"The Long Climb & Centicores", text:"On a sheer frozen ridge, howling Centicores trigger a roaring snowslide! High above the ice-lip glints a gleaming Circlet of Last Light wedged in blue glacial frost.", choices:[
+            { t:"Scale the ridge with Survival to claim the Circlet of Last Light!", badge:"Might / Survival DC 12", check:{ stat:"might", skill:"Survival", dc:12, pass:13, fail:13, failDmg:5, passMsg:"Flawless climb! Claimed Circlet of Last Light!", failMsg:"Avalanche stone batters you (-5 HP), yet you snatch the Circlet!" }, onPass:{ items:["nf_circlet_last_light"] } }
+          ]},
+          13: { zone:"Edge of the Wailing Mire", title:"Lanterns in the Bog-Mist", text:"Choking ghostly fog blankets the reeds of the Wailing Mire as crow-masked Strix witches circle a ring of hanging bone-lanterns, weaving a hex-veil before the final confrontation.", choices:[
+            { t:"Disrupt the Strix witches' bog-ward runes from the ridge!", badge:"Arcana / Arcana DC 12", check:{ stat:"arcana", skill:"Arcana", dc:12, pass:14, fail:14, failDmg:4, passMsg:"The hanging bone-lanterns gutter out—stripping the coven's mist-ward and yielding 30 GP in ritual silver!", failMsg:"Cold hex-sparks sting your fingers (-4 HP) as the witches turn!" }, onPass:{ cw:"MIRE_CLEARED", gold:30, xp:20 } },
+            { t:"Slip through the frozen reeds to strike from the coven's blind flank.", badge:"Agility / Stealth DC 12", check:{ stat:"agility", skill:"Stealth", dc:12, pass:14, fail:14, passMsg:"You close within striking range unseen, catching the Strix coven off-balance!", failMsg:"Ice cracks beneath your boot, drawing shrieks from the mist!" }, onPass:{ cw:"MIRE_CLEARED", xp:20 } },
+            { t:"Stride boldly into the ghostly fog of the Wailing Mire!", to:14 }
+          ]},
+          14: { zone:"The Wailing Mire", title:"Showdown in the Fog", text:"Ghostly fog swirls across the Wailing Mire as the Child of Blood stands between the coven of Strix witches and the howling Apostates of Rahidra! Steel and dark lunar magic collide!", enemy:{ name:"Lesser Strix & Mire Coven", desc:"Ancient bog-witches and rivals of the Wailing Mire.", hp:38, ac:13, atk:6, dmg:7, xp:135, gold:95, items: rollRandomLoot(["weapon","armor","accessory"], 1, "very_rare"), weakCw:["IXIMISI_ALLY", "MIRITHLEN_WARD", "MIRE_CLEARED"] }, choices:[
+            { t:"Witness the Prime soul of the Child surge into the night!", to:15 }
+          ]},
+          15: { zone:"Epilogue", title:"Tides of War", text:"The Child's radiant essence shatters across the mire, empowering your spirit—yet war between Murian's Blood Moon army and Northern Lookout is now unavoidable! <strong>Nightfell Part III: Under a Pale Moon</strong> is now unlocked on your Quest Board!", ending:{ type:"true", title:"Bearer of the Child's Fate (Nightfell II)", xp:140, gold:135, trophy:"Lunar Shard of Mirithlen" }, choices:[] }
         }
       },
 
