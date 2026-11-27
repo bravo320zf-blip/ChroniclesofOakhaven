@@ -1,6 +1,6 @@
 {
-  "totalPasses": 63,
-  "totalItemsReworked": 630,
+  "totalPasses": 64,
+  "totalItemsReworked": 640,
   "history": [
     {
       "pass": 1,
@@ -1009,6 +1009,22 @@
         "vom_ravagers_axe"
       ],
       "summary": "Reworked 2 Fabled Vault of Magic relics (Blood Moon Orb & Cailebryn), Ravager Axe, Dwarven Waraxe (added uncommon rarity), and 6 quest relics with signature passives and charged active abilities."
+    },
+    {
+      "pass": 64,
+      "items": [
+        "bq_puca_silver_bridle",
+        "vom_timeworn_timepiece",
+        "vom_locket_dragon_vit",
+        "vom_staff_midnight",
+        "bq_selket_stinger_pin",
+        "nf_lunar_blessing_orb",
+        "shadow_vestments",
+        "bq_mammon_coin_mail",
+        "ul_ellsmark_plate",
+        "vom_zephyr_shield"
+      ],
+      "summary": "Reworked 4 Vault of Magic relics, 2 expansion uniques, Shadow-Weave Armor (added rare rarity), and 3 quest relics (including Legendary Silver Chains of the Puca)."
     }
   ],
   "itemPasses": {
@@ -1641,6 +1657,16 @@
     "bq_starlight_sealant_charm": 1,
     "bq_maedera_chimeric_focus": 1,
     "dwarven_waraxe": 1,
-    "vom_ravagers_axe": 1
+    "vom_ravagers_axe": 1,
+    "bq_puca_silver_bridle": 1,
+    "vom_timeworn_timepiece": 1,
+    "vom_locket_dragon_vit": 1,
+    "vom_staff_midnight": 1,
+    "bq_selket_stinger_pin": 1,
+    "nf_lunar_blessing_orb": 1,
+    "shadow_vestments": 1,
+    "bq_mammon_coin_mail": 1,
+    "ul_ellsmark_plate": 1,
+    "vom_zephyr_shield": 1
   }
 }

@@ -2435,9 +2435,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     agility: 3,
     luck: 2,
-    passives: { dmgReduce: 2, skillBonus: { Stealth: 2, Persuasion: 2 } },
-    activeAbility: { name: "Midnight Gallop", icon: "🐎", charges: 2, multiStrike: 2, evadeTurns: 2, restoreLuck: 2, desc: "2/Quest: Blur in silver chains for 2 swift strikes, +2 AC (2t), and +2 Current Luck!" },
-    desc: "Moon-forged silver mantle won from the wild shapeshifting Púca at midnight."
+    passives: { dmgReduce: 3, critRange: 10, goldFindPct: 15, skillBonus: { Stealth: 4, Persuasion: 3 } },
+    activeAbility: { name: "Midnight Gallop", icon: "🐎", charges: 3, multiStrike: 2, evadeTurns: 3, restoreLuck: 2, desc: "3/Quest: Blur in moon-forged silver chains for 2 swift strikes, Evade (3t), and +2 Current Luck!" },
+    desc: "Legendary moon-forged silver mantle won from the wild shapeshifting Púca at midnight (+3 AC, +3 Agility, +2 Luck, -3 Dmg Taken, Crit 10+, +15% Gold, +4 Stealth, +3 Persuasion) with Midnight Gallop."
   },
   "bq_deep_king_sovereign_crown": {
     id: "bq_deep_king_sovereign_crown",
@@ -2632,9 +2632,9 @@ window.OAKHAVEN.registerItems({
     value: 85,
     agility: 1,
     luck: 1,
-    passives: { critRange: 11, skillBonus: { Stealth: 1 } },
-    activeAbility: { name: "Desert Scorpion Sting", icon: "🦂", charges: 1, dmgDice: "1d8", dmgStat: "agility", dmgType: "poison", dot: { dmg: 3, turns: 2, label: "Scorpion Venom" }, desc: "1/Quest: Strike swiftly for 1d8 + Agility poison dmg and Scorpion Venom (3/t, 2t)!" },
-    desc: "Desert bronze clasp seized near Anu-Asir (+Crit, +1 Stealth) with Desert Scorpion Sting."
+    passives: { critRange: 11, skillBonus: { Stealth: 2, Survival: 1 } },
+    activeAbility: { name: "Desert Scorpion Sting", icon: "🦂", charges: 2, dmgDice: "1d10", dmgStat: "agility", dmgType: "poison", dot: { dmg: 3, turns: 3, label: "Scorpion Venom" }, desc: "2/Quest: Strike swiftly with the bronze barb for 1d10 + Agility poison dmg and Scorpion Venom (3/t, 3t)!" },
+    desc: "Desert bronze stinger clasp seized near Anu-Asir (+1 Agility, +1 Luck, Crit 11+, +2 Stealth, +1 Survival) with Desert Scorpion Sting."
   },
   "bq_slatelight_ring": {
     id: "bq_slatelight_ring",
@@ -2658,9 +2658,9 @@ window.OAKHAVEN.registerItems({
     ac: 5,
     might: 2,
     luck: 2,
-    passives: { goldFindPct: 25, dmgReduce: 2, thornsDmg: 3 },
-    activeAbility: { name: "Gilded Aegis Flash", icon: "🪙", charges: 2, dmgDice: "2d6", dmgStat: "luck", dmgType: "radiant", shieldTurns: 3, desc: "2/Quest: Blind foes with gleaming coin-plate for 2d6 + Luck radiant dmg and +3 AC (3t)!" },
-    desc: "Glittering armor forged from stamped gold coins (+25% Gold, -2 dmg taken, 3 thorns) with Gilded Aegis Flash."
+    passives: { goldFindPct: 25, dmgReduce: 3, thornsDmg: 4, skillBonus: { Persuasion: 3 } },
+    activeAbility: { name: "Gilded Aegis Flash", icon: "🪙", charges: 2, dmgDice: "2d8", dmgStat: "luck", dmgType: "radiant", shieldTurns: 3, chillTurns: 2, desc: "2/Quest: Blind foes with gleaming coin-plate for 2d8 + Luck radiant dmg, dazzle-Chill (2t), and +3 AC (3t)!" },
+    desc: "Glittering scale-plate forged from stamped Ghatazi gold coins (+5 AC, +2 Might, +2 Luck, +25% Gold, -3 Dmg Taken, 4 Thorns, +3 Persuasion) with Gilded Aegis Flash."
   },
   "bq_maedera_chimeric_focus": {
     id: "bq_maedera_chimeric_focus",
