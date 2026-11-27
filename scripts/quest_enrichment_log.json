@@ -1,5 +1,5 @@
 {
-  "totalPasses": 39,
+  "totalPasses": 40,
   "history": [
     {
       "pass": 1,
@@ -267,6 +267,13 @@
       "title": "The Returners' Tower",
       "file": "data/quests/books_quests_batch_019.js",
       "summary": "Expanded from 7 to 11 pages with ivy bell-rope Athletics climb, Mid-Tower Bell-Loft rescue of clerk Corin (Persuasion/Arcana -> CORIN_SAVED, +40 GP, +10 HP/+4 MP, Conduit Gallery bypass), Four Copper Busbars sabotage (CORIN_SAVED/Detect Traps +55 GP/Firebolt -> CONDUIT_CUT), mayor rescue bonus (+50 GP/+35 XP), and Planar Salvager victory ending."
+    },
+    {
+      "pass": 40,
+      "questId": "bk_b8_ms_4_tomorrows",
+      "title": "Raiders of the Chamber of Tomorrows",
+      "file": "data/quests/books_quests_batch_008.js",
+      "summary": "Expanded from 7 to 11 pages (removed 3 one-line filler epilogue pages, fixed invalid Acrobatics skill to Athletics), adding warehouse fuse-snipping (Detect Traps +25 GP -> THORN_CHART), Sunken Causeway rearguard skirmish, Domed Apex chrono-ward check (Arcana -> TIME_WARD_CALMED), Effervescent Boathouse limpet-mine sabotage & starlight cordial (SKIFF_TUNED +40 GP/+30 XP or +10 HP/+4 MP/+30 GP), Firebolt/SKIFF_TUNED rapids advantage (RIVER_LEAD), and rich Reywald Sanctuary epilogue."
     }
   ],
   "questPasses": {
@@ -308,6 +315,7 @@
     "bk_bol_21_the_cistern": 1,
     "bk_b13_tenebrous_plain": 1,
     "bk_b11_sc_1_ruins": 1,
-    "bk_b19_returners_tower": 1
+    "bk_b19_returners_tower": 1,
+    "bk_b8_ms_4_tomorrows": 1
   }
 }

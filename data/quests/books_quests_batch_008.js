@@ -236,7 +236,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 4. RAIDERS OF THE CHAMBER OF TOMORROWS (7 PAGES • LV 6)
+  // 4. RAIDERS OF THE CHAMBER OF TOMORROWS (11 PAGES • LV 6)
   // ==========================================================
   bk_b8_ms_4_tomorrows: {
     id: "bk_b8_ms_4_tomorrows",
@@ -247,64 +247,107 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Saintmistress Rowanmantle (Oakhaven Guildhall)",
     summary: "Acting for Saintmistress Rowanmantle, thwart scheming ravenfolk Professor Skein Devinshire in an explosive Reywald warehouse, delve into the time-warping Ruins of Thorn for the Celestial Sextant, and race down a raging river in ancient elven boats!",
-    totalPages: 7,
+    totalPages: 11,
     pages: {
       1: {
         zone: "Reywald • Aldous-Donner Warehouse",
-        title: "Crates of Explosives",
+        title: "Crates of Blasting Powder",
         safeRetreat: true,
-        text: "Tipped off by Saintmistress Rowanmantle, you sneak into an Aldous-Donner warehouse stacked with blasting powder—catching dapper ravenfolk schemer Professor Skein Devinshire trading the time-warping Agua-Sintellus Orb stolen from the Ruins of Thorn!",
+        text: "Tipped off by Saintmistress Rowanmantle, you creep along the salt-scented rafters of an Aldous-Donner waterfront warehouse stacked with ironbound kegs of blasting powder. Below, dapper ravenfolk antiquarian Professor Skein Devinshire taps his silver-headed cane beside a crate holding the shimmering Agua-Sintellus Orb stolen from the Ruins of Thorn—while a rolled parchment chart of the Chamber of Tomorrows lies inches from a sputtering fuse!",
         choices: [
-          { t: "Leap down to snatch the map to the Chamber of Tomorrows before the powder ignites!", badge: "Agility / Acrobatics DC 13", check: { stat: "agility", skill: "Acrobatics", dc: 13, pass: 2, fail: 2, failDmg: 6, passMsg: "You snag the ruins chart cleanly as Devinshire bolts for the forest!", failMsg: "A blasting barrel blows timber across your path (-6 HP) as you pursue!" }, onPass: { cw: "THORN_CHART" } },
-          { t: "Pursue Professor Devinshire straight into the Tommierran Forest!", to: 2 }
+          { t: "Swing down from the cargo crane to snatch the ruins chart before the powder ignites!", badge: "Agility / Athletics DC 13", check: { stat: "agility", skill: "Athletics", dc: 13, pass: 2, fail: 3, failDmg: 6, passMsg: "You snag the silver-inked ruins chart mid-swing as Devinshire curses and bolts for the docks!", failMsg: "A keg erupts in splinters and smoke (-6 HP), forcing you to chase Devinshire straight into the forest!" }, onPass: { cw: "THORN_CHART" } },
+          { t: "Drop silently behind the crates to snip the powder fuse and pocket the ruins chart.", badge: "Agility / Detect Traps DC 13", check: { stat: "agility", skill: "Detect Traps", dc: 13, pass: 2, fail: 3, failDmg: 5, passMsg: "You pinch the fuse dead, swipe the ruins chart, and scoop 25 GP from Devinshire's dropped coin-pouch!", failMsg: "Sparks nip your fingers (-5 HP) as the blast blows the dockside shutters wide!" }, onPass: { cw: "THORN_CHART", gold: 25 } },
+          { t: "Vault straight through the dockside doors to pursue Professor Devinshire into the Tommierran Forest!", to: 3 }
         ]
       },
       2: {
-        zone: "Ruins of Thorn • Chamber of Tomorrows",
-        title: "The Angry Elven Wight",
-        text: "Beneath the Domed Apex of the crumbling elven ruins gleam the Thornish Nocturnal, Celestial Sextant, and ancient Effervescent Flotilla boats built for the elves' Great Retreat! An ancient Elven Wight rises to guard the relics!",
-        enemy: { name: "Guardian Wight of Thorn", desc: "Centuries-old elven sentinel defending the secrets of the Great Retreat.", hp: 54, ac: 14, atk: 8, dmg: 8, undead: true, xp: 155, gold: 80, items: ["bq_celestial_sextant"], flee: 1, weakCw: ["THORN_CHART"] },
+        zone: "Reywald Waterfront • The Smoldering Dock",
+        title: "Chart of the Great Retreat",
+        text: "You roll onto the wet cobbles with the Thornish parchment tucked inside your coat as the warehouse shutters blow outward in a plume of sulfurous smoke. Scanning the silver-inked annotations while sprinting for the tree line, you spot an overgrown elven boathouse sluice marked beside the Domed Apex—and a marginal note warning of the chrono-warded wight guarding the Celestial Sextant.",
+        reward: { xp: 20 },
         choices: [
-          { t: "Launch the ancient elven boats onto the raging underground river!", to: 3 }
+          { t: "Follow the silver-inked smuggler's trail straight to the Ruins of Thorn, bypassing the main road.", to: 4 },
+          { t: "Cut across the sunken logging road to intercept Devinshire's rearguard scouts.", to: 3 }
         ]
       },
       3: {
-        zone: "Raging River Gorge",
-        title: "Professor Devinshire's River Ambush",
-        text: "Whitewater rockets your enchanted elven boat through churning rapids while Professor Skein Devinshire's rival treasure hunters, snapping alligators, and sahuagin raiders board from alongside!",
-        enemy: { name: "Prof. Skein Devinshire & Mercs", desc: "Scheming ravenfolk antiquarian and his ruthless treasure hunters.", hp: 64, ac: 15, atk: 8, dmg: 9, xp: 215, gold: 150, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["THORN_CHART"] },
+        zone: "Tommierran Forest • The Sunken Causeway",
+        title: "Devinshire's Rearguard",
+        text: "Towering ferns and moss-draped elven mileposts crowd the mist-choked track toward the Ruins of Thorn. Where the mossy flagstones dip into a fern-draped ravine, two of Devinshire's scarred river-mercenaries step out from behind a fallen oak with cocked crossbows and boarding axes!",
+        enemy: { name: "Devinshire's River-Mercs", desc: "Hard-eyed Reywald sellswords paid to delay anyone following the Professor.", hp: 42, ac: 14, atk: 7, dmg: 7, xp: 110, gold: 45, items: rollRandomLoot(["consumable"], 1, "rare"), flee: 1 },
         choices: [
-          { t: "Ride the storm out to the sea—where the elven boats' fail-safe beaches you in a sheltered cove!", to: 4 }
+          { t: "Search the fallen mercenaries' satchels and press on to the Ruins of Thorn.", to: 4 }
         ]
       },
       4: {
-        zone: "Sheltered Sea Cove",
-        title: "Secret of the Great Retreat",
-        text: "Safely ashore with the Celestial Sextant and Agua-Sintellus Orb, you realize these enchanted vessels were built to sail to the mysterious underside of Midgard!",
+        zone: "Ruins of Thorn • The Domed Apex",
+        title: "The Time-Warped Threshold",
+        text: "Through a curtain of silver ivy rises the Domed Apex of Thorn—an alabaster rotunda where raindrops hang motionless in midair and fallen leaves drift upward in slow spirals. Two passages lead down into the Chamber of Tomorrows: the grand star-carved main archway, lit by pale blue braziers, and a half-flooded elven boathouse sluice echoing with distant whitewater.",
         choices: [
-          { t: "Deliver your report and rescued artifacts to Saintmistress Rowanmantle in Reywald.", to: 5 }
+          { t: "Slip into the flooded boathouse sluice to inspect the Effervescent Flotilla first.", to: 5 },
+          { t: "Trace the suspended-time runes along the main archway to calm the sentinel's ward.", badge: "Arcana / Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 6, fail: 6, failDmg: 6, passMsg: "The blue braziers dim to a calm silver glow—the guardian's chrono-ward unravels!", failMsg: "A lash of chrono-static snaps from the doorway (-6 HP) as you step inside!" }, onPass: { cw: "TIME_WARD_CALMED", xp: 25 } },
+          { t: "Stride straight through the grand archway into the Chamber of Tomorrows.", to: 6 }
         ]
       },
       5: {
-        zone: "Reywald Sanctuary",
-        title: "Saintmistress's Favor",
-        text: "Saintmistress Rowanmantle rewards your daring recovery with gold and the blessing of Yarila and Porevit.",
+        zone: "Ruins of Thorn • The Effervescent Boathouse",
+        title: "Vessels of the Great Retreat",
+        text: "Three sleek, leaf-shaped skiffs of pale silverwood bob in a luminous underground canal, their hulls fizzing with tiny pearlescent bubbles that keep the timber weightless and unsinkable. Beside the moorings sit a sealed elven provisions chest and a brass limpet mine hastily clamped to the lead skiff's rudder by one of Devinshire's forward divers!",
         choices: [
-          { t: "Return to Oakhaven.", to: 6 }
+          { t: "Disarm Devinshire's limpet mine and tune the lead skiff's silverwood rudder for rapid escape.", badge: "Agility / Detect Traps DC 14", check: { stat: "agility", skill: "Detect Traps", dc: 14, pass: 6, fail: 6, failDmg: 7, passMsg: "You pull the firing pin, pocket 40 GP in salvageable alchemical brass, and prime the silverwood rudder!", failMsg: "The percussion cap pops in a shower of sparks (-7 HP), though the enchanted hull holds!" }, onPass: { cw: "SKIFF_TUNED", gold: 40, xp: 30 } },
+          { t: "Pry open the elven provisions chest for a draught of starlight cordial.", badge: "Spirit / Perception DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 6, fail: 6, passMsg: "A sealed vial of starlight cordial restores your vigor (+10 HP, +4 MP) alongside 30 GP in ancient silver!", failMsg: "Most of the vials have dried to pale crystal dust, yielding nothing of use." }, onPass: { hp: 10, mp: 4, gold: 30 } },
+          { t: "Leave the moorings untouched and climb the wet stairs into the Chamber of Tomorrows.", to: 6 }
         ]
       },
       6: {
-        zone: "Oakhaven Guildhall",
-        title: "Echoes of Tomorrow",
-        text: "Your Thornish Celestial Sextant hums gently whenever you look toward the horizon.",
+        zone: "Ruins of Thorn • Chamber of Tomorrows",
+        title: "The Angry Elven Wight",
+        text: "Beneath the cracked crystal oculus of the Chamber of Tomorrows, a brass orrery turns in eerie silence. Upon its central plinth gleam the Thornish Nocturnal and the Celestial Sextant—relics forged for the elves' Great Retreat! As your shadow crosses the mosaic floor, frost blooms across the tiles and an armored Elven Wight rises from its watch-throne, blade singing with cold starlight!",
+        enemy: { name: "Guardian Wight of Thorn", desc: "Centuries-old elven sentinel defending the secrets of the Great Retreat.", hp: 54, ac: 14, atk: 8, dmg: 8, undead: true, xp: 155, gold: 80, items: ["bq_celestial_sextant"], flee: 4, weakCw: ["THORN_CHART", "TIME_WARD_CALMED"] },
         choices: [
-          { t: "Complete the adventure.", to: 7 }
+          { t: "Claim the Celestial Sextant and sprint for the underground canal!", to: 7 }
         ]
       },
       7: {
-        zone: "Epilogue",
-        title: "Raider of the Chamber of Tomorrows",
-        text: "You outraced Professor Devinshire, survived the raging river, and uncovered the mystery of the Great Retreat.",
+        zone: "Underground Canal • The Sluice Gate",
+        title: "Launching the Effervescent Flotilla",
+        text: "The instant you lift the Celestial Sextant, the Chamber's time-ward collapses in a thunderclap! Dust cascades from the dome as Professor Skein Devinshire appears on the upper gallery, feathers bristling, waving his cane at his armored river-barge below. You vault into the lead silverwood skiff just as the ancient sluice groans open onto a roaring subterranean river!",
+        choices: [
+          { t: "Engage the tuned silverwood rudder to shoot cleanly ahead of Devinshire's grappling lines!", reqCw: "SKIFF_TUNED", to: 8 },
+          { t: "Blast the overhanging stalactites above Devinshire's barge with Firebolt to slow his pursuit!", reqSpell: "Firebolt", to: 8 },
+          { t: "Heave hard on the steering oar to ride the foaming rapids into the gorge!", badge: "Might / Athletics DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 8, fail: 9, failDmg: 7, passMsg: "You wrench the skiff into the fastest current, pulling cleanly ahead into the narrow gorge!", failMsg: "A jagged boulder scrapes the gunwale (-7 HP), letting Devinshire's barge pull right alongside!" }, onPass: { cw: "RIVER_LEAD", xp: 20 } }
+        ]
+      },
+      8: {
+        zone: "Raging River Gorge • The Whitewater Drop",
+        title: "Gaining the Upper Hand",
+        text: "Your silverwood skiff skims effortlessly over boiling foam, pearlescent bubbles cushioning every plummet! Ahead, the gorge narrows beneath a mossy limestone arch—giving you a moment to catch your breath and angle the prow so Devinshire's boarding hooks snag clumsily in the spray.",
+        reward: { cw: "RIVER_LEAD", hp: 6 },
+        choices: [
+          { t: "Brace your footing as Devinshire's barge surges out of the whitewater!", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Raging River Gorge • Devil's Chute",
+        title: "Professor Devinshire's River Ambush",
+        text: "Whitewater rockets your enchanted elven skiff through churning rapids while Professor Skein Devinshire's rival treasure hunters, snapping river-alligators, and sahuagin raiders close from both sides! Iron hooks bite the silverwood rail as Devinshire leaps onto your prow with his cane-sword drawn and the glowing Agua-Sintellus Orb strapped to his sash!",
+        enemy: { name: "Prof. Skein Devinshire & Mercs", desc: "Scheming ravenfolk antiquarian wielding a cane-sword alongside his ruthless treasure hunters.", hp: 64, ac: 15, atk: 8, dmg: 9, xp: 215, gold: 150, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["THORN_CHART", "RIVER_LEAD"] },
+        choices: [
+          { t: "Snatch the Agua-Sintellus Orb as Devinshire dives overboard and ride the storm out to sea!", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Sheltered Sea Cove • The Tidal Arch",
+        title: "Secret of the Great Retreat",
+        text: "As the roaring gorge spills into open salt-spray, the silverwood skiff's ancient fail-safe guides you gently onto the pale sand of a sheltered sea cove. Holding the Celestial Sextant up beside the Agua-Sintellus Orb, you watch faint star-charts shimmer across the wet cliffside: these enchanted vessels were never built for ordinary oceans, but to sail beyond the rim to the mysterious underside of the world!",
+        choices: [
+          { t: "Return the Agua-Sintellus Orb and your report to Saintmistress Rowanmantle in Reywald.", to: 11 }
+        ]
+      },
+      11: {
+        zone: "Reywald Sanctuary • Epilogue",
+        title: "Navigator of the Chamber of Tomorrows",
+        text: "In the candlelit sanctuary of Yarila and Porevit, Saintmistress Rowanmantle clasps your hands in gratitude as the Agua-Sintellus Orb settles safely into its velvet cradle. She rewards your daring recovery with gold and the blessing of the Twin Deities—and insists you keep the humming Celestial Sextant as a reminder of the hidden horizons you charted.",
         ending: { type: "true", title: "Navigator of the Chamber of Tomorrows", xp: 255, gold: 245, trophy: "Agua-Sintellus Glass Sphere" },
         choices: []
       }
