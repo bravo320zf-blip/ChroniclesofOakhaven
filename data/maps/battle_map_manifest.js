@@ -35,9 +35,13 @@ window.OAKHAVEN.battleMaps = {
     "bk_b10_p2_2_ooze_tomb": "images/battlemaps/source/p2_ooze_tomb.jpg",
     "bk_b18_tob3_wrackwater": "images/battlemaps/source/pt_lighthouse.jpg",
     "bk_b24_beacon_rock": "images/battlemaps/source/pt_lighthouse.jpg",
-    "sunken_lighthouse": "images/battlemaps/source/pt_lighthouse.jpg"
+    "sunken_lighthouse": "images/battlemaps/source/pt_lighthouse.jpg",
+    "bk_pt_04_ragannis_redoubt": "images/battlemaps/source/pt_ragganis_redoubt.jpg"
   },
-  "encounters": {},
+  "encounters": {
+    "bk_pt_01_marblehead_p6": "images/battlemaps/source/sc_bat_caverns.jpg",
+    "bk_pt_01_marblehead_p7": "images/battlemaps/source/sc_black_river.jpg"
+  },
   "mapGrids": {
     "images/battlemaps/source/biome_arctic.jpg": {
       "rows": [

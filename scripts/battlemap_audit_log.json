@@ -1,0 +1,33 @@
+{
+  "totalPasses": 1,
+  "totalAudited": 15,
+  "totalEncounters": 752,
+  "audited": {
+    "bk_pt_01_marblehead_p3": 1,
+    "bk_pt_01_marblehead_p6": 1,
+    "bk_pt_01_marblehead_p7": 1,
+    "bk_pt_02_midnight_tree_p2": 1,
+    "bk_pt_02_midnight_tree_p3": 1,
+    "bk_pt_02_midnight_tree_p6": 1,
+    "bk_pt_02_midnight_tree_p8": 1,
+    "bk_pt_02_midnight_tree_p10": 1,
+    "bk_pt_03_usurpers_tower_p2": 1,
+    "bk_pt_03_usurpers_tower_p5": 1,
+    "bk_pt_03_usurpers_tower_p8": 1,
+    "bk_pt_04_ragannis_redoubt_p2": 1,
+    "bk_pt_04_ragannis_redoubt_p3": 1,
+    "bk_pt_04_ragannis_redoubt_p6": 1,
+    "bk_pt_04_ragannis_redoubt_p7": 1
+  },
+  "history": [
+    {
+      "pass": 1,
+      "count": 15,
+      "changes": [
+        "bk_pt_01_marblehead_p6 -> sc_bat_caverns.jpg (Bat Cave)",
+        "bk_pt_01_marblehead_p7 -> sc_black_river.jpg (Smugglers Sea Cave)",
+        "bk_pt_04_ragannis_redoubt (4 encounters) -> pt_ragganis_redoubt.jpg (fixed ragannis/ragganis spelling mismatch)"
+      ]
+    }
+  ]
+}
