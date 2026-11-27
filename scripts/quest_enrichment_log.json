@@ -1,5 +1,5 @@
 {
-  "totalPasses": 43,
+  "totalPasses": 44,
   "history": [
     {
       "pass": 1,
@@ -295,6 +295,13 @@
       "title": "Fight for Horseshoe Rock Oasis",
       "file": "data/quests/books_quests_batch_009.js",
       "summary": "Expanded from 6 to 10 pages (removed 3 one-line filler epilogue pages), adding Stealth rescue of pinned Outrider Tariq (OUTRIDER_SAVED +55 GP/+12 HP/+4 MP), Survival/Firebolt/Athletics predator turf-war lure (PREDATORS_BLOODIED weakening both bosses), Waterfall Sunken Cistern side-scene (Lockpicking +75 GP or Herbalism +14 HP/+5 MP -> NEST_BLINDSPOT), and Tariq's gratitude bonus (+80 GP/+45 XP)."
+    },
+    {
+      "pass": 44,
+      "questId": "bk_pt_02_midnight_tree",
+      "title": "The Midnight Tree",
+      "file": "data/quests/books_quests_batch_001.js",
+      "summary": "Expanded from 9 to 12 pages (cleaned Old Margreve sourcebook tag to Margreve Forest), adding root-arch Stealth scouting (SNARES_CLEARED +15 GP), Kitchen Loft poppy-ash wine sabotage & Firebolt chimney smoke (WINE_DRUGGED), Treasure Chamber knothole scouting (CHIEFTAIN_STUDIED), Canopy Ledge falconer's whistle check (RAVENS_RATTLED), and Courier Alaric's dawn gratitude bonus (+35 GP/+25 XP/+8 HP)."
     }
   ],
   "questPasses": {
@@ -340,6 +347,7 @@
     "bk_b8_ms_4_tomorrows": 1,
     "bk_pt_10_stormcallers_tower": 1,
     "bk_b18_tob3_perfidious_guru": 1,
-    "bk_b9_tob2_7_horseshoe_oasis": 1
+    "bk_b9_tob2_7_horseshoe_oasis": 1,
+    "bk_pt_02_midnight_tree": 1
   }
 }

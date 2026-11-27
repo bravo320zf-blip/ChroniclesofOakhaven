@@ -93,95 +93,127 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 2. THE MIDNIGHT TREE (9 PAGES • LV 2)
+  // 2. THE MIDNIGHT TREE (12 PAGES • LV 2)
   // ==========================================================
   bk_pt_02_midnight_tree: {
     id: "bk_pt_02_midnight_tree",
     title: "The Midnight Tree",
-    subtitle: "Old Margreve Ravenfolk Fortress",
+    subtitle: "Margreve Forest Ravenfolk Fortress",
     difficulty: "Medium",
     recommendedLevel: 2,
     autoDiscover: false,
     discoverySource: "Albino Starkfeather Elder (Rusty Flagon Tavern)",
-    summary: "Storm the hollowed towering Midnight Tree at the edge of the Old Margreve and drive out the treacherous Greengloss ravenfolk bandits so the Starkfeather Clan may reclaim their ancestral perch.",
-    totalPages: 9,
+    summary: "Storm the hollowed towering Midnight Tree at the edge of the Margreve Forest and drive out the treacherous Greengloss ravenfolk bandits so the Starkfeather Clan may reclaim their ancestral perch.",
+    totalPages: 12,
     pages: {
       1: {
-        zone: "Old Margreve Edge",
+        zone: "Margreve Forest Edge",
         title: "The Hollow Colossus",
         safeRetreat: true,
-        text: "Towering above the trade road stands the Midnight Tree—an ancient charcoal-barked oak hollowed into a multi-story bandit fortress. The elderly albino matriarch of the Starkfeather Clan promised you all the plunder you can carry if you oust the usurping Greengloss ravenfolk.",
+        text: "Towering above the misty trade road stands the Midnight Tree—an ancient charcoal-barked oak hollowed into a multi-story bandit fortress. The elderly albino matriarch of the Starkfeather Clan promised you all the plunder you can carry if you oust the usurping Greengloss ravenfolk.",
         choices: [
-          { t: "Inspect the root-arch entranceway for bandit snares before stepping in.", badge: "Perception DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 2, failDmg: 4, passMsg: "You disarm a tensioned thorn-dart wire in the bark!", failMsg: "A hidden thorn-dart trap snaps across your arm (-4 HP)!" } },
-          { t: "Scale the lower boughs to slip in through a knotted window.", badge: "Agility / Athletics DC 12", check: { stat: "agility", skill: "Athletics", dc: 12, pass: 3, fail: 2, failDmg: 3, passMsg: "You hoist yourself quietly onto the second-floor ledge!", failMsg: "Mossy bark slips underfoot—you tumble back to the root door (-3 HP)!" } }
+          { t: "Inspect the root-arch entranceway for bandit snares before stepping in.", badge: "Spirit / Perception DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 2, failDmg: 4, passMsg: "You disarm a tensioned thorn-dart wire hidden in the bark!", failMsg: "A hidden thorn-dart trap snaps across your arm (-4 HP)!" }, onPass: { cw: "SNARES_CLEARED", xp: 15 } },
+          { t: "Scale the lower boughs to slip quietly in through a knotted second-floor window.", badge: "Agility / Athletics DC 12", check: { stat: "agility", skill: "Athletics", dc: 12, pass: 3, fail: 2, failDmg: 3, passMsg: "You hoist yourself quietly onto the second-floor ledge, bypassing the front sentries!", failMsg: "Mossy bark slips underfoot—you tumble back to the root door (-3 HP)!" }, onPass: { cw: "BOUGH_INFILTRATOR", xp: 20 } },
+          { t: "Creep around the mossy roots to listen at the kitchen vent for guard chatter.", badge: "Agility / Stealth DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 2, fail: 2, failDmg: 3, passMsg: "You map the sentries' blind spots and snatch a dropped 15 GP dice-pouch!", failMsg: "A dry twig snaps underfoot, drawing an arrow grazing your shoulder (-3 HP)!" }, onPass: { cw: "SNARES_CLEARED", gold: 15 } }
         ]
       },
       2: {
-        zone: "Guard Room",
+        zone: "Lower Trunk • Guard Room",
         title: "Greengloss Sentries",
-        text: "Two black-feathered Greengloss scouts crouch behind timber arrow-slits, rattling dice beside a brazier. Spotting you, they mimic a hawk's shriek and draw curved sabres!",
-        enemy: { name: "Greengloss Ravenfolk Scouts", desc: "Cunning feathered highwaymen.", hp: 22, ac: 11, atk: 4, dmg: 4, xp: 45, gold: 25, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1 },
+        text: "Two black-feathered Greengloss scouts crouch behind timber arrow-slits, rattling bone dice beside a smoky brazier. Spotting you, they mimic a hawk's shriek and draw curved sabres!",
+        enemy: { name: "Greengloss Ravenfolk Scouts", desc: "Cunning feathered highwaymen.", hp: 22, ac: 11, atk: 4, dmg: 4, xp: 45, gold: 25, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1, weakCw: ["SNARES_CLEARED"] },
         choices: [
           { t: "Advance into the Central Hall and check the Jailor's Room.", to: 3 }
         ]
       },
       3: {
-        zone: "Jailor's Room",
-        title: "The Captive Courtier",
-        text: "A ring of iron keys hangs beside a cramped wooden cage holding a bruised noble courier captured along the Margreve road. A hulking Greengloss jailor steps from the storeroom, hefting a spiked cudgel!",
-        enemy: { name: "Greengloss Jailor", desc: "Cruel ravenfolk turnkey.", hp: 24, ac: 12, atk: 4, dmg: 4, xp: 50, gold: 30, items: rollRandomLoot(["consumable"], 1, "uncommon"), flee: 1 },
+        zone: "Second Bough • Jailor's Room",
+        title: "The Captive Courier",
+        text: "A ring of iron keys hangs beside a cramped wooden cage holding Courier Alaric, a bruised noble messenger captured along the Margreve road. A hulking Greengloss jailor steps from the storeroom, hefting a spiked cudgel!",
+        enemy: { name: "Greengloss Jailor", desc: "Cruel ravenfolk turnkey.", hp: 24, ac: 12, atk: 4, dmg: 4, xp: 50, gold: 30, items: rollRandomLoot(["consumable"], 1, "uncommon"), flee: 1, weakCw: ["BOUGH_INFILTRATOR"] },
         choices: [
-          { t: "Unlock the cage and free the noble courier.", to: 4, onChoose: { cw: "FREED_COURIER", gold: 35, msg: "The grateful courier promises court favor and slips you 35 GP!" } },
-          { t: "Leave the cells for later and climb to the Common Room.", to: 5 }
+          { t: "Unlock the cage and free Courier Alaric.", to: 4 },
+          { t: "Leave the cells for later and climb toward the Common Room.", to: 5 }
         ]
       },
       4: {
         zone: "The Sticky Hand",
-        title: "Sap-Slick Ambush",
-        text: "The freed courier warns you of 'The Sticky Hand'—an amber-sap pit chamber the bandits use to trap intruders. Forewarned, you skirt the adhesive resin and spot a hidden cubby stuffed with stolen traveler purses!",
-        onEnter: { gold: 40, healHp: 6, msg: "Avoided the sap trap, rested briefly (+6 HP), and claimed 40 GP!" },
+        title: "Sap-Slick Shortcut",
+        text: "Freed from his cage, Courier Alaric rubs his wrists and warns you of The Sticky Hand—an amber-sap pit chamber the bandits use to trap intruders. Forewarned, you skirt the adhesive resin along dry bark-ribs and uncover a hidden cubby stuffed with stolen traveler purses!",
+        onEnter: { cw: "FREED_COURIER", gold: 55, healHp: 6, msg: "Freed Courier Alaric (FREED_COURIER), avoided the sap trap (+6 HP), and claimed 55 GP!" },
         choices: [
-          { t: "Climb the winding timber steps to the upper Common Room.", to: 5 }
+          { t: "Slip up the narrow dumbwaiter loft behind the kitchen to spy on the Common Room.", to: 5 },
+          { t: "Climb the winding timber steps straight into the Common Room.", to: 6 }
         ]
       },
       5: {
-        zone: "Common Room",
-        title: "Feast of Stolen Wine",
-        text: "Half-plucked pheasants and stolen casks litter the tree's broad midsection. Three Greengloss cutthroats overturn tables and vault toward you with flashing daggers!",
-        enemy: { name: "Greengloss Cutthroats", desc: "Rowdy ravenfolk raiders defending their hoard.", hp: 26, ac: 12, atk: 4, dmg: 5, xp: 60, gold: 35, items: rollRandomLoot(["valuable", "material"], 1, "uncommon"), flee: 3 },
+        zone: "Kitchen Loft • Dumbwaiter Ledge",
+        title: "Spiced Wine and Smoke",
+        text: "Peering through slatted cedar shutters above the tree's broad midsection, you see three rowdy Greengloss cutthroats feasting on stolen pheasants and uncorked wine casks beside a crackling hearth.",
         choices: [
-          { t: "Pick the lock on the Bandit Treasure Chamber.", badge: "Lockpicking DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 6, fail: 7, passMsg: "The iron clasp clicks open!", failMsg: "The lock jams—you head straight for the Chieftain's Chamber." } },
-          { t: "Ascend directly to the Chieftain's Chamber.", to: 7 }
+          { t: "Dust drowsy Margreve poppy-ash into their open wine pitcher from the loft!", badge: "Spirit / Herbalism DC 12", check: { stat: "spirit", skill: "Herbalism", dc: 12, pass: 6, fail: 6, failDmg: 4, passMsg: "The cutthroats gulp down the laced wine, staggering half-drowsy as you drop in!", failMsg: "A loose shutter creaks—a thrown dagger grazes your sleeve (-4 HP)!" }, onPass: { cw: "WINE_DRUGGED", xp: 20 } },
+          { t: "Blast the chimney-flue with Firebolt to choke the hall with blinding woodsmoke!", reqSpell: "Firebolt", to: 6 },
+          { t: "Drop straight down into the Common Room with steel drawn!", to: 6 }
         ]
       },
       6: {
-        zone: "Treasure Chamber",
-        title: "Bandit Hoard",
-        text: "Two iron-banded chests sit opposite a rack of stolen trade goods. Inside gleam silver trade bars, coin pouches, and an exquisite Starkfeather heirloom cloak!",
-        onEnter: { gold: 65, items: ["bq_starkfeather_cloak"], msg: "Looted 65 GP and the Starkfeather Mantle!" },
+        zone: "Mid-Trunk • Common Room",
+        title: "Feast of Stolen Wine",
+        text: "Half-plucked pheasants and stolen casks litter the tree's broad midsection. Three Greengloss cutthroats overturn tables and vault toward you with flashing daggers!",
+        enemy: { name: "Greengloss Cutthroats", desc: "Rowdy ravenfolk raiders defending their hoard.", hp: 26, ac: 12, atk: 4, dmg: 5, xp: 60, gold: 35, items: rollRandomLoot(["valuable", "material"], 1, "uncommon"), flee: 3, weakCw: ["WINE_DRUGGED", "FREED_COURIER"] },
         choices: [
-          { t: "Confront the Greengloss Chieftain above.", to: 7 }
+          { t: "Pick the lock on the Bandit Treasure Chamber.", badge: "Agility / Lockpicking DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 7, fail: 8, passMsg: "The iron clasp clicks open!", failMsg: "The lock jams—you head straight for the Chieftain's Chamber." } },
+          { t: "Ascend directly to the Chieftain's Chamber.", to: 8 }
         ]
       },
       7: {
-        zone: "Chieftain's Chamber",
-        title: "Lord of the Midnight Tree",
-        text: "Draped in stolen silks, the Greengloss Chieftain perches atop a carved mahogany throne. 'That pale old crow sent a ground-walker to do her dirty work?' he mocks, leaping forward with twin wicked blades!",
-        enemy: { name: "Greengloss Chieftain", desc: "Agile ravenfolk bandit lord.", hp: 30, ac: 13, atk: 5, dmg: 5, xp: 75, gold: 50, items: rollRandomLoot(["weapon", "accessory"], 1, "rare") },
+        zone: "Treasure Chamber",
+        title: "Bandit Hoard",
+        text: "Two iron-banded chests sit opposite a rack of stolen trade goods. Inside gleam silver trade bars, coin pouches, and an exquisite Starkfeather heirloom cloak woven with pale silver plumage!",
+        onEnter: { gold: 65, items: ["bq_starkfeather_cloak"], msg: "Looted 65 GP and the Starkfeather Mantle!" },
         choices: [
-          { t: "Climb out onto the Ceremonial Platform and Giant Ravens' Aerie!", to: 8 }
+          { t: "Peer through a ceiling knothole to study the Chieftain's stance before climbing.", badge: "Spirit / Perception DC 12", check: { stat: "spirit", skill: "Perception", dc: 12, pass: 8, fail: 8, passMsg: "You note his favored off-hand feint before kicking open the hatch!", failMsg: "Dust drifts into your eyes, forcing you straight up the ladder." }, onPass: { cw: "CHIEFTAIN_STUDIED", xp: 20 } },
+          { t: "Confront the Greengloss Chieftain above.", to: 8 }
         ]
       },
       8: {
-        zone: "Giant Ravens' Aerie",
-        title: "Wings Over the Canopy",
-        text: "High in the starlit crown of the oak, two massive war-trained Giant Ravens dive to avenge their fallen master!",
-        enemy: { name: "Greengloss Giant Ravens", desc: "Enormous black-winged canopy predators.", hp: 28, ac: 12, atk: 5, dmg: 5, xp: 70, gold: 20, items: rollRandomLoot(["material", "valuable"], 1, "rare") },
+        zone: "Upper Crown • Chieftain's Chamber",
+        title: "Lord of the Midnight Tree",
+        text: "Draped in stolen silks, the Greengloss Chieftain perches atop a carved mahogany throne. 'That pale old crow sent a ground-walker to do her dirty work?' he mocks, leaping forward with twin wicked blades!",
+        enemy: { name: "Greengloss Chieftain", desc: "Agile ravenfolk bandit lord.", hp: 30, ac: 13, atk: 5, dmg: 5, xp: 75, gold: 50, items: rollRandomLoot(["weapon", "accessory"], 1, "rare"), weakCw: ["CHIEFTAIN_STUDIED", "BOUGH_INFILTRATOR"] },
         choices: [
-          { t: "Signal the Starkfeather Clan from the crown of the tree.", to: 9 }
+          { t: "Snatch the Chieftain's brass falconer's whistle and climb out toward the canopy!", to: 9 }
         ]
       },
       9: {
+        zone: "Canopy Ledge • Below the Aerie",
+        title: "Whistle of the Crown",
+        text: "Cold forest wind rushes through the high branches as two enormous war-trained Giant Ravens circle the Ceremonial Platform above, talons clicking angrily at the scent of blood.",
+        choices: [
+          { t: "Blow the Chieftain's brass whistle with a sharp command to rattle the Giant Ravens!", badge: "Spirit / Persuasion DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 10, fail: 10, failDmg: 4, passMsg: "The startled Giant Ravens wheel off-balance—giving you the opening!", failMsg: "A discordant note enrages the lead raven, which rakes your shoulder (-4 HP)!" }, onPass: { cw: "RAVENS_RATTLED", xp: 20 } },
+          { t: "Step straight out onto the starlit Ceremonial Platform to meet the Giant Ravens!", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Giant Ravens' Aerie",
+        title: "Wings Over the Canopy",
+        text: "High in the starlit crown of the oak, two massive war-trained Giant Ravens dive with obsidian wings to avenge their fallen master!",
+        enemy: { name: "Greengloss Giant Ravens", desc: "Enormous black-winged canopy predators.", hp: 28, ac: 12, atk: 5, dmg: 5, xp: 70, gold: 20, items: rollRandomLoot(["material", "valuable"], 1, "rare"), weakCw: ["RAVENS_RATTLED"] },
+        choices: [
+          { t: "Signal the Starkfeather Clan and meet Courier Alaric at the root-arch below!", reqCw: "FREED_COURIER", to: 11 },
+          { t: "Signal the Starkfeather Clan from the starlit crown of the tree.", to: 12 }
+        ]
+      },
+      11: {
+        zone: "Root-Arch Courtyard • Dawn",
+        title: "Alaric's Court Favor",
+        text: "Waiting beside the charcoal root-arch as dawn breaks over the Margreve, Courier Alaric presses a wax-sealed merchant's purse and a warm flask of spiced cider into your hands. 'The guild courts will hear of your courage today!'",
+        onEnter: { gold: 35, xp: 25, healHp: 8, msg: "Courier Alaric's gratitude grants +35 GP, +25 XP, and +8 HP!" },
+        choices: [
+          { t: "Step forward to greet the returning Starkfeather Clan.", to: 12 }
+        ]
+      },
+      12: {
         zone: "Epilogue",
         title: "Return of the Starkfeathers",
         text: "White-feathered silhouettes glide silently onto the boughs as the albino elder bows solemnly. With the Greengloss driven from the Margreve road, your name is honored among the Starkfeather Clan.",
