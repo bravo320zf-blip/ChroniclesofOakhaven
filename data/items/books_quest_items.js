@@ -1365,7 +1365,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     might: 2,
     maxHp: 8,
-    desc: "+1 AC, +2 Might, +8 Max HP. Forged from the silenced bronze horn of the alpine sanctuary."
+    passives: { dmgReduce: 2, thornsDmg: 3, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Alpine Rime-Blast", icon: "❄️", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "might", dmgType: "frost", chillTurns: 2, shieldTurns: 2, desc: "2/Quest (2 MP): Sound the frost-ward bronze for 2d8 + Might frost dmg, Chill (2t), and Shield (2t)!" },
+    desc: "+1 AC, +2 Might, +8 Max HP, -2 Dmg Taken, Thorns 3, +2 Survival. Forged from the silenced bronze horn of the alpine sanctuary with Alpine Rime-Blast."
   },
   "bq_starlight_sealant_charm": {
     id: "bq_starlight_sealant_charm",
@@ -1933,7 +1935,9 @@ window.OAKHAVEN.registerItems({
     atk: 3,
     arcana: 1,
     luck: 1,
-    desc: "+3 Attack, +1 Arcana, +1 Luck. Hooked desert scepter claimed from the tomb of Anu-Asir."
+    passives: { spellDmgBonus: 2, goldFindPct: 12, undeadDmgBonus: 2 },
+    activeAbility: { name: "Pharaoh's Hook-Spark", icon: "🏺", charges: 2, mp: 1, dmgDice: "2d6", dmgStat: "arcana", dmgType: "radiant", undeadDouble: true, desc: "2/Quest (1 MP): Channel tomb-ruby light for 2d6 + Arcana radiant dmg (2x vs Undead)!" },
+    desc: "+3 Attack, +1 Arcana, +1 Luck, +2 Spell & Undead Dmg, +12% Gold. Hooked desert scepter from the tomb of Anu-Asir with Pharaoh's Hook-Spark."
   }
 });
 
@@ -2131,7 +2135,9 @@ window.OAKHAVEN.registerItems({
     value: 115,
     agility: 1,
     luck: 2,
-    desc: "+1 Agility, +2 Luck. Shiny keepsake gifted by the grateful Barnyard Dragonettes."
+    passives: { goldFindPct: 12, skillBonus: { Perception: 2, Persuasion: 2 } },
+    activeAbility: { name: "Dragonette Wing-Call", icon: "🔔", charges: 1, summon: { name: "Barnyard Dragonette", icon: "🐉", dmg: 6, turns: 3 }, evadeTurns: 1, desc: "1/Quest: Ring the brass bell to summon a darting Barnyard Dragonette (6 dmg/t, 3t) and gain Evade (1t)!" },
+    desc: "+1 Agility, +2 Luck, +12% Gold, +2 Perception & Persuasion. Shiny keepsake gifted by the Barnyard Dragonettes with Dragonette Wing-Call."
   },
   "bq_lonely_cove_spyglass": {
     id: "bq_lonely_cove_spyglass",
@@ -2208,7 +2214,9 @@ window.OAKHAVEN.registerItems({
     might: 1,
     spirit: 2,
     maxHp: 6,
-    desc: "+1 Might, +2 Spirit, +6 Max HP. Carved jungle talisman blessed by the grove's Aziza."
+    passives: { healBonus: 3, mpRegen: 1, skillBonus: { Herbalism: 2, Survival: 2 } },
+    activeAbility: { name: "Aziza Canopy Boon", icon: "🌿", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 4, evadeTurns: 2, desc: "2/Quest: Invoke the grove's emerald canopy to restore 2d8 + Spirit HP, +4 MP, and Evade (2t)!" },
+    desc: "+1 Might, +2 Spirit, +6 Max HP, +3 Heal, +1 MP/turn, +2 Herbalism & Survival. Carved jungle talisman blessed by the grove's Aziza with Aziza Canopy Boon."
   },
   "bq_catamount_claw_charm": {
     id: "bq_catamount_claw_charm",
@@ -3048,9 +3056,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 1,
     spirit: 1,
-    passives: { undeadDmgBonus: 3, skillBonus: { Perception: 2 } },
+    passives: { undeadDmgBonus: 3, healBonus: 1, skillBonus: { Perception: 2 } },
     activeAbility: { name: "Memory Flare", icon: "🏮", charges: 2, dmgDice: "1d8", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, desc: "2/Quest: Flare the silver lantern for 1d8 + Spirit radiant dmg (2x vs Undead)!" },
-    desc: "Silver shadow-road lantern from the Oubliette (+3 vs Undead, +2 Perception) with Memory Flare."
+    desc: "+1 AC, +1 Arcana, +1 Spirit, +3 vs Undead, +1 Heal, +2 Perception. Silver shadow-road lantern from the Oubliette with Memory Flare."
   },
   "bq_longest_shadow_blade": {
     id: "bq_longest_shadow_blade",

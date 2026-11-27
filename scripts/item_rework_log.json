@@ -1,6 +1,6 @@
 {
-  "totalPasses": 43,
-  "totalItemsReworked": 430,
+  "totalPasses": 44,
+  "totalItemsReworked": 440,
   "history": [
     {
       "pass": 1,
@@ -689,6 +689,22 @@
         "vom_staff_parzelon"
       ],
       "summary": "Reworked Legendary Staff of Parzelon and Scorpion Feet, Staff of Dissolution, Apotropaic Oversea Sword, Sapphire Tiara of the Wyrm, Purified Mountain Lotus Beads, Gilded Sun-Spire Medallion, Hand Cannon (removed sourcebook tag), Glazed Blade, and polished Ghost-Light Marsh Lantern."
+    },
+    {
+      "pass": 44,
+      "items": [
+        "bq_hundedel_dragonette_charm",
+        "bq_belches_rime_horn",
+        "vom_smoking_plate",
+        "bq_memoria_lantern",
+        "vom_badger_hide",
+        "bq_tiberesh_hooked_rod",
+        "vom_staff_artisan",
+        "bq_bukofa_jade_totem",
+        "bog_hag_talisman",
+        "vom_clockwork_gauntlet"
+      ],
+      "summary": "Reworked Legendary Smoking Plate of Heithmir, Staff of the Artisan, Clockwork Gauntlet, Badger Hide Armor, Talisman of the Mire, Olsha Frost-Ward Talisman, Bukofa Emerald Canopy Totem, Brass Dragonette Bell (with Dragonette summon), Gem-Studded Rod of Tiberesh, and polished Light of Memoria."
     }
   ],
   "itemPasses": {
@@ -1121,6 +1137,16 @@
     "vom_scorpion_feet": 1,
     "nf_tatzelwurm_tiara": 1,
     "bq_ghost_light_lantern": 1,
-    "vom_staff_parzelon": 1
+    "vom_staff_parzelon": 1,
+    "bq_hundedel_dragonette_charm": 1,
+    "bq_belches_rime_horn": 1,
+    "vom_smoking_plate": 1,
+    "bq_memoria_lantern": 1,
+    "vom_badger_hide": 1,
+    "bq_tiberesh_hooked_rod": 1,
+    "vom_staff_artisan": 1,
+    "bq_bukofa_jade_totem": 1,
+    "bog_hag_talisman": 1,
+    "vom_clockwork_gauntlet": 1
   }
 }
