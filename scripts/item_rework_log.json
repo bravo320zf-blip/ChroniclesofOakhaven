@@ -1,6 +1,6 @@
 {
-  "totalPasses": 58,
-  "totalItemsReworked": 580,
+  "totalPasses": 59,
+  "totalItemsReworked": 590,
   "history": [
     {
       "pass": 1,
@@ -929,6 +929,22 @@
         "bq_xulthas_obsidian_scarab"
       ],
       "summary": "Reworked Fabled Fire Shield of Rathume, Legendary Grasping Cap, Staff of the Scion, Bonebreaker Mace, Scimitar of the Desert Winds, Serpentine Sandals (removed sourcebook tag), Clockwork Pugilist Gauntlets, Brooch of the Painted Rose, and polished Obsidian Serpent-Scarab of Xulthas-Ka & Shrine Tree Seed Charm."
+    },
+    {
+      "pass": 59,
+      "items": [
+        "vom_reef_splitter",
+        "bk_bracelet_of_the_fire_tender",
+        "vom_rowan_staff",
+        "vom_serpent_staff",
+        "bq_spear_maiden_aegis",
+        "bq_clurichaun_lucky_tankard",
+        "vom_shield_fallen",
+        "vom_ring_water_dancer",
+        "bq_solanna_keyblade",
+        "sun_buckler"
+      ],
+      "summary": "Reworked Reef Splitter, Rowan Staff, Solanna Archive Keyblade, Randgrid's Spear-Maiden Torque, Serpent Staff, Ring of the Water Dancer, Bracelet Of The Fire Tender (removed sourcebook tag), Sun-Forged Buckler (added uncommon rarity), Shield of the Fallen, and polished Oban's Bottomless Tankard."
     }
   ],
   "itemPasses": {
@@ -1511,6 +1527,16 @@
     "vom_fab_fire_shield": 1,
     "bq_rose_precog_brooch": 1,
     "vom_bonebreaker_mace": 1,
-    "bq_xulthas_obsidian_scarab": 1
+    "bq_xulthas_obsidian_scarab": 1,
+    "vom_reef_splitter": 1,
+    "bk_bracelet_of_the_fire_tender": 1,
+    "vom_rowan_staff": 1,
+    "vom_serpent_staff": 1,
+    "bq_spear_maiden_aegis": 1,
+    "bq_clurichaun_lucky_tankard": 1,
+    "vom_shield_fallen": 1,
+    "vom_ring_water_dancer": 1,
+    "bq_solanna_keyblade": 1,
+    "sun_buckler": 1
   }
 }

@@ -604,7 +604,30 @@ window.OAKHAVEN.registerItems({
     "ac": 1,
     "arcana": 1,
     "maxMp": 4,
-    "desc": "+1 AC, +1 Arcana, +4 Max MP (Old Margreve)"
+    "passives": {
+      "spellDmgBonus": 2,
+      "thornsDmg": 2,
+      "skillBonus": {
+        "Survival": 2
+      }
+    },
+    "activeAbility": {
+      "name": "Hearth-Ember Ward",
+      "icon": "🔥",
+      "charges": 2,
+      "mp": 1,
+      "dmgDice": "2d6",
+      "dmgStat": "arcana",
+      "dmgType": "fire",
+      "dot": {
+        "dmg": 3,
+        "turns": 2,
+        "label": "Hearth-Burn"
+      },
+      "shieldTurns": 1,
+      "desc": "2/Quest (1 MP): Flare Margreve hearth-flames for 2d6 + Arcana fire dmg, Hearth-Burn (3/t, 2t), and +3 AC (1t)!"
+    },
+    "desc": "Copper-and-amber hearth-keeper's bangle from the deep Margreve (+1 AC, +1 Arcana, +4 Max MP, +2 Spell Dmg, 2 Fire Thorns, +2 Survival) with Hearth-Ember Ward."
   },
   "bk_charm_of_restoration": {
     "id": "bk_charm_of_restoration",

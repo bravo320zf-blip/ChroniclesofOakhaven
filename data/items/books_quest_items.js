@@ -107,7 +107,9 @@ window.OAKHAVEN.registerItems({
     atk: 5,
     arcana: 2,
     spirit: 1,
-    desc: "+5 Attack, +2 Arcana, +1 Spirit. Ancient elven relic sword from the Vault of Ages."
+    passives: { critRange: 10, spellDmgBonus: 4, spellCostReduce: 1, skillBonus: { Arcana: 3, Lockpicking: 2 } },
+    activeAbility: { name: "Vault-Seal Unbinding", icon: "🗝️", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "arcane", stunTurns: 1, shieldTurns: 2, desc: "2/Quest (2 MP): Turn the ancient elven archive keyblade to shatter wards for 3d8 + Arcana dmg, Stun (1t), and +3 AC (2t)!" },
+    desc: "Ancient elven relic sword from the Vault of Ages (+5 Attack, +2 Arcana, +1 Spirit, Crit 10+, +4 Spell Dmg, -1 MP Cost, +3 Arcana, +2 Lockpicking) with Vault-Seal Unbinding."
   },
   "bq_vaine_shadow_mantle": {
     id: "bq_vaine_shadow_mantle",
@@ -841,7 +843,9 @@ window.OAKHAVEN.registerItems({
     might: 2,
     ac: 2,
     maxHp: 6,
-    desc: "+2 Might, +2 AC, +6 Max HP. Runed northern silver torque honoring the fall of the Blood Marriage."
+    passives: { dmgReduce: 3, undeadDmgBonus: 6, bossDmgBonus: 4, healBonus: 3, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Valkyrie's Dawn-Stand", icon: "⚔️", charges: 2, mp: 1, ooc: true, shieldTurns: 3, selfBuffAtk: { atk: 4, turns: 3 }, healDice: "2d8", healStat: "might", desc: "2/Quest (1 MP): Invoke Randgrid's northern valor — gain +3 AC (3t), +4 ATK (3t), and mend 2d8 + Might HP!" },
+    desc: "Runed northern silver torque honoring the fall of the Blood Marriage (+2 Might, +2 AC, +6 Max HP, -3 Dmg Taken, +6 vs Undead, +4 vs Bosses, +3 Heal, +2 Athletics) with Valkyrie's Dawn-Stand."
   },
   "bq_gravebinder_shroud": {
     id: "bq_gravebinder_shroud",
@@ -3055,9 +3059,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     luck: 3,
     spirit: 1,
-    passives: { goldFindPct: 12, healBonus: 2, skillBonus: { Persuasion: 2 } },
-    activeAbility: { name: "Clurichaun's Toast", icon: "🍺", charges: 2, ooc: true, healDice: "1d10", healStat: "spirit", restoreLuck: 2, desc: "2/Quest: Quaff fey-blessed stout to restore 1d10 + Spirit HP and +2 Current Luck!" },
-    desc: "Battered pewter mug blessed by a clurichaun (+12% Gold, +2 Healing, +2 Persuasion) with Clurichaun's Toast."
+    passives: { goldFindPct: 12, healBonus: 2, dmgReduce: 1, skillBonus: { Persuasion: 2 } },
+    activeAbility: { name: "Clurichaun's Toast", icon: "🍺", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 3, restoreLuck: 2, desc: "2/Quest: Quaff fey-blessed stout to restore 2d8 + Spirit HP, +3 MP, and +2 Current Luck!" },
+    desc: "Battered pewter mug blessed by a clurichaun (+2 AC, +3 Luck, +1 Spirit, +12% Gold, +2 Heal, -1 Dmg Taken, +2 Persuasion) with Clurichaun's Toast."
   },
   "bq_arborstone_silver_blade": {
     id: "bq_arborstone_silver_blade",
