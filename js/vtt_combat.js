@@ -331,12 +331,14 @@
           speed: enemySpeed,
           isRanged: isRangedEnemy(activeCombat),
           icon: pickEnemyIcon(activeCombat),
+          artPath: window.OAKHAVEN?.monsterArt?.byName?.[activeCombat.name] || null,
           isBoss: !!activeCombat.isBoss
         },
         weapon: getHeroWeaponProfile(heroState, itemsDb),
         reachable: null
       };
 
+      if (vttState.enemy.artPath) getImg(vttState.enemy.artPath);
       vttState.reachable = computeReachable(grid, vttState.hero.x, vttState.hero.y, vttState.hero.moveLeft, vttState.enemy);
       activeCombat.vtt = vttState;
       this.state = vttState;
@@ -890,13 +892,25 @@
       eGrad.addColorStop(1, "#2a0a0a");
       ctx.fillStyle = eGrad;
       ctx.fill();
+      const enemyImg = s.enemy.artPath ? getImg(s.enemy.artPath) : null;
+      if (enemyImg && enemyImg.complete && enemyImg.naturalWidth > 0 && !enemyImg._failed) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(ex, ey, er - 1, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.drawImage(enemyImg, ex - er, ey - er, er * 2, er * 2);
+        ctx.restore();
+      } else {
+        ctx.font = s.enemy.isBoss ? "32px sans-serif" : "26px sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(s.enemy.icon, ex, ey);
+      }
+      ctx.beginPath();
+      ctx.arc(ex, ey, er, 0, Math.PI * 2);
       ctx.lineWidth = 3.5;
       ctx.strokeStyle = ac?.stunned > 0 ? "#facc15" : "#ef4444";
       ctx.stroke();
-      ctx.font = s.enemy.isBoss ? "32px sans-serif" : "26px sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(s.enemy.icon, ex, ey);
       // Mini Enemy HP bar under token
       if (ac) {
         const hpPct = Math.max(0, Math.min(1, ac.hp / Math.max(1, ac.maxHp)));
