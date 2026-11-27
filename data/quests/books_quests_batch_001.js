@@ -224,7 +224,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 3. USURPER'S TOWER (8 PAGES • LV 3)
+  // 3. USURPER'S TOWER (11 PAGES • LV 3)
   // ==========================================================
   bk_pt_03_usurpers_tower: {
     id: "bk_pt_03_usurpers_tower",
@@ -235,7 +235,7 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Oakhaven Militia Captain (Town Square)",
     summary: "Infiltrate the blood-stained border bergfried claimed by the cunning ogre Gragmir and goblin witchdoctor Skorg to rescue local war hero Dagny before Skorg exacts his vengeance.",
-    totalPages: 8,
+    totalPages: 11,
     pages: {
       1: {
         zone: "Borderland Crag",
@@ -243,65 +243,98 @@ window.OAKHAVEN.registerQuests({
         safeRetreat: true,
         text: "Surrounded by shattered curtain walls from a decades-old siege, the stark stone keep known as Usurper's Tower looms over the mountain pass. Smoke curls from its upper arrow-slits—Gragmir the ogre and goblin witchdoctor Skorg hold war hero Dagny captive inside.",
         choices: [
-          { t: "Creep up to the ground-floor breach under cover of rubble.", badge: "Stealth DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 2, fail: 2, failDmg: 4, passMsg: "You slip past the lookout unnoticed!", failMsg: "A goblin sentry looses a jagged arrow from above (-4 HP)!" } },
-          { t: "Charge straight through the splintered gatehouse.", to: 2 }
+          { t: "Creep up to the ground-floor breach under cover of siege rubble.", badge: "Agility / Stealth DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 2, fail: 2, failDmg: 4, passMsg: "You slip past the lookout unnoticed, gaining the drop on the guardhouse!", failMsg: "A goblin sentry looses a jagged arrow from above (-4 HP)!" }, onPass: { cw: "RUBBLE_APPROACH", xp: 15 } },
+          { t: "Scale the collapsed rampart to drop through a rusted drain-grate straight into the Oubliette!", badge: "Might / Athletics DC 12", check: { stat: "might", skill: "Athletics", dc: 12, pass: 3, fail: 2, failDmg: 4, passMsg: "You wrench the rusted grate aside and lower yourself straight into the prisoner pit!", failMsg: "Loose mortar crumbles underfoot (-4 HP), tumbling you outside the splintered gatehouse!" }, onPass: { cw: "GRATE_ENTRY", xp: 20 } },
+          { t: "Charge straight through the splintered gatehouse with weapon bared!", to: 2 }
         ]
       },
       2: {
-        zone: "Ground Floor",
+        zone: "Ground Floor • Guardhouse",
         title: "Goblinoid Guardhouse",
         text: "Cracked flagstones and rusted shields from the ancient siege litter the guardroom. A pack of snarling hobgoblins and goblin skirmishers overturn a mess table to block the stairs!",
-        enemy: { name: "Gragmir's Goblinoid Raiders", desc: "Disciplined borderland hobgoblins and goblin scouts.", hp: 28, ac: 12, atk: 5, dmg: 5, xp: 65, gold: 30, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1 },
+        enemy: { name: "Gragmir's Goblinoid Raiders", desc: "Disciplined borderland hobgoblins and goblin scouts.", hp: 28, ac: 12, atk: 5, dmg: 5, xp: 65, gold: 30, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1, weakCw: ["RUBBLE_APPROACH"] },
         choices: [
-          { t: "Examine the iron grate in the floor leading down to the Oubliette.", to: 3 },
-          { t: "Press upward to the First Floor barracks.", to: 4 }
+          { t: "Pry up the iron grate in the floor leading down to the Oubliette.", to: 3 },
+          { t: "Press upward toward the First Floor landing.", to: 4 }
         ]
       },
       3: {
         zone: "The Oubliette",
         title: "Dagny in Chains",
-        text: "Lowering a rope into the damp stone pit, you find war hero Dagny and two battered militia survivors! 'Skorg's gone mad with vengeance,' Dagny rasps. 'Take my spare blade—Gragmir keeps our gear and the moonstone chest on the upper floor!'",
-        onEnter: { cw: "DAGNY_FREED", items: ["bq_dagny_warblade"], healHp: 8, msg: "Freed Dagny! Claimed Dagny's Border Blade and caught your breath (+8 HP)." },
+        text: "Lowering a rope into the damp stone pit, you find war hero Dagny and two battered militia survivors! 'Skorg's gone mad with vengeance,' Dagny rasps, gripping your forearm. 'Take my spare border blade—he's rigged a bone-fetish brazier on the landing above to curse anyone climbing up. Break it before you face him!'",
+        onEnter: { cw: "DAGNY_FREED", items: ["bq_dagny_warblade"], healHp: 8, msg: "Freed Dagny (DAGNY_FREED)! Claimed Dagny's Border Blade and caught your breath (+8 HP)." },
         choices: [
-          { t: "Climb back up and storm the First Floor!", to: 4 }
+          { t: "Slip up the narrow stair to sabotage Skorg's bone-fetish brazier first!", to: 4 },
+          { t: "Charge straight into Skorg's Fetish Chamber!", to: 5 }
         ]
       },
       4: {
-        zone: "First Floor",
-        title: "Skorg's Fetish Chamber",
-        text: "Bone rattles and smoldering incense choke the first floor. Goblin witchdoctor Skorg screeches curses, waving a skull-topped staff as dark hexes crackle through the air!",
-        enemy: { name: "Skorg, Goblin Witchdoctor", desc: "Vengeful hex-slinging goblin shaman.", hp: 30, ac: 12, atk: 5, dmg: 6, xp: 80, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 2 },
+        zone: "First Floor Landing • The Bone Brazier",
+        title: "Breaking Skorg's Hex",
+        text: "Acrid cedar-and-bone smoke billows from an iron tripod hung with goblin curse-fetishes right outside the First Floor arch, feeding dark wards into the chamber beyond.",
         choices: [
-          { t: "Search Skorg's bone altar for stolen moonstones and climb to the Second Floor.", to: 5, onChoose: { gold: 40, msg: "Found a pouch of borderland moonstones (40 GP)!" } }
+          { t: "Unravel the knotted hex-cords and scatter the cursed ash cleanly.", badge: "Arcana / Arcana DC 12", check: { stat: "arcana", skill: "Arcana", dc: 12, pass: 5, fail: 5, failDmg: 4, passMsg: "The green sparks sputter out—restoring +3 MP and stripping Skorg's hex-ward!", failMsg: "A backlash of bitter smoke sears your knuckles (-4 HP)!" }, onPass: { cw: "TOTEM_BROKEN", xp: 20, mp: 3 } },
+          { t: "Snip the tensioned bone-charms and pocket the stolen silver fetish-beads.", badge: "Agility / Detect Traps DC 12", check: { stat: "agility", skill: "Detect Traps", dc: 12, pass: 5, fail: 5, failDmg: 4, passMsg: "You sever the snare-wires cleanly, collapsing the ward and pocketing 25 GP in silver beads!", failMsg: "A bone-barb nicks your palm (-4 HP) as the tripod topples!" }, onPass: { cw: "TOTEM_BROKEN", gold: 25, xp: 20 } },
+          { t: "Step straight past the smoky tripod into Skorg's Fetish Chamber!", to: 5 }
         ]
       },
       5: {
-        zone: "Second Floor",
-        title: "The Usurper's Hall",
-        text: "Faded banners of the long-dead usurper hang above a battered oak chest pinned with daggers. Before you can pry it open, heavy footsteps shake the timber ceiling!",
+        zone: "First Floor • Fetish Chamber",
+        title: "Skorg's Fetish Chamber",
+        text: "Bone rattles and smoldering incense choke the first floor. Goblin witchdoctor Skorg screeches curses, waving a skull-topped staff as dark hexes crackle through the air!",
+        enemy: { name: "Skorg, Goblin Witchdoctor", desc: "Vengeful hex-slinging goblin shaman.", hp: 30, ac: 12, atk: 5, dmg: 6, xp: 80, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 2, weakCw: ["TOTEM_BROKEN", "DAGNY_FREED"] },
         choices: [
-          { t: "Quickly pry open the trapped treasury chest before Gragmir descends.", badge: "Lockpicking DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 6, fail: 6, failDmg: 5, passMsg: "Disarmed the needle spring and grabbed 50 GP!", failMsg: "A poisoned dart pricks your wrist (-5 HP) as you grab the coins!" }, onPass: { gold: 50 } },
-          { t: "Take high ground on the stairwell leading to the Roof.", to: 6 }
+          { t: "Search Skorg's bone altar for stolen moonstones and climb to the Second Floor.", to: 6 }
         ]
       },
       6: {
-        zone: "Tower Roof",
-        title: "Gragmir's Last Stand",
-        text: "Wind howls across the crenellated roof where the usurper once fell. Towering nine feet tall in scavenged mail, Gragmir hefts a spiked iron beam. 'Little hero wants to bleed on my stones? Come try!'",
-        enemy: { name: "Gragmir the Clever Ogre", desc: "Cunning, heavily armored ogre war-chief.", hp: 40, ac: 13, atk: 6, dmg: 7, xp: 115, gold: 80, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "rare"), weakCw: ["DAGNY_FREED"] },
+        zone: "Second Floor • The Usurper's Hall",
+        title: "The Usurper's Hall",
+        text: "Faded banners of the long-dead usurper hang above a battered oak treasury chest pinned with daggers. Before you can catch your breath, heavy ogre footsteps shake the timber rafters overhead!",
+        onEnter: { gold: 40, msg: "Recovered Skorg's pouch of borderland moonstones (+40 GP)!" },
         choices: [
-          { t: "Ensure Dagny and her squad are safe before marching back to town.", to: 7 }
+          { t: "Quickly pick the trapped treasury chest before Gragmir descends.", badge: "Agility / Lockpicking DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 7, fail: 8, failDmg: 5, passMsg: "Disarmed the needle spring and grabbed 50 GP before slipping up to the roof hatch!", failMsg: "A poisoned dart pricks your wrist (-5 HP) as Gragmir roars above!" }, onPass: { gold: 50, xp: 20 } },
+          { t: "Scout the roof-hatch hinges to seize the high parapet before Gragmir spots you.", badge: "Spirit / Perception DC 12", check: { stat: "spirit", skill: "Perception", dc: 12, pass: 7, fail: 8, passMsg: "You ease the oiled hatch open cleanly, claiming the battlement high ground!", failMsg: "A rusted hinge squeals, alerting Gragmir as you climb out onto the roof!" }, onPass: { cw: "HIGH_GROUND", xp: 20 } },
+          { t: "Climb the stone stairwell straight out onto the Tower Roof!", to: 8 }
         ]
       },
       7: {
-        zone: "Border Pass",
-        title: "Escort Home",
-        text: "With Gragmir cast down from the battlements and Skorg's dark hexes broken, the remaining goblins scatter into the crags. Dagny salutes you as the mountain road opens once more.",
+        zone: "Roof Hatch • Parapet Ledge",
+        title: "Seizing the Battlements",
+        text: "Pushing quietly through the roof-hatch, you crouch behind a weathered merlon as mountain wind whips across the stones. Ahead, Gragmir paces near the shattered bell-arch, his heavy iron beam resting across one shoulder—giving you the opening strike!",
+        onEnter: { cw: "HIGH_GROUND", healHp: 6, msg: "Secured the battlement high ground (HIGH_GROUND, +6 HP)!" },
         choices: [
-          { t: "Claim your bounty and hero's welcome.", to: 8 }
+          { t: "Vault from the parapet to meet Gragmir head-on!", to: 8 }
         ]
       },
       8: {
+        zone: "Tower Roof",
+        title: "Gragmir's Last Stand",
+        text: "Wind howls across the crenellated roof where the usurper once fell. Towering nine feet tall in scavenged mail, Gragmir hefts a spiked iron beam. 'Little hero wants to bleed on my stones? Come try!'",
+        enemy: { name: "Gragmir the Clever Ogre", desc: "Cunning, heavily armored ogre war-chief.", hp: 40, ac: 13, atk: 6, dmg: 7, xp: 115, gold: 80, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "rare"), weakCw: ["DAGNY_FREED", "HIGH_GROUND"] },
+        choices: [
+          { t: "Sound the militia horn from the battlements and descend to the pass!", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Border Pass • Courtyard",
+        title: "Escort Home",
+        text: "With Gragmir cast down from the battlements and Skorg's dark hexes broken, the remaining goblins scatter into the crags as clear mountain light pours over the border road.",
+        choices: [
+          { t: "Meet war hero Dagny and her freed scouts by the broken gate.", reqCw: "DAGNY_FREED", to: 10 },
+          { t: "March down the cleared mountain pass toward Oakhaven.", to: 11 }
+        ]
+      },
+      10: {
+        zone: "Border Pass • Dagny's Salute",
+        title: "The Militia's Debt",
+        text: "War hero Dagny stands tall beside her two rescued scouts, saluting crisply as she presses a heavy militia silver-purse into your hand. 'You pulled us out of that pit and broke Gragmir's hold in a single day—Oakhaven won't forget it!'",
+        onEnter: { gold: 45, xp: 30, msg: "Dagny's militia company rewards you with +45 GP and +30 XP!" },
+        choices: [
+          { t: "March back to Oakhaven alongside Dagny's company.", to: 11 }
+        ]
+      },
+      11: {
         zone: "Epilogue",
         title: "Savior of the Pass",
         text: "Songs of your daring ascent of Usurper's Tower echo through the border taverns, and the local militia honors you with a chest of silver and the gratitude of Dagny's company.",
