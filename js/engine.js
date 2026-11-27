@@ -5931,10 +5931,144 @@
         usedAbilities: [],
         log: [`⚔ [HARDCORE] Battle begins against ${tpl.name}!`, ...notes]
       };
+
+      if (window.OAKHAVEN?.VTT) {
+        const adv = state.activeAdv ? ADVENTURES[state.activeAdv.id] : null;
+        const page = adv?.pages?.[pageNum] || null;
+        window.OAKHAVEN.VTT.init(activeCombat, state, adv, page, ITEMS_DB, {
+          getHeroTokenPath: () => getHeroTokenPaths(state).primarySrc,
+          getActiveCombat: () => activeCombat,
+          onClickEnemy: () => {
+            const v = window.OAKHAVEN.VTT;
+            if (!v.state || v.state.turn !== "hero") return;
+            if (v.state.hero.actionUsed) return toast("Action already used! Move, use a Bonus Action, or click End Turn.", "info");
+            const dist = v.getDistFt();
+            const wp = v.state.weapon;
+            if (wp?.mode === "ranged" || dist > (wp?.meleeReach || 5) + v.state.hero.moveLeft) {
+              combatRangedStrike();
+            } else {
+              combatStrike(false);
+            }
+          },
+          onStepExit: () => combatFlee(),
+          triggerOpportunityAttack: () => triggerOpportunityAttack(),
+          runEnemyTurn: () => endHeroTurn(),
+          onStateChange: () => { renderCombatPanel(); renderSheet(); }
+        });
+      }
+    }
+
+    function checkVttActionReady() {
+      const v = window.OAKHAVEN?.VTT;
+      if (!v || !v.active || !v.state) return true;
+      if (v.state.turn !== "hero") { toast("Wait for the enemy's turn to finish!", "info"); return false; }
+      if (v.state.hero.actionUsed) { toast("Action already used this turn! Click ⏭ End Turn (or finish moving).", "info"); return false; }
+      return true;
+    }
+
+    function consumeVttAction() {
+      const v = window.OAKHAVEN?.VTT;
+      if (v && v.active && v.state) {
+        v.state.hero.actionUsed = true;
+      }
+    }
+
+    function triggerOpportunityAttack() {
+      if (!activeCombat || activeCombat.stunned > 0) return;
+      const v = window.OAKHAVEN?.VTT;
+      const d = getDerived(state);
+      const subP = getSubclassPassiveTotals(state);
+      const heroAc = d.ac + (activeCombat.wildShapeActive ? 3 : 0) + (activeCombat.bardAcTurns > 0 ? 2 : 0);
+      const er = roll2d6();
+      const atk = activeCombat.atk - (activeCombat.chilled > 0 ? 2 : 0) - (activeCombat.grandHex ? 3 : 0);
+      const tot = er.total + atk;
+      if (tot >= heroAc || er.total === 12) {
+        let hitDmg = Math.max(1, activeCombat.dmg - (subP.dmgReduce || 0));
+        if (activeCombat.rageActive) hitDmg *= 2;
+        sfx("enemyHit");
+        state.hp = Math.max(0, state.hp - hitDmg);
+        activeCombat.log.unshift(`⚠️ OPPORTUNITY ATTACK! ${activeCombat.name} strikes as you pull away (${tot} vs AC ${heroAc}) for ${hitDmg} dmg!`);
+        if (v?.state) {
+          v.spawnAttackFx(v.state.enemy.x, v.state.enemy.y, v.state.hero.x, v.state.hero.y, "#ef4444", false);
+          v.spawnFloat(v.state.hero.x, v.state.hero.y, `OA -${hitDmg}`, "#f87171");
+        }
+        if (state.hp <= 0) {
+          v?.stop();
+          return triggerDeath(`Struck down by ${activeCombat.name}'s Opportunity Attack!`);
+        }
+      } else {
+        sfx("shield");
+        activeCombat.log.unshift(`⚠️ ${activeCombat.name}'s Opportunity Attack misses (${tot} vs AC ${heroAc})!`);
+        if (v?.state) v.spawnFloat(v.state.hero.x, v.state.hero.y, "OA MISS", "#cbd5e1");
+      }
+      renderCombatPanel();
+      renderSheet();
+    }
+
+    function combatRangedStrike() {
+      if (!activeCombat) return;
+      if (!checkVttActionReady()) return;
+      const v = window.OAKHAVEN?.VTT;
+      const maxRange = v?.state?.weapon?.mode === "ranged" ? 60 : 45;
+      const dist = v?.active ? v.getDistFt() : 20;
+      if (dist > maxRange) return toast(`Target is ${dist} ft away (max Ranged Shot: ${maxRange} ft). Move closer first!`, "bad");
+      const los = v?.active ? v.getLineOfSightHeroToEnemy() : { blocked: false, halfCover: false };
+      if (los.blocked) return toast("Full Cover blocks your Line of Sight! Move to a clear angle.", "bad");
+
+      consumeVttAction();
+      const d = getDerived(state);
+      const subP = getSubclassPassiveTotals(state);
+      const effAtk = d.atk + Math.floor((d.s.agility || 0) / 2)
+        + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0)
+        + (activeCombat.huntersMark ? 3 : 0);
+      const coverBonus = los.halfCover ? 2 : 0;
+      const effEnemyAc = (activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac) + coverBonus;
+      const r = roll2d6();
+      const tot = r.total + effAtk;
+      const critThreshold = activeCombat.huntersMark ? Math.min(subP.critRange || 12, 10) : (subP.critRange || 12);
+      const isCrit = r.total >= critThreshold;
+
+      if (v?.state) v.spawnAttackFx(v.state.hero.x, v.state.hero.y, v.state.enemy.x, v.state.enemy.y, "#fbbf24", true);
+
+      if (tot >= effEnemyAc || isCrit) {
+        let dmg = roll(6) + Math.max(1, Math.floor((d.s.agility || 1) / 2) + Math.floor(effAtk / 4));
+        if (activeCombat.huntersMark) dmg += 4;
+        if (activeCombat.undead && subP.undeadDmgBonus) dmg += subP.undeadDmgBonus;
+        if (activeCombat.isBoss && subP.bossDmgBonus) dmg += subP.bossDmgBonus;
+        if (isCrit) dmg = Math.round(dmg * 1.5);
+        sfx(isCrit ? "crit" : "sword");
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, isCrit ? `CRIT -${dmg}!` : `-${dmg}`, isCrit ? "#fde047" : "#fb923c");
+        activeCombat.log.unshift(`🏹 ${isCrit ? "CRIT! " : ""}Ranged Shot (${dist}ft${coverBonus ? ", Half Cover" : ""}) [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc} for ${dmg} dmg!`);
+      } else {
+        sfx("miss");
+        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, "MISS", "#94a3b8");
+        activeCombat.log.unshift(`🏹 Ranged Shot missed (${dist}ft${coverBonus ? ", Half Cover +2 AC" : ""}) [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc}!`);
+      }
+      combatAfterPlayer();
     }
 
     function combatStrike(lucky = false) {
       if (!activeCombat) return;
+      if (!checkVttActionReady()) return;
+      const v = window.OAKHAVEN?.VTT;
+      if (v?.active && v.state) {
+        const wp = v.state.weapon;
+        if (wp?.mode === "ranged") {
+          const los = v.getLineOfSightHeroToEnemy();
+          if (los.blocked) return toast("Full Cover blocks Line of Sight! Move to a clear angle.", "bad");
+        } else {
+          const reach = wp?.meleeReach || 5;
+          const approach = v.tryAutoApproach(reach);
+          if (!approach.ok) {
+            return toast(`Out of melee reach (${approach.distFt}ft away, ${approach.moveLeft}ft move left). Move closer, Dash, or use 🏹 Ranged!`, "bad");
+          }
+          if (approach.moved > 0) {
+            activeCombat.log.unshift(`🥾 Closed ${approach.moved} ft into melee range!`);
+          }
+        }
+      }
+      consumeVttAction();
       const d = getDerived(state);
       const subP = getSubclassPassiveTotals(state);
       const effAtk = d.atk
@@ -5953,6 +6087,7 @@
       const tot = r.total + effAtk;
       const critThreshold = activeCombat.huntersMark ? Math.min(subP.critRange || 12, 10) : (subP.critRange || 12);
       const isCrit = r.total >= critThreshold;
+      if (v?.state) v.spawnAttackFx(v.state.hero.x, v.state.hero.y, v.state.enemy.x, v.state.enemy.y, isCrit ? "#fde047" : "#f87171", v.state.weapon?.mode === "ranged");
       if (tot >= effEnemyAc || bonus > 0 || isCrit) {
         let dmg = roll(6) + Math.max(1, Math.floor(effAtk / 3)) + bonus;
         if (activeCombat.huntersMark) dmg += 4;
@@ -5963,6 +6098,7 @@
         if (activeCombat.rageActive) dmg *= 2;
         sfx(isCrit ? "crit" : "sword");
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, isCrit ? `CRIT -${dmg}!` : `-${dmg}`, isCrit ? "#fde047" : "#f87171");
         let extra = "";
         if (activeCombat.rageActive) extra += " [🔥 RAGE 2x!]";
         if (subP.lifesteal > 0) {
@@ -5972,6 +6108,7 @@
         activeCombat.log.unshift(`⚔ ${isCrit ? "CRIT! " : ""}Hit [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc} for ${dmg} dmg!${extra}`);
       } else {
         sfx("miss");
+        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, "MISS", "#94a3b8");
         activeCombat.log.unshift(`⚔ Missed [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc}!`);
       }
       combatAfterPlayer();
@@ -5979,6 +6116,7 @@
 
     function combatSpell(name) {
       if (!activeCombat) return;
+      if (!checkVttActionReady()) return;
       ensureHeroProgressionState(state);
       if (!state.preparedSpells.includes(name)) {
         return toast(`${name} is not prepared! Prepare spells in Oakhaven.`, "bad");
@@ -5986,6 +6124,12 @@
       const sp = SPELLS_LIST.find(s => s.name === name);
       const mpCost = getEffectiveSpellMp(sp, state);
       if (!sp || state.mp < mpCost) return toast(`Need ${mpCost} MP!`, "bad");
+      const v = window.OAKHAVEN?.VTT;
+      if ((sp.dmgDice || sp.dmgBase) && v?.active && v.state) {
+        const los = v.getLineOfSightHeroToEnemy();
+        if (los.blocked) return toast("Full Cover blocks Line of Sight for your spell! Move to a clear angle.", "bad");
+      }
+      consumeVttAction();
       state.mp -= mpCost;
       const d = getDerived(state);
       const subP = getSubclassPassiveTotals(state);
@@ -6026,6 +6170,10 @@
           mods.push("🔥 RAGE 2x!");
         }
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        if (v?.state) {
+          v.spawnAttackFx(v.state.hero.x, v.state.hero.y, v.state.enemy.x, v.state.enemy.y, "#38bdf8", true);
+          v.spawnFloat(v.state.enemy.x, v.state.enemy.y, `-${dmg}`, "#7dd3fc");
+        }
         const typeStr = sp.dmgType ? ` ${sp.dmgType}` : "";
         activeCombat.log.unshift(`${icon} ${sp.name} rolls ${rollText} = ${dmg}${typeStr} dmg${mods.length ? ` (${mods.join(" ")})` : ""}!`);
       }
@@ -6045,6 +6193,7 @@
         }
         const heal = rolled + bonus + statVal;
         state.hp = Math.min(d.maxHp, state.hp + heal);
+        if (v?.state) v.spawnFloat(v.state.hero.x, v.state.hero.y, `+${heal} HP`, "#4ade80");
         activeCombat.log.unshift(`💚 ${sp.name} rolls ${rollText} = +${heal} HP restored!`);
       }
 
@@ -6066,10 +6215,20 @@
 
     function combatItem(kind) {
       if (!activeCombat) return;
+      const v = window.OAKHAVEN?.VTT;
       const subP = getSubclassPassiveTotals(state);
       if (kind === "potion") {
+        // 5e 2024 Rule: Drinking a Potion uses your Bonus Action (or Action if Bonus is spent)
+        if (v?.active && v.state) {
+          if (v.state.turn !== "hero") return toast("Wait for the enemy's turn!", "info");
+          if (v.state.hero.bonusUsed && v.state.hero.actionUsed) return toast("Both Bonus Action and Action are already used! Click End Turn.", "info");
+        }
         const i = state.backpack.findIndex(e => ITEMS_DB[getEntryId(e)]?.type === "consumable" && (ITEMS_DB[getEntryId(e)]?.healHp || 0) > 0);
         if (i === -1) return toast("No healing potions or foods in backpack!", "bad");
+        if (v?.active && v.state) {
+          if (!v.state.hero.bonusUsed) v.state.hero.bonusUsed = true;
+          else v.state.hero.actionUsed = true;
+        }
         const usedId = consumeOneFromSlot("backpack", i);
         const it = ITEMS_DB[usedId];
         const d = getDerived(state);
@@ -6077,10 +6236,16 @@
         state.hp = Math.min(d.maxHp, state.hp + healAmt);
         if (it.healMp) state.mp = Math.min(d.maxMp, state.mp + it.healMp);
         sfx("potion");
-        activeCombat.log.unshift(`🧪 Used ${it.name} (+${healAmt} HP${it.healMp ? `, +${it.healMp} MP` : ""})!`);
+        if (v?.state) v.spawnFloat(v.state.hero.x, v.state.hero.y, `+${healAmt} HP`, "#4ade80");
+        activeCombat.log.unshift(`🧪 [Bonus Action] Used ${it.name} (+${healAmt} HP${it.healMp ? `, +${it.healMp} MP` : ""})!`);
+        renderCombatPanel();
+        renderSheet();
+        return;
       } else if (kind === "bomb") {
+        if (!checkVttActionReady()) return;
         const i = state.backpack.findIndex(e => ITEMS_DB[getEntryId(e)]?.type === "bomb");
         if (i === -1) return toast("No bombs or throwables in backpack!", "bad");
+        consumeVttAction();
         const usedId = consumeOneFromSlot("backpack", i);
         const it = ITEMS_DB[usedId];
         const diceSpec = it.dmgDice || (usedId === "alchemist_bomb" ? "2d6" : null);
@@ -6096,6 +6261,10 @@
         if (activeCombat.rageActive) dmg *= 2;
         sfx("bomb");
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        if (v?.state) {
+          v.spawnAttackFx(v.state.hero.x, v.state.hero.y, v.state.enemy.x, v.state.enemy.y, "#fb923c", true);
+          v.spawnFloat(v.state.enemy.x, v.state.enemy.y, `💣 -${dmg}`, "#fb923c");
+        }
         let extra = activeCombat.rageActive ? " [🔥 RAGE 2x!]" : "";
         if (subP.bombChillTurns > 0) {
           activeCombat.chilled = Math.max(activeCombat.chilled, subP.bombChillTurns);
@@ -6103,8 +6272,10 @@
         }
         activeCombat.log.unshift(`💣 Threw ${it.name}${rollInfo} for ${dmg} dmg${extra}!`);
       } else if (kind === "torch") {
+        if (!checkVttActionReady()) return;
         const i = state.backpack.findIndex(e => getEntryId(e) === "torch");
         if (i === -1) return toast("No Pitch Torches in backpack!", "bad");
+        consumeVttAction();
         consumeOneFromSlot("backpack", i);
         let dmg = 6 + (subP.bombDmgBonus || 0);
         const undeadDouble = !!activeCombat.undead;
@@ -6112,6 +6283,10 @@
         if (activeCombat.rageActive) dmg *= 2;
         sfx("bomb");
         activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        if (v?.state) {
+          v.spawnAttackFx(v.state.hero.x, v.state.hero.y, v.state.enemy.x, v.state.enemy.y, "#f59e0b", true);
+          v.spawnFloat(v.state.enemy.x, v.state.enemy.y, `🔥 -${dmg}`, "#fbbf24");
+        }
         activeCombat.dot = { dmg: 3, turns: 3, label: "Burning" };
         activeCombat.chilled = Math.max(activeCombat.chilled, 2);
         const mods = [];
@@ -6159,11 +6334,13 @@
 
     function combatSubclassAbility(ab) {
       if (!activeCombat || !ab) return;
+      if (!checkVttActionReady()) return;
       if (ab.oncePerCombat && activeCombat.usedAbilities.includes(ab.name)) {
         return toast(`${ab.name} can only be used once per combat!`, "info");
       }
       const cost = ab.mp || 0;
       if (state.mp < cost) return toast(`Need ${cost} MP!`, "bad");
+      consumeVttAction();
       if (ab.craftItem && !ab.dmgDice && !ab.healDice && !ab.multiStrike) {
         if (!addToPack(ab.craftItem, ab.craftQty || 1)) return;
       }
@@ -6469,19 +6646,83 @@
         if (state.hp <= 0) return triggerDeath("Struck down while fleeing!");
       }
       activeCombat = null;
+      window.OAKHAVEN?.VTT?.stop();
       sfx("miss");
       bgm("adventure");
       goToAdvPage(dest, { type:"info", text:"You disengaged and fell back." });
     }
 
+    function resolveCombatVictory() {
+      const c = activeCombat;
+      const subP = getSubclassPassiveTotals(state);
+      window.OAKHAVEN?.VTT?.stop();
+      state.activeAdv.defeated.push(c.pageNum);
+      state.kills++;
+      const baseGold = c.gold || 0;
+      const goldAward = subP.goldFindPct > 0 ? Math.round(baseGold * (1 + subP.goldFindPct / 100)) : baseGold;
+      state.gold += goldAward;
+      gainXp(c.xp || 25);
+      if (state.activeAdv) {
+        state.activeAdv.lootGold = (state.activeAdv.lootGold || 0) + goldAward;
+        state.activeAdv.lootXp = (state.activeAdv.lootXp || 0) + (c.xp || 25);
+        if (!Array.isArray(state.activeAdv.lootItems)) state.activeAdv.lootItems = [];
+      }
+      const names = [];
+      (c.items || []).forEach(id => {
+        if (addToPack(id)) {
+          names.push(ITEMS_DB[id].name);
+          if (state.activeAdv) state.activeAdv.lootItems.push(id);
+        }
+      });
+      if (typeof rollEncounterVaultDrop === "function") {
+        const bonusDrop = rollEncounterVaultDrop(c);
+        if (bonusDrop && addToPack(bonusDrop)) {
+          names.push(ITEMS_DB[bonusDrop].name);
+          if (state.activeAdv) state.activeAdv.lootItems.push(bonusDrop);
+        }
+      }
+      if (c.cw && !state.activeAdv.codewords.includes(c.cw)) state.activeAdv.codewords.push(c.cw);
+      if (isSpellcasterClass(state)) {
+        const vd = getDerived(state);
+        if (state.mp < vd.maxMp) state.mp = Math.min(vd.maxMp, state.mp + 1);
+      }
+      const msg = `🏆 Defeated ${c.name}! +${c.xp||25} XP, +${goldAward} GP${names.length?` & ${names.join(", ")}`:""}.`;
+      sfx("victory");
+      bgm("adventure");
+      addLog(msg, "good"); toast(msg, "good");
+      activeCombat = null;
+      renderAdvPage({ type:"good", text:msg });
+      renderSheet();
+    }
+
     function combatAfterPlayer() {
       if (!activeCombat) return;
+      if (activeCombat.hp <= 0) return resolveCombatVictory();
+
+      const v = window.OAKHAVEN?.VTT;
+      // In VTT 5e mode: after an Action, let player finish moving / use Bonus Action / click End Turn
+      // (If moveLeft === 0 and bonusUsed, auto-end turn after a short 450ms beat for snappy flow!)
+      if (v && v.active && v.state) {
+        renderCombatPanel();
+        renderSheet();
+        if (v.state.hero.moveLeft <= 0 && v.state.hero.bonusUsed) {
+          setTimeout(() => { if (activeCombat && v.active && v.state?.turn === "hero") endHeroTurn(); }, 450);
+        }
+        return;
+      }
+      endHeroTurn();
+    }
+
+    function endHeroTurn() {
+      if (!activeCombat) return;
       const subP = getSubclassPassiveTotals(state);
+      const v = window.OAKHAVEN?.VTT;
 
       // Active Summon & Damage-Over-Time ticks
       if (activeCombat.hp > 0 && activeCombat.summon && activeCombat.summon.turns > 0) {
         const sm = activeCombat.summon;
         activeCombat.hp = Math.max(0, activeCombat.hp - sm.dmg);
+        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, `${sm.icon} -${sm.dmg}`, "#c084fc");
         activeCombat.log.unshift(`${sm.icon} ${sm.name} strikes for ${sm.dmg} dmg!`);
         sm.turns--;
         if (sm.turns <= 0) activeCombat.summon = null;
@@ -6489,6 +6730,7 @@
       if (activeCombat.hp > 0 && activeCombat.dot && activeCombat.dot.turns > 0) {
         const dt = activeCombat.dot;
         activeCombat.hp = Math.max(0, activeCombat.hp - dt.dmg);
+        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, `-${dt.dmg}`, "#4ade80");
         activeCombat.log.unshift(`☠️ ${activeCombat.name} suffers ${dt.dmg} ${dt.label} dmg!`);
         dt.turns--;
         if (dt.turns <= 0) activeCombat.dot = null;
@@ -6498,88 +6740,62 @@
         activeCombat.log.unshift(`🕯️ Grand Hex sears ${activeCombat.name} for 4 dmg!`);
       }
 
-      if (activeCombat.hp <= 0) {
-        const c = activeCombat;
-        state.activeAdv.defeated.push(c.pageNum);
-        state.kills++;
-        const baseGold = c.gold || 0;
-        const goldAward = subP.goldFindPct > 0 ? Math.round(baseGold * (1 + subP.goldFindPct / 100)) : baseGold;
-        state.gold += goldAward;
-        gainXp(c.xp || 25);
-        if (state.activeAdv) {
-          state.activeAdv.lootGold = (state.activeAdv.lootGold || 0) + goldAward;
-          state.activeAdv.lootXp = (state.activeAdv.lootXp || 0) + (c.xp || 25);
-          if (!Array.isArray(state.activeAdv.lootItems)) state.activeAdv.lootItems = [];
-        }
-        const names = [];
-        (c.items || []).forEach(id => {
-          if (addToPack(id)) {
-            names.push(ITEMS_DB[id].name);
-            if (state.activeAdv) state.activeAdv.lootItems.push(id);
-          }
-        });
-        if (typeof rollEncounterVaultDrop === "function") {
-          const bonusDrop = rollEncounterVaultDrop(c);
-          if (bonusDrop && addToPack(bonusDrop)) {
-            names.push(ITEMS_DB[bonusDrop].name);
-            if (state.activeAdv) state.activeAdv.lootItems.push(bonusDrop);
-          }
-        }
-        if (c.cw && !state.activeAdv.codewords.includes(c.cw)) state.activeAdv.codewords.push(c.cw);
-        if (isSpellcasterClass(state)) {
-          const vd = getDerived(state);
-          if (state.mp < vd.maxMp) state.mp = Math.min(vd.maxMp, state.mp + 1);
-        }
-        const msg = `🏆 Defeated ${c.name}! +${c.xp||25} XP, +${goldAward} GP${names.length?` & ${names.join(", ")}`:""}.`;
-        sfx("victory");
-        bgm("adventure");
-        addLog(msg, "good"); toast(msg, "good");
-        activeCombat = null;
-        renderAdvPage({ type:"good", text:msg });
-        renderSheet();
-        return;
-      }
+      if (activeCombat.hp <= 0) return resolveCombatVictory();
 
       // Check Boss Enrage trigger at <= 50% HP
       if (activeCombat.isBoss && !activeCombat.enraged && activeCombat.hp <= Math.floor(activeCombat.maxHp * DIFFICULTY.bossEnrageThreshold)) {
         activeCombat.enraged = true;
         activeCombat.atk += 1;
         activeCombat.dmg += 2;
+        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, "🔥 ENRAGED!", "#ef4444");
         activeCombat.log.unshift(`🔥 ${activeCombat.name} ENRAGES! (+1 ATK, +2 DMG!)`);
       }
 
-      // Enemy Turn (Stun check + Natural 12 Crits + Undead MP Drain + Thorns retaliation)
+      // Enemy Turn (Stun check + VTT Grid AI Movement + Dodge/Cover + Natural 12 Crits + Undead MP Drain + Thorns)
       if (activeCombat.stunned > 0) {
         activeCombat.stunned--;
+        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, "⚡ STUNNED", "#facc15");
         activeCombat.log.unshift(`⚡ ${activeCombat.name} is STUNNED and loses its turn!`);
       } else {
-        const d = getDerived(state);
-        const heroAc = d.ac + (activeCombat.wildShapeActive ? 3 : 0) + (activeCombat.bardAcTurns > 0 ? 2 : 0);
-        const er = roll2d6();
-        const atk = activeCombat.atk - (activeCombat.chilled > 0 ? 2 : 0) - (activeCombat.grandHex ? 3 : 0);
-        const tot = er.total + atk;
-        const enemyCrit = er.total === 12;
+        const ai = (v && v.active && v.state) ? v.moveEnemyAI(activeCombat) : { canAttack: true, isRanged: false, movedFt: 0, hasHalfCover: false };
+        if (ai.movedFt > 0) {
+          activeCombat.log.unshift(`👣 ${activeCombat.name} ${ai.dashed ? "DASHES" : "moves"} ${ai.movedFt} ft across the battlefield!`);
+        }
+        if (ai.canAttack) {
+          const d = getDerived(state);
+          const coverBonus = ai.hasHalfCover ? 2 : 0;
+          const dodgePen = v?.state?.hero?.dodging ? 3 : 0;
+          const heroAc = d.ac + (activeCombat.wildShapeActive ? 3 : 0) + (activeCombat.bardAcTurns > 0 ? 2 : 0) + coverBonus;
+          const er = roll2d6();
+          const atk = activeCombat.atk - (activeCombat.chilled > 0 ? 2 : 0) - (activeCombat.grandHex ? 3 : 0) - dodgePen;
+          const tot = er.total + atk;
+          const enemyCrit = er.total === 12;
 
-        if (tot >= heroAc || enemyCrit) {
-          let hitDmg = enemyCrit ? Math.round(activeCombat.dmg * 1.5) : activeCombat.dmg;
-          if (subP.dmgReduce > 0) hitDmg = Math.max(1, hitDmg - subP.dmgReduce);
-          if (activeCombat.rageActive) hitDmg *= 2;
-          sfx("enemyHit");
-          state.hp = Math.max(0, state.hp - hitDmg);
-          let extra = activeCombat.rageActive ? " [🔥 RAGE 2x Taken!]" : "";
-          if (activeCombat.undead && state.mp > 0 && roll(6) >= 4) {
-            state.mp = Math.max(0, state.mp - 1);
-            extra += " (-1 MP drained!)";
+          if (v?.state) v.spawnAttackFx(v.state.enemy.x, v.state.enemy.y, v.state.hero.x, v.state.hero.y, ai.isRanged ? "#c084fc" : "#ef4444", ai.isRanged);
+
+          if (tot >= heroAc || enemyCrit) {
+            let hitDmg = enemyCrit ? Math.round(activeCombat.dmg * 1.5) : activeCombat.dmg;
+            if (subP.dmgReduce > 0) hitDmg = Math.max(1, hitDmg - subP.dmgReduce);
+            if (activeCombat.rageActive) hitDmg *= 2;
+            sfx("enemyHit");
+            state.hp = Math.max(0, state.hp - hitDmg);
+            if (v?.state) v.spawnFloat(v.state.hero.x, v.state.hero.y, enemyCrit ? `CRIT -${hitDmg}!` : `-${hitDmg}`, "#f87171");
+            let extra = activeCombat.rageActive ? " [🔥 RAGE 2x Taken!]" : "";
+            if (activeCombat.undead && state.mp > 0 && roll(6) >= 4) {
+              state.mp = Math.max(0, state.mp - 1);
+              extra += " (-1 MP drained!)";
+            }
+            if (subP.thornsDmg > 0 && !ai.isRanged) {
+              const retDmg = activeCombat.rageActive ? subP.thornsDmg * 2 : subP.thornsDmg;
+              activeCombat.hp = Math.max(0, activeCombat.hp - retDmg);
+              extra += ` [Retaliated ${retDmg} dmg!]`;
+            }
+            activeCombat.log.unshift(`💥 ${enemyCrit ? "ENEMY CRIT! " : ""}${activeCombat.name} ${ai.isRanged ? "fires" : "hits"} (${tot} vs AC ${heroAc}${coverBonus ? " +Cover" : ""}) for ${hitDmg} dmg!${extra}`);
+          } else {
+            sfx("shield");
+            if (v?.state) v.spawnFloat(v.state.hero.x, v.state.hero.y, dodgePen ? "DODGED!" : "MISS", "#93c5fd");
+            activeCombat.log.unshift(`🛡️ ${activeCombat.name} misses (${tot} vs AC ${heroAc}${dodgePen ? ", Dodge" : ""}${coverBonus ? ", Cover" : ""})!`);
           }
-          if (subP.thornsDmg > 0) {
-            const retDmg = activeCombat.rageActive ? subP.thornsDmg * 2 : subP.thornsDmg;
-            activeCombat.hp = Math.max(0, activeCombat.hp - retDmg);
-            extra += ` [Retaliated ${retDmg} dmg!]`;
-          }
-          activeCombat.log.unshift(`💥 ${enemyCrit ? "ENEMY CRIT! " : ""}${activeCombat.name} hits (${tot} vs AC ${heroAc}) for ${hitDmg} dmg!${extra}`);
-        } else {
-          sfx("shield");
-          activeCombat.log.unshift(`🛡️ ${activeCombat.name} misses (${tot} vs AC ${heroAc})!`);
         }
       }
 
@@ -6600,8 +6816,15 @@
         }
       }
 
-      if (state.hp <= 0) return triggerDeath(`Slain by ${activeCombat.name}!`);
-      if (activeCombat.hp <= 0) return combatAfterPlayer();
+      if (state.hp <= 0) {
+        v?.stop();
+        return triggerDeath(`Slain by ${activeCombat.name}!`);
+      }
+      if (activeCombat.hp <= 0) return resolveCombatVictory();
+
+      if (v && v.active && v.state) {
+        v.beginHeroTurn(activeCombat);
+      }
       renderCombatPanel();
       renderSheet();
     }
@@ -6685,6 +6908,7 @@
 
     function renderCombatPanel() {
       if (!activeCombat) return;
+      if (window.OAKHAVEN?.VTT?.active) window.OAKHAVEN.VTT.updateHud(activeCombat);
       document.getElementById("enemy-name").textContent = activeCombat.name;
       document.getElementById("enemy-desc").textContent = activeCombat.desc;
       const effEnemyAc = activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac;
@@ -7739,6 +7963,25 @@
     const btnCTorch = document.getElementById("btn-c-torch");
     if (btnCTorch) btnCTorch.addEventListener("click", () => combatItem("torch"));
     document.getElementById("btn-c-flee").addEventListener("click", combatFlee);
+
+    // D&D 5e VTT Tactical Controls
+    const btnCRanged = document.getElementById("btn-c-ranged");
+    if (btnCRanged) btnCRanged.addEventListener("click", () => combatRangedStrike());
+    const btnVttDash = document.getElementById("btn-vtt-dash");
+    if (btnVttDash) btnVttDash.addEventListener("click", () => { if (activeCombat && window.OAKHAVEN?.VTT?.doDash(activeCombat)) renderCombatPanel(); });
+    const btnVttDodge = document.getElementById("btn-vtt-dodge");
+    if (btnVttDodge) btnVttDodge.addEventListener("click", () => { if (activeCombat && window.OAKHAVEN?.VTT?.doDodge(activeCombat)) renderCombatPanel(); });
+    const btnVttDis = document.getElementById("btn-vtt-disengage");
+    if (btnVttDis) btnVttDis.addEventListener("click", () => { if (activeCombat && window.OAKHAVEN?.VTT?.doDisengage(activeCombat)) renderCombatPanel(); });
+    const btnVttEnd = document.getElementById("btn-vtt-end-turn");
+    if (btnVttEnd) btnVttEnd.addEventListener("click", () => { if (activeCombat && window.OAKHAVEN?.VTT?.state?.turn === "hero") endHeroTurn(); });
+    const btnVttGrid = document.getElementById("btn-vtt-grid");
+    if (btnVttGrid) btnVttGrid.addEventListener("click", () => {
+      if (window.OAKHAVEN?.VTT) {
+        window.OAKHAVEN.VTT.showGrid = !window.OAKHAVEN.VTT.showGrid;
+        btnVttGrid.classList.toggle("text-amber-300", window.OAKHAVEN.VTT.showGrid);
+      }
+    });
 
     // Adventure Navigation Controls
     document.getElementById("btn-return-town-victory").addEventListener("click", () => enterTown("square", false));

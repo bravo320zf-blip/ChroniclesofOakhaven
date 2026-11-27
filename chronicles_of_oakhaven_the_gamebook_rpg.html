@@ -388,12 +388,42 @@
                 <div id="combat-tags" class="flex flex-wrap gap-1.5 mt-2"></div>
               </div>
 
-              <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-3">
+              <!-- D&D 5e Virtual Tabletop Battlemap -->
+              <div id="vtt-arena-wrap" class="mb-3 rounded-xl bg-stone-950/90 border border-amber-700/40 p-2.5 shadow-inner">
+                <div class="flex flex-wrap items-center justify-between gap-1.5 mb-2 text-[11px]">
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <span id="vtt-round-label" class="px-2 py-0.5 rounded bg-amber-950/90 border border-amber-600/60 text-amber-200 font-bold">Round 1 • Your Turn</span>
+                    <span id="vtt-move-label" class="px-2 py-0.5 rounded bg-sky-950/90 border border-sky-500/60 text-sky-200 font-bold">Move: 30 / 30 ft</span>
+                    <span id="vtt-action-badge" class="px-2 py-0.5 rounded text-[11px] font-bold border bg-emerald-950 border-emerald-500/70 text-emerald-200">Action: Ready</span>
+                    <span id="vtt-bonus-badge" class="px-2 py-0.5 rounded text-[11px] font-bold border bg-amber-950 border-amber-500/70 text-amber-200">Bonus: Ready</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-stone-300">
+                    <span id="vtt-dist-label" class="text-[11px] text-amber-300/90 font-semibold">Range: 35 ft</span>
+                    <span id="vtt-map-label" class="hidden sm:inline text-[10px] text-stone-400">Battle Map</span>
+                    <button id="btn-vtt-grid" type="button" class="px-1.5 py-0.5 rounded bg-stone-900 hover:bg-stone-800 border border-stone-700 text-[10px] text-stone-300" title="Toggle 5ft Square Grid">Grid</button>
+                  </div>
+                </div>
+                <canvas id="vtt-battle-canvas" width="960" height="640" class="w-full h-auto rounded-lg border border-amber-700/40 shadow-lg cursor-pointer block select-none"></canvas>
+                <div class="flex flex-wrap items-center justify-between gap-1.5 mt-2">
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <button id="btn-c-ranged" type="button" class="px-2.5 py-1 rounded-lg bg-amber-900/90 hover:bg-amber-800 border border-amber-500/50 text-amber-100 text-xs font-semibold" title="5e Ranged Attack (up to 45ft / 60ft with Bow/Crossbow)">🏹 Ranged</button>
+                    <button id="btn-vtt-dash" type="button" class="px-2.5 py-1 rounded-lg bg-sky-950 hover:bg-sky-900 border border-sky-500/50 text-sky-200 text-xs font-semibold" title="5e Dash (Action): Double your movement speed this turn">💨 Dash</button>
+                    <button id="btn-vtt-dodge" type="button" class="px-2.5 py-1 rounded-lg bg-indigo-950 hover:bg-indigo-900 border border-indigo-500/50 text-indigo-200 text-xs font-semibold" title="5e Dodge (Action): Enemy attacks suffer Disadvantage (-3 ATK) until your next turn">🛡️ Dodge</button>
+                    <button id="btn-vtt-disengage" type="button" class="px-2.5 py-1 rounded-lg bg-emerald-950 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-200 text-xs font-semibold" title="5e Disengage (Action): Move away without provoking Opportunity Attacks">🦶 Disengage</button>
+                  </div>
+                  <button id="btn-vtt-end-turn" type="button" class="px-3.5 py-1 rounded-lg btn-gold text-xs font-display font-bold shadow">⏭ End Turn</button>
+                </div>
+                <p class="text-[10px] text-stone-400 mt-1.5 leading-snug">
+                  <strong class="text-sky-300">5e Grid (5ft/sq):</strong> Click highlighted blue tiles to move • Click Enemy to attack • 🧱 Wall (Full Cover) • 🛡️ Half Cover (+2 AC vs Ranged) • ╱ Difficult Terrain (10ft) • 🧪 Potion = Bonus Action
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 mb-3">
                 <button id="btn-c-strike" class="p-2 rounded-lg btn-crimson text-xs font-display">⚔ Strike</button>
                 <button id="btn-c-luck" class="p-2 rounded-lg btn-gold text-xs font-display">🍀 Luck Hit</button>
-                <button id="btn-c-potion" class="p-2 rounded-lg bg-emerald-800 hover:bg-emerald-700 border border-emerald-500/50 text-emerald-100 text-xs font-semibold">🧪 Potion</button>
+                <button id="btn-c-potion" class="p-2 rounded-lg bg-emerald-800 hover:bg-emerald-700 border border-emerald-500/50 text-emerald-100 text-xs font-semibold" title="Bonus Action: Drink a healing potion">🧪 Potion</button>
                 <button id="btn-c-bomb" class="p-2 rounded-lg bg-orange-900 hover:bg-orange-800 border border-orange-500/50 text-orange-100 text-xs font-semibold">💣 Bomb</button>
-                <button id="btn-c-torch" class="p-2 rounded-lg bg-amber-900 hover:bg-amber-800 border border-amber-500/50 text-amber-100 text-xs font-semibold" title="Hurl a Pitch Torch: 6 Fire dmg (2x Undead), Burn 3/t (3t), Dazzle -2 ATK (2t)">🔥 Torch</button>
+                <button id="btn-c-torch" class="p-2 rounded-lg bg-amber-900 hover:bg-amber-800 border border-amber-500/50 text-amber-100 text-xs font-semibold" title="Hurl a Pitch Torch (25ft): 6 Fire dmg (2x Undead), Burn 3/t (3t), Dazzle -2 ATK (2t)">🔥 Torch</button>
                 <button id="btn-c-flee" class="p-2 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs font-semibold">🏃 Flee</button>
               </div>
 
@@ -912,10 +942,12 @@
   <script src="js/firebase_config.js?v=2"></script>
   <script src="js/cloud_save.js?v=5"></script>
 
-  <!-- Audio Engine, Pre-Recorded Voice Manifest, Narrator & Core Game Engine -->
+  <!-- Audio Engine, Pre-Recorded Voice Manifest, Narrator, VTT Combat & Core Game Engine -->
   <script src="js/audio.js?v=2"></script>
   <script src="data/audio/voice_manifest.js?v=17"></script>
   <script src="js/narrator.js?v=13"></script>
-  <script src="js/engine.js?v=42"></script>
+  <script src="data/maps/battle_map_manifest.js?v=1"></script>
+  <script src="js/vtt_combat.js?v=1"></script>
+  <script src="js/engine.js?v=43"></script>
 </body>
 </html>
