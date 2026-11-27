@@ -870,8 +870,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 12. FIGHT FOR HORSESHOE ROCK OASIS (6 PAGES • LV 8)
-  // Tome of Beasts 2 Lairs #7
+  // 12. FIGHT FOR HORSESHOE ROCK OASIS (10 PAGES • LV 8)
   // ==========================================================
   bk_b9_tob2_7_horseshoe_oasis: {
     id: "bk_b9_tob2_7_horseshoe_oasis",
@@ -882,56 +881,100 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Parched Desert Caravan Masters (Oakhaven Market)",
     summary: "Reclaim vital Horseshoe Rock Oasis from a ferocious territorial clash between a mated pair of giant subterranean Water Scorpions in the pools and a deadly nesting Kezai in the date palms!",
-    totalPages: 6,
+    totalPages: 10,
     pages: {
       1: {
-        zone: "Horseshoe Rock Pools",
-        title: "Water Scorpions in the Shallows",
+        zone: "Red Dunes • Rim of Horseshoe Rock",
+        title: "Crimson Shallows",
         safeRetreat: true,
-        text: "Cool water cascades from the cleft of Horseshoe Rock into palm-ringed pools—now stained crimson with caravan wreckage! Surging out of the turquoise shallows come a mated pair of colossal Water Scorpions defending their brood!",
-        enemy: { name: "Mated Giant Water Scorpions", desc: "Armored aquatic arachnids emerged from the subterranean river.", hp: 66, ac: 16, atk: 9, dmg: 10, xp: 195, gold: 85, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1 },
+        text: "Heat shimmers over the crescent sandstone bluff of Horseshoe Rock, where cool springwater cascades into palm-ringed turquoise pools—now littered with splintered spice-wagons! Down in the shallows, two colossal armored Water Scorpions snap at anything near the bank, while high in the date palms a fiercely nesting Kezai shrieks at the arachnids below. Beside an overturned salt-wagon, a pinned caravan outrider waves desperately for help!",
         choices: [
-          { t: "Look up—shrieking shadows drop from the date palms as the nesting Kezai attacks!", to: 2 }
+          { t: "Creep down the sandstone scree to pull the pinned caravan outrider clear first!", badge: "Agility / Stealth DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 2, fail: 4, failDmg: 8, passMsg: "You slip unseen behind the overturned wagon and haul the wounded outrider into the shade!", failMsg: "Loose shale clatters down the bluff (-8 HP), drawing the giant Water Scorpions straight out of the shallows!" }, onPass: { cw: "OUTRIDER_SAVED", xp: 35, gold: 55 } },
+          { t: "Study the territorial standoff between the pools and the palms to turn the beasts against each other.", badge: "Spirit / Survival DC 14", check: { stat: "spirit", skill: "Survival", dc: 14, pass: 3, fail: 4, passMsg: "You spot the narrow stone spit where one loud bait will spark a clash between both predators!", failMsg: "Before you can plan, chittering pincers surge up the muddy bank toward you!" }, onPass: { cw: "TURF_WAR_READ", xp: 30 } },
+          { t: "Charge straight down the wagon-track into the turquoise shallows, steel bared!", to: 4 }
         ]
       },
       2: {
-        zone: "Date Palm Grove",
-        title: "The Nesting Kezai",
-        text: "Fiercely guarding its clutch among the sun-drenched fronds, a terrifying desert Kezai dives with flashing claws and scorching desert fury!",
-        enemy: { name: "Matriarch Oasis Kezai", desc: "Deadly territorial desert predator claiming the oasis palms.", hp: 80, ac: 16, atk: 10, dmg: 11, xp: 280, gold: 185, items: ["bq_horseshoe_oasis_spear"] },
+        zone: "Overturned Spice-Wagon • Shade of the Bluff",
+        title: "Outrider Tariq's Cache",
+        text: "You heave the cracked axle off Outrider Tariq and splash cool water across his parched lips. 'Bless the dunes,' he rasps, pressing a wrapped bundle of dry salt-flares and an herbal poultice into your hands. 'Those scorpions hate dry brine-smoke—and there is a hidden cistern ledge behind the waterfall where you can catch the Kezai from its blind side!'",
+        onEnter: { healHp: 12, mp: 4, msg: "Tariq's herbal poultice and canteen restore +12 HP and +4 MP!" },
         choices: [
-          { t: "Clear the pools and raise the safe-water banner atop Horseshoe Rock!", to: 3 }
+          { t: "Climb to the sandstone ledge to bait the Water Scorpions and Kezai into clashing first!", to: 3 },
+          { t: "Wade directly into the shallows with Tariq's warning fresh in mind!", to: 4 }
         ]
       },
       3: {
-        zone: "Horseshoe Rock Oasis",
-        title: "Caravans Saved",
-        text: "Parched desert caravans roll gratefully into the shaded grove, filling waterskins and pooling a generous desert-gold reward!",
-        onEnter: { healHp: 18, msg: "Refreshed by the cool oasis spring (+18 HP)!" },
+        zone: "Horseshoe Rock Rim • The Territorial Bait",
+        title: "Claws Against Chitin",
+        text: "From a shaded sandstone overhang above both the brood-pools and the high date-fronds, you watch the two apex predators glaring across the narrow stone spit. One sharp provocation will send the Matriarch Kezai diving straight onto the Water Scorpions' pool—wearing both monsters down before you ever cross blades!",
         choices: [
-          { t: "Ride north with the grateful merchants.", to: 4 }
+          { t: "Ignite a dry palm-frond beside the brood-pool with Firebolt to spark an immediate turf war!", reqSpell: "Firebolt", to: 5 },
+          { t: "Heave a heavy sandstone boulder into the shallow pool to lure the Kezai and Scorpions together!", badge: "Might / Athletics DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 5, fail: 4, failDmg: 7, passMsg: "The splash sends the furious Kezai diving straight onto the snapping Water Scorpions!", failMsg: "The boulder splashes short—driving the giant Water Scorpions straight onto your bank (-7 HP)!" }, onPass: { cw: "PREDATORS_BLOODIED", xp: 35 } },
+          { t: "Skip the lure and descend directly into the turquoise shallows.", to: 4 }
         ]
       },
       4: {
-        zone: "Desert Trade Road",
-        title: "Oasis Open",
-        text: "The vital desert watering hole is safe for travelers once more.",
+        zone: "Horseshoe Rock Pools",
+        title: "Water Scorpions in the Shallows",
+        text: "Foam erupts across the crimson-stained shallows as a mated pair of colossal Water Scorpions surge out of the subterranean spring-cleft, twin pincers clacking like iron shears to defend their brood!",
+        enemy: { name: "Mated Giant Water Scorpions", desc: "Armored aquatic arachnids emerged from the subterranean river.", hp: 66, ac: 16, atk: 9, dmg: 10, xp: 195, gold: 85, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1, weakCw: ["OUTRIDER_SAVED", "PREDATORS_BLOODIED"] },
         choices: [
-          { t: "Return to Oakhaven.", to: 5 }
+          { t: "Duck behind the cascading waterfall to check the sunken caravan cistern first.", to: 6 },
+          { t: "Look up—shrieking shadows drop from the date palms as the nesting Kezai dives!", to: 7 }
         ]
       },
       5: {
-        zone: "Oakhaven Market",
-        title: "Caravan Heroes",
-        text: "Spice merchants cheer as trade resumes across the dunes.",
+        zone: "Horseshoe Rock Rim • Clash of Predators",
+        title: "Blood in the Spring",
+        text: "With a deafening shriek, the Matriarch Kezai plunges from the date palms in a blur of talons, raking deep furrows across the Water Scorpions' carapaces before retreating upward in a hail of snapped pincers! Both territorial beasts are winded and bleeding—now is the moment to strike!",
+        onEnter: { cw: "PREDATORS_BLOODIED", xp: 30, msg: "Turned the predators against each other (PREDATORS_BLOODIED, +30 XP)!" },
         choices: [
-          { t: "Complete the adventure.", to: 6 }
+          { t: "Drop into the shallows to finish off the battered Water Scorpions!", to: 4 }
         ]
       },
       6: {
-        zone: "Epilogue",
+        zone: "Behind the Waterfall • Sunken Cistern",
+        title: "The Caravan Strongbox",
+        text: "Cool mist veils a carved sandstone recess behind the falls, where fleeing spice-merchants wedged a bronze lockbox before the ambush. Peering upward through the spray, you can clearly map the blind angle beneath the Kezai's woven palm-nest!",
+        choices: [
+          { t: "Pick the corroded lock on the merchants' strongbox and study the Kezai's dive-path.", badge: "Agility / Lockpicking DC 15", check: { stat: "agility", skill: "Lockpicking", dc: 15, pass: 7, fail: 7, failDmg: 6, passMsg: "You recover 75 GP in stamped trade-bars and spot the Kezai's exact blind spot!", failMsg: "A rusted trap-spring nicks your wrist (-6 HP) as the lid pops open empty." }, onPass: { cw: "NEST_BLINDSPOT", gold: 75, xp: 35 } },
+          { t: "Gather wild oasis-mint along the wet moss to steady your lungs before the climb.", badge: "Spirit / Herbalism DC 14", check: { stat: "spirit", skill: "Herbalism", dc: 14, pass: 7, fail: 7, passMsg: "The cool oasis-mint restores your vigor (+14 HP, +5 MP) as you line up the Kezai's blind spot!", failMsg: "The damp moss yields only bitter weeds before screeching wings draw your gaze up." }, onPass: { cw: "NEST_BLINDSPOT", hp: 14, mp: 5, xp: 30 } },
+          { t: "Step back into the blazing sun and confront the nesting Kezai!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Date Palm Grove",
+        title: "The Nesting Kezai",
+        text: "Fiercely guarding its clutch among the sun-drenched fronds, a terrifying Matriarch Oasis Kezai dives out of the blinding glare with flashing claws and scorching desert fury!",
+        enemy: { name: "Matriarch Oasis Kezai", desc: "Deadly territorial desert predator claiming the oasis palms.", hp: 80, ac: 16, atk: 10, dmg: 11, xp: 280, gold: 185, items: ["bq_horseshoe_oasis_spear"], weakCw: ["PREDATORS_BLOODIED", "NEST_BLINDSPOT"] },
+        choices: [
+          { t: "Clear the pools and raise the safe-water banner atop Horseshoe Rock!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Horseshoe Rock Oasis",
+        title: "Caravans Saved",
+        text: "As the crimson safe-water pennant snaps against the blue sky, parched desert caravans roll gratefully into the shaded grove—splashing cool springwater over dusty faces, filling casks, and pooling a generous desert-gold reward!",
+        onEnter: { healHp: 18, msg: "Refreshed by the cool oasis spring (+18 HP)!" },
+        choices: [
+          { t: "Meet Outrider Tariq beside the newly righted spice-wagon before riding north.", reqCw: "OUTRIDER_SAVED", to: 9 },
+          { t: "Ride north along the trade road with the grateful caravan masters.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Horseshoe Rock Oasis • Tariq's Gratitude",
+        title: "Salt and Saffron",
+        text: "Outrider Tariq limps over with a broad grin, tying a silk-wrapped pouch of saffron coin and a cool desert cordial to your saddle. 'Every caravan on the southern dunes owes you a drink tonight, friend!'",
+        onEnter: { gold: 80, xp: 45, msg: "Outrider Tariq's gratitude grants +80 GP and +45 XP!" },
+        choices: [
+          { t: "Escort the spice-wagons north toward Oakhaven Market.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Oakhaven Market • Epilogue",
         title: "Liberator of Horseshoe Rock",
-        text: "You cleared both Water Scorpions and the Kezai, saving the desert trade route.",
+        text: "Bells ring across Oakhaven Market as the first spice-caravans roll through the gates laden with dates, saffron, and desert silk. The caravan masters press the bronze Desert Palm Caravan Seal into your palm—proclaiming you Champion of Horseshoe Rock Oasis.",
         ending: { type: "true", title: "Champion of Horseshoe Rock Oasis", xp: 320, gold: 305, trophy: "Desert Palm Caravan Seal" },
         choices: []
       }

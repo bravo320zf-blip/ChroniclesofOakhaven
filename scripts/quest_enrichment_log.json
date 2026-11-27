@@ -1,5 +1,5 @@
 {
-  "totalPasses": 42,
+  "totalPasses": 43,
   "history": [
     {
       "pass": 1,
@@ -288,6 +288,13 @@
       "title": "Redoubt of the Perfidious Guru",
       "file": "data/quests/books_quests_batch_018.js",
       "summary": "Expanded from 6 to 10 pages with Brimstone Censer unmasking (INCENSE_EXPOSED +20 XP), prayer-flag cliff Athletics flank (CLIFF_FLANK bypassing Terrace guards), Dormitory Cloister encounter with Acolyte Tenzin (Persuasion/Arcana -> TENZIN_TRUST +35 GP/+8 HP/+4 MP or MIRROR_FLAW), Sub-Floor Gallery Soul-Mirror sabotage (Detect Traps +45 GP/Firebolt -> MIRROR_CRACKED), and Tenzin's gratitude bonus (+50 GP/+35 XP/+5 MP)."
+    },
+    {
+      "pass": 43,
+      "questId": "bk_b9_tob2_7_horseshoe_oasis",
+      "title": "Fight for Horseshoe Rock Oasis",
+      "file": "data/quests/books_quests_batch_009.js",
+      "summary": "Expanded from 6 to 10 pages (removed 3 one-line filler epilogue pages), adding Stealth rescue of pinned Outrider Tariq (OUTRIDER_SAVED +55 GP/+12 HP/+4 MP), Survival/Firebolt/Athletics predator turf-war lure (PREDATORS_BLOODIED weakening both bosses), Waterfall Sunken Cistern side-scene (Lockpicking +75 GP or Herbalism +14 HP/+5 MP -> NEST_BLINDSPOT), and Tariq's gratitude bonus (+80 GP/+45 XP)."
     }
   ],
   "questPasses": {
@@ -332,6 +339,7 @@
     "bk_b19_returners_tower": 1,
     "bk_b8_ms_4_tomorrows": 1,
     "bk_pt_10_stormcallers_tower": 1,
-    "bk_b18_tob3_perfidious_guru": 1
+    "bk_b18_tob3_perfidious_guru": 1,
+    "bk_b9_tob2_7_horseshoe_oasis": 1
   }
 }
