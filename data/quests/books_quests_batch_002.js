@@ -1009,7 +1009,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 12. CAVERNS OF THE SPORE LORD (8 PAGES • LV 1)
+  // 12. CAVERNS OF THE SPORE LORD (11 PAGES • LV 1)
   // ==========================================================
   bk_b2_spore_lord: {
     id: "bk_b2_spore_lord",
@@ -1019,59 +1019,65 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 1,
     autoDiscover: false,
     discoverySource: "Hulgig Longhouse Runner (Oakhaven Outskirts)",
-    summary: "Save the spore-stricken hamlet of Hulgig, descend into the glowing underground caverns of the mycolid village of Bellgrove, and cure or defeat the infected Spore Lord Enok in the Fungal Garden.",
-    totalPages: 8,
+    summary: "Save the spore-stricken hamlet of Hulgig, aid Elder Maren, descend into the glowing underground caverns of the mycolid village of Bellgrove, and cure or defeat the infected Spore Lord Enok in the Fungal Garden.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Hamlet of Hulgig",
         title: "The Quiet Village",
         safeRetreat: true,
-        text: "An eerie hush hangs over the timber hamlet of Hulgig. Violet puffballs sprout from fenceposts, and shambling townsfolk crusted in glowing fungi—Sporeborn—lurch out of the mist toward the barricaded village longhouse!",
+        text: "An eerie, damp hush hangs over the timber hamlet of Hulgig. Violet puffballs sprout along every fencepost, and shambling husks crusted in glowing fungi—Sporeborn—lurch out of the twilight mist toward the barricaded village longhouse!",
         enemy: { name: "Hulgig Sporeborn", desc: "Fungal-infected husks wandering the hamlet.", hp: 16, ac: 10, atk: 3, dmg: 3, xp: 35, gold: 15, items: rollRandomLoot(["consumable", "material"], 1, "common"), flee: 1 },
         choices: [
-          { t: "Speak with the terrified survivors inside the longhouse and follow the spore trail into the caverns.", to: 2 }
+          { t: "Knock at the barricaded Hulgig Longhouse to speak with Elder Maren first.", to: 9 },
+          { t: "Follow the glowing violet spore-trail straight down into the limestone caverns.", to: 2 }
         ]
       },
       2: {
         zone: "Trapped Cavern",
         title: "Dusstan's Folly",
-        text: "Descending into the damp limestone tunnels beneath Hulgig, you spot an old swinging log-trap and concealed pit dug by paranoid explorers.",
+        text: "Descending into the damp limestone tunnels beneath Hulgig, you spot an old swinging log-trap and a concealed pit-cover left behind by paranoid explorers, with a rotting leather pack dangling from a stalagmite.",
         choices: [
-          { t: "Spot and jam the pit cover with an iron spike.", badge: "Perception DC 10", check: { stat: "spirit", skill: "Perception", dc: 10, pass: 3, fail: 3, failDmg: 3, passMsg: "You wedge the pit shut and cross safely!", failMsg: "The false floor gives way—you drop ten feet (-3 HP) before climbing out!" } },
-          { t: "Skirt along the glowing mushroom ledge into the Abandoned City.", to: 3 }
+          { t: "Disarm Dusstan's swinging log-tripwire with Detect Traps and claim his pack!", reqSkill: "Detect Traps", badge: "Detect Traps", to: 3, onChoose: { gold: 20, msg: "You unhook the tripwire cleanly and recover 20 GP from Dusstan's pack!" } },
+          { t: "Spot and jam the false pit-cover with an iron spike.", badge: "Perception DC 10", check: { stat: "spirit", skill: "Perception", dc: 10, pass: 3, fail: 3, failDmg: 3, passMsg: "You wedge the pit shut and cross safely!", failMsg: "The false floor gives way—you drop ten feet (-3 HP) before climbing out!" } },
+          { t: "Skirt carefully along the glowing mushroom ledge toward Bellgrove.", to: 3 }
         ]
       },
       3: {
         zone: "Bellgrove Cavern",
         title: "The Barricaded Mycolids",
-        text: "Behind a wall of woven fungal-wood stands Bellgrove, home of peaceful mushroom-folk called mycolids! Their elders explain through gentle spore-telepathy that their beloved leader, Enok, succumbed to the aggressive contagion and sealed themselves inside the Fungal Garden.",
+        text: "Behind a woven palisade of glowing fungal-wood stands Bellgrove, home of peaceful mushroom-folk called mycolids! Their elders explain through warm, chime-like spore-telepathy that their beloved leader, Enok, succumbed to the aggressive violet contagion and sealed themselves inside the Fungal Garden to spare the village.",
         onEnter: { healHp: 8, cw: "BELLGROVE_ALLY", items: ["bq_spore_lord_cap"], msg: "The Bellgrove mycolids heal your wounds (+8 HP) and gift you a Bellgrove Mycolid Charm!" },
         choices: [
-          { t: "Navigate the Gloomy Waterway toward the collapsed Fungal Garden.", to: 4 }
+          { t: "Ask the elders about the quiet upper alcove called Hero's Rest.", to: 10 },
+          { t: "Navigate the Gloomy Waterway directly toward the Fungal Garden.", to: 4 }
         ]
       },
       4: {
         zone: "Gloomy Waterway",
         title: "Subterranean Ambush",
-        text: "Phosphorescent ripples shimmer across a dark underground stream as aggressive Cave Beetles and Sporeborn guards burst from the fungal banks!",
+        text: "Phosphorescent ripples shimmer across a dark underground stream as contagion-maddened Cave Beetles and Sporeborn guards burst from the mossy fungal banks!",
         enemy: { name: "Waterway Sporeborn & Beetles", desc: "Contagion-maddened cavern scavengers.", hp: 18, ac: 11, atk: 3, dmg: 3, xp: 40, gold: 20, items: rollRandomLoot(["material", "consumable"], 1, "uncommon"), flee: 3 },
         choices: [
-          { t: "Pass Hero's Rest and clear the rubble sealing the Fungal Garden.", to: 5 }
+          { t: "Slip up to the quiet Hero's Rest alcove before facing Enok.", to: 10 },
+          { t: "Clear the fallen rubble and step straight into the Fungal Garden.", to: 5 }
         ]
       },
       5: {
         zone: "The Fungal Garden",
         title: "Enok, The Spore Lord",
-        text: "Towering bioluminescent toadstools illuminate the vaulted garden. At its center stands Enok—swollen with virulent violet spores, weeping telepathically even as the contagion drives them to attack! 'End this blight... save Bellgrove!'",
-        enemy: { name: "Enok, Corrupted Spore Lord", desc: "Infected mycolid leader wracked by the virulent fungal blight.", hp: 23, ac: 11, atk: 4, dmg: 4, xp: 60, gold: 40, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), weakCw: ["BELLGROVE_ALLY"] },
+        text: "Towering bioluminescent toadstools illuminate the vaulted garden like stained glass. At its center stands Enok—swollen with virulent violet spores, weeping telepathically even as the contagion forces their massive limbs to strike! 'End this blight... save Bellgrove!'",
+        enemy: { name: "Enok, Corrupted Spore Lord", desc: "Infected mycolid leader wracked by the virulent fungal blight.", hp: 23, ac: 11, atk: 4, dmg: 4, xp: 60, gold: 40, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), weakCw: ["BELLGROVE_ALLY", "SPORE_CURE"] },
         choices: [
-          { t: "Burn away the virulent violet core so the clean spores can regrow!", to: 6 }
+          { t: "Scatter your pure blue Antidote Mist over Enok's roots so the Spore Lord survives!", reqCw: "SPORE_CURE", badge: "SPORE_CURE", to: 6, onChoose: { gold: 25, xp: 25, msg: "The violet crust flakes away harmlessly—Enok rises healed as Bellgrove cheers (+25 GP, +25 XP)!" } },
+          { t: "Burn away the virulent violet core so the clean spores can regrow!", to: 6 },
+          { t: "Harvest the rare glowing royal-cap clusters for Oakhaven's apothecaries before leaving.", to: 11 }
         ]
       },
       6: {
         zone: "Bellgrove Cavern",
         title: "The Contagion Breaks",
-        text: "With the blighted core cleansed, the aggressive violet spores dissolve into harmless golden dust. Above ground, the survivors of Hulgig cheer as the haze clears from their fields.",
+        text: "With the blighted core cleansed, the aggressive violet spores dissolve into harmless golden dust. Above ground, the survivors of Hulgig fling open their shutters and cheer as the purple haze lifts from their fields.",
         choices: [
           { t: "Accept the joint gratitude of Bellgrove and Hulgig.", to: 7 }
         ]
@@ -1079,7 +1085,7 @@ window.OAKHAVEN.registerQuests({
       7: {
         zone: "Hulgig Longhouse",
         title: "A New Alliance",
-        text: "The elders of Hulgig and the mycolids of Bellgrove pledge mutual trade and peace beneath the hills.",
+        text: "Beneath warm hearthlight, Elder Maren and the mycolid elders of Bellgrove clasp hands—pledging mutual trade of lantern-caps and surface grain beneath the hills.",
         choices: [
           { t: "Return to Oakhaven with your reward!", to: 8 }
         ]
@@ -1089,6 +1095,33 @@ window.OAKHAVEN.registerQuests({
         title: "Cleanser of the Spore Caverns",
         text: "Both surface-dwellers and underground mycolids honor your mercy and courage in saving Hulgig and Bellgrove.",
         ending: { type: "true", title: "Savior of Bellgrove", xp: 100, gold: 95, trophy: "Luminous Bellgrove Spore-Crystal" },
+        choices: []
+      },
+      9: {
+        zone: "Hulgig Longhouse",
+        title: "Elder Maren's Lime-Ash",
+        text: "Inside the barred timber longhouse, Elder Maren ladles hot broth for a dozen frightened villagers. 'Our old well-stone cracked three nights ago and that violet fog crept up from the deep cavern!' she whispers, pressing a cloth pouch of slaked lime-ash and 15 GP into your palm. 'Lime-ash burns the bad blight without harming clean mushroom-folk!'",
+        onEnter: { cw: "LIME_ASH", healHp: 6, gold: 15, msg: "Elder Maren shares warm broth (+6 HP), 15 GP, and slaked LIME_ASH!" },
+        choices: [
+          { t: "Descend into the damp limestone tunnels beneath Hulgig.", to: 2 }
+        ]
+      },
+      10: {
+        zone: "Hero's Rest",
+        title: "The Quiet Moss-Alcove",
+        text: "High above the dark waterway sits Hero's Rest, a serene limestone grotto lit by pure blue lantern-caps where ancient Bellgrove scouts left stone bowls beside a clear drip-pool.",
+        choices: [
+          { t: "Blend Elder Maren's lime-ash with clean blue spores into an Antidote Mist!", reqCw: "LIME_ASH", badge: "LIME_ASH", to: 5, onChoose: { cw: "SPORE_CURE", healMp: 4, msg: "You mix a glowing blue Antidote Mist (+4 MP) and take the dry upper ledge straight to the Fungal Garden!" } },
+          { t: "Distill a clean spore-salve from the blue lantern-caps with Herbalism.", reqSkill: "Herbalism", badge: "Herbalism", to: 5, onChoose: { cw: "SPORE_CURE", healHp: 6, msg: "Your pure spore-salve steadies your lungs (+6 HP) as you follow the upper ledge to Enok!" } },
+          { t: "Sear back the creeping violet mold along the upper ledge with Firebolt!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 5, onChoose: { cw: "SPORE_CURE", msg: "The blighted vines shrivel back, clearing a dry path straight into the Fungal Garden!" } },
+          { t: "Drop down to the Gloomy Waterway to clear out the scavengers first.", to: 4 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Cavern Harvester",
+        text: "With the blight ended, you emerge from the caves carrying a full basket of prized luminescent royal-caps—fetching a handsome purse from Oakhaven's apothecaries!",
+        ending: { type: "victory", title: "Harvester of the Deep Caverns", xp: 85, gold: 125, trophy: "Violet Spore-Lantern" },
         choices: []
       }
     }

@@ -1,5 +1,5 @@
 {
-  "totalPasses": 32,
+  "totalPasses": 33,
   "history": [
     {
       "pass": 1,
@@ -218,6 +218,13 @@
       "title": "Swept Away",
       "file": "data/quests/books_quests_batch_005.js",
       "summary": "Expanded from 7 to 11 pages with Stone-Keeper Corwin's warning, East Knoll Brass Echo-Pylon sabotage (Firebolt/Detect Traps/Athletics -> PYLON_SILENCED, +55 GP, +12 HP/+4 MP), Hedgerow Flank gale-imp bypass, Corwin's monolith bonus (+65 GP/+40 XP), and Broker of Infernal Strings victory ending."
+    },
+    {
+      "pass": 33,
+      "questId": "bk_b2_spore_lord",
+      "title": "Caverns of the Spore Lord",
+      "file": "data/quests/books_quests_batch_002.js",
+      "summary": "Expanded from 8 to 11 pages with Elder Maren's Longhouse side-scene (LIME_ASH, +15 GP, +6 HP), Detect Traps salvage at Dusstan's Folly (+20 GP), Hero's Rest antidote-mist brewing (LIME_ASH/Herbalism/Firebolt -> SPORE_CURE + waterway bypass + merciful Enok cure bonus), and Cavern Harvester victory ending."
     }
   ],
   "questPasses": {
@@ -252,6 +259,7 @@
     "gloomfen": 1,
     "bk_b25_river_of_alchemy": 1,
     "bk_b14_flaying_star": 1,
-    "bk_b5_swept_away": 1
+    "bk_b5_swept_away": 1,
+    "bk_b2_spore_lord": 1
   }
 }
