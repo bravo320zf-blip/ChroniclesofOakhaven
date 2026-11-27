@@ -608,7 +608,30 @@ window.OAKHAVEN.registerItems({
     "source": "Old Margreve",
     "atk": 5,
     "arcana": 3,
-    "desc": "+5 Attack, +3 Arcana (Old Margreve)"
+    "passives": {
+      "spellDmgBonus": 4,
+      "spellCostReduce": 1,
+      "undeadDmgBonus": 4,
+      "mpRegen": 1,
+      "skillBonus": {
+        "Herbalism": 3,
+        "Arcana": 2
+      }
+    },
+    "activeAbility": {
+      "name": "Rowan Witch-Ward",
+      "icon": "🌳",
+      "charges": 2,
+      "mp": 2,
+      "dmgDice": "3d8",
+      "dmgStat": "arcana",
+      "dmgType": "radiant",
+      "undeadDouble": true,
+      "shieldTurns": 2,
+      "chillTurns": 2,
+      "desc": "2/Quest (2 MP): Strike the living rowan staff to unleash witch-warding woodland light for 3d8 + Arcana radiant dmg (2x vs Undead), +3 AC (2t), and Chill (2t)!"
+    },
+    "desc": "Living scarlet-berried rowan staff cut from the deep Margreve forest (+5 Attack, +3 Arcana, +4 Spell Dmg, -1 MP Cost, +4 vs Undead, +1 MP/turn, +3 Herbalism, +2 Arcana) with Rowan Witch-Ward."
   },
   "bk_sickle_of_thorns": {
     "id": "bk_sickle_of_thorns",

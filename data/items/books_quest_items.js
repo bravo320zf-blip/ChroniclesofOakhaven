@@ -2494,9 +2494,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 2,
     maxMp: 6,
-    passives: { spellCostReduce: 1, mpRegen: true },
-    activeAbility: { name: "Siphon Ley-Pulse", icon: "💎", charges: 2, dmgDice: "2d6", dmgStat: "arcana", dmgType: "arcane", restoreMp: 4, desc: "2/Quest: Drain arcane force for 2d6 + Arcana dmg and restore 4 MP!" },
-    desc: "Hungry crystal focus salvaged from the subterranean academy (-1 Spell MP cost, +1 MP regen) with Siphon Ley-Pulse."
+    passives: { spellCostReduce: 1, spellDmgBonus: 2, mpRegen: 1, skillBonus: { Arcana: 2 } },
+    activeAbility: { name: "Siphon Ley-Pulse", icon: "💎", charges: 2, ooc: true, dmgDice: "2d6", dmgStat: "arcana", dmgType: "arcane", restoreMp: 5, desc: "2/Quest: Drain arcane force for 2d6 + Arcana dmg and restore +5 MP!" },
+    desc: "Hungry crystal focus salvaged from the subterranean academy (+1 AC, +2 Arcana, +6 Max MP, -1 MP Cost, +2 Spell Dmg, +1 MP/turn, +2 Arcana) with Siphon Ley-Pulse."
   },
   "bq_lenny_planar_cleaver": {
     id: "bq_lenny_planar_cleaver",
@@ -2752,9 +2752,9 @@ window.OAKHAVEN.registerItems({
     atk: 5,
     arcana: 2,
     spirit: 2,
-    passives: { spellDmgBonus: 3, healBonus: 3, mpRegen: true },
-    activeAbility: { name: "Arbonesse Spore-Bloom", icon: "🍄", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "spirit", dmgType: "poison", healBase: 8, dot: { dmg: 4, turns: 2, label: "Luminous Spores" }, desc: "2/Quest (2 MP): Burst purifying spores for 2d8 + Spirit dmg, Luminous Spores (4/t, 2t), and heal 8 HP!" },
-    desc: "Cleansed fungal scepter of the Arbonesse woods (+3 Spell Dmg, +3 Healing, +1 MP regen) with Arbonesse Spore-Bloom."
+    passives: { spellDmgBonus: 4, healBonus: 4, mpRegen: 1, skillBonus: { Herbalism: 3 } },
+    activeAbility: { name: "Arbonesse Spore-Bloom", icon: "🍄", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "spirit", dmgType: "poison", healDice: "2d6", healStat: "spirit", dot: { dmg: 5, turns: 3, label: "Luminous Spores" }, desc: "2/Quest (2 MP): Burst purifying spores for 3d8 + Spirit poison dmg, Luminous Spores (5/t, 3t), and mend 2d6 + Spirit HP!" },
+    desc: "Cleansed fungal scepter of the Arbonesse woods (+5 Attack, +2 Arcana, +2 Spirit, +4 Spell Dmg, +4 Heal, +1 MP/turn, +3 Herbalism) with Arbonesse Spore-Bloom."
   },
   "bq_blot_soul_lantern": {
     id: "bq_blot_soul_lantern",

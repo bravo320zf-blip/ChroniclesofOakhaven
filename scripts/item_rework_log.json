@@ -1,6 +1,6 @@
 {
-  "totalPasses": 54,
-  "totalItemsReworked": 540,
+  "totalPasses": 55,
+  "totalItemsReworked": 550,
   "history": [
     {
       "pass": 1,
@@ -865,6 +865,22 @@
         "bq_bruffa_frost_pendant"
       ],
       "summary": "Reworked Royal Signet of Krakova, Elder-Wyrm Scale Plate (added legendary rarity), Three-Headed Zmey Scale Mail, Bruffa's Thawed Tear, Mantle of Quieted Shadows, Red Baron's Greatsword (added very_rare rarity), Bone Whip, Sunfire Greatsword (added rare rarity), Briarweave Jerkin (added uncommon rarity), and Steel Dagger."
+    },
+    {
+      "pass": 55,
+      "items": [
+        "bq_enoki_spore_scepter",
+        "vom_grave_ward_armor",
+        "vom_gale_javelin",
+        "vom_ashwood_wand",
+        "vom_fab_champions_plate",
+        "vom_eye_of_horus",
+        "bq_spelldrinker_prism",
+        "nf_krampus_cleaver",
+        "bk_rowan_staff",
+        "vom_cloak_sails"
+      ],
+      "summary": "Reworked Fabled Champion's Plate, Grave Ward Armor, Rowan Staff (removed sourcebook tag), Bloodthirsty Krampus Cleaver, Gale Javelin, Cloak of Sails, Eye of Horus, Ashwood Wand, and polished Purified Enoki Scepter & Spelldrinker's Resonance Prism."
     }
   ],
   "itemPasses": {
@@ -1407,6 +1423,16 @@
     "steel_dagger": 1,
     "bq_krakova_royal_signet": 1,
     "briarweave_mail": 1,
-    "bq_bruffa_frost_pendant": 1
+    "bq_bruffa_frost_pendant": 1,
+    "bq_enoki_spore_scepter": 1,
+    "vom_grave_ward_armor": 1,
+    "vom_gale_javelin": 1,
+    "vom_ashwood_wand": 1,
+    "vom_fab_champions_plate": 1,
+    "vom_eye_of_horus": 1,
+    "bq_spelldrinker_prism": 1,
+    "nf_krampus_cleaver": 1,
+    "bk_rowan_staff": 1,
+    "vom_cloak_sails": 1
   }
 }
