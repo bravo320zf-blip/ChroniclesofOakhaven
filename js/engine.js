@@ -2604,6 +2604,12 @@
       if (done.sunken_lighthouse) {
         pool.push(`A coastal pilot claps his mug against the bar: "With the Sunken Lighthouse beacon burning steady again, not a single cargo skiff has kissed the reef!"`);
       }
+      if (done.malakor_part2) {
+        pool.push(`Grave-Watcher Corvus clinks a silver goblet by the hearth: "Not a single ghost-bell has rung from Malakor's deep necropolis since you shattered Vaelor's crown!"`);
+      }
+      if (done.thornwood_part2) {
+        pool.push(`Elven Ranger Lyra smiles from a quiet booth: "Clean water flows beneath the Heart-Tree again—Thornwood's elders already sing your name in the canopy!"`);
+      }
       if ((state.level || 1) >= 7) {
         pool.push(`A hush falls near the hearth as younger sellswords study your scarred gear—word of a frontier legend travels fast in Oakhaven.`);
       }
@@ -2624,6 +2630,7 @@
       if (shopKey === "armory") {
         if (state.hardcore) return `"No second chances beyond the gates, iron-nerve. Let me check every strap and edge before you head back out."`;
         if (done.karak_zul) return `"That dwarven ore from Karak-Zul still sings on my anvil — you've earned a smith's respect, friend!"`;
+        if (done.wyrm_ridge) return `"Cinder-drake scales from Wyrm Ridge? Bring me any scraps you've spared—nothing tempers frontier steel like volcanic ash!"`;
         if (done.brasshaven) return `"Pip sent over a whole crate of salvaged Brasshaven springs—fine temper, too! Need anything reinforced before you head out?"`;
         if (done.ashen_keep) return `"Word of Ashen Keep's fall has every young sellsword asking for crimson-enameled pauldrons! Take first pick of my finest blades."`;
         if (done.bandit_citadel) return `"Since you cleared Ravencrest Citadel, fresh iron bars are rolling into Oakhaven again—pick yourself a proper edge!"`;
@@ -2638,6 +2645,7 @@
       }
       if (shopKey === "curios") {
         if (done.crimson_spire) return `"The astral tides have calmed since your venture to the Crimson Spire — my brass astrolabe finally spins true again."`;
+        if (done.malakor) return `"The necropolis wards across my counter stopped rattling the very night you broke Malakor's vault—step close and see what's safe to handle now!"`;
         if (done.wyrm_ridge) return `"Ash-glass from Wyrm Ridge? My shelves have been humming ever since you bested that wyrm—come inspect my rarest talismans!"`;
         if (done.whispering_mines) return `"That crystal shard you brought up from the Whispering Salt-Mines still hums softly in my display case! Come see what else I've turned up."`;
         if ((state.arcana || 0) >= 4 || (state.spells || []).length >= 3) return `"A bright arcane resonance follows you in today! Step close — half these charms only wake for a true spellcaster."`;
