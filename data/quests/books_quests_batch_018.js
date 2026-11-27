@@ -454,7 +454,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 6. THE SALONS OF MOTHER CELESTE (6 PAGES • LV 8)
+  // 6. THE SALONS OF MOTHER CELESTE (11 PAGES • LV 8)
   // ==========================================================
   bk_b18_tob3_mother_celeste: {
     id: "bk_b18_tob3_mother_celeste",
@@ -464,33 +464,36 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 8,
     autoDiscover: false,
     discoverySource: "Coastal Port Authority (Rusty Flagon Tavern)",
-    summary: "Dive to the reef-trapped wreck of a missing merchant vessel—fighting past Dire Lionfish, a Breakwater Troll, and a haunting Wrackwraith to defeat the sinister Brine Hag claiming its flooded salons!",
-    totalPages: 6,
+    summary: "Dive to the reef-trapped wreck of the merchant galleon Silver Gull—navigating flooded decks, severing a sea-witch's anchor-binding, and battling Dire Lionfish, a Breakwater Troll, a Wrackwraith, and the sinister Brine Hag Mother Celeste!",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Reef Shallows • Sunken Hull",
         title: "Beneath the Waves",
         safeRetreat: true,
-        text: "Fishermen located the missing merchant vessel wedged deep in a jagged reef, its flooded salons glowing with eerie sea-witch lanterns! Armed with water-breathing charms, you dive into the darkened hull to salvage the lost cargo.",
+        text: "Cold emerald currents sweep around the broken ribs of the merchant galleon Silver Gull, wedged deep in a razor-coral reef. Through its cracked stern-windows flicker eerie jade sea-witch lanterns, illuminating drifting silk banners and the silhouettes of patrolling reef-predators. With water-breathing charms fizzing warm at your throat, you survey three approaches into the flooded wreck.",
         choices: [
-          { t: "Swim through the breached stern-window to avoid the venomous Dire Lionfish patrolling the deck!", badge: "Stealth / Athletics DC 15", check: { stat: "agility", skill: "Stealth", dc: 15, pass: 2, fail: 2, passMsg: "You slip cleanly into the flooded salon, surprising the reef-guardians!", failMsg: "Spiny Dire Lionfish and a roaring Breakwater Troll lunge from the kelp!" }, onPass: { cw: "STERN_DIVE" } },
-          { t: "Descend straight through the shattered main deck hatch!", to: 2 }
+          { t: "Glide silently through the breached stern-window to flank the reef-guardians!", badge: "Stealth / Agility DC 15", check: { stat: "agility", skill: "Stealth", dc: 15, pass: 2, fail: 2, passMsg: "You slip cleanly through the kelp-draped window, catching the deck-guardians off guard!", failMsg: "Spiny Dire Lionfish and a roaring Breakwater Troll spot your bubbles and lunge!" }, onPass: { cw: "STERN_DIVE", xp: 35 } },
+          { t: "Scout the shattered bowsprit and kelp-draped figurehead first.", to: 7 },
+          { t: "Descend straight through the splintered main deck hatch!", to: 2 }
         ]
       },
       2: {
         zone: "Sunken Ship • Flooded Cargo Deck",
         title: "Breakwater Troll & Dire Lionfish",
-        text: "Barnacle-crusted Breakwater Troll claws slash through the murk alongside venomous Dire Lionfish and cackling Bilge Gremlins!",
+        text: "Shattered spice-casks and drifting velvet drift across the murky cargo deck. Out of the coral-crusted bilge surges a barnacle-armored Breakwater Troll, its jagged claws sweeping through the water beside darting venomous Dire Lionfish!",
         enemy: { name: "Breakwater Troll & Dire Lionfish", desc: "Regenerating sea-troll and venomous reef predators nesting in the wreck.", hp: 66, ac: 15, atk: 8, dmg: 10, xp: 265, gold: 155, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["STERN_DIVE"] },
         choices: [
-          { t: "Enter the Grand Salon where the Brine Hag and a Wrackwraith hold court!", to: 3 }
+          { t: "Swim into the Flooded Purser's Vault behind the fallen cargo net.", to: 8 },
+          { t: "Investigate the eerie violet glow seeping from the Quartermaster's Cabin.", to: 9 },
+          { t: "Swim directly to the gilded doors of the Grand Salon.", to: 10 }
         ]
       },
       3: {
         zone: "Grand Salon • Mother Celeste's Bower",
         title: "The Brine Hag & Wrackwraith",
-        text: "Draped in kelp and drowned sailors' silver, the hideous Brine Hag commands a wailing Wrackwraith amid the ship's treasure chests!",
-        enemy: { name: "Mother Celeste, Brine Hag & Wrackwraith", desc: "Sinister sea-hag and drowned spirit haunting the sunken salons.", hp: 82, ac: 16, atk: 9, dmg: 11, undead: true, xp: 355, gold: 230, items: ["bq_celeste_pearl_chalice"], weakCw: ["STERN_DIVE"] },
+        text: "Beneath a chandelier tangled in glowing sea-kelp, the hideous Brine Hag Mother Celeste perches atop a stack of barnacle-bound treasure chests, her silver-ringed claws weaving freezing brine-curses. 'Fresh guests for my salon!' she cackles as a wailing Wrackwraith sweeps out of the flooded gallery to strike!",
+        enemy: { name: "Mother Celeste, Brine Hag & Wrackwraith", desc: "Sinister sea-hag and drowned spirit haunting the sunken salons.", hp: 82, ac: 16, atk: 9, dmg: 11, undead: true, xp: 355, gold: 230, items: ["bq_celeste_pearl_chalice"], weakCw: ["STERN_DIVE", "ANCHOR_SEVERED"] },
         choices: [
           { t: "Rig salvage-floats to the merchant chests and surface with the cargo!", to: 4 }
         ]
@@ -498,16 +501,16 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Harbor Pier • Salvage Boat",
         title: "Cargo Raised",
-        text: "Port officials cheer as the sealed trade-chests break the waves, awarding you a generous share of sea-gold.",
+        text: "Port officials and cheering deckhands haul the sealed trade-chests aboard as the jade sea-witch lights wink out beneath the waves. Dry wool blankets and hot spiced port-broth chase the reef-chill from your bones as the harbor master counts out your share of sea-gold.",
         onEnter: { healHp: 16, msg: "Dry blankets and warm port broth mend your strength (+16 HP)!" },
         choices: [
-          { t: "Collect your salvage fee.", to: 5 }
+          { t: "Collect your salvage fee along the coastal wharf.", to: 5 }
         ]
       },
       5: {
         zone: "Coastal Wharf",
         title: "Reef Cleansed",
-        text: "Fishing boats sail cleanly over the quieted reef once again.",
+        text: "Bright sails fill with clean salt wind above the quieted reef once more, and sailors toast your name from every pier-tavern along the harbor.",
         choices: [
           { t: "Complete the adventure!", to: 6 }
         ]
@@ -515,9 +518,57 @@ window.OAKHAVEN.registerQuests({
       6: {
         zone: "Epilogue",
         title: "Salvager of the Sunken Salons",
-        text: "You slew the Brine Hag, laid the Wrackwraith to rest, and recovered the lost cargo!",
+        text: "You slew the Brine Hag Mother Celeste, laid the bound Wrackwraith to rest, and raised the Silver Gull's lost cargo for the Port Authority!",
         ending: { type: "true", title: "Bane of the Brine Hag", xp: 395, gold: 350, trophy: "Barnacle-Crowned Sea Pearl" },
         choices: []
+      },
+      7: {
+        zone: "Reef Shallows • The Drowned Figurehead",
+        title: "The Captain's Sea-Pouch",
+        text: "Tangled beneath the carved silver-gull figurehead hangs a brass ship's bell and an oilskin captain's pouch wedged in a coral crook. Peering through a split plank below, you also spot the exact patrol rhythm of the Breakwater Troll inside the cargo hold.",
+        choices: [
+          { t: "Work the oilskin pouch free without clanging the brass bell.", badge: "Perception / Agility DC 14", check: { stat: "agility", skill: "Perception", dc: 14, pass: 2, fail: 2, passMsg: "You claim 60 GP, a Health Potion, and the troll's blind spot without a sound!", failMsg: "The bell tolls a dull underwater chime—alerting the creatures inside as you dive in!" }, onPass: { cw: "STERN_DIVE", gold: 60, items: ["health_potion"], xp: 30 } },
+          { t: "Leave the bell untouched and enter through the main hatch.", to: 2 }
+        ]
+      },
+      8: {
+        zone: "Sunken Ship • Purser's Vault",
+        title: "The Sealed Strongbox",
+        text: "Pinned beneath sodden bolts of crimson merchant silk rests the purser's brass-bound strongbox, its iron lock already crusted with salt-verdigris.",
+        choices: [
+          { t: "Pick the salt-crusted lock cleanly before the brine-hag notices.", badge: "Lockpicking / Agility DC 15", check: { stat: "agility", skill: "Lockpicking", dc: 15, pass: 10, fail: 10, passMsg: "The tumblers yield! Inside lie 85 GP and a rare salvaged treasure!", failMsg: "Your pick snaps in the corroded keyhole—you leave the strongbox and swim toward the Grand Salon." }, onPass: { gold: 85, items: rollRandomLoot(["valuable", "consumable"], 1, "rare"), xp: 35 } },
+          { t: "Wrench the corroded hasp apart by sheer strength.", badge: "Athletics / Might DC 16", check: { stat: "might", skill: "Athletics", dc: 16, pass: 10, fail: 10, failDmg: 6, passMsg: "The rusted iron snaps clean, yielding 85 GP and a rare salvaged treasure!", failMsg: "Jagged brass slices your gauntlet (-6 HP) before you press on toward the Grand Salon!" }, onPass: { gold: 85, items: rollRandomLoot(["valuable", "consumable"], 1, "rare"), xp: 35 } },
+          { t: "Check the Quartermaster's Cabin next door instead.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Sunken Ship • Quartermaster's Cabin",
+        title: "The Bound Anchor-Chain",
+        text: "Coiled around a sunken teak desk lies a heavy iron anchor-chain inscribed with glowing sea-witch runes. Cold violet whispers coil along the links—this fetter binds the Silver Gull's drowned first mate to serve Mother Celeste as her Wrackwraith!",
+        choices: [
+          { t: "Unravel the brine-hag's binding runes with focused Arcana.", badge: "Arcana / Spirit DC 15", check: { stat: "arcana", skill: "Arcana", dc: 15, pass: 10, fail: 10, failDmg: 5, passMsg: "The violet runes shatter in a burst of silver bubbles—freeing the Wrackwraith from Mother Celeste's command!", failMsg: "Cold necrotic brine jolts your fingers (-5 HP), though the tether weakens!" }, onPass: { cw: "ANCHOR_SEVERED", xp: 45 } },
+          { t: "Snap the glowing rune-link with a mighty heave!", badge: "Athletics / Might DC 16", check: { stat: "might", skill: "Athletics", dc: 16, pass: 10, fail: 10, failDmg: 6, passMsg: "The cursed chain breaks with a resonant clang—releasing the captive spirit!", failMsg: "Freezing metal numbs your grip (-6 HP) as you swim on toward the Grand Salon." }, onPass: { cw: "ANCHOR_SEVERED", xp: 45 } },
+          { t: "Leave the cursed chain alone and approach the Grand Salon.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Sunken Ship • Salon Threshold",
+        title: "Doors of the Grand Salon",
+        text: "Through the parted gilded doors of the Grand Salon, jade lanterns sway above velvet couches and barnacle-encrusted treasure chests. Mother Celeste hovers beside her pearl-inlaid chalice, humming a drowning lullaby while cold shadows ripple along the water.",
+        choices: [
+          { t: "Stride in while the severed anchor-chain frees the Wrackwraith to rest!", reqCw: "ANCHOR_SEVERED", badge: "ANCHOR_SEVERED", to: 11 },
+          { t: "[Turn Undead] Flood the flooded salon with dawnlight to banish the Wrackwraith!", reqSpell: "Turn Undead", badge: "Turn Undead", to: 11 },
+          { t: "Burst through the gilded doors and confront Mother Celeste and her Wrackwraith!", to: 3 }
+        ]
+      },
+      11: {
+        zone: "Grand Salon • Mother Celeste's Bower",
+        title: "The Hag Alone",
+        text: "With a grateful sigh of drifting silver bubbles, the Wrackwraith dissolves into peaceful light—leaving Mother Celeste screeching in fury! Stripped of her spectral bodyguard, the Brine Hag lashes out alone with freezing kelp-hexes and hooked claws!",
+        enemy: { name: "Mother Celeste, the Brine Hag", desc: "Furious sea-hag stripped of her spectral Wrackwraith.", hp: 68, ac: 15, atk: 9, dmg: 10, xp: 340, gold: 240, items: ["bq_celeste_pearl_chalice"], weakCw: ["STERN_DIVE"] },
+        choices: [
+          { t: "Rig salvage-floats to the merchant chests and surface with the cargo!", to: 4 }
+        ]
       }
     }
   },

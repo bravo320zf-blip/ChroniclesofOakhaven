@@ -1,5 +1,5 @@
 {
-  "totalPasses": 50,
+  "totalPasses": 51,
   "history": [
     {
       "pass": 1,
@@ -342,6 +342,12 @@
       "questId": "bk_b24_light_of_memoria",
       "title": "The Light of Memoria",
       "summary": "Expanded from 7 to 12 pages with oak anchor-line escape (ANCHOR_TIED), Gallery of Forgotten Names (TRUE_NAME_RECALLED), Whispering Parapet stealth flank, Turn Undead radiant surge route, and fixed invalid stat: lore check."
+    },
+    {
+      "pass": 51,
+      "questId": "bk_b18_tob3_mother_celeste",
+      "title": "The Salons of Mother Celeste",
+      "summary": "Expanded from 6 to 11 pages with Drowned Figurehead scout route, Purser Vault strongbox, Quartermaster Cabin anchor-chain ritual (ANCHOR_SEVERED), Turn Undead shortcut, and solo Brine Hag boss branch."
     }
   ],
   "questPasses": {
@@ -394,6 +400,7 @@
     "bk_pt_03_usurpers_tower": 1,
     "nf_2_child_blood": 1,
     "wyrm_ridge": 1,
-    "bk_b24_light_of_memoria": 1
+    "bk_b24_light_of_memoria": 1,
+    "bk_b18_tob3_mother_celeste": 1
   }
 }
