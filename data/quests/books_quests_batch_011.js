@@ -5,7 +5,7 @@
    ============================================================ */
 window.OAKHAVEN.registerQuests({
   // ==========================================================
-  // 1. SCARLET CITADEL I: THE RUINS ABOVE & GAOLER'S CRYPT (7 PAGES • LV 2)
+  // 1. SCARLET CITADEL I: THE RUINS ABOVE & GAOLER'S CRYPT (11 PAGES • LV 2)
   // Part 1 of 7
   // ==========================================================
   bk_b11_sc_1_ruins: {
@@ -16,33 +16,35 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 2,
     autoDiscover: false,
     discoverySource: "Frightened Redtower Townsfolk (Rusty Flagon Tavern)",
-    summary: "Answer Redtower's plea to breach the ruined hilltop fortress of the Scarlet Citadel, descend into the Holzanger family crypts, and defeat the infamous bogeyman Gaoler and his crimson ogre Scar!",
-    totalPages: 7,
+    summary: "Answer Redtower's plea to breach the ruined hilltop fortress of the Scarlet Citadel, descend into the Holzanger family crypts, aid a hiding herbalist, and defeat the infamous bogeyman Gaoler and his crimson ogre Scar!",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Scarlet Citadel • Ruins Above",
         title: "Smashed Gateway",
         safeRetreat: true,
-        text: "Atop a brush-choked hill above Redtower rise the shattered walls of House Holzanger's Scarlet Citadel. Smashed oak gates lie in chunks along the main archway, leading down into the castle's old fallback bunkers—lair of the dreaded kidnapper known as 'the Gaoler'!",
+        text: "Atop a wind-whipped hill above Redtower rise the shattered crimson-sandstone walls of House Holzanger's Scarlet Citadel. Smashed oak gates lie splintered along the main archway leading down into the castle's old fallback bunkers—lair of the dreaded kidnapper known as 'the Gaoler'—while a rusted cellar-grate hides beneath the collapsed buttery to the west.",
         choices: [
-          { t: "Scout the collapsed outbuildings for a hidden staircase into the crypts.", badge: "Perception DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 2, passMsg: "You spot a concealed entry past the Gaoler's trip-bells!", failMsg: "Overgrown brambles force you down the main underkeep stair." }, onPass: { cw: "CRYPT_SNEAK" } },
+          { t: "Scout the collapsed outbuildings for a hidden staircase past the trip-bells.", badge: "Perception DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 2, fail: 2, passMsg: "You spot a concealed entry past the Gaoler's brass trip-bells!", failMsg: "Overgrown brambles force you down the main underkeep stair." }, onPass: { cw: "CRYPT_SNEAK" } },
+          { t: "Pick the rusted cellar-grate beneath the ruined buttery to enter the crypts!", badge: "Lockpicking / Agility DC 11", check: { stat: "agility", skill: "Lockpicking", dc: 11, pass: 8, fail: 2, passMsg: "The old iron hinge yields without a squeak—you drop into the Holzanger crypts!", failMsg: "The rusted bolt snaps loud—forcing you toward the main cellblock stairs!" } },
           { t: "Descend boldly into Level 1: Dungeon and Crypts!", to: 2 }
         ]
       },
       2: {
         zone: "Level 1 • Shrine of Charun & Cells",
         title: "Ushulx & The Crimson Ogre Scar",
-        text: "Flickering oil lamps reveal iron torture racks and a grim Shrine of Charun. Charging out of Cell 109 lumbers Scar—the Gaoler's tusked crimson ogre assistant—while blood cultist Ushulx bargains desperately for her life!",
-        enemy: { name: "Scar the Crimson Ogre & Guards", desc: "Tusked crimson brute enforcing the Gaoler's dungeons.", hp: 28, ac: 12, atk: 5, dmg: 5, xp: 70, gold: 40, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["CRYPT_SNEAK"] },
+        text: "Flickering tallow lamps reveal iron torture racks and a grim Shrine of Charun. Charging out of Cell 109 lumbers Scar—the Gaoler's tusked crimson ogre assistant—swinging a meat-cleaver while blood cultist Ushulx bargains desperately from behind the bars!",
+        enemy: { name: "Scar the Crimson Ogre & Guards", desc: "Tusked crimson brute enforcing the Gaoler's dungeons.", hp: 28, ac: 12, atk: 5, dmg: 5, xp: 70, gold: 40, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["CRYPT_SNEAK", "POPPY_DRAUGHT", "CHARUN_WARD"] },
         choices: [
+          { t: "Duck into the smoky Guard Pantry to cut the alarm bells and check the strongbox.", to: 10 },
           { t: "Confront the infamous Gaoler inside his iron-barred bedchamber!", to: 3 }
         ]
       },
       3: {
         zone: "Level 1 • Gaoler's Chamber",
         title: "The Bogeyman of Redtower",
-        text: "Rattling heavy manacles and a wicked flensing hook, the terrifying Gaoler steps from the shadows beside the stairs leading down to the Alchemist's Furnace! 'Fresh guests for the oubliette!'",
-        enemy: { name: "The Gaoler of Scarlet Citadel", desc: "Notorious torturer and kidnapper feared across Redtower.", hp: 32, ac: 12, atk: 5, dmg: 5, xp: 85, gold: 60, items: ["bq_gaoler_iron_keys"], weakCw: ["CRYPT_SNEAK"] },
+        text: "Rattling heavy iron manacles and a wicked flensing hook, the terrifying Gaoler steps from the shadows beside the descending stairs to the Alchemist's Furnace! 'Fresh guests for the oubliette! Redtower never learns!'",
+        enemy: { name: "The Gaoler of Scarlet Citadel", desc: "Notorious torturer and kidnapper feared across Redtower.", hp: 32, ac: 12, atk: 5, dmg: 5, xp: 85, gold: 60, items: ["bq_gaoler_iron_keys"], weakCw: ["CRYPT_SNEAK", "OGRE_DRUGGED", "CHARUN_WARD"] },
         choices: [
           { t: "Unlock the cells to free the Redtower captives and uncover the stairs to Level 2!", to: 4 }
         ]
@@ -50,24 +52,26 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Holzanger Ancestral Shrine",
         title: "Whispers of Gellert the Gruesome",
-        text: "Freed prisoners whisper that the Gaoler was merely a surface watchdog—far deeper below lurks **Gellert the Gruesome**, last scion of House Holzanger, tampering with Void magic and ley lines!",
+        text: "Freed prisoners huddle around the restored torch-sconces, whispering that the Gaoler was merely a surface watchdog—far deeper below lurks Gellert the Gruesome, last scion of House Holzanger, tampering with Void magic and ancient ley lines!",
         onEnter: { healHp: 8, msg: "Freed the Redtower captives and caught your breath (+8 HP)!" },
         choices: [
-          { t: "Escort the survivors back to Redtower and prepare for Level 2!", to: 5 }
+          { t: "Escort Veda and all the freed captives safely back down to Redtower!", reqCw: "POPPY_DRAUGHT", badge: "POPPY_DRAUGHT", to: 5, onChoose: { gold: 30, xp: 25, msg: "Veda's grateful kin add a 30 GP & 25 XP rescue bonus!" } },
+          { t: "Escort the survivors back to Redtower and prepare for Level 2!", to: 5 },
+          { t: "Pry tarnished silver heraldry plates from the Holzanger crypts before leaving.", to: 11 }
         ]
       },
       5: {
         zone: "Village of Redtower",
         title: "Redtower's Relief",
-        text: "Grateful villagers cheer as the Gaoler's terror ends, paying out their saved silver.",
+        text: "Lanterns flare across the village green as relieved Redtower families cheer the end of the Gaoler's reign of terror and press their saved silver into your palm.",
         choices: [
-          { t: "Unlock Part 2: Arcane Scriptorium & Alchemist's Furnace!", to: 6 }
+          { t: "Look back toward the hill and unlock Part 2: Arcane Scriptorium & Alchemist's Furnace!", to: 6 }
         ]
       },
       6: {
         zone: "Citadel Hill",
         title: "Stairs Going Deeper",
-        text: "Strange acrid smoke drifts up from the second level below.",
+        text: "Even from the village edge, curls of strange, acrid green smoke drift up from the second level far beneath the shattered keep.",
         choices: [
           { t: "Complete Part 1!", to: 7 }
         ]
@@ -77,6 +81,44 @@ window.OAKHAVEN.registerQuests({
         title: "Dungeon & Crypts Cleared",
         text: "The Gaoler is fallen! <strong>Scarlet Citadel II: Arcane Scriptorium & Alchemist's Furnace</strong> is now unlocked on your Quest Board!",
         ending: { type: "true", title: "Breaker of the Gaoler's Crypt (Part 1 of 7)", xp: 125, gold: 115, trophy: "The Gaoler's Iron Manacles" },
+        choices: []
+      },
+      8: {
+        zone: "Level 1 • Holzanger Family Crypts",
+        title: "The Whispering Ossuary",
+        text: "Beneath the buttery lies the dusty Holzanger ancestral vault—lined with tarnished stone coffins and a defiled bronze Shrine of Charun. Behind a cracked sarcophagus crouches Veda, a missing Redtower herbalist clutching a dark glass phial!",
+        choices: [
+          { t: "Speak gently to coax Veda out of hiding and hear what she's learned.", badge: "Persuasion / Spirit DC 10", check: { stat: "spirit", skill: "Persuasion", dc: 10, pass: 9, fail: 9, passMsg: "Veda breathes a sigh of relief and steps into the torchlight!", failMsg: "Startled at first, she recognizes your Oakhaven cloak and waves you closer." } },
+          { t: "Consecrate the defiled bronze Shrine of Charun with Turn Undead!", reqSpell: "Turn Undead", mp: 4, badge: "Turn Undead (4 MP)", to: 9, onChoose: { cw: "CHARUN_WARD", msg: "Warm bronze light cleanses the crypt—blessing your blade against the Gaoler's brood!" } },
+          { t: "Slip straight through the crypt arch into the Cellblock.", to: 2 }
+        ]
+      },
+      9: {
+        zone: "Level 1 • Holzanger Family Crypts",
+        title: "Veda's Sleep-Draught",
+        text: "Veda presses 25 GP and her vial of concentrated Poppy-Oil Sleep-Draught into your hand, sharing a clean bandage and mint cordial (+6 HP, +3 MP). 'Scar the crimson ogre drinks straight from the wine-cask in the Guard Pantry—lace his jug and he'll snore like a felled oak!'",
+        onEnter: { cw: "POPPY_DRAUGHT", gold: 25, healHp: 6, healMp: 3, msg: "Aided Veda (+25 GP, +6 HP, +3 MP) and gained POPPY_DRAUGHT!" },
+        choices: [
+          { t: "Creep into the Guard Pantry to lace Scar's wine-cask!", to: 10 },
+          { t: "Step straight into the Cellblock to confront Scar and the guards.", to: 2 }
+        ]
+      },
+      10: {
+        zone: "Level 1 • Guard Pantry",
+        title: "The Ogre's Wine-Cask & Iron Ledger",
+        text: "In a smoky service pantry between the cellblock and the Gaoler's bedchamber sits Scar's tapped wine-cask, a bundle of brass alarm-wires, and a trapped iron pay-chest.",
+        choices: [
+          { t: "Pour Veda's Poppy-Oil into Scar's wine-cask and wait a quiet minute!", reqCw: "POPPY_DRAUGHT", badge: "POPPY_DRAUGHT", to: 3, onChoose: { cw: "OGRE_DRUGGED", msg: "Thunderous snoring echoes from Cell 109—you slip straight past Scar to the Gaoler's Chamber!" } },
+          { t: "Disarm the razor-wire on the iron pay-chest and snip the alarm bells!", reqSkill: "Detect Traps", badge: "Detect Traps", to: 3, onChoose: { gold: 35, cw: "CRYPT_SNEAK", msg: "You claim 35 GP cleanly and silence the Gaoler's warning bells!" } },
+          { t: "Touch off the stacked oil-lamps with Firebolt to fill the hall with smoke!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 3, onChoose: { cw: "CRYPT_SNEAK", msg: "Thick smoke billows through the corridor, ruining the Gaoler's ambush!" } },
+          { t: "Enter the Cellblock to take on Scar head-on for his loot.", to: 2 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Raider of the Gaoler's Crypt",
+        text: "The Gaoler is slain, Redtower's captives are free, and your satchel clinks with tarnished Holzanger silver! <strong>Scarlet Citadel II: Arcane Scriptorium & Alchemist's Furnace</strong> is now unlocked on your Quest Board!",
+        ending: { type: "victory", title: "Raider of the Gaoler's Crypt (Part 1 of 7)", xp: 105, gold: 150, trophy: "Holzanger Silver Signet" },
         choices: []
       }
     }

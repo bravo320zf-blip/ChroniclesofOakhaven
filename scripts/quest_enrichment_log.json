@@ -1,5 +1,5 @@
 {
-  "totalPasses": 37,
+  "totalPasses": 38,
   "history": [
     {
       "pass": 1,
@@ -253,6 +253,13 @@
       "title": "Hunters of the Tenebrous Plain",
       "file": "data/quests/books_quests_batch_013.js",
       "summary": "Expanded from 6 to 10 pages with Riverbank Ferry-Post Ribbon-Tree (Herbalism/Arcana -> RIBBON_FREED, +22 GP, +6 HP/+3 MP, reed-ditch bypass), Oma's Lantern-Shed Jars of Stolen Laughter (RIBBON_FREED/Firebolt/Lockpicking -> LAUGHS_FREED + 35 GP), family ribbon bonus (+30 GP/+25 XP), and Raider of the Black Hearth victory ending."
+    },
+    {
+      "pass": 38,
+      "questId": "bk_b11_sc_1_ruins",
+      "title": "Scarlet Citadel I: The Ruins Above & Gaoler's Crypt",
+      "file": "data/quests/books_quests_batch_011.js",
+      "summary": "Expanded Part 1 of 7 from 7 to 11 pages with ruined buttery Lockpicking entry, Holzanger Crypts encounter with herbalist Veda (Persuasion/Turn Undead -> CHARUN_WARD, POPPY_DRAUGHT, +25 GP, +6 HP/+3 MP), Guard Pantry wine-cask sabotage (OGRE_DRUGGED bypassing Scar, Detect Traps +35 GP, Firebolt smoke), Veda rescue bonus (+30 GP/+25 XP), and Raider victory ending."
     }
   ],
   "questPasses": {
@@ -292,6 +299,7 @@
     "bk_b20_queens_desire": 1,
     "bk_b19_clattering_keep": 1,
     "bk_bol_21_the_cistern": 1,
-    "bk_b13_tenebrous_plain": 1
+    "bk_b13_tenebrous_plain": 1,
+    "bk_b11_sc_1_ruins": 1
   }
 }
