@@ -535,7 +535,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     arcana: 3,
     maxMp: 8,
-    desc: "+3 AC, +3 Arcana, +8 Max MP. Humming ley-line sapphire from the Citadel of the Void Dragons."
+    passives: { spellDmgBonus: 6, spellCostReduce: 2, mpRegen: 2, dmgReduce: 2 },
+    activeAbility: { name: "Void-Dragon Ley Surge", icon: "💠", charges: 2, mp: 4, dmgDice: "4d8", dmgStat: "arcana", dmgType: "force", stunTurns: 1, shieldTurns: 2, desc: "2/Quest (4 MP): Draw raw star-ley fire for 4d8 + Arcana force dmg, Stun (1t), and Shield (2t)!" },
+    desc: "+3 AC, +3 Arcana, +8 Max MP, +6 Spell Dmg, -2 MP cost, +2 MP/turn, -2 Dmg Taken. Humming ley-line sapphire from the Citadel of the Void Dragons with Void-Dragon Ley Surge."
   },
   "bq_umbral_soul_harp": {
     id: "bq_umbral_soul_harp",
@@ -3042,9 +3044,9 @@ window.OAKHAVEN.registerItems({
     value: 85,
     atk: 2,
     arcana: 1,
-    passives: { spellDmgBonus: 1 },
+    passives: { spellDmgBonus: 1, skillBonus: { Persuasion: 2 } },
     activeAbility: { name: "Draconic Spark", icon: "⚡", charges: 2, dmgDice: "1d8", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, desc: "2/Quest: Discharge crackling lightning for 1d8 + Arcana dmg and Stun (1t)!" },
-    desc: "Bronze-banded Mharoti officer's baton etched with storm-runes (+1 Spell Dmg) with Draconic Spark."
+    desc: "+2 Attack, +1 Arcana, +1 Spell Dmg, +2 Persuasion. Bronze-banded Mharoti officer's baton etched with storm-runes granting Draconic Spark."
   },
   // Batch 024 Signature Items
   "bq_memoria_lantern": {
@@ -3353,8 +3355,8 @@ window.OAKHAVEN.registerItems({
     atk: 6,
     might: 3,
     spirit: 3,
-    passives: { critRange: 10, undeadDmgBonus: 8, bossDmgBonus: 6, lifesteal: 0.15 },
+    passives: { critRange: 18, undeadDmgBonus: 8, bossDmgBonus: 6, lifesteal: 4 },
     activeAbility: { name: "Imperial Sun-Cleave", icon: "☀️", charges: 3, mp: 3, dmgDice: "4d8", dmgStat: "might", dmgType: "radiant", undeadDouble: true, guaranteedCrit: true, desc: "3/Quest (3 MP): Unleash a guaranteed-Crit solar arc for 4d8 + Might radiant dmg (2x vs Undead)!" },
-    desc: "Legendary sun-gold khopesh of a buried empire (Crit 10+, +8 vs Undead, +6 Boss Dmg, 15% Lifesteal) with Imperial Sun-Cleave."
+    desc: "+6 Attack, +3 Might, +3 Spirit, Crit 18-20, +8 vs Undead, +6 Boss Dmg, Lifesteal 4. Legendary sun-gold khopesh of a buried empire with Imperial Sun-Cleave."
   }
 });

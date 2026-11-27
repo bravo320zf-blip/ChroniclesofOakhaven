@@ -444,7 +444,9 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "atk": 3,
     "might": 1,
-    "desc": "+3 Attack, +1 Might (Tome of Heroes)"
+    "passives": { "bossDmgBonus": 2, "bombDmgBonus": 2 },
+    "activeAbility": { "name": "Splinter-Burst Volley", "icon": "🏹", "charges": 2, "dmgDice": "2d6", "dmgStat": "might", "dmgType": "piercing", "chillTurns": 1, "desc": "2/Quest: Loose a scored iron-headed shaft that bursts on impact for 2d6 + Might piercing dmg and Chill (1t)!" },
+    "desc": "+3 Attack, +1 Might, +2 Boss & Bomb Dmg. Quiver of scored shrapnel-tipped war arrows granting Splinter-Burst Volley."
   },
   "bk_soulbound_wraps": {
     "id": "bk_soulbound_wraps",

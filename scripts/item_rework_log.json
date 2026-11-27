@@ -1,6 +1,6 @@
 {
-  "totalPasses": 44,
-  "totalItemsReworked": 440,
+  "totalPasses": 45,
+  "totalItemsReworked": 450,
   "history": [
     {
       "pass": 1,
@@ -705,6 +705,22 @@
         "vom_clockwork_gauntlet"
       ],
       "summary": "Reworked Legendary Smoking Plate of Heithmir, Staff of the Artisan, Clockwork Gauntlet, Badger Hide Armor, Talisman of the Mire, Olsha Frost-Ward Talisman, Bukofa Emerald Canopy Totem, Brass Dragonette Bell (with Dragonette summon), Gem-Studded Rod of Tiberesh, and polished Light of Memoria."
+    },
+    {
+      "pass": 45,
+      "items": [
+        "vom_tarian_ddraig",
+        "vom_ring_shadows",
+        "bq_god_king_khopesh",
+        "ring_arcana",
+        "dwarven_plate",
+        "vom_voidskin_cloak",
+        "bq_mharoti_discipline_rod",
+        "bq_void_star_sapphire",
+        "bk_shattershot_arrow",
+        "prism_greatsword"
+      ],
+      "summary": "Milestone 450th item (60.3%)! Reworked Legendary Citadel Star Sapphire, fixed & polished Legendary Solar Khopesh of the God-King, Tarian Graddfeydd Ddraig, Voidskin Cloak, Prismatic Greatsword, Dwarven Plate, Ring of Spellweave, Shattershot Arrow (removed sourcebook tag), Ring of Shadows, and Mharoti Discipline Rod."
     }
   ],
   "itemPasses": {
@@ -1147,6 +1163,16 @@
     "vom_staff_artisan": 1,
     "bq_bukofa_jade_totem": 1,
     "bog_hag_talisman": 1,
-    "vom_clockwork_gauntlet": 1
+    "vom_clockwork_gauntlet": 1,
+    "vom_tarian_ddraig": 1,
+    "vom_ring_shadows": 1,
+    "bq_god_king_khopesh": 1,
+    "ring_arcana": 1,
+    "dwarven_plate": 1,
+    "vom_voidskin_cloak": 1,
+    "bq_mharoti_discipline_rod": 1,
+    "bq_void_star_sapphire": 1,
+    "bk_shattershot_arrow": 1,
+    "prism_greatsword": 1
   }
 }

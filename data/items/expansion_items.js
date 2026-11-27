@@ -75,7 +75,7 @@ window.OAKHAVEN.registerItems({
       pirate_king_coat:    { id:"pirate_king_coat", name:"Leviathan Admiral's Coat", type:"cloak", ac:3, luck:2, value:155, unique:true, desc:"+3 AC, +2 Luck (Saltfang Pt.2 Unique)" },
 
       // --- Quest 14 Uniques (PART 2 of Salt-Mines): The Crystal Deep ---
-      prism_greatsword:    { id:"prism_greatsword", name:"Prismatic Greatsword", type:"weapon", atk:5, arcana:2, value:180, unique:true, desc:"+5 Attack, +2 Arcana (Crystal Deep Unique)" },
+      prism_greatsword:    { id:"prism_greatsword", name:"Prismatic Greatsword", type:"weapon", atk:5, arcana:2, value:180, unique:true, passives:{ critRange:19, spellDmgBonus:3, bossDmgBonus:3 }, activeAbility:{ name:"Prismatic Resonance Cleave", icon:"💎", charges:2, mp:2, dmgDice:"3d8", dmgStat:"arcana", dmgType:"radiant", chillTurns:1, desc:"2/Quest (2 MP): Swing singing quartz steel for 3d8 + Arcana radiant dmg and Chill (1t)!" }, desc:"+5 Attack, +2 Arcana, Crit 19-20, +3 Spell & Boss Dmg. Singing Crystal Deep blade granting Prismatic Resonance Cleave." },
       quartz_bulwark:      { id:"quartz_bulwark", name:"Resonant Quartz Bulwark", type:"offhand", ac:4, might:1, value:165, unique:true, desc:"+4 AC, +1 Might (Crystal Deep Unique)" },
 
       // --- Quest 15 Uniques (PART 2 of Wyrm Ridge): Lair of Ignaroth ---

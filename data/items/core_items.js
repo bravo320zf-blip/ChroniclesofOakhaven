@@ -23,7 +23,7 @@ window.OAKHAVEN.registerItems({
       leather_armor:   { id:"leather_armor", name:"Studded Leather", type:"armor", ac:2, value:28, desc:"+2 AC" },
       chainmail:       { id:"chainmail", name:"Chainmail Hauberk", type:"armor", ac:3, value:65, desc:"+3 AC" },
       briarweave_mail: { id:"briarweave_mail", name:"Briarweave Jerkin", type:"armor", ac:3, agility:1, value:75, desc:"+3 AC, +1 Agility" },
-      dwarven_plate:   { id:"dwarven_plate", name:"Dwarven Plate", type:"armor", ac:4, might:1, value:120, desc:"+4 AC, +1 Might" },
+      dwarven_plate:   { id:"dwarven_plate", name:"Dwarven Plate", type:"armor", ac:4, might:1, value:120, passives:{ dmgReduce:2, thornsDmg:2, skillBonus:{ Athletics:1 } }, activeAbility:{ name:"Anvil-Wall Stance", icon:"🛡️", charges:1, shieldTurns:2, desc:"1/Quest: Lock your dwarven pauldrons in a stout defensive wall granting Shield (2t)!" }, desc:"+4 AC, +1 Might, -2 Dmg Taken, Thorns 2, +1 Athletics. Riveted mountain-forge plate granting Anvil-Wall Stance." },
       shadow_vestments:{ id:"shadow_vestments", name:"Shadow-Weave Armor", type:"armor", ac:4, agility:2, value:130, desc:"+4 AC, +2 Agility (Crafted)" },
 
       // Offhand
@@ -36,7 +36,7 @@ window.OAKHAVEN.registerItems({
       // Accessory
       lucky_coin:      { id:"lucky_coin", name:"Silver Lucky Coin", type:"accessory", luck:1, value:28, passives:{ goldFindPct:8 }, activeAbility:{ name:"Heads I Win", icon:"🪙", charges:1, ooc:true, restoreLuck:1, desc:"1/Quest: Flip the worn silver coin to steady fate and regain +1 Current Luck!" }, desc:"Worn Oakhaven silver piece that always lands on edge (+8% Gold) with Heads I Win." },
       ring_vitality:   { id:"ring_vitality", name:"Ring of Vitality", type:"accessory", maxHp:6, ac:1, value:65, passives:{ healBonus:2, dmgReduce:1 }, activeAbility:{ name:"Second Wind", icon:"❤️", charges:1, ooc:true, healDice:"1d8", healBonus:4, desc:"1/Quest: Draw on the ruby band's warmth to restore 1d8 + 4 HP!" }, desc:"+6 Max HP, +1 AC, +2 Heal, -1 Dmg Taken. Warm blood-ruby band granting Second Wind." },
-      ring_arcana:     { id:"ring_arcana", name:"Ring of Spellweave", type:"accessory", arcana:2, maxMp:4, value:75, desc:"+2 Arcana, +4 Max MP" },
+      ring_arcana:     { id:"ring_arcana", name:"Ring of Spellweave", type:"accessory", arcana:2, maxMp:4, value:75, passives:{ spellDmgBonus:2, mpRegen:1, skillBonus:{ Arcana:1 } }, activeAbility:{ name:"Spellweave Conduit", icon:"💍", charges:1, ooc:true, restoreMp:5, desc:"1/Quest: Tap the etched sapphire band to restore +5 MP!" }, desc:"+2 Arcana, +4 Max MP, +2 Spell Dmg, +1 MP/turn, +1 Arcana. Sapphire-etched caster's band granting Spellweave Conduit." },
       sunfire_amulet:  { id:"sunfire_amulet", name:"Sunfire Amulet", type:"accessory", rarity:"rare", ac:1, spirit:2, value:110, passives:{ undeadDmgBonus:5, healBonus:2, spellDmgBonus:2 }, activeAbility:{ name:"Sunfire Radiance", icon:"☀️", charges:2, ooc:true, dmgDice:"2d6", dmgStat:"spirit", dmgType:"radiant", undeadDouble:true, healBase:8, desc:"2/Quest: Flare solar warmth for 2d6 + Spirit radiant dmg (2× vs Undead) and restore 8 HP!" }, desc:"Sun-forged gold amulet radiating dawn-light (+5 vs Undead, +2 Healing, +2 Spell Dmg) with Sunfire Radiance." },
       warding_signet:  { id:"warding_signet", name:"Runic Warding Ring", type:"accessory", ac:2, luck:1, value:105, desc:"+2 AC, +1 Luck (Crafted)" },
 
