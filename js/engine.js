@@ -876,17 +876,8 @@
 
     function bindItemTooltip(el, itemId, opts = {}) {
       if (!el || !itemId || !ITEMS_DB[itemId]) return;
-      el.addEventListener("mouseenter", (e) => {
-        if (itemTooltipPinnedId) return;
-        showItemTooltip(itemId, e, { ...opts, pinned: false });
-      });
-      el.addEventListener("mousemove", (e) => {
-        if (itemTooltipPinnedId) return;
-        positionItemTooltip(e);
-      });
-      el.addEventListener("mouseleave", () => {
-        hideItemTooltip(false);
-      });
+      el.classList.add("cursor-pointer", "hover:underline", "decoration-amber-400/60", "underline-offset-2");
+      if (!el.getAttribute("title")) el.setAttribute("title", "Click to inspect item");
       el.addEventListener("dragstart", () => hideItemTooltip(true));
       el.addEventListener("click", (e) => {
         if (e.target && e.target.closest("button, a, input")) return;
@@ -902,13 +893,16 @@
     }
 
     document.addEventListener("click", (e) => {
-      if (!itemTooltipPinnedId) return;
       const tip = document.getElementById("item-tooltip");
-      if (tip && tip.contains(e.target)) return;
+      if (!tip || tip.classList.contains("hidden")) return;
+      if (tip.contains(e.target)) return;
       hideItemTooltip(true);
     });
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && itemTooltipPinnedId) hideItemTooltip(true);
+      if (e.key === "Escape") {
+        const tip = document.getElementById("item-tooltip");
+        if (tip && !tip.classList.contains("hidden")) hideItemTooltip(true);
+      }
     });
 
     function getDerived(hero) {
@@ -4337,7 +4331,7 @@
         const ok = getTownGold() >= entry.price && state.backpack.length < 12;
         const r = document.createElement("div");
         r.className = "flex items-center justify-between gap-2 p-2 rounded-lg bg-stone-950 border border-stone-800 text-xs";
-        r.innerHTML = `<div><div class="font-bold text-amber-200">${it.name}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
+        r.innerHTML = `<div><div data-item-name class="font-bold text-amber-200 inline-block">${it.name}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
           <button class="px-2.5 py-1 rounded-lg font-bold shrink-0 ${ok?"btn-gold":"bg-stone-800 text-stone-500"}" ${ok?"":"disabled"}>${entry.price} GP</button>`;
         r.querySelector("button").onclick = () => {
           if (getTownGold() < entry.price) return toast("Not enough gold!", "bad");
@@ -4347,7 +4341,7 @@
           toast(`Bought ${it.name}!`, "gold");
           renderDistrictMarket(box); renderSheet();
         };
-        bindItemTooltip(r, entry.id, { price: entry.price });
+        bindItemTooltip(r.querySelector("[data-item-name]"), entry.id, { price: entry.price });
         buyEl.appendChild(r);
       });
 
@@ -4362,7 +4356,7 @@
           if (!it) return;
           const r = document.createElement("div");
           r.className = "flex items-center justify-between gap-2 p-2 rounded-lg bg-stone-950 border border-stone-800 text-xs";
-          r.innerHTML = `<div><div class="font-bold text-stone-200">${it.name}${qty > 1 ? ` <span class="text-amber-300">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
+          r.innerHTML = `<div><div data-item-name class="font-bold text-stone-200 inline-block">${it.name}${qty > 1 ? ` <span class="text-amber-300">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
             <div class="flex items-center gap-1 shrink-0">
               ${qty > 1 ? `<button data-sell="1" class="px-2 py-1 rounded-lg bg-emerald-900 hover:bg-emerald-800 text-emerald-100 font-bold">Sell 1 (+${it.value}g)</button>` : ""}
               <button data-sell="all" class="px-2.5 py-1 rounded-lg bg-emerald-800 hover:bg-emerald-700 text-emerald-100 font-bold">+${it.value * qty} GP</button>
@@ -4381,7 +4375,7 @@
             }
             renderSheet();
           });
-          bindItemTooltip(r, id, { qty });
+          bindItemTooltip(r.querySelector("[data-item-name]"), id, { qty });
           sellEl.appendChild(r);
         });
       }
@@ -4682,7 +4676,7 @@
               ${renderItemThumbHtml(resItem, "w-12 h-12", "text-xl")}
               <div class="min-w-0 flex-1">
                 <div class="flex items-center justify-between gap-2">
-                  <div class="font-display text-sm font-bold text-amber-200 truncate">${resItem.name}</div>
+                  <div data-item-name class="font-display text-sm font-bold text-amber-200 truncate">${resItem.name}</div>
                   ${typeof getRarityBadgeHtml === "function" ? getRarityBadgeHtml(rec.rarity || resItem.rarity) : ""}
                 </div>
                 <div class="text-[11px] text-stone-400 mt-0.5 leading-snug">${rec.desc}</div>
@@ -4724,7 +4718,7 @@
           renderSheet();
         };
 
-        bindItemTooltip(c, rec.result, { slotLabel: "Crafted Result" });
+        bindItemTooltip(c.querySelector("[data-item-name]"), rec.result, { slotLabel: "Crafted Result" });
         c.querySelectorAll("[data-mat-id]").forEach(mEl => {
           bindItemTooltip(mEl, mEl.dataset.matId);
         });
@@ -4891,10 +4885,10 @@
           if (!it) return;
           const r = document.createElement("div");
           r.className = "flex items-center justify-between gap-2 p-2 rounded-lg bg-stone-950 border border-stone-800 text-xs cursor-grab active:cursor-grabbing";
-          r.innerHTML = `<div><div class="font-bold text-amber-200">${it.name}${qty > 1 ? ` <span class="px-1.5 py-0.5 rounded bg-amber-900/80 text-[10px]">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
+          r.innerHTML = `<div><div data-item-name class="font-bold text-amber-200 inline-block">${it.name}${qty > 1 ? ` <span class="px-1.5 py-0.5 rounded bg-amber-900/80 text-[10px]">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
             <button class="px-2.5 py-1 rounded bg-sky-900 hover:bg-sky-800 text-sky-100 text-[11px] shrink-0">Withdraw</button>`;
           attachStackInteractions(r, activeContainerKey, i);
-          bindItemTooltip(r, id, { qty, slotLabel: `Stash Tab ${activeIdx + 1}` });
+          bindItemTooltip(r.querySelector("[data-item-name]"), id, { qty, slotLabel: `Stash Tab ${activeIdx + 1}` });
           r.querySelector("button").onclick = () => {
             const added = addItemToContainer("backpack", id, qty, 12);
             if (added <= 0) return toast("Backpack full (12/12)!", "bad");
@@ -4919,10 +4913,10 @@
           if (!it) return;
           const r = document.createElement("div");
           r.className = "flex items-center justify-between gap-2 p-2 rounded-lg bg-stone-950 border border-stone-800 text-xs cursor-grab active:cursor-grabbing";
-          r.innerHTML = `<div><div class="font-bold text-stone-200">${it.name}${qty > 1 ? ` <span class="px-1.5 py-0.5 rounded bg-amber-900/80 text-[10px]">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
+          r.innerHTML = `<div><div data-item-name class="font-bold text-stone-200 inline-block">${it.name}${qty > 1 ? ` <span class="px-1.5 py-0.5 rounded bg-amber-900/80 text-[10px]">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
             <button class="px-2.5 py-1 rounded bg-emerald-900 hover:bg-emerald-800 text-emerald-100 text-[11px] shrink-0">Deposit</button>`;
           attachStackInteractions(r, "backpack", i);
-          bindItemTooltip(r, id, { qty, slotLabel: "Backpack" });
+          bindItemTooltip(r.querySelector("[data-item-name]"), id, { qty, slotLabel: "Backpack" });
           r.querySelector("button").onclick = () => {
             const added = addItemToContainer(activeContainerKey, id, qty, 20);
             if (added <= 0) return toast(`Stash Tab ${activeIdx + 1} is full (20/20)!`, "bad");
@@ -6215,6 +6209,7 @@
        10. CHARACTER SHEET SIDEBAR & LOG RENDERERS
        ------------------------------------------------------------ */
     function renderSheet() {
+      hideItemTooltip(true);
       if (!state) return;
       const d = getDerived(state);
       if (state.hp > d.maxHp) state.hp = d.maxHp;
@@ -6281,7 +6276,7 @@
         const r = document.createElement("div");
         r.className = "flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg bg-stone-950 border border-stone-800 text-xs";
         r.innerHTML = `<div class="min-w-0"><span class="text-[9px] uppercase text-stone-500 block">${lbl}</span>
-          <span class="${it?"text-amber-200 font-semibold":"text-stone-600 italic"} truncate block">${it?`${it.name} <span class="text-[10px] text-stone-400 font-normal">(${it.desc})</span>`:"Empty"}</span></div>
+          <span class="${it?"text-amber-200 font-semibold":"text-stone-600 italic"} truncate block">${it?`<span data-item-name>${it.name}</span> <span class="text-[10px] text-stone-400 font-normal">(${it.desc})</span>`:"Empty"}</span></div>
           ${it?`<button class="px-2 py-0.5 rounded bg-stone-800 hover:bg-stone-700 text-[10px] text-stone-300 shrink-0">Unequip</button>`:""}`;
         const u = r.querySelector("button");
         if (u) u.onclick = () => {
@@ -6289,7 +6284,7 @@
           state.equipment[k] = null;
           renderSheet();
         };
-        if (it) bindItemTooltip(r, state.equipment[k], { slotLabel: `Equipped (${lbl})` });
+        if (it) bindItemTooltip(r.querySelector("[data-item-name]"), state.equipment[k], { slotLabel: `Equipped (${lbl})` });
         eqEl.appendChild(r);
       });
 
@@ -6315,7 +6310,7 @@
         r.className = "flex items-center justify-between gap-1.5 px-2.5 py-1.5 rounded-lg bg-stone-950 border border-stone-800 text-xs cursor-grab active:cursor-grabbing transition";
         r.innerHTML = `<div class="min-w-0">
             <div class="flex items-center gap-1.5">
-              <span class="text-stone-100 font-semibold truncate">${it.name}</span>
+              <span data-item-name class="text-stone-100 font-semibold truncate">${it.name}</span>
               ${qtyBadge}
               <span class="text-amber-400/80 text-[10px]">(${it.value * qty}g)</span>
               ${rarityBadge}
@@ -6332,7 +6327,7 @@
           </div>`;
 
         attachStackInteractions(r, "backpack", i);
-        bindItemTooltip(r, id, { qty, slotLabel: "Backpack" });
+        bindItemTooltip(r.querySelector("[data-item-name]"), id, { qty, slotLabel: "Backpack" });
 
         r.querySelectorAll("button").forEach(b => b.onclick = () => {
           const act = b.dataset.act;
@@ -6630,7 +6625,7 @@
           if (!it) return;
           const r = document.createElement("div");
           r.className = "flex items-center justify-between gap-2 p-2 rounded-lg bg-stone-950 border border-stone-800 text-xs";
-          r.innerHTML = `<div><div class="font-bold text-stone-200">${it.name}${qty > 1 ? ` <span class="text-amber-300">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
+          r.innerHTML = `<div><div data-item-name class="font-bold text-stone-200 inline-block">${it.name}${qty > 1 ? ` <span class="text-amber-300">x${qty}</span>` : ""}</div><div class="text-[10px] text-stone-400">${it.desc}</div></div>
             <div class="flex items-center gap-1 shrink-0">
               ${qty > 1 ? `<button data-sell="1" class="px-2 py-1 rounded-lg bg-emerald-900 hover:bg-emerald-800 text-emerald-100 font-bold">Sell 1 (+${it.value}g)</button>` : ""}
               <button data-sell="all" class="px-2.5 py-1 rounded-lg bg-emerald-800 hover:bg-emerald-700 text-emerald-100 font-bold">+${it.value * qty} GP</button>
@@ -6649,7 +6644,7 @@
             }
             renderSheet();
           });
-          bindItemTooltip(r, id, { qty });
+          bindItemTooltip(r.querySelector("[data-item-name]"), id, { qty });
           sellEl.appendChild(r);
         });
       }
