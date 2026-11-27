@@ -1,5 +1,5 @@
 {
-  "totalPasses": 33,
+  "totalPasses": 34,
   "history": [
     {
       "pass": 1,
@@ -225,6 +225,13 @@
       "title": "Caverns of the Spore Lord",
       "file": "data/quests/books_quests_batch_002.js",
       "summary": "Expanded from 8 to 11 pages with Elder Maren's Longhouse side-scene (LIME_ASH, +15 GP, +6 HP), Detect Traps salvage at Dusstan's Folly (+20 GP), Hero's Rest antidote-mist brewing (LIME_ASH/Herbalism/Firebolt -> SPORE_CURE + waterway bypass + merciful Enok cure bonus), and Cavern Harvester victory ending."
+    },
+    {
+      "pass": 34,
+      "questId": "bk_b20_queens_desire",
+      "title": "Storming the Queen's Desire",
+      "file": "data/quests/books_quests_batch_020.js",
+      "summary": "Expanded from 7 to 11 pages with Foremast Crow's Nest rescue of cabin boy Toby (TOBY_RESCUED, +35 GP, +8 HP/+3 MP, Detect Traps/Firebolt thunder-wire sabotage -> WIRE_CUT), Gun-Deck Bilge Baron's Bribe-Chest (Lockpicking -> BARON_CONTRACT + 45 GP + stern-window cabin flank + 50 GP harbormaster bonus), and Messori Privateer victory ending."
     }
   ],
   "questPasses": {
@@ -260,6 +267,7 @@
     "bk_b25_river_of_alchemy": 1,
     "bk_b14_flaying_star": 1,
     "bk_b5_swept_away": 1,
-    "bk_b2_spore_lord": 1
+    "bk_b2_spore_lord": 1,
+    "bk_b20_queens_desire": 1
   }
 }

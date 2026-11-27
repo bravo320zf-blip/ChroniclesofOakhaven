@@ -689,7 +689,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 9. STORMING THE QUEEN'S DESIRE (7 PAGES • LV 4)
+  // 9. STORMING THE QUEEN'S DESIRE (11 PAGES • LV 4)
   // ==========================================================
   bk_b20_queens_desire: {
     id: "bk_b20_queens_desire",
@@ -699,33 +699,35 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 4,
     autoDiscover: false,
     discoverySource: "Rusty Flagon Inn Rumor",
-    summary: "Board Captain Marie de Lech's moored galleon in Messori Harbor to break the eerie whispering 'curse' driving off her crew and disarm the baron's lightning-trapped hold.",
-    totalPages: 7,
+    summary: "Board Captain Marie de Lech's moored galleon in Messori Harbor, rescue her stranded cabin boy in the rigging, uncover the Baron's sabotage contract, and break the whispering storm-illusion driving off her crew.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Main Deck • Queen's Desire",
         title: "Whispers on the Waves",
         safeRetreat: true,
-        text: "Lapping harbor waves hiss eerie warnings across the deck of the Queen's Desire: 'Leave this ship! You do not belong!' Previous envoys fled in terror—yet the planks smell faintly of ozone and arcane illusion!",
+        text: "From the foggy pier, Captain Marie de Lech watches anxiously as you step onto the salt-slick deck of the Queen's Desire. Lapping harbor waves hiss eerie warnings across the planks: 'Leave this ship! You do not belong!' Previous envoys fled in terror—yet the companionway smells faintly of ozone and arcane illusion, while a knotted rope-ladder sways from the high foremast crow's nest.",
         choices: [
-          { t: "Pierce the illusory wave-whispers and trace them to the trapped cargo hold!", badge: "Arcana / Perception DC 12", check: { stat: "arcana", skill: "Perception", dc: 12, pass: 2, fail: 2, failDmg: 5, passMsg: "It's a clever illusion masking a lightning-glyph on the hold door! You disarm it cleanly!", failMsg: "Crackling blue lightning arcs from the hold door (-5 HP)!" }, onPass: { cw: "ILLUSION_PIERCED" } },
+          { t: "Pierce the illusory wave-whispers and disarm the lightning-glyph on the hold door!", badge: "Arcana / Perception DC 12", check: { stat: "arcana", skill: "Perception", dc: 12, pass: 2, fail: 2, failDmg: 5, passMsg: "It's a clever illusion masking a lightning-glyph on the hold door! You disarm it cleanly!", failMsg: "Crackling blue lightning arcs from the hold door (-5 HP)!" }, onPass: { cw: "ILLUSION_PIERCED" } },
+          { t: "Scale the swaying foremast rigging to scout the crow's nest first!", badge: "Agility / Athletics DC 12", check: { stat: "agility", skill: "Athletics", dc: 12, pass: 8, fail: 2, passMsg: "You haul yourself cleanly into the crow's nest—spotting a terrified cabin boy!", failMsg: "A slick ratline snaps underfoot, dropping you straight by the cargo hatch!" } },
           { t: "Charge straight down the companionway into the dark cargo hold!", to: 2 }
         ]
       },
       2: {
         zone: "Trapped Cargo Hold",
         title: "The Baron's Left-Behind Guardians",
-        text: "Storm-charged constructs and stowaway smugglers hired by the ship's former baron leap from behind salt-barrels to keep Marie de Lech from sailing!",
-        enemy: { name: "Baron's Storm-Smugglers", desc: "Saboteurs and spark-wards left aboard the Queen's Desire.", hp: 36, ac: 13, atk: 6, dmg: 6, xp: 98, gold: 52, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1, weakCw: ["ILLUSION_PIERCED"] },
+        text: "Storm-charged brass wards and stowaway smugglers hired by the ship's disgraced former baron leap from behind salt-barrels with belaying pins and spark-knives to keep Marie de Lech from sailing!",
+        enemy: { name: "Baron's Storm-Smugglers", desc: "Saboteurs and spark-wards left aboard the Queen's Desire.", hp: 36, ac: 13, atk: 6, dmg: 6, xp: 98, gold: 52, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1, weakCw: ["ILLUSION_PIERCED", "WIRE_CUT"] },
         choices: [
+          { t: "Duck through the forward bilge hatch to check the smugglers' hidden stash.", to: 9 },
           { t: "Corner the illusionist ringleader in the Captain's Cabin!", to: 3 }
         ]
       },
       3: {
         zone: "Captain's Cabin",
         title: "The Shipboard Illusionist",
-        text: "Surrounded by crackling storm-bottles and whispering sea-shells, the baron's hired sea-mage unleashes a gale of illusory phantoms and lightning!",
-        enemy: { name: "Baron's Storm-Illusionist", desc: "Cunning maritime mage orchestrating the 'curse' on the ship.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 155, gold: 110, items: ["bq_queens_desire_compass"], weakCw: ["ILLUSION_PIERCED"] },
+        text: "Surrounded by crackling glass storm-bottles and whispering sea-shells glued to the stern-windows, the baron's hired sea-mage spins in a swirl of salt-mist! 'That upstart captain will never leave Messori Harbor!'",
+        enemy: { name: "Baron's Storm-Illusionist", desc: "Cunning maritime mage orchestrating the 'curse' on the ship.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 155, gold: 110, items: ["bq_queens_desire_compass"], weakCw: ["ILLUSION_PIERCED", "WIRE_CUT"] },
         choices: [
           { t: "Shatter the whispering storm-bottles and declare the galleon clean!", to: 4 }
         ]
@@ -733,16 +735,18 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Quarterdeck",
         title: "Quiet Waters",
-        text: "The eerie whispers vanish instantly. Captain Marie de Lech strides aboard beaming, handing you 55 GP plus free passage whenever you need it.",
+        text: "The eerie wave-whispers vanish instantly as glass shards chime across the cabin floor. Captain Marie de Lech strides aboard beaming, pressing 55 GP into your palm and offering free passage whenever you need it.",
         onEnter: { gold: 55, healHp: 10, msg: "Cleared the galleon (+55 GP, +10 HP)!" },
         choices: [
-          { t: "Watch the Queen's Desire raise its sails in Messori Harbor.", to: 5 }
+          { t: "Present the Baron's signed sabotage writ to Captain Marie and the Harbormaster!", reqCw: "BARON_CONTRACT", badge: "BARON_CONTRACT", to: 5, onChoose: { gold: 50, xp: 30, msg: "The Harbormaster fines the Baron on the spot and awards you a 50 GP & 30 XP bonus!" } },
+          { t: "Watch the Queen's Desire raise its sails in Messori Harbor.", to: 5 },
+          { t: "Quietly broker the Baron's spare storm-bottles to a waterfront fence before leaving.", to: 11 }
         ]
       },
       5: {
         zone: "Messori Wharf",
         title: "Fair Winds",
-        text: "Sailors cheer from the rigging as the curse-free vessel glides out of port.",
+        text: "Sailors cheer from the freshly tarred rigging as the curse-free galleon catches the morning tide and glides proudly past the breakwater.",
         choices: [
           { t: "Collect your full harbormaster bonus!", to: 6 }
         ]
@@ -750,7 +754,7 @@ window.OAKHAVEN.registerQuests({
       6: {
         zone: "Harbor Tavern",
         title: "Toast to the Captain",
-        text: "Dockworkers buy your round as word spreads that the Queen's Desire sails again.",
+        text: "Grateful dockworkers and Marie's crew hoist tankards of spiced rum as word spreads down the quay that the Queen's Desire sails again.",
         choices: [
           { t: "Complete the quest!", to: 7 }
         ]
@@ -758,8 +762,45 @@ window.OAKHAVEN.registerQuests({
       7: {
         zone: "Epilogue",
         title: "Breaker of the Harbor Curse",
-        text: "The baron's sabotage is undone, and Captain Marie de Lech owes you a lasting debt!",
+        text: "The baron's sabotage is undone, Messori Harbor cheers your name, and Captain Marie de Lech owes you a lasting debt!",
         ending: { type: "true", title: "Savior of the Queen's Desire", xp: 175, gold: 165, trophy: "Brass Storm-Bottle" },
+        choices: []
+      },
+      8: {
+        zone: "Foremast Rigging",
+        title: "The Crow's Nest Lookout",
+        text: "Huddled behind coiled halyards in the crow's nest is young cabin boy Toby, clutching a bosun's purse (35 GP) and a dry apple (+8 HP, +3 MP). 'Thank the tides!' he whispers, pointing at a thick copper thunder-wire bolted down the mast. 'That wire feeds the mage's lightning-bottles in the cabin—cut it and his wards go dead!'",
+        onEnter: { gold: 35, healHp: 8, healMp: 3, cw: "TOBY_RESCUED", msg: "Rescued Toby (+35 GP, +8 HP, +3 MP) and spotted the copper thunder-wire!" },
+        choices: [
+          { t: "Snip the copper thunder-wire cleanly with Detect Traps!", reqSkill: "Detect Traps", badge: "Detect Traps", to: 9, onChoose: { cw: "WIRE_CUT", msg: "Blue sparks hiss harmlessly into the harbor—half the ship's storm-wards go dark!" } },
+          { t: "Melt the copper grounding-clamp with Firebolt!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 9, onChoose: { cw: "WIRE_CUT", msg: "Molten copper drips into the tide, shorting out the mage's storm-bottles!" } },
+          { t: "Slide down a halyard to the Gun-Deck Bilge hatch.", to: 9 }
+        ]
+      },
+      9: {
+        zone: "Gun-Deck Bilge",
+        title: "The Baron's Bribe-Chest",
+        text: "Tucked behind spare anchor-chain in the dry bilge sits a brass-bound strongbox stamped with the disgraced Baron's crest—and an open aft stern-window leading straight up to the Captain's Cabin.",
+        choices: [
+          { t: "Pick the brass strongbox lock for the Baron's papers and coin!", badge: "Lockpicking / Agility DC 13", check: { stat: "agility", skill: "Lockpicking", dc: 13, pass: 10, fail: 2, passMsg: "The tumblers click open—revealing 45 GP and the Baron's signed sabotage writ!", failMsg: "A spring-bolt clangs loud enough to alert the smugglers in the cargo hold!" }, onPass: { gold: 45, cw: "BARON_CONTRACT" } },
+          { t: "Climb through the aft stern-window straight into the Captain's Cabin!", to: 3 },
+          { t: "Drop into the Cargo Hold to clear out the Baron's smugglers first.", to: 2 }
+        ]
+      },
+      10: {
+        zone: "Gun-Deck Bilge",
+        title: "Signed in Wax and Salt",
+        text: "Inside the strongbox lie 45 GP in harbor silver and a wax-sealed writ bearing the Baron's own signature ordering the galleon sabotaged—damning evidence for Messori's admiralty court!",
+        choices: [
+          { t: "Climb through the aft stern-window to ambush the Storm-Illusionist!", to: 3 },
+          { t: "Sweep the Cargo Hold first to drive out the Baron's smugglers.", to: 2 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Messori Privateer",
+        text: "You slip away down the misty quay with a heavy pouch of waterfront silver for the Baron's salvaged storm-bottles while the Queen's Desire hoists full canvas behind you!",
+        ending: { type: "victory", title: "Messori Privateer", xp: 150, gold: 210, trophy: "Silver Bosun's Whistle" },
         choices: []
       }
     }
