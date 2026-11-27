@@ -1429,14 +1429,15 @@ window.OAKHAVEN.registerSpells([
     "icon": "🔥",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 1",
     "school": "Conjuration",
     "spellLevel": 2,
+    "rangeFt": 30,
+    "aoe": { "radiusSq": 1, "shape": "circle", "hazard": "oil", "hazardDmg": 5, "turns": 3, "difficult": true, "label": "Boiling Oil" },
     "dmgDice": "2d6",
     "dmgStat": "arcana",
     "dmgType": "fire",
     "chillTurns": 2,
-    "desc": "Deals 2d6 + arcana fire dmg; weakens foe (-2 enemy atk, 2t). [Lv.2 Conjuration • Deep Magic Vol. 1]"
+    "desc": "Coat a 15ft area within 30ft in scalding burning oil: deals 2d6 + Arcana fire dmg on impact, weakens foes (-2 ATK, 2t), and leaves a blazing Difficult Terrain zone (5 fire dmg/turn, 3t)."
   },
   {
     "name": "Bolster Undead",

@@ -263,7 +263,8 @@
           if (grid[cur.y][nx] === "wall" && grid[ny][cur.x] === "wall") continue;
         }
         const tileType = grid[ny][nx];
-        const stepCost = (tileType === "difficult" || (tileType === "water" && !isAquatic)) ? 10 : 5;
+        const inDiffZone = VTT.state?.zones?.some(z => z.difficult && z.tiles.has(`${nx},${ny}`));
+        const stepCost = (tileType === "difficult" || inDiffZone || (tileType === "water" && !isAquatic)) ? 10 : 5;
         const nd = cur.d + stepCost;
         if (nd <= maxFt && nd < dist[ny][nx]) {
           dist[ny][nx] = nd;
@@ -382,6 +383,8 @@
           isBoss: !!activeCombat.isBoss
         },
         weapon: getHeroWeaponProfile(heroState, itemsDb),
+        zones: [], // persistent AoE spell hazard zones: [{ tiles: Set, hazard, label, dmg, turns, difficult, color }]
+        targetMode: null, // { type: "aoe"|"teleport", spell, rangeFt, radiusSq, color, onConfirm }
         reachable: null
       };
 
@@ -454,11 +457,128 @@
         if (!t) return;
         this.handleTileClick(t.x, t.y);
       });
+      canvas.addEventListener("contextmenu", (e) => {
+        if (this.active && this.state?.targetMode) {
+          e.preventDefault();
+          this.cancelTargetMode();
+        }
+      });
+    },
+
+    startTargetMode(cfg) {
+      if (!this.active || !this.state) return false;
+      this.state.targetMode = cfg;
+      this.render();
+      return true;
+    },
+
+    cancelTargetMode() {
+      if (!this.state) return;
+      this.state.targetMode = null;
+      this.render();
+    },
+
+    getAoeTiles(cx, cy, radiusSq) {
+      const tiles = [];
+      for (let y = Math.max(0, cy - radiusSq); y <= Math.min(ROWS - 1, cy + radiusSq); y++) {
+        for (let x = Math.max(0, cx - radiusSq); x <= Math.min(COLS - 1, cx + radiusSq); x++) {
+          if (chebyshev(cx, cy, x, y) <= radiusSq && this.state.grid[y][x] !== "wall") {
+            tiles.push({ x, y });
+          }
+        }
+      }
+      return tiles;
+    },
+
+    addHazardZone(tiles, aoeCfg, label) {
+      if (!this.state || !aoeCfg) return;
+      const colorMap = {
+        fire: "rgba(249, 115, 22, 0.34)",
+        oil: "rgba(234, 88, 12, 0.42)",
+        frost: "rgba(56, 189, 248, 0.34)",
+        acid: "rgba(132, 204, 22, 0.34)",
+        poison: "rgba(34, 197, 94, 0.32)",
+        web: "rgba(226, 232, 240, 0.32)",
+        darkness: "rgba(88, 28, 135, 0.45)",
+        radiant: "rgba(250, 204, 21, 0.32)"
+      };
+      this.state.zones.push({
+        tiles: new Set(tiles.map(t => `${t.x},${t.y}`)),
+        hazard: aoeCfg.hazard || "fire",
+        label: aoeCfg.label || label || "Spell Zone",
+        dmg: aoeCfg.hazardDmg || 0,
+        turns: aoeCfg.turns || 3,
+        difficult: !!aoeCfg.difficult,
+        color: colorMap[aoeCfg.hazard] || "rgba(249, 115, 22, 0.34)"
+      });
+      this.state.reachable = computeReachable(this.state.grid, this.state.hero.x, this.state.hero.y, this.state.hero.moveLeft, this.state.enemy);
+    },
+
+    tickZones(activeCombat) {
+      const s = this.state;
+      if (!s || !s.zones.length) return;
+      const ek = `${s.enemy.x},${s.enemy.y}`;
+      for (const z of s.zones) {
+        if (z.dmg > 0 && z.tiles.has(ek) && activeCombat.hp > 0) {
+          activeCombat.hp = Math.max(0, activeCombat.hp - z.dmg);
+          this.spawnFloat(s.enemy.x, s.enemy.y, `🔥 -${z.dmg} ${z.label}`, "#fb923c");
+          activeCombat.log.unshift(`🔥 ${activeCombat.name} stands in ${z.label} and suffers ${z.dmg} dmg!`);
+        }
+        z.turns--;
+      }
+      s.zones = s.zones.filter(z => z.turns > 0);
+    },
+
+    displaceEnemy(ft, isPull = false) {
+      const s = this.state;
+      if (!s || !ft) return 0;
+      const steps = Math.max(1, Math.floor(ft / FT_PER_SQ));
+      let moved = 0;
+      for (let i = 0; i < steps; i++) {
+        const dx = Math.sign(isPull ? (s.hero.x - s.enemy.x) : (s.enemy.x - s.hero.x));
+        const dy = Math.sign(isPull ? (s.hero.y - s.enemy.y) : (s.enemy.y - s.hero.y));
+        const nx = s.enemy.x + dx, ny = s.enemy.y + dy;
+        if (!isWalkable(s.grid, nx, ny, s.hero)) break;
+        s.enemy.x = nx; s.enemy.y = ny;
+        moved += FT_PER_SQ;
+      }
+      if (moved > 0) {
+        this.spawnFloat(s.enemy.x, s.enemy.y, isPull ? `PULLED ${moved}ft!` : `PUSHED ${moved}ft!`, "#38bdf8");
+      }
+      return moved;
     },
 
     handleTileClick(tx, ty) {
       const s = this.state;
       if (!s || s.turn !== "hero") return;
+
+      // Handle interactive AoE or Teleport target mode first!
+      if (s.targetMode) {
+        const tm = s.targetMode;
+        const dFt = distFt(s.hero.x, s.hero.y, tx, ty);
+        if (dFt > (tm.rangeFt || 30)) {
+          return;
+        }
+        if (tm.type === "teleport") {
+          if (!isWalkable(s.grid, tx, ty, s.enemy)) return;
+          const ox = s.hero.x, oy = s.hero.y;
+          s.hero.x = tx; s.hero.y = ty;
+          s.targetMode = null;
+          s.reachable = computeReachable(s.grid, s.hero.x, s.hero.y, s.hero.moveLeft, s.enemy);
+          this.spawnAttackFx(ox, oy, tx, ty, "#c084fc", true);
+          this.spawnFloat(tx, ty, "✨ BLINK!", "#e879f9");
+          if (tm.onConfirm) tm.onConfirm({ x: tx, y: ty, hitEnemy: false, tiles: [] });
+          return;
+        }
+        if (tm.type === "aoe") {
+          const tiles = this.getAoeTiles(tx, ty, tm.radiusSq || 1);
+          const hitEnemy = tiles.some(t => t.x === s.enemy.x && t.y === s.enemy.y);
+          s.targetMode = null;
+          this.spawnAttackFx(s.hero.x, s.hero.y, tx, ty, "#fb923c", true);
+          if (tm.onConfirm) tm.onConfirm({ x: tx, y: ty, hitEnemy, tiles });
+          return;
+        }
+      }
 
       // Clicking enemy token -> attack!
       if (tx === s.enemy.x && ty === s.enemy.y) {
@@ -837,6 +957,61 @@
         for (let y = 0; y <= ROWS; y++) {
           ctx.beginPath(); ctx.moveTo(0, y * TILE); ctx.lineTo(W, y * TILE); ctx.stroke();
         }
+      }
+
+      // 4.5 Persistent AoE Spell Hazard Zones (Boiling Oil, Frost Fields, Webs, Acid, etc.)
+      if (s.zones && s.zones.length) {
+        for (const z of s.zones) {
+          for (const key of z.tiles) {
+            const [zx, zy] = key.split(",").map(Number);
+            const px = zx * TILE, py = zy * TILE;
+            ctx.fillStyle = z.color;
+            ctx.fillRect(px + 2, py + 2, TILE - 4, TILE - 4);
+            ctx.strokeStyle = "rgba(251, 146, 60, 0.75)";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(px + 3, py + 3, TILE - 6, TILE - 6);
+          }
+        }
+      }
+
+      // 4.6 Interactive AoE / Teleport Targeting Preview
+      if (s.targetMode) {
+        const tm = s.targetMode;
+        // Highlight valid targeting range
+        for (let y = 0; y < ROWS; y++) {
+          for (let x = 0; x < COLS; x++) {
+            if (distFt(s.hero.x, s.hero.y, x, y) <= (tm.rangeFt || 30)) {
+              if (tm.type === "teleport" && !isWalkable(s.grid, x, y, s.enemy)) continue;
+              ctx.fillStyle = tm.type === "teleport" ? "rgba(192, 132, 252, 0.22)" : "rgba(251, 146, 60, 0.10)";
+              ctx.fillRect(x * TILE + 2, y * TILE + 2, TILE - 4, TILE - 4);
+            }
+          }
+        }
+        // Preview AoE footprint under hovered square
+        if (tm.type === "aoe" && this.hoverTile && distFt(s.hero.x, s.hero.y, this.hoverTile.x, this.hoverTile.y) <= (tm.rangeFt || 30)) {
+          const prevTiles = this.getAoeTiles(this.hoverTile.x, this.hoverTile.y, tm.radiusSq || 1);
+          for (const pt of prevTiles) {
+            ctx.fillStyle = "rgba(249, 115, 22, 0.42)";
+            ctx.fillRect(pt.x * TILE + 2, pt.y * TILE + 2, TILE - 4, TILE - 4);
+            ctx.strokeStyle = "#fde047";
+            ctx.lineWidth = 2.5;
+            ctx.strokeRect(pt.x * TILE + 2, pt.y * TILE + 2, TILE - 4, TILE - 4);
+          }
+        }
+        // Top targeting banner
+        ctx.fillStyle = "rgba(12, 10, 9, 0.88)";
+        ctx.fillRect(14, 10, W - 28, 30);
+        ctx.strokeStyle = tm.type === "teleport" ? "#c084fc" : "#fb923c";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(14, 10, W - 28, 30);
+        ctx.fillStyle = "#fef3c7";
+        ctx.font = "bold 14px sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        const bannerTxt = tm.type === "teleport"
+          ? `✨ ${tm.spellName}: Click any highlighted tile within ${tm.rangeFt}ft to Teleport (Right-click to cancel)`
+          : `🎯 ${tm.spellName}: Click a tile within ${tm.rangeFt}ft to place AoE zone (Right-click to cancel)`;
+        ctx.fillText(bannerTxt, W / 2, 25);
       }
 
       // 5. Hover Tile Highlight + Opportunity Attack warning

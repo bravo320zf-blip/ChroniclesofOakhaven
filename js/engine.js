@@ -6390,10 +6390,56 @@
       const slot = isBonusSpell(sp) ? "bonus" : "action";
       if (!checkVttSlotReady(slot)) return;
       const v = window.OAKHAVEN?.VTT;
+
+      // Interactive VTT Teleport Spell (e.g., Misty Step, Shadow Step)
+      if (sp.teleportFt && v?.active && v.state) {
+        v.startTargetMode({
+          type: "teleport",
+          spellName: sp.name,
+          rangeFt: sp.teleportFt,
+          onConfirm: () => {
+            consumeVttSlot(slot);
+            state.mp -= mpCost;
+            sfxSpell(sp.dmgType, false, true);
+            if (sp.evadeTurns) state.evadeTurns = Math.max(state.evadeTurns, sp.evadeTurns);
+            if (sp.shieldTurns) state.shieldTurns = Math.max(state.shieldTurns, sp.shieldTurns);
+            activeCombat.log.unshift(`${sp.icon || "✨"} ${sp.name}: Teleported cleanly across the battlefield (no Opportunity Attack)!`);
+            combatAfterPlayer();
+          }
+        });
+        toast(`✨ Click a highlighted tile within ${sp.teleportFt}ft to cast ${sp.name}!`, "info");
+        return;
+      }
+
+      // Interactive VTT AoE / Hazard Zone Spell (e.g., Boiling Oil, Frost Nova)
+      if (sp.aoe && v?.active && v.state) {
+        v.startTargetMode({
+          type: "aoe",
+          spellName: sp.name,
+          rangeFt: sp.rangeFt || 30,
+          radiusSq: sp.aoe.radiusSq || 1,
+          onConfirm: ({ hitEnemy, tiles }) => {
+            v.addHazardZone(tiles, sp.aoe, sp.name);
+            executeCombatSpellEffect(sp, mpCost, slot, hitEnemy);
+          }
+        });
+        toast(`🎯 Click a tile within ${sp.rangeFt || 30}ft to place ${sp.name}!`, "info");
+        return;
+      }
+
+      // Standard single-target range & LoS check
       if ((sp.dmgDice || sp.dmgBase) && v?.active && v.state) {
+        const maxRange = sp.rangeFt || 45;
+        const dist = v.getDistFt();
+        if (dist > maxRange) return toast(`${sp.name} has ${maxRange} ft range (target is ${dist} ft away). Move closer first!`, "bad");
         const los = v.getLineOfSightHeroToEnemy();
         if (los.blocked) return toast("Full Cover blocks Line of Sight for your spell! Move to a clear angle.", "bad");
       }
+      executeCombatSpellEffect(sp, mpCost, slot, true);
+    }
+
+    function executeCombatSpellEffect(sp, mpCost, slot, hitEnemy = true) {
+      const v = window.OAKHAVEN?.VTT;
       consumeVttSlot(slot);
       state.mp -= mpCost;
       const d = getDerived(state);
@@ -6401,7 +6447,7 @@
       const icon = sp.icon || "✨";
       sfxSpell(sp.dmgType, !!(sp.healDice || sp.healBase), !!(sp.shieldTurns || sp.evadeTurns));
 
-      if (sp.dmgDice || sp.dmgBase) {
+      if ((sp.dmgDice || sp.dmgBase) && hitEnemy) {
         const dmgStatKey = sp.dmgStat || sp.stat || "arcana";
         const statVal = d.s[dmgStatKey] || 0;
         const bonus = (sp.dmgBonus || 0) + (sp.dmgBase || 0) + (subP.spellDmgBonus || 0);
@@ -6462,9 +6508,24 @@
         activeCombat.log.unshift(`💚 ${sp.name} rolls ${rollText} = +${heal} HP restored!`);
       }
 
-      if (sp.chillTurns) {
+      if (sp.chillTurns && hitEnemy) {
         activeCombat.chilled = Math.max(activeCombat.chilled, sp.chillTurns);
         activeCombat.log.unshift(`❄️ ${activeCombat.name} is chilled (-2 Enemy Atk for ${sp.chillTurns} turns)!`);
+      }
+      if (sp.stunTurns && hitEnemy) {
+        activeCombat.stunned = Math.max(activeCombat.stunned, sp.stunTurns);
+        activeCombat.log.unshift(`⚡ ${activeCombat.name} is STUNNED (${sp.stunTurns}t)!`);
+      }
+      if (sp.pushFt && hitEnemy && v?.active) {
+        const pushed = v.displaceEnemy(sp.pushFt, false);
+        if (pushed > 0) activeCombat.log.unshift(`💨 ${sp.name} knocks ${activeCombat.name} back ${pushed} ft!`);
+      }
+      if (sp.pullFt && hitEnemy && v?.active) {
+        const pulled = v.displaceEnemy(sp.pullFt, true);
+        if (pulled > 0) activeCombat.log.unshift(`🪝 ${sp.name} pulls ${activeCombat.name} ${pulled} ft closer!`);
+      }
+      if (sp.aoe && !hitEnemy) {
+        activeCombat.log.unshift(`${icon} ${sp.name} coats the battlefield in ${sp.aoe.label || sp.name} (${sp.aoe.turns || 3}t)!`);
       }
       if (sp.shieldTurns) {
         state.shieldTurns = Math.max(state.shieldTurns, sp.shieldTurns);
@@ -6984,7 +7045,10 @@
       const subP = getSubclassPassiveTotals(state);
       const v = window.OAKHAVEN?.VTT;
 
-      // Active Summon & Damage-Over-Time ticks
+      // Active Summon, VTT Hazard Zone & Damage-Over-Time ticks
+      if (v && v.active && v.state) {
+        v.tickZones(activeCombat);
+      }
       if (activeCombat.hp > 0 && activeCombat.summon && activeCombat.summon.turns > 0) {
         const sm = activeCombat.summon;
         activeCombat.hp = Math.max(0, activeCombat.hp - sm.dmg);

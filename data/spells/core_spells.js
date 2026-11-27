@@ -76,12 +76,14 @@ window.OAKHAVEN.registerSpells([
     combat: true,
     ooc: false,
     icon: "❄️",
+    rangeFt: 30,
+    aoe: { radiusSq: 1, shape: "circle", hazard: "frost", hazardDmg: 3, turns: 2, difficult: true, label: "Rime Ice" },
     dmgDice: "1d6",
     dmgBonus: 2,
     dmgStat: "arcana",
     dmgType: "frost",
     chillTurns: 2,
-    desc: "Deals 1d6 + 2 + Arcana frost dmg & chills foe (-2 Enemy Atk)."
+    desc: "Shatter a 15ft area within 30ft in frost: deals 1d6 + 2 + Arcana cold dmg, chills foes (-2 ATK, 2t), and coats the floor in icy Difficult Terrain (3 cold dmg/t, 2t)."
   },
   {
     name: "Detect Traps",
