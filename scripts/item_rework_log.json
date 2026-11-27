@@ -1,6 +1,6 @@
 {
-  "totalPasses": 55,
-  "totalItemsReworked": 550,
+  "totalPasses": 56,
+  "totalItemsReworked": 560,
   "history": [
     {
       "pass": 1,
@@ -881,6 +881,22 @@
         "vom_cloak_sails"
       ],
       "summary": "Reworked Fabled Champion's Plate, Grave Ward Armor, Rowan Staff (removed sourcebook tag), Bloodthirsty Krampus Cleaver, Gale Javelin, Cloak of Sails, Eye of Horus, Ashwood Wand, and polished Purified Enoki Scepter & Spelldrinker's Resonance Prism."
+    },
+    {
+      "pass": 56,
+      "items": [
+        "vom_staff_four_winds",
+        "vom_radiant_libram",
+        "bk_momentblade",
+        "vom_oni_mask",
+        "bq_obelisk_rune_charm",
+        "vom_verses_vengeance",
+        "bk_campaign_field_tent",
+        "bq_fifth_corner_compass",
+        "vom_clockwork_rogue_ring",
+        "ul_black_pearl_brooch"
+      ],
+      "summary": "Reworked Legendary Radiant Libram, Staff of the Four Winds, Shard of the Thousand Runes, Verses of Vengeance, Oni Mask, Momentblade & Campaign Field Tent (removed sourcebook tags), Fifth-Direction Diamond Compass, Nizana's Black-Pearl Brooch, and Clockwork Rogue Ring."
     }
   ],
   "itemPasses": {
@@ -1433,6 +1449,16 @@
     "bq_spelldrinker_prism": 1,
     "nf_krampus_cleaver": 1,
     "bk_rowan_staff": 1,
-    "vom_cloak_sails": 1
+    "vom_cloak_sails": 1,
+    "vom_staff_four_winds": 1,
+    "vom_radiant_libram": 1,
+    "bk_momentblade": 1,
+    "vom_oni_mask": 1,
+    "bq_obelisk_rune_charm": 1,
+    "vom_verses_vengeance": 1,
+    "bk_campaign_field_tent": 1,
+    "bq_fifth_corner_compass": 1,
+    "vom_clockwork_rogue_ring": 1,
+    "ul_black_pearl_brooch": 1
   }
 }

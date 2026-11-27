@@ -77,7 +77,26 @@ window.OAKHAVEN.registerItems({
     "ac": 1,
     "arcana": 2,
     "maxMp": 6,
-    "desc": "+1 AC, +2 Arcana, +6 Max MP (Tome of Heroes)"
+    "passives": {
+      "healBonus": 3,
+      "mpRegen": 1,
+      "dmgReduce": 1,
+      "skillBonus": {
+        "Survival": 3
+      }
+    },
+    "activeAbility": {
+      "name": "Field Respite Ward",
+      "icon": "⛺",
+      "charges": 2,
+      "ooc": true,
+      "healDice": "2d8",
+      "healStat": "arcana",
+      "restoreMp": 5,
+      "shieldTurns": 2,
+      "desc": "2/Quest: Invoke the enchanted campaign ward — restore 2d8 + Arcana HP, +5 MP, and +3 AC (2t)!"
+    },
+    "desc": "Folded canvas-and-rune expedition charm (+1 AC, +2 Arcana, +6 Max MP, +3 Heal, +1 MP/turn, -1 Dmg Taken, +3 Survival) with Field Respite Ward."
   },
   "bk_cestus": {
     "id": "bk_cestus",
@@ -332,7 +351,26 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "atk": 4,
     "arcana": 2,
-    "desc": "+4 Attack, +2 Arcana (Tome of Heroes)"
+    "passives": {
+      "critRange": 11,
+      "spellDmgBonus": 2,
+      "skillBonus": {
+        "Perception": 2
+      }
+    },
+    "activeAbility": {
+      "name": "Split-Second Flash",
+      "icon": "⏳",
+      "charges": 2,
+      "mp": 1,
+      "dmgDice": "2d6",
+      "dmgStat": "arcana",
+      "dmgType": "arcane",
+      "multiStrike": 2,
+      "evadeTurns": 2,
+      "desc": "2/Quest (1 MP): Fold a heartbeat of time to strike twice for 2× (2d6 + Arcana) arcane dmg and gain Evade (2t)!"
+    },
+    "desc": "Chrono-etched dueling blade that steals heartbeats (+4 Attack, +2 Arcana, Crit 11+, +2 Spell Dmg, +2 Perception) with Split-Second Flash."
   },
   "bk_ninefold_swarmdagger": {
     "id": "bk_ninefold_swarmdagger",

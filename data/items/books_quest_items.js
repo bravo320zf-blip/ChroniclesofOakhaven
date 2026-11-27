@@ -658,7 +658,9 @@ window.OAKHAVEN.registerItems({
     luck: 3,
     ac: 1,
     spirit: 1,
-    desc: "+3 Luck, +1 AC, +1 Spirit. Lucky granite sliver blessed by the Obelisk of a Thousand Runes."
+    passives: { critRange: 10, goldFindPct: 18, spellDmgBonus: 3, dmgReduce: 2, skillBonus: { Arcana: 2, Perception: 2 } },
+    activeAbility: { name: "Thousand-Rune Fortune", icon: "🪨", charges: 2, mp: 1, ooc: true, restoreLuck: 2, restoreMp: 5, shieldTurns: 2, desc: "2/Quest (1 MP): Tap the blessed granite sliver to restore +2 Luck, +5 MP, and gain +3 AC Ward (2t)!" },
+    desc: "Lucky granite sliver blessed by the Obelisk of a Thousand Runes (+3 Luck, +1 AC, +1 Spirit, Crit 10+, +18% Gold, +3 Spell Dmg, -2 Dmg Taken, +2 Arcana, +2 Perception) with Thousand-Rune Fortune."
   },
   "bq_bruffa_frost_pendant": {
     id: "bq_bruffa_frost_pendant",
@@ -1021,7 +1023,9 @@ window.OAKHAVEN.registerItems({
     source: "Prepared!",
     arcana: 2,
     luck: 2,
-    desc: "+2 Arcana, +2 Luck. Gold-and-diamond planar navigator from The Room with Five Corners."
+    passives: { goldFindPct: 15, spellDmgBonus: 2, skillBonus: { Perception: 3, Arcana: 2 } },
+    activeAbility: { name: "Fifth-Corner Fold", icon: "🧭", charges: 2, mp: 1, ooc: true, evadeTurns: 3, restoreLuck: 1, desc: "2/Quest (1 MP): Step sideways into the fifth direction for Evade (3t) and +1 Luck!" },
+    desc: "Gold-and-diamond planar navigator from The Room with Five Corners (+2 Arcana, +2 Luck, +15% Gold, +2 Spell Dmg, +3 Perception, +2 Arcana) with Fifth-Corner Fold."
   },
   "bq_halicix_frost_scale": {
     id: "bq_halicix_frost_scale",
