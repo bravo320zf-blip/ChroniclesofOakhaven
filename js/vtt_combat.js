@@ -193,12 +193,90 @@
     return grid;
   }
 
-  function isWalkable(grid, x, y, blockedPos) {
+  function isWalkable(grid, x, y, blocked) {
     if (x < 0 || x >= COLS || y < 0 || y >= ROWS) return false;
     const t = grid[y][x];
     if (t === "wall" || t === "cover") return false;
-    if (blockedPos && blockedPos.x === x && blockedPos.y === y) return false;
+    if (blocked) {
+      if (blocked instanceof Set) {
+        if (blocked.has(`${x},${y}`)) return false;
+      } else if (blocked.x === x && blocked.y === y) {
+        return false;
+      }
+    }
     return true;
+  }
+
+  function detectEnemyCount(activeCombat, page) {
+    if (!activeCombat || activeCombat.isBoss) return 1;
+    const name = (activeCombat.name || "").trim();
+    const lowName = name.toLowerCase();
+    const text = `${name} ${activeCombat.desc || ""} ${(page?.text || "").slice(0, 260)}`.toLowerCase();
+
+    // Explicit pair/group keywords
+    if (/\b(four|4)\s+[a-z-]+/.test(text) && !/\b(four|4)\s+(feet|ft|hours|days|turns|gp|gold|hp|mp|pages|pillars|torches|doors)\b/.test(text)) {
+      if (/[a-z]+s\b/.test(lowName) && !/(ss|us|is|os)$/.test(lowName)) return 3;
+    }
+    if (/\b(three|3)\s+(snarling|hooded|greengloss|giant|fierce|skeletal|armed|prowling|cloaked|goblin|bandit|wolf|wolves|spider|crab|rat|cultist|guard|raider|scout|cutthroat|skeleton|zombie|ghoul|hound|bat|raven|mephit|assassin|sentinel|zealot|knight|mage|wraith|spirit|stalker|husk)/.test(text)) return 3;
+    if (/\b(two|2|pair of|twin)\s+/.test(text)) return 2;
+
+    // Plural enemy group name (e.g. "Saltfang Reef-Stalkers", "Oubliette Shadow-Husks", "Marblehead Cliff Crabs")
+    if (/\b(twins|pair)\b/.test(lowName)) return 2;
+    if (/\b(pack|swarm|band|crew|gang|patrol|trio|choir|raiders|scouts|guards|cutthroats|stalkers|crabs|whelplings|husks|hounds|sentinels|zealots|spiders|bats|ravens|mephits|assassins|goblins|kobolds|bandits|wolves|skeletons|zombies|ghouls|cultists|hunters|wardens|knights|spriggans|thralls|warriors|archers|thugs|pirates|sailors|mercenaries|rats|snakes|vipers|drakes|harpies|gnolls|orcs|trolls|mummies|wights|ghosts|shadows)\b/.test(lowName)) {
+      if (/\b(three|trio|choir|pack|swarm|band|crew|gang)\b/.test(lowName)) return 3;
+      return 2;
+    }
+    return 1;
+  }
+
+  function makeSingularLabel(name, idx, total) {
+    if (total <= 1) return name;
+    let base = name.replace(/\b(Twins|Pair|Pack|Swarm|Band|Crew|Gang|Trio|Choir)\b/i, "").trim();
+    if (/ies$/i.test(base)) base = base.replace(/ies$/i, "y");
+    else if (/ves$/i.test(base)) base = base.replace(/ves$/i, "f");
+    else if (/s$/i.test(base) && !/(ss|us|is)$/i.test(base)) base = base.slice(0, -1);
+    return `${base} #${idx + 1}`;
+  }
+
+  function pickEnemySpawns(grid, primarySpawn, heroSpawn, count) {
+    const spawns = [{ x: primarySpawn.x, y: primarySpawn.y }];
+    if (count <= 1) return spawns;
+    const used = new Set([`${primarySpawn.x},${primarySpawn.y}`, `${heroSpawn.x},${heroSpawn.y}`]);
+    // Collect candidate dry tiles near primarySpawn, falling back to any walkable tile
+    const cands = [];
+    for (let y = 0; y < ROWS; y++) {
+      for (let x = 0; x < COLS; x++) {
+        const k = `${x},${y}`;
+        if (used.has(k)) continue;
+        const t = grid[y][x];
+        if (t === "wall" || t === "cover" || t === "exit") continue;
+        const dPrim = chebyshev(x, y, primarySpawn.x, primarySpawn.y);
+        const dHero = chebyshev(x, y, heroSpawn.x, heroSpawn.y);
+        if (dHero < 2) continue;
+        const waterPen = t === "water" ? 20 : 0;
+        cands.push({ x, y, score: dPrim * 4 + Math.abs(dHero - 5) + waterPen });
+      }
+    }
+    cands.sort((a, b) => a.score - b.score);
+    for (const c of cands) {
+      if (spawns.length >= count) break;
+      spawns.push({ x: c.x, y: c.y });
+    }
+    return spawns;
+  }
+
+  function reconstructStepPath(reachable, sx, sy, tx, ty) {
+    if (!reachable || !isFinite(reachable.dist?.[ty]?.[tx])) return null;
+    const steps = [];
+    let cx = tx, cy = ty;
+    while (cx !== sx || cy !== sy) {
+      const p = reachable.prev?.[cy]?.[cx];
+      if (!p) return null;
+      const stepCost = reachable.dist[cy][cx] - reachable.dist[p.y][p.x];
+      steps.unshift({ x: cx, y: cy, stepCost });
+      cx = p.x; cy = p.y;
+    }
+    return steps;
   }
 
   // Load real pixel-aligned mapGrid when available, else fallback to clean terrain
@@ -351,6 +429,37 @@
       const heroInit = heroInitRoll + heroInitMod;
       const enemyInit = enemyInitRoll + enemyInitMod;
 
+      const enemyCount = detectEnemyCount(activeCombat, page);
+      const spawns = pickEnemySpawns(grid, built.enemySpawn, built.heroSpawn, enemyCount);
+      const artPath = window.OAKHAVEN?.monsterArt?.byName?.[activeCombat.name] || null;
+      const icon = pickEnemyIcon(activeCombat);
+      const isRanged = isRangedEnemy(activeCombat);
+      const isAquatic = isAquaticEnemy(activeCombat);
+      const totalHp = activeCombat.maxHp;
+      const basePerHp = Math.max(4, Math.floor(totalHp / spawns.length));
+      const perEnemyDmg = Math.max(2, Math.round((activeCombat.dmg || 4) / Math.sqrt(spawns.length)));
+
+      const enemies = spawns.map((sp, i) => {
+        const hpShare = (i === spawns.length - 1) ? Math.max(4, totalHp - basePerHp * (spawns.length - 1)) : basePerHp;
+        return {
+          id: i,
+          name: makeSingularLabel(activeCombat.name, i, spawns.length),
+          x: sp.x, y: sp.y,
+          vx: sp.x, vy: sp.y,
+          hp: hpShare,
+          maxHp: hpShare,
+          dmg: perEnemyDmg,
+          speed: enemySpeed,
+          isRanged,
+          isAquatic,
+          icon,
+          artPath,
+          isBoss: !!activeCombat.isBoss,
+          reactionUsed: false,
+          rooted: 0
+        };
+      });
+
       const vttState = {
         biome,
         mapUrl: mapInfo.url,
@@ -359,6 +468,7 @@
         grid,
         round: 1,
         turn: heroInit >= enemyInit ? "hero" : "enemy",
+        moving: false,
         heroInit,
         enemyInit,
         hero: {
@@ -372,31 +482,25 @@
           disengaged: false,
           tokenPath: callbacks?.getHeroTokenPath ? callbacks.getHeroTokenPath() : null
         },
-        enemy: {
-          x: built.enemySpawn.x, y: built.enemySpawn.y,
-          vx: built.enemySpawn.x, vy: built.enemySpawn.y,
-          speed: enemySpeed,
-          isRanged: isRangedEnemy(activeCombat),
-          isAquatic: isAquaticEnemy(activeCombat),
-          icon: pickEnemyIcon(activeCombat),
-          artPath: window.OAKHAVEN?.monsterArt?.byName?.[activeCombat.name] || null,
-          isBoss: !!activeCombat.isBoss
-        },
+        enemies,
+        selectedEnemyIdx: 0,
+        enemy: enemies[0],
         weapon: getHeroWeaponProfile(heroState, itemsDb),
         zones: [], // persistent AoE spell hazard zones: [{ tiles: Set, hazard, label, dmg, turns, difficult, color }]
         targetMode: null, // { type: "aoe"|"teleport", spell, rangeFt, radiusSq, color, onConfirm }
         reachable: null
       };
 
-      if (vttState.enemy.artPath) getImg(vttState.enemy.artPath);
-      vttState.reachable = computeReachable(grid, vttState.hero.x, vttState.hero.y, vttState.hero.moveLeft, vttState.enemy);
+      if (artPath) getImg(artPath);
       activeCombat.vtt = vttState;
       this.state = vttState;
+      this.recomputeHeroReachable();
       this.active = true;
       this.fx = [];
 
+      const countNote = enemies.length > 1 ? ` (${enemies.length} foes on the battlefield!)` : "";
       activeCombat.log.unshift(
-        `🎲 Initiative: You ${heroInit} (${heroInitRoll}+${heroInitMod}) vs ${activeCombat.name} ${enemyInit} (${enemyInitRoll}+${enemyInitMod}) — ${vttState.turn === "hero" ? "Your Turn!" : `${activeCombat.name} acts first!`}`
+        `🎲 Initiative: You ${heroInit} (${heroInitRoll}+${heroInitMod}) vs ${activeCombat.name}${countNote} ${enemyInit} (${enemyInitRoll}+${enemyInitMod}) — ${vttState.turn === "hero" ? "Your Turn!" : `Enemies act first!`}`
       );
 
       this.bindCanvas();
@@ -465,6 +569,96 @@
       });
     },
 
+    getLivingEnemies() {
+      if (!this.state) return [];
+      return this.state.enemies.filter(e => e.hp > 0);
+    },
+
+    getSelectedEnemy() {
+      const s = this.state;
+      if (!s) return null;
+      let sel = s.enemies[s.selectedEnemyIdx];
+      if (!sel || sel.hp <= 0) {
+        const idx = s.enemies.findIndex(e => e.hp > 0);
+        if (idx >= 0) {
+          s.selectedEnemyIdx = idx;
+          sel = s.enemies[idx];
+        } else {
+          sel = s.enemies[0];
+        }
+      }
+      s.enemy = sel;
+      return sel;
+    },
+
+    getBlockedSet(excludeUnit) {
+      const s = this.state;
+      const set = new Set();
+      if (!s) return set;
+      if (excludeUnit !== s.hero) set.add(`${s.hero.x},${s.hero.y}`);
+      for (const e of s.enemies) {
+        if (e.hp > 0 && e !== excludeUnit) set.add(`${e.x},${e.y}`);
+      }
+      return set;
+    },
+
+    recomputeHeroReachable() {
+      const s = this.state;
+      if (!s) return;
+      s.reachable = computeReachable(s.grid, s.hero.x, s.hero.y, s.hero.moveLeft, this.getBlockedSet(s.hero));
+    },
+
+    applyDamageToEnemy(enemyObj, dmg, activeCombat) {
+      const s = this.state;
+      if (!s || !enemyObj) return 0;
+      const dealt = Math.max(0, dmg);
+      enemyObj.hp = Math.max(0, enemyObj.hp - dealt);
+      if (enemyObj.hp <= 0) {
+        this.spawnFloat(enemyObj.x, enemyObj.y, "💀 SLAIN!", "#fca5a5");
+        if (s.enemies.length > 1 && activeCombat) {
+          activeCombat.log.unshift(`💀 ${enemyObj.name} falls!`);
+        }
+      }
+      if (activeCombat) {
+        activeCombat.hp = s.enemies.reduce((sum, e) => sum + Math.max(0, e.hp), 0);
+      }
+      this.getSelectedEnemy();
+      this.recomputeHeroReachable();
+      return dealt;
+    },
+
+    applyDamageToSelected(dmg, activeCombat) {
+      return this.applyDamageToEnemy(this.getSelectedEnemy(), dmg, activeCombat);
+    },
+
+    // Keep individual enemy HP synced if any ability/bomb/DoT/summon reduced activeCombat.hp directly
+    syncHpDelta(activeCombat) {
+      const s = this.state;
+      if (!s || !activeCombat) return;
+      const sum = s.enemies.reduce((acc, e) => acc + Math.max(0, e.hp), 0);
+      let diff = sum - Math.max(0, activeCombat.hp);
+      if (diff <= 0) return;
+      while (diff > 0) {
+        const tgt = this.getSelectedEnemy();
+        if (!tgt || tgt.hp <= 0) break;
+        const take = Math.min(tgt.hp, diff);
+        tgt.hp -= take;
+        diff -= take;
+        if (tgt.hp <= 0) {
+          this.spawnFloat(tgt.x, tgt.y, "💀 SLAIN!", "#fca5a5");
+          if (s.enemies.length > 1) activeCombat.log.unshift(`💀 ${tgt.name} falls!`);
+        }
+      }
+      activeCombat.hp = s.enemies.reduce((acc, e) => acc + Math.max(0, e.hp), 0);
+      this.getSelectedEnemy();
+      this.recomputeHeroReachable();
+    },
+
+    getEnemiesInTiles(tiles) {
+      const set = new Set(tiles.map(t => `${t.x},${t.y}`));
+      return this.getLivingEnemies().filter(e => set.has(`${e.x},${e.y}`));
+    },
+
     startTargetMode(cfg) {
       if (!this.active || !this.state) return false;
       this.state.targetMode = cfg;
@@ -511,122 +705,180 @@
         difficult: !!aoeCfg.difficult,
         color: colorMap[aoeCfg.hazard] || "rgba(249, 115, 22, 0.34)"
       });
-      this.state.reachable = computeReachable(this.state.grid, this.state.hero.x, this.state.hero.y, this.state.hero.moveLeft, this.state.enemy);
+      this.recomputeHeroReachable();
     },
 
     tickZones(activeCombat) {
       const s = this.state;
       if (!s || !s.zones.length) return;
-      const ek = `${s.enemy.x},${s.enemy.y}`;
       for (const z of s.zones) {
-        if (z.dmg > 0 && z.tiles.has(ek) && activeCombat.hp > 0) {
-          activeCombat.hp = Math.max(0, activeCombat.hp - z.dmg);
-          this.spawnFloat(s.enemy.x, s.enemy.y, `🔥 -${z.dmg} ${z.label}`, "#fb923c");
-          activeCombat.log.unshift(`🔥 ${activeCombat.name} stands in ${z.label} and suffers ${z.dmg} dmg!`);
+        for (const e of this.getLivingEnemies()) {
+          if (z.dmg > 0 && z.tiles.has(`${e.x},${e.y}`) && e.hp > 0) {
+            this.applyDamageToEnemy(e, z.dmg, activeCombat);
+            this.spawnFloat(e.x, e.y, `🔥 -${z.dmg} ${z.label}`, "#fb923c");
+            activeCombat.log.unshift(`🔥 ${e.name} stands in ${z.label} and suffers ${z.dmg} dmg!`);
+          }
         }
         z.turns--;
       }
       s.zones = s.zones.filter(z => z.turns > 0);
     },
 
-    displaceEnemy(ft, isPull = false) {
+    displaceEnemy(ft, isPull = false, targetEnemy = null) {
       const s = this.state;
-      if (!s || !ft) return 0;
+      const e = targetEnemy || this.getSelectedEnemy();
+      if (!s || !e || !ft) return 0;
       const steps = Math.max(1, Math.floor(ft / FT_PER_SQ));
       let moved = 0;
+      const blocked = this.getBlockedSet(e);
       for (let i = 0; i < steps; i++) {
-        const dx = Math.sign(isPull ? (s.hero.x - s.enemy.x) : (s.enemy.x - s.hero.x));
-        const dy = Math.sign(isPull ? (s.hero.y - s.enemy.y) : (s.enemy.y - s.hero.y));
-        const nx = s.enemy.x + dx, ny = s.enemy.y + dy;
-        if (!isWalkable(s.grid, nx, ny, s.hero)) break;
-        s.enemy.x = nx; s.enemy.y = ny;
+        const dx = Math.sign(isPull ? (s.hero.x - e.x) : (e.x - s.hero.x));
+        const dy = Math.sign(isPull ? (s.hero.y - e.y) : (e.y - s.hero.y));
+        const nx = e.x + dx, ny = e.y + dy;
+        if (!isWalkable(s.grid, nx, ny, blocked)) break;
+        e.x = nx; e.y = ny;
         moved += FT_PER_SQ;
       }
       if (moved > 0) {
-        this.spawnFloat(s.enemy.x, s.enemy.y, isPull ? `PULLED ${moved}ft!` : `PUSHED ${moved}ft!`, "#38bdf8");
+        this.spawnFloat(e.x, e.y, isPull ? `PULLED ${moved}ft!` : `PUSHED ${moved}ft!`, "#38bdf8");
+        this.recomputeHeroReachable();
       }
       return moved;
     },
 
+    // Check which living enemies would get an Opportunity Attack along a path
+    findPathOpportunityAttacks(path) {
+      const s = this.state;
+      const oaSteps = new Set();
+      if (!s || !path || !path.length || s.hero.disengaged) return oaSteps;
+      let px = s.hero.x, py = s.hero.y;
+      const living = this.getLivingEnemies();
+      for (let i = 0; i < path.length; i++) {
+        const nx = path[i].x, ny = path[i].y;
+        for (const e of living) {
+          if (!e.reactionUsed && chebyshev(px, py, e.x, e.y) <= 1 && chebyshev(nx, ny, e.x, e.y) > 1) {
+            oaSteps.add(i);
+          }
+        }
+        px = nx; py = ny;
+      }
+      return oaSteps;
+    },
+
+    // Move Hero space-by-space along the path, triggering mid-path Opportunity Attacks!
+    walkHeroPath(path, onComplete) {
+      const s = this.state;
+      if (!s || !path || !path.length) {
+        if (onComplete) onComplete();
+        return;
+      }
+      s.moving = true;
+      let idx = 0;
+      const stepNext = () => {
+        if (!this.active || !this.state) return;
+        if (idx >= path.length) {
+          s.moving = false;
+          this.recomputeHeroReachable();
+          if (this.callbacks?.onStateChange) this.callbacks.onStateChange();
+          if (onComplete) onComplete();
+          return;
+        }
+        const prevX = s.hero.x, prevY = s.hero.y;
+        const step = path[idx++];
+
+        // 5e Opportunity Attack check on THIS EXACT STEP against every living enemy
+        if (!s.hero.disengaged && this.callbacks?.triggerOpportunityAttack) {
+          for (const e of this.getLivingEnemies()) {
+            if (!e.reactionUsed && chebyshev(prevX, prevY, e.x, e.y) <= 1 && chebyshev(step.x, step.y, e.x, e.y) > 1) {
+              e.reactionUsed = true;
+              this.callbacks.triggerOpportunityAttack(e);
+              if (!this.active) return; // Hero fell to OA!
+            }
+          }
+        }
+
+        s.hero.x = step.x;
+        s.hero.y = step.y;
+        s.hero.moveLeft = Math.max(0, s.hero.moveLeft - step.stepCost);
+        this.spawnFloat(step.x, step.y, `-${step.stepCost}ft`, "#93c5fd");
+
+        if (s.grid[step.y][step.x] === "exit" && this.callbacks?.onStepExit) {
+          s.moving = false;
+          this.callbacks.onStepExit();
+          return;
+        }
+
+        if (this.callbacks?.onStateChange) this.callbacks.onStateChange();
+        setTimeout(stepNext, 135);
+      };
+      stepNext();
+    },
+
     handleTileClick(tx, ty) {
       const s = this.state;
-      if (!s || s.turn !== "hero") return;
+      if (!s || s.turn !== "hero" || s.moving) return;
 
       // Handle interactive AoE or Teleport target mode first!
       if (s.targetMode) {
         const tm = s.targetMode;
         const dFt = distFt(s.hero.x, s.hero.y, tx, ty);
-        if (dFt > (tm.rangeFt || 30)) {
-          return;
-        }
+        if (dFt > (tm.rangeFt || 30)) return;
         if (tm.type === "teleport") {
-          if (!isWalkable(s.grid, tx, ty, s.enemy)) return;
+          if (!isWalkable(s.grid, tx, ty, this.getBlockedSet(s.hero))) return;
           const ox = s.hero.x, oy = s.hero.y;
           s.hero.x = tx; s.hero.y = ty;
+          s.hero.vx = tx; s.hero.vy = ty;
           s.targetMode = null;
-          s.reachable = computeReachable(s.grid, s.hero.x, s.hero.y, s.hero.moveLeft, s.enemy);
+          this.recomputeHeroReachable();
           this.spawnAttackFx(ox, oy, tx, ty, "#c084fc", true);
           this.spawnFloat(tx, ty, "✨ BLINK!", "#e879f9");
-          if (tm.onConfirm) tm.onConfirm({ x: tx, y: ty, hitEnemy: false, tiles: [] });
+          if (tm.onConfirm) tm.onConfirm({ x: tx, y: ty, hitEnemies: [], hitEnemy: false, tiles: [] });
           return;
         }
         if (tm.type === "aoe") {
           const tiles = this.getAoeTiles(tx, ty, tm.radiusSq || 1);
-          const hitEnemy = tiles.some(t => t.x === s.enemy.x && t.y === s.enemy.y);
+          const hitEnemies = this.getEnemiesInTiles(tiles);
           s.targetMode = null;
           this.spawnAttackFx(s.hero.x, s.hero.y, tx, ty, "#fb923c", true);
-          if (tm.onConfirm) tm.onConfirm({ x: tx, y: ty, hitEnemy, tiles });
+          if (tm.onConfirm) tm.onConfirm({ x: tx, y: ty, hitEnemies, hitEnemy: hitEnemies.length > 0, tiles });
           return;
         }
       }
 
-      // Clicking enemy token -> attack!
-      if (tx === s.enemy.x && ty === s.enemy.y) {
+      // Clicking a living enemy token -> select it (or attack if already selected!)
+      const clickedIdx = s.enemies.findIndex(e => e.hp > 0 && e.x === tx && e.y === ty);
+      if (clickedIdx >= 0) {
+        if (s.selectedEnemyIdx !== clickedIdx) {
+          s.selectedEnemyIdx = clickedIdx;
+          s.enemy = s.enemies[clickedIdx];
+          this.spawnFloat(tx, ty, "🎯 TARGET", "#fbbf24");
+          if (this.callbacks?.onStateChange) this.callbacks.onStateChange();
+          return;
+        }
         if (this.callbacks?.onClickEnemy) this.callbacks.onClickEnemy();
         return;
       }
 
-      // Clicking reachable square -> move hero!
-      const cost = s.reachable?.dist?.[ty]?.[tx];
-      if (!isFinite(cost) || cost <= 0 || cost > s.hero.moveLeft) return;
-
-      const wasAdj = chebyshev(s.hero.x, s.hero.y, s.enemy.x, s.enemy.y) <= 1;
-      const nowAdj = chebyshev(tx, ty, s.enemy.x, s.enemy.y) <= 1;
-
-      // 5e Opportunity Attack check when leaving enemy's 5ft reach without Disengage
-      if (wasAdj && !nowAdj && !s.hero.disengaged && this.callbacks?.triggerOpportunityAttack) {
-        this.callbacks.triggerOpportunityAttack();
-        if (!this.active) return; // hero might have died
-      }
-
-      s.hero.x = tx;
-      s.hero.y = ty;
-      s.hero.moveLeft = Math.max(0, s.hero.moveLeft - cost);
-      s.reachable = computeReachable(s.grid, s.hero.x, s.hero.y, s.hero.moveLeft, s.enemy);
-      this.spawnFloat(tx, ty, `-${cost} ft`, "#93c5fd");
-
-      // Stepping on Exit tile triggers Flee!
-      if (s.grid[ty][tx] === "exit" && this.callbacks?.onStepExit) {
-        this.callbacks.onStepExit();
-        return;
-      }
-
-      if (this.callbacks?.onStateChange) this.callbacks.onStateChange();
+      // Clicking reachable square -> walk space-by-space along shortest path!
+      const path = reconstructStepPath(s.reachable, s.hero.x, s.hero.y, tx, ty);
+      if (!path || !path.length) return;
+      this.walkHeroPath(path);
     },
 
-    // Auto-step hero into melee reach if possible
+    // Auto-step hero into melee reach of selected enemy (returns path or immediate ok)
     tryAutoApproach(reachFt) {
       const s = this.state;
-      if (!s) return { ok: true, moved: 0 };
-      const curDist = distFt(s.hero.x, s.hero.y, s.enemy.x, s.enemy.y);
-      if (curDist <= reachFt) return { ok: true, moved: 0 };
+      const target = this.getSelectedEnemy();
+      if (!s || !target) return { ok: true, moved: 0, path: [] };
+      const curDist = distFt(s.hero.x, s.hero.y, target.x, target.y);
+      if (curDist <= reachFt) return { ok: true, moved: 0, path: [] };
 
       const reachSq = Math.max(1, Math.floor(reachFt / FT_PER_SQ));
       let best = null;
       let bestCost = Infinity;
       for (let y = 0; y < ROWS; y++) {
         for (let x = 0; x < COLS; x++) {
-          if (chebyshev(x, y, s.enemy.x, s.enemy.y) <= reachSq) {
+          if (chebyshev(x, y, target.x, target.y) <= reachSq) {
             const c = s.reachable?.dist?.[y]?.[x];
             if (isFinite(c) && c <= s.hero.moveLeft && c < bestCost) {
               bestCost = c;
@@ -636,20 +888,17 @@
         }
       }
       if (!best) return { ok: false, distFt: curDist, moveLeft: s.hero.moveLeft };
-      s.hero.x = best.x;
-      s.hero.y = best.y;
-      s.hero.moveLeft = Math.max(0, s.hero.moveLeft - bestCost);
-      s.reachable = computeReachable(s.grid, s.hero.x, s.hero.y, s.hero.moveLeft, s.enemy);
-      return { ok: true, moved: bestCost };
+      const path = reconstructStepPath(s.reachable, s.hero.x, s.hero.y, best.x, best.y) || [];
+      return { ok: true, moved: bestCost, path };
     },
 
     // Tactical Actions: Dash, Dodge, Disengage
     doDash(activeCombat) {
       const s = this.state;
-      if (!s || s.turn !== "hero" || s.hero.actionUsed) return false;
+      if (!s || s.turn !== "hero" || s.moving || s.hero.actionUsed) return false;
       s.hero.actionUsed = true;
       s.hero.moveLeft += s.hero.speed;
-      s.reachable = computeReachable(s.grid, s.hero.x, s.hero.y, s.hero.moveLeft, s.enemy);
+      this.recomputeHeroReachable();
       this.spawnFloat(s.hero.x, s.hero.y, `DASH +${s.hero.speed}ft`, "#38bdf8");
       activeCombat.log.unshift(`💨 [DASH] You sprint forward (+${s.hero.speed} ft movement this turn)!`);
       this.updateHud(activeCombat);
@@ -658,7 +907,7 @@
 
     doDodge(activeCombat) {
       const s = this.state;
-      if (!s || s.turn !== "hero" || s.hero.actionUsed) return false;
+      if (!s || s.turn !== "hero" || s.moving || s.hero.actionUsed) return false;
       s.hero.actionUsed = true;
       s.hero.dodging = true;
       this.spawnFloat(s.hero.x, s.hero.y, "DODGING!", "#fbbf24");
@@ -669,7 +918,7 @@
 
     doDisengage(activeCombat) {
       const s = this.state;
-      if (!s || s.turn !== "hero" || s.hero.actionUsed) return false;
+      if (!s || s.turn !== "hero" || s.moving || s.hero.actionUsed) return false;
       s.hero.actionUsed = true;
       s.hero.disengaged = true;
       this.spawnFloat(s.hero.x, s.hero.y, "DISENGAGE", "#34d399");
@@ -683,67 +932,65 @@
       const s = this.state;
       if (!s) return;
       s.turn = "hero";
+      s.moving = false;
       s.round++;
       s.hero.moveLeft = s.hero.speed;
       s.hero.actionUsed = false;
       s.hero.bonusUsed = false;
       s.hero.dodging = false;
       s.hero.disengaged = false;
-      s.reachable = computeReachable(s.grid, s.hero.x, s.hero.y, s.hero.moveLeft, s.enemy);
+      this.getSelectedEnemy();
+      this.recomputeHeroReachable();
       this.updateHud(activeCombat);
     },
 
-    // Move enemy tactically on the grid during Enemy Turn; returns { canAttack, isRanged, movedFt, hasHalfCover }
-    moveEnemyAI(activeCombat) {
+    // Move a SINGLE enemy tactically on the grid during its individual turn
+    moveSingleEnemyAI(e, activeCombat) {
       const s = this.state;
-      if (!s) return { canAttack: true, isRanged: false, movedFt: 0, hasHalfCover: false };
+      if (!s || !e || e.hp <= 0) return { canAttack: false, isRanged: false, movedFt: 0, hasHalfCover: false };
       s.turn = "enemy";
-      const curDist = distFt(s.enemy.x, s.enemy.y, s.hero.x, s.hero.y);
-      const enemyRange = s.enemy.isRanged ? 45 : 5;
-      const los = checkLineAndCover(s.grid, s.enemy.x, s.enemy.y, s.hero.x, s.hero.y);
+      e.reactionUsed = false; // 5e rule: creature regains Reaction at start of its turn!
+      const curDist = distFt(e.x, e.y, s.hero.x, s.hero.y);
+      const enemyRange = e.isRanged ? 45 : 5;
+      const los = checkLineAndCover(s.grid, e.x, e.y, s.hero.x, s.hero.y);
+      const blocked = this.getBlockedSet(e);
 
-      // Already in good attack position with LoS?
+      if (activeCombat.rooted > 0 || e.rooted > 0) {
+        this.spawnFloat(e.x, e.y, "❄️ ROOTED (0ft)", "#38bdf8");
+        return { canAttack: curDist <= enemyRange && !los.blocked, isRanged: e.isRanged && curDist > 5, movedFt: 0, rooted: true, hasHalfCover: curDist > 5 && los.halfCover };
+      }
+
       if (curDist <= enemyRange && !los.blocked) {
-        // Ranged enemy tries to step back if hero is right in their face (5ft)
-        if (s.enemy.isRanged && curDist <= 5) {
-          const reach = computeReachable(s.grid, s.enemy.x, s.enemy.y, 15, s.hero);
+        if (e.isRanged && curDist <= 5) {
+          const reach = computeReachable(s.grid, e.x, e.y, 15, blocked, !!e.isAquatic);
           let best = null, bestD = curDist;
           for (let y = 0; y < ROWS; y++) {
             for (let x = 0; x < COLS; x++) {
               if (isFinite(reach.dist[y][x]) && reach.dist[y][x] > 0) {
                 const d = distFt(x, y, s.hero.x, s.hero.y);
                 const l2 = checkLineAndCover(s.grid, x, y, s.hero.x, s.hero.y);
-                if (!l2.blocked && d > bestD && d <= 35) {
-                  bestD = d; best = { x, y, c: reach.dist[y][x] };
-                }
+                if (!l2.blocked && d > bestD && d <= 35) { bestD = d; best = { x, y, c: reach.dist[y][x] }; }
               }
             }
           }
           if (best) {
-            s.enemy.x = best.x; s.enemy.y = best.y;
-            const l3 = checkLineAndCover(s.grid, s.enemy.x, s.enemy.y, s.hero.x, s.hero.y);
+            e.x = best.x; e.y = best.y;
+            const l3 = checkLineAndCover(s.grid, e.x, e.y, s.hero.x, s.hero.y);
             return { canAttack: true, isRanged: true, movedFt: best.c, hasHalfCover: l3.halfCover };
           }
         }
-        return { canAttack: true, isRanged: s.enemy.isRanged && curDist > 5, movedFt: 0, hasHalfCover: curDist > 5 && los.halfCover };
+        return { canAttack: true, isRanged: e.isRanged && curDist > 5, movedFt: 0, hasHalfCover: curDist > 5 && los.halfCover };
       }
 
-      // Move toward hero along shortest path (rooted enemies have 0ft movement!)
-      if (activeCombat.rooted > 0) {
-        this.spawnFloat(s.enemy.x, s.enemy.y, "❄️ ROOTED (0ft)", "#38bdf8");
-        const losR = checkLineAndCover(s.grid, s.enemy.x, s.enemy.y, s.hero.x, s.hero.y);
-        return { canAttack: curDist <= enemyRange && !losR.blocked, isRanged: s.enemy.isRanged && curDist > 5, movedFt: 0, rooted: true, hasHalfCover: curDist > 5 && losR.halfCover };
-      }
-      const reach = computeReachable(s.grid, s.enemy.x, s.enemy.y, s.enemy.speed, s.hero, !!s.enemy.isAquatic);
-      let best = null;
-      let bestScore = Infinity;
+      const reach = computeReachable(s.grid, e.x, e.y, e.speed, blocked, !!e.isAquatic);
+      let best = null, bestScore = Infinity;
       for (let y = 0; y < ROWS; y++) {
         for (let x = 0; x < COLS; x++) {
           if (!isFinite(reach.dist[y][x])) continue;
           const d = distFt(x, y, s.hero.x, s.hero.y);
           const l2 = checkLineAndCover(s.grid, x, y, s.hero.x, s.hero.y);
-          const targetD = s.enemy.isRanged ? 25 : 5;
-          let score = Math.abs(d - targetD) + (l2.blocked ? 100 : 0);
+          const targetD = e.isRanged ? 25 : 5;
+          const score = Math.abs(d - targetD) + (l2.blocked ? 100 : 0);
           if (score < bestScore) {
             bestScore = score;
             best = { x, y, c: reach.dist[y][x], d, blocked: l2.blocked, halfCover: l2.halfCover };
@@ -751,13 +998,11 @@
         }
       }
 
-      if (best && (best.x !== s.enemy.x || best.y !== s.enemy.y)) {
-        s.enemy.x = best.x;
-        s.enemy.y = best.y;
+      if (best && (best.x !== e.x || best.y !== e.y)) {
+        e.x = best.x; e.y = best.y;
         const canAtk = best.d <= enemyRange && !best.blocked;
         if (!canAtk) {
-          // Enemy uses Dash to close remaining distance!
-          const reach2 = computeReachable(s.grid, s.enemy.x, s.enemy.y, s.enemy.speed, s.hero);
+          const reach2 = computeReachable(s.grid, e.x, e.y, e.speed, this.getBlockedSet(e), !!e.isAquatic);
           let dashBest = null, dashScore = best.d;
           for (let y = 0; y < ROWS; y++) {
             for (let x = 0; x < COLS; x++) {
@@ -767,16 +1012,19 @@
             }
           }
           if (dashBest) {
-            s.enemy.x = dashBest.x;
-            s.enemy.y = dashBest.y;
-            this.spawnFloat(s.enemy.x, s.enemy.y, "DASH!", "#f87171");
+            e.x = dashBest.x; e.y = dashBest.y;
+            this.spawnFloat(e.x, e.y, "DASH!", "#f87171");
             return { canAttack: false, isRanged: false, movedFt: best.c + dashBest.c, dashed: true, hasHalfCover: false };
           }
         }
-        return { canAttack: canAtk, isRanged: s.enemy.isRanged && best.d > 5, movedFt: best.c, hasHalfCover: best.d > 5 && best.halfCover };
+        return { canAttack: canAtk, isRanged: e.isRanged && best.d > 5, movedFt: best.c, hasHalfCover: best.d > 5 && best.halfCover };
       }
 
-      return { canAttack: curDist <= enemyRange && !los.blocked, isRanged: s.enemy.isRanged && curDist > 5, movedFt: 0, hasHalfCover: los.halfCover };
+      return { canAttack: curDist <= enemyRange && !los.blocked, isRanged: e.isRanged && curDist > 5, movedFt: 0, hasHalfCover: los.halfCover };
+    },
+
+    moveEnemyAI(activeCombat) {
+      return this.moveSingleEnemyAI(this.getSelectedEnemy(), activeCombat);
     },
 
     // Visual FX helpers
@@ -870,11 +1118,13 @@
       const s = this.state;
       if (!canvas || !ctx || !s) return;
 
-      // Smoothly interpolate visual positions
-      s.hero.vx += (s.hero.x - s.hero.vx) * 0.25;
-      s.hero.vy += (s.hero.y - s.hero.vy) * 0.25;
-      s.enemy.vx += (s.enemy.x - s.enemy.vx) * 0.22;
-      s.enemy.vy += (s.enemy.y - s.enemy.vy) * 0.22;
+      // Smoothly interpolate visual positions for hero & all enemies
+      s.hero.vx += (s.hero.x - s.hero.vx) * 0.34;
+      s.hero.vy += (s.hero.y - s.hero.vy) * 0.34;
+      for (const e of s.enemies) {
+        e.vx += (e.x - e.vx) * 0.24;
+        e.vy += (e.y - e.vy) * 0.24;
+      }
 
       const W = canvas.width, H = canvas.height;
       ctx.clearRect(0, 0, W, H);
@@ -1027,13 +1277,33 @@
         ctx.fillText(bannerTxt, W / 2, 25);
       }
 
-      // 5. Hover Tile Highlight + Opportunity Attack warning
-      if (this.hoverTile) {
+      // 5. Hover Tile Highlight + Step-by-Step Path Preview & Mid-Path Opportunity Attack Warning
+      if (this.hoverTile && !s.targetMode) {
         const { x, y } = this.hoverTile;
         const c = s.reachable?.dist?.[y]?.[x];
-        const canMove = s.turn === "hero" && isFinite(c) && c > 0 && c <= s.hero.moveLeft;
-        const wasAdj = chebyshev(s.hero.x, s.hero.y, s.enemy.x, s.enemy.y) <= 1;
-        const provokesOA = canMove && wasAdj && !s.hero.disengaged && chebyshev(x, y, s.enemy.x, s.enemy.y) > 1;
+        const canMove = s.turn === "hero" && !s.moving && isFinite(c) && c > 0 && c <= s.hero.moveLeft;
+        const previewPath = canMove ? reconstructStepPath(s.reachable, s.hero.x, s.hero.y, x, y) : null;
+        const oaSteps = previewPath ? this.findPathOpportunityAttacks(previewPath) : new Set();
+        const provokesOA = oaSteps.size > 0;
+
+        if (previewPath && previewPath.length) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo((s.hero.x + 0.5) * TILE, (s.hero.y + 0.5) * TILE);
+          for (const st of previewPath) ctx.lineTo((st.x + 0.5) * TILE, (st.y + 0.5) * TILE);
+          ctx.strokeStyle = provokesOA ? "rgba(239, 68, 68, 0.85)" : "rgba(96, 165, 250, 0.85)";
+          ctx.lineWidth = 3;
+          ctx.setLineDash([7, 5]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          previewPath.forEach((st, i) => {
+            ctx.beginPath();
+            ctx.arc((st.x + 0.5) * TILE, (st.y + 0.5) * TILE, oaSteps.has(i) ? 7 : 4.5, 0, Math.PI * 2);
+            ctx.fillStyle = oaSteps.has(i) ? "#ef4444" : "#93c5fd";
+            ctx.fill();
+          });
+          ctx.restore();
+        }
 
         ctx.strokeStyle = provokesOA ? "#ef4444" : (canMove ? "#60a5fa" : "rgba(251, 191, 36, 0.65)");
         ctx.lineWidth = 3;
@@ -1107,54 +1377,69 @@
       ctx.stroke();
       ctx.restore();
 
-      // 8. Enemy Token
-      const ex = (s.enemy.vx + 0.5) * TILE;
-      const ey = (s.enemy.vy + 0.5) * TILE;
-      const er = s.enemy.isBoss ? 35 : 30;
-      ctx.save();
-      if (s.enemy.isBoss) {
-        const bp = 4 + Math.sin(now / 220) * 2.5;
-        ctx.beginPath();
-        ctx.arc(ex, ey, er + bp, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(239, 68, 68, 0.7)";
-        ctx.lineWidth = 3;
-        ctx.stroke();
-      }
-      ctx.beginPath();
-      ctx.arc(ex, ey, er, 0, Math.PI * 2);
-      const eGrad = ctx.createRadialGradient(ex - 6, ey - 6, 4, ex, ey, er);
-      eGrad.addColorStop(0, "#7f1d1d");
-      eGrad.addColorStop(1, "#2a0a0a");
-      ctx.fillStyle = eGrad;
-      ctx.fill();
-      const enemyImg = s.enemy.artPath ? getImg(s.enemy.artPath) : null;
-      if (enemyImg && enemyImg.complete && enemyImg.naturalWidth > 0 && !enemyImg._failed) {
+      // 8. All Living Enemy Tokens (with Target Selection Ring & Individual HP Bars)
+      const selEnemy = this.getSelectedEnemy();
+      for (const e of s.enemies) {
+        if (e.hp <= 0) continue;
+        const ex = (e.vx + 0.5) * TILE;
+        const ey = (e.vy + 0.5) * TILE;
+        const er = e.isBoss ? 35 : 29;
+        const isSel = (e === selEnemy && s.enemies.length > 1);
         ctx.save();
+        if (e.isBoss || isSel) {
+          const bp = 4 + Math.sin(now / 220) * 2.5;
+          ctx.beginPath();
+          ctx.arc(ex, ey, er + bp, 0, Math.PI * 2);
+          ctx.strokeStyle = isSel ? "rgba(251, 191, 36, 0.85)" : "rgba(239, 68, 68, 0.7)";
+          ctx.lineWidth = 3;
+          ctx.stroke();
+        }
         ctx.beginPath();
-        ctx.arc(ex, ey, er - 1, 0, Math.PI * 2);
-        ctx.clip();
-        ctx.drawImage(enemyImg, ex - er, ey - er, er * 2, er * 2);
-        ctx.restore();
-      } else {
-        ctx.font = s.enemy.isBoss ? "32px sans-serif" : "26px sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(s.enemy.icon, ex, ey);
-      }
-      ctx.beginPath();
-      ctx.arc(ex, ey, er, 0, Math.PI * 2);
-      ctx.lineWidth = 3.5;
-      ctx.strokeStyle = ac?.stunned > 0 ? "#facc15" : "#ef4444";
-      ctx.stroke();
-      // Mini Enemy HP bar under token
-      if (ac) {
-        const hpPct = Math.max(0, Math.min(1, ac.hp / Math.max(1, ac.maxHp)));
+        ctx.arc(ex, ey, er, 0, Math.PI * 2);
+        const eGrad = ctx.createRadialGradient(ex - 6, ey - 6, 4, ex, ey, er);
+        eGrad.addColorStop(0, "#7f1d1d");
+        eGrad.addColorStop(1, "#2a0a0a");
+        ctx.fillStyle = eGrad;
+        ctx.fill();
+        const enemyImg = e.artPath ? getImg(e.artPath) : null;
+        if (enemyImg && enemyImg.complete && enemyImg.naturalWidth > 0 && !enemyImg._failed) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(ex, ey, er - 1, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(enemyImg, ex - er, ey - er, er * 2, er * 2);
+          ctx.restore();
+        } else {
+          ctx.font = e.isBoss ? "32px sans-serif" : "25px sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(e.icon, ex, ey);
+        }
+        ctx.beginPath();
+        ctx.arc(ex, ey, er, 0, Math.PI * 2);
+        ctx.lineWidth = 3.5;
+        ctx.strokeStyle = ac?.stunned > 0 ? "#facc15" : (isSel ? "#fbbf24" : "#ef4444");
+        ctx.stroke();
+        // Number badge if multiple enemies
+        if (s.enemies.length > 1) {
+          ctx.fillStyle = isSel ? "#fbbf24" : "#991b1b";
+          ctx.beginPath();
+          ctx.arc(ex + er - 5, ey - er + 5, 10, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = isSel ? "#1c1917" : "#fef2f2";
+          ctx.font = "bold 11px sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(`${e.id + 1}`, ex + er - 5, ey - er + 5);
+        }
+        // Individual Mini Enemy HP bar under token
+        const hpPct = Math.max(0, Math.min(1, e.hp / Math.max(1, e.maxHp)));
         ctx.fillStyle = "rgba(0,0,0,0.8)";
         ctx.fillRect(ex - 28, ey + er + 3, 56, 7);
         ctx.fillStyle = "#ef4444";
         ctx.fillRect(ex - 27, ey + er + 4, Math.round(54 * hpPct), 5);
+        ctx.restore();
       }
-      ctx.restore();
 
       // 9. Visual FX (Slash / Beam / Floating Numbers)
       this.fx = this.fx.filter(f => now - f.born < f.dur);

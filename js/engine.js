@@ -6193,10 +6193,24 @@
             }
           },
           onStepExit: () => combatFlee(),
-          triggerOpportunityAttack: () => triggerOpportunityAttack(),
+          triggerOpportunityAttack: (attacker) => triggerOpportunityAttack(attacker),
           runEnemyTurn: () => endHeroTurn(),
           onStateChange: () => { renderCombatPanel(); renderSheet(); }
         });
+      }
+    }
+
+    function applyCombatDamage(dmg, targetEnemies = null) {
+      if (!activeCombat) return;
+      const v = window.OAKHAVEN?.VTT;
+      if (v && v.active && v.state) {
+        if (Array.isArray(targetEnemies)) {
+          for (const e of targetEnemies) v.applyDamageToEnemy(e, dmg, activeCombat);
+        } else {
+          v.applyDamageToSelected(dmg, activeCombat);
+        }
+      } else {
+        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
       }
     }
 
@@ -6238,9 +6252,10 @@
       return !isOffensive;
     }
 
-    function triggerOpportunityAttack() {
+    function triggerOpportunityAttack(attacker = null) {
       if (!activeCombat || activeCombat.stunned > 0) return;
       const v = window.OAKHAVEN?.VTT;
+      const foe = attacker || v?.getSelectedEnemy?.() || { name: activeCombat.name, dmg: activeCombat.dmg, x: v?.state?.enemy?.x || 0, y: v?.state?.enemy?.y || 0 };
       const d = getDerived(state);
       const subP = getSubclassPassiveTotals(state);
       const heroAc = d.ac + (activeCombat.wildShapeActive ? 3 : 0) + (activeCombat.bardAcTurns > 0 ? 2 : 0);
@@ -6248,22 +6263,22 @@
       const atk = activeCombat.atk - (activeCombat.chilled > 0 ? 2 : 0) - (activeCombat.grandHex ? 3 : 0);
       const tot = er.total + atk;
       if (tot >= heroAc || er.total === 12) {
-        let hitDmg = Math.max(1, activeCombat.dmg - (subP.dmgReduce || 0));
+        let hitDmg = Math.max(1, (foe.dmg || activeCombat.dmg) - (subP.dmgReduce || 0));
         if (activeCombat.rageActive) hitDmg *= 2;
         sfx("enemyHit");
         state.hp = Math.max(0, state.hp - hitDmg);
-        activeCombat.log.unshift(`⚠️ OPPORTUNITY ATTACK! ${activeCombat.name} strikes as you pull away (${tot} vs AC ${heroAc}) for ${hitDmg} dmg!`);
+        activeCombat.log.unshift(`⚠️ OPPORTUNITY ATTACK! ${foe.name} strikes as you move past (${tot} vs AC ${heroAc}) for ${hitDmg} dmg!`);
         if (v?.state) {
-          v.spawnAttackFx(v.state.enemy.x, v.state.enemy.y, v.state.hero.x, v.state.hero.y, "#ef4444", false);
+          v.spawnAttackFx(foe.x, foe.y, v.state.hero.x, v.state.hero.y, "#ef4444", false);
           v.spawnFloat(v.state.hero.x, v.state.hero.y, `OA -${hitDmg}`, "#f87171");
         }
         if (state.hp <= 0) {
           v?.stop();
-          return triggerDeath(`Struck down by ${activeCombat.name}'s Opportunity Attack!`);
+          return triggerDeath(`Struck down by ${foe.name}'s Opportunity Attack!`);
         }
       } else {
         sfx("shield");
-        activeCombat.log.unshift(`⚠️ ${activeCombat.name}'s Opportunity Attack misses (${tot} vs AC ${heroAc})!`);
+        activeCombat.log.unshift(`⚠️ ${foe.name}'s Opportunity Attack misses (${tot} vs AC ${heroAc})!`);
         if (v?.state) v.spawnFloat(v.state.hero.x, v.state.hero.y, "OA MISS", "#cbd5e1");
       }
       renderCombatPanel();
@@ -6302,9 +6317,10 @@
         if (activeCombat.isBoss && subP.bossDmgBonus) dmg += subP.bossDmgBonus;
         if (isCrit) dmg = Math.round(dmg * 1.5);
         sfx(isCrit ? "crit" : "sword");
-        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
-        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, isCrit ? `CRIT -${dmg}!` : `-${dmg}`, isCrit ? "#fde047" : "#fb923c");
-        activeCombat.log.unshift(`🏹 ${isCrit ? "CRIT! " : ""}Ranged Shot (${dist}ft${coverBonus ? ", Half Cover" : ""}) [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc} for ${dmg} dmg!`);
+        applyCombatDamage(dmg);
+        const selE = v?.getSelectedEnemy?.();
+        if (v?.state && selE) v.spawnFloat(selE.x, selE.y, isCrit ? `CRIT -${dmg}!` : `-${dmg}`, isCrit ? "#fde047" : "#fb923c");
+        activeCombat.log.unshift(`🏹 ${isCrit ? "CRIT! " : ""}Ranged Shot at ${selE?.name || activeCombat.name} (${dist}ft${coverBonus ? ", Half Cover" : ""}) [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc} for ${dmg} dmg!`);
       } else {
         sfx("miss");
         if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, "MISS", "#94a3b8");
@@ -6318,6 +6334,7 @@
       if (!checkVttActionReady()) return;
       const v = window.OAKHAVEN?.VTT;
       if (v?.active && v.state) {
+        if (v.state.moving) return;
         const wp = v.state.weapon;
         if (wp?.mode === "ranged") {
           const los = v.getLineOfSightHeroToEnemy();
@@ -6328,11 +6345,22 @@
           if (!approach.ok) {
             return toast(`Out of melee reach (${approach.distFt}ft away, ${approach.moveLeft}ft move left). Move closer, Dash, or use 🏹 Ranged!`, "bad");
           }
-          if (approach.moved > 0) {
-            activeCombat.log.unshift(`🥾 Closed ${approach.moved} ft into melee range!`);
+          if (approach.path && approach.path.length > 0) {
+            activeCombat.log.unshift(`🥾 Advancing ${approach.moved} ft step-by-step into melee reach!`);
+            v.walkHeroPath(approach.path, () => {
+              if (activeCombat && v.active) executeMeleeStrike(lucky);
+            });
+            return;
           }
         }
       }
+      executeMeleeStrike(lucky);
+    }
+
+    function executeMeleeStrike(lucky = false) {
+      if (!activeCombat) return;
+      const v = window.OAKHAVEN?.VTT;
+      const selE = v?.getSelectedEnemy?.();
       consumeVttAction();
       const d = getDerived(state);
       const subP = getSubclassPassiveTotals(state);
@@ -6352,7 +6380,7 @@
       const tot = r.total + effAtk;
       const critThreshold = activeCombat.huntersMark ? Math.min(subP.critRange || 12, 10) : (subP.critRange || 12);
       const isCrit = r.total >= critThreshold;
-      if (v?.state) v.spawnAttackFx(v.state.hero.x, v.state.hero.y, v.state.enemy.x, v.state.enemy.y, isCrit ? "#fde047" : "#f87171", v.state.weapon?.mode === "ranged");
+      if (v?.state && selE) v.spawnAttackFx(v.state.hero.x, v.state.hero.y, selE.x, selE.y, isCrit ? "#fde047" : "#f87171", v.state.weapon?.mode === "ranged");
       if (tot >= effEnemyAc || bonus > 0 || isCrit) {
         let dmg = roll(6) + Math.max(1, Math.floor(effAtk / 3)) + bonus;
         if (activeCombat.huntersMark) dmg += 4;
@@ -6362,19 +6390,19 @@
         if (isCrit) dmg = Math.round(dmg * 1.5);
         if (activeCombat.rageActive) dmg *= 2;
         sfx(isCrit ? "crit" : "sword");
-        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
-        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, isCrit ? `CRIT -${dmg}!` : `-${dmg}`, isCrit ? "#fde047" : "#f87171");
+        applyCombatDamage(dmg);
+        if (v?.state && selE) v.spawnFloat(selE.x, selE.y, isCrit ? `CRIT -${dmg}!` : `-${dmg}`, isCrit ? "#fde047" : "#f87171");
         let extra = "";
         if (activeCombat.rageActive) extra += " [🔥 RAGE 2x!]";
         if (subP.lifesteal > 0) {
           state.hp = Math.min(d.maxHp, state.hp + subP.lifesteal);
           extra += ` (+${subP.lifesteal} HP drained)`;
         }
-        activeCombat.log.unshift(`⚔ ${isCrit ? "CRIT! " : ""}Hit [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc} for ${dmg} dmg!${extra}`);
+        activeCombat.log.unshift(`⚔ ${isCrit ? "CRIT! " : ""}Hit ${selE?.name || activeCombat.name} [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc} for ${dmg} dmg!${extra}`);
       } else {
         sfx("miss");
-        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, "MISS", "#94a3b8");
-        activeCombat.log.unshift(`⚔ Missed [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc}!`);
+        if (v?.state && selE) v.spawnFloat(selE.x, selE.y, "MISS", "#94a3b8");
+        activeCombat.log.unshift(`⚔ Missed ${selE?.name || activeCombat.name} [${r.d1}+${r.d2}]+${effAtk}=${tot} vs AC ${effEnemyAc}!`);
       }
       combatAfterPlayer();
     }
@@ -6416,12 +6444,12 @@
       if (sp.aoe && sp.aoe.selfCentered && v?.active && v.state) {
         const radSq = sp.aoe.radiusSq || 1;
         const tiles = v.getAoeTiles(v.state.hero.x, v.state.hero.y, radSq);
-        const hitEnemy = tiles.some(t => t.x === v.state.enemy.x && t.y === v.state.enemy.y);
+        const hitEnemies = v.getEnemiesInTiles(tiles);
         v.spawnRingFx(v.state.hero.x, v.state.hero.y, radSq, sp.dmgType === "frost" ? "#38bdf8" : "#facc15");
         if (sp.aoe.turns > 0 && (sp.aoe.hazardDmg > 0 || sp.aoe.difficult)) {
           v.addHazardZone(tiles, sp.aoe, sp.name);
         }
-        executeCombatSpellEffect(sp, mpCost, slot, hitEnemy);
+        executeCombatSpellEffect(sp, mpCost, slot, hitEnemies.length > 0, hitEnemies);
         return;
       }
 
@@ -6432,9 +6460,9 @@
           spellName: sp.name,
           rangeFt: sp.rangeFt || 30,
           radiusSq: sp.aoe.radiusSq || 1,
-          onConfirm: ({ hitEnemy, tiles }) => {
+          onConfirm: ({ hitEnemies, hitEnemy, tiles }) => {
             v.addHazardZone(tiles, sp.aoe, sp.name);
-            executeCombatSpellEffect(sp, mpCost, slot, hitEnemy);
+            executeCombatSpellEffect(sp, mpCost, slot, hitEnemy, hitEnemies);
           }
         });
         toast(`🎯 Click a tile within ${sp.rangeFt || 30}ft to place ${sp.name}!`, "info");
@@ -6449,10 +6477,10 @@
         const los = v.getLineOfSightHeroToEnemy();
         if (los.blocked) return toast("Full Cover blocks Line of Sight for your spell! Move to a clear angle.", "bad");
       }
-      executeCombatSpellEffect(sp, mpCost, slot, true);
+      executeCombatSpellEffect(sp, mpCost, slot, true, null);
     }
 
-    function executeCombatSpellEffect(sp, mpCost, slot, hitEnemy = true) {
+    function executeCombatSpellEffect(sp, mpCost, slot, hitEnemy = true, hitEnemies = null) {
       const v = window.OAKHAVEN?.VTT;
       consumeVttSlot(slot);
       state.mp -= mpCost;
@@ -6494,13 +6522,17 @@
           dmg *= 2;
           mods.push("🔥 RAGE 2x!");
         }
-        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
+        applyCombatDamage(dmg, hitEnemies);
         if (v?.state) {
-          v.spawnAttackFx(v.state.hero.x, v.state.hero.y, v.state.enemy.x, v.state.enemy.y, "#38bdf8", true);
-          v.spawnFloat(v.state.enemy.x, v.state.enemy.y, `-${dmg}`, "#7dd3fc");
+          const targets = Array.isArray(hitEnemies) ? hitEnemies : [v.getSelectedEnemy()].filter(Boolean);
+          for (const te of targets) {
+            if (!sp.aoe) v.spawnAttackFx(v.state.hero.x, v.state.hero.y, te.x, te.y, "#38bdf8", true);
+            v.spawnFloat(te.x, te.y, `-${dmg}`, "#7dd3fc");
+          }
         }
         const typeStr = sp.dmgType ? ` ${sp.dmgType}` : "";
-        activeCombat.log.unshift(`${icon} ${sp.name} rolls ${rollText} = ${dmg}${typeStr} dmg${mods.length ? ` (${mods.join(" ")})` : ""}!`);
+        const hitNote = (Array.isArray(hitEnemies) && hitEnemies.length > 1) ? ` to ${hitEnemies.length} foes!` : "!";
+        activeCombat.log.unshift(`${icon} ${sp.name} rolls ${rollText} = ${dmg}${typeStr} dmg${mods.length ? ` (${mods.join(" ")})` : ""}${hitNote}`);
       }
 
       if (sp.healDice || sp.healBase) {
@@ -6539,12 +6571,16 @@
         activeCombat.log.unshift(`⚡ ${activeCombat.name} is STUNNED (${sp.stunTurns}t)!`);
       }
       if (sp.pushFt && hitEnemy && v?.active) {
-        const pushed = v.displaceEnemy(sp.pushFt, false);
-        if (pushed > 0) activeCombat.log.unshift(`💨 ${sp.name} knocks ${activeCombat.name} back ${pushed} ft!`);
+        const targets = Array.isArray(hitEnemies) ? hitEnemies : [v.getSelectedEnemy()].filter(Boolean);
+        let maxPushed = 0;
+        for (const te of targets) maxPushed = Math.max(maxPushed, v.displaceEnemy(sp.pushFt, false, te));
+        if (maxPushed > 0) activeCombat.log.unshift(`💨 ${sp.name} knocks foes back ${maxPushed} ft!`);
       }
       if (sp.pullFt && hitEnemy && v?.active) {
-        const pulled = v.displaceEnemy(sp.pullFt, true);
-        if (pulled > 0) activeCombat.log.unshift(`🪝 ${sp.name} pulls ${activeCombat.name} ${pulled} ft closer!`);
+        const targets = Array.isArray(hitEnemies) ? hitEnemies : [v.getSelectedEnemy()].filter(Boolean);
+        let maxPulled = 0;
+        for (const te of targets) maxPulled = Math.max(maxPulled, v.displaceEnemy(sp.pullFt, true, te));
+        if (maxPulled > 0) activeCombat.log.unshift(`🪝 ${sp.name} pulls foes ${maxPulled} ft closer!`);
       }
       if (sp.aoe && !hitEnemy) {
         activeCombat.log.unshift(`${icon} ${sp.name} coats the battlefield in ${sp.aoe.label || sp.name} (${sp.aoe.turns || 3}t)!`);
@@ -7046,9 +7082,10 @@
 
     function combatAfterPlayer() {
       if (!activeCombat) return;
+      const v = window.OAKHAVEN?.VTT;
+      if (v && v.active && v.state) v.syncHpDelta(activeCombat);
       if (activeCombat.hp <= 0) return resolveCombatVictory();
 
-      const v = window.OAKHAVEN?.VTT;
       // In VTT 5e mode: after an Action, let player finish moving / use Bonus Action / click End Turn
       // (If moveLeft === 0 and bonusUsed, auto-end turn after a short 450ms beat for snappy flow!)
       if (v && v.active && v.state) {
@@ -7103,15 +7140,32 @@
         activeCombat.log.unshift(`🔥 ${activeCombat.name} ENRAGES! (+1 ATK, +2 DMG!)`);
       }
 
-      // Enemy Turn (Stun check + VTT Grid AI Movement + Dodge/Cover + Natural 12 Crits + Undead MP Drain + Thorns)
+      // Enemy Turns (Sequential per-enemy turns on the VTT grid!)
       if (activeCombat.stunned > 0) {
         activeCombat.stunned--;
-        if (v?.state) v.spawnFloat(v.state.enemy.x, v.state.enemy.y, "⚡ STUNNED", "#facc15");
+        if (v?.state) {
+          for (const e of v.getLivingEnemies()) v.spawnFloat(e.x, e.y, "⚡ STUNNED", "#facc15");
+        }
         activeCombat.log.unshift(`⚡ ${activeCombat.name} is STUNNED and loses its turn!`);
-      } else {
-        const ai = (v && v.active && v.state) ? v.moveEnemyAI(activeCombat) : { canAttack: true, isRanged: false, movedFt: 0, hasHalfCover: false };
+        finishEnemyPhase();
+        return;
+      }
+
+      const livingEnemies = (v && v.active && v.state) ? v.getLivingEnemies() : [{ name: activeCombat.name, dmg: activeCombat.dmg }];
+      const runNextEnemy = (i) => {
+        if (!activeCombat || state.hp <= 0) {
+          if (state.hp <= 0) { v?.stop(); return triggerDeath(`Slain by ${activeCombat?.name || "enemy"}!`); }
+          return;
+        }
+        if (activeCombat.hp <= 0) return resolveCombatVictory();
+        if (i >= livingEnemies.length) return finishEnemyPhase();
+
+        const foe = livingEnemies[i];
+        if (foe.hp !== undefined && foe.hp <= 0) return runNextEnemy(i + 1);
+
+        const ai = (v && v.active && v.state) ? v.moveSingleEnemyAI(foe, activeCombat) : { canAttack: true, isRanged: false, movedFt: 0, hasHalfCover: false };
         if (ai.movedFt > 0) {
-          activeCombat.log.unshift(`👣 ${activeCombat.name} ${ai.dashed ? "DASHES" : "moves"} ${ai.movedFt} ft across the battlefield!`);
+          activeCombat.log.unshift(`👣 ${foe.name} ${ai.dashed ? "DASHES" : "moves"} ${ai.movedFt} ft across the battlefield!`);
         }
         if (ai.canAttack) {
           const d = getDerived(state);
@@ -7123,10 +7177,11 @@
           const tot = er.total + atk;
           const enemyCrit = er.total === 12;
 
-          if (v?.state) v.spawnAttackFx(v.state.enemy.x, v.state.enemy.y, v.state.hero.x, v.state.hero.y, ai.isRanged ? "#c084fc" : "#ef4444", ai.isRanged);
+          if (v?.state) v.spawnAttackFx(foe.x, foe.y, v.state.hero.x, v.state.hero.y, ai.isRanged ? "#c084fc" : "#ef4444", ai.isRanged);
 
           if (tot >= heroAc || enemyCrit) {
-            let hitDmg = enemyCrit ? Math.round(activeCombat.dmg * 1.5) : activeCombat.dmg;
+            const baseFoeDmg = foe.dmg || activeCombat.dmg;
+            let hitDmg = enemyCrit ? Math.round(baseFoeDmg * 1.5) : baseFoeDmg;
             if (subP.dmgReduce > 0) hitDmg = Math.max(1, hitDmg - subP.dmgReduce);
             if (activeCombat.rageActive) hitDmg *= 2;
             sfx("enemyHit");
@@ -7139,47 +7194,57 @@
             }
             if (subP.thornsDmg > 0 && !ai.isRanged) {
               const retDmg = activeCombat.rageActive ? subP.thornsDmg * 2 : subP.thornsDmg;
-              activeCombat.hp = Math.max(0, activeCombat.hp - retDmg);
+              applyCombatDamage(retDmg, v?.active ? [foe] : null);
               extra += ` [Retaliated ${retDmg} dmg!]`;
             }
-            activeCombat.log.unshift(`💥 ${enemyCrit ? "ENEMY CRIT! " : ""}${activeCombat.name} ${ai.isRanged ? "fires" : "hits"} (${tot} vs AC ${heroAc}${coverBonus ? " +Cover" : ""}) for ${hitDmg} dmg!${extra}`);
+            activeCombat.log.unshift(`💥 ${enemyCrit ? "ENEMY CRIT! " : ""}${foe.name} ${ai.isRanged ? "fires" : "hits"} (${tot} vs AC ${heroAc}${coverBonus ? " +Cover" : ""}) for ${hitDmg} dmg!${extra}`);
           } else {
             sfx("shield");
             if (v?.state) v.spawnFloat(v.state.hero.x, v.state.hero.y, dodgePen ? "DODGED!" : "MISS", "#93c5fd");
-            activeCombat.log.unshift(`🛡️ ${activeCombat.name} misses (${tot} vs AC ${heroAc}${dodgePen ? ", Dodge" : ""}${coverBonus ? ", Cover" : ""})!`);
+            activeCombat.log.unshift(`🛡️ ${foe.name} misses (${tot} vs AC ${heroAc}${dodgePen ? ", Dodge" : ""}${coverBonus ? ", Cover" : ""})!`);
           }
         }
-      }
 
-      if (activeCombat.chilled > 0) activeCombat.chilled--;
-      if (activeCombat.rooted > 0) activeCombat.rooted--;
-      if (activeCombat.heroAtkBuffTurns > 0) activeCombat.heroAtkBuffTurns--;
-      if (activeCombat.overchargeTurns > 0) activeCombat.overchargeTurns--;
-      if (activeCombat.bardAcTurns > 0) activeCombat.bardAcTurns--;
-      if (state.shieldTurns > 0) state.shieldTurns--;
-      if (state.evadeTurns > 0) state.evadeTurns--;
+        renderCombatPanel();
+        renderSheet();
+        if (state.hp <= 0) { v?.stop(); return triggerDeath(`Slain by ${foe.name}!`); }
+        if (activeCombat.hp <= 0) return resolveCombatVictory();
 
-      // Spellcaster passive + equipped item MP regen at the end of each combat turn
-      const turnMpRegen = (isSpellcasterClass(state) ? 1 : 0) + (subP.mpRegen || 0);
-      if (state.hp > 0 && turnMpRegen > 0) {
-        const rd = getDerived(state);
-        if (state.mp < rd.maxMp) {
-          state.mp = Math.min(rd.maxMp, state.mp + turnMpRegen);
-          activeCombat.log.unshift(`🔷 Arcane Flow restores +${turnMpRegen} MP (${state.mp}/${rd.maxMp}).`);
+        if (i + 1 < livingEnemies.length) {
+          setTimeout(() => runNextEnemy(i + 1), 320);
+        } else {
+          finishEnemyPhase();
         }
-      }
+      };
 
-      if (state.hp <= 0) {
-        v?.stop();
-        return triggerDeath(`Slain by ${activeCombat.name}!`);
-      }
-      if (activeCombat.hp <= 0) return resolveCombatVictory();
+      const finishEnemyPhase = () => {
+        if (!activeCombat) return;
+        if (activeCombat.chilled > 0) activeCombat.chilled--;
+        if (activeCombat.rooted > 0) activeCombat.rooted--;
+        if (activeCombat.heroAtkBuffTurns > 0) activeCombat.heroAtkBuffTurns--;
+        if (activeCombat.overchargeTurns > 0) activeCombat.overchargeTurns--;
+        if (activeCombat.bardAcTurns > 0) activeCombat.bardAcTurns--;
+        if (state.shieldTurns > 0) state.shieldTurns--;
+        if (state.evadeTurns > 0) state.evadeTurns--;
 
-      if (v && v.active && v.state) {
-        v.beginHeroTurn(activeCombat);
-      }
-      renderCombatPanel();
-      renderSheet();
+        const turnMpRegen = (isSpellcasterClass(state) ? 1 : 0) + (subP.mpRegen || 0);
+        if (state.hp > 0 && turnMpRegen > 0) {
+          const rd = getDerived(state);
+          if (state.mp < rd.maxMp) {
+            state.mp = Math.min(rd.maxMp, state.mp + turnMpRegen);
+            activeCombat.log.unshift(`🔷 Arcane Flow restores +${turnMpRegen} MP (${state.mp}/${rd.maxMp}).`);
+          }
+        }
+
+        if (state.hp <= 0) { v?.stop(); return triggerDeath(`Slain by ${activeCombat.name}!`); }
+        if (activeCombat.hp <= 0) return resolveCombatVictory();
+
+        if (v && v.active && v.state) v.beginHeroTurn(activeCombat);
+        renderCombatPanel();
+        renderSheet();
+      };
+
+      runNextEnemy(0);
     }
 
     let lastNarratedPageKey = "";
