@@ -1,5 +1,5 @@
 {
-  "totalPasses": 34,
+  "totalPasses": 35,
   "history": [
     {
       "pass": 1,
@@ -232,6 +232,13 @@
       "title": "Storming the Queen's Desire",
       "file": "data/quests/books_quests_batch_020.js",
       "summary": "Expanded from 7 to 11 pages with Foremast Crow's Nest rescue of cabin boy Toby (TOBY_RESCUED, +35 GP, +8 HP/+3 MP, Detect Traps/Firebolt thunder-wire sabotage -> WIRE_CUT), Gun-Deck Bilge Baron's Bribe-Chest (Lockpicking -> BARON_CONTRACT + 45 GP + stern-window cabin flank + 50 GP harbormaster bonus), and Messori Privateer victory ending."
+    },
+    {
+      "pass": 35,
+      "questId": "bk_b19_clattering_keep",
+      "title": "The Clattering Keep",
+      "file": "data/quests/books_quests_batch_019.js",
+      "summary": "Expanded from 7 to 11 pages with West Undercroft rescue of captive stonemason Garran (Lockpicking/Athletics -> GARRAN_FREED, +35 GP, +8 HP/+3 MP, chapel stair bypass), Rookery Gallery flawed binding-stone sabotage (GARRAN_FREED/Turn Undead/Detect Traps -> CIRCLE_CRACKED + 45 GP), Garran's guild rescue bonus (+45 GP/+30 XP), and Raider of Keep Yellete victory ending."
     }
   ],
   "questPasses": {
@@ -268,6 +275,7 @@
     "bk_b14_flaying_star": 1,
     "bk_b5_swept_away": 1,
     "bk_b2_spore_lord": 1,
-    "bk_b20_queens_desire": 1
+    "bk_b20_queens_desire": 1,
+    "bk_b19_clattering_keep": 1
   }
 }

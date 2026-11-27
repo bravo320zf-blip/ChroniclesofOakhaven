@@ -321,7 +321,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 4. THE CLATTERING KEEP (7 PAGES • LV 4)
+  // 4. THE CLATTERING KEEP (11 PAGES • LV 4)
   // ==========================================================
   bk_b19_clattering_keep: {
     id: "bk_b19_clattering_keep",
@@ -331,33 +331,35 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 4,
     autoDiscover: false,
     discoverySource: "Rusty Flagon Inn Rumor",
-    summary: "Follow an overgrown cartway to ruined Keep Yellete, where the necromancer Utratch lays binding wards around two terrifying undead Unhatched dragonlings.",
-    totalPages: 7,
+    summary: "Follow an overgrown cartway to ruined Keep Yellete, rescue a captive stonemason from the undercroft, shatter the necromancer Utratch's binding wards, and lay two terrifying undead Unhatched dragonlings to rest.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Keep Yellete Road",
         title: "The Overgrown Cartway",
         safeRetreat: true,
-        text: "Three miles up a scrubby hill-track stands ruined Keep Yellete—where locals swear bones clatter from the battlements all night. Outside the crumbling gatehouse, four mercenaries patrol beside freshly etched necrotic binding-wards!",
+        text: "Three miles up a scrubby hill-track stands ruined Keep Yellete—where locals swear dry bones clatter like wind-chimes from the battlements all night. Outside the crumbling gatehouse, four mercenaries patrol beside freshly etched necrotic binding-wards, while a briar-choked drainage culvert yawns darkly beneath the western curtain wall.",
         choices: [
           { t: "Disrupt the outer binding-ward quietly before the mercenaries notice.", badge: "Arcana / Stealth DC 12", check: { stat: "arcana", skill: "Stealth", dc: 12, pass: 2, fail: 2, failDmg: 4, passMsg: "The necrotic ward cracks—sapping Utratch's control over the keep!", failMsg: "A scout's crossbow bolt grazes your ribs (-4 HP)!" }, onPass: { cw: "WARD_BROKEN" } },
+          { t: "Crawl through the briar-choked postern culvert beneath the west wall.", badge: "Stealth / Agility DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 8, fail: 2, passMsg: "You slip unseen beneath the battlements into the damp undercroft!", failMsg: "Snapping briars alert the gatehouse watch—sellswords rush the courtyard!" } },
           { t: "Charge the mercenary picket at the broken gatehouse!", to: 2 }
         ]
       },
       2: {
         zone: "Outer Courtyard",
         title: "Utratch's Mercenary Rabble",
-        text: "Two battle-scarred veterans and hired scouts draw steel beneath the clattering archway while Utratch shouts orders from the inner keep!",
+        text: "Two battle-scarred veterans and hired scouts draw steel beneath the clattering archway while Utratch shouts shrill orders from the high rookery windows!",
         enemy: { name: "Utratch's Mercenary Guard", desc: "Ruthless sell-swords hired to guard the necromancer's wards.", hp: 34, ac: 13, atk: 6, dmg: 6, xp: 95, gold: 55, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1, weakCw: ["WARD_BROKEN"] },
         choices: [
-          { t: "Climb the cracked tower stairs into Utratch's ritual chamber!", to: 3 }
+          { t: "Slip up the ruined chapel stair to scout the Rookery Gallery first.", to: 10 },
+          { t: "Climb the cracked tower stairs straight into Utratch's ritual chamber!", to: 3 }
         ]
       },
       3: {
         zone: "Inner Keep",
         title: "The Unhatched Nest",
-        text: "Bone-shards rattle across the flagstone hall! Utratch the Necromancer stands behind a glowing chalk circle as two skeletal, winged dragonlings—the Unhatched—hiss necrotic vapor from a ruined rookery!",
-        enemy: { name: "Utratch & The Unhatched", desc: "Ambitious necromancer and her skeletal undead dragonlings.", hp: 46, ac: 14, atk: 7, dmg: 7, undead: true, xp: 155, gold: 105, items: ["bq_unhatched_bone_amulet"], weakCw: ["WARD_BROKEN"] },
+        text: "Bone-shards rattle across the flagstone hall! Utratch the Necromancer stands behind a glowing chalk circle as two skeletal, winged dragonlings—the Unhatched—hiss cold necrotic vapor from a ruined rookery! 'At last—living marrow to wake my brood!'",
+        enemy: { name: "Utratch & The Unhatched", desc: "Ambitious necromancer and her skeletal undead dragonlings.", hp: 46, ac: 14, atk: 7, dmg: 7, undead: true, xp: 155, gold: 105, items: ["bq_unhatched_bone_amulet"], weakCw: ["WARD_BROKEN", "CIRCLE_CRACKED"] },
         choices: [
           { t: "Shatter the remaining binding stones and search Utratch's satchel.", to: 4 }
         ]
@@ -368,13 +370,15 @@ window.OAKHAVEN.registerQuests({
         text: "With the Unhatched laid to rest and Utratch's plot broken, you uncover a hidden mason's niche holding 55 GP and dusty silver trade-bars.",
         onEnter: { gold: 55, healHp: 10, msg: "Recovered 55 GP and rested in the quieted keep (+10 HP)!" },
         choices: [
-          { t: "Carry proof of the keep's cleansing back to Oakhaven.", to: 5 }
+          { t: "Escort Garran safely down the hill and present Utratch's grimoire to Oakhaven!", reqCw: "GARRAN_FREED", badge: "GARRAN_FREED", to: 5, onChoose: { gold: 45, xp: 30, msg: "The masons' guild adds a 45 GP & 30 XP reward for bringing Garran home alive!" } },
+          { t: "Carry proof of the keep's cleansing back to Oakhaven.", to: 5 },
+          { t: "Strip the rare draconic bone-shards and silver fittings from the rookery before leaving.", to: 11 }
         ]
       },
       5: {
         zone: "Hill Cartway",
         title: "Silent Battlements",
-        text: "Behind you, Keep Yellete stands silent beneath the scrubby hills at last.",
+        text: "Behind you, Keep Yellete stands silent beneath the scrubby hills at last—not a single bone rattles on the evening wind.",
         choices: [
           { t: "Return to the Rusty Flagon to collect the bounty!", to: 6 }
         ]
@@ -382,7 +386,7 @@ window.OAKHAVEN.registerQuests({
       6: {
         zone: "Oakhaven",
         title: "Bounty Claimed",
-        text: "The local magistrates breathe a deep sigh of relief at the news of Utratch's defeat.",
+        text: "Oakhaven's magistrates breathe a deep sigh of relief as you lay Utratch's shattered binding-seal on the council table.",
         choices: [
           { t: "Complete the quest!", to: 7 }
         ]
@@ -390,8 +394,46 @@ window.OAKHAVEN.registerQuests({
       7: {
         zone: "Epilogue",
         title: "Silencer of Keep Yellete",
-        text: "The Clattering Keep rattles no more, and two budding dracolich horrors will never take flight!",
+        text: "The Clattering Keep rattles no more, and two budding dracolich horrors will never take flight over the frontier!",
         ending: { type: "true", title: "Silencer of the Clattering Keep", xp: 175, gold: 165, trophy: "Unhatched Skull-Clasp" },
+        choices: []
+      },
+      8: {
+        zone: "West Undercroft",
+        title: "The Captive Stonemason",
+        text: "Inside the damp vaulted cellar beneath the battlements sits Garran, an Oakhaven stonemason locked inside a rusted grain-cage. 'Psst—over here!' he whispers. 'That mad witch forced me to chisel her binding-runes, then tossed me down here to feed her bone-drakes!'",
+        choices: [
+          { t: "Pick the rusted padlock on Garran's cage cleanly!", badge: "Lockpicking / Agility DC 12", check: { stat: "agility", skill: "Lockpicking", dc: 12, pass: 9, fail: 9, failDmg: 4, passMsg: "The old tumbler clicks free without a sound!", failMsg: "A rusted spring snaps against your thumb (-4 HP) before the latch yields!" } },
+          { t: "Wrench the bent iron cage-bars wide with raw strength!", badge: "Might / Athletics DC 12", check: { stat: "might", skill: "Athletics", dc: 12, pass: 9, fail: 9, failDmg: 4, passMsg: "With a dull groan of iron, the cage door swings wide!", failMsg: "Jagged rust scrapes your forearm (-4 HP) as you force the door open!" } },
+          { t: "Leave the undercroft and climb into the Outer Courtyard.", to: 2 }
+        ]
+      },
+      9: {
+        zone: "West Undercroft",
+        title: "Garran's Keystone Secret",
+        text: "Garran scrambles free, pressing a hidden pouch of 35 GP and a cool flask of spring water (+8 HP, +3 MP) into your hand. 'I carved a deliberate hairline flaw into the third chalk sigil up in the Rookery Gallery!' he grins. 'Strike it and her whole circle splits—and you can take the dry chapel stair straight up past her sellswords!'",
+        onEnter: { cw: "GARRAN_FREED", gold: 35, healHp: 8, healMp: 3, msg: "Rescued Garran (+35 GP, +8 HP, +3 MP) and learned the keystone flaw!" },
+        choices: [
+          { t: "Slip up the hidden chapel stair straight to the Rookery Gallery!", to: 10 },
+          { t: "Climb into the Outer Courtyard to clear out Utratch's mercenaries first.", to: 2 }
+        ]
+      },
+      10: {
+        zone: "Rookery Gallery",
+        title: "The Flawed Binding-Stone",
+        text: "Overlooking the ritual hall, pale dragon-shell fragments litter the gallery floor around Utratch's central binding-pylon and a brass necromancer's coffer.",
+        choices: [
+          { t: "Strike Garran's hidden keystone flaw to crack Utratch's binding circle!", reqCw: "GARRAN_FREED", badge: "GARRAN_FREED", to: 3, onChoose: { cw: "CIRCLE_CRACKED", msg: "The third rune splits in violet sparks—the Unhatched screech in wild panic!" } },
+          { t: "Flood the bone-rookery with Turn Undead to sear the brood!", reqSpell: "Turn Undead", mp: 4, badge: "Turn Undead (4 MP)", to: 3, onChoose: { cw: "CIRCLE_CRACKED", msg: "Consecrated light blasts the gallery, shattering Utratch's necrotic wards!" } },
+          { t: "Disarm the bone-needle trap on Utratch's brass coffer with Detect Traps.", reqSkill: "Detect Traps", badge: "Detect Traps", to: 3, onChoose: { gold: 45, cw: "CIRCLE_CRACKED", msg: "You claim 45 GP and topple her central incense-brazier into the circle!" } },
+          { t: "Drop straight down into the Inner Keep to face Utratch!", to: 3 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Raider of Keep Yellete",
+        text: "Your pack clinks with rare draconic bone-reagents and stripped silver fittings—fetching a handsome sum in Oakhaven's curio stalls while Keep Yellete falls silent behind you.",
+        ending: { type: "victory", title: "Raider of Keep Yellete", xp: 150, gold: 210, trophy: "Shattered Dragon-Shell" },
         choices: []
       }
     }
