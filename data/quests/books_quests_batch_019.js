@@ -904,7 +904,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 11. THE RETURNERS' TOWER (7 PAGES • LV 5)
+  // 11. THE RETURNERS' TOWER (11 PAGES • LV 5)
   // ==========================================================
   bk_b19_returners_tower: {
     id: "bk_b19_returners_tower",
@@ -914,34 +914,36 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 5,
     autoDiscover: false,
     discoverySource: "Rusty Flagon Inn Rumor",
-    summary: "Investigate a haunted tower near Tarrini seized by Returner cultists, uncover Ralio's construction parchments, and shut down the perilous planar Beacon at the summit.",
-    totalPages: 7,
+    summary: "Investigate a storm-wreathed watchtower near Tarrini seized by Returner cultists, rescue a captive Tarrini scribe in the bell-loft, sabotage the copper conduits, and shut down Ralio's perilous planar Beacon at the summit.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Tower Base",
         title: "Whispers of Rebellion",
         safeRetreat: true,
-        text: "Tarrini's mayor hired you to investigate an old stone watchtower humming with eerie violet energy. Returner cultists in hooded cloaks patrol the crumbling courtyard, whispering of 'recalling the ancient elves'!",
+        text: "Tarrini's mayor hired you to investigate an old hillside watchtower now humming with eerie violet lightning. Hooded Returner cultists patrol the crumbling courtyard, whispering fiercely of 'recalling the ancient elves'—while a thick ivy-draped bell-rope shaft climbs the shadowed masonry beside the arrow-slit cellar.",
         choices: [
           { t: "Slip through the arrow-slit cellar to bypass the courtyard sentries!", badge: "Stealth / Lockpicking DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 2, fail: 2, failDmg: 5, passMsg: "You slip silently into the stairwell behind the guards!", failMsg: "A cultist blade nicks your arm (-5 HP) before you force the door!" }, onPass: { cw: "TOWER_INFILTRATED" } },
+          { t: "Scale the ivy-draped bell-rope shaft straight up to the Mid-Tower Bell-Loft!", badge: "Athletics / Agility DC 13", check: { stat: "agility", skill: "Athletics", dc: 13, pass: 8, fail: 2, passMsg: "You haul yourself cleanly onto the quiet timber ledge of the bell-loft!", failMsg: "Rotted ivy snaps underfoot—dropping you right by the watchtower door!" } },
           { t: "Storm the watchtower door with steel drawn!", to: 2 }
         ]
       },
       2: {
         zone: "Ralio's Quarters",
         title: "Cultists & Blueprints",
-        text: "A lit bullseye lantern illuminates dozens of arcane parchments detailing an ominous four-stand metallic Beacon—while fanatical Returner guards block the spiral stair to the roof!",
+        text: "A humming bullseye lantern illuminates dozens of inked arcane parchments detailing an ominous four-stand metallic Beacon—while fanatical Returner zealots bar the spiral stair to the summit!",
         enemy: { name: "Returner Cult Zealots", desc: "Fanatical rebels guarding the tower stairwell.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 135, gold: 70, items: rollRandomLoot(["consumable", "valuable"], 1, "rare"), flee: 1, weakCw: ["TOWER_INFILTRATED"] },
         choices: [
           { t: "Study Ralio's parchments to learn the Beacon's emergency shutdown glyph!", badge: "Arcana / Perception DC 12", check: { stat: "arcana", skill: "Perception", dc: 12, pass: 3, fail: 3, passMsg: "You memorize the shutdown rune—giving you the edge atop the tower!", failMsg: "Crackling thunder overhead forces you straight up the stairs!" }, onPass: { cw: "BEACON_SHUTDOWN" } },
+          { t: "Duck up the side service stair to sabotage the Conduit Gallery first.", to: 10 },
           { t: "Race straight up to the tower roof!", to: 3 }
         ]
       },
       3: {
         zone: "Tower Summit",
         title: "Ralio & The Planar Beacon",
-        text: "Lightning arcs around a colossal metal orb mounted on four enchanted stands! Tormented cult-architect Ralio—realizing too late the catastrophic rift Yenithia's Beacon will tear open—still refuses to surrender his dream!",
-        enemy: { name: "Ralio, Architect of the Beacon", desc: "Desperate cult fanatic channeling the unstable planar orb.", hp: 58, ac: 15, atk: 8, dmg: 8, xp: 195, gold: 135, items: ["bq_returner_beacon_shard"], weakCw: ["BEACON_SHUTDOWN", "TOWER_INFILTRATED"] },
+        text: "Violet lightning lashes around a colossal metal orb mounted on four enchanted stands! Tormented cult-architect Ralio—realizing too late the catastrophic rift Yenithia's Beacon will tear open—still refuses to surrender his dream: 'Stand back! The old glory returns tonight!'",
+        enemy: { name: "Ralio, Architect of the Beacon", desc: "Desperate cult fanatic channeling the unstable planar orb.", hp: 58, ac: 15, atk: 8, dmg: 8, xp: 195, gold: 135, items: ["bq_returner_beacon_shard"], weakCw: ["BEACON_SHUTDOWN", "TOWER_INFILTRATED", "CONDUIT_CUT"] },
         choices: [
           { t: "Trigger the shutdown glyph and collapse the four enchanted stands!", to: 4 }
         ]
@@ -949,16 +951,18 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Quieted Summit",
         title: "Rift Averted",
-        text: "The metal orb powers down in a shower of harmless sparks. Gathering Ralio's valuable engineering parchments nets you 85 GP in scholarly salvage.",
+        text: "The metal orb powers down in a fading shower of harmless violet sparks. Gathering Ralio's valuable engineering parchments nets you 85 GP in scholarly salvage.",
         onEnter: { gold: 85, healHp: 12, msg: "Disabled the Beacon and salvaged 85 GP (+12 HP)!" },
         choices: [
-          { t: "Descend the watchtower and report back to Tarrini's mayor.", to: 5 }
+          { t: "Escort Corin safely back to Tarrini with Yenithia's complete ley-charts!", reqCw: "CORIN_SAVED", badge: "CORIN_SAVED", to: 5, onChoose: { gold: 50, xp: 35, msg: "Tarrini's mayor adds a 50 GP & 35 XP bonus for rescuing Corin and recovering Yenithia's charts!" } },
+          { t: "Descend the watchtower and report back to Tarrini's mayor.", to: 5 },
+          { t: "Pry loose the Beacon's rare violet planar lenses for private trade before descending.", to: 11 }
         ]
       },
       5: {
         zone: "Tarrini Road",
         title: "Clear Skies",
-        text: "The violet storm-clouds above the watchtower break into clear evening starlight.",
+        text: "The crackling violet storm-clouds above the hillside watchtower break apart into crisp, peaceful evening starlight.",
         choices: [
           { t: "Collect the mayor's bounty!", to: 6 }
         ]
@@ -966,7 +970,7 @@ window.OAKHAVEN.registerQuests({
       6: {
         zone: "Tarrini Town Hall",
         title: "Order Restored",
-        text: "The mayor and garrison captain express deep gratitude as they hand over the promised reward.",
+        text: "Tarrini's mayor and garrison captain shake your hand warmly in front of the town council as they count out the promised bounty.",
         choices: [
           { t: "Complete the quest!", to: 7 }
         ]
@@ -976,6 +980,44 @@ window.OAKHAVEN.registerQuests({
         title: "Silencer of the Beacon",
         text: "Yenithia's reckless planar Beacon is dismantled, and Tarrini rests safe beneath quiet skies!",
         ending: { type: "true", title: "Dismantler of the Returners' Beacon", xp: 220, gold: 210, trophy: "Returner's Brass Astrolabe" },
+        choices: []
+      },
+      8: {
+        zone: "Mid-Tower Bell-Loft",
+        title: "The Disillusioned Scribe",
+        text: "Crouched behind a cracked bronze watch-bell sits Corin, a young Tarrini clerk with ink-stained fingers. 'Don't strike—I'm no cultist!' he whispers frantically. 'Ralio hired me to copy Yenithia's ley-charts, then barred the loft when I warned him the orb would tear the hill apart!'",
+        choices: [
+          { t: "Reassure Corin that Tarrini's mayor sent you to dismantle the Beacon.", badge: "Persuasion / Spirit DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 9, fail: 9, passMsg: "Corin exhales in relief and pulls a folded ley-chart from his coat!", failMsg: "Shaken but hopeful, Corin hands over his marked ley-chart anyway." } },
+          { t: "Trace the humming copper grounding-chain running through the loft with Arcana.", badge: "Arcana DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 9, fail: 9, failDmg: 5, passMsg: "You spot the exact weak relay feeding the roof—Corin nods eagerly!", failMsg: "Static leaps from the chain (-5 HP), though Corin pulls you back safely!" } },
+          { t: "Drop down the interior ladder into Ralio's Quarters.", to: 2 }
+        ]
+      },
+      9: {
+        zone: "Mid-Tower Bell-Loft",
+        title: "Corin's Ley-Chart & Service Hatch",
+        text: "Corin presses 40 GP in garrison wages and a warm herbal flask (+10 HP, +4 MP) into your hand alongside his marked copy of Yenithia's Beacon Key. 'There's a timber hatch right above us into the Conduit Gallery—cut the copper busbars there and you'll starve Ralio's orb!'",
+        onEnter: { cw: "CORIN_SAVED", gold: 40, healHp: 10, healMp: 4, msg: "Rescued Corin (+40 GP, +10 HP, +4 MP) and gained Yenithia's Beacon Key!" },
+        choices: [
+          { t: "Climb the loft hatch straight into the Conduit Gallery (bypassing the zealots)!", to: 10 },
+          { t: "Descend into Ralio's Quarters to clear out the Returner Zealots first.", to: 2 }
+        ]
+      },
+      10: {
+        zone: "Conduit Gallery",
+        title: "The Four Copper Busbars",
+        text: "Directly beneath the thunderous summit roof, four thick copper busbars pulse with raw violet energy feeding Ralio's planar orb—beside a wire-trapped cult treasury chest.",
+        choices: [
+          { t: "Trip the master breaker cleanly using Corin's marked ley-chart!", reqCw: "CORIN_SAVED", badge: "CORIN_SAVED", to: 3, onChoose: { cw: "CONDUIT_CUT", msg: "Two of the four busbars arc dead—the Beacon's roof-hum drops an octave!" } },
+          { t: "Disarm the lightning-wire on the treasury chest and snip the east busbar!", reqSkill: "Detect Traps", badge: "Detect Traps", to: 3, onChoose: { gold: 55, cw: "CONDUIT_CUT", msg: "You claim 55 GP cleanly and sever the east busbar!" } },
+          { t: "Overload the copper grounding-coil with Firebolt!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 3, onChoose: { cw: "CONDUIT_CUT", msg: "A crisp flare fuses the relay—starving Ralio's Beacon of storm-power!" } },
+          { t: "Step straight up the spiral stairs to the Tower Summit.", to: 3 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Salvager of the Returners' Tower",
+        text: "The Beacon lies cold and Tarrini rests safe, while your private sale of Ralio's salvaged violet planar lenses fills your purse with frontier gold!",
+        ending: { type: "victory", title: "Salvager of the Returners' Tower", xp: 195, gold: 260, trophy: "Violet Planar Lens" },
         choices: []
       }
     }
