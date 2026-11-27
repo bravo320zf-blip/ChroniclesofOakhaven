@@ -418,7 +418,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 7. CRATER OF THE FLAYING STAR (6 PAGES • LV 5)
+  // 7. CRATER OF THE FLAYING STAR (10 PAGES • LV 5)
   // ==========================================================
   bk_b14_flaying_star: {
     id: "bk_b14_flaying_star",
@@ -428,33 +428,35 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 5,
     autoDiscover: false,
     discoverySource: "Wastes Historian (Rusty Flagon Tavern)",
-    summary: "Cross the gnoll-stalked desert wastes to the sunken pyramid shattered centuries ago by the falling Omen Star—and confront the undying wrath of Tyrant Queen Okalveka and the Flaying Star's guardians!",
-    totalPages: 6,
+    summary: "Cross the gnoll-stalked desert wastes to the sunken pyramid shattered centuries ago by the falling Omen Star, uncover Princess Mynna's ridge-shrine, and confront the undying wrath of Tyrant Queen Okalveka!",
+    totalPages: 10,
     pages: {
       1: {
         zone: "Desert Wastes • Crater Rim",
         title: "The Fallen Omen Star",
         safeRetreat: true,
-        text: "Centuries ago, Princess Mynna prayed for a streaking omen star to shatter the cruel reign of her mother, Tyrant Queen Okalveka—and the Flaying Star obeyed, cleaving the tyrant's pyramid in two! Now desert gnolls and slimes swarm the glowing crater!",
+        text: "Under a bruised violet twilight, the rim of the Flaying Star's crater glitters with fused green desert glass. Centuries ago, Princess Mynna prayed for a streaking omen star to shatter the cruel reign of her mother, Tyrant Queen Okalveka—and the heavens obeyed, cleaving the tyrant's pyramid in two. Now cackling gnolls and caustic slimes swarm the glowing nave below, while a wind-scoured sandstone shrine clings to the western ridge.",
         choices: [
-          { t: "Circle the vitrified crater rim at dusk to slip past the gnoll raiders and desert slimes!", badge: "Stealth DC 13", check: { stat: "agility", skill: "Stealth", dc: 13, pass: 2, fail: 2, passMsg: "You drop cleanly into the cleaved pyramid nave unseen!", failMsg: "Howling desert gnolls spot your silhouette against the glowing crater!" }, onPass: { cw: "CRATER_STEALTH" } },
+          { t: "Circle the vitrified crater rim at dusk to slip past the gnoll raiders!", badge: "Stealth / Agility DC 13", check: { stat: "agility", skill: "Stealth", dc: 13, pass: 2, fail: 2, passMsg: "You drop cleanly into the cleaved pyramid nave unseen!", failMsg: "Howling desert gnolls spot your silhouette against the glowing crater!" }, onPass: { cw: "CRATER_STEALTH" } },
+          { t: "Climb the western ridge to inspect Princess Mynna's weathered Star-Shrine.", to: 7 },
           { t: "Charge straight down the glass-fused crater slope into the cleaved pyramid!", to: 2 }
         ]
       },
       2: {
         zone: "Cleaved Pyramid • Outer Gallery",
         title: "Desert Gnolls & Caustic Slimes",
-        text: "Cackling wasteland gnolls drive oozing, sun-baked Desert Slimes ahead of them through the cracked sandstone corridors!",
+        text: "Cackling wasteland gnolls drive oozing, sun-baked Desert Slimes ahead of them through the cracked sandstone corridors, their rusty spears glinting in the crater's eerie blue glow!",
         enemy: { name: "Wastes Gnolls & Desert Slimes", desc: "Scavenging hyena-folk and corrosive sand-oozes.", hp: 46, ac: 14, atk: 6, dmg: 7, xp: 150, gold: 85, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["CRATER_STEALTH"] },
         choices: [
-          { t: "Descend into the glowing impact chamber where the Flaying Star still burns!", to: 3 }
+          { t: "Inspect the cracked Scribe's Vault off the outer gallery first.", to: 9 },
+          { t: "Descend straight into the glowing impact chamber where the Flaying Star burns!", to: 3 }
         ]
       },
       3: {
         zone: "Pyramid Heart • The Flaying Star",
         title: "Tyrant Queen Okalveka",
-        text: "Crowned in razor-bright meteoric shards, the undying **Tyrant Queen Okalveka** rises beside the humming Flaying Star—radiating blistering starlight and ancient fury!",
-        enemy: { name: "Tyrant Queen Okalveka", desc: "Star-scarred undead sovereign fused with the fallen Omen Star.", hp: 58, ac: 15, atk: 7, dmg: 8, undead: true, xp: 210, gold: 140, items: ["bq_flaying_star_diadem"], weakCw: ["CRATER_STEALTH"] },
+        text: "Crowned in razor-bright meteoric shards, the undying Tyrant Queen Okalveka rises beside the humming Flaying Star—radiating blistering starlight and ancient fury! 'Another worm crawling into my tomb? Even the heavens could not unseat me!'",
+        enemy: { name: "Tyrant Queen Okalveka", desc: "Star-scarred undead sovereign fused with the fallen Omen Star.", hp: 58, ac: 15, atk: 7, dmg: 8, undead: true, xp: 210, gold: 140, items: ["bq_flaying_star_diadem"], weakCw: ["CRATER_STEALTH", "MYNNA_BLESSING", "STAR_MIRROR"] },
         choices: [
           { t: "Shatter the tyrant's star-scepter and claim the buried royal hoard!", to: 4 }
         ]
@@ -462,25 +464,65 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Crater Rim • Cool Night",
         title: "A Tyrant's Final Fall",
-        text: "The blinding star-crater dims to a soft ember as Princess Mynna's ancient wish is fulfilled at last.",
+        text: "As Okalveka's crown-shards crumble into harmless silver dust, the blinding star-crater dims to a gentle, warm ember. At long last, Princess Mynna's ancient wish is fulfilled.",
         onEnter: { healHp: 12, msg: "Cool desert night air eases your burns (+12 HP)!" },
         choices: [
-          { t: "Carry the royal relics back across the Wastes.", to: 5 }
+          { t: "Lay Okalveka's broken scepter at Mynna's ridge-shrine to honor her prayer!", reqCw: "MYNNA_BLESSING", badge: "MYNNA_BLESSING", to: 5, onChoose: { gold: 50, xp: 35, msg: "A warm silver chime answers from the stars—nomad scouts add 50 GP & 35 XP in tribute!" } },
+          { t: "Carry the royal relics back across the Wastes.", to: 5 },
+          { t: "Pry loose a rich vein of vitrified star-glass for Oakhaven's jewelers before leaving.", to: 10 }
         ]
       },
       5: {
         zone: "Sands of the Wastes",
         title: "Peace Under Clear Stars",
-        text: "The desert tribes whisper of the hero who finally quelled Okalveka's crater.",
+        text: "At the oasis crossroads, desert tribes pour spiced date-tea and whisper your name beneath a clear, uncursed canopy of stars—the hero who finally quelled Okalveka's crater.",
         choices: [
-          { t: "Complete the adventure!", to: 6 }
+          { t: "Return to Oakhaven!", to: 6 }
         ]
       },
       6: {
         zone: "Epilogue",
         title: "Queller of the Flaying Star",
-        text: "You vanquished Tyrant Queen Okalveka inside the Crater of the Flaying Star!",
+        text: "You vanquished Tyrant Queen Okalveka inside the Crater of the Flaying Star, bringing long-overdue peace to the Wastes!",
         ending: { type: "true", title: "Breaker of the Omen Crater", xp: 245, gold: 230, trophy: "Vitrified Omen-Star Shard" },
+        choices: []
+      },
+      7: {
+        zone: "West Ridge • Star-Shrine",
+        title: "Princess Mynna's Prayer Alcove",
+        text: "Carved into the wind-scoured ridge stands a small sandstone relief of Princess Mynna lifting a silver astrolabe toward the sky. A faint silver ember still warms the offering-bowl, and a sand-drifted pilgrim's chest rests at her feet.",
+        choices: [
+          { t: "Trace the fading celestial prayer-glyphs around the astrolabe with Arcana.", badge: "Arcana DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 8, fail: 8, failDmg: 4, passMsg: "The silver glyphs answer in a clear chime—revealing Mynna's counter-ward!", failMsg: "Starlight arcs singe your fingertips (-4 HP), yet the alcove opens!" } },
+          { t: "Speak a gentle prayer of release over the offering-bowl.", badge: "Spirit / Persuasion DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 8, fail: 2, passMsg: "A cool desert breeze carries Mynna's blessing straight into your spirit!", failMsg: "Only dry wind answers—you turn back toward the cleaved pyramid." } },
+          { t: "Drop down the glass slope into the Outer Gallery.", to: 2 }
+        ]
+      },
+      8: {
+        zone: "West Ridge • Star-Shrine",
+        title: "Mynna's Astrolabe Blessing",
+        text: "The altar-bowl flares cool silver, and a gentle voice drifts on the night wind: 'My mother's crown feeds on the star's wound—carry my name into the crater and her light will falter!' Beneath the sand you recover 40 GP in ancient pilgrim silver and spot a narrow skylight shaft bypassing the gnolls below.",
+        onEnter: { cw: "MYNNA_BLESSING", gold: 40, healHp: 10, healMp: 4, msg: "Received MYNNA_BLESSING, 40 GP, +10 HP & +4 MP!" },
+        choices: [
+          { t: "Slip down the cracked skylight shaft straight into the Scribe's Vault!", to: 9 },
+          { t: "Descend into the Outer Gallery to clear out the gnoll raiders first.", to: 2 }
+        ]
+      },
+      9: {
+        zone: "Cleaved Pyramid • Scribe's Vault",
+        title: "The Vitrified Treasury",
+        text: "Half-melted limestone shelves hold gilded funerary urns, a tilted obsidian mirror aimed toward the crater heart, and a sand-locked royal tax-coffer gleaming behind glass stalactites.",
+        choices: [
+          { t: "Disarm the glass-needle latch with Detect Traps and align the obsidian mirror.", reqSkill: "Detect Traps", badge: "Detect Traps", to: 3, onChoose: { gold: 55, cw: "STAR_MIRROR", msg: "You claim 55 GP and angle the obsidian mirror to disrupt Okalveka's star-aura!" } },
+          { t: "Cleanse the funerary wards with Turn Undead to drain the Queen's power!", reqSpell: "Turn Undead", mp: 4, badge: "Turn Undead (4 MP)", to: 3, onChoose: { cw: "MYNNA_BLESSING", msg:"Consecrated light floods the vault, cracking Okalveka's undead wards below!" } },
+          { t: "Test Your Luck prying open the royal tax-coffer!", badge: "Test Your Luck", luck: { pass: 3, fail: 3, failDmg: 5, passMsg: "You snag 55 GP and tilt the obsidian mirror cleanly!", failMsg: "Vitrified glass shards nick your knuckles (-5 HP)!", onPass: { gold: 55, cw: "STAR_MIRROR" } } },
+          { t: "Leave the vault and descend into the Pyramid Heart.", to: 3 }
+        ]
+      },
+      10: {
+        zone: "Epilogue",
+        title: "Star-Glass Prospector",
+        text: "Your pack groans with rare fused star-glass and royal bullion—enough to keep Oakhaven's finest jewelers bidding for a month while the Wastes breathe easy once more!",
+        ending: { type: "victory", title: "Star-Glass Prospector", xp: 220, gold: 275, trophy: "Crown-Glass Meteorite" },
         choices: []
       }
     }
