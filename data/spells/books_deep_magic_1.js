@@ -3443,9 +3443,11 @@ window.OAKHAVEN.registerSpells([
     "school": "Evocation",
     "spellLevel": 2,
     "dmgDice": "2d6",
+    "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "thunder",
-    "desc": "Deals 2d6 + arcana thunder dmg. [Lv.2 Evocation • Deep Magic Vol. 1]"
+    "evadeTurns": 1,
+    "desc": "Twist raw elemental force mid-air for 2d6 + 2 + Arcana thunder dmg and deflect the counter-blow with Evade (1t). [Lv.2 Evocation]"
   },
   {
     "name": "Emanation of Yoth",

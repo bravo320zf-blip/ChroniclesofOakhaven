@@ -1,6 +1,6 @@
 {
-  "totalPasses": 6,
-  "totalSpellsPolished": 30,
+  "totalPasses": 7,
+  "totalSpellsPolished": 35,
   "totalCatalogSpells": 1209,
   "spellPasses": {
     "Ambush": 1,
@@ -32,7 +32,12 @@
     "Auspicious Warning": 1,
     "Steady": 1,
     "Blizzard": 1,
-    "Gear Barrage": 1
+    "Gear Barrage": 1,
+    "Investiture of Blight": 1,
+    "Creeping Darkness": 1,
+    "Ley Disruption": 1,
+    "Detect Traps": 1,
+    "Elemental Twist": 1
   },
   "history": [
     {
@@ -100,6 +105,17 @@
         "Gear Barrage"
       ],
       "summary": "Polished Blizzard (3d8+4 frost, Chill 3t, Evade 1t), Een's Shredding Aura (2d8+2 slashing & Shield 2t), Gear Barrage (2d6+2 slashing & Chill 1t), Auspicious Warning (+Evade 2t), and Steady (+OOC 1d6 heal, Shield 2t, Chill 2t), removing all sourcebook tags."
+    },
+    {
+      "pass": 7,
+      "spells": [
+        "Investiture of Blight",
+        "Creeping Darkness",
+        "Ley Disruption",
+        "Detect Traps",
+        "Elemental Twist"
+      ],
+      "summary": "Fixed Creeping Darkness from radiant/sun to necrotic/darkness (3d8+4, Chill 3t, Evade 2t), polished Investiture of Blight (+1d8 siphon & Shield 2t), Ley Disruption (+2d6 arcane backlash), Elemental Twist (+2 bonus & Evade 1t), and Detect Traps description, removing all sourcebook tags."
     }
   ]
 }

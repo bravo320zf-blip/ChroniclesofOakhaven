@@ -83,6 +83,6 @@ window.OAKHAVEN.registerSpells([
     combat: false,
     ooc: false,
     icon: "👁️",
-    desc: "Reveals hidden passages, illusions, and deadly wards."
+    desc: "Arcane sixth sense that reveals hidden passages, illusions, and deadly wards—unlocking special trap-bypass options during quests."
   }
 ]);

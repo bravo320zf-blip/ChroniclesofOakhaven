@@ -351,14 +351,17 @@ window.OAKHAVEN.registerSpells([
     "mp": 3,
     "combat": true,
     "ooc": false,
-    "icon": "✨",
+    "icon": "💠",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Midgard Heroes",
     "school": "Evocation",
     "spellLevel": 2,
+    "dmgDice": "2d6",
+    "dmgStat": "arcana",
+    "dmgType": "arcane",
     "chillTurns": 2,
-    "desc": "Weakens foe (-2 enemy atk, 2t). [Lv.2 Evocation • Midgard Heroes]"
+    "desc": "Snap a discordant ley-line backlash dealing 2d6 + Arcana arcane dmg and rattling the foe (-2 ATK, 2t). [Lv.2 Evocation]"
   },
   {
     "name": "Ley Energy Bolt",

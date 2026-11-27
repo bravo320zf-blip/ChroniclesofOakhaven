@@ -1446,18 +1446,19 @@ window.OAKHAVEN.registerSpells([
     "mp": 6,
     "combat": true,
     "ooc": false,
-    "icon": "☀️",
+    "icon": "🌑",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 2",
     "school": "Conjuration",
     "spellLevel": 8,
     "dmgDice": "3d8",
-    "dmgBonus": 2,
+    "dmgBonus": 4,
     "dmgStat": "arcana",
-    "dmgType": "radiant",
+    "dmgType": "necrotic",
     "chillTurns": 3,
-    "desc": "Deals 3d8 + 2 + arcana radiant dmg; weakens foe (-2 enemy atk, 3t). [Lv.8 Conjuration • Deep Magic Vol. 2]"
+    "evadeTurns": 2,
+    "desc": "Unleash an encroaching tide of living night dealing 3d8 + 4 + Arcana necrotic dmg, Chilling the foe (-2 ATK, 3t), and veiling you in Evade (2t). [Lv.8 Conjuration]"
   },
   {
     "name": "Critical Exchange",
@@ -3570,11 +3571,14 @@ window.OAKHAVEN.registerSpells([
     "school": "Transmutation",
     "spellLevel": 6,
     "dmgDice": "3d6",
-    "dmgBonus": 2,
+    "dmgBonus": 3,
     "dmgStat": "spirit",
     "dmgType": "necrotic",
+    "healDice": "1d8",
+    "healStat": "spirit",
+    "shieldTurns": 2,
     "chillTurns": 3,
-    "desc": "Deals 3d6 + 2 + spirit necrotic dmg; weakens foe (-2 enemy atk, 3t). [Lv.6 Transmutation • Deep Magic Vol. 2]"
+    "desc": "Wreathe yourself in withering blight dealing 3d6 + 3 + Spirit necrotic dmg, siphoning 1d8 + Spirit HP, raising a Ward (+3 AC, 2t), and Chilling the foe (3t). [Lv.6 Transmutation]"
   },
   {
     "name": "Jedza's Tidy Charm",
