@@ -677,7 +677,7 @@ window.OAKHAVEN.registerSpells([
     "mp": 3,
     "combat": true,
     "ooc": false,
-    "icon": "✨",
+    "icon": "🔮",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 1",
@@ -687,7 +687,8 @@ window.OAKHAVEN.registerSpells([
     "dmgBonus": 2,
     "dmgStat": "spirit",
     "dmgType": "arcane",
-    "desc": "Deals 1d6 + 2 + spirit arcane dmg. [Lv.1 Enchantment • Deep Magic Vol. 1]"
+    "evadeTurns": 2,
+    "desc": "A flash of prophetic omen lets you counter for 1d6 + 2 + Spirit arcane dmg and grants Evade (+2 AC, 2t). [Lv.1 Enchantment]"
   },
   {
     "name": "Avoid Grievous Injury",
@@ -1108,9 +1109,12 @@ window.OAKHAVEN.registerSpells([
     "school": "Conjuration",
     "spellLevel": 7,
     "dmgDice": "3d8",
+    "dmgBonus": 4,
     "dmgStat": "arcana",
     "dmgType": "frost",
-    "desc": "Deals 3d8 + arcana frost dmg. [Lv.7 Conjuration • Deep Magic Vol. 1]"
+    "chillTurns": 3,
+    "evadeTurns": 1,
+    "desc": "Summon a howling alpine whiteout dealing 3d8 + 4 + Arcana frost dmg, Chilling the foe (-2 ATK, 3t), and shrouding you in Evade (1t). [Lv.7 Conjuration]"
   },
   {
     "name": "Blood and Steel",
@@ -4260,16 +4264,18 @@ window.OAKHAVEN.registerSpells([
     "mp": 3,
     "combat": true,
     "ooc": false,
-    "icon": "⚔️",
+    "icon": "⚙️",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 1",
     "school": "Conjuration",
     "spellLevel": 2,
     "dmgDice": "2d6",
+    "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "slashing",
-    "desc": "Deals 2d6 + arcana slashing dmg. [Lv.2 Conjuration • Deep Magic Vol. 1]"
+    "chillTurns": 1,
+    "desc": "Hurl a whirling storm of razor-edged brass gears for 2d6 + 2 + Arcana slashing dmg and stagger the foe (Chill 1t). [Lv.2 Conjuration]"
   },
   {
     "name": "Ghoul King's Cloak",

@@ -1,6 +1,6 @@
 {
-  "totalPasses": 5,
-  "totalSpellsPolished": 25,
+  "totalPasses": 6,
+  "totalSpellsPolished": 30,
   "totalCatalogSpells": 1209,
   "spellPasses": {
     "Ambush": 1,
@@ -27,7 +27,12 @@
     "Ley Energy Bolt": 1,
     "Blood Shards": 1,
     "Shadow Step": 1,
-    "Timeless Engine": 1
+    "Timeless Engine": 1,
+    "Een's Shredding Aura": 1,
+    "Auspicious Warning": 1,
+    "Steady": 1,
+    "Blizzard": 1,
+    "Gear Barrage": 1
   },
   "history": [
     {
@@ -84,6 +89,17 @@
         "Timeless Engine"
       ],
       "summary": "Polished Curse of Hostility (+Chill 2t), Ley Energy Bolt (2d8+2 force & Shield 1t), Blood Shards (3d6+3 necrotic & 1d8 siphon), Shadow Step (2d6 necrotic + Evade 2t & Chill 2t), and Lv.7 Timeless Engine (+OOC 3d8 heal, Shield 3t, Evade 2t), removing all sourcebook tags."
+    },
+    {
+      "pass": 6,
+      "spells": [
+        "Een's Shredding Aura",
+        "Auspicious Warning",
+        "Steady",
+        "Blizzard",
+        "Gear Barrage"
+      ],
+      "summary": "Polished Blizzard (3d8+4 frost, Chill 3t, Evade 1t), Een's Shredding Aura (2d8+2 slashing & Shield 2t), Gear Barrage (2d6+2 slashing & Chill 1t), Auspicious Warning (+Evade 2t), and Steady (+OOC 1d6 heal, Shield 2t, Chill 2t), removing all sourcebook tags."
     }
   ]
 }

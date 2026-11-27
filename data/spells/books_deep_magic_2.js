@@ -2426,17 +2426,18 @@ window.OAKHAVEN.registerSpells([
     "mp": 4,
     "combat": true,
     "ooc": false,
-    "icon": "⚔️",
+    "icon": "🌀",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 2",
     "school": "Conjuration",
     "spellLevel": 3,
-    "dmgDice": "2d6",
+    "dmgDice": "2d8",
     "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "slashing",
-    "desc": "Deals 2d6 + 2 + arcana slashing dmg. [Lv.3 Conjuration • Deep Magic Vol. 2]"
+    "shieldTurns": 2,
+    "desc": "Surround yourself in a whirling halo of razor shards dealing 2d8 + 2 + Arcana slashing dmg and raising a Ward (+3 AC, 2t). [Lv.3 Conjuration]"
   },
   {
     "name": "Effervesce Sense",
@@ -5960,15 +5961,18 @@ window.OAKHAVEN.registerSpells([
     "name": "Steady",
     "mp": 3,
     "combat": true,
-    "ooc": false,
-    "icon": "✨",
+    "ooc": true,
+    "icon": "🛡️",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 2",
     "school": "Transmutation",
     "spellLevel": 1,
+    "healDice": "1d6",
+    "healStat": "spirit",
+    "shieldTurns": 2,
     "chillTurns": 2,
-    "desc": "Weakens foe (-2 enemy atk, 2t). [Lv.1 Transmutation • Deep Magic Vol. 2]"
+    "desc": "Anchor your stance with iron poise—restore 1d6 + Spirit HP, gain +3 AC Ward (2t), and throw foes off-balance (Chill 2t). [Lv.1 Transmutation]"
   },
   {
     "name": "Steal Memories",
