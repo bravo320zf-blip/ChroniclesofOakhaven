@@ -4849,6 +4849,247 @@
               }
             }
           };
+        },
+
+        // 27. The Collapsed Courier's Cart
+        () => {
+          const foePool = (zone.enemies && zone.enemies.length) ? zone.enemies : [{ name: "Roadside Ravager", desc: "A lean, scarred scavenger.", undead: false }];
+          const foe = foePool[0];
+          const foeHp = 14 + lv * 5;
+          const foeAc = 10 + Math.floor(lv / 2);
+          const foeAtk = 2 + Math.floor(lv / 2);
+          const foeDmg = 3 + Math.floor(lv * 0.7);
+          const strainDmg = Math.max(2, 2 + Math.floor(lv * 0.6));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Collapsed Courier's Cart`,
+            subtitle: "Roadside Rescue & Ambush",
+            difficulty: "Skirmish",
+            recommendedLevel: lv,
+            totalPages: 5,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Splintered Axle",
+                safeRetreat: true,
+                text: `Around a bend in ${zone.name}, an Oakhaven dispatch cart lies overturned in a muddy ditch. A bruised courier waves frantically from beneath a fallen crate while a prowling ${foe.name} circles the scattered mailbags.`,
+                choices: [
+                  {
+                    t: "Dash forward, heave the heavy oak axle off the courier's boot, and pull them clear.",
+                    badge: `Athletics / Might DC ${dc}`,
+                    check: {
+                      stat: "might", skill: "Athletics", dc, pass: 2, fail: 3, failDmg: strainDmg,
+                      passMsg: "With a mighty heave you free the courier and drive the scavenger back into the brush!",
+                      failMsg: `The splintered axle slips, bruising your shoulder (-${strainDmg} HP) as the ${foe.name} lunges!`
+                    },
+                    onPass: { item: "health_potion", gold: Math.round(baseGold * 1.4) }
+                  },
+                  {
+                    t: "Slip into the flanking brush and drop a blinding ambush onto the circling predator.",
+                    badge: `Stealth / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Stealth", dc, pass: 2, fail: 3, failDmg: strainDmg,
+                      passMsg: "Your sudden strike sends the startled predator fleeing—leaving the courier safe and grateful!",
+                      failMsg: `A snapped branch betrays your step (-${strainDmg} HP) and the ${foe.name} wheels to attack!`
+                    },
+                    onPass: { item: "alchemist_bomb", gold: Math.round(baseGold * 1.3) }
+                  },
+                  {
+                    t: `Draw steel and charge the ${foe.name} head-on to defend the courier!`,
+                    to: 3
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Grateful Dispatch",
+                text: `The courier presses a wax-sealed pouch of bounty coin and a spare bundle of ${matName} into your palm. "Oakhaven won't forget this," they call as you escort them back toward the town road.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Rescued the Oakhaven Courier", xp: Math.round(baseXp * 1.4), gold: Math.round(baseGold * 0.6), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: `Defending the Cart`,
+                text: `The ${foe.name} snarls across the overturned cart, forcing a sharp fight beside the scattered post-bags!`,
+                enemy: {
+                  name: foe.name,
+                  desc: `${foe.desc} Stalking the overturned Oakhaven dispatch cart.`,
+                  hp: foeHp,
+                  ac: foeAc,
+                  atk: foeAtk,
+                  dmg: foeDmg,
+                  xp: Math.round(baseXp * 1.15),
+                  gold: Math.round(baseGold * 0.9),
+                  undead: !!foe.undead,
+                  items: [matId],
+                  flee: 5
+                },
+                choices: [
+                  { t: "Help the courier gather the post-bags and claim their reward.", to: 4 }
+                ]
+              },
+              4: {
+                zone: zone.name,
+                title: "Road Cleared",
+                text: `With the ${foe.name} defeated, you help right the courier's satchel and receive a grateful courier's stipend plus fresh ${matName} for the road back to Oakhaven.`,
+                onEnter: { item: "health_potion" },
+                ending: { type: "true", title: "Saved the Dispatch", xp: Math.round(baseXp * 1.35), gold: Math.round(baseGold * 0.8), trophy: "" },
+                choices: []
+              },
+              5: {
+                zone: zone.name,
+                title: "Tactical Retreat",
+                text: `You fall back down the trail toward Oakhaven as the courier scrambles into a hollow tree to wait out the danger.`,
+                ending: { type: "true", title: "Escaped the Roadside Ambush", xp: Math.round(baseXp * 0.4), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 28. The Singing Standing Stones
+        () => {
+          const shockDmg = Math.max(2, 2 + Math.floor(lv * 0.6));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Singing Standing Stones`,
+            subtitle: "Ancient Ley-Line Resonance",
+            difficulty: "Exploration",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Discordant Menhirs",
+                safeRetreat: true,
+                text: `Three tall, moss-etched standing stones rise from a windswept knoll in ${zone.name}. Wind threading their spiral carvings produces an eerie, discordant hum that makes the hairs on your arms lift with static.`,
+                choices: [
+                  {
+                    t: "Trace the carved spirals and harmonize the ley-line resonance with focused will.",
+                    badge: `Arcana DC ${dc}`,
+                    check: {
+                      stat: "arcana", skill: "Arcana", dc, pass: 2, fail: 3, failDmg: shockDmg,
+                      passMsg: "The three stones chime in pure golden harmony—refilling your spirit and revealing a cache of ancient coin!",
+                      failMsg: `A snap of stray ley-static jolts your fingertips (-${shockDmg} HP) before the hum fades.`
+                    },
+                    onPass: { healMp: 10, item: "mana_potion", gold: Math.round(baseGold * 1.35) }
+                  },
+                  {
+                    t: "Inspect the lichen-covered bases for a weathered offerings hollow.",
+                    badge: `Perception / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Perception", dc, pass: 2, fail: 3, failDmg: shockDmg,
+                      passMsg: "Behind a loose capstone you uncover a dry oilskin pouch of silver and a stoppered vial!",
+                      failMsg: `A stinging nest of stone-wasps bursts from the crevice (-${shockDmg} HP) as you reach in!`
+                    },
+                    onPass: { item: "health_potion", gold: Math.round(baseGold * 1.25) }
+                  },
+                  {
+                    t: "Rest quietly in the lee of the center stone to catch your breath before returning.",
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Harmonic Blessing",
+                text: `Warm clarity lingers in your veins as the standing stones fall peacefully silent. You gather ${matName} growing around the ring and return to Oakhaven.`,
+                onEnter: { item: matId, healHp: 6 },
+                ending: { type: "true", title: "Attuned the Standing Stones", xp: Math.round(baseXp * 1.35), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Rattled by the Stones",
+                text: `Shaking out your stung hand, you still pocket a handful of ${matName} from the knoll and make your way back toward Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Weathered the Ley-Knoll", xp: Math.round(baseXp * 0.85), gold: Math.round(baseGold * 0.3), trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Sheltered Rest",
+                text: `The ancient stones block the chill wind while you mend your footing (+8 HP) and collect ${matName} along the path back to Oakhaven.`,
+                onEnter: { item: matId, healHp: 8 },
+                ending: { type: "true", title: "Rested at the Menhirs", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 29. The Fog-Bound Relic Peddler
+        () => {
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Fog-Bound Relic Peddler`,
+            subtitle: "Wandering Curio Trader",
+            difficulty: "Social",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Lantern in the Mist",
+                safeRetreat: true,
+                text: `Brass bells chime softly through the mist of ${zone.name}. A hooded peddler leading a laden pack-mule raises a warm amber lantern. "Rare oddments and road-tonics for a sharp-eyed traveler—care to strike a bargain before the fog thickens?"`,
+                choices: [
+                  {
+                    t: "Haggle with crisp Oakhaven market savvy for their finest road-supplies.",
+                    badge: `Persuasion / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Persuasion", dc, pass: 2, fail: 3,
+                      passMsg: "The peddler laughs and hands over a fresh Health Potion plus a finder's fee for local road news!",
+                      failMsg: "The peddler drives a stubborn bargain, offering only a polite nod and a pinch of trail herbs."
+                    },
+                    onPass: { item: "health_potion", gold: Math.round(baseGold * 1.2) }
+                  },
+                  {
+                    t: "Scan the cluttered velvet tray for an overlooked treasure mixed among the trinkets.",
+                    badge: `Perception / Luck DC ${dc}`,
+                    check: {
+                      stat: "luck", skill: "Perception", dc, pass: 2, fail: 3,
+                      passMsg: "You spot a genuine alchemist's charge tucked beneath tarnished brass and trade for it on the cheap!",
+                      failMsg: "The lantern's glare plays tricks on the tray—nothing stands out beyond ordinary brass buckles."
+                    },
+                    onPass: { item: "alchemist_bomb", gold: Math.round(baseGold * 1.15) }
+                  },
+                  {
+                    t: "Share safe trail directions to Oakhaven and accept a warm cup of spiced cider.",
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Shrewd Bargain",
+                text: `The peddler tips their wide brim and tosses in extra ${matName} for good measure before mule and lantern vanish back into the mist.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Out-Bargained the Mist Peddler", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Parting Ways in the Fog",
+                text: `Though no grand bargain was struck, the peddler gifts you a bundle of ${matName} in thanks for the company before departing.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Met the Mist Peddler", xp: Math.round(baseXp * 0.85), gold: Math.round(baseGold * 0.25), trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Warm Cider & Good Cheer",
+                text: `The hot spiced cider chases the damp from your bones (+10 HP, +4 MP), and the peddler leaves you a spare Pitch Torch and ${matName} for the walk home.`,
+                onEnter: { item: "torch", healHp: 10, healMp: 4 },
+                ending: { type: "true", title: "Shared Campfire Cider", xp: Math.round(baseXp * 0.95), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
         }
       ];
 
