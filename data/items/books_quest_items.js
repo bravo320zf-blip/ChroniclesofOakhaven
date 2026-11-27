@@ -2368,9 +2368,9 @@ window.OAKHAVEN.registerItems({
     value: 325,
     atk: 6,
     agility: 2,
-    passives: { critRange: 11, bombDmgBonus: 3 },
-    activeAbility: { name: "Magma Venom Strike", icon: "🌋", charges: 2, dmgDice: "2d8", dmgStat: "agility", dmgType: "fire", dot: { dmg: 4, turns: 3, label: "Molten Burn" }, desc: "2/Quest: Sear the foe for 2d8 + Agility fire dmg and inflict Molten Burn (4/t, 3t)!" },
-    desc: "Volcanic-glass blade carved from the Obsidian Ophidian of Mount Magra."
+    passives: { critRange: 10, bossDmgBonus: 4, bombDmgBonus: 4, skillBonus: { Stealth: 2 } },
+    activeAbility: { name: "Magma Venom Strike", icon: "🌋", charges: 2, dmgDice: "3d8", dmgStat: "agility", dmgType: "fire", dot: { dmg: 5, turns: 3, label: "Molten Burn" }, chillTurns: 1, desc: "2/Quest: Sear the foe for 3d8 + Agility fire dmg, Molten Burn (5/t, 3t), and choking ash Chill (1t)!" },
+    desc: "Volcanic-glass blade carved from the Obsidian Ophidian of Mount Magra (+6 Attack, +2 Agility, Crit 10+, +4 vs Bosses, +4 Bomb Dmg, +2 Stealth) with Magma Venom Strike."
   },
   "bq_pol_radiant_brush": {
     id: "bq_pol_radiant_brush",
@@ -2706,9 +2706,9 @@ window.OAKHAVEN.registerItems({
     value: 90,
     agility: 1,
     luck: 1,
-    passives: { goldFindPct: 12, skillBonus: { Lockpicking: 1 } },
-    activeAbility: { name: "Cinder-Trickster Spark", icon: "🐒", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "fire", evadeTurns: 1, desc: "2/Quest: Uncork a playful ember-spark for 1d8 + Agility fire dmg and Evade (1t)!" },
-    desc: "Stoppered iron flask from Bab-el-Fanban's Pier (+12% Gold, +1 Lockpicking) with Cinder-Trickster Spark."
+    passives: { goldFindPct: 12, bombDmgBonus: 2, skillBonus: { Lockpicking: 1 } },
+    activeAbility: { name: "Cinder-Trickster Spark", icon: "🐒", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "fire", dot: { dmg: 2, turns: 2, label: "Cinder" }, evadeTurns: 1, desc: "2/Quest: Uncork a playful ember-spark for 1d8 + Agility fire dmg, Cinder (2/t, 2t), and Evade (1t)!" },
+    desc: "Stoppered iron flask from Bab-el-Fanban's Pier (+1 Agility, +1 Luck, +12% Gold, +2 Bomb Dmg, +1 Lockpicking) with Cinder-Trickster Spark."
   },
   "bq_xulthas_obsidian_scarab": {
     id: "bq_xulthas_obsidian_scarab",
@@ -3165,9 +3165,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 2,
     spirit: 1,
-    passives: { spellDmgBonus: 2, undeadDmgBonus: 4 },
-    activeAbility: { name: "Sigil Shatter", icon: "🎭", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "arcane", stunTurns: 1, desc: "2/Quest (2 MP): Unleash a pulse of reversed ossuary sigils for 2d8 + Arcana dmg and Stun (1t)!" },
-    desc: "Cleansed porcelain visor from the Glowing Ossuary (+2 Spell Dmg, +4 vs Undead) with Sigil Shatter."
+    passives: { spellDmgBonus: 3, undeadDmgBonus: 5, skillBonus: { Arcana: 2, Persuasion: 2 } },
+    activeAbility: { name: "Sigil Shatter", icon: "🎭", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "arcane", undeadDouble: true, stunTurns: 1, desc: "2/Quest (2 MP): Unleash reversed ossuary sigils for 2d8 + Arcana dmg (2x vs Undead) and Stun (1t)!" },
+    desc: "Cleansed porcelain visor from the Glowing Ossuary (+2 AC, +2 Arcana, +1 Spirit, +3 Spell Dmg, +5 vs Undead, +2 Arcana, +2 Persuasion) with Sigil Shatter."
   },
   "bq_riverbend_pearl_ring": {
     id: "bq_riverbend_pearl_ring",
@@ -3178,9 +3178,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     agility: 2,
     spirit: 2,
-    passives: { mpRegen: 1, skillBonus: { Athletics: 2 } },
-    activeAbility: { name: "Current Surge", icon: "💧", charges: 2, ooc: true, healDice: "1d10", healStat: "spirit", restoreMp: 3, desc: "2/Quest: Draw upon the millpond's fey current to restore 1d10 + Spirit HP and +3 MP!" },
-    desc: "Iridescent river-pearl band from Rutyer Millpond (+1 MP/turn, +2 Athletics) with Current Surge."
+    passives: { mpRegen: 1, healBonus: 3, skillBonus: { Athletics: 2, Survival: 2 } },
+    activeAbility: { name: "Current Surge", icon: "💧", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 4, evadeTurns: 1, desc: "2/Quest: Draw upon the millpond's fey current to restore 2d8 + Spirit HP, +4 MP, and Evade (1t)!" },
+    desc: "Iridescent river-pearl band from Rutyer Millpond (+1 AC, +2 Agility, +2 Spirit, +1 MP/turn, +3 Heal, +2 Athletics, +2 Survival) with Current Surge."
   },
   "bq_quickling_razor_dagger": {
     id: "bq_quickling_razor_dagger",

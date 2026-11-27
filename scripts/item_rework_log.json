@@ -1,6 +1,6 @@
 {
-  "totalPasses": 56,
-  "totalItemsReworked": 560,
+  "totalPasses": 57,
+  "totalItemsReworked": 570,
   "history": [
     {
       "pass": 1,
@@ -897,6 +897,22 @@
         "ul_black_pearl_brooch"
       ],
       "summary": "Reworked Legendary Radiant Libram, Staff of the Four Winds, Shard of the Thousand Runes, Verses of Vengeance, Oni Mask, Momentblade & Campaign Field Tent (removed sourcebook tags), Fifth-Direction Diamond Compass, Nizana's Black-Pearl Brooch, and Clockwork Rogue Ring."
+    },
+    {
+      "pass": 57,
+      "items": [
+        "bq_riverbend_pearl_ring",
+        "bq_efreeti_monkey_flask",
+        "vom_fab_uthariel_diadem",
+        "vom_earrings_storm_oyster",
+        "vom_mantle_void",
+        "vom_witch_hunter_armor",
+        "leather_armor",
+        "vom_staff_feathers",
+        "bq_magra_obsidian_fang",
+        "bq_nazvaza_mask"
+      ],
+      "summary": "Reworked Fabled Uthariel's Diadem, Earrings of the Storm Oyster, Witch Hunter's Armor, Mantle of the Void, Staff of Feathers, Studded Leather, and polished Obsidian Ophidian Fang-Blade, Naz'Vaza's Porcelain Mask, Rutyer Millpond Pearl Ring & Cinder-Monkey's Iron Flask."
     }
   ],
   "itemPasses": {
@@ -1459,6 +1475,16 @@
     "bk_campaign_field_tent": 1,
     "bq_fifth_corner_compass": 1,
     "vom_clockwork_rogue_ring": 1,
-    "ul_black_pearl_brooch": 1
+    "ul_black_pearl_brooch": 1,
+    "bq_riverbend_pearl_ring": 1,
+    "bq_efreeti_monkey_flask": 1,
+    "vom_fab_uthariel_diadem": 1,
+    "vom_earrings_storm_oyster": 1,
+    "vom_mantle_void": 1,
+    "vom_witch_hunter_armor": 1,
+    "leather_armor": 1,
+    "vom_staff_feathers": 1,
+    "bq_magra_obsidian_fang": 1,
+    "bq_nazvaza_mask": 1
   }
 }
