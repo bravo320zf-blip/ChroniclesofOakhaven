@@ -5468,16 +5468,18 @@ window.OAKHAVEN.registerSpells([
     "mp": 4,
     "combat": true,
     "ooc": false,
-    "icon": "🌑",
+    "icon": "👻",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 1",
     "school": "Necromancy",
     "spellLevel": 4,
     "dmgDice": "2d8",
+    "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "necrotic",
-    "desc": "Deals 2d8 + arcana necrotic dmg. [Lv.4 Necromancy • Deep Magic Vol. 1]"
+    "chillTurns": 2,
+    "desc": "Unleash a marrow-freezing banshee shriek for 2d8 + 2 + Arcana necrotic dmg and Chill (2t). [Lv.4 Necromancy]"
   },
   {
     "name": "Killing Fields",
@@ -7659,7 +7661,7 @@ window.OAKHAVEN.registerSpells([
     "mp": 3,
     "combat": true,
     "ooc": false,
-    "icon": "🔥",
+    "icon": "❄️",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 1",
@@ -7667,8 +7669,10 @@ window.OAKHAVEN.registerSpells([
     "spellLevel": 2,
     "dmgDice": "2d6",
     "dmgStat": "arcana",
-    "dmgType": "fire",
-    "desc": "Deals 2d6 + arcana fire dmg. [Lv.2 Conjuration • Deep Magic Vol. 1]"
+    "dmgType": "frost",
+    "shieldTurns": 2,
+    "chillTurns": 1,
+    "desc": "Raise a packed-ice parapet around yourself while pelting foes for 2d6 + Arcana frost dmg, Shield (2t), and Chill (1t). [Lv.2 Conjuration]"
   },
   {
     "name": "Snowy Coat",
@@ -8173,7 +8177,7 @@ window.OAKHAVEN.registerSpells([
     "name": "Sun's Bounty",
     "mp": 5,
     "combat": true,
-    "ooc": false,
+    "ooc": true,
     "icon": "☀️",
     "scrollOnly": true,
     "scrollRarity": "rare",
@@ -8188,7 +8192,7 @@ window.OAKHAVEN.registerSpells([
     "healDice": "2d8",
     "healStat": "spirit",
     "chillTurns": 3,
-    "desc": "Deals 2d8 + 2 + arcana radiant dmg (2x vs undead); restores 2d8 + spirit hp; weakens foe (-2 enemy atk, 3t). [Lv.5 Transmutation • Deep Magic Vol. 1]"
+    "desc": "Call down golden harvest sunlight to restore 2d8 + Spirit HP (usable out of combat) while searing foes for 2d8 + 2 + Arcana radiant dmg (2x vs Undead) and Chill (3t). [Lv.5 Transmutation]"
   },
   {
     "name": "Surge Dampener",

@@ -41,14 +41,17 @@ window.OAKHAVEN.registerSpells([
     "mp": 3,
     "combat": true,
     "ooc": true,
-    "icon": "🌑",
+    "icon": "⚡",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Deep Magic Vol. 2",
     "school": "Evocation",
     "spellLevel": 1,
+    "dmgDice": "1d8",
+    "dmgStat": "arcana",
+    "dmgType": "force",
     "evadeTurns": 2,
-    "desc": "+2 ac evasion (2t). [Lv.1 Evocation • Deep Magic Vol. 2]"
+    "desc": "Snap a retaliatory ward at would-be ambushers for 1d8 + Arcana force dmg while granting Evade (2t). [Lv.1 Evocation]"
   },
   {
     "name": "Amplify Sound",
@@ -3574,7 +3577,7 @@ window.OAKHAVEN.registerSpells([
     "name": "Jedza's Tidy Charm",
     "mp": 3,
     "combat": true,
-    "ooc": false,
+    "ooc": true,
     "icon": "✨",
     "scrollOnly": true,
     "scrollRarity": "rare",
@@ -3585,7 +3588,10 @@ window.OAKHAVEN.registerSpells([
     "dmgBonus": 2,
     "dmgStat": "spirit",
     "dmgType": "arcane",
-    "desc": "Deals 1d6 + 2 + spirit arcane dmg. [Lv.1 Enchantment • Deep Magic Vol. 2]"
+    "healDice": "1d6",
+    "healStat": "spirit",
+    "shieldTurns": 1,
+    "desc": "A brisk hearth-witch charm that mends 1d6 + Spirit HP (usable out of combat), grants Shield (1t), and snaps at foes for 1d6 + 2 + Spirit arcane dmg. [Lv.1 Enchantment]"
   },
   {
     "name": "Jerilyn's Cadaverous Uprising",

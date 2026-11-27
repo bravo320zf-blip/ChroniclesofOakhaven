@@ -1,6 +1,6 @@
 {
-  "totalPasses": 3,
-  "totalSpellsPolished": 15,
+  "totalPasses": 4,
+  "totalSpellsPolished": 20,
   "totalCatalogSpells": 1209,
   "spellPasses": {
     "Ambush": 1,
@@ -17,7 +17,12 @@
     "Shackle": 1,
     "Freezing Fog": 1,
     "Beguiling Bet": 1,
-    "Starburst": 1
+    "Starburst": 1,
+    "Keening Wail": 1,
+    "Sun's Bounty": 1,
+    "Jedza's Tidy Charm": 1,
+    "Snow Fort": 1,
+    "Ambusher's Regret": 1
   },
   "history": [
     {
@@ -52,6 +57,17 @@
         "Starburst"
       ],
       "summary": "Polished Protection from the Void (+Shield 2t), Shackle (+Chill 1t), Freezing Fog (+Chill 2t & Evade 1t), Beguiling Bet (+Evade 2t), and Starburst (+1 bonus & 2x vs Undead), removing all sourcebook tags."
+    },
+    {
+      "pass": 4,
+      "spells": [
+        "Keening Wail",
+        "Sun's Bounty",
+        "Jedza's Tidy Charm",
+        "Snow Fort",
+        "Ambusher's Regret"
+      ],
+      "summary": "Fixed Snow Fort from fire to frost (+Shield 2t & Chill 1t), polished Keening Wail (+2 bonus & Chill 2t), Sun's Bounty (+OOC healing), Ambusher's Regret (+1d8 force rebuke), and Jedza's Tidy Charm (+OOC 1d6 heal & Shield 1t), removing all sourcebook tags."
     }
   ]
 }
