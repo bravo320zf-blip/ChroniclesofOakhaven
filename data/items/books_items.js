@@ -53,7 +53,9 @@ window.OAKHAVEN.registerItems({
     "ac": 1,
     "luck": 1,
     "maxHp": 4,
-    "desc": "+1 AC, +1 Luck, +4 Max HP (Tome of Heroes)"
+    "passives": { "healBonus": 2, "mpRegen": 1, "skillBonus": { "Perception": 2 } },
+    "activeAbility": { "name": "Still-Mind Mantra", "icon": "📿", "charges": 1, "ooc": true, "restoreMp": 5, "restoreLuck": 1, "desc": "1/Quest: Roll the polished prayer beads to restore +5 MP and +1 Luck!" },
+    "desc": "+1 AC, +1 Luck, +4 Max HP, +2 Heal, +1 MP/turn, +2 Perception. Smooth sandalwood prayer beads granting Still-Mind Mantra."
   },
   "bk_bloodspeed_elixir": {
     "id": "bk_bloodspeed_elixir",

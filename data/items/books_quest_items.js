@@ -1287,7 +1287,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 1,
     maxMp: 5,
-    desc: "+2 AC, +1 Arcana, +5 Max MP. Ancient dwarven rune-ring from the Scarlet Citadel barracks."
+    passives: { spellDmgBonus: 3, spellCostReduce: 1, dmgReduce: 1, skillBonus: { Arcana: 2 } },
+    activeAbility: { name: "Dwarven Ring-Ward", icon: "💍", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "force", shieldTurns: 2, desc: "2/Quest (2 MP): Channel Scarlet Citadel rune-magic for 2d8 + Arcana force dmg and Shield (2t)!" },
+    desc: "+2 AC, +1 Arcana, +5 Max MP, +3 Spell Dmg, -1 MP cost, -1 Dmg Taken, +2 Arcana. Dwarven rune-ring from the Scarlet Citadel barracks with Dwarven Ring-Ward."
   },
   "bq_black_river_oar_staff": {
     id: "bq_black_river_oar_staff",
@@ -3123,9 +3125,9 @@ window.OAKHAVEN.registerItems({
     value: 165,
     ac: 3,
     spirit: 2,
-    passives: { undeadDmgBonus: 4, dmgReduce: 1 },
+    passives: { undeadDmgBonus: 4, dmgReduce: 1, skillBonus: { Perception: 2 } },
     activeAbility: { name: "Blinding Beacon", icon: "🔦", charges: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, shieldTurns: 2, desc: "2/Quest: Flash lighthouse radiance for 2d6 + Spirit dmg (2x vs Undead) and +3 AC (2t)!" },
-    desc: "Polished prism-glass shield salvaged from Beacon Rock (+4 vs Undead, -1 Dmg Taken) with Blinding Beacon."
+    desc: "+3 AC, +2 Spirit, +4 vs Undead, -1 Dmg Taken, +2 Perception. Polished prism-glass shield from Beacon Rock with Blinding Beacon."
   },
   "bq_witchwillow_cloak": {
     id: "bq_witchwillow_cloak",
@@ -3200,9 +3202,9 @@ window.OAKHAVEN.registerItems({
     atk: 4,
     agility: 2,
     arcana: 1,
-    passives: { critRange: 11, bossDmgBonus: 3 },
+    passives: { critRange: 19, bossDmgBonus: 3 },
     activeAbility: { name: "Tempest Lunge", icon: "🌩️", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "agility", dmgType: "lightning", evadeTurns: 1, desc: "2/Quest (2 MP): Ride a canyon gust for 2d8 + Agility lightning dmg and Evade (1t)!" },
-    desc: "Moth-wing crested bronze spear from the Fluttering Bridge (+Crit, +3 Boss Dmg) with Tempest Lunge."
+    desc: "+4 Attack, +2 Agility, +1 Arcana, Crit 19-20, +3 Boss Dmg. Moth-wing crested bronze spear from the Fluttering Bridge with Tempest Lunge."
   },
   "bq_troutscales_trident": {
     id: "bq_troutscales_trident",

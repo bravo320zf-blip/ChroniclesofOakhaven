@@ -1,6 +1,6 @@
 {
-  "totalPasses": 50,
-  "totalItemsReworked": 500,
+  "totalPasses": 51,
+  "totalItemsReworked": 510,
   "history": [
     {
       "pass": 1,
@@ -801,6 +801,22 @@
         "bk_circlet_of_holly"
       ],
       "summary": "Milestone 500th item (67.0%)! Reworked Fabled Grinning Skull, Ring of the Frost Knight, Ghoulbane Rod, Spidersilk Mantle of Sicarius, Molten Hellfire Armor, Masher Basher, Clockwork Hand, Medal of Valor, and Estoc & Circlet Of Holly (removed sourcebook tags)."
+    },
+    {
+      "pass": 51,
+      "items": [
+        "bq_beacon_lens_buckler",
+        "bq_dwarven_ring_mage_band",
+        "bk_beads_of_contemplation",
+        "bq_fluttering_bridge_spear",
+        "vom_fulminar_bracers",
+        "vom_root_world_tree",
+        "mithril_buckler",
+        "vom_clockwork_spider_clk",
+        "vom_rod_blade_bending",
+        "vom_shield_missile_rev"
+      ],
+      "summary": "Reworked Fulminar Bracers, Shield of Missile Reversal, Rod of Blade Bending, Clockwork Spider Cloak, Root of the World Tree, Barracks Ring-Mage Band, Mithril Buckler, Beads of Contemplation (removed sourcebook tag), fixed Gale-Wing Fey Spear critRange, and polished Beacon Rock Fresnel Buckler."
     }
   ],
   "itemPasses": {
@@ -1303,6 +1319,16 @@
     "vom_clockwork_hand": 1,
     "bk_estoc": 1,
     "vom_fab_grinning_skull": 1,
-    "bk_circlet_of_holly": 1
+    "bk_circlet_of_holly": 1,
+    "bq_beacon_lens_buckler": 1,
+    "bq_dwarven_ring_mage_band": 1,
+    "bk_beads_of_contemplation": 1,
+    "bq_fluttering_bridge_spear": 1,
+    "vom_fulminar_bracers": 1,
+    "vom_root_world_tree": 1,
+    "mithril_buckler": 1,
+    "vom_clockwork_spider_clk": 1,
+    "vom_rod_blade_bending": 1,
+    "vom_shield_missile_rev": 1
   }
 }
