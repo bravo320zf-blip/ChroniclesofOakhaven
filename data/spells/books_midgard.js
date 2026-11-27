@@ -365,17 +365,18 @@ window.OAKHAVEN.registerSpells([
     "mp": 4,
     "combat": true,
     "ooc": false,
-    "icon": "✨",
+    "icon": "⚡",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Midgard Heroes",
     "school": "Evocation",
     "spellLevel": 3,
-    "dmgDice": "2d6",
+    "dmgDice": "2d8",
     "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "force",
-    "desc": "Deals 2d6 + 2 + arcana force dmg. [Lv.3 Evocation • Midgard Heroes]"
+    "shieldTurns": 1,
+    "desc": "Tap a crackling ley-line to fire a lance of pure force for 2d8 + 2 + Arcana dmg while wrapping yourself in a brief Shield (1t). [Lv.3 Evocation]"
   },
   {
     "name": "Ley Leech",
@@ -803,14 +804,17 @@ window.OAKHAVEN.registerSpells([
     "mp": 6,
     "combat": true,
     "ooc": true,
-    "icon": "✨",
+    "icon": "⚙️",
     "scrollOnly": true,
     "scrollRarity": "rare",
     "source": "Midgard Heroes",
     "school": "Transmutation",
     "spellLevel": 7,
+    "healDice": "3d8",
+    "healStat": "arcana",
     "shieldTurns": 3,
-    "desc": "Arcane ward (+3 ac for 3 turns). [Lv.7 Transmutation • Midgard Heroes]"
+    "evadeTurns": 2,
+    "desc": "Conjure a ticking chronofield that rewinds 3d8 + Arcana HP (usable out of combat) and grants Shield (3t) and Evade (2t). [Lv.7 Transmutation]"
   },
   {
     "name": "Winding Key",

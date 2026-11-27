@@ -1,6 +1,6 @@
 {
-  "totalPasses": 4,
-  "totalSpellsPolished": 20,
+  "totalPasses": 5,
+  "totalSpellsPolished": 25,
   "totalCatalogSpells": 1209,
   "spellPasses": {
     "Ambush": 1,
@@ -22,7 +22,12 @@
     "Sun's Bounty": 1,
     "Jedza's Tidy Charm": 1,
     "Snow Fort": 1,
-    "Ambusher's Regret": 1
+    "Ambusher's Regret": 1,
+    "Curse of Hostility": 1,
+    "Ley Energy Bolt": 1,
+    "Blood Shards": 1,
+    "Shadow Step": 1,
+    "Timeless Engine": 1
   },
   "history": [
     {
@@ -68,6 +73,17 @@
         "Ambusher's Regret"
       ],
       "summary": "Fixed Snow Fort from fire to frost (+Shield 2t & Chill 1t), polished Keening Wail (+2 bonus & Chill 2t), Sun's Bounty (+OOC healing), Ambusher's Regret (+1d8 force rebuke), and Jedza's Tidy Charm (+OOC 1d6 heal & Shield 1t), removing all sourcebook tags."
+    },
+    {
+      "pass": 5,
+      "spells": [
+        "Curse of Hostility",
+        "Ley Energy Bolt",
+        "Blood Shards",
+        "Shadow Step",
+        "Timeless Engine"
+      ],
+      "summary": "Polished Curse of Hostility (+Chill 2t), Ley Energy Bolt (2d8+2 force & Shield 1t), Blood Shards (3d6+3 necrotic & 1d8 siphon), Shadow Step (2d6 necrotic + Evade 2t & Chill 2t), and Lv.7 Timeless Engine (+OOC 3d8 heal, Shield 3t, Evade 2t), removing all sourcebook tags."
     }
   ]
 }

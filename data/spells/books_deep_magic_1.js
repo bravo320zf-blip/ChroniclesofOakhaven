@@ -2603,8 +2603,9 @@ window.OAKHAVEN.registerSpells([
     "dmgDice": "2d6",
     "dmgBonus": 2,
     "dmgStat": "arcana",
-    "dmgType": "arcane",
-    "desc": "Deals 2d6 + 2 + arcana arcane dmg. [Lv.3 Necromancy • Deep Magic Vol. 1]"
+    "dmgType": "necrotic",
+    "chillTurns": 2,
+    "desc": "Hex a foe with spiteful dark whispers that deal 2d6 + 2 + Arcana necrotic dmg and rattle their aim with Chill (2t). [Lv.3 Necromancy]"
   },
   {
     "name": "Curse of Incompetence",
