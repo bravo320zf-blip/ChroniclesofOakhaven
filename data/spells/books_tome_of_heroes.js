@@ -6,6 +6,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Abrupt Hug",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -20,6 +21,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Ambush Chute",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -37,6 +39,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Armored Formation",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -51,6 +54,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Bardo",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -70,6 +74,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Beast Within",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "⚔️",
@@ -86,6 +91,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Betraying Bauble",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "👁️",
@@ -100,6 +106,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Bloodlust",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -116,6 +123,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Blunted Edge",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -133,6 +141,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Bolster Fortifications",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -147,6 +156,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Bombardment of Stings",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🗡️",
@@ -164,6 +174,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Bound Haze",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "☠️",
@@ -182,6 +193,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Burst Stone",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🪨",
@@ -200,6 +212,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Calm Beasts",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -214,6 +227,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Clear the Board",
     "mp": 6,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🌑",
@@ -228,6 +242,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Conjure Construct",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -242,6 +257,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Conjure Spectral Allies",
     "mp": 6,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🌑",
@@ -259,6 +275,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Convey Inner Peace",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -273,6 +290,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Crown of Thorns",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -289,6 +307,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Damaging Intel",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "👁️",
@@ -303,6 +322,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Deadly Salvo",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🗡️",
@@ -320,6 +340,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Devouring Darkness",
     "mp": 7,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -337,6 +358,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Divine Retribution",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "☀️",
@@ -356,6 +378,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Door of the Far Traveler",
     "mp": 6,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -373,6 +396,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Dreamwine",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🌑",
@@ -387,6 +411,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Emerald Eyes",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -404,6 +429,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Enchanted Bloom",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔥",
@@ -421,6 +447,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Eruption",
     "mp": 7,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "☠️",
@@ -438,6 +465,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Ethereal Stairs",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -455,6 +483,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Feint",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🎭",
@@ -469,6 +498,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Fey Food",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -486,6 +516,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Fey-Touched Blade",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🌑",
@@ -500,6 +531,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Furious Wail",
     "mp": 7,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -517,6 +549,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Fuse Armor",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -531,6 +564,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Gale",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "❄️",
@@ -548,6 +582,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Glare",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -565,6 +600,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "password. A creature that speaks the password as it",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -581,6 +617,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "You create a hidden glyph by tracing it on a surface",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -599,6 +636,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "6th‑level spell slot, the duration is concentration, up",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🎭",
@@ -613,6 +651,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "disadvantage on Wisdom (Survival) checks to",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -627,6 +666,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "High Ground",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -641,6 +681,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Hypnagogia Hunter's Endurance",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -657,6 +698,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "4th-level enchantment (liminal)",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -671,6 +713,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "a new Intelligence saving throw. On a success, the",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -685,6 +728,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Hypnic Jerk",
     "mp": 2,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -701,6 +745,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Immolating Gibbet",
     "mp": 6,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔥",
@@ -718,6 +763,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Inexorable Summons",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -732,6 +778,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Inspiring Speech Instant Armored Vehicle",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -748,6 +795,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "4th-level enchantment",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -762,6 +810,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Iron Gut",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "☠️",
@@ -780,6 +829,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Jagged Forcelance",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔱",
@@ -797,6 +847,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Jarring Growl",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -814,6 +865,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Lance",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -831,6 +883,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Less Fool, I",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "👁️",
@@ -845,6 +898,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Life Burst",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "💚",
@@ -860,6 +914,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Lightless Torch",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -874,6 +929,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Long Game",
     "mp": 6,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -890,6 +946,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Martyr's Rally",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "💚",
@@ -905,6 +962,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Mass Faerie Fire",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🌑",
@@ -919,6 +977,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Mind Maze",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -933,6 +992,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Misdirection",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🎭",
@@ -947,6 +1007,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Mud",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -961,6 +1022,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Muted Foe",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "⚡",
@@ -978,6 +1040,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Never Surrender",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -992,6 +1055,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Oathbound Implement",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -1006,6 +1070,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Outmaneuver",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🥾",
@@ -1023,6 +1088,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Oversized Paws",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -1037,6 +1103,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Pincer",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "⚡",
@@ -1054,6 +1121,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Piper's Lure",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -1068,6 +1136,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Portal Trap",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🌑",
@@ -1082,6 +1151,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Protection from the Void",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -1100,6 +1170,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Reaper's Knell",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "💚",
@@ -1115,6 +1186,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Rebounding Bolt",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -1132,6 +1204,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Reciprocating Portal",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -1146,6 +1219,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Repulsing Wall",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "☀️",
@@ -1164,6 +1238,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Retribution",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -1181,6 +1256,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Rive",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "❄️",
@@ -1198,6 +1274,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Rockfall Ward",
     "mp": 3,
+    "castingTime": "bonus",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -1212,6 +1289,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Sacrifice Pawn",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "💚",
@@ -1227,6 +1305,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Safe Transposition",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🌑",
@@ -1241,6 +1320,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Secret Blind",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🌑",
@@ -1255,6 +1335,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Shared Frenzy",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "⚔️",
@@ -1272,6 +1353,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Shocking Volley",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "⚡",
@@ -1288,6 +1370,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Sightburst",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "👁️",
@@ -1302,6 +1385,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Silvershout",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "✨",
@@ -1316,6 +1400,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Smelting Blast",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔥",
@@ -1332,6 +1417,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Sneer",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -1349,6 +1435,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Spiked Barricade",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔥",
@@ -1366,6 +1453,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Spite",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -1382,6 +1470,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Steam Gout",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔥",
@@ -1400,6 +1489,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Stone Aegis",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -1414,6 +1504,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Stone Fetch",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "⚔️",
@@ -1431,6 +1522,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Subliminal Aversion",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🔮",
@@ -1448,6 +1540,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Sudden Slue",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🪨",
@@ -1465,6 +1558,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Suppress Regeneration",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "💚",
@@ -1480,6 +1574,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Threshold Slip",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -1496,6 +1591,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Toadstool Ring",
     "mp": 5,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "👁️",
@@ -1510,6 +1606,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Toothless Beast",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -1526,6 +1623,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Trollish Charge",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -1541,6 +1639,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Vine Carpet",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -1555,6 +1654,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "War Horn",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",
@@ -1569,6 +1669,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Wild Hunt",
     "mp": 6,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",

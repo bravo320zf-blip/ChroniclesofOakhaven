@@ -11,6 +11,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Firebolt",
     mp: 3,
+    castingTime: "action",
     combat: true,
     ooc: false,
     icon: "🔥",
@@ -22,6 +23,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Mend Wounds",
     mp: 3,
+    castingTime: "action",
     combat: true,
     ooc: true,
     icon: "💚",
@@ -33,6 +35,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Arcane Shield",
     mp: 3,
+    castingTime: "bonus",
     combat: true,
     ooc: true,
     icon: "🛡️",
@@ -42,6 +45,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Shadowstep",
     mp: 3,
+    castingTime: "action",
     combat: true,
     ooc: false,
     icon: "🌑",
@@ -55,6 +59,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Turn Undead",
     mp: 4,
+    castingTime: "action",
     combat: true,
     ooc: false,
     icon: "☀️",
@@ -67,6 +72,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Frost Nova",
     mp: 4,
+    castingTime: "action",
     combat: true,
     ooc: false,
     icon: "❄️",
@@ -80,6 +86,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Detect Traps",
     mp: 2,
+    castingTime: "action",
     combat: false,
     ooc: false,
     icon: "👁️",

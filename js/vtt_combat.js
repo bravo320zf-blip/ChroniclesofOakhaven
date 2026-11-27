@@ -57,17 +57,23 @@
 
     if (/ice|frost|snow|glacier|tundra|winter|arctic|blizzard|frozen/.test(hay)) return "arctic";
     if (/swamp|marsh|bog|fen|mire|bayou|ooze|sludge/.test(hay)) return "swamp";
-    if (/ship|harbor|dock|pier|coast|beach|pirate|saltfang|sea|lighthouse|kraken|tide|cove/.test(hay)) return "harbor";
+    if (/cavern|cave|underdark|mine|tunnel|grotto|chasm|stalactite|underground|spider/.test(hay)) return "cavern";
+    if (/ship|harbor|dock|pier|wharf|pirate|lighthouse|kraken|cove|port/.test(hay)) return "harbor";
     if (/crypt|tomb|catacomb|grave|barrow|mausoleum|ossuary|necropolis|undead|skeleton|lich|coffin/.test(hay)) return "crypt";
     if (/tavern|inn|flagon|alehouse|lounge|parlor|hall|banquet|ballroom/.test(hay)) return "tavern";
     if (/roof|rooftop|spire|belltower|balcony|rafter/.test(hay)) return "rooftops";
     if (/tower|citadel|keep|castle|battlement|rampart/.test(hay)) return "tower";
-    if (/cavern|cave|underdark|mine|tunnel|grotto|chasm|stalactite|underground|spider/.test(hay)) return "cavern";
     if (/forest|wood|grove|glade|thornwood|tree|jungle|canopy|bramble|clearing/.test(hay)) return "forest";
     if (/city|street|alley|market|square|district|zobeck|guild|shop|warehouse/.test(hay)) return "city";
     if (/ruin|abbey|temple|shrine|monastery|altar|pillar|courtyard/.test(hay)) return "ruins";
+    if (/coast|beach|cliff|tide|sea|saltfang/.test(hay)) return "harbor";
     if (/plain|moor|meadow|road|trail|hill|camp|caravan|outskirts/.test(hay)) return "plains";
     return "dungeon";
+  }
+
+  function isAquaticEnemy(enemy) {
+    const hay = `${enemy?.name || ""} ${enemy?.desc || ""}`.toLowerCase();
+    return /crab|reef|kraken|shark|sahuagin|merfolk|tentacle|fish|sea|squid|aboleth|water|kelp|lizardfolk|frog|toad|eel|serpent|tide|aquatic|swimmer/.test(hay);
   }
 
   function pickEnemyIcon(enemy) {
@@ -195,8 +201,45 @@
     return true;
   }
 
-  // Dijkstra shortest path accounting for Difficult Terrain (10ft vs 5ft)
-  function computeReachable(grid, startX, startY, maxFt, blockedPos) {
+  // Load real pixel-aligned mapGrid when available, else fallback to clean terrain
+  function buildGridForMap(mapUrl, seed, biome, allowFlee) {
+    const mapGrids = window.OAKHAVEN?.battleMaps?.mapGrids || {};
+    const mg = mapUrl ? mapGrids[mapUrl] : null;
+    if (mg && Array.isArray(mg.rows) && mg.rows.length === ROWS) {
+      const charMap = { ".": "open", "W": "water", "#": "wall", "C": "cover", "D": "difficult" };
+      const grid = mg.rows.map(row => row.split("").slice(0, COLS).map(ch => charMap[ch] || "open"));
+      const hs = mg.heroSpawn || [2, 4];
+      const es = mg.enemySpawn || [9, 3];
+      // Place 1-2 Exit tiles on walkable left-edge squares (never in deep water if dry edge exists)
+      if (allowFlee) {
+        let placedExit = 0;
+        for (let y = 0; y < ROWS && placedExit < 2; y++) {
+          if (grid[y][0] === "open" && !(hs[0] === 0 && hs[1] === y)) {
+            grid[y][0] = "exit";
+            placedExit++;
+          }
+        }
+        if (placedExit === 0) {
+          for (let y = 2; y < ROWS && placedExit < 2; y++) {
+            if (grid[y][0] !== "wall" && !(hs[0] === 0 && hs[1] === y)) {
+              grid[y][0] = "exit";
+              placedExit++;
+            }
+          }
+        }
+      }
+      return { grid, heroSpawn: { x: hs[0], y: hs[1] }, enemySpawn: { x: es[0], y: es[1] }, hasRealMapGrid: true };
+    }
+    return {
+      grid: generateTerrain(seed, biome, allowFlee),
+      heroSpawn: { x: 2, y: 4 },
+      enemySpawn: { x: 9, y: 3 },
+      hasRealMapGrid: false
+    };
+  }
+
+  // Dijkstra shortest path accounting for Difficult Terrain & Water (10ft / half movement vs 5ft)
+  function computeReachable(grid, startX, startY, maxFt, blockedPos, isAquatic = false) {
     const dist = Array.from({ length: ROWS }, () => Array(COLS).fill(Infinity));
     const prev = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
     dist[startY][startX] = 0;
@@ -219,7 +262,8 @@
         if (dx !== 0 && dy !== 0) {
           if (grid[cur.y][nx] === "wall" && grid[ny][cur.x] === "wall") continue;
         }
-        const stepCost = grid[ny][nx] === "difficult" ? 10 : 5;
+        const tileType = grid[ny][nx];
+        const stepCost = (tileType === "difficult" || (tileType === "water" && !isAquatic)) ? 10 : 5;
         const nd = cur.d + stepCost;
         if (nd <= maxFt && nd < dist[ny][nx]) {
           dist[ny][nx] = nd;
@@ -292,8 +336,9 @@
       this.callbacks = callbacks;
       const biome = detectBiome(quest, page, activeCombat);
       const seed = hashStr(`${quest?.id || "outskirts"}_${activeCombat.pageNum}_${activeCombat.name}`);
-      const grid = generateTerrain(seed, biome, !!activeCombat.flee);
       const mapInfo = resolveMapUrl(quest, activeCombat.pageNum, biome);
+      const built = buildGridForMap(mapInfo.url, seed, biome, !!activeCombat.flee);
+      const grid = built.grid;
       if (mapInfo.url) getImg(mapInfo.url);
 
       const heroSpeed = getHeroSpeedFt(heroState);
@@ -309,14 +354,15 @@
         biome,
         mapUrl: mapInfo.url,
         mapLabel: mapInfo.label,
+        hasRealMapGrid: built.hasRealMapGrid,
         grid,
         round: 1,
         turn: heroInit >= enemyInit ? "hero" : "enemy",
         heroInit,
         enemyInit,
         hero: {
-          x: 2, y: 4,
-          vx: 2, vy: 4, // visual interpolated pos
+          x: built.heroSpawn.x, y: built.heroSpawn.y,
+          vx: built.heroSpawn.x, vy: built.heroSpawn.y, // visual interpolated pos
           speed: heroSpeed,
           moveLeft: heroSpeed,
           actionUsed: false,
@@ -326,10 +372,11 @@
           tokenPath: callbacks?.getHeroTokenPath ? callbacks.getHeroTokenPath() : null
         },
         enemy: {
-          x: 9, y: 3,
-          vx: 9, vy: 3,
+          x: built.enemySpawn.x, y: built.enemySpawn.y,
+          vx: built.enemySpawn.x, vy: built.enemySpawn.y,
           speed: enemySpeed,
           isRanged: isRangedEnemy(activeCombat),
+          isAquatic: isAquaticEnemy(activeCombat),
           icon: pickEnemyIcon(activeCombat),
           artPath: window.OAKHAVEN?.monsterArt?.byName?.[activeCombat.name] || null,
           isBoss: !!activeCombat.isBoss
@@ -561,8 +608,8 @@
         return { canAttack: true, isRanged: s.enemy.isRanged && curDist > 5, movedFt: 0, hasHalfCover: curDist > 5 && los.halfCover };
       }
 
-      // Move toward hero along shortest path
-      const reach = computeReachable(s.grid, s.enemy.x, s.enemy.y, s.enemy.speed, s.hero);
+      // Move toward hero along shortest path (aquatic enemies swim at full 5ft speed!)
+      const reach = computeReachable(s.grid, s.enemy.x, s.enemy.y, s.enemy.speed, s.hero, !!s.enemy.isAquatic);
       let best = null;
       let bestScore = Infinity;
       for (let y = 0; y < ROWS; y++) {
@@ -730,41 +777,40 @@
         }
       }
 
-      // 3. Tactical Terrain Tiles (Walls, Half Cover, Difficult Terrain, Exit)
+      // 3. Tactical Terrain Tiles (Clean translucent overlays — no ugly floating boxes over real map art!)
       for (let y = 0; y < ROWS; y++) {
         for (let x = 0; x < COLS; x++) {
           const t = s.grid[y][x];
           const px = x * TILE, py = y * TILE;
           if (t === "wall") {
-            ctx.fillStyle = "rgba(24, 20, 18, 0.78)";
-            ctx.fillRect(px + 4, py + 4, TILE - 8, TILE - 8);
-            ctx.strokeStyle = "rgba(168, 162, 158, 0.55)";
-            ctx.lineWidth = 2;
-            ctx.strokeRect(px + 5, py + 5, TILE - 10, TILE - 10);
-            ctx.fillStyle = "rgba(214, 211, 209, 0.7)";
-            ctx.font = "bold 20px sans-serif";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText("🧱", px + TILE / 2, py + TILE / 2);
+            ctx.fillStyle = s.hasRealMapGrid ? "rgba(12, 10, 9, 0.35)" : "rgba(24, 20, 18, 0.72)";
+            ctx.fillRect(px + 2, py + 2, TILE - 4, TILE - 4);
+            ctx.strokeStyle = "rgba(239, 68, 68, 0.35)";
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(px + 3, py + 3, TILE - 6, TILE - 6);
           } else if (t === "cover") {
-            ctx.fillStyle = "rgba(120, 53, 15, 0.58)";
-            ctx.fillRect(px + 10, py + 10, TILE - 20, TILE - 20);
+            ctx.fillStyle = "rgba(180, 83, 9, 0.22)";
+            ctx.fillRect(px + 6, py + 6, TILE - 12, TILE - 12);
             ctx.strokeStyle = "rgba(251, 191, 36, 0.65)";
             ctx.lineWidth = 2;
-            ctx.strokeRect(px + 10, py + 10, TILE - 20, TILE - 20);
-            ctx.font = "18px sans-serif";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText("🛡️", px + TILE / 2, py + TILE / 2);
+            ctx.strokeRect(px + 6, py + 6, TILE - 12, TILE - 12);
+          } else if (t === "water") {
+            // Subtle cyan wave-shimmer outline for 5e Water (Half Movement / 10ft)
+            ctx.strokeStyle = "rgba(56, 189, 248, 0.25)";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(px + 18, py + TILE * 0.52);
+            ctx.quadraticCurveTo(px + TILE * 0.35, py + TILE * 0.44, px + TILE * 0.5, py + TILE * 0.52);
+            ctx.quadraticCurveTo(px + TILE * 0.65, py + TILE * 0.60, px + TILE - 18, py + TILE * 0.52);
+            ctx.stroke();
           } else if (t === "difficult") {
-            ctx.fillStyle = "rgba(180, 83, 9, 0.22)";
+            ctx.fillStyle = "rgba(180, 83, 9, 0.16)";
             ctx.fillRect(px + 2, py + 2, TILE - 4, TILE - 4);
-            // Subtle diagonal hatching
             ctx.strokeStyle = "rgba(245, 158, 11, 0.28)";
             ctx.lineWidth = 1.5;
             ctx.beginPath();
-            ctx.moveTo(px + 10, py + TILE - 10);
-            ctx.lineTo(px + TILE - 10, py + 10);
+            ctx.moveTo(px + 12, py + TILE - 12);
+            ctx.lineTo(px + TILE - 12, py + 12);
             ctx.stroke();
           } else if (t === "exit") {
             ctx.fillStyle = "rgba(16, 185, 129, 0.26)";
@@ -805,9 +851,10 @@
         ctx.lineWidth = 3;
         ctx.strokeRect(x * TILE + 2, y * TILE + 2, TILE - 4, TILE - 4);
 
+        const tType = s.grid[y][x];
         const label = provokesOA
           ? `⚠ OA! (${c}ft)`
-          : (canMove ? `Move ${c}ft` : (s.grid[y][x] === "cover" ? "Half Cover +2 AC" : (s.grid[y][x] === "wall" ? "Full Cover" : (s.grid[y][x] === "difficult" ? "Difficult (10ft)" : `${distFt(s.hero.x, s.hero.y, x, y)}ft`))));
+          : (canMove ? (tType === "water" ? `Swim ${c}ft` : `Move ${c}ft`) : (tType === "water" ? "Water (Half Move)" : (tType === "cover" ? "Half Cover +2 AC" : (tType === "wall" ? "Impassable" : (tType === "difficult" ? "Difficult (10ft)" : `${distFt(s.hero.x, s.hero.y, x, y)}ft`)))));
         ctx.fillStyle = "rgba(12, 10, 9, 0.85)";
         ctx.fillRect(x * TILE + 2, Math.max(2, y * TILE - 20), TILE - 4, 18);
         ctx.fillStyle = provokesOA ? "#fca5a5" : "#fef3c7";

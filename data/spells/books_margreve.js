@@ -6,6 +6,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Ambush",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🎭",
@@ -23,6 +24,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Greater Ley Protection",
     "mp": 6,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🛡️",
@@ -38,6 +40,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Lesser Ley Protection",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": true,
     "icon": "🔰",
@@ -53,6 +56,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Ley Disturbance",
     "mp": 4,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "🌀",
@@ -71,6 +75,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Shadow's Brand",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "💀",
@@ -88,6 +93,7 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Shadow Tree",
     "mp": 3,
+    "castingTime": "action",
     "combat": true,
     "ooc": false,
     "icon": "✨",

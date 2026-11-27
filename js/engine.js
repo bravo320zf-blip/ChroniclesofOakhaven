@@ -6199,19 +6199,42 @@
       }
     }
 
-    function checkVttActionReady() {
+    function checkVttSlotReady(slot = "action") {
       const v = window.OAKHAVEN?.VTT;
       if (!v || !v.active || !v.state) return true;
       if (v.state.turn !== "hero") { toast("Wait for the enemy's turn to finish!", "info"); return false; }
-      if (v.state.hero.actionUsed) { toast("Action already used this turn! Click ⏭ End Turn (or finish moving).", "info"); return false; }
+      if (slot === "bonus") {
+        if (v.state.hero.bonusUsed) { toast("Bonus Action already used this turn!", "info"); return false; }
+        return true;
+      }
+      if (v.state.hero.actionUsed) { toast("Action already used this turn! Move, use a Bonus Action, or click ⏭ End Turn.", "info"); return false; }
       return true;
     }
 
-    function consumeVttAction() {
+    function consumeVttSlot(slot = "action") {
       const v = window.OAKHAVEN?.VTT;
       if (v && v.active && v.state) {
-        v.state.hero.actionUsed = true;
+        if (slot === "bonus") v.state.hero.bonusUsed = true;
+        else v.state.hero.actionUsed = true;
       }
+    }
+
+    function checkVttActionReady() { return checkVttSlotReady("action"); }
+    function consumeVttAction() { consumeVttSlot("action"); }
+
+    function isBonusSpell(sp) {
+      if (!sp) return false;
+      if (sp.castingTime === "bonus") return true;
+      if (sp.castingTime === "action") return false;
+      return !sp.dmgDice && !sp.dmgBase && !!(sp.shieldTurns || sp.evadeTurns);
+    }
+
+    function isBonusAbility(ab) {
+      if (!ab) return false;
+      if (ab.castingTime === "bonus") return true;
+      if (ab.castingTime === "action") return false;
+      const isOffensive = !!(ab.dmgDice || ab.dmgBase || ab.multiStrike || ab.guaranteedCrit || ab.stunTurns);
+      return !isOffensive;
     }
 
     function triggerOpportunityAttack() {
@@ -6357,7 +6380,6 @@
 
     function combatSpell(name) {
       if (!activeCombat) return;
-      if (!checkVttActionReady()) return;
       ensureHeroProgressionState(state);
       if (!state.preparedSpells.includes(name)) {
         return toast(`${name} is not prepared! Prepare spells in Oakhaven.`, "bad");
@@ -6365,12 +6387,14 @@
       const sp = SPELLS_LIST.find(s => s.name === name);
       const mpCost = getEffectiveSpellMp(sp, state);
       if (!sp || state.mp < mpCost) return toast(`Need ${mpCost} MP!`, "bad");
+      const slot = isBonusSpell(sp) ? "bonus" : "action";
+      if (!checkVttSlotReady(slot)) return;
       const v = window.OAKHAVEN?.VTT;
       if ((sp.dmgDice || sp.dmgBase) && v?.active && v.state) {
         const los = v.getLineOfSightHeroToEnemy();
         if (los.blocked) return toast("Full Cover blocks Line of Sight for your spell! Move to a clear angle.", "bad");
       }
-      consumeVttAction();
+      consumeVttSlot(slot);
       state.mp -= mpCost;
       const d = getDerived(state);
       const subP = getSubclassPassiveTotals(state);
@@ -6575,13 +6599,14 @@
 
     function combatSubclassAbility(ab) {
       if (!activeCombat || !ab) return;
-      if (!checkVttActionReady()) return;
       if (ab.oncePerCombat && activeCombat.usedAbilities.includes(ab.name)) {
         return toast(`${ab.name} can only be used once per combat!`, "info");
       }
       const cost = ab.mp || 0;
       if (state.mp < cost) return toast(`Need ${cost} MP!`, "bad");
-      consumeVttAction();
+      const slot = isBonusAbility(ab) ? "bonus" : "action";
+      if (!checkVttSlotReady(slot)) return;
+      consumeVttSlot(slot);
       if (ab.craftItem && !ab.dmgDice && !ab.healDice && !ab.multiStrike) {
         if (!addToPack(ab.craftItem, ab.craftQty || 1)) return;
       }
@@ -7212,33 +7237,45 @@
           b.onclick = () => combatClassAbility(classAb);
           abRow.appendChild(b);
         }
+        const vttS = window.OAKHAVEN?.VTT?.active ? window.OAKHAVEN.VTT.state : null;
         const activeAbs = getUnlockedSubclassAbilities(state).filter(ab => ab.type === "active");
         activeAbs.forEach(ab => {
           const cost = ab.mp || 0;
           const used = ab.oncePerCombat && activeCombat.usedAbilities.includes(ab.name);
-          const ok = !used && state.mp >= cost;
+          const isBonus = isBonusAbility(ab);
+          const slotSpent = vttS ? (isBonus ? vttS.hero.bonusUsed : vttS.hero.actionUsed) : false;
+          const ok = !used && !slotSpent && state.mp >= cost;
           const b = document.createElement("button");
-          b.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border ${ok?"bg-purple-950 hover:bg-purple-900 border-purple-500/60 text-purple-200":"bg-stone-900 border-stone-800 text-stone-500"}`;
+          const colorCls = isBonus
+            ? "bg-amber-950/90 hover:bg-amber-900 border-amber-400/70 text-amber-200"
+            : "bg-purple-950 hover:bg-purple-900 border-purple-500/60 text-purple-200";
+          b.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border ${ok ? colorCls : "bg-stone-900 border-stone-800 text-stone-500"}`;
           b.disabled = !ok;
-          b.title = ab.desc;
+          b.title = `[${isBonus ? "Bonus Action" : "Action"}] ${ab.desc}`;
           const tag = used ? "Used" : (cost > 0 ? `${cost} MP` : "1/Combat");
-          b.textContent = `${ab.icon || "🌟"} ${ab.name} (${tag})`;
+          b.textContent = `${ab.icon || "🌟"} ${ab.name} (${isBonus ? "⚡ Bonus • " : ""}${tag})`;
           b.onclick = () => combatSubclassAbility(ab);
           abRow.appendChild(b);
         });
-        // Equipped Item Active Abilities (with quest charges / MP cost)
+        // Equipped Item Active Abilities (with quest charges / MP cost / Action vs Bonus Action)
         getEquippedItemAbilities(state).forEach(({ itemId, itemName, ab }) => {
           const cost = ab.mp || 0;
           const maxCh = ab.charges || 0;
           const usedCh = (state.activeAdv?.itemCharges?.[itemId]) || 0;
           const leftCh = maxCh > 0 ? Math.max(0, maxCh - usedCh) : null;
           const hasCharge = maxCh <= 0 || leftCh > 0;
-          const ok = hasCharge && state.mp >= cost;
+          const isBonus = isBonusAbility(ab);
+          const slotSpent = vttS ? (isBonus ? vttS.hero.bonusUsed : vttS.hero.actionUsed) : false;
+          const ok = hasCharge && !slotSpent && state.mp >= cost;
           const b = document.createElement("button");
-          b.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border ${ok ? "bg-teal-950 hover:bg-teal-900 border-teal-400/70 text-teal-200" : "bg-stone-900 border-stone-800 text-stone-500"}`;
+          const colorCls = isBonus
+            ? "bg-amber-950/90 hover:bg-amber-900 border-amber-400/70 text-amber-200"
+            : "bg-teal-950 hover:bg-teal-900 border-teal-400/70 text-teal-200";
+          b.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border ${ok ? colorCls : "bg-stone-900 border-stone-800 text-stone-500"}`;
           b.disabled = !ok;
-          b.title = `[${itemName}] ${ab.desc}`;
+          b.title = `[${itemName} • ${isBonus ? "Bonus Action" : "Action"}] ${ab.desc}`;
           const parts = [];
+          if (isBonus) parts.push("⚡ Bonus");
           if (maxCh > 0) parts.push(`${leftCh}/${maxCh}`);
           if (cost > 0) parts.push(`${cost} MP`);
           b.textContent = `${ab.icon || "⚡"} ${ab.name}${parts.length ? ` (${parts.join(" • ")})` : ""}`;
@@ -7251,16 +7288,23 @@
       spRow.innerHTML = "";
       ensureHeroProgressionState(state);
       let shownCombatSpells = 0;
+      const vttSp = window.OAKHAVEN?.VTT?.active ? window.OAKHAVEN.VTT.state : null;
       state.preparedSpells.forEach(n => {
         const sp = SPELLS_LIST.find(s => s.name === n);
         if (!sp || !sp.combat) return;
         shownCombatSpells++;
         const mpCost = getEffectiveSpellMp(sp, state);
-        const ok = state.mp >= mpCost;
+        const isBonus = isBonusSpell(sp);
+        const slotSpent = vttSp ? (isBonus ? vttSp.hero.bonusUsed : vttSp.hero.actionUsed) : false;
+        const ok = !slotSpent && state.mp >= mpCost;
         const b = document.createElement("button");
-        b.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border ${ok?"bg-sky-950 hover:bg-sky-900 border-sky-500/50 text-sky-200":"bg-stone-900 border-stone-800 text-stone-500"}`;
+        const colorCls = isBonus
+          ? "bg-amber-950/90 hover:bg-amber-900 border-amber-400/70 text-amber-200"
+          : "bg-sky-950 hover:bg-sky-900 border-sky-500/50 text-sky-200";
+        b.className = `px-2.5 py-1 rounded-lg text-xs font-semibold border ${ok ? colorCls : "bg-stone-900 border-stone-800 text-stone-500"}`;
         b.disabled = !ok;
-        b.textContent = `${sp.icon || "✨"} ${sp.name} (${mpCost} MP)`;
+        b.title = `[${isBonus ? "Bonus Action" : "Action"}] ${sp.desc || ""}`;
+        b.textContent = `${sp.icon || "✨"} ${sp.name} (${isBonus ? "⚡ Bonus • " : ""}${mpCost} MP)`;
         b.onclick = () => combatSpell(sp.name);
         spRow.appendChild(b);
       });

@@ -7,6 +7,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Chain Lightning",
     mp: 4,
+    castingTime: "action",
     combat: true,
     ooc: false,
     icon: "⚡",
@@ -19,6 +20,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Sunburst",
     mp: 5,
+    castingTime: "action",
     combat: true,
     ooc: false,
     icon: "🌟",
@@ -31,6 +33,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Vampiric Touch",
     mp: 4,
+    castingTime: "action",
     combat: true,
     ooc: false,
     icon: "🩸",
@@ -45,6 +48,7 @@ window.OAKHAVEN.registerSpells([
   {
     name: "Stone Skin",
     mp: 3,
+    castingTime: "bonus",
     combat: true,
     ooc: true,
     icon: "🪨",
