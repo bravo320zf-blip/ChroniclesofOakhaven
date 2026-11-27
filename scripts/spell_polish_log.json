@@ -1,6 +1,6 @@
 {
-  "totalPasses": 7,
-  "totalSpellsPolished": 35,
+  "totalPasses": 8,
+  "totalSpellsPolished": 40,
   "totalCatalogSpells": 1209,
   "spellPasses": {
     "Ambush": 1,
@@ -37,7 +37,12 @@
     "Creeping Darkness": 1,
     "Ley Disruption": 1,
     "Detect Traps": 1,
-    "Elemental Twist": 1
+    "Elemental Twist": 1,
+    "Shroud of Death": 1,
+    "Soul Borrowing": 1,
+    "Claws of Darkness": 1,
+    "Salt Lash": 1,
+    "Targeting Foreknowledge": 1
   },
   "history": [
     {
@@ -116,6 +121,17 @@
         "Elemental Twist"
       ],
       "summary": "Fixed Creeping Darkness from radiant/sun to necrotic/darkness (3d8+4, Chill 3t, Evade 2t), polished Investiture of Blight (+1d8 siphon & Shield 2t), Ley Disruption (+2d6 arcane backlash), Elemental Twist (+2 bonus & Evade 1t), and Detect Traps description, removing all sourcebook tags."
+    },
+    {
+      "pass": 8,
+      "spells": [
+        "Shroud of Death",
+        "Soul Borrowing",
+        "Claws of Darkness",
+        "Salt Lash",
+        "Targeting Foreknowledge"
+      ],
+      "summary": "Polished 5 spells: added Evade to Shroud of Death, HP siphon to Soul Borrowing, necrotic/chill fix to Claws of Darkness, bumped Salt Lash to 2d8, and upgraded Targeting Foreknowledge to Bonus Action with Shield+Evade."
     }
   ]
 }

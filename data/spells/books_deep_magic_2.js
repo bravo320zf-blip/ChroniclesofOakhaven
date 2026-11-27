@@ -1155,16 +1155,17 @@ window.OAKHAVEN.registerSpells([
     "castingTime": "action",
     "combat": true,
     "ooc": false,
-    "icon": "❄️",
+    "icon": "🌑",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 2",
     "school": "Evocation",
     "spellLevel": 0,
     "dmgDice": "1d6",
+    "dmgBonus": 1,
     "dmgStat": "arcana",
-    "dmgType": "frost",
-    "desc": "Deals 1d6 + arcana frost dmg. [Cantrip Evocation • Deep Magic Vol. 2]"
+    "dmgType": "necrotic",
+    "chillTurns": 1,
+    "desc": "Elongate your hands into freezing talons of shadow, raking for 1d6 + 1 + Arcana necrotic dmg and numbing the foe (-2 Enemy ATK, 1t)."
   },
   {
     "name": "Clearing the Field",

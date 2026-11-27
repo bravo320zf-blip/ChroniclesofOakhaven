@@ -7624,18 +7624,17 @@ window.OAKHAVEN.registerSpells([
     "castingTime": "action",
     "combat": true,
     "ooc": false,
-    "icon": "🌑",
+    "icon": "🧂",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 1",
     "school": "Conjuration",
     "spellLevel": 3,
-    "dmgDice": "2d6",
+    "dmgDice": "2d8",
     "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "necrotic",
     "chillTurns": 2,
-    "desc": "Deals 2d6 + 2 + arcana necrotic dmg; weakens foe (-2 enemy atk, 2t). [Lv.3 Conjuration • Deep Magic Vol. 1]"
+    "desc": "Crack a stinging whip of jagged desert salt that flays moisture for 2d8 + 2 + Arcana necrotic dmg and weakens the foe (-2 Enemy ATK, 2t)."
   },
   {
     "name": "Sand Ship",
@@ -8016,13 +8015,14 @@ window.OAKHAVEN.registerSpells([
     "icon": "🌑",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 1",
     "school": "Necromancy",
     "spellLevel": 4,
     "dmgDice": "2d8",
+    "dmgBonus": 2,
     "dmgStat": "arcana",
     "dmgType": "necrotic",
-    "desc": "Deals 2d8 + arcana necrotic dmg. [Lv.4 Necromancy • Deep Magic Vol. 1]"
+    "evadeTurns": 2,
+    "desc": "Drape the battlefield in a grave-cold pall, dealing 2d8 + 2 + Arcana necrotic dmg while wrapping yourself in ghostly evasion (+2 AC, 2t)."
   },
   {
     "name": "Sidestep Arrow",
@@ -8228,14 +8228,15 @@ window.OAKHAVEN.registerSpells([
     "icon": "💀",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 1",
     "school": "Necromancy",
     "spellLevel": 3,
     "dmgDice": "2d6",
     "dmgBonus": 2,
     "dmgStat": "arcana",
-    "dmgType": "arcane",
-    "desc": "Deals 2d6 + 2 + arcana arcane dmg. [Lv.3 Necromancy • Deep Magic Vol. 1]"
+    "dmgType": "necrotic",
+    "healDice": "1d6",
+    "healStat": "arcana",
+    "desc": "Tap a foe's mortal thread to sear them for 2d6 + 2 + Arcana necrotic dmg and siphon 1d6 + Arcana HP back into your own veins."
   },
   {
     "name": "Speak with Inanimate Object",
@@ -8809,17 +8810,17 @@ window.OAKHAVEN.registerSpells([
   {
     "name": "Targeting Foreknowledge",
     "mp": 4,
-    "castingTime": "action",
+    "castingTime": "bonus",
     "combat": true,
     "ooc": true,
     "icon": "👁️",
     "scrollOnly": true,
     "scrollRarity": "rare",
-    "source": "Deep Magic Vol. 1",
     "school": "Divination",
     "spellLevel": 3,
     "evadeTurns": 3,
-    "desc": "Tactical foresight (+2 ac for 3 turns). [Lv.3 Divination • Deep Magic Vol. 1]"
+    "shieldTurns": 2,
+    "desc": "Peer three heartbeats ahead in combat as a Bonus Action, anticipating incoming strikes for Evade (+2 AC, 3t) and Ward (+3 AC, 2t)."
   },
   {
     "name": "Telekinetic Parry",
