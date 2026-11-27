@@ -4,7 +4,7 @@
    ============================================================ */
 window.OAKHAVEN.registerQuests({
   // ==========================================================
-  // 1. NO ONE LEAVES (6 PAGES • LV 6)
+  // 1. NO ONE LEAVES (10 PAGES • LV 6)
   // ==========================================================
   bk_b15_no_one_leaves: {
     id: "bk_b15_no_one_leaves",
@@ -15,57 +15,99 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Espolmar Family Factor (Rusty Flagon Tavern)",
     summary: "Enter the Espolmar basalt-and-iron mine—newly warped into the chaotic Wastes by a freak arcane surge—to rescue missing scion Hirschel Espolmar and Nadia from ruthless Tangleside raiders!",
-    totalPages: 6,
+    totalPages: 10,
     pages: {
       1: {
         zone: "Espolmar Mine • Warped Shaft",
         title: "A Mine Swallowed by Chaos",
         safeRetreat: true,
-        text: "A sudden magical surge shifted the lucrative Espolmar Mine straight into the chaotic wasteland! Scion Hirschel Espolmar and his companion Nadia rode out to inspect the shafts and never returned—ambushed by cutthroat raiders from Tangleside!",
+        text: "A sudden magical surge shifted the lucrative Espolmar Mine straight into the chaotic wasteland! Cracked violet light pulses from the mouth of the ore-cart adit where scion Hirschel Espolmar and his companion Nadia rode out to inspect the shafts and never returned—ambushed by cutthroat raiders from Tangleside.",
         choices: [
-          { t: "Scout the ventilation adit along the basalt ridge to slip behind the Tangleside lookouts!", badge: "Stealth DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 2, fail: 2, passMsg: "You drop down the side shaft unseen, catching the raiders off-guard!", failMsg: "Loose basalt clatters down the chute as Tangleside raiders raise the alarm!" }, onPass: { cw: "ADIT_FLANK" } },
-          { t: "March straight down the lantern-lit ore-cart tunnel!", to: 2 }
+          { t: "Scout the ventilation adit along the basalt ridge to slip behind the Tangleside lookouts!", badge: "Agility / Stealth DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 2, fail: 3, failDmg: 6, passMsg: "You drop down the side shaft unseen, gaining the high catwalk above the raiders!", failMsg: "Loose basalt clatters down the chute (-6 HP) as Tangleside raiders raise the alarm!" }, onPass: { cw: "ADIT_FLANK", xp: 25 } },
+          { t: "Search the collapsed assay-shed by the headframe for mine maps and spare keys.", badge: "Spirit / Perception DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 2, fail: 3, passMsg: "You recover a crisp drift-map and 35 GP in payroll silver, spotting the upper ventilation shaft!", failMsg: "The shed is stripped bare, leaving only the main lantern-lit tunnel ahead." }, onPass: { cw: "MINE_MAP", gold: 35, xp: 20 } },
+          { t: "March straight down the lantern-lit ore-cart tunnel with weapon drawn!", to: 3 }
         ]
       },
       2: {
-        zone: "Espolmar Mine • Iron Vein Gallery",
-        title: "Tangleside Ambushers",
-        text: "Iron-spiked barricades block the basalt drift as Tangleside raiders and a chaos-mutated mine-hound charge out of the dark!",
-        enemy: { name: "Tangleside Raiders & Mine-Hound", desc: "Ruthless wasteland scavengers holding the warped mine.", hp: 54, ac: 15, atk: 7, dmg: 8, xp: 190, gold: 110, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["ADIT_FLANK"] },
+        zone: "Ventilation Adit • Upper Drift",
+        title: "Above the Barricade",
+        text: "Creeping along a narrow timber catwalk above the basalt drift, you watch Tangleside raiders sharpening scrap-iron spikes below while a chaos-mutated mine-hound paces the rails. A rusted side-ladder leads directly down toward the old Powder Magazine—bypassing their front barricade!",
         choices: [
-          { t: "Push into the deep sump where Hirschel and Nadia are held prisoner!", to: 3 }
+          { t: "Climb down the side-ladder into the old Powder Magazine to skirt the raiders.", to: 4 },
+          { t: "Drop straight into the Iron Vein Gallery to hit the ambushers from behind!", to: 3 }
         ]
       },
       3: {
-        zone: "Espolmar Mine • The Chaos Sump",
-        title: "The Tangleside Boss",
-        text: "Beside a shimmering fissure of raw wasteland magic, the scarred Tangleside War-Boss holds Hirschel and Nadia at axe-point: 'No one leaves Espolmar alive!'",
-        enemy: { name: "Tangleside War-Boss", desc: "Chaos-touched raider chieftain wielding a jagged basalt greataxe.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 170, items: ["bq_espolmar_basalt_maul"], weakCw: ["ADIT_FLANK"] },
+        zone: "Espolmar Mine • Iron Vein Gallery",
+        title: "Tangleside Ambushers",
+        text: "Iron-spiked barricades block the basalt drift as Tangleside raiders and a snarling chaos-mutated mine-hound charge out of the dark!",
+        enemy: { name: "Tangleside Raiders & Mine-Hound", desc: "Ruthless wasteland scavengers holding the warped mine.", hp: 54, ac: 15, atk: 7, dmg: 8, xp: 190, gold: 110, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["ADIT_FLANK", "MINE_MAP"] },
         choices: [
-          { t: "Cut Hirschel and Nadia free and escort them back to the surface!", to: 4 }
+          { t: "Investigate the muffled tapping behind the bolted Powder Magazine door.", to: 4 },
+          { t: "Push straight into the deep Chaos Sump where Hirschel and Nadia are held!", to: 7 }
         ]
       },
       4: {
-        zone: "Minehead • Clear Sky",
-        title: "Survivors Rescued",
-        text: "Shaken yet unharmed, Hirschel Espolmar clasps your hand and pledges a generous family bounty in iron-minted gold.",
-        onEnter: { healHp: 14, msg: "Nadia bandages your cuts with miner's salve (+14 HP)!" },
+        zone: "Old Powder Magazine • Shored-Up Alcove",
+        title: "Foreman Halrik's Stash",
+        text: "Behind a bolted timber bulkhead huddles Foreman Halrik, an injured Espolmar shift-boss clutching a shuttered lantern. 'Thank the stone!' he breathes. 'Tangleside's War-Boss has Hirschel and Nadia tied beside the Chaos Sump—right under a loaded iron ore-chute! Trip that winch above him and you'll break his hold!'",
         choices: [
-          { t: "Escort the pair safely back toward Oakhaven.", to: 5 }
+          { t: "Pick the corroded padlock on Halrik's blasting-chest and bandage his ribs.", badge: "Agility / Lockpicking DC 14", check: { stat: "agility", skill: "Lockpicking", dc: 14, pass: 5, fail: 7, failDmg: 5, passMsg: "The chest pops open—yielding 45 GP, miner's tonic (+10 HP, +4 MP), and the winch key!", failMsg: "A rusted clasp snaps against your thumb (-5 HP) before raiders' shouts draw you toward the sump!" }, onPass: { cw: "HALRIK_SAVED", gold: 45, hp: 10, mp: 4, xp: 30 } },
+          { t: "Trace the violet chaos-veins in the basalt wall to map the sump's arcane fault-line.", badge: "Arcana / Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 5, fail: 7, passMsg: "You pinpoint the exact fracture feeding the War-Boss's axe and slip up to the winch gallery!", failMsg: "The chaotic glow blurs your sight, forcing you down the main drift." }, onPass: { cw: "FAULT_MAPPED", xp: 25 } },
+          { t: "Point Halrik toward the surface shaft and hurry straight to the Chaos Sump!", to: 7 }
         ]
       },
       5: {
-        zone: "Borderland Ridge",
-        title: "Out of the Shafts",
-        text: "The Espolmar Mine stands cleared of Tangleside's grip.",
+        zone: "Winch Gallery • Overlooking the Sump",
+        title: "The Hanging Ore-Chute",
+        text: "From an iron catwalk above the glowing Chaos Sump, you spot the scarred Tangleside War-Boss pacing beneath a loaded basalt ore-bucket—while a jagged violet fissure feeds crackling energy straight into his greataxe!",
         choices: [
-          { t: "Complete the adventure!", to: 6 }
+          { t: "Release the corroded winch-catch to dump a ton of basalt ore beside the War-Boss!", badge: "Agility / Detect Traps DC 14", check: { stat: "agility", skill: "Detect Traps", dc: 14, pass: 6, fail: 7, failDmg: 7, passMsg: "The rusted pawl snaps free, sending basalt thunder roaring down and netting 50 GP in spilled ore-bars!", failMsg: "The iron lever recoils into your shoulder (-7 HP), alerting the War-Boss below!" }, onPass: { cw: "CHUTE_DROPPED", gold: 50, xp: 35 } },
+          { t: "Detonate a dry blasting-charge beside the chaos fissure with Firebolt!", reqSpell: "Firebolt", to: 6 },
+          { t: "Climb down the iron ladder to confront the Tangleside War-Boss directly!", to: 7 }
         ]
       },
       6: {
-        zone: "Epilogue",
+        zone: "Chaos Sump • Shaken Cavern",
+        title: "Thunder in the Drift",
+        text: "Basalt thunder roars through the cavern as ore cascades down the chute, choking the violet fissure in dust and knocking the Tangleside War-Boss off-stride before he can even raise his greataxe!",
+        onEnter: { cw: "CHUTE_DROPPED", xp: 25, msg: "Disrupted the Chaos Sump (CHUTE_DROPPED, +25 XP)!" },
+        choices: [
+          { t: "Vault onto the sump floor to finish off the rattled Tangleside War-Boss!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Espolmar Mine • The Chaos Sump",
+        title: "The Tangleside Boss",
+        text: "Beside a shimmering fissure of raw wasteland magic, the scarred Tangleside War-Boss holds Hirschel and Nadia at axe-point, violet sparks dancing along his jagged blade: 'No one leaves Espolmar alive!'",
+        enemy: { name: "Tangleside War-Boss", desc: "Chaos-touched raider chieftain wielding a jagged basalt greataxe.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 170, items: ["bq_espolmar_basalt_maul"], weakCw: ["ADIT_FLANK", "CHUTE_DROPPED", "FAULT_MAPPED"] },
+        choices: [
+          { t: "Cut Hirschel and Nadia free and escort them back to the surface!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Minehead • Clear Sky",
+        title: "Survivors Rescued",
+        text: "Emerging into cool mountain air, Hirschel Espolmar clasps your hand in relief while Nadia swiftly bandages your cuts with miner's salve, pledging a generous family bounty in iron-minted gold.",
+        onEnter: { healHp: 14, msg: "Nadia bandages your cuts with miner's salve (+14 HP)!" },
+        choices: [
+          { t: "Meet Foreman Halrik beside the assay-shed before escorting the party home.", reqCw: "HALRIK_SAVED", to: 9 },
+          { t: "Escort Hirschel and Nadia safely along the borderland ridge toward Oakhaven.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Minehead • Halrik's Pay-Chest",
+        title: "Miners' Debt",
+        text: "Foreman Halrik grins from beside the salvaged pay-chest, pressing a heavy leather pouch of Espolmar iron-trade coin into your hands. 'Every shift-crew along the ridge owes you their hide today!'",
+        onEnter: { gold: 60, xp: 40, msg: "Foreman Halrik's gratitude grants +60 GP and +40 XP!" },
+        choices: [
+          { t: "March back along the borderland ridge toward Oakhaven.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Borderland Ridge • Epilogue",
         title: "Rescuer of Espolmar",
-        text: "You broke the Tangleside ambush and brought Hirschel Espolmar and Nadia out alive!",
+        text: "Behind you, the Espolmar Mine stands clear of Tangleside's grip as the chaos-glow fades back into deep stone. At the Rusty Flagon, the Espolmar factor raises a tankard to your name and presses the heavy Espolmar Iron Signet into your palm.",
         ending: { type: "true", title: "Breaker of the Basalt Mine", xp: 295, gold: 275, trophy: "Espolmar Iron Signet" },
         choices: []
       }

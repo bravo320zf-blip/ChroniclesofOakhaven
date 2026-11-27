@@ -1,5 +1,5 @@
 {
-  "totalPasses": 45,
+  "totalPasses": 46,
   "history": [
     {
       "pass": 1,
@@ -309,6 +309,13 @@
       "title": "Strange Alchemy",
       "file": "data/quests/books_quests_batch_014.js",
       "summary": "Expanded from 6 to 10 pages, adding willow-backwater Stealth bypass (BACKWATER_LANDING), Calm Eddy sample-case salvage (+25 GP/+15 XP), Reagent Cellar encounter with Apprentice Bramble (Persuasion/Herbalism -> BRAMBLE_HELPED +30 GP/+8 HP/+4 MP), Pump Alcove manifold sabotage (Detect Traps +35 GP/Firebolt -> ALEMBIC_DRAINED), and Bramble's gratitude bonus (+40 GP/+30 XP/+4 MP)."
+    },
+    {
+      "pass": 46,
+      "questId": "bk_b15_no_one_leaves",
+      "title": "No One Leaves",
+      "file": "data/quests/books_quests_batch_015.js",
+      "summary": "Expanded from 6 to 10 pages, adding assay-shed Perception map/silver salvage (MINE_MAP +35 GP), Ventilation Adit bypass to Old Powder Magazine with Foreman Halrik (Lockpicking -> HALRIK_SAVED +45 GP/+10 HP/+4 MP or Arcana -> FAULT_MAPPED), Winch Gallery ore-chute sabotage (Detect Traps +50 GP/Firebolt -> CHUTE_DROPPED), and Halrik's pay-chest gratitude bonus (+60 GP/+40 XP)."
     }
   ],
   "questPasses": {
@@ -356,6 +363,7 @@
     "bk_b18_tob3_perfidious_guru": 1,
     "bk_b9_tob2_7_horseshoe_oasis": 1,
     "bk_pt_02_midnight_tree": 1,
-    "bk_b14_strange_alchemy": 1
+    "bk_b14_strange_alchemy": 1,
+    "bk_b15_no_one_leaves": 1
   }
 }
