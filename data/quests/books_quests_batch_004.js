@@ -660,7 +660,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 21. THE CISTERN (7 PAGES • LV 10)
+  // 21. THE CISTERN (11 PAGES • LV 10)
   // ==========================================================
   bk_bol_21_the_cistern: {
     id: "bk_bol_21_the_cistern",
@@ -670,33 +670,36 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 10,
     autoDiscover: false,
     discoverySource: "Priestess Tallenya of Charun (Town Square)",
-    summary: "Armed with Priestess Tallenya's sacred undead-banishing beacon, descend into dead necromancer Hada the Black's unused city cistern to rescue five missing orphans from imperial ghouls and Hada's monstrous Deep Drake.",
-    totalPages: 7,
+    summary: "Armed with Priestess Tallenya's sacred undead-banishing beacon, descend into dead necromancer Hada the Black's unused city cistern, uncover her drake-tamer's study, and rescue five missing orphans from imperial ghouls and her monstrous Deep Drake.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Unused City Cistern",
         title: "Tallenya's Sacred Beacon",
         safeRetreat: true,
-        text: "The necromancer Hada the Black died in prison, yet five missing orphans are still trapped in her abandoned cistern guarded by her 'pet.' Before you descend, pale Priestess Tallenya of Charun entrusts you with a wrapped incense beacon blessed to lay the dead to rest.",
+        text: "Cold rain drums against the rusted iron street-grate above Hada the Black's abandoned cistern. The necromancer died in prison, yet five missing orphans remain trapped below with her subterranean 'pet.' Pale Priestess Tallenya of Charun presses a wrapped bronze incense-beacon into your hands—while beside the flooded main steps, a dry brick service-flue angles upward into the dark.",
         onEnter: { cw: "CHARUN_BEACON", msg: "Received Tallenya's Sacred Beacon of Charun!" },
         choices: [
-          { t: "Descend the sour-smelling stone stairs into the dark cistern.", to: 2 }
+          { t: "Descend the sour-smelling stone stairs straight into the flooded cistern.", to: 2 },
+          { t: "Pick the rusted latch on the brick service-flue to scout above the tunnel.", badge: "Lockpicking / Agility DC 15", check: { stat: "agility", skill: "Lockpicking", dc: 15, pass: 8, fail: 2, passMsg: "The grate swings silently—you slip onto the dry upper aqueduct walk!", failMsg: "The iron pin snaps loud in the echo—ghouls hiss below the stairs!" } },
+          { t: "Listen at the dark arch with Perception to time the ghoul patrol.", badge: "Perception / Spirit DC 15", check: { stat: "spirit", skill: "Perception", dc: 15, pass: 8, fail: 2, passMsg: "You catch a lull in their rasping chatter and slip up the side service-flue!", failMsg: "Claws scrape on wet stone—the ghoul picket spots your lantern!" } }
         ]
       },
       2: {
         zone: "Flooded Cistern Tunnel",
         title: "Officer Naragal's Ghouls",
-        text: "Lurking in the stagnant shadows below the city streets, Officer Naragal and his scouting pack of Imperial Ghouls snarl at the sight of living flesh!",
+        text: "Lurking waist-deep in the stagnant shadows below the city streets, Officer Naragal and his scouting pack of Imperial Ghouls bare yellowed fangs at the scent of living flesh!",
         enemy: { name: "Officer Naragal & Ghouls", desc: "Underworld ghoul scouts allied with the late necromancer.", hp: 82, ac: 16, atk: 11, dmg: 11, undead: true, xp: 250, gold: 115, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1, weakCw: ["CHARUN_BEACON"] },
         choices: [
+          { t: "Climb the iron rungs to inspect Hada's dry brick study above the tunnel.", to: 8 },
           { t: "Unwrap Tallenya's Sacred Beacon to clear the lingering undead and enter the Main Basin!", to: 3 }
         ]
       },
       3: {
         zone: "Main Cistern Basin",
         title: "Hada's Pet — The Deep Drake",
-        text: "Huddled on a dry stone ledge weep the five missing orphans—guarded by Hada's terrifying, eyeless underground 'pet': a massive, roaring Deep Drake coiled around the pillars!",
-        enemy: { name: "Hada's Deep Drake", desc: "Ferocious subterranean drake hatched from a stolen underworld egg.", hp: 104, ac: 17, atk: 12, dmg: 13, xp: 365, gold: 240, items: ["bq_charun_oar_charm"] },
+        text: "Huddled trembling on a dry stone ledge weep the five missing orphans—guarded by Hada's terrifying, eyeless underground 'pet': a massive, roaring Deep Drake coiled like pale iron around the vaulted pillars!",
+        enemy: { name: "Hada's Deep Drake", desc: "Ferocious subterranean drake hatched from a stolen underworld egg.", hp: 104, ac: 17, atk: 12, dmg: 13, xp: 365, gold: 240, items: ["bq_charun_oar_charm"], weakCw: ["DRAKE_WHISTLE", "DRAKE_RATTLED"] },
         choices: [
           { t: "Gather all five terrified orphans and lead them swiftly up to the daylight!", to: 4 }
         ]
@@ -704,24 +707,26 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "City Street",
         title: "Children Returned",
-        text: "Waiting at the cistern steps, Priestess Tallenya and the City Inquisitor greet the five unharmed children with tears of relief and hand over the full 1,000 GP bounty share!",
+        text: "Waiting at the rain-washed cistern steps, Priestess Tallenya and the City Inquisitor greet the five unharmed children with tears of relief and hand over the full city bounty share!",
         onEnter: { healHp: 18, msg: "All five orphans saved! Tallenya tends your wounds (+18 HP)." },
         choices: [
-          { t: "Watch the watchmen seal and collapse Hada's cursed cistern.", to: 5 }
+          { t: "Hand Hada's Underworld ghoul-pact notes to Tallenya and the City Inquisitor!", reqCw: "DRAKE_WHISTLE", badge: "DRAKE_WHISTLE", to: 5, onChoose: { gold: 85, xp: 55, msg: "The City Inquisitor adds an 85 GP & 55 XP intelligence bonus for Hada's ghoul-pact notes!" } },
+          { t: "Watch the watchmen seal and collapse Hada's cursed cistern.", to: 5 },
+          { t: "Slip back for Hada's unclaimed black-market bullion box before the watchmen collapse the steps.", to: 11 }
         ]
       },
       5: {
         zone: "Town Square",
         title: "Blessing of the Boatman",
-        text: "Tallenya dips her oar-carved staff in respect: 'Charun remembers those who grant the dead rest and spare the innocent.'",
+        text: "Tallenya dips her oar-carved staff in deep respect: 'Charun remembers those who grant the restless dead peace and spare the innocent.'",
         choices: [
-          { t: "Return to Oakhaven.", to: 6 }
+          { t: "Visit the orphanage before returning to Oakhaven.", to: 6 }
         ]
       },
       6: {
         zone: "Oakhaven Orphanage",
         title: "Safe Beds Tonight",
-        text: "Laughter fills the sunlit courtyard once more.",
+        text: "Warm soup steams on the long oak table and relieved laughter fills the sunlit courtyard once more as all five children tumble back into familiar arms.",
         choices: [
           { t: "Complete the adventure.", to: 7 }
         ]
@@ -729,8 +734,46 @@ window.OAKHAVEN.registerQuests({
       7: {
         zone: "Epilogue",
         title: "Savior of the Cistern",
-        text: "Hada the Black's dark legacy is burned away, and five young lives are saved.",
+        text: "Hada the Black's dark legacy is burned away, the cistern lies sealed forever, and five young lives are saved.",
         ending: { type: "true", title: "Deliverer of the Five Orphans", xp: 415, gold: 410, trophy: "Bronze Oar of Charun" },
+        choices: []
+      },
+      8: {
+        zone: "Upper Aqueduct Walk",
+        title: "Hada's Sealed Study",
+        text: "Above the dark water runs a dry brick alcove serving as Hada the Black's secret study. Across her slate desk lie notes on Underworld ghoul-pacts, a silver whistle carved like a wyrm-tooth, a needle-warded coin-drawer, and a heavy brass storm-sluice wheel.",
+        choices: [
+          { t: "Study Hada's drake-handling notes and claim the silver Wyrm-Tooth Whistle!", badge: "Arcana DC 15", check: { stat: "arcana", skill: "Arcana", dc: 15, pass: 9, fail: 9, failDmg: 8, passMsg: "You decode her sub-audible command pitch cleanly—this will blind the eyeless drake's hearing!", failMsg: "A residual necrotic glyph scorches your palm (-8 HP), yet you secure the whistle!" } },
+          { t: "Disarm the poison-needle ward on Hada's coin-drawer with Detect Traps!", reqSkill: "Detect Traps", badge: "Detect Traps", to: 9, onChoose: { gold: 95, msg: "You disarm the needle-latch cleanly and claim 95 GP alongside Hada's whistle!" } },
+          { t: "Climb back down into the Flooded Cistern Tunnel.", to: 2 }
+        ]
+      },
+      9: {
+        zone: "Upper Aqueduct Walk",
+        title: "The Drake-Tamer's Whistle",
+        text: "You pocket Hada's silver Wyrm-Tooth Whistle and restore your strength with an unopened herbal cordial from her shelf (+15 HP, +5 MP). Beside the doorway, the brass storm-sluice wheel can flush Naragal's ghoul patrol straight downriver!",
+        onEnter: { cw: "DRAKE_WHISTLE", healHp: 15, healMp: 5, msg: "Gained DRAKE_WHISTLE, +15 HP & +5 MP!" },
+        choices: [
+          { t: "Crank open the storm-sluice to sweep the ghouls away and slip to the Cistern Overflow!", to: 10 },
+          { t: "Descend into the Flooded Tunnel to purge Officer Naragal's ghouls directly.", to: 2 }
+        ]
+      },
+      10: {
+        zone: "Cistern Overflow",
+        title: "The Echoing Pillars",
+        text: "From the high overflow arch you look down into the vaulted Main Cistern Basin. Five huddled orphans shiver on a dry ledge while Hada's eyeless Deep Drake stalks the central pillars below.",
+        choices: [
+          { t: "Blow Hada's silver Wyrm-Tooth Whistle to scramble the eyeless drake's senses!", reqCw: "DRAKE_WHISTLE", badge: "DRAKE_WHISTLE", to: 3, onChoose: { cw: "DRAKE_RATTLED", msg: "The Deep Drake thrashes wildly, its keen subterranean hearing shattered by the silver pitch!" } },
+          { t: "Unwrap Tallenya's Sacred Beacon with Turn Undead to flood the basin in golden light!", reqSpell: "Turn Undead", mp: 4, badge: "Turn Undead (4 MP)", to: 3, onChoose: { cw: "DRAKE_RATTLED", msg: "Blinding Charun-light sears the dark basin, staggering the subterranean beast!" } },
+          { t: "Ignite the oil-slick runoff below with Firebolt to drive the drake off its perch!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 3, onChoose: { cw: "DRAKE_RATTLED", msg: "Roaring flames force the panicked drake away from the children's ledge!" } },
+          { t: "Drop straight down into the Main Cistern Basin!", to: 3 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Slayer of the Deep Drake",
+        text: "All five orphans rest safely in Tallenya's care while you slip into the rain-washed alleys carrying Hada the Black's hidden ironbound bullion chest!",
+        ending: { type: "victory", title: "Slayer of the Deep Drake", xp: 380, gold: 485, trophy: "Eyeless Drake-Fang" },
         choices: []
       }
     }
