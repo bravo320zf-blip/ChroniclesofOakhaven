@@ -871,7 +871,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 10. STORMCALLER'S TOWER (9 PAGES • LV 10)
+  // 10. STORMCALLER'S TOWER (12 PAGES • LV 10)
   // ==========================================================
   bk_pt_10_stormcallers_tower: {
     id: "bk_pt_10_stormcallers_tower",
@@ -882,7 +882,7 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Desperate Border Lord (Oakhaven Guildhall)",
     summary: "Climb the lightning-lashed mountain pinnacle of the Storm God's fanatics, survive the Hall of Coronas and Cascading Energy, and end the devastating tempest in the Cathedral of the Tempest.",
-    totalPages: 9,
+    totalPages: 12,
     pages: {
       1: {
         zone: "Thunderhead Peak",
@@ -890,75 +890,111 @@ window.OAKHAVEN.registerQuests({
         safeRetreat: true,
         text: "Black thunderheads churn around a jagged iron-spiked tower perched on the mountain crest. Every few seconds, blinding spears of lightning strike the crown and course down copper conduits into the stone! Below in the valley, unnatural hurricanes threaten to wipe out an entire settlement.",
         choices: [
-          { t: "Dash across the charged bridge between lightning strikes!", badge: "Agility DC 15", check: { stat: "agility", skill: "Acrobatics", dc: 15, pass: 2, fail: 2, failDmg: 10, passMsg: "You dive through the bronze doors just ahead of a thunderbolt!", failMsg: "Arcing static scorches your armor (-10 HP) as you burst inside!" } },
-          { t: "Ground your gear with a copper chain before entering.", badge: "Arcana / Survival DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 2, fail: 2, passMsg: "Your makeshift grounding tether wards off stray arcs!", failMsg: "The gale snaps the chain before you cross." }, onPass: { cw: "STORM_GROUNDED", msg: "Gained STORM_GROUNDED protection!" } }
+          { t: "Dash across the charged bridge between lightning strikes!", badge: "Agility / Athletics DC 15", check: { stat: "agility", skill: "Athletics", dc: 15, pass: 2, fail: 2, failDmg: 10, passMsg: "You dive through the bronze doors just ahead of a thunderbolt!", failMsg: "Arcing static scorches your armor (-10 HP) as you burst inside!" } },
+          { t: "Ground your gear with a copper anchor-chain before crossing.", badge: "Arcana / Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 2, fail: 2, passMsg: "Your makeshift grounding tether wards off stray arcs!", failMsg: "The gale snaps the chain before you cross." }, onPass: { cw: "STORM_GROUNDED", msg: "Gained STORM_GROUNDED protection!" } },
+          { t: "Scale the wind-scoured rain-gutter ledge to slip in through the upper maintenance grate!", badge: "Might / Athletics DC 15", check: { stat: "might", skill: "Athletics", dc: 15, pass: 3, fail: 2, failDmg: 8, passMsg: "You pry open the copper grate above the guardroom, bypassing the front sentries!", failMsg: "A wet handhold gives way (-8 HP), dropping you onto the bridge outside the bronze doors!" }, onPass: { cw: "GUTTER_INFILTRATOR", xp: 35 } }
         ]
       },
       2: {
         zone: "Entry Hall & Antechamber",
         title: "Disciples of the Gale",
-        text: "Ozone fills the air as armored Stormcaller Zealots chant around crackling iron braziers, hurling javelins of thunder at intruders!",
-        enemy: { name: "Stormcaller Temple Guards", desc: "Lightning-infused warrior-priests of the Storm God.", hp: 82, ac: 16, atk: 10, dmg: 11, xp: 240, gold: 115, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1 },
+        text: "Ozone stings your throat as armored Stormcaller Zealots chant around crackling iron braziers, hurling javelins of thunder down the nave!",
+        enemy: { name: "Stormcaller Temple Guards", desc: "Lightning-infused warrior-priests of the Storm God.", hp: 82, ac: 16, atk: 10, dmg: 11, xp: 240, gold: 115, items: rollRandomLoot(["consumable", "valuable"], 1, "very_rare"), flee: 1, weakCw: ["STORM_GROUNDED"] },
         choices: [
-          { t: "Ascend into the crackling Hall of Coronas.", to: 3 }
+          { t: "Inspect the muffled knocking behind the copper maintenance grate beside the stairs.", to: 3 },
+          { t: "Ascend directly into the crackling Hall of Coronas.", to: 4 }
         ]
       },
       3: {
-        zone: "Hall of Coronas",
-        title: "Orbs of St. Elmo's Fire",
-        text: "Floating spheres of blue plasma drift between copper pillars, coalescing into twin Air Elementals roaring with thunder!",
-        enemy: { name: "Tempest Lightning Elementals", desc: "Living cyclones crackling with mountain thunder.", hp: 86, ac: 17, atk: 11, dmg: 11, xp: 255, gold: 120, items: rollRandomLoot(["material", "valuable"], 1, "very_rare"), flee: 2 },
+        zone: "Lower Maintenance Gallery",
+        title: "The Captive Weather-Warden",
+        text: "Inside a cramped conduit gallery huddles Warden Torin, a bruised border-lord weather-seer chained beside a humming grounding-rod. 'They forced me to tune their storm-mirrors,' he whispers hoarsely. 'Free me and I'll give you the shutdown sequence for the Surge Room capacitors above!'",
         choices: [
-          { t: "Enter the humming Surge Room.", to: 4 }
+          { t: "Pick Torin's lightning-locked shackles and learn his capacitor shutdown sequence.", badge: "Agility / Lockpicking DC 15", check: { stat: "agility", skill: "Lockpicking", dc: 15, pass: 4, fail: 4, failDmg: 6, passMsg: "The lock snaps open! Torin presses 65 GP and a healing salve (+10 HP, +5 MP) into your hand before slipping down the back stair!", failMsg: "A static ward bites your knuckles (-6 HP) before Torin's chain finally gives way." }, onPass: { cw: "WARDEN_FREED", xp: 40, gold: 65, hp: 10, mp: 5 } },
+          { t: "Wrench the rusted iron anchor-ring straight out of the wet masonry!", badge: "Might / Athletics DC 15", check: { stat: "might", skill: "Athletics", dc: 15, pass: 4, fail: 4, failDmg: 6, passMsg: "Stone crumbles as the ring pops free! Grateful, Torin shares the Surge Room sequence and 65 GP!", failMsg: "Sparks jump the chain (-6 HP) as you yank Torin loose." }, onPass: { cw: "WARDEN_FREED", xp: 40, gold: 65 } },
+          { t: "Promise to return once the storm breaks and hurry up to the Hall of Coronas.", to: 4 }
         ]
       },
       4: {
-        zone: "Surge Room",
-        title: "The Copper Capacitors",
-        text: "Massive copper coils store the mountain's fury to power the storm-ritual above. Disabling a primary shunt will drain power from the High Stormcaller's cathedral!",
+        zone: "Hall of Coronas",
+        title: "Orbs of St. Elmo's Fire",
+        text: "Floating spheres of violet-blue plasma drift between tall copper pillars, coalescing into twin Air Elementals roaring with mountain thunder!",
+        enemy: { name: "Tempest Lightning Elementals", desc: "Living cyclones crackling with mountain thunder.", hp: 86, ac: 17, atk: 11, dmg: 11, xp: 255, gold: 120, items: rollRandomLoot(["material", "valuable"], 1, "very_rare"), flee: 3, weakCw: ["STORM_GROUNDED", "GUTTER_INFILTRATOR"] },
         choices: [
-          { t: "Overload the copper shunt valve carefully!", badge: "Arcana / Lockpicking DC 15", check: { stat: "arcana", skill: "Arcana", dc: 15, pass: 5, fail: 5, failDmg: 10, passMsg: "Sparks shower harmlessly as half the coils go dark!", failMsg: "A violent surge blasts you backward (-10 HP), though the coil cracks!" }, onPass: { cw: "COILS_DRAINED", msg: "Drained the Surge Room capacitors!" } },
-          { t: "Climb straight up to the Hall of Cascading Energy.", to: 5 }
+          { t: "Climb the bronze spiral stair into the humming Surge Room.", to: 5 }
         ]
       },
       5: {
-        zone: "Hall of Cascading Energy",
-        title: "Treasury of the Tempest",
-        text: "Crackling waterfalls of lightning frame an alcove holding the cult's tribute: electrum bracers, opal jewels, and a gleaming Winged Helm chased in gold!",
-        onEnter: { gold: 150, items: ["bq_tempest_winged_helm"], healHp: 15, msg: "Claimed 150 GP, the Stormcaller's Winged Helm, and caught your breath (+15 HP)!" },
+        zone: "Surge Room",
+        title: "The Copper Capacitors",
+        text: "Massive copper coils store the mountain's fury behind glass insulators, channeling raw lightning straight into the High Stormcaller's cathedral above. Disabling the primary shunt will gut the tempest's power!",
         choices: [
-          { t: "Throw open the bronze doors to the Cathedral of the Tempest!", to: 6 }
+          { t: "Pull Warden Torin's exact three-valve shutdown sequence to bleed the coils dry!", reqCw: "WARDEN_FREED", to: 6 },
+          { t: "Overload the copper shunt valve carefully using arcane grounding!", badge: "Arcana / Arcana DC 15", check: { stat: "arcana", skill: "Arcana", dc: 15, pass: 6, fail: 7, failDmg: 10, passMsg: "Sparks shower harmlessly as half the coils go dark!", failMsg: "A violent surge blasts you backward (-10 HP) toward the upper stair!" }, onPass: { cw: "COILS_DRAINED", xp: 35 } },
+          { t: "Snip the insulated trigger-wires along the pressure manifold.", badge: "Agility / Detect Traps DC 15", check: { stat: "agility", skill: "Detect Traps", dc: 15, pass: 6, fail: 7, failDmg: 10, passMsg: "You sever the live leads cleanly and pocket 70 GP in pure silver relay-bars!", failMsg: "An arc leaps from the manifold (-10 HP), forcing you up the stairs!" }, onPass: { cw: "COILS_DRAINED", gold: 70, xp: 35 } },
+          { t: "Leave the screaming coils alone and climb straight to the Hall of Cascading Energy.", to: 7 }
         ]
       },
       6: {
-        zone: "Cathedral of the Tempest",
-        title: "Wrath of the High Stormcaller",
-        text: "Open to the raging sky beneath a forest of glowing iron spires, the Cathedral of the Tempest roars like a waterfall. Floating amid blue lightning, the High Stormcaller raises his storm-staff: 'No mortal defies the Thunder Lord! Perish in the gale!'",
-        enemy: { name: "High Stormcaller of the Peak", desc: "Master tempest-cleric channeling the mountain hurricane.", hp: 104, ac: 17, atk: 12, dmg: 13, xp: 345, gold: 250, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["STORM_GROUNDED", "COILS_DRAINED"] },
+        zone: "Surge Room • Dead Coils",
+        title: "Power Bleed",
+        text: "With a deep resonant thrum, half the towering copper coils gutter out into harmless blue embers! Upstairs, the howling gale drops a full octave—stripping the High Stormcaller of his strongest tempest-wards.",
+        onEnter: { cw: "COILS_DRAINED", mp: 6, xp: 30, msg: "Capacitors drained (COILS_DRAINED)! Ambient static restores +6 MP and +30 XP!" },
         choices: [
-          { t: "Shatter the central lightning-conduit spire!", to: 7 }
+          { t: "Climb past the dimming conduits into the Hall of Cascading Energy.", to: 7 }
         ]
       },
       7: {
-        zone: "Cathedral of the Tempest",
-        title: "The Sky Clears",
-        text: "With a deafening crack, the central iron conduit splits apart. The black thunderheads uncoil into silver mist, and golden sunlight breaks across the valley far below!",
+        zone: "Hall of Cascading Energy",
+        title: "Treasury of the Tempest",
+        text: "Crackling waterfalls of lightning frame a shielded obsidian alcove holding the cult's tribute: electrum bracers, uncut mountain opals, and a gleaming Winged Helm chased in gold!",
+        onEnter: { gold: 150, items: ["bq_tempest_winged_helm"], healHp: 15, msg: "Claimed 150 GP, the Stormcaller's Winged Helm, and caught your breath (+15 HP)!" },
         choices: [
-          { t: "Descend the quiet mountain peak.", to: 8 }
+          { t: "Step onto the outer storm-balcony to scout the Cathedral's wind-currents first.", to: 8 },
+          { t: "Throw open the bronze doors straight into the Cathedral of the Tempest!", to: 9 }
         ]
       },
       8: {
-        zone: "Valley Keep",
-        title: "Gratitude of the Valley",
-        text: "Townsfolk emerge from storm-cellars cheering as the unnatural hurricane vanishes. The grateful border lord empties his war-chest in tribute to your heroism.",
+        zone: "Outer Storm-Balcony",
+        title: "Eye of the Gale",
+        text: "Clinging to the rain-slick parapet above a sheer two-thousand-foot drop, you peer through the open arches of the Cathedral. The High Stormcaller hovers amid three silver tuning-spires that focus the mountain hurricane.",
         choices: [
-          { t: "Claim your legendary reward and return to Oakhaven.", to: 9 }
+          { t: "Shatter the windward tuning-spire with Firebolt before vaulting inside!", reqSpell: "Firebolt", to: 9 },
+          { t: "Time the brief lulls between thunderbolts to strike from the High Stormcaller's blind side.", badge: "Spirit / Perception DC 15", check: { stat: "spirit", skill: "Perception", dc: 15, pass: 9, fail: 9, failDmg: 7, passMsg: "You spot the exact rhythm of the storm-arcs—gaining a decisive tactical edge!", failMsg: "Driving hail lashes your face (-7 HP) as you duck back inside." }, onPass: { cw: "EYE_OF_STORM", xp: 30 } },
+          { t: "Drop back inside and kick open the Cathedral's bronze doors!", to: 9 }
         ]
       },
       9: {
-        zone: "Epilogue",
+        zone: "Cathedral of the Tempest",
+        title: "Wrath of the High Stormcaller",
+        text: "Open to the raging sky beneath a forest of glowing iron spires, the Cathedral of the Tempest roars like a waterfall. Floating amid blue lightning, the High Stormcaller raises his storm-staff: 'No mortal defies the Thunder Lord! Perish in the gale!'",
+        enemy: { name: "High Stormcaller of the Peak", desc: "Master tempest-cleric channeling the mountain hurricane.", hp: 104, ac: 17, atk: 12, dmg: 13, xp: 345, gold: 250, items: rollRandomLoot(["weapon", "armor", "accessory"], 1, "very_rare"), weakCw: ["STORM_GROUNDED", "COILS_DRAINED", "EYE_OF_STORM"] },
+        choices: [
+          { t: "Shatter the central lightning-conduit spire!", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Cathedral of the Tempest • Summit",
+        title: "The Sky Clears",
+        text: "You drive steel into the humming electrum core of the central spire. With a deafening crack that shakes the peak, the iron conduit splits apart—uncoiling the black thunderheads into silver mist as warm golden sunlight breaks across the valley far below!",
+        choices: [
+          { t: "Meet Warden Torin at the valley keep and report the spire's fall.", reqCw: "WARDEN_FREED", to: 11 },
+          { t: "Descend the sunlit mountain switchbacks to the valley keep.", to: 12 }
+        ]
+      },
+      11: {
+        zone: "Valley Keep • Warden's Tribute",
+        title: "Grateful Seer of the Border",
+        text: "At the keep's barbican, townsfolk spill out of storm-cellars cheering as Warden Torin hurries forward with the border lord's own signet-pouch—pressing an extra purse of electrum coin and a warm restorative draught into your pack for sparing his life!",
+        onEnter: { gold: 90, xp: 50, healHp: 20, msg: "Warden Torin's gratitude grants +90 GP, +50 XP, and a restorative draught (+20 HP)!" },
+        choices: [
+          { t: "Accept the valley's tribute and ride back to Oakhaven in triumph.", to: 12 }
+        ]
+      },
+      12: {
+        zone: "Valley Keep • Epilogue",
         title: "Conqueror of the Tempest",
-        text: "Bards across Oakhaven sing of the hero who climbed into the lightning itself and silenced the Stormcaller's Tower.",
+        text: "The grateful border lord empties his war-chest in tribute as clear blue sky stretches unbroken from Thunderhead Peak to Oakhaven. For seasons to come, bards at the Rusty Flagon sing of the hero who climbed into the lightning itself and silenced the Stormcaller's Tower.",
         ending: { type: "true", title: "Tempest-Breaker of the Peak", xp: 420, gold: 410, trophy: "Electrum Lightning Crown" },
         choices: []
       }
