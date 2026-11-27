@@ -124,7 +124,9 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "ac": 2,
     "agility": 2,
-    "desc": "+2 AC, +2 Agility (Tome of Heroes)"
+    "passives": { "thornsDmg": 3, "dmgReduce": 1, "skillBonus": { "Stealth": 2, "Athletics": 2 } },
+    "activeAbility": { "name": "Lashing Tendril-Grasp", "icon": "🐙", "charges": 2, "dmgDice": "2d8", "dmgStat": "agility", "dmgType": "bludgeoning", "stunTurns": 1, "desc": "2/Quest: Whip dark writhing tendrils from the hem for 2d8 + Agility bludgeoning dmg and Stun (1t)!" },
+    "desc": "+2 AC, +2 Agility, Thorns 3, -1 Dmg Taken, +2 Stealth & Athletics. Ink-dark sea-woven mantle granting Lashing Tendril-Grasp."
   },
   "bk_deepstone_cestus": {
     "id": "bk_deepstone_cestus",
@@ -649,7 +651,9 @@ window.OAKHAVEN.registerItems({
     "source": "Midgard Heroes",
     "atk": 4,
     "arcana": 2,
-    "desc": "+4 Attack, +2 Arcana (Midgard Heroes)"
+    "passives": { "spellDmgBonus": 3, "healBonus": 2, "skillBonus": { "Survival": 2, "Herbalism": 2 } },
+    "activeAbility": { "name": "Antler-Grove Charge", "icon": "🦌", "charges": 2, "mp": 2, "dmgDice": "2d8", "dmgStat": "arcana", "dmgType": "force", "chillTurns": 1, "healDice": "1d6", "healStat": "arcana", "desc": "2/Quest (2 MP): Call a spectral stag-burst for 2d8 + Arcana force dmg, Chill (1t), and heal 1d6 + Arcana HP!" },
+    "desc": "+4 Attack, +2 Arcana, +3 Spell Dmg, +2 Heal, +2 Survival & Herbalism. Rune-carved antler staff granting Antler-Grove Charge."
   },
   "bk_nithing_pole": {
     "id": "bk_nithing_pole",

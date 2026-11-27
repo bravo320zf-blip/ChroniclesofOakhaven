@@ -174,7 +174,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     agility: 2,
     spirit: 2,
-    desc: "+3 AC, +2 Agility, +2 Spirit. Moonlit shadow-fey spurs won from the Ivory Tower."
+    passives: { critRange: 18, bossDmgBonus: 5, dmgReduce: 2, skillBonus: { Stealth: 3, Athletics: 3 } },
+    activeAbility: { name: "Moonlit Shadow-Gallop", icon: "🌙", charges: 2, mp: 3, dmgDice: "4d8", dmgStat: "agility", dmgType: "radiant", multiStrike: 2, evadeTurns: 2, desc: "2/Quest (3 MP): Spur through moonlit shadow for a double-strike of 4d8 + Agility radiant dmg (x2) and Evade (2t)!" },
+    desc: "+3 AC, +2 Agility, +2 Spirit, Crit 18-20, +5 Boss Dmg, -2 Dmg Taken, +3 Stealth & Athletics. Moonlit shadow-fey spurs from the Ivory Tower with Moonlit Shadow-Gallop."
   },
   "bq_coalkell_maul": {
     id: "bq_coalkell_maul",
@@ -2512,9 +2514,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 2,
     arcana: 2,
-    passives: { undeadDmgBonus: 5, skillBonus: { Perception: 2 } },
+    passives: { undeadDmgBonus: 5, mpRegen: 1, skillBonus: { Perception: 2 } },
     activeAbility: { name: "Banish Freezing Shadow", icon: "🏮", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, chillTurns: 2, desc: "2/Quest (2 MP): Flare radiant warmth for 2d8 + Spirit dmg (2× vs Undead) and slow the foe (2t)!" },
-    desc: "Warm brass coaching lantern that pierces shadow-curses (+5 vs Undead, +2 Perception) with Banish Freezing Shadow."
+    desc: "+2 AC, +2 Spirit, +2 Arcana, +5 vs Undead, +1 MP/turn, +2 Perception. Warm brass coaching lantern granting Banish Freezing Shadow."
   },
   "bq_bagiennik_marsh_charm": {
     id: "bq_bagiennik_marsh_charm",

@@ -1,6 +1,6 @@
 {
-  "totalPasses": 46,
-  "totalItemsReworked": 460,
+  "totalPasses": 47,
+  "totalItemsReworked": 470,
   "history": [
     {
       "pass": 1,
@@ -737,6 +737,22 @@
         "bq_melgros_vault_circlet"
       ],
       "summary": "Reworked 2 Fabled armors (Vrithmytrix's Bane, Alabaster Plate of Erven), Book of Ebon Tides, Armor of the Ngobou, Cleansed Blade of Incot, Star-Carved Circlet of Melgros, Sanguine Lance, Ring of Hoarded Life, Bagpipes of Battle, and Omar's Lucky Festival Charm."
+    },
+    {
+      "pass": 47,
+      "items": [
+        "vom_void_buckler",
+        "chainmail",
+        "vom_blooddrinker_spear",
+        "vom_spear_stilled_heart",
+        "bq_lunar_knight_spurs",
+        "bq_seven_steeds_lantern",
+        "bk_elk_horn_rod",
+        "bk_cloak_of_tentacles",
+        "ul_soulflame_candle",
+        "vom_ring_jarl"
+      ],
+      "summary": "Reworked Legendary Silver Spurs of the Lunar Knight, Void-Touched Buckler, Spear of the Stilled Heart, Blooddrinker Spear, Ring of the Jarl, Eternal Soulflame Candle, Elk Horn Rod & Cloak of Tentacles (removed sourcebook tags), Chainmail Hauberk, and polished Dawn-Glass Lantern of the Seven Steeds."
     }
   ],
   "itemPasses": {
@@ -1199,6 +1215,16 @@
     "nf_erven_truth_plate": 1,
     "vom_ring_hoarded_life": 1,
     "vom_sanguine_lance": 1,
-    "bq_melgros_vault_circlet": 1
+    "bq_melgros_vault_circlet": 1,
+    "vom_void_buckler": 1,
+    "chainmail": 1,
+    "vom_blooddrinker_spear": 1,
+    "vom_spear_stilled_heart": 1,
+    "bq_lunar_knight_spurs": 1,
+    "bq_seven_steeds_lantern": 1,
+    "bk_elk_horn_rod": 1,
+    "bk_cloak_of_tentacles": 1,
+    "ul_soulflame_candle": 1,
+    "vom_ring_jarl": 1
   }
 }
