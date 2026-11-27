@@ -1,5 +1,5 @@
 {
-  "totalPasses": 31,
+  "totalPasses": 32,
   "history": [
     {
       "pass": 1,
@@ -211,6 +211,13 @@
       "title": "Crater of the Flaying Star",
       "file": "data/quests/books_quests_batch_014.js",
       "summary": "Expanded from 6 to 10 pages with Princess Mynna's West Ridge Star-Shrine (Arcana/Persuasion -> MYNNA_BLESSING, +40 GP, +10 HP/+4 MP, skylight bypass), Scribe's Vault treasury & obsidian mirror sabotage (Detect Traps/Turn Undead/Luck -> STAR_MIRROR + 55 GP), Mynna's tribute bonus (+50 GP/+35 XP), and Star-Glass Prospector victory ending."
+    },
+    {
+      "pass": 32,
+      "questId": "bk_b5_swept_away",
+      "title": "Swept Away",
+      "file": "data/quests/books_quests_batch_005.js",
+      "summary": "Expanded from 7 to 11 pages with Stone-Keeper Corwin's warning, East Knoll Brass Echo-Pylon sabotage (Firebolt/Detect Traps/Athletics -> PYLON_SILENCED, +55 GP, +12 HP/+4 MP), Hedgerow Flank gale-imp bypass, Corwin's monolith bonus (+65 GP/+40 XP), and Broker of Infernal Strings victory ending."
     }
   ],
   "questPasses": {
@@ -244,6 +251,7 @@
     "brasshaven": 1,
     "gloomfen": 1,
     "bk_b25_river_of_alchemy": 1,
-    "bk_b14_flaying_star": 1
+    "bk_b14_flaying_star": 1,
+    "bk_b5_swept_away": 1
   }
 }

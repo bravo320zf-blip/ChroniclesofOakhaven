@@ -735,7 +735,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 10. SWEPT AWAY (7 PAGES • LV 8)
+  // 10. SWEPT AWAY (11 PAGES • LV 8)
   // ==========================================================
   bk_b5_swept_away: {
     id: "bk_b5_swept_away",
@@ -745,33 +745,35 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 8,
     autoDiscover: false,
     discoverySource: "Frightened Townsfolk (Town Square)",
-    summary: "Race to the hundred-foot lucky Obelisk of a Thousand Runes outside town and slay the eerie Wind's Harp Devil trying to topple the protective monolith before an invading force can exploit its fall.",
-    totalPages: 7,
+    summary: "Race to the hundred-foot lucky Obelisk of a Thousand Runes outside town, silence the fiendish echo-pylon with Stone-Keeper Corwin's help, and slay the eerie Wind's Harp Devil before it topples the protective monolith.",
+    totalPages: 11,
     pages: {
       1: {
         zone: "Obelisk Meadow",
         title: "The Hundred-Foot Monolith",
         safeRetreat: true,
-        text: "For generations townsfolk climbed ladders to touch the high lucky runes on the hundred-foot granite Obelisk of a Thousand Runes. Now, howling disharmonic chords echo from its base—where a bizarre, string-limbed Wind's Harp Devil saws away at the monolith's foundation!",
+        text: "For generations, townsfolk climbed painted festival ladders to touch the high lucky runes carved into the hundred-foot granite Obelisk of a Thousand Runes. Today, gale-force gusts flatten the clover and howling, disharmonic chords shake the meadow—at the monolith's base, a gaunt, string-limbed Wind's Harp Devil saws furiously at the stone while Stone-Keeper Corwin waves frantically from behind an overturned apple cart!",
         choices: [
-          { t: "Touch one of the high lucky runes on the obelisk before engaging!", badge: "Athletics / Agility DC 14", check: { stat: "agility", skill: "Athletics", dc: 14, pass: 2, fail: 2, passMsg: "Ancient fortune surges through your veins—blessing your strikes!", failMsg: "Howling wind blows you back from the sheer granite." }, onPass: { cw: "OBELISK_LUCK", healHp: 10 } },
-          { t: "Plug your ears against the discordant music and charge!", to: 2 }
+          { t: "Scale a swaying festival ladder to touch a high lucky rune before engaging!", badge: "Athletics / Agility DC 14", check: { stat: "agility", skill: "Athletics", dc: 14, pass: 2, fail: 2, passMsg: "Ancient fortune surges through your veins—blessing your strikes!", failMsg: "Howling wind blows you back from the sheer granite." }, onPass: { cw: "OBELISK_LUCK", healHp: 10 } },
+          { t: "Duck behind the overturned apple cart to hear Stone-Keeper Corwin's warning.", to: 8 },
+          { t: "Plug your ears against the discordant music and charge straight in!", to: 2 }
         ]
       },
       2: {
         zone: "Base of the Obelisk",
         title: "Infernal Wind-Servants",
-        text: "Screaming dust-devils and barbed lesser fiends swirl around the vibrating granite base!",
-        enemy: { name: "Infernal Gale-Imps", desc: "Lesser fiends helping undermine the ancient ward-stone.", hp: 64, ac: 15, atk: 8, dmg: 9, xp: 185, gold: 80, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1, weakCw: ["OBELISK_LUCK"] },
+        text: "Screaming dust-devils and barbed lesser fiends swirl around the vibrating granite base, flinging razor-edged pebbles from the churning turf!",
+        enemy: { name: "Infernal Gale-Imps", desc: "Lesser fiends helping undermine the ancient ward-stone.", hp: 64, ac: 15, atk: 8, dmg: 9, xp: 185, gold: 80, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1, weakCw: ["OBELISK_LUCK", "PYLON_SILENCED"] },
         choices: [
+          { t: "Circle up to the East Knoll to smash the humming brass echo-pylon first.", to: 9 },
           { t: "Confront the Wind's Harp Devil before the monolith cracks!", to: 3 }
         ]
       },
       3: {
         zone: "Cracked Foundation",
         title: "The Wind's Harp Devil",
-        text: "Strumming razor-sharp wind-strings across its gaunt infernal frame, the Wind's Harp Devil unleashes a deafening symphony designed to shatter both stone and bone!",
-        enemy: { name: "Wind's Harp Devil", desc: "Bizarre musical fiend sent to topple the protective obelisk.", hp: 82, ac: 16, atk: 10, dmg: 11, xp: 280, gold: 180, items: ["bq_obelisk_rune_charm"], weakCw: ["OBELISK_LUCK"] },
+        text: "Strumming razor-sharp wind-strings stretched taut across its gaunt infernal frame, the Wind's Harp Devil turns hollow brass eyes on you and unleashes a deafening symphony designed to shatter both granite and bone!",
+        enemy: { name: "Wind's Harp Devil", desc: "Bizarre musical fiend sent to topple the protective obelisk.", hp: 82, ac: 16, atk: 10, dmg: 11, xp: 280, gold: 180, items: ["bq_obelisk_rune_charm"], weakCw: ["OBELISK_LUCK", "PYLON_SILENCED"] },
         choices: [
           { t: "Stabilize the rune-stone and claim the devil's sinister invasion map!", to: 4 }
         ]
@@ -779,23 +781,25 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Obelisk Meadow",
         title: "The Monolith Stands",
-        text: "The discordant shrieking ceases. Though cracked at the base, the Obelisk of a Thousand Runes still stands upright—preserving its ancient protective ward over the town!",
+        text: "With a final, snapping twang, the discordant shrieking ceases and warm amber light ripples back up the granite shaft. Though cracked at the base, the Obelisk of a Thousand Runes stands upright—and Stone-Keeper Corwin hurries over with bronze clamps and mortar.",
         choices: [
-          { t: "Return to town with the devil's map and good news.", to: 5 }
+          { t: "Help Corwin clamp the cracked base and deliver the invasion map to the Guildhall!", reqCw: "PYLON_SILENCED", badge: "PYLON_SILENCED", to: 5, onChoose: { gold: 65, xp: 40, msg: "Corwin and the guild wardens add a 65 GP & 40 XP bonus for preserving the monolith!" } },
+          { t: "Return to town with the devil's map and good news.", to: 5 },
+          { t: "Keep the devil's rare infernal harp-wire and auction the ciphered map privately.", to: 11 }
         ]
       },
       5: {
         zone: "Town Square",
         title: "Fortune Preserved",
-        text: "Grateful merchants and young couples cheer as the lucky obelisk is declared safe once more.",
+        text: "Grateful merchants, festival-wrights, and young couples pour into the square cheering as word spreads that the lucky obelisk stands unbroken once more.",
         choices: [
-          { t: "Accept the town's reward.", to: 6 }
+          { t: "Accept the town's reward and visit the Guildhall.", to: 6 }
         ]
       },
       6: {
         zone: "Oakhaven Guildhall",
         title: "Mysterious Master",
-        text: "You hand the devil's map to guild scholars so the realm is warned of whoever wanted the obelisk felled.",
+        text: "Guild scholars unroll the devil's brimstone-inked invasion map across the oak table, tracing frontier passes stamped with an unfamiliar horned seal—forewarning Oakhaven of whoever wanted the obelisk felled.",
         choices: [
           { t: "Finish the adventure.", to: 7 }
         ]
@@ -803,8 +807,46 @@ window.OAKHAVEN.registerQuests({
       7: {
         zone: "Epilogue",
         title: "Guardian of the Thousand Runes",
-        text: "The Obelisk of a Thousand Runes endures, and its luck walks with you.",
+        text: "The Obelisk of a Thousand Runes endures, its warm amber ward shines over the valley, and its ancient luck walks with you.",
         ending: { type: "true", title: "Defender of the Lucky Obelisk", xp: 315, gold: 295, trophy: "Snapped Infernal Harp-String" },
+        choices: []
+      },
+      8: {
+        zone: "Meadow Verge",
+        title: "Stone-Keeper Corwin's Warning",
+        text: "Old Corwin crouches behind the splintered apple cart, clutching a heavy brass tuning-fork and a jar of beeswax. 'That string-legged fiend isn't brute-forcing the stone—it's hunting the harmonic seam!' he shouts over the gale. 'It drove a brass echo-pylon into the east knoll to double its chord! Silence that pylon and its strings will go flat!'",
+        choices: [
+          { t: "Study Corwin's rune-rubbings and harmonic chart with Arcana.", badge: "Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 9, fail: 9, failDmg: 5, passMsg: "You spot the counter-pitch immediately and sprint for the east knoll!", failMsg: "A stray sonic ripple rings your ears (-5 HP) as you reach the east knoll!" } },
+          { t: "Creep along the hawthorn hedgerow to flank the east knoll unseen.", badge: "Stealth / Agility DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 9, fail: 2, passMsg: "You slip cleanly behind the screeching wind-imps to the east knoll!", failMsg: "A gust whips your cloak—barbed gale-imps swoop straight at you!" } },
+          { t: "Thank Corwin and charge straight toward the obelisk base.", to: 2 }
+        ]
+      },
+      9: {
+        zone: "East Knoll",
+        title: "The Brass Echo-Pylon",
+        text: "A crooked infernal brass pylon driven deep into the hillside vibrates like a struck anvil, amplifying the devil's chords into bone-rattling shockwaves! Beside it lies an overturned meadow festival offering-box.",
+        onEnter: { gold: 55, healHp: 12, healMp: 4, msg: "Secured 55 GP from the offering-box and caught your breath behind the knoll (+12 HP, +4 MP)!" },
+        choices: [
+          { t: "Shatter the brass echo-pylon with Firebolt!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 10, onChoose: { cw: "PYLON_SILENCED", msg: "Molten brass snaps in half—the howling harmonics collapse into a ragged hiss!" } },
+          { t: "Wedge Corwin's tuning-fork into the pylon's resonance slot with Detect Traps.", reqSkill: "Detect Traps", badge: "Detect Traps", to: 10, onChoose: { cw: "PYLON_SILENCED", msg: "A crisp counter-chime cancels the infernal resonance cleanly!" } },
+          { t: "Wrench the vibrating pylon out of the turf with raw strength!", badge: "Might / Athletics DC 14", check: { stat: "might", skill: "Athletics", dc: 14, pass: 10, fail: 2, failDmg: 6, passMsg: "With a mighty heave you snap the brass shaft clean at the root!", failMsg: "Screaming brass blisters your palms (-6 HP) and draws the gale-imps!" }, onPass: { cw: "PYLON_SILENCED" } },
+          { t: "Leave the pylon and drop down to the Base of the Obelisk.", to: 2 }
+        ]
+      },
+      10: {
+        zone: "East Knoll",
+        title: "The Hedgerow Flank",
+        text: "With the echo-pylon silenced, the swirling gale-imps spin in blind confusion below—opening a clean breach along the low stone wall straight toward the Wind's Harp Devil!",
+        choices: [
+          { t: "Vault the stone wall straight to the Cracked Foundation while the devil is off-key!", to: 3 },
+          { t: "Drop down on the disoriented Infernal Gale-Imps first for their spoils.", to: 2 }
+        ]
+      },
+      11: {
+        zone: "Epilogue",
+        title: "Broker of Infernal Strings",
+        text: "The obelisk still stands over Oakhaven, while your private sale of the devil's resonant harp-wire and ciphered parchment fills your coin-purse to bursting!",
+        ending: { type: "victory", title: "Silencer of the Gale", xp: 285, gold: 345, trophy: "Brass Echo-Shard" },
         choices: []
       }
     }
