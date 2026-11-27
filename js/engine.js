@@ -3576,6 +3576,232 @@
               }
             }
           };
+        },
+
+        // 15. The Abandoned Apothecary Cart
+        () => {
+          const fumeDmg = Math.max(2, 1 + Math.floor(lv * 0.7));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Apothecary Cart`,
+            subtitle: "Alchemical Find",
+            difficulty: "Discovery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Rattling Vials by the Trail",
+                safeRetreat: true,
+                text: `Wedged against a wind-felled pine along ${zone.name} sits an overturned apothecary's handcart. Torn oilcloth flaps over rows of stoppered amber vials and a brass-clasped dispatch satchel wedged beneath the seat.`,
+                choices: [
+                  {
+                    t: "Sort the unmarked tinctures by scent and hue with Herbalism.",
+                    badge: `Herbalism / Arcana DC ${dc}`,
+                    check: {
+                      stat: "arcana", skill: "Herbalism", dc, pass: 2, fail: 3,
+                      failDmg: fumeDmg,
+                      passMsg: "You separate the true curatives cleanly—claiming a pure Health Potion and a pouch of apothecary silver!",
+                      failMsg: `A cracked flask puffs stinging sulfur-vapor across your face (-${fumeDmg} HP) before you step back!`
+                    },
+                    onPass: { item: "health_potion", gold: baseGold }
+                  },
+                  {
+                    t: "Pick the corroded brass clasp on the dispatch satchel under the seat.",
+                    badge: `Lockpicking / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Lockpicking", dc, pass: 2, fail: 3,
+                      passMsg: "The latch pops open—revealing a corked Mana Elixir and trade coin!",
+                      failMsg: "The rusted clasp snaps inside the lock, jamming the satchel shut."
+                    },
+                    onPass: { item: "mana_elixir", gold: Math.round(baseGold * 0.9) }
+                  },
+                  {
+                    t: `Take a dry sack of ${matName} from the lower tray and leave the fragile glass alone.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Clean Apothecary Salvage",
+                text: `With the finest draughts safely padded in your pack alongside fresh ${matName}, you set off down the road toward Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Salvaged the Apothecary Cart", xp: Math.round(baseXp * 1.25), gold: Math.round(baseGold * 0.45), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Shattered Glass",
+                text: `Leaving the broken vials to the wind, you scoop up a spare bundle of ${matName} from the verge and head home.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Checked the Wrecked Cart", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Prudent Forager",
+                text: `Better safe than blistered—you tuck away fresh ${matName} and walk briskly back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Cautious Salvager", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 16. The Sunken Bell-Shrine
+        () => {
+          const healAmt = 6 + lv * 2;
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Sunken Bell-Shrine`,
+            subtitle: "Dawn-Watch Relic",
+            difficulty: "Mystery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "The Bronze Wayside Bell",
+                safeRetreat: true,
+                text: `Half-swallowed by brambles off ${zone.name} stands a weathered stone arch hung with an old Dawn-Watch bronze bell. Warm golden motes drift from the verdigris rim whenever the breeze nudges its clapper.`,
+                choices: [
+                  {
+                    t: "Ring the bronze bell softly and speak a traveler's blessing of the Dawn.",
+                    badge: `Persuasion / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Persuasion", dc, pass: 2, fail: 3,
+                      passMsg: `A clear golden chime washes away your fatigue (+${healAmt} HP) and reveals a pilgrim's Health Potion!`,
+                      failMsg: "Only a dull bronze clank echoes into the brush, leaving the shrine silent."
+                    },
+                    onPass: { item: "health_potion", gold: Math.round(baseGold * 0.8), healHp: healAmt }
+                  },
+                  {
+                    t: "Inspect the mossy plinth beneath the arch for a hidden pilgrim cache.",
+                    badge: `Perception / Luck DC ${dc}`,
+                    check: {
+                      stat: "luck", skill: "Perception", dc, pass: 2, fail: 3,
+                      passMsg: "Behind a loose keystone rests a tarnished Silver Signet and old wayside coin!",
+                      failMsg: "You find only damp moss and fallen leaves beneath the arch."
+                    },
+                    onPass: { item: "silver_signet", gold: Math.round(baseGold * 0.9) }
+                  },
+                  {
+                    t: `Rest quietly beneath the arch, gather ${matName} nearby, and return to town.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Blessing of the Wayside",
+                text: `Buoyed by the shrine's quiet warmth, you gather a bundle of ${matName} along the path and stride back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Honored the Bell-Shrine", xp: Math.round(baseXp * 1.25), gold: Math.round(baseGold * 0.4), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Quiet Stones",
+                text: `The old shrine keeps its silence. You collect fresh ${matName} from the verge and head home.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Visited the Wayside Arch", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Peaceful Breather",
+                text: `After a brief rest under the mossy arch, you stow fresh ${matName} in your pack and stroll back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Wayfarer's Rest", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 17. The Ambush at the Old Culvert
+        () => {
+          const cutpurseHp = 15 + lv * 4;
+          const cutpurseAc = 10 + Math.min(4, Math.floor(lv / 2));
+          const cutpurseAtk = 2 + Math.floor(lv * 0.85);
+          const cutpurseDmg = 3 + Math.floor(lv * 0.7);
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Old Culvert Ambush`,
+            subtitle: "Frontier Skirmish",
+            difficulty: "Skirmish",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Trip-Wire Across the Stone Arch",
+                safeRetreat: true,
+                text: `Where ${zone.name} narrows over a mossy stone drainage-culvert, a faint copper glint catches your eye ankle-high across the dirt. In the alder bushes beyond, two hooded Highway Cutpurses crouch beside a pilfered pack-mule!`,
+                choices: [
+                  {
+                    t: "Spot the wire, loop behind the culvert, and scatter the cutpurses with a sudden shout!",
+                    badge: `Detect Traps / Perception DC ${dc}`,
+                    check: {
+                      stat: "luck", skill: "Detect Traps", dc, pass: 2, fail: 3,
+                      passMsg: "Caught completely flat-footed, the cutpurses bolt into the scrub—leaving their coin-purse and Alchemical Oil behind!",
+                      failMsg: "Loose gravel slides under your boot! Both cutpurses leap onto the culvert with daggers drawn!"
+                    },
+                    onPass: { item: "alchemical_oil", gold: baseGold }
+                  },
+                  {
+                    t: "Draw your weapon and charge straight across the stone culvert!",
+                    to: 3
+                  },
+                  {
+                    t: `Circle high through the brambles around the culvert, gather ${matName}, and return to Oakhaven.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Road Cleared",
+                text: `You untie the nervous pack-mule, point it back toward the farm road, and collect fresh ${matName} on your triumphant walk to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Cleared the Old Culvert", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Daggers on the Culvert",
+                text: `'Drop your coin-pouch and walk!' the lead cutpurse hisses, lunging across the mossy stones!`,
+                enemy: {
+                  name: "Highway Cutpurses",
+                  desc: "Desperate road-brigands preying on frontier travelers.",
+                  hp: cutpurseHp,
+                  ac: cutpurseAc,
+                  atk: cutpurseAtk,
+                  dmg: cutpurseDmg,
+                  xp: Math.round(baseXp * 1.4),
+                  gold: Math.round(baseGold * 1.15),
+                  items: [altMatId],
+                  flee: 4
+                },
+                choices: [
+                  { t: "Free the pilfered pack-mule and claim the brigands' stash!", to: 2 }
+                ]
+              },
+              4: {
+                zone: zone.name,
+                title: "High-Ridge Bypass",
+                text: `You slip around the ambush cleanly, gather fresh ${matName} along the ridge, and return safely to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Dodged a Road Ambush", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
         }
       ];
 
