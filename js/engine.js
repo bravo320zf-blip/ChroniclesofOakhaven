@@ -3811,6 +3811,233 @@
               }
             }
           };
+        },
+
+        // 18. The Stranded Timber-Sled
+        () => {
+          const strainDmg = Math.max(2, 1 + Math.floor(lv * 0.6));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Stranded Timber-Sled`,
+            subtitle: "Frontier Rescue",
+            difficulty: "Discovery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Mud-Bogged Oxen",
+                safeRetreat: true,
+                text: `Halfway down a rain-slick verge along ${zone.name}, a heavy Oakhaven timber-sled has skidded into a ditch. Two nervous oxen strain against the yoke while a mud-splattered woodcutter tugs desperately at the rear rope.`,
+                choices: [
+                  {
+                    t: "Brace your boots in the gravel and heave the timber-sled back onto the road!",
+                    badge: `Athletics / Might DC ${dc}`,
+                    check: {
+                      stat: "might", skill: "Athletics", dc, pass: 2, fail: 3,
+                      failDmg: strainDmg,
+                      passMsg: "With a mighty shove the runners bite dry gravel—the grateful woodcutter presses a Health Potion and silver into your hand!",
+                      failMsg: `Your boot slips on wet clay, wrenching your shoulder (-${strainDmg} HP) before you step clear.`
+                    },
+                    onPass: { item: "health_potion", gold: baseGold }
+                  },
+                  {
+                    t: "Step to the oxen's heads, calm their breathing, and guide them out at an angle.",
+                    badge: `Survival / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Survival", dc, pass: 2, fail: 3,
+                      passMsg: "The oxen steady at your voice and haul the sled free—the woodcutter shares a Mana Elixir and trade coin!",
+                      failMsg: "A sudden gust startles the lead ox, forcing the woodcutter to unhitch and wait for help."
+                    },
+                    onPass: { item: "mana_elixir", gold: Math.round(baseGold * 0.9) }
+                  },
+                  {
+                    t: `Help unhook the spare harness, accept a bundle of ${matName}, and continue on.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Grateful Timber-Crew",
+                text: `Waving his cap in thanks, the woodcutter tosses you a fresh bundle of ${matName} as his sled rumbles smoothly back toward Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Aided the Timber-Crew", xp: Math.round(baseXp * 1.25), gold: Math.round(baseGold * 0.45), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Bogged Until Dusk",
+                text: `Promising to send a spare team from the gate, you gather ${matName} along the road and head back to town.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Lent a Hand on the Trail", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Neighborly Detour",
+                text: `With the oxen unhitched and safe, you pocket fresh ${matName} and walk back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Frontier Helper", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 19. The Ring of Singing Toadstools
+        () => {
+          const sporeDmg = Math.max(2, 2 + Math.floor(lv * 0.65));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Singing Toadstools`,
+            subtitle: "Fey Threshold",
+            difficulty: "Mystery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "The Violet Fairy-Ring",
+                safeRetreat: true,
+                text: `In a hushed clearing off ${zone.name}, a perfect circle of pale violet toadstools hums a soft, hypnotic melody. On a flat mossy capstone at the ring's center glints a scattering of ancient silver coins.`,
+                choices: [
+                  {
+                    t: "Read the fey border-customs woven into the humming spores with Arcana.",
+                    badge: `Arcana DC ${dc}`,
+                    check: {
+                      stat: "arcana", skill: "Arcana", dc, pass: 2, fail: 3,
+                      failDmg: sporeDmg,
+                      passMsg: "You answer the ring's cadence with three soft taps—earning a shimmering Mana Elixir and fey silver!",
+                      failMsg: `A puff of stinging purple spores bursts across your face (-${sporeDmg} HP) as the melody stops!`
+                    },
+                    onPass: { item: "mana_elixir", gold: baseGold }
+                  },
+                  {
+                    t: "Step lightly between the outer caps, bow low, and claim a single tribute coin.",
+                    badge: `Stealth / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Stealth", dc, pass: 2, fail: 3,
+                      passMsg: "Unseen laughter chimes overhead as you lift a gleaming Silver Signet without bruising a single cap!",
+                      failMsg: "Your heel brushes a toadstool—the coins vanish in a flash of green mist!"
+                    },
+                    onPass: { item: "silver_signet", gold: Math.round(baseGold * 0.85) }
+                  },
+                  {
+                    t: `Admire the singing ring from outside, collect ${matName} nearby, and head home.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Fey Courtesy Repaid",
+                text: `A warm breeze carries the scent of wild honey as you tuck away fresh ${matName} and return to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Honored the Fairy-Ring", xp: Math.round(baseXp * 1.25), gold: Math.round(baseGold * 0.45), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Vanished Glamour",
+                text: `The clearing falls silent once more. You gather a bundle of ${matName} along the path and make for town.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Brushed Fey Magic", xp: Math.round(baseXp * 0.8), gold: 0, trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Wise Distance",
+                text: `Leaving the fey circle untouched, you collect fresh ${matName} from the verge and stroll safely back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Respected the Old Ways", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 20. The Briar-Wolf Pack
+        () => {
+          const wolfHp = 15 + lv * 4;
+          const wolfAc = 10 + Math.min(4, Math.floor(lv / 2));
+          const wolfAtk = 2 + Math.floor(lv * 0.85);
+          const wolfDmg = 3 + Math.floor(lv * 0.75);
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Briar-Wolf Pack`,
+            subtitle: "Wilderness Stalkers",
+            difficulty: "Skirmish",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Amber Eyes in the Ferns",
+                safeRetreat: true,
+                text: `Low, rumbling growls vibrate through the bracken along ${zone.name}. Two lean, thorn-matted Briar-Wolves step onto the narrow track, guarding a discarded hunter's pack beside a fallen pine.`,
+                choices: [
+                  {
+                    t: "Stand tall, clang steel, and shout the hungry pack back into the brush!",
+                    badge: `Persuasion / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Persuasion", dc, pass: 2, fail: 3,
+                      passMsg: "With ears pinned flat, the Briar-Wolves slink away—leaving a dry Health Potion and coin inside the hunter's pack!",
+                      failMsg: "The alpha wolf bares its fangs and lunges straight down the track!"
+                    },
+                    onPass: { item: "health_potion", gold: baseGold }
+                  },
+                  {
+                    t: "Draw steel and meet the snarling Briar-Wolf Pack head-on!",
+                    to: 3
+                  },
+                  {
+                    t: `Back away slowly upwind, gather ${matName} along the ridge, and return to Oakhaven.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Trail Secured",
+                text: `With the hunter's lost gear recovered and the wolves scattered, you gather fresh ${matName} and march back toward Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Drove Off the Briar-Wolves", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Fangs in the Bracken",
+                text: `Thorns scatter from their bristling pelts as the Briar-Wolves leap across the muddy track!`,
+                enemy: {
+                  name: "Briar-Wolf Pack",
+                  desc: "Thorn-matted frontier predators hunting the outskirts.",
+                  hp: wolfHp,
+                  ac: wolfAc,
+                  atk: wolfAtk,
+                  dmg: wolfDmg,
+                  xp: Math.round(baseXp * 1.4),
+                  gold: Math.round(baseGold * 1.1),
+                  items: [altMatId],
+                  flee: 4
+                },
+                choices: [
+                  { t: "Search the discarded hunter's pack and head back to Oakhaven!", to: 2 }
+                ]
+              },
+              4: {
+                zone: zone.name,
+                title: "Quiet Retreat",
+                text: `You leave the pack to their thicket, collect fresh ${matName} along the outer ridge, and return safely to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Outsmarted the Pack", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
         }
       ];
 
