@@ -1062,7 +1062,7 @@
     const mp3ToWarm = [];
     const liveChunksToWarm = [];
 
-    (activeQuests || []).slice(0, 6).forEach(adv => {
+    (activeQuests || []).slice(0, 12).forEach(adv => {
       if (!adv || !adv.pages) return;
       const pageNums = Object.keys(adv.pages).sort((a, b) => Number(a) - Number(b));
       pageNums.slice(0, 4).forEach((pn, idx) => {
@@ -1074,12 +1074,12 @@
         if (mp3) {
           if (!preloadedMp3Urls.has(mp3)) mp3ToWarm.push(mp3);
         } else if (idx === 0) {
-          // Queue opening chunk of Page 1 for un-recorded board quests
+          // Queue opening chunks of Page 1 for un-recorded dynamic Outskirts/board quests
           const chunks = splitIntoChunks(cleaned, 150, 52);
-          if (chunks.length) {
-            const key = `${voiceId}|${effSpeed.toFixed(2)}|${chunks[0]}`;
-            if (!kokoroAudioCache.has(key)) liveChunksToWarm.push(chunks[0]);
-          }
+          chunks.slice(0, 2).forEach(ch => {
+            const key = `${voiceId}|${effSpeed.toFixed(2)}|${ch}`;
+            if (!kokoroAudioCache.has(key) && !liveChunksToWarm.includes(ch)) liveChunksToWarm.push(ch);
+          });
         }
       });
     });
@@ -1109,7 +1109,7 @@
           // Only warm silently if worker is supported (never block main thread!)
           if (kokoroWorkerFailed || typeof Worker === "undefined") return;
           const myEpoch = runToken;
-          for (const chunk of liveChunksToWarm.slice(0, 3)) {
+          for (const chunk of liveChunksToWarm.slice(0, 6)) {
             if (myEpoch !== runToken || playbackState !== "idle" || prefs.engine !== "kokoro") break;
             await synthesizeKokoroChunk(chunk, voiceId, effSpeed, myEpoch);
           }

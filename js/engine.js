@@ -2424,7 +2424,7 @@
       renderTown();
       renderSheet();
       startMapLoop();
-      window.OAKHAVEN_NARRATOR?.preloadForTown(getActiveBoardLeads());
+      window.OAKHAVEN_NARRATOR?.preloadForTown([...getActiveBoardLeads(), ...getPendingOutskirtsEncounters()]);
     }
 
     function renderTown() {
@@ -4855,8 +4855,25 @@
       return encounterBuilders[Math.floor(Math.random() * encounterBuilders.length)]();
     }
 
+    let pendingOutskirtsEncounters = {};
+
+    function getPendingOutskirtsEncounters() {
+      if (!state) return [];
+      const curLv = Math.max(1, state.level || 1);
+      return WILDERNESS_ZONES.map((z) => {
+        const cached = pendingOutskirtsEncounters[z.id];
+        if (!cached || cached.recommendedLevel !== curLv) {
+          pendingOutskirtsEncounters[z.id] = buildWildernessEncounter(z);
+        }
+        return pendingOutskirtsEncounters[z.id];
+      });
+    }
+
     function startWildernessExpedition(zone) {
-      const enc = buildWildernessEncounter(zone);
+      const curLv = Math.max(1, state.level || 1);
+      const cached = pendingOutskirtsEncounters[zone.id];
+      const enc = (cached && cached.recommendedLevel === curLv) ? cached : buildWildernessEncounter(zone);
+      delete pendingOutskirtsEncounters[zone.id];
       ADVENTURES._wilderness_encounter = enc;
       startAdventure("_wilderness_encounter");
     }
