@@ -572,11 +572,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 260,
-    source: "Courts of the Shadow Fey",
     ac: 2,
     spirit: 2,
     luck: 1,
-    desc: "+2 AC, +2 Spirit, +1 Luck. Mithral-and-onyx royal cameo granting status in the Shadow Courts."
+    passives: { dmgReduce: 2, spellDmgBonus: 3, goldFindPct: 15, skillBonus: { Persuasion: 4, Stealth: 2 } },
+    activeAbility: { name: "Shadow Queen's Favor", icon: "👑", charges: 2, mp: 2, ooc: true, evadeTurns: 2, shieldTurns: 2, restoreLuck: 2, dmgDice: "2d8", dmgStat: "spirit", dmgType: "necrotic", desc: "2/Quest (2 MP): Invoke Queen Sarastra's twilight seal — deal 2d8 + Spirit necrotic dmg, Evade (2t), Shield (2t), and +2 Luck!" },
+    desc: "Mithral-and-onyx royal cameo of the Shadow Courts (+2 AC, +2 Spirit, +1 Luck, -2 Dmg Taken, +3 Spell Dmg, +15% Gold, +4 Persuasion, +2 Stealth) with Shadow Queen's Favor."
   },
   "bq_lantern_dragonette": {
     id: "bq_lantern_dragonette",
@@ -1141,10 +1142,11 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 260,
-    source: "Tome of Beasts 2 Lairs",
     arcana: 3,
     maxMp: 6,
-    desc: "+3 Arcana, +6 Max MP. Singing geothermal crystal harvested from the Crystalline Monolith."
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, mpRegen: 1, skillBonus: { Arcana: 3, Perception: 2 } },
+    activeAbility: { name: "Harmonic Prism-Beam", icon: "💎", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "fire", dot: { dmg: 5, turns: 3, label: "Thermal Resonance" }, restoreMp: 4, desc: "2/Quest (2 MP): Focus singing geothermal light for 3d8 + Arcana fire dmg, Thermal Resonance (5/t, 3t), and reclaim +4 MP!" },
+    desc: "Singing geothermal crystal prism harvested from the Crystalline Monolith (+3 Arcana, +6 Max MP, +4 Spell Dmg, -1 MP Cost, +1 MP/turn, +3 Arcana, +2 Perception) with Harmonic Prism-Beam."
   },
   "bq_horseshoe_oasis_spear": {
     id: "bq_horseshoe_oasis_spear",

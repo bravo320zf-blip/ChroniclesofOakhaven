@@ -1,6 +1,6 @@
 {
-  "totalPasses": 61,
-  "totalItemsReworked": 610,
+  "totalPasses": 62,
+  "totalItemsReworked": 620,
   "history": [
     {
       "pass": 1,
@@ -977,6 +977,22 @@
         "bq_gorgo_artisan_hammer"
       ],
       "summary": "Reworked 3 Vault of Magic relics, 3 expansion uniques (adding missing rare rarity on pirate_king_coat), and 4 quest relics with thematic passives and active abilities."
+    },
+    {
+      "pass": 62,
+      "items": [
+        "bq_monolith_crystal_lens",
+        "vom_fab_sacred_mtn",
+        "vom_stolen_thunder",
+        "vom_talisman_snow_queen",
+        "aegis_bastion",
+        "ul_thunderbolt_hammer",
+        "vom_magma_mantle",
+        "vom_rain_of_chaos",
+        "bq_sarastra_cameo",
+        "heart_of_ignaroth"
+      ],
+      "summary": "Reworked 5 Vault of Magic relics (including Fabled Sacred Mountain Armor & Legendary Stolen Thunder Drum), 2 expansion legendaries, 1 core shield (added rare/legendary rarities to aegis_bastion & heart_of_ignaroth), and 2 quest relics."
     }
   ],
   "itemPasses": {
@@ -1589,6 +1605,16 @@
     "pirate_king_coat": 1,
     "vom_lightning_rod": 1,
     "vom_wave_chain_mail": 1,
-    "bq_gorgo_artisan_hammer": 1
+    "bq_gorgo_artisan_hammer": 1,
+    "bq_monolith_crystal_lens": 1,
+    "vom_fab_sacred_mtn": 1,
+    "vom_stolen_thunder": 1,
+    "vom_talisman_snow_queen": 1,
+    "aegis_bastion": 1,
+    "ul_thunderbolt_hammer": 1,
+    "vom_magma_mantle": 1,
+    "vom_rain_of_chaos": 1,
+    "bq_sarastra_cameo": 1,
+    "heart_of_ignaroth": 1
   }
 }
