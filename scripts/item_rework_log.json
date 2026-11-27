@@ -1,6 +1,6 @@
 {
-  "totalPasses": 45,
-  "totalItemsReworked": 450,
+  "totalPasses": 46,
+  "totalItemsReworked": 460,
   "history": [
     {
       "pass": 1,
@@ -721,6 +721,22 @@
         "prism_greatsword"
       ],
       "summary": "Milestone 450th item (60.3%)! Reworked Legendary Citadel Star Sapphire, fixed & polished Legendary Solar Khopesh of the God-King, Tarian Graddfeydd Ddraig, Voidskin Cloak, Prismatic Greatsword, Dwarven Plate, Ring of Spellweave, Shattershot Arrow (removed sourcebook tag), Ring of Shadows, and Mharoti Discipline Rod."
+    },
+    {
+      "pass": 46,
+      "items": [
+        "vom_bagpipes_battle",
+        "vom_book_ebon_tides",
+        "vom_fab_vrithmytrix",
+        "bq_omar_golden_truffle",
+        "vom_armor_ngobou",
+        "bq_incot_vengeance_blade",
+        "nf_erven_truth_plate",
+        "vom_ring_hoarded_life",
+        "vom_sanguine_lance",
+        "bq_melgros_vault_circlet"
+      ],
+      "summary": "Reworked 2 Fabled armors (Vrithmytrix's Bane, Alabaster Plate of Erven), Book of Ebon Tides, Armor of the Ngobou, Cleansed Blade of Incot, Star-Carved Circlet of Melgros, Sanguine Lance, Ring of Hoarded Life, Bagpipes of Battle, and Omar's Lucky Festival Charm."
     }
   ],
   "itemPasses": {
@@ -1173,6 +1189,16 @@
     "bq_mharoti_discipline_rod": 1,
     "bq_void_star_sapphire": 1,
     "bk_shattershot_arrow": 1,
-    "prism_greatsword": 1
+    "prism_greatsword": 1,
+    "vom_bagpipes_battle": 1,
+    "vom_book_ebon_tides": 1,
+    "vom_fab_vrithmytrix": 1,
+    "bq_omar_golden_truffle": 1,
+    "vom_armor_ngobou": 1,
+    "bq_incot_vengeance_blade": 1,
+    "nf_erven_truth_plate": 1,
+    "vom_ring_hoarded_life": 1,
+    "vom_sanguine_lance": 1,
+    "bq_melgros_vault_circlet": 1
   }
 }

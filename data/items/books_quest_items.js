@@ -884,7 +884,9 @@ window.OAKHAVEN.registerItems({
     source: "City of Cats",
     luck: 2,
     spirit: 1,
-    desc: "+2 Luck, +1 Spirit. Gilded Day of Pigs keepsake gifted by grateful merchant Omar-bac-Maheem."
+    passives: { goldFindPct: 15, skillBonus: { Persuasion: 2, Perception: 1 } },
+    activeAbility: { name: "Truffle-Hunter's Luck", icon: "🍀", charges: 1, ooc: true, restoreLuck: 2, desc: "1/Quest: Rub Omar's gilded keepsake to restore +2 Luck!" },
+    desc: "+2 Luck, +1 Spirit, +15% Gold, +2 Persuasion, +1 Perception. Gilded Day of Pigs keepsake from Omar-bac-Maheem with Truffle-Hunter's Luck."
   },
   "bq_nargoth_void_seal": {
     id: "bq_nargoth_void_seal",
@@ -1589,7 +1591,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     luck: 1,
     maxMp: 5,
-    desc: "+2 Arcana, +1 Luck, +5 Max MP. Ancient scholar's band recovered from Paletree Rise."
+    passives: { spellDmgBonus: 3, mpRegen: 1, skillBonus: { Arcana: 2, Perception: 2 } },
+    activeAbility: { name: "Melgros Star-Insight", icon: "⭐", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "radiant", restoreLuck: 1, desc: "2/Quest (2 MP): Focus starlight through the etched circlet for 2d8 + Arcana radiant dmg and +1 Luck!" },
+    desc: "+2 Arcana, +1 Luck, +5 Max MP, +3 Spell Dmg, +1 MP/turn, +2 Arcana & Perception. Ancient scholar's band from Paletree Rise with Melgros Star-Insight."
   },
   "bq_horn_of_revels_charm": {
     id: "bq_horn_of_revels_charm",
@@ -1978,7 +1982,9 @@ window.OAKHAVEN.registerItems({
     value: 150,
     atk: 4,
     might: 1,
-    desc: "+4 Attack, +1 Might. Steel greatsword purged of Eagehrt's dark blood-marks."
+    passives: { undeadDmgBonus: 4, critRange: 19, bossDmgBonus: 2 },
+    activeAbility: { name: "Purged Steel Cleave", icon: "⚔️", charges: 2, dmgDice: "3d6", dmgStat: "might", dmgType: "radiant", undeadDouble: true, desc: "2/Quest: Swing the cleansed greatsword in a shining arc for 3d6 + Might radiant dmg (2x vs Undead)!" },
+    desc: "+4 Attack, +1 Might, +4 vs Undead, Crit 19-20, +2 Boss Dmg. Steel greatsword purged of Eagehrt's dark blood-marks with Purged Steel Cleave."
   },
   "bq_crimson_hood_cloak": {
     id: "bq_crimson_hood_cloak",
