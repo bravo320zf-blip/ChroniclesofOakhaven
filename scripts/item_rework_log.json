@@ -1,6 +1,6 @@
 {
-  "totalPasses": 53,
-  "totalItemsReworked": 530,
+  "totalPasses": 54,
+  "totalItemsReworked": 540,
   "history": [
     {
       "pass": 1,
@@ -849,6 +849,22 @@
         "vom_staff_desolation"
       ],
       "summary": "Reworked Staff of Desolation, Pistol of the Umbral Court, Scorpion-Bane Oasis Spear, Forgefire Hammer, Swolbold Wraps, Gliding Cloak, Murian's Grim Wyrm-Dagger, Resin-Forged Aegis (added rare rarity), and polished Sea Witch's Blade & Nichenevin Chaos-Spark Wand."
+    },
+    {
+      "pass": 54,
+      "items": [
+        "elder_scale_plate",
+        "bq_tumultuous_dark_mantle",
+        "bq_zmey_triple_scale_mail",
+        "baron_greatsword",
+        "vom_bone_whip",
+        "sunfire_blade",
+        "steel_dagger",
+        "bq_krakova_royal_signet",
+        "briarweave_mail",
+        "bq_bruffa_frost_pendant"
+      ],
+      "summary": "Reworked Royal Signet of Krakova, Elder-Wyrm Scale Plate (added legendary rarity), Three-Headed Zmey Scale Mail, Bruffa's Thawed Tear, Mantle of Quieted Shadows, Red Baron's Greatsword (added very_rare rarity), Bone Whip, Sunfire Greatsword (added rare rarity), Briarweave Jerkin (added uncommon rarity), and Steel Dagger."
     }
   ],
   "itemPasses": {
@@ -1381,6 +1397,16 @@
     "bq_horseshoe_oasis_spear": 1,
     "amber_aegis": 1,
     "vom_pistol_umbral": 1,
-    "vom_staff_desolation": 1
+    "vom_staff_desolation": 1,
+    "elder_scale_plate": 1,
+    "bq_tumultuous_dark_mantle": 1,
+    "bq_zmey_triple_scale_mail": 1,
+    "baron_greatsword": 1,
+    "vom_bone_whip": 1,
+    "sunfire_blade": 1,
+    "steel_dagger": 1,
+    "bq_krakova_royal_signet": 1,
+    "briarweave_mail": 1,
+    "bq_bruffa_frost_pendant": 1
   }
 }

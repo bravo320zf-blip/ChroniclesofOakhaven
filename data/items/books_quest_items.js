@@ -670,7 +670,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 2,
     maxHp: 8,
-    desc: "+2 AC, +2 Spirit, +8 Max HP. Crystalline ice-pendant gifted by the redeemed ice maiden Bruffa."
+    passives: { healBonus: 4, spellDmgBonus: 3, dmgReduce: 2, mpRegen: 1, skillBonus: { Survival: 2 } },
+    activeAbility: { name: "Thawed Winter's Grace", icon: "❄️", charges: 2, mp: 2, ooc: true, healDice: "3d8", healStat: "spirit", dmgDice: "2d8", dmgStat: "spirit", dmgType: "cold", chillTurns: 3, desc: "2/Quest (2 MP): Invoke Bruffa's redeemed frost-tear — mend 3d8 + Spirit HP, deal 2d8 + Spirit cold dmg, and Chill (3t)!" },
+    desc: "Crystalline ice-pendant gifted by the redeemed ice maiden Bruffa (+2 AC, +2 Spirit, +8 Max HP, +4 Heal, +3 Spell Dmg, -2 Dmg Taken, +1 MP/turn, +2 Survival) with Thawed Winter's Grace."
   },
   "bq_qalqat_free_ring": {
     id: "bq_qalqat_free_ring",
@@ -877,7 +879,9 @@ window.OAKHAVEN.registerItems({
     might: 2,
     spirit: 2,
     maxHp: 10,
-    desc: "+3 AC, +2 Might, +2 Spirit, +10 Max HP. Archduke Avgost Walerska's royal heirloom from Vandekhul."
+    passives: { dmgReduce: 3, undeadDmgBonus: 6, bossDmgBonus: 5, goldFindPct: 20, healBonus: 4, skillBonus: { Persuasion: 3 } },
+    activeAbility: { name: "Archduke's Sovereign Decree", icon: "👑", charges: 2, mp: 2, ooc: true, healDice: "3d8", healStat: "spirit", shieldTurns: 3, selfBuffAtk: { atk: 4, turns: 3 }, restoreLuck: 1, desc: "2/Quest (2 MP): Raise Archduke Walerska's royal seal — mend 3d8 + Spirit HP, gain +3 AC (3t), +4 ATK (3t), and +1 Luck!" },
+    desc: "Archduke Avgost Walerska's royal heirloom from Vandekhul (+3 AC, +2 Might, +2 Spirit, +10 Max HP, -3 Dmg Taken, +6 vs Undead, +5 vs Bosses, +20% Gold, +4 Heal, +3 Persuasion) with Archduke's Sovereign Decree."
   },
   "bq_omar_golden_truffle": {
     id: "bq_omar_golden_truffle",
@@ -1822,7 +1826,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 2,
     agility: 1,
-    desc: "+2 AC, +2 Spirit, +1 Agility. Woven shadow-cloak purged of Calviana's chaotic whispers."
+    passives: { dmgReduce: 2, spellDmgBonus: 3, skillBonus: { Stealth: 4, Perception: 2 } },
+    activeAbility: { name: "Hushed Veil-Step", icon: "🌑", charges: 2, mp: 1, ooc: true, evadeTurns: 3, dmgDice: "2d8", dmgStat: "spirit", dmgType: "necrotic", chillTurns: 2, desc: "2/Quest (1 MP): Fold Calviana's quieted shadows around you for Evade (3t), 2d8 + Spirit necrotic dmg, and Chill (2t)!" },
+    desc: "Woven shadow-cloak purged of Calviana's chaotic whispers (+2 AC, +2 Spirit, +1 Agility, -2 Dmg Taken, +3 Spell Dmg, +4 Stealth, +2 Perception) with Hushed Veil-Step."
   }
 });
 
@@ -2070,7 +2076,9 @@ window.OAKHAVEN.registerItems({
     ac: 4,
     might: 2,
     maxHp: 12,
-    desc: "+4 AC, +2 Might, +12 Max HP. Fireproof draconic scale forged from Levoča's Vengeful Zmey."
+    passives: { dmgReduce: 3, thornsDmg: 4, healBonus: 3, bossDmgBonus: 4, skillBonus: { Athletics: 2, Survival: 2 } },
+    activeAbility: { name: "Tri-Headed Zmey Fury", icon: "🐲", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "might", dmgType: "fire", dot: { dmg: 5, turns: 3, label: "Zmey Scorch" }, healDice: "2d6", healStat: "might", shieldTurns: 2, desc: "2/Quest (2 MP): Unleash three-headed draconic vigor for 3d8 + Might fire dmg, Zmey Scorch (5/t, 3t), heal 2d6 + Might HP, and +3 AC (2t)!" },
+    desc: "Fireproof draconic scale forged from Levoča's Vengeful Zmey (+4 AC, +2 Might, +12 Max HP, -3 Dmg Taken, 4 Fire Thorns, +3 Heal, +4 vs Bosses, +2 Athletics, +2 Survival) with Tri-Headed Zmey Fury."
   },
   "bq_derende_finger_twig": {
     id: "bq_derende_finger_twig",
