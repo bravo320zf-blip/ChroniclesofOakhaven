@@ -560,7 +560,9 @@ window.OAKHAVEN.registerItems({
     "ac": 1,
     "luck": 1,
     "maxHp": 4,
-    "desc": "+1 AC, +1 Luck, +4 Max HP (Old Margreve)"
+    "passives": { "healBonus": 2, "thornsDmg": 2, "skillBonus": { "Herbalism": 2, "Survival": 1 } },
+    "activeAbility": { "name": "Winter-Bough Vigor", "icon": "🌿", "charges": 1, "ooc": true, "healDice": "2d6", "healBonus": 2, "restoreLuck": 1, "desc": "1/Quest: Draw evergreen vitality from the braided holly to restore 2d6 + 2 HP and +1 Luck!" },
+    "desc": "+1 AC, +1 Luck, +4 Max HP, +2 Heal, Thorns 2, +2 Herbalism, +1 Survival. Evergreen woodland circlet granting Winter-Bough Vigor."
   },
   "bk_moon_through_the_trees": {
     "id": "bk_moon_through_the_trees",
@@ -844,7 +846,9 @@ window.OAKHAVEN.registerItems({
     "value": 55,
     "atk": 2,
     "agility": 1,
-    "desc": "+2 Attack, +1 Agility (Tome of Heroes)"
+    "passives": { "critRange": 19, "bossDmgBonus": 2 },
+    "activeAbility": { "name": "Armor-Piercing Lunge", "icon": "🤺", "charges": 2, "dmgDice": "2d6", "dmgStat": "agility", "dmgType": "piercing", "guaranteedCrit": true, "desc": "2/Quest: Thread the stiff triangular blade between armor plates for a guaranteed critical 2d6 + Agility piercing strike!" },
+    "desc": "+2 Attack, +1 Agility, Crit 19-20, +2 Boss Dmg. Rigid mail-piercing tuck sword granting Armor-Piercing Lunge."
   },
   "bk_war_scythe": {
     "id": "bk_war_scythe",

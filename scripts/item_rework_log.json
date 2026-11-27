@@ -1,6 +1,6 @@
 {
-  "totalPasses": 49,
-  "totalItemsReworked": 490,
+  "totalPasses": 50,
+  "totalItemsReworked": 500,
   "history": [
     {
       "pass": 1,
@@ -785,6 +785,22 @@
         "vom_commanders_plate"
       ],
       "summary": "Reworked Fabled Markum's Glaive, Sir Pravus's Breaker Lance, Solaris Sun-Mace, Dagger of the Barbed Devil, Commander's Plate, Staff of the Unhatched, Axe of the Ancients, Lonely Cove Brass Spyglass, and polished Cleansed Silverleaf Censer & Uvalius's Planar Optic Lens."
+    },
+    {
+      "pass": 50,
+      "items": [
+        "vom_medal_valor",
+        "vom_masher_basher",
+        "vom_ghoulbane_rod",
+        "ul_sicarius_silk",
+        "vom_hellfire_armor",
+        "vom_ring_frost_knight",
+        "vom_clockwork_hand",
+        "bk_estoc",
+        "vom_fab_grinning_skull",
+        "bk_circlet_of_holly"
+      ],
+      "summary": "Milestone 500th item (67.0%)! Reworked Fabled Grinning Skull, Ring of the Frost Knight, Ghoulbane Rod, Spidersilk Mantle of Sicarius, Molten Hellfire Armor, Masher Basher, Clockwork Hand, Medal of Valor, and Estoc & Circlet Of Holly (removed sourcebook tags)."
     }
   ],
   "itemPasses": {
@@ -1277,6 +1293,16 @@
     "vom_fab_markums_glaive": 1,
     "vom_barbed_devil_dagger": 1,
     "bq_uvalius_optic_lens": 1,
-    "vom_commanders_plate": 1
+    "vom_commanders_plate": 1,
+    "vom_medal_valor": 1,
+    "vom_masher_basher": 1,
+    "vom_ghoulbane_rod": 1,
+    "ul_sicarius_silk": 1,
+    "vom_hellfire_armor": 1,
+    "vom_ring_frost_knight": 1,
+    "vom_clockwork_hand": 1,
+    "bk_estoc": 1,
+    "vom_fab_grinning_skull": 1,
+    "bk_circlet_of_holly": 1
   }
 }
