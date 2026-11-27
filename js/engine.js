@@ -4047,6 +4047,231 @@
               }
             }
           };
+        },
+
+        // 21. The Weathered Waystone Riddle
+        () => {
+          const zapDmg = Math.max(2, 2 + Math.floor(lv * 0.65));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Weathered Waystone`,
+            subtitle: "Ancient Frontier Cipher",
+            difficulty: "Mystery",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Three Bronze Rings",
+                safeRetreat: true,
+                text: `Where two forgotten footpaths cross in ${zone.name}, a moss-draped frontier waystone hums softly. Three rotating bronze rings encircle its shaft, etched with sun, moon, and oak-leaf sigils above a faint seam at the stone's base.`,
+                choices: [
+                  {
+                    t: "Align the celestial rings to solve the ancient waystone's cipher!",
+                    badge: `Arcana / Arcana DC ${dc}`,
+                    check: {
+                      stat: "arcana", skill: "Arcana", dc, pass: 2, fail: 3, failDmg: zapDmg,
+                      passMsg: "The rings lock with a warm chime—revealing a Mana Potion and a pouch of traveler's coin!",
+                      failMsg: `A blue spark snaps from the bronze sigils (-${zapDmg} HP) before the stone falls silent.`
+                    },
+                    onPass: { item: "mana_potion", gold: Math.round(baseGold * 1.1) }
+                  },
+                  {
+                    t: "Probe the hairline seam at the base for a concealed latch and spring-needle.",
+                    badge: `Detect Traps / Agility DC ${dc}`,
+                    check: {
+                      stat: "agility", skill: "Detect Traps", dc, pass: 2, fail: 3, failDmg: zapDmg,
+                      passMsg: "You disarm the tiny copper spring and pop open a smuggler's stash with a Health Potion and silver!",
+                      failMsg: `A rusted ward-needle nicks your thumb (-${zapDmg} HP) as the hidden panel jams shut.`
+                    },
+                    onPass: { item: "health_potion", gold: Math.round(baseGold * 1.25) }
+                  },
+                  {
+                    t: `Leave the old pillar undisturbed, gather ${matName} along the verge, and return to Oakhaven.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Waystone's Blessing",
+                text: `With the frontier cache claimed and the ancient stone humming softly behind you, you gather fresh ${matName} along the trail back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Solved the Waystone Cipher", xp: Math.round(baseXp * 1.3), gold: Math.round(baseGold * 0.45), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Stung by the Ward",
+                text: `Nursing your tingling hand, you salvage fresh ${matName} growing around the waystone's roots and head back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Weathered the Waystone", xp: Math.round(baseXp * 0.9), gold: Math.round(baseGold * 0.35), trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Unbroken Silence",
+                text: `You respect the old boundary marker, harvest ${matName} beside the footpath, and return safely to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Cautious Wayfarer", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 22. The Sudden Gale & Fallen Peddler
+        () => {
+          const strainDmg = Math.max(2, 2 + Math.floor(lv * 0.6));
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Stranded Lantern-Peddler`,
+            subtitle: "Sudden Squall Rescue",
+            difficulty: "Hazard",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Storm on the Track",
+                safeRetreat: true,
+                text: `A fierce gust lashes ${zone.name}, cracking an overhanging bough across the muddy track! Beneath the tangled branches, a drenched lantern-peddler struggles to free his tilted mule-cart before the rain washes out the verge.`,
+                choices: [
+                  {
+                    t: "Brace your shoulders and heave the heavy storm-felled limb clear of the wheel!",
+                    badge: `Athletics / Might DC ${dc}`,
+                    check: {
+                      stat: "might", skill: "Athletics", dc, pass: 2, fail: 3, failDmg: strainDmg,
+                      passMsg: "With a grunt you roll the limb aside! The grateful peddler presses a Health Potion and reward coin into your hand!",
+                      failMsg: `The wet bark slips and bruises your shoulder (-${strainDmg} HP) before you and the peddler pry the wheel free together.`
+                    },
+                    onPass: { item: "health_potion", gold: Math.round(baseGold * 1.3) }
+                  },
+                  {
+                    t: "Soothe the panicked mule and guide the cart onto firmer high ground.",
+                    badge: `Survival / Spirit DC ${dc}`,
+                    check: {
+                      stat: "spirit", skill: "Survival", dc, pass: 2, fail: 3, failDmg: strainDmg,
+                      passMsg: "The mule steadies under your hand and pulls clear! The peddler gifts you a Mana Potion and grateful silver!",
+                      failMsg: `Pelting hail stings your face (-${strainDmg} HP) as you wrestle the bridle clear of the mud.`
+                    },
+                    onPass: { item: "mana_potion", gold: Math.round(baseGold * 1.15) }
+                  },
+                  {
+                    t: `Wait out the worst of the squall under a rocky ledge, gather wind-shaken ${matName}, and return to Oakhaven.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "A Warm Lantern's Thanks",
+                text: `The peddler lights a brass storm-lantern and waves as his cart rolls safely toward town. You gather fresh ${matName} along the rain-washed verge and follow the road back to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Rescued the Lantern-Peddler", xp: Math.round(baseXp * 1.35), gold: Math.round(baseGold * 0.5), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Muddy Rescue",
+                text: `Bruised and soaked, you still manage to get the cart upright. The peddler shares a few damp silver coins as you collect ${matName} and trudge home to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Braved the Outskirts Squall", xp: Math.round(baseXp * 0.95), gold: Math.round(baseGold * 0.55), trophy: "" },
+                choices: []
+              },
+              4: {
+                zone: zone.name,
+                title: "Clearing Skies",
+                text: `Once the wind dies down, you gather wind-shaken ${matName} from the verge and return dry to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Waited Out the Squall", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
+        },
+
+        // 23. The Moss-Bound Sentinel
+        () => {
+          const golemHp = 16 + lv * 4;
+          const golemAc = 11 + Math.min(4, Math.floor(lv / 2));
+          const golemAtk = 2 + Math.floor(lv * 0.85);
+          const golemDmg = 3 + Math.floor(lv * 0.8);
+          return {
+            id: "_wilderness_encounter",
+            isRandomEncounter: true,
+            title: `${zone.icon} ${zone.name} — Moss-Bound Sentinel`,
+            subtitle: "Awakened Boundary Construct",
+            difficulty: "Skirmish",
+            recommendedLevel: lv,
+            totalPages: 4,
+            pages: {
+              1: {
+                zone: zone.name,
+                title: "Amber Eye in the Ivy",
+                safeRetreat: true,
+                text: `Half-buried beside a ruined boundary wall in ${zone.name} crouches a weathered stone sentinel overgrown with ivy. A tarnished bronze reliquary rests between its knees—and as your boots crunch on gravel, a single amber rune flickers awake on its brow!`,
+                choices: [
+                  {
+                    t: "Creep through the tall reeds and lift the bronze reliquary before the construct rises!",
+                    badge: `Stealth / Agility DC ${dc + 1}`,
+                    check: {
+                      stat: "agility", skill: "Stealth", dc: dc + 1, pass: 2, fail: 3,
+                      passMsg: "Soft as falling moss, you slip the bronze reliquary free—finding a Mana Potion and old frontier coin inside!",
+                      failMsg: "A pebble rolls under your heel! With a grinding roar, the Moss-Bound Sentinel heaves upright!"
+                    },
+                    onPass: { item: "mana_potion", gold: Math.round(baseGold * 1.35) }
+                  },
+                  {
+                    t: "Ready your weapon and smash the awakening Moss-Bound Sentinel!",
+                    to: 3
+                  },
+                  {
+                    t: `Skirt the ruined wall, collect ${matName} from the outer stones, and return to Oakhaven.`,
+                    to: 4
+                  }
+                ]
+              },
+              2: {
+                zone: zone.name,
+                title: "Reliquary Claimed",
+                text: `With the ancient bronze reliquary secured in your pack, you gather fresh ${matName} along the boundary wall and stride back toward Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Claimed the Boundary Reliquary", xp: Math.round(baseXp * 1.35), gold: Math.round(baseGold * 0.55), trophy: "" },
+                choices: []
+              },
+              3: {
+                zone: zone.name,
+                title: "Grinding Stone",
+                text: `Vines snap and stone knuckles thunder as the Moss-Bound Sentinel swings to defend its post!`,
+                enemy: {
+                  name: "Moss-Bound Sentinel",
+                  desc: "Ancient ivy-choked stone guardian of Oakhaven's forgotten borders.",
+                  hp: golemHp,
+                  ac: golemAc,
+                  atk: golemAtk,
+                  dmg: golemDmg,
+                  xp: Math.round(baseXp * 1.45),
+                  gold: Math.round(baseGold * 1.2),
+                  items: [altMatId],
+                  flee: 4
+                },
+                choices: [
+                  { t: "Open the tarnished bronze reliquary and return to Oakhaven!", to: 2 }
+                ]
+              },
+              4: {
+                zone: zone.name,
+                title: "Quiet Detour",
+                text: `The amber rune fades back to dull stone as you circle wide, gather ${matName} along the ridge, and return safely to Oakhaven.`,
+                onEnter: { item: matId },
+                ending: { type: "true", title: "Passed the Old Sentinel", xp: Math.round(baseXp * 0.75), gold: 0, trophy: "" },
+                choices: []
+              }
+            }
+          };
         }
       ];
 
