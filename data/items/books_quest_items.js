@@ -1443,7 +1443,9 @@ window.OAKHAVEN.registerItems({
     value: 195,
     agility: 2,
     luck: 2,
-    desc: "+2 Agility, +2 Luck. Enchanted keepsake hinting a heartbeat ahead of danger."
+    passives: { critRange: 11, goldFindPct: 12, skillBonus: { Perception: 3, "Detect Traps": 2 } },
+    activeAbility: { name: "Heartbeat Foresight", icon: "🌹", charges: 2, ooc: true, evadeTurns: 3, restoreLuck: 1, desc: "2/Quest: Slip a heartbeat ahead of danger — gain Evade (3t) and restore +1 Luck!" },
+    desc: "Enchanted keepsake hinting a heartbeat ahead of danger (+2 Agility, +2 Luck, Crit 11+, +12% Gold, +3 Perception, +2 Detect Traps) with Heartbeat Foresight."
   },
   "bq_kovac_soul_lens": {
     id: "bq_kovac_soul_lens",
@@ -2190,7 +2192,9 @@ window.OAKHAVEN.registerItems({
     value: 150,
     atk: 4,
     might: 1,
-    desc: "+4 Attack, +1 Might. Spring-loaded brass brawling gauntlets salvaged from the bandit mill."
+    passives: { critRange: 11, bossDmgBonus: 3, skillBonus: { Athletics: 2, Lockpicking: 1 } },
+    activeAbility: { name: "Piston Haymaker", icon: "⚙️", charges: 2, dmgDice: "2d10", dmgStat: "might", dmgType: "physical", stunTurns: 1, selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest: Fire the spring-loaded brass pistons for 2d10 + Might dmg, Stun (1t), and +3 ATK (2t)!" },
+    desc: "Spring-loaded brass brawling gauntlets salvaged from the bandit mill (+4 Attack, +1 Might, Crit 11+, +3 vs Bosses, +2 Athletics, +1 Lockpicking) with Piston Haymaker."
   },
   "bq_amaranth_hearth_charm": {
     id: "bq_amaranth_hearth_charm",
@@ -2719,9 +2723,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 3,
     maxMp: 6,
-    passives: { spellDmgBonus: 3, lifesteal: 2, undeadDmgBonus: 4 },
-    activeAbility: { name: "Lotus-Void Coils", icon: "🐍", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "necrotic", dot: { dmg: 4, turns: 3, label: "Void Venom" }, desc: "2/Quest (2 MP): Unleash serpent-void mist for 2d8 + Arcana necrotic dmg and Void Venom (4/t, 3t)!" },
-    desc: "Void-carved obsidian scarab from Black Lotus Mesa (+3 Spell Dmg, Lifesteal 2, +4 vs Undead) with Lotus-Void Coils."
+    passives: { spellDmgBonus: 4, lifesteal: 3, undeadDmgBonus: 5, skillBonus: { Arcana: 2 } },
+    activeAbility: { name: "Lotus-Void Coils", icon: "🐍", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "necrotic", dot: { dmg: 5, turns: 3, label: "Void Venom" }, chillTurns: 2, desc: "2/Quest (2 MP): Unleash serpent-void mist for 3d8 + Arcana necrotic dmg, Void Venom (5/t, 3t), and Chill (2t)!" },
+    desc: "Void-carved obsidian scarab from Black Lotus Mesa (+2 AC, +3 Arcana, +6 Max MP, +4 Spell Dmg, Lifesteal 3, +5 vs Undead, +2 Arcana) with Lotus-Void Coils."
   },
   "bq_trombei_smuggler_blade": {
     id: "bq_trombei_smuggler_blade",
@@ -3012,9 +3016,9 @@ window.OAKHAVEN.registerItems({
     spirit: 2,
     maxHp: 10,
     luck: 1,
-    passives: { healBonus: 3, mpRegen: 1, skillBonus: { Survival: 2 } },
-    activeAbility: { name: "Mad Spring Panacea", icon: "🌱", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 3, desc: "2/Quest: Unleash the Shrine Seed's bloom to restore 2d8 + Spirit HP and +3 MP!" },
-    desc: "Golden seed-pod from the Savage Oasis (+3 Healing, +1 MP/turn, +2 Survival) with Mad Spring Panacea."
+    passives: { healBonus: 3, mpRegen: 1, skillBonus: { Survival: 2, Herbalism: 2 } },
+    activeAbility: { name: "Mad Spring Panacea", icon: "🌱", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 4, shieldTurns: 2, desc: "2/Quest: Unleash the Shrine Seed's bloom to restore 2d8 + Spirit HP, +4 MP, and +3 AC Ward (2t)!" },
+    desc: "Golden seed-pod from the Savage Oasis (+2 Spirit, +10 Max HP, +1 Luck, +3 Heal, +1 MP/turn, +2 Survival, +2 Herbalism) with Mad Spring Panacea."
   },
   "bq_aldous_black_hammer_signet": {
     id: "bq_aldous_black_hammer_signet",

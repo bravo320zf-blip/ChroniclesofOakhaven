@@ -1,6 +1,6 @@
 {
-  "totalPasses": 57,
-  "totalItemsReworked": 570,
+  "totalPasses": 58,
+  "totalItemsReworked": 580,
   "history": [
     {
       "pass": 1,
@@ -913,6 +913,22 @@
         "bq_nazvaza_mask"
       ],
       "summary": "Reworked Fabled Uthariel's Diadem, Earrings of the Storm Oyster, Witch Hunter's Armor, Mantle of the Void, Staff of Feathers, Studded Leather, and polished Obsidian Ophidian Fang-Blade, Naz'Vaza's Porcelain Mask, Rutyer Millpond Pearl Ring & Cinder-Monkey's Iron Flask."
+    },
+    {
+      "pass": 58,
+      "items": [
+        "bq_clockwork_pugilist_knuckles",
+        "vom_grasping_cap",
+        "vom_staff_scion",
+        "bq_shrine_tree_seed_charm",
+        "vom_scimitar_desert",
+        "bk_serpentine_sandals",
+        "vom_fab_fire_shield",
+        "bq_rose_precog_brooch",
+        "vom_bonebreaker_mace",
+        "bq_xulthas_obsidian_scarab"
+      ],
+      "summary": "Reworked Fabled Fire Shield of Rathume, Legendary Grasping Cap, Staff of the Scion, Bonebreaker Mace, Scimitar of the Desert Winds, Serpentine Sandals (removed sourcebook tag), Clockwork Pugilist Gauntlets, Brooch of the Painted Rose, and polished Obsidian Serpent-Scarab of Xulthas-Ka & Shrine Tree Seed Charm."
     }
   ],
   "itemPasses": {
@@ -1485,6 +1501,16 @@
     "leather_armor": 1,
     "vom_staff_feathers": 1,
     "bq_magra_obsidian_fang": 1,
-    "bq_nazvaza_mask": 1
+    "bq_nazvaza_mask": 1,
+    "bq_clockwork_pugilist_knuckles": 1,
+    "vom_grasping_cap": 1,
+    "vom_staff_scion": 1,
+    "bq_shrine_tree_seed_charm": 1,
+    "vom_scimitar_desert": 1,
+    "bk_serpentine_sandals": 1,
+    "vom_fab_fire_shield": 1,
+    "bq_rose_precog_brooch": 1,
+    "vom_bonebreaker_mace": 1,
+    "bq_xulthas_obsidian_scarab": 1
   }
 }

@@ -496,7 +496,27 @@ window.OAKHAVEN.registerItems({
     "source": "Tome of Heroes",
     "ac": 2,
     "agility": 2,
-    "desc": "+2 AC, +2 Agility (Tome of Heroes)"
+    "passives": {
+      "dmgReduce": 1,
+      "skillBonus": {
+        "Stealth": 3,
+        "Athletics": 2
+      }
+    },
+    "activeAbility": {
+      "name": "Viper-Coil Stride",
+      "icon": "🐍",
+      "charges": 2,
+      "ooc": true,
+      "evadeTurns": 3,
+      "dot": {
+        "dmg": 4,
+        "turns": 2,
+        "label": "Serpent Venom"
+      },
+      "desc": "2/Quest: Glide with sinuous viper-grace for Evade (3t) and venomous counter-lash (4/t, 2t)!"
+    },
+    "desc": "Supple green-scaled sandals laced with living silver coils (+2 AC, +2 Agility, -1 Dmg Taken, +3 Stealth, +2 Athletics) with Viper-Coil Stride."
   },
   "bk_shattershot_arrow": {
     "id": "bk_shattershot_arrow",
