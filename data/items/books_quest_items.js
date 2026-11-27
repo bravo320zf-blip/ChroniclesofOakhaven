@@ -2162,7 +2162,9 @@ window.OAKHAVEN.registerItems({
     agility: 1,
     spirit: 1,
     luck: 1,
-    desc: "+1 Agility, +1 Spirit, +1 Luck. Storm-salvaged captain's glass from Lonely Cove."
+    passives: { critRange: 19, goldFindPct: 10, skillBonus: { Perception: 2, Survival: 2 } },
+    activeAbility: { name: "Horizon Sighting", icon: "🔭", charges: 1, ooc: true, restoreLuck: 2, evadeTurns: 1, desc: "1/Quest: Scan the storm-line through the brass lens to restore +2 Luck and Evade (1t)!" },
+    desc: "+1 Agility, +1 Spirit, +1 Luck, Crit 19-20, +10% Gold, +2 Perception & Survival. Storm-salvaged captain's glass from Lonely Cove with Horizon Sighting."
   },
   "bq_clockwork_pugilist_knuckles": {
     id: "bq_clockwork_pugilist_knuckles",
@@ -3109,9 +3111,9 @@ window.OAKHAVEN.registerItems({
     value: 125,
     arcana: 2,
     luck: 1,
-    passives: { spellDmgBonus: 2, skillBonus: { Perception: 2, Lockpicking: 1 } },
+    passives: { spellDmgBonus: 2, critRange: 19, skillBonus: { Perception: 2, Lockpicking: 1 } },
     activeAbility: { name: "Refracted Beam", icon: "🔍", charges: 2, mp: 1, dmgDice: "2d6", dmgStat: "arcana", dmgType: "radiant", desc: "2/Quest (1 MP): Focus planar light into a piercing beam for 2d6 + Arcana radiant dmg!" },
-    desc: "Brass clockwork monocle from Broomskill Alley (+2 Spell Dmg, +2 Perception) with Refracted Beam."
+    desc: "+2 Arcana, +1 Luck, +2 Spell Dmg, Crit 19-20, +2 Perception, +1 Lockpicking. Brass clockwork monocle from Broomskill Alley with Refracted Beam."
   },
   "bq_beacon_lens_buckler": {
     id: "bq_beacon_lens_buckler",
@@ -3264,9 +3266,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     spirit: 3,
     arcana: 2,
-    passives: { healBonus: 4, mpRegen: 1, spellDmgBonus: 2 },
+    passives: { healBonus: 4, mpRegen: 1, spellDmgBonus: 2, undeadDmgBonus: 3 },
     activeAbility: { name: "Purifying Smoke", icon: "🌿", charges: 2, ooc: true, healDice: "3d8", healStat: "spirit", shieldTurns: 2, desc: "2/Quest: Swing clean silverleaf incense to restore 3d8 + Spirit HP and gain +3 AC (2t)!" },
-    desc: "Purified iron censer from the Blasted Forest (+4 Healing, +1 MP/turn, +2 Spell Dmg) with Purifying Smoke."
+    desc: "+2 AC, +3 Spirit, +2 Arcana, +4 Heal, +1 MP/turn, +2 Spell Dmg, +3 vs Undead. Purified iron censer from the Blasted Forest with Purifying Smoke."
   },
   "bq_ghost_light_lantern": {
     id: "bq_ghost_light_lantern",

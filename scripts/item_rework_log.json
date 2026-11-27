@@ -1,6 +1,6 @@
 {
-  "totalPasses": 48,
-  "totalItemsReworked": 480,
+  "totalPasses": 49,
+  "totalItemsReworked": 490,
   "history": [
     {
       "pass": 1,
@@ -769,6 +769,22 @@
         "vom_consuming_rod"
       ],
       "summary": "Reworked Legendary Signet of the Free City Charter, Consuming Rod, Silenced Obsidian Ward-Icon, Amaranth's Golden Hearth-Charm, Staff of the Lantern Bearer, Sickle of Thorns, Grim Escutcheon, Blunderbuss & Bastard Sword (removed sourcebook tags), and Apprentice Grimoire."
+    },
+    {
+      "pass": 49,
+      "items": [
+        "vom_staff_unhatched",
+        "vom_axe_ancients",
+        "ul_breaker_lance",
+        "bq_lonely_cove_spyglass",
+        "solaris_mace",
+        "bq_black_goat_censer",
+        "vom_fab_markums_glaive",
+        "vom_barbed_devil_dagger",
+        "bq_uvalius_optic_lens",
+        "vom_commanders_plate"
+      ],
+      "summary": "Reworked Fabled Markum's Glaive, Sir Pravus's Breaker Lance, Solaris Sun-Mace, Dagger of the Barbed Devil, Commander's Plate, Staff of the Unhatched, Axe of the Ancients, Lonely Cove Brass Spyglass, and polished Cleansed Silverleaf Censer & Uvalius's Planar Optic Lens."
     }
   ],
   "itemPasses": {
@@ -1251,6 +1267,16 @@
     "bq_orb_of_rule_shard": 1,
     "vom_grim_escutcheon": 1,
     "bk_bastard_sword": 1,
-    "vom_consuming_rod": 1
+    "vom_consuming_rod": 1,
+    "vom_staff_unhatched": 1,
+    "vom_axe_ancients": 1,
+    "ul_breaker_lance": 1,
+    "bq_lonely_cove_spyglass": 1,
+    "solaris_mace": 1,
+    "bq_black_goat_censer": 1,
+    "vom_fab_markums_glaive": 1,
+    "vom_barbed_devil_dagger": 1,
+    "bq_uvalius_optic_lens": 1,
+    "vom_commanders_plate": 1
   }
 }
