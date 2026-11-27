@@ -1924,6 +1924,351 @@
       }
     });
 
+    // ------------------------------------------------------------
+    // LIVING TOWN AMBIENT ANIMATIONS (DRAWN ABOVE HERO TOKEN LAYER)
+    // ------------------------------------------------------------
+    const TOWN_AMBIENT = {
+      initialized: false,
+      lastTs: 0,
+      smoke: [],
+      embers: [],
+      leaves: [],
+      ripples: [],
+      birds: [],
+      nextBirdTs: 0,
+      chimneys: [
+        { x: 0.215, y: 0.195, rate: 0.55, size: 1.0, dark: false }, // Rusty Flagon Tavern
+        { x: 0.160, y: 0.515, rate: 0.35, size: 0.85, dark: false }, // Guildhall
+        { x: 0.558, y: 0.700, rate: 0.95, size: 1.25, dark: true }   // Forge & Craft
+      ],
+      torches: [
+        { x: 0.270, y: 0.768, r: 0.018, phase: 0.0 },  // Bridge NW pillar
+        { x: 0.317, y: 0.808, r: 0.018, phase: 1.4 },  // Bridge NE pillar
+        { x: 0.175, y: 0.880, r: 0.018, phase: 2.7 },  // Bridge SW pillar
+        { x: 0.220, y: 0.918, r: 0.018, phase: 4.1 },  // Bridge SE pillar
+        { x: 0.512, y: 0.305, r: 0.014, phase: 0.9 },  // Stash Vault left sconce
+        { x: 0.562, y: 0.320, r: 0.014, phase: 3.3 },  // Stash Vault right sconce
+        { x: 0.382, y: 0.375, r: 0.016, phase: 5.2 }   // Rusty Flagon porch lantern
+      ]
+    };
+
+    function initTownAmbient(ts) {
+      TOWN_AMBIENT.initialized = true;
+      TOWN_AMBIENT.lastTs = ts;
+      TOWN_AMBIENT.smoke = [];
+      TOWN_AMBIENT.embers = [];
+      TOWN_AMBIENT.leaves = [];
+      TOWN_AMBIENT.ripples = [];
+      TOWN_AMBIENT.birds = [];
+      // First bird flock arrives shortly after entering town, then every 20–40s
+      TOWN_AMBIENT.nextBirdTs = ts + 5000 + Math.random() * 4000;
+
+      // Seed initial chimney smoke so chimneys are already gently smoking on load
+      TOWN_AMBIENT.chimneys.forEach((ch) => {
+        for (let i = 0; i < 7; i++) {
+          const age = i / 7;
+          TOWN_AMBIENT.smoke.push({
+            x: ch.x + age * 0.032 + (Math.random() - 0.5) * 0.008,
+            y: ch.y - age * 0.085,
+            vx: 0.006 + Math.random() * 0.004,
+            vy: -(0.014 + Math.random() * 0.007),
+            age,
+            life: 4.5 + Math.random() * 2.0,
+            size: ch.size * (0.007 + Math.random() * 0.004),
+            dark: ch.dark,
+            sway: Math.random() * Math.PI * 2
+          });
+        }
+      });
+
+      // Seed initial forge embers
+      for (let i = 0; i < 14; i++) {
+        TOWN_AMBIENT.embers.push({
+          x: 0.535 + (Math.random() - 0.5) * 0.022,
+          y: 0.840 - Math.random() * 0.055,
+          vx: (Math.random() - 0.35) * 0.012,
+          vy: -(0.018 + Math.random() * 0.022),
+          age: Math.random(),
+          life: 1.6 + Math.random() * 1.4,
+          size: 1.2 + Math.random() * 1.6,
+          twinkle: Math.random() * Math.PI * 2
+        });
+      }
+
+      // Seed drifting sunlit oak leaves & forest motes
+      for (let i = 0; i < 12; i++) {
+        TOWN_AMBIENT.leaves.push({
+          x: Math.random(),
+          y: Math.random(),
+          vx: 0.006 + Math.random() * 0.008,
+          vy: 0.003 + Math.random() * 0.005,
+          phase: Math.random() * Math.PI * 2,
+          size: 1.6 + Math.random() * 2.0,
+          isLeaf: i < 7
+        });
+      }
+
+      // Seed river shimmer ripples along the bottom-left stream
+      for (let i = 0; i < 14; i++) {
+        TOWN_AMBIENT.ripples.push({
+          t: Math.random(),
+          offset: (Math.random() - 0.5) * 0.032,
+          speed: 0.022 + Math.random() * 0.014,
+          len: 0.014 + Math.random() * 0.016,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function spawnBirdFlock(ts) {
+      const fromLeft = Math.random() < 0.5;
+      const startX = fromLeft ? -0.06 : 1.06;
+      const startY = 0.08 + Math.random() * 0.55;
+      const endY = Math.max(0.06, Math.min(0.75, startY + (Math.random() - 0.5) * 0.32));
+      const speed = 0.055 + Math.random() * 0.025; // ~14–19s across map
+      const dir = fromLeft ? 1 : -1;
+      const vx = dir * speed;
+      const vy = ((endY - startY) / (1.12 / speed));
+      const count = 2 + Math.floor(Math.random() * 3); // 2 to 4 birds
+
+      for (let i = 0; i < count; i++) {
+        const lag = i * 0.028 * -dir;
+        const spreadY = (i === 0 ? 0 : (i % 2 === 1 ? -1 : 1) * (0.014 + i * 0.007));
+        TOWN_AMBIENT.birds.push({
+          x: startX + lag + (Math.random() - 0.5) * 0.01,
+          y: startY + spreadY,
+          vx: vx * (0.95 + Math.random() * 0.1),
+          vy: vy + (Math.random() - 0.5) * 0.004,
+          wingPhase: Math.random() * Math.PI * 2,
+          wingSpeed: 6.5 + Math.random() * 2.5,
+          scale: 0.85 + Math.random() * 0.3
+        });
+      }
+      // Next flock in 20 to 40 seconds
+      TOWN_AMBIENT.nextBirdTs = ts + 20000 + Math.random() * 20000;
+    }
+
+    function drawTownAmbientEffects(ctx, w, h, ts) {
+      if (!TOWN_AMBIENT.initialized) initTownAmbient(ts);
+      const dt = Math.min(0.1, Math.max(0.008, (ts - TOWN_AMBIENT.lastTs) / 1000));
+      TOWN_AMBIENT.lastTs = ts;
+      const tSec = ts / 1000;
+      const minDim = Math.min(w, h);
+
+      ctx.save();
+
+      // 1. River water shimmer ripples (flowing under the wooden bridge)
+      for (const rp of TOWN_AMBIENT.ripples) {
+        rp.t += rp.speed * dt;
+        if (rp.t > 1) rp.t -= 1;
+        // Quadratic river curve from (0.0, 0.72) through (0.28, 0.88) to (0.60, 1.00)
+        const u = rp.t;
+        const inv = 1 - u;
+        const rx = inv * inv * 0.00 + 2 * inv * u * 0.27 + u * u * 0.60;
+        const ry = inv * inv * 0.72 + 2 * inv * u * 0.88 + u * u * 1.00 + rp.offset;
+        // Skip drawing over the bridge deck itself (x ~ 0.19..0.30)
+        if (rx > 0.185 && rx < 0.305) continue;
+        const alpha = Math.sin(u * Math.PI) * (0.28 + 0.18 * Math.sin(tSec * 2.4 + rp.phase));
+        if (alpha <= 0.02) continue;
+        ctx.strokeStyle = `rgba(224, 247, 255, ${alpha.toFixed(3)})`;
+        ctx.lineWidth = Math.max(1, minDim * 0.0022);
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(rx * w, ry * h);
+        ctx.lineTo((rx + rp.len) * w, (ry + rp.len * 0.42) * h);
+        ctx.stroke();
+      }
+
+      // 2. Forge hearth pulsing fire glow + rising glowing embers
+      const fx = 0.535 * w;
+      const fy = 0.840 * h;
+      const forgePulse = 0.78 + 0.22 * Math.sin(tSec * 6.2) * Math.cos(tSec * 3.7);
+      const forgeR = minDim * (0.075 + 0.012 * forgePulse);
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      const fg = ctx.createRadialGradient(fx, fy, 1, fx, fy, forgeR);
+      fg.addColorStop(0, `rgba(255, 220, 110, ${(0.42 * forgePulse).toFixed(3)})`);
+      fg.addColorStop(0.4, `rgba(255, 115, 25, ${(0.24 * forgePulse).toFixed(3)})`);
+      fg.addColorStop(1, "rgba(255, 70, 0, 0)");
+      ctx.fillStyle = fg;
+      ctx.beginPath();
+      ctx.arc(fx, fy, forgeR, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Update & draw rising forge embers (and occasional chimney sparks)
+      if (TOWN_AMBIENT.embers.length < 18 && Math.random() < dt * 7) {
+        const fromChimney = Math.random() < 0.28;
+        TOWN_AMBIENT.embers.push({
+          x: (fromChimney ? 0.558 : 0.535) + (Math.random() - 0.5) * 0.018,
+          y: fromChimney ? 0.698 : 0.842,
+          vx: (fromChimney ? 0.007 : 0.003) + (Math.random() - 0.5) * 0.012,
+          vy: -(0.020 + Math.random() * 0.024),
+          age: 0,
+          life: 1.5 + Math.random() * 1.4,
+          size: 1.1 + Math.random() * 1.7,
+          twinkle: Math.random() * Math.PI * 2
+        });
+      }
+      for (let i = TOWN_AMBIENT.embers.length - 1; i >= 0; i--) {
+        const em = TOWN_AMBIENT.embers[i];
+        em.age += dt / em.life;
+        if (em.age >= 1) { TOWN_AMBIENT.embers.splice(i, 1); continue; }
+        em.x += (em.vx + Math.sin(tSec * 4.5 + em.twinkle) * 0.004) * dt;
+        em.y += em.vy * dt;
+        const fade = Math.sin(em.age * Math.PI);
+        const flicker = 0.65 + 0.35 * Math.sin(tSec * 14 + em.twinkle);
+        const a = fade * flicker;
+        const r = Math.max(1.0, em.size * (minDim / 720));
+        ctx.fillStyle = em.age < 0.4
+          ? `rgba(255, 240, 150, ${a.toFixed(3)})`
+          : `rgba(255, 120, 30, ${a.toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(em.x * w, em.y * h, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 3. Flickering bridge torches, vault sconces & tavern lantern
+      for (const tc of TOWN_AMBIENT.torches) {
+        const fl = 0.72 + 0.28 * Math.sin(tSec * 7.5 + tc.phase) * Math.cos(tSec * 4.3 + tc.phase);
+        const tr = minDim * tc.r * (0.9 + 0.2 * fl);
+        const tg = ctx.createRadialGradient(tc.x * w, tc.y * h, 0.5, tc.x * w, tc.y * h, tr);
+        tg.addColorStop(0, `rgba(255, 235, 160, ${(0.55 * fl).toFixed(3)})`);
+        tg.addColorStop(0.45, `rgba(255, 145, 40, ${(0.24 * fl).toFixed(3)})`);
+        tg.addColorStop(1, "rgba(255, 100, 10, 0)");
+        ctx.fillStyle = tg;
+        ctx.beginPath();
+        ctx.arc(tc.x * w, tc.y * h, tr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Subtle sunlit golden shimmer on Dawn Temple dome
+      const domeGlint = 0.5 + 0.5 * Math.sin(tSec * 1.4);
+      const dgR = minDim * 0.045;
+      const dg = ctx.createRadialGradient(0.885 * w, 0.672 * h, 1, 0.885 * w, 0.672 * h, dgR);
+      dg.addColorStop(0, `rgba(255, 244, 195, ${(0.22 * domeGlint).toFixed(3)})`);
+      dg.addColorStop(1, "rgba(255, 215, 100, 0)");
+      ctx.fillStyle = dg;
+      ctx.beginPath();
+      ctx.arc(0.885 * w, 0.672 * h, dgR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // 4. Chimney smoke wisps curling lazily upward with wind drift
+      for (const ch of TOWN_AMBIENT.chimneys) {
+        if (Math.random() < dt * ch.rate * 2.2) {
+          TOWN_AMBIENT.smoke.push({
+            x: ch.x + (Math.random() - 0.5) * 0.005,
+            y: ch.y,
+            vx: 0.0055 + Math.random() * 0.004,
+            vy: -(0.013 + Math.random() * 0.007),
+            age: 0,
+            life: 4.6 + Math.random() * 2.2,
+            size: ch.size * (0.0065 + Math.random() * 0.0035),
+            dark: ch.dark,
+            sway: Math.random() * Math.PI * 2
+          });
+        }
+      }
+      for (let i = TOWN_AMBIENT.smoke.length - 1; i >= 0; i--) {
+        const sm = TOWN_AMBIENT.smoke[i];
+        sm.age += dt / sm.life;
+        if (sm.age >= 1) { TOWN_AMBIENT.smoke.splice(i, 1); continue; }
+        sm.x += (sm.vx + Math.sin(tSec * 1.4 + sm.sway) * 0.003) * dt;
+        sm.y += sm.vy * dt;
+        const puffR = (sm.size * (1 + sm.age * 2.8)) * minDim;
+        const alpha = Math.sin(sm.age * Math.PI) * (sm.dark ? 0.34 : 0.26);
+        const sg = ctx.createRadialGradient(sm.x * w, sm.y * h, puffR * 0.1, sm.x * w, sm.y * h, puffR);
+        if (sm.dark) {
+          sg.addColorStop(0, `rgba(195, 190, 185, ${alpha.toFixed(3)})`);
+          sg.addColorStop(0.55, `rgba(120, 118, 122, ${(alpha * 0.65).toFixed(3)})`);
+          sg.addColorStop(1, "rgba(90, 90, 95, 0)");
+        } else {
+          sg.addColorStop(0, `rgba(242, 240, 232, ${alpha.toFixed(3)})`);
+          sg.addColorStop(0.6, `rgba(205, 204, 198, ${(alpha * 0.55).toFixed(3)})`);
+          sg.addColorStop(1, "rgba(190, 190, 190, 0)");
+        }
+        ctx.fillStyle = sg;
+        ctx.beginPath();
+        ctx.arc(sm.x * w, sm.y * h, puffR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 5. Drifting sunlit leaves & golden forest pollen
+      for (const lf of TOWN_AMBIENT.leaves) {
+        lf.x += (lf.vx + Math.sin(tSec * 1.1 + lf.phase) * 0.004) * dt;
+        lf.y += (lf.vy + Math.cos(tSec * 1.5 + lf.phase) * 0.002) * dt;
+        if (lf.x > 1.03) lf.x = -0.03;
+        if (lf.y > 1.03) { lf.y = -0.03; lf.x = Math.random(); }
+        const lx = lf.x * w;
+        const ly = lf.y * h;
+        const sc = minDim / 720;
+        if (lf.isLeaf) {
+          ctx.save();
+          ctx.translate(lx, ly);
+          ctx.rotate(tSec * 1.2 + lf.phase);
+          ctx.fillStyle = "rgba(165, 195, 95, 0.55)";
+          ctx.beginPath();
+          ctx.ellipse(0, 0, lf.size * 1.3 * sc, lf.size * 0.6 * sc, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        } else {
+          const glow = 0.25 + 0.35 * Math.sin(tSec * 2.2 + lf.phase);
+          ctx.fillStyle = `rgba(255, 240, 175, ${glow.toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(lx, ly, lf.size * 0.65 * sc, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // 6. Soaring birds flying across town every 20–40 seconds
+      if (ts >= TOWN_AMBIENT.nextBirdTs && TOWN_AMBIENT.birds.length === 0) {
+        spawnBirdFlock(ts);
+      }
+      for (let i = TOWN_AMBIENT.birds.length - 1; i >= 0; i--) {
+        const b = TOWN_AMBIENT.birds[i];
+        b.x += b.vx * dt;
+        b.y += b.vy * dt;
+        b.wingPhase += b.wingSpeed * dt;
+        if (b.x < -0.12 || b.x > 1.12 || b.y < -0.12 || b.y > 1.12) {
+          TOWN_AMBIENT.birds.splice(i, 1);
+          continue;
+        }
+        const bx = b.x * w;
+        const by = b.y * h;
+        const angle = Math.atan2(b.vy * h, b.vx * w);
+        const wing = Math.sin(b.wingPhase);
+        const span = Math.max(5, 8.5 * b.scale * (minDim / 720));
+
+        // Soft ground shadow offset below bird
+        ctx.save();
+        ctx.translate(bx + span * 0.9, by + span * 2.6);
+        ctx.rotate(angle);
+        ctx.fillStyle = "rgba(0, 0, 0, 0.16)";
+        ctx.beginPath();
+        ctx.ellipse(0, 0, span * 0.55, span * 0.22, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Bird silhouette with flapping wings
+        ctx.save();
+        ctx.translate(bx, by);
+        ctx.rotate(angle);
+        ctx.strokeStyle = "rgba(28, 22, 18, 0.85)";
+        ctx.lineWidth = Math.max(1.3, 1.8 * b.scale * (minDim / 720));
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        const tipY = wing * span * 0.65;
+        ctx.beginPath();
+        ctx.moveTo(-span * 0.35, -span * 0.85 + tipY);
+        ctx.quadraticCurveTo(span * 0.1, -span * 0.35 + tipY * 0.4, span * 0.3, 0);
+        ctx.quadraticCurveTo(span * 0.1, span * 0.35 - tipY * 0.4, -span * 0.35, span * 0.85 - tipY);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      ctx.restore();
+    }
+
     function renderTownMapCanvas(ts = 0) {
       const canvas = document.getElementById("town-map-canvas");
       if (!canvas || !state || state.mode !== "town" || document.hidden) return;
@@ -2030,6 +2375,9 @@
         ctx.fill();
       }
 
+      // 4. Living Town Ambient Layer (smoke, forge embers, torches, river ripples, leaves & soaring birds)
+      drawTownAmbientEffects(ctx, w, h, ts);
+
       ctx.restore();
     }
 
@@ -2041,8 +2389,8 @@
           mapAnimFrame = null;
           return;
         }
-        // Throttle idle town redraws to ~20 FPS and skip GPU blits while a modal covers the map
-        if (!isAnyBlockingModalOpen() && (ts - mapLastDrawTs >= 50 || mapLastDrawTs === 0)) {
+        // Smooth ~30 FPS living town loop; pauses completely while any modal covers the map
+        if (!isAnyBlockingModalOpen() && (ts - mapLastDrawTs >= 33 || mapLastDrawTs === 0)) {
           mapLastDrawTs = ts;
           renderTownMapCanvas(ts);
         }
