@@ -76,14 +76,16 @@ window.OAKHAVEN.registerSpells([
     combat: true,
     ooc: false,
     icon: "❄️",
-    rangeFt: 30,
-    aoe: { radiusSq: 1, shape: "circle", hazard: "frost", hazardDmg: 3, turns: 2, difficult: true, label: "Rime Ice" },
+    rangeFt: 15,
+    aoe: { selfCentered: true, radiusSq: 2, shape: "circle", hazard: "frost", hazardDmg: 0, turns: 0, difficult: false, label: "Frost Nova" },
     dmgDice: "1d6",
     dmgBonus: 2,
     dmgStat: "arcana",
     dmgType: "frost",
+    rootTurns: 1,
     chillTurns: 2,
-    desc: "Shatter a 15ft area within 30ft in frost: deals 1d6 + 2 + Arcana cold dmg, chills foes (-2 ATK, 2t), and coats the floor in icy Difficult Terrain (3 cold dmg/t, 2t)."
+    pushFt: 5,
+    desc: "Instant ring of freezing gale around YOU (10ft radius): deals 1d6 + 2 + Arcana cold dmg, shoves adjacent foes back 5ft, ROOTS them in ice (0ft move, 1t), and chills (-2 ATK, 2t)."
   },
   {
     name: "Detect Traps",

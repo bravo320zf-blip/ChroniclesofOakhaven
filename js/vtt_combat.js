@@ -728,7 +728,12 @@
         return { canAttack: true, isRanged: s.enemy.isRanged && curDist > 5, movedFt: 0, hasHalfCover: curDist > 5 && los.halfCover };
       }
 
-      // Move toward hero along shortest path (aquatic enemies swim at full 5ft speed!)
+      // Move toward hero along shortest path (rooted enemies have 0ft movement!)
+      if (activeCombat.rooted > 0) {
+        this.spawnFloat(s.enemy.x, s.enemy.y, "❄️ ROOTED (0ft)", "#38bdf8");
+        const losR = checkLineAndCover(s.grid, s.enemy.x, s.enemy.y, s.hero.x, s.hero.y);
+        return { canAttack: curDist <= enemyRange && !losR.blocked, isRanged: s.enemy.isRanged && curDist > 5, movedFt: 0, rooted: true, hasHalfCover: curDist > 5 && losR.halfCover };
+      }
       const reach = computeReachable(s.grid, s.enemy.x, s.enemy.y, s.enemy.speed, s.hero, !!s.enemy.isAquatic);
       let best = null;
       let bestScore = Infinity;
@@ -784,6 +789,14 @@
         x1: (fromX + 0.5) * TILE, y1: (fromY + 0.5) * TILE,
         x2: (toX + 0.5) * TILE, y2: (toY + 0.5) * TILE,
         color, born: performance.now(), dur: 420
+      });
+    },
+    spawnRingFx(gx, gy, radiusSq = 1, color = "#38bdf8") {
+      this.fx.push({
+        type: "ring",
+        x: (gx + 0.5) * TILE, y: (gy + 0.5) * TILE,
+        maxR: (radiusSq + 0.6) * TILE,
+        color, born: performance.now(), dur: 520
       });
     },
 
@@ -1162,6 +1175,13 @@
           ctx.lineWidth = 5;
           ctx.beginPath();
           ctx.arc(f.x2, f.y2, 26 + p * 18, -Math.PI * 0.7, Math.PI * 0.35);
+          ctx.stroke();
+        } else if (f.type === "ring") {
+          ctx.globalAlpha = 1 - p;
+          ctx.strokeStyle = f.color;
+          ctx.lineWidth = 6 * (1 - p) + 2;
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, 18 + p * f.maxR, 0, Math.PI * 2);
           ctx.stroke();
         } else if (f.type === "float") {
           ctx.globalAlpha = 1 - p * p;

@@ -1432,12 +1432,12 @@ window.OAKHAVEN.registerSpells([
     "school": "Conjuration",
     "spellLevel": 2,
     "rangeFt": 30,
-    "aoe": { "radiusSq": 1, "shape": "circle", "hazard": "oil", "hazardDmg": 5, "turns": 3, "difficult": true, "label": "Boiling Oil" },
+    "aoe": { "radiusSq": 1, "shape": "circle", "hazard": "oil", "hazardDmg": 6, "turns": 3, "difficult": true, "label": "Boiling Oil" },
     "dmgDice": "2d6",
     "dmgStat": "arcana",
     "dmgType": "fire",
-    "chillTurns": 2,
-    "desc": "Coat a 15ft area within 30ft in scalding burning oil: deals 2d6 + Arcana fire dmg on impact, weakens foes (-2 ATK, 2t), and leaves a blazing Difficult Terrain zone (5 fire dmg/turn, 3t)."
+    "dot": { "dmg": 4, "turns": 2, "label": "Burning Oil" },
+    "desc": "Aim and splash a 15ft zone within 30ft in scalding oil: 2d6 + Arcana fire dmg + Burning Oil (4/t, 2t) on hit, leaving a blazing Difficult Terrain slick (6 fire dmg/turn, 3t)."
   },
   {
     "name": "Bolster Undead",

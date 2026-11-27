@@ -6158,6 +6158,7 @@
         enraged: false,
         chilled: 0,
         stunned: 0,
+        rooted: 0,
         dot: null,
         summon: null,
         heroAtkBuff: 0,
@@ -6411,7 +6412,20 @@
         return;
       }
 
-      // Interactive VTT AoE / Hazard Zone Spell (e.g., Boiling Oil, Frost Nova)
+      // Self-Centered PBAoE Spell (e.g., Frost Nova, Thunderwave — erupts instantly around Hero!)
+      if (sp.aoe && sp.aoe.selfCentered && v?.active && v.state) {
+        const radSq = sp.aoe.radiusSq || 1;
+        const tiles = v.getAoeTiles(v.state.hero.x, v.state.hero.y, radSq);
+        const hitEnemy = tiles.some(t => t.x === v.state.enemy.x && t.y === v.state.enemy.y);
+        v.spawnRingFx(v.state.hero.x, v.state.hero.y, radSq, sp.dmgType === "frost" ? "#38bdf8" : "#facc15");
+        if (sp.aoe.turns > 0 && (sp.aoe.hazardDmg > 0 || sp.aoe.difficult)) {
+          v.addHazardZone(tiles, sp.aoe, sp.name);
+        }
+        executeCombatSpellEffect(sp, mpCost, slot, hitEnemy);
+        return;
+      }
+
+      // Interactive VTT AoE / Hazard Zone Spell (e.g., Boiling Oil, Web, Grease)
       if (sp.aoe && v?.active && v.state) {
         v.startTargetMode({
           type: "aoe",
@@ -6511,6 +6525,14 @@
       if (sp.chillTurns && hitEnemy) {
         activeCombat.chilled = Math.max(activeCombat.chilled, sp.chillTurns);
         activeCombat.log.unshift(`❄️ ${activeCombat.name} is chilled (-2 Enemy Atk for ${sp.chillTurns} turns)!`);
+      }
+      if (sp.rootTurns && hitEnemy) {
+        activeCombat.rooted = Math.max(activeCombat.rooted || 0, sp.rootTurns);
+        activeCombat.log.unshift(`🧊 ${activeCombat.name} is ROOTED in place (0 ft movement for ${sp.rootTurns}t)!`);
+      }
+      if (sp.dot && hitEnemy) {
+        activeCombat.dot = { dmg: sp.dot.dmg, turns: sp.dot.turns, label: sp.dot.label || sp.name };
+        activeCombat.log.unshift(`🔥 ${activeCombat.name} suffers ${activeCombat.dot.label} (${sp.dot.dmg} dmg/t, ${sp.dot.turns}t)!`);
       }
       if (sp.stunTurns && hitEnemy) {
         activeCombat.stunned = Math.max(activeCombat.stunned, sp.stunTurns);
@@ -7130,6 +7152,7 @@
       }
 
       if (activeCombat.chilled > 0) activeCombat.chilled--;
+      if (activeCombat.rooted > 0) activeCombat.rooted--;
       if (activeCombat.heroAtkBuffTurns > 0) activeCombat.heroAtkBuffTurns--;
       if (activeCombat.overchargeTurns > 0) activeCombat.overchargeTurns--;
       if (activeCombat.bardAcTurns > 0) activeCombat.bardAcTurns--;
@@ -7261,6 +7284,7 @@
       const tags = [];
       if (activeCombat.undead) tags.push(`<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-500/50 text-[10px] text-purple-200">Undead (2x Turn Undead)</span>`);
       if (activeCombat.stunned > 0) tags.push(`<span class="px-2 py-0.5 rounded bg-yellow-950 border border-yellow-500/50 text-[10px] text-yellow-200">Stunned (${activeCombat.stunned}t)</span>`);
+      if (activeCombat.rooted > 0) tags.push(`<span class="px-2 py-0.5 rounded bg-cyan-950 border border-cyan-400/60 text-[10px] text-cyan-200">🧊 Rooted 0ft (${activeCombat.rooted}t)</span>`);
       if (activeCombat.chilled > 0) tags.push(`<span class="px-2 py-0.5 rounded bg-sky-950 text-[10px] text-sky-200">Weakened (${activeCombat.chilled}t)</span>`);
       if (activeCombat.dot) tags.push(`<span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/50 text-[10px] text-emerald-200">${activeCombat.dot.label} (${activeCombat.dot.dmg}/t, ${activeCombat.dot.turns}t)</span>`);
       if (activeCombat.summon) tags.push(`<span class="px-2 py-0.5 rounded bg-purple-950 border border-purple-500/50 text-[10px] text-purple-200">${activeCombat.summon.icon} ${activeCombat.summon.name} (${activeCombat.summon.dmg}/t, ${activeCombat.summon.turns}t)</span>`);
