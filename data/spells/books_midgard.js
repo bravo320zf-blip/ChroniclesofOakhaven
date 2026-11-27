@@ -55,6 +55,7 @@ window.OAKHAVEN.registerSpells([
     "name": "Animate Construct",
     "mp": 3,
     "castingTime": "action",
+    "summonKey": "eldritch_servitor",
     "combat": true,
     "ooc": true,
     "icon": "✨",

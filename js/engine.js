@@ -6191,7 +6191,12 @@
           onClickEnemy: () => {
             const v = window.OAKHAVEN.VTT;
             if (!v.state || v.state.turn !== "hero") return;
-            if (v.state.hero.actionUsed) return toast("Action already used! Move, use a Bonus Action, or click End Turn.", "info");
+            // If player is controlling a Summoned Ally, make THAT ally attack!
+            if (v.state.activeAllyIdx >= 0) {
+              combatAllyStrike(v.getActiveUnit());
+              return;
+            }
+            if (v.state.hero.actionUsed) return toast("Action already used! Move, use a Bonus Action, control a Summon, or click End Turn.", "info");
             const dist = v.getDistFt();
             const wp = v.state.weapon;
             if (wp?.mode === "ranged" || dist > (wp?.meleeReach || 5) + v.state.hero.moveLeft) {
@@ -6201,7 +6206,8 @@
             }
           },
           onStepExit: () => combatFlee(),
-          triggerOpportunityAttack: (attacker) => triggerOpportunityAttack(attacker),
+          grantStealthEvade: () => { state.evadeTurns = Math.max(state.evadeTurns, 1); },
+          triggerOpportunityAttack: (attacker, allyVictim) => triggerOpportunityAttack(attacker, allyVictim),
           runEnemyTurn: () => endHeroTurn(),
           onStateChange: () => { renderCombatPanel(); renderSheet(); }
         });
@@ -6260,34 +6266,112 @@
       return !isOffensive;
     }
 
-    function triggerOpportunityAttack(attacker = null) {
+    function combatAllyStrike(ally) {
+      if (!activeCombat || !ally || !ally.isAlly || ally.hp <= 0) return;
+      const v = window.OAKHAVEN?.VTT;
+      if (!v || !v.active || !v.state) return;
+      if (v.state.turn !== "hero" || v.state.moving) return;
+      if (ally.actionUsed) return toast(`${ally.name} has already attacked this turn!`, "info");
+      const target = v.getSelectedEnemy();
+      if (!target || target.hp <= 0) return;
+
+      const dist = Math.max(Math.abs(ally.x - target.x), Math.abs(ally.y - target.y)) * 5;
+      const maxRange = ally.rangeFt || 5;
+      if (dist > maxRange) {
+        return toast(`${ally.name} is ${dist}ft away (range ${maxRange}ft) — click a blue tile to move ${ally.name} closer first!`, "bad");
+      }
+
+      ally.actionUsed = true;
+      const effEnemyAc = activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac;
+      const r = roll2d6();
+      const tot = r.total + (ally.atk || 5);
+      const isCrit = r.total === 12;
+      v.spawnAttackFx(ally.x, ally.y, target.x, target.y, maxRange > 10 ? "#34d399" : "#6ee7b7", maxRange > 10);
+
+      if (tot >= effEnemyAc || isCrit) {
+        const dr = rollDiceSpec(ally.dmgDice || "2d6");
+        let dmg = dr.total + (ally.dmgBonus || 2);
+        if (ally.undeadDouble && activeCombat.undead) dmg *= 2;
+        if (isCrit) dmg = Math.round(dmg * 1.5);
+        sfx(isCrit ? "crit" : "sword");
+        applyCombatDamage(dmg, [target]);
+        v.spawnFloat(target.x, target.y, `${ally.icon} -${dmg}`, "#6ee7b7");
+        const extras = [];
+        if (ally.stunChance && Math.random() < ally.stunChance) {
+          activeCombat.stunned = Math.max(activeCombat.stunned, 1);
+          extras.push("STUNNED (1t)!");
+        }
+        if (ally.chillTurns) {
+          activeCombat.chilled = Math.max(activeCombat.chilled, ally.chillTurns);
+          extras.push(`Chilled (${ally.chillTurns}t)`);
+        }
+        if (ally.rootTurns) {
+          activeCombat.rooted = Math.max(activeCombat.rooted || 0, ally.rootTurns);
+          extras.push(`ROOTED (${ally.rootTurns}t)`);
+        }
+        if (ally.pushFt) {
+          const p = v.displaceEnemy(ally.pushFt, false, target);
+          if (p > 0) extras.push(`Pushed ${p}ft`);
+        }
+        if (ally.dot) {
+          activeCombat.dot = { dmg: ally.dot.dmg, turns: ally.dot.turns, label: ally.dot.label || ally.name };
+          extras.push(`${ally.dot.label} (${ally.dot.dmg}/t)`);
+        }
+        activeCombat.log.unshift(`${ally.icon} ${ally.name} hits ${target.name} (${tot} vs AC ${effEnemyAc}) for ${dmg} ${ally.dmgType || ""} dmg${extras.length ? ` [${extras.join(", ")}]` : ""}!`);
+      } else {
+        sfx("miss");
+        v.spawnFloat(target.x, target.y, "MISS", "#94a3b8");
+        activeCombat.log.unshift(`${ally.icon} ${ally.name} misses ${target.name} (${tot} vs AC ${effEnemyAc})!`);
+      }
+      if (activeCombat.hp <= 0) return resolveCombatVictory();
+      v.updateHud(activeCombat);
+      renderCombatPanel();
+      renderSheet();
+    }
+
+    function triggerOpportunityAttack(attacker = null, allyVictim = null) {
       if (!activeCombat || activeCombat.stunned > 0) return;
       const v = window.OAKHAVEN?.VTT;
       const foe = attacker || v?.getSelectedEnemy?.() || { name: activeCombat.name, dmg: activeCombat.dmg, x: v?.state?.enemy?.x || 0, y: v?.state?.enemy?.y || 0 };
       const d = getDerived(state);
       const subP = getSubclassPassiveTotals(state);
-      const heroAc = d.ac + (activeCombat.wildShapeActive ? 3 : 0) + (activeCombat.bardAcTurns > 0 ? 2 : 0);
+      const targetAc = allyVictim ? (allyVictim.ac || 12) : (d.ac + (activeCombat.wildShapeActive ? 3 : 0) + (activeCombat.bardAcTurns > 0 ? 2 : 0));
       const er = roll2d6();
       const atk = activeCombat.atk - (activeCombat.chilled > 0 ? 2 : 0) - (activeCombat.grandHex ? 3 : 0);
       const tot = er.total + atk;
-      if (tot >= heroAc || er.total === 12) {
-        let hitDmg = Math.max(1, (foe.dmg || activeCombat.dmg) - (subP.dmgReduce || 0));
-        if (activeCombat.rageActive) hitDmg *= 2;
+      if (tot >= targetAc || er.total === 12) {
+        let hitDmg = Math.max(1, (foe.dmg || activeCombat.dmg) - (allyVictim ? 0 : (subP.dmgReduce || 0)));
+        if (!allyVictim && activeCombat.rageActive) hitDmg *= 2;
         sfx("enemyHit");
-        state.hp = Math.max(0, state.hp - hitDmg);
-        activeCombat.log.unshift(`⚠️ OPPORTUNITY ATTACK! ${foe.name} strikes as you move past (${tot} vs AC ${heroAc}) for ${hitDmg} dmg!`);
-        if (v?.state) {
-          v.spawnAttackFx(foe.x, foe.y, v.state.hero.x, v.state.hero.y, "#ef4444", false);
-          v.spawnFloat(v.state.hero.x, v.state.hero.y, `OA -${hitDmg}`, "#f87171");
-        }
-        if (state.hp <= 0) {
-          v?.stop();
-          return triggerDeath(`Struck down by ${foe.name}'s Opportunity Attack!`);
+        if (allyVictim) {
+          allyVictim.hp = Math.max(0, allyVictim.hp - hitDmg);
+          activeCombat.log.unshift(`⚠️ OPPORTUNITY ATTACK! ${foe.name} strikes ${allyVictim.name} (${tot} vs AC ${targetAc}) for ${hitDmg} dmg!`);
+          if (v?.state) {
+            v.spawnAttackFx(foe.x, foe.y, allyVictim.x, allyVictim.y, "#ef4444", false);
+            v.spawnFloat(allyVictim.x, allyVictim.y, `OA -${hitDmg}`, "#f87171");
+          }
+          if (allyVictim.hp <= 0) {
+            activeCombat.log.unshift(`💀 ${allyVictim.name} was destroyed!`);
+            v?.selectUnit(-1);
+          }
+        } else {
+          state.hp = Math.max(0, state.hp - hitDmg);
+          activeCombat.log.unshift(`⚠️ OPPORTUNITY ATTACK! ${foe.name} strikes as you move past (${tot} vs AC ${targetAc}) for ${hitDmg} dmg!`);
+          if (v?.state) {
+            v.spawnAttackFx(foe.x, foe.y, v.state.hero.x, v.state.hero.y, "#ef4444", false);
+            v.spawnFloat(v.state.hero.x, v.state.hero.y, `OA -${hitDmg}`, "#f87171");
+          }
+          if (state.hp <= 0) {
+            v?.stop();
+            return triggerDeath(`Struck down by ${foe.name}'s Opportunity Attack!`);
+          }
         }
       } else {
         sfx("shield");
-        activeCombat.log.unshift(`⚠️ ${foe.name}'s Opportunity Attack misses (${tot} vs AC ${heroAc})!`);
-        if (v?.state) v.spawnFloat(v.state.hero.x, v.state.hero.y, "OA MISS", "#cbd5e1");
+        const vx = allyVictim ? allyVictim.x : v?.state?.hero?.x;
+        const vy = allyVictim ? allyVictim.y : v?.state?.hero?.y;
+        activeCombat.log.unshift(`⚠️ ${foe.name}'s Opportunity Attack misses (${tot} vs AC ${targetAc})!`);
+        if (v?.state) v.spawnFloat(vx, vy, "OA MISS", "#cbd5e1");
       }
       renderCombatPanel();
       renderSheet();
@@ -6309,7 +6393,8 @@
       const effAtk = d.atk + Math.floor((d.s.agility || 0) / 2)
         + (activeCombat.heroAtkBuffTurns > 0 ? activeCombat.heroAtkBuff : 0)
         + (activeCombat.huntersMark ? 3 : 0);
-      const coverBonus = los.halfCover ? 2 : 0;
+      const hasPerception = (state.skills || []).includes("Perception");
+      const coverBonus = los.halfCover ? (hasPerception ? 1 : 2) : 0;
       const effEnemyAc = (activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac) + coverBonus;
       const r = roll2d6();
       const tot = r.total + effAtk;
@@ -6339,8 +6424,13 @@
 
     function combatStrike(lucky = false) {
       if (!activeCombat) return;
-      if (!checkVttActionReady()) return;
       const v = window.OAKHAVEN?.VTT;
+      // If controlling a Summoned Ally, Strike commands that Summoned Ally!
+      if (v?.active && v.state && v.state.activeAllyIdx >= 0) {
+        combatAllyStrike(v.getActiveUnit());
+        return;
+      }
+      if (!checkVttActionReady()) return;
       if (v?.active && v.state) {
         if (v.state.moving) return;
         const wp = v.state.weapon;
@@ -6427,6 +6517,22 @@
       const slot = isBonusSpell(sp) ? "bonus" : "action";
       if (!checkVttSlotReady(slot)) return;
       const v = window.OAKHAVEN?.VTT;
+
+      // Summoning Spells (spawn a real player-controlled sourcebook creature token on the VTT!)
+      if (sp.summonKey && v?.active && v.state) {
+        consumeVttSlot(slot);
+        state.mp -= mpCost;
+        sfx("summon");
+        const ally = v.spawnAlly(sp.summonKey);
+        if (ally) {
+          activeCombat.log.unshift(`${ally.icon} [${sp.name}] Summoned ${ally.name} (${ally.hp} HP, AC ${ally.ac}, ${ally.speed}ft) onto the battlemap — click its token to move & attack!`);
+          toast(`${ally.icon} Summoned ${ally.name}! Click its token on the map to control it.`, "good");
+        }
+        v.updateHud(activeCombat);
+        renderCombatPanel();
+        renderSheet();
+        return;
+      }
 
       // Interactive VTT Teleport Spell (e.g., Misty Step, Shadow Step)
       if (sp.teleportFt && v?.active && v.state) {
@@ -6822,8 +6928,27 @@
         activeCombat.log.unshift(`☠️ ${activeCombat.name} is ${activeCombat.dot.label} (${ab.dot.dmg} dmg/turn for ${ab.dot.turns}t)!`);
       }
       if (ab.summon) {
-        activeCombat.summon = { name: ab.summon.name, icon: ab.summon.icon || "🐾", dmg: ab.summon.dmg, turns: ab.summon.turns };
-        activeCombat.log.unshift(`${activeCombat.summon.icon} Summoned ${activeCombat.summon.name} (${ab.summon.dmg} dmg/turn for ${ab.summon.turns}t)!`);
+        const v = window.OAKHAVEN?.VTT;
+        if (v?.active && v.state) {
+          const ally = v.spawnAlly(null, {
+            name: ab.summon.name,
+            icon: ab.summon.icon || "🐾",
+            hp: Math.max(18, (ab.summon.dmg || 6) * 4),
+            ac: 13,
+            speed: 35,
+            atk: Math.max(4, Math.floor((state.level || 1) / 2) + 4),
+            dmgDice: "2d6",
+            dmgBonus: Math.max(1, Math.floor((ab.summon.dmg || 6) / 2)),
+            dmgType: "physical",
+            rangeFt: 5
+          });
+          if (ally) {
+            activeCombat.log.unshift(`${ally.icon} Summoned ${ally.name} (${ally.hp} HP, ${ally.speed}ft) onto the battlemap — click its token to control it!`);
+          }
+        } else {
+          activeCombat.summon = { name: ab.summon.name, icon: ab.summon.icon || "🐾", dmg: ab.summon.dmg, turns: ab.summon.turns };
+          activeCombat.log.unshift(`${activeCombat.summon.icon} Summoned ${activeCombat.summon.name} (${ab.summon.dmg} dmg/turn for ${ab.summon.turns}t)!`);
+        }
       }
       if (ab.selfBuffAtk) {
         activeCombat.heroAtkBuff = ab.selfBuffAtk.atk;
@@ -6861,22 +6986,27 @@
       const effEnemyAc = activeCombat.grandHex ? Math.max(8, activeCombat.ac - 2) : activeCombat.ac;
       const id = ab.id;
 
+      const v = window.OAKHAVEN?.VTT;
       if (id === "rage") {
+        if (v?.active && v.state && v.state.hero.bonusUsed) { state.activeAdv.classAbilityUsed = false; return toast("Rage requires your Bonus Action!", "info"); }
+        if (v?.state) { v.state.hero.bonusUsed = true; v.state.hero.moveLeft += 10; v.recomputeHeroReachable(); }
         activeCombat.rageActive = true;
         sfx("crit");
-        activeCombat.log.unshift(`🔥 [RAGE!] Primal fury erupts! For this entire combat, ALL damage you deal is DOUBLED — and ALL damage you take is DOUBLED! (Free Action)`);
-        toast("🔥 RAGE ACTIVE! 2x Damage Dealt & 2x Damage Taken this combat!", "gold");
+        activeCombat.log.unshift(`🔥 [RAGE! • Bonus Action] Primal fury erupts (+10ft Fast Movement, 2x Damage Dealt & 2x Taken)!`);
+        toast("🔥 RAGE ACTIVE! +10ft Move & 2x Damage!", "gold");
         renderCombatPanel();
         renderSheet();
         return;
       }
 
       if (id === "arcane_surge") {
+        if (v?.active && v.state && v.state.hero.bonusUsed) { state.activeAdv.classAbilityUsed = false; return toast("Arcane Surge requires your Bonus Action!", "info"); }
+        if (v?.state) v.state.hero.bonusUsed = true;
         const mpGain = Math.max(5, Math.ceil(d.maxMp * 0.5));
         state.mp = Math.min(d.maxMp, state.mp + mpGain);
         activeCombat.nextSpellDouble = true;
         sfx("heal");
-        activeCombat.log.unshift(`🔮 [ARCANE SURGE!] Restored +${mpGain} MP! Your next Spell this combat deals DOUBLE damage! (Free Action)`);
+        activeCombat.log.unshift(`🔮 [ARCANE SURGE! • Bonus Action] Restored +${mpGain} MP! Your next Action Spell deals DOUBLE damage!`);
         toast(`🔮 Arcane Surge! +${mpGain} MP & 2x Next Spell!`, "info");
         renderCombatPanel();
         renderSheet();
@@ -6884,28 +7014,47 @@
       }
 
       if (id === "metamagic_overcharge") {
+        if (v?.active && v.state && v.state.hero.bonusUsed) { state.activeAdv.classAbilityUsed = false; return toast("Metamagic Overcharge requires your Bonus Action!", "info"); }
+        if (v?.state) v.state.hero.bonusUsed = true;
         activeCombat.overchargeTurns = 2;
         sfx("crit");
-        activeCombat.log.unshift(`☄️ [METAMAGIC OVERCHARGE!] For the next 2 turns, all Spells cost 0 MP and deal +50% damage! (Free Action)`);
-        toast("☄️ Metamagic Overcharge! 0 MP Spells & +50% Spell DMG (2 turns)!", "info");
+        activeCombat.log.unshift(`☄️ [METAMAGIC OVERCHARGE! • Bonus Action] For 2 turns, Spells cost 0 MP and deal +50% damage!`);
+        toast("☄️ Metamagic Overcharge! 0 MP Spells & +50% Spell DMG (2t)!", "info");
         renderCombatPanel();
         renderSheet();
         return;
       }
 
       if (id === "wild_shape") {
+        if (v?.active && v.state && v.state.hero.bonusUsed) { state.activeAdv.classAbilityUsed = false; return toast("Wild Shape requires your Bonus Action!", "info"); }
+        if (v?.state) { v.state.hero.bonusUsed = true; v.state.hero.moveLeft += 10; v.recomputeHeroReachable(); }
         const hpGain = Math.max(10, Math.ceil(d.maxHp * 0.4));
         state.hp = Math.min(d.maxHp, state.hp + hpGain);
         activeCombat.wildShapeActive = true;
         sfx("heal");
-        activeCombat.log.unshift(`🐻 [WILD SHAPE!] You shift into a towering Dire Bear (+${hpGain} HP, +3 AC & +4 strike damage for this combat)! (Free Action)`);
-        toast(`🐻 Wild Shape! +${hpGain} HP, +3 AC & +4 Strike DMG!`, "good");
+        activeCombat.log.unshift(`🐻 [WILD SHAPE! • Bonus Action] Dire Bear form (+${hpGain} HP, +3 AC, +4 Strike DMG, +10ft Move)!`);
+        toast(`🐻 Wild Shape! +${hpGain} HP, +3 AC, +10ft Move!`, "good");
         renderCombatPanel();
         renderSheet();
         return;
       }
 
       if (id === "action_surge") {
+        // True 5e VTT Action Surge: refreshes your Action + adds +15ft Movement + +2 ATK!
+        if (v?.active && v.state) {
+          v.state.hero.actionUsed = false;
+          v.state.hero.moveLeft += 15;
+          v.recomputeHeroReachable();
+          activeCombat.heroAtkBuff = Math.max(activeCombat.heroAtkBuff, 2);
+          activeCombat.heroAtkBuffTurns = Math.max(activeCombat.heroAtkBuffTurns, 1);
+          sfx("crit");
+          v.spawnFloat(v.state.hero.x, v.state.hero.y, "⚔️ ACTION SURGE!", "#fde047");
+          activeCombat.log.unshift(`⚔️ [ACTION SURGE! • Free] Action REFRESHED (+15ft Move, +2 ATK this turn) — take a second full Action!`);
+          toast("⚔️ ACTION SURGE! Your Action is Ready again (+15ft Move)!", "gold");
+          renderCombatPanel();
+          renderSheet();
+          return;
+        }
         const surgeAtk = effAtk + 2;
         let totalDmg = 0, hits = 0;
         for (let k = 0; k < 2; k++) {
@@ -6922,11 +7071,29 @@
         activeCombat.hp = Math.max(0, activeCombat.hp - totalDmg);
         activeCombat.log.unshift(`⚔️ [ACTION SURGE!] Unleashed 2 surging weapon strikes at +${surgeAtk} ATK (${hits}/2 hit) for ${totalDmg} dmg!`);
       } else if (id === "assassinate") {
+        // 5e VTT Shadow-Blink behind target (up to 30ft) + Guaranteed 2x Crit!
+        if (v?.active && v.state) {
+          const tgt = v.getSelectedEnemy();
+          if (tgt) {
+            const blk = v.getBlockedSet(v.state.hero);
+            for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1]]) {
+              const nx = tgt.x + dx, ny = tgt.y + dy;
+              if (nx >= 0 && nx < 12 && ny >= 0 && ny < 8 && !blk.has(`${nx},${ny}`) && v.state.grid[ny][nx] !== "wall" && v.state.grid[ny][nx] !== "cover") {
+                v.spawnAttackFx(v.state.hero.x, v.state.hero.y, nx, ny, "#c084fc", true);
+                v.state.hero.x = nx; v.state.hero.y = ny;
+                v.state.hero.vx = nx; v.state.hero.vy = ny;
+                v.recomputeHeroReachable();
+                break;
+              }
+            }
+          }
+          v.state.hero.actionUsed = true;
+        }
         const dmg = Math.round((roll(6) + roll(6) + Math.max(2, Math.floor(effAtk / 2))) * 2);
         state.shieldTurns = Math.max(state.shieldTurns, 2);
         sfx("crit");
-        activeCombat.hp = Math.max(0, activeCombat.hp - dmg);
-        activeCombat.log.unshift(`🗡️ [ASSASSINATE!] Lethal shadow-strike deals ${dmg} CRITICAL dmg & grants Shadow Veil (+3 AC, 2t)!`);
+        applyCombatDamage(dmg);
+        activeCombat.log.unshift(`🗡️ [ASSASSINATE!] Shadow-stepped onto target for ${dmg} CRITICAL dmg & Shadow Veil (+3 AC, 2t)!`);
       } else if (id === "divine_intervention") {
         const heal = Math.max(12, Math.ceil(d.maxHp * 0.5));
         state.hp = Math.min(d.maxHp, state.hp + heal);

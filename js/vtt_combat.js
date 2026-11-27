@@ -316,8 +316,11 @@
     };
   }
 
-  // Dijkstra shortest path accounting for Difficult Terrain & Water (10ft / half movement vs 5ft)
-  function computeReachable(grid, startX, startY, maxFt, blockedPos, isAquatic = false) {
+  // Dijkstra shortest path accounting for Difficult Terrain, Water, Flying & Skills
+  function computeReachable(grid, startX, startY, maxFt, blockedPos, opts = {}) {
+    const isAquatic = typeof opts === "boolean" ? opts : !!opts.isAquatic;
+    const flies = typeof opts === "object" && !!opts.flies;
+    const ignoreDifficult = typeof opts === "object" && !!opts.ignoreDifficult;
     const dist = Array.from({ length: ROWS }, () => Array(COLS).fill(Infinity));
     const prev = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
     dist[startY][startX] = 0;
@@ -336,13 +339,16 @@
       for (const [dx, dy] of dirs) {
         const nx = cur.x + dx, ny = cur.y + dy;
         if (!isWalkable(grid, nx, ny, blockedPos)) continue;
-        // Prevent corner-cutting through diagonal walls
         if (dx !== 0 && dy !== 0) {
           if (grid[cur.y][nx] === "wall" && grid[ny][cur.x] === "wall") continue;
         }
         const tileType = grid[ny][nx];
         const inDiffZone = VTT.state?.zones?.some(z => z.difficult && z.tiles.has(`${nx},${ny}`));
-        const stepCost = (tileType === "difficult" || inDiffZone || (tileType === "water" && !isAquatic)) ? 10 : 5;
+        const isSlow = !flies && (
+          ((tileType === "difficult" || inDiffZone) && !ignoreDifficult) ||
+          (tileType === "water" && !isAquatic)
+        );
+        const stepCost = isSlow ? 10 : 5;
         const nd = cur.d + stepCost;
         if (nd <= maxFt && nd < dist[ny][nx]) {
           dist[ny][nx] = nd;
@@ -480,8 +486,12 @@
           bonusUsed: false,
           dodging: false,
           disengaged: false,
+          skills: new Set(heroState?.skills || []),
+          className: (heroState?.className || heroState?.cls || "").toLowerCase(),
           tokenPath: callbacks?.getHeroTokenPath ? callbacks.getHeroTokenPath() : null
         },
+        allies: [], // player-controlled summoned creature tokens!
+        activeAllyIdx: -1, // -1 = Hero, >=0 = summoned ally index
         enemies,
         selectedEnemyIdx: 0,
         enemy: enemies[0],
@@ -591,11 +601,96 @@
       return sel;
     },
 
+    getActiveUnit() {
+      const s = this.state;
+      if (!s) return null;
+      if (s.activeAllyIdx >= 0) {
+        const a = s.allies[s.activeAllyIdx];
+        if (a && a.hp > 0) return a;
+        s.activeAllyIdx = -1;
+      }
+      return s.hero;
+    },
+
+    getLivingAllies() {
+      if (!this.state) return [];
+      return (this.state.allies || []).filter(a => a.hp > 0);
+    },
+
+    selectUnit(allyIdx = -1) {
+      const s = this.state;
+      if (!s) return;
+      if (allyIdx >= 0 && (!s.allies[allyIdx] || s.allies[allyIdx].hp <= 0)) allyIdx = -1;
+      s.activeAllyIdx = allyIdx;
+      this.recomputeHeroReachable();
+      const u = this.getActiveUnit();
+      if (u) this.spawnFloat(u.x, u.y, allyIdx === -1 ? "🛡️ HERO" : `${u.icon} READY`, "#34d399");
+      if (this.callbacks?.onStateChange) this.callbacks.onStateChange();
+    },
+
+    spawnAlly(keyOrTpl, custom = null) {
+      const s = this.state;
+      if (!s) return null;
+      const bestiary = window.OAKHAVEN?.summonBestiary || {};
+      const base = (typeof keyOrTpl === "string" ? bestiary[keyOrTpl] : keyOrTpl) || bestiary.wolf || {
+        name: "Summoned Companion", icon: "🐾", hp: 24, ac: 13, speed: 30, atk: 5, dmgDice: "2d6", dmgBonus: 2, dmgType: "physical", rangeFt: 5
+      };
+      const cfg = Object.assign({}, base, custom || {});
+      const blocked = this.getBlockedSet(null);
+      // Find nearest open square to Hero
+      let spot = null, bestD = Infinity;
+      for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+          if (!isWalkable(s.grid, x, y, blocked)) continue;
+          const d = chebyshev(x, y, s.hero.x, s.hero.y);
+          if (d > 0 && d < bestD) { bestD = d; spot = { x, y }; }
+        }
+      }
+      if (!spot) return null;
+      const ally = {
+        id: s.allies.length,
+        isAlly: true,
+        name: cfg.name,
+        icon: cfg.icon || "🐾",
+        artPath: cfg.artPath || null,
+        x: spot.x, y: spot.y,
+        vx: spot.x, vy: spot.y,
+        hp: cfg.hp || 24,
+        maxHp: cfg.hp || 24,
+        ac: cfg.ac || 13,
+        speed: cfg.speed || 30,
+        moveLeft: cfg.speed || 30,
+        actionUsed: false,
+        atk: cfg.atk || 5,
+        dmgDice: cfg.dmgDice || "2d6",
+        dmgBonus: cfg.dmgBonus || 2,
+        dmgType: cfg.dmgType || "physical",
+        rangeFt: cfg.rangeFt || 5,
+        flies: !!cfg.flies,
+        stunChance: cfg.stunChance || 0,
+        chillTurns: cfg.chillTurns || 0,
+        rootTurns: cfg.rootTurns || 0,
+        pushFt: cfg.pushFt || 0,
+        undeadDouble: !!cfg.undeadDouble,
+        dot: cfg.dot || null,
+        desc: cfg.desc || ""
+      };
+      if (ally.artPath) getImg(ally.artPath);
+      s.allies.push(ally);
+      this.spawnRingFx(ally.x, ally.y, 1, "#34d399");
+      this.spawnFloat(ally.x, ally.y, `${ally.icon} ${ally.name}!`, "#6ee7b7");
+      this.recomputeHeroReachable();
+      return ally;
+    },
+
     getBlockedSet(excludeUnit) {
       const s = this.state;
       const set = new Set();
       if (!s) return set;
       if (excludeUnit !== s.hero) set.add(`${s.hero.x},${s.hero.y}`);
+      for (const a of (s.allies || [])) {
+        if (a.hp > 0 && a !== excludeUnit) set.add(`${a.x},${a.y}`);
+      }
       for (const e of s.enemies) {
         if (e.hp > 0 && e !== excludeUnit) set.add(`${e.x},${e.y}`);
       }
@@ -605,7 +700,12 @@
     recomputeHeroReachable() {
       const s = this.state;
       if (!s) return;
-      s.reachable = computeReachable(s.grid, s.hero.x, s.hero.y, s.hero.moveLeft, this.getBlockedSet(s.hero));
+      const u = this.getActiveUnit();
+      if (!u) return;
+      const opts = u.isAlly
+        ? { flies: !!u.flies, isAquatic: !!u.flies }
+        : { isAquatic: s.hero.skills?.has("Athletics"), ignoreDifficult: s.hero.skills?.has("Survival") };
+      s.reachable = computeReachable(s.grid, u.x, u.y, u.moveLeft, this.getBlockedSet(u), opts);
     },
 
     applyDamageToEnemy(enemyObj, dmg, activeCombat) {
@@ -765,17 +865,21 @@
       return oaSteps;
     },
 
-    // Move Hero space-by-space along the path, triggering mid-path Opportunity Attacks!
+    // Move Active Unit (Hero or Summoned Ally) space-by-space along the path, triggering mid-path Opportunity Attacks!
     walkHeroPath(path, onComplete) {
       const s = this.state;
-      if (!s || !path || !path.length) {
+      const unit = this.getActiveUnit();
+      if (!s || !unit || !path || !path.length) {
         if (onComplete) onComplete();
         return;
       }
       s.moving = true;
       let idx = 0;
       const stepNext = () => {
-        if (!this.active || !this.state) return;
+        if (!this.active || !this.state || (unit.isAlly && unit.hp <= 0)) {
+          if (this.state) this.state.moving = false;
+          return;
+        }
         if (idx >= path.length) {
           s.moving = false;
           this.recomputeHeroReachable();
@@ -783,26 +887,29 @@
           if (onComplete) onComplete();
           return;
         }
-        const prevX = s.hero.x, prevY = s.hero.y;
+        const prevX = unit.x, prevY = unit.y;
         const step = path[idx++];
 
         // 5e Opportunity Attack check on THIS EXACT STEP against every living enemy
-        if (!s.hero.disengaged && this.callbacks?.triggerOpportunityAttack) {
+        if (!unit.disengaged && this.callbacks?.triggerOpportunityAttack) {
           for (const e of this.getLivingEnemies()) {
             if (!e.reactionUsed && chebyshev(prevX, prevY, e.x, e.y) <= 1 && chebyshev(step.x, step.y, e.x, e.y) > 1) {
               e.reactionUsed = true;
-              this.callbacks.triggerOpportunityAttack(e);
-              if (!this.active) return; // Hero fell to OA!
+              this.callbacks.triggerOpportunityAttack(e, unit.isAlly ? unit : null);
+              if (!this.active || (unit.isAlly && unit.hp <= 0)) {
+                if (this.state) this.state.moving = false;
+                return;
+              }
             }
           }
         }
 
-        s.hero.x = step.x;
-        s.hero.y = step.y;
-        s.hero.moveLeft = Math.max(0, s.hero.moveLeft - step.stepCost);
+        unit.x = step.x;
+        unit.y = step.y;
+        unit.moveLeft = Math.max(0, unit.moveLeft - step.stepCost);
         this.spawnFloat(step.x, step.y, `-${step.stepCost}ft`, "#93c5fd");
 
-        if (s.grid[step.y][step.x] === "exit" && this.callbacks?.onStepExit) {
+        if (!unit.isAlly && s.grid[step.y][step.x] === "exit" && this.callbacks?.onStepExit) {
           s.moving = false;
           this.callbacks.onStepExit();
           return;
@@ -845,7 +952,20 @@
         }
       }
 
-      // Clicking a living enemy token -> select it (or attack if already selected!)
+      // Clicking Hero token -> switch control to Hero!
+      if (tx === s.hero.x && ty === s.hero.y && s.activeAllyIdx !== -1) {
+        this.selectUnit(-1);
+        return;
+      }
+
+      // Clicking a living Summoned Ally token -> switch control to that Ally!
+      const clickedAllyIdx = (s.allies || []).findIndex(a => a.hp > 0 && a.x === tx && a.y === ty);
+      if (clickedAllyIdx >= 0) {
+        this.selectUnit(clickedAllyIdx);
+        return;
+      }
+
+      // Clicking a living enemy token -> select it (or attack with Active Unit if already selected!)
       const clickedIdx = s.enemies.findIndex(e => e.hp > 0 && e.x === tx && e.y === ty);
       if (clickedIdx >= 0) {
         if (s.selectedEnemyIdx !== clickedIdx) {
@@ -859,8 +979,9 @@
         return;
       }
 
-      // Clicking reachable square -> walk space-by-space along shortest path!
-      const path = reconstructStepPath(s.reachable, s.hero.x, s.hero.y, tx, ty);
+      // Clicking reachable square -> walk Active Unit space-by-space along shortest path!
+      const unit = this.getActiveUnit();
+      const path = reconstructStepPath(s.reachable, unit.x, unit.y, tx, ty);
       if (!path || !path.length) return;
       this.walkHeroPath(path);
     },
@@ -892,15 +1013,24 @@
       return { ok: true, moved: bestCost, path };
     },
 
-    // Tactical Actions: Dash, Dodge, Disengage
+    // Tactical Actions: Dash, Dodge, Disengage (supports Rogue Cunning Action & Athletics/Stealth!)
     doDash(activeCombat) {
       const s = this.state;
-      if (!s || s.turn !== "hero" || s.moving || s.hero.actionUsed) return false;
-      s.hero.actionUsed = true;
-      s.hero.moveLeft += s.hero.speed;
+      if (!s || s.turn !== "hero" || s.moving) return false;
+      const isRogue = s.hero.className.includes("rogue");
+      if (isRogue && !s.hero.bonusUsed) {
+        s.hero.bonusUsed = true;
+      } else if (!s.hero.actionUsed) {
+        s.hero.actionUsed = true;
+      } else {
+        return false;
+      }
+      const bonusSpd = s.hero.skills?.has("Athletics") ? 5 : 0;
+      const gain = s.hero.speed + bonusSpd;
+      s.hero.moveLeft += gain;
       this.recomputeHeroReachable();
-      this.spawnFloat(s.hero.x, s.hero.y, `DASH +${s.hero.speed}ft`, "#38bdf8");
-      activeCombat.log.unshift(`💨 [DASH] You sprint forward (+${s.hero.speed} ft movement this turn)!`);
+      this.spawnFloat(s.hero.x, s.hero.y, `DASH +${gain}ft`, "#38bdf8");
+      activeCombat.log.unshift(`💨 [${isRogue ? "CUNNING DASH • Bonus" : "DASH"}] Sprint forward (+${gain} ft movement${bonusSpd ? ", Athletics +5ft" : ""})!`);
       this.updateHud(activeCombat);
       return true;
     },
@@ -918,16 +1048,25 @@
 
     doDisengage(activeCombat) {
       const s = this.state;
-      if (!s || s.turn !== "hero" || s.moving || s.hero.actionUsed) return false;
-      s.hero.actionUsed = true;
+      if (!s || s.turn !== "hero" || s.moving) return false;
+      const isRogue = s.hero.className.includes("rogue");
+      if (isRogue && !s.hero.bonusUsed) {
+        s.hero.bonusUsed = true;
+      } else if (!s.hero.actionUsed) {
+        s.hero.actionUsed = true;
+      } else {
+        return false;
+      }
       s.hero.disengaged = true;
-      this.spawnFloat(s.hero.x, s.hero.y, "DISENGAGE", "#34d399");
-      activeCombat.log.unshift(`🦶 [DISENGAGE] Your movement won't provoke Opportunity Attacks this turn!`);
+      const hasStealth = s.hero.skills?.has("Stealth");
+      if (hasStealth && this.callbacks?.grantStealthEvade) this.callbacks.grantStealthEvade();
+      this.spawnFloat(s.hero.x, s.hero.y, hasStealth ? "SLIP AWAY (+2 AC)" : "DISENGAGE", "#34d399");
+      activeCombat.log.unshift(`🦶 [${isRogue ? "CUNNING DISENGAGE • Bonus" : "DISENGAGE"}] Safe movement (no Opportunity Attacks${hasStealth ? " + Stealth Evade +2 AC" : ""})!`);
       this.updateHud(activeCombat);
       return true;
     },
 
-    // Start Hero's new turn
+    // Start Hero's new turn (refreshes Hero + all living Summoned Allies!)
     beginHeroTurn(activeCombat) {
       const s = this.state;
       if (!s) return;
@@ -939,6 +1078,12 @@
       s.hero.bonusUsed = false;
       s.hero.dodging = false;
       s.hero.disengaged = false;
+      for (const a of (s.allies || [])) {
+        if (a.hp > 0) {
+          a.moveLeft = a.speed;
+          a.actionUsed = false;
+        }
+      }
       this.getSelectedEnemy();
       this.recomputeHeroReachable();
       this.updateHud(activeCombat);
@@ -1088,14 +1233,45 @@
       }
       if (elMap) elMap.textContent = s.mapLabel;
 
+      // Update Active Unit Switcher Bar (Hero + Living Summoned Allies)
+      const sw = document.getElementById("vtt-unit-switcher");
+      if (sw) {
+        const livingAllies = this.getLivingAllies();
+        if (livingAllies.length === 0) {
+          sw.classList.add("hidden");
+          sw.innerHTML = "";
+        } else {
+          sw.classList.remove("hidden");
+          const heroSel = s.activeAllyIdx === -1;
+          let html = `<span class="text-[10px] uppercase tracking-wider text-stone-400 font-bold">Control:</span>`;
+          html += `<button type="button" data-vtt-unit="-1" class="px-2 py-0.5 rounded text-[11px] font-bold border ${heroSel ? "bg-amber-900 border-amber-400 text-amber-100" : "bg-stone-900 border-stone-700 text-stone-300 hover:border-amber-500/60"}">🛡️ Hero (${s.hero.moveLeft}ft)</button>`;
+          for (const a of livingAllies) {
+            const aSel = s.activeAllyIdx === a.id;
+            html += `<button type="button" data-vtt-unit="${a.id}" class="px-2 py-0.5 rounded text-[11px] font-bold border ${aSel ? "bg-emerald-900 border-emerald-400 text-emerald-100" : "bg-stone-900 border-stone-700 text-stone-300 hover:border-emerald-500/60"}">${a.icon} ${a.name} (${a.hp}/${a.maxHp} HP • ${a.moveLeft}ft${a.actionUsed ? " • Acted" : ""})</button>`;
+          }
+          sw.innerHTML = html;
+          sw.querySelectorAll("[data-vtt-unit]").forEach(btn => {
+            btn.onclick = () => this.selectUnit(Number(btn.dataset.vttUnit));
+          });
+        }
+      }
+
       const btnDash = document.getElementById("btn-vtt-dash");
       const btnDodge = document.getElementById("btn-vtt-dodge");
       const btnDis = document.getElementById("btn-vtt-disengage");
       const btnEnd = document.getElementById("btn-vtt-end-turn");
+      const isRogue = s.hero.className.includes("rogue");
       const actDisabled = s.turn !== "hero" || s.hero.actionUsed;
-      if (btnDash) btnDash.disabled = actDisabled;
+      const cunningDisabled = s.turn !== "hero" || (isRogue ? (s.hero.bonusUsed && s.hero.actionUsed) : s.hero.actionUsed);
+      if (btnDash) {
+        btnDash.disabled = cunningDisabled;
+        btnDash.textContent = isRogue ? "💨 Dash (⚡)" : "💨 Dash";
+      }
       if (btnDodge) btnDodge.disabled = actDisabled;
-      if (btnDis) btnDis.disabled = actDisabled;
+      if (btnDis) {
+        btnDis.disabled = cunningDisabled;
+        btnDis.textContent = isRogue ? "🦶 Disengage (⚡)" : "🦶 Disengage";
+      }
       if (btnEnd) {
         btnEnd.disabled = s.turn !== "hero";
         btnEnd.classList.toggle("animate-pulse", s.turn === "hero" && s.hero.actionUsed);
@@ -1118,9 +1294,13 @@
       const s = this.state;
       if (!canvas || !ctx || !s) return;
 
-      // Smoothly interpolate visual positions for hero & all enemies
+      // Smoothly interpolate visual positions for hero, summoned allies & all enemies
       s.hero.vx += (s.hero.x - s.hero.vx) * 0.34;
       s.hero.vy += (s.hero.y - s.hero.vy) * 0.34;
+      for (const a of (s.allies || [])) {
+        a.vx += (a.x - a.vx) * 0.32;
+        a.vy += (a.y - a.vy) * 0.32;
+      }
       for (const e of s.enemies) {
         e.vx += (e.x - e.vx) * 0.24;
         e.vy += (e.y - e.vy) * 0.24;
@@ -1322,23 +1502,51 @@
         ctx.fillText(label, x * TILE + TILE / 2, Math.max(11, y * TILE - 11));
       }
 
-      // 6. Summon Token (if active)
-      const ac = this.callbacks?.getActiveCombat ? this.callbacks.getActiveCombat() : null;
-      if (ac?.summon) {
-        const sx = Math.max(0, s.hero.vx - 0.85) * TILE + TILE / 2;
-        const sy = Math.min(ROWS - 1, s.hero.vy + 0.7) * TILE + TILE / 2;
+      // 6. Player-Controlled Summoned Ally Tokens (Bestiary Portraits + Emerald Rings + HP Bars)
+      for (const a of (s.allies || [])) {
+        if (a.hp <= 0) continue;
+        const ax = (a.vx + 0.5) * TILE;
+        const ay = (a.vy + 0.5) * TILE;
+        const ar = 27;
+        const isControlled = (s.activeAllyIdx === a.id);
         ctx.save();
+        if (isControlled && s.turn === "hero") {
+          const ap = 3 + Math.sin(now / 240) * 2.5;
+          ctx.beginPath();
+          ctx.arc(ax, ay, ar + ap, 0, Math.PI * 2);
+          ctx.strokeStyle = "rgba(52, 211, 153, 0.9)";
+          ctx.lineWidth = 3;
+          ctx.stroke();
+        }
         ctx.beginPath();
-        ctx.arc(sx, sy, 20, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(88, 28, 135, 0.9)";
+        ctx.arc(ax, ay, ar, 0, Math.PI * 2);
+        ctx.fillStyle = "#064e3b";
         ctx.fill();
-        ctx.lineWidth = 2.5;
-        ctx.strokeStyle = "#c084fc";
+        const aImg = a.artPath ? getImg(a.artPath) : null;
+        if (aImg && aImg.complete && aImg.naturalWidth > 0 && !aImg._failed) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(ax, ay, ar - 1, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(aImg, ax - ar, ay - ar, ar * 2, ar * 2);
+          ctx.restore();
+        } else {
+          ctx.font = "22px sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(a.icon || "🐾", ax, ay);
+        }
+        ctx.beginPath();
+        ctx.arc(ax, ay, ar, 0, Math.PI * 2);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = isControlled ? "#6ee7b7" : "#10b981";
         ctx.stroke();
-        ctx.font = "18px sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(ac.summon.icon || "🐾", sx, sy);
+        // Ally HP bar
+        const aPct = Math.max(0, Math.min(1, a.hp / Math.max(1, a.maxHp)));
+        ctx.fillStyle = "rgba(0,0,0,0.8)";
+        ctx.fillRect(ax - 24, ay + ar + 3, 48, 6);
+        ctx.fillStyle = "#34d399";
+        ctx.fillRect(ax - 23, ay + ar + 4, Math.round(46 * aPct), 4);
         ctx.restore();
       }
 
@@ -1378,6 +1586,7 @@
       ctx.restore();
 
       // 8. All Living Enemy Tokens (with Target Selection Ring & Individual HP Bars)
+      const ac = this.callbacks?.getActiveCombat ? this.callbacks.getActiveCombat() : null;
       const selEnemy = this.getSelectedEnemy();
       for (const e of s.enemies) {
         if (e.hp <= 0) continue;
