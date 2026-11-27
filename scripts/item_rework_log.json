@@ -1,6 +1,6 @@
 {
-  "totalPasses": 62,
-  "totalItemsReworked": 620,
+  "totalPasses": 63,
+  "totalItemsReworked": 630,
   "history": [
     {
       "pass": 1,
@@ -993,6 +993,22 @@
         "heart_of_ignaroth"
       ],
       "summary": "Reworked 5 Vault of Magic relics (including Fabled Sacred Mountain Armor & Legendary Stolen Thunder Drum), 2 expansion legendaries, 1 core shield (added rare/legendary rarities to aegis_bastion & heart_of_ignaroth), and 2 quest relics."
+    },
+    {
+      "pass": 63,
+      "items": [
+        "vom_fab_blood_moon_orb",
+        "vom_fab_cailebryn",
+        "bq_gonderif_mithral_mail",
+        "bq_kovac_soul_lens",
+        "bq_dark_aerie_wingcloak",
+        "bq_leyla_wind_ring",
+        "bq_starlight_sealant_charm",
+        "bq_maedera_chimeric_focus",
+        "dwarven_waraxe",
+        "vom_ravagers_axe"
+      ],
+      "summary": "Reworked 2 Fabled Vault of Magic relics (Blood Moon Orb & Cailebryn), Ravager Axe, Dwarven Waraxe (added uncommon rarity), and 6 quest relics with signature passives and charged active abilities."
     }
   ],
   "itemPasses": {
@@ -1615,6 +1631,16 @@
     "vom_magma_mantle": 1,
     "vom_rain_of_chaos": 1,
     "bq_sarastra_cameo": 1,
-    "heart_of_ignaroth": 1
+    "heart_of_ignaroth": 1,
+    "vom_fab_blood_moon_orb": 1,
+    "vom_fab_cailebryn": 1,
+    "bq_gonderif_mithral_mail": 1,
+    "bq_kovac_soul_lens": 1,
+    "bq_dark_aerie_wingcloak": 1,
+    "bq_leyla_wind_ring": 1,
+    "bq_starlight_sealant_charm": 1,
+    "bq_maedera_chimeric_focus": 1,
+    "dwarven_waraxe": 1,
+    "vom_ravagers_axe": 1
   }
 }

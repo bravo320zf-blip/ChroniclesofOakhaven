@@ -756,11 +756,12 @@ window.OAKHAVEN.registerItems({
     type: "accessory",
     rarity: "very_rare",
     value: 280,
-    source: "Eldritch Lairs",
     ac: 2,
     agility: 2,
     luck: 1,
-    desc: "+2 AC, +2 Agility, +1 Luck. Sky-opal ring gifted by freed djinni Leyla of the Wind Palace."
+    passives: { critRange: 10, dmgReduce: 2, goldFindPct: 15, skillBonus: { Athletics: 3, Persuasion: 2 } },
+    activeAbility: { name: "Djinni Whirlwind Grace", icon: "🌪️", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "agility", dmgType: "lightning", evadeTurns: 3, restoreLuck: 1, desc: "2/Quest (2 MP): Unleash Leyla's desert tempest for 3d8 + Agility lightning dmg, Evade (3t), and +1 Luck!" },
+    desc: "Sky-opal ring gifted by freed djinni Leyla of the Wind Palace (+2 AC, +2 Agility, +1 Luck, Crit 10+, -2 Dmg Taken, +15% Gold, +3 Athletics, +2 Persuasion) with Djinni Whirlwind Grace."
   },
   "bq_gonderif_mithral_mail": {
     id: "bq_gonderif_mithral_mail",
@@ -768,11 +769,12 @@ window.OAKHAVEN.registerItems({
     type: "armor",
     rarity: "very_rare",
     value: 310,
-    source: "Eldritch Lairs",
     ac: 4,
     agility: 1,
     maxHp: 6,
-    desc: "+4 AC, +1 Agility, +6 Max HP. Gleaming mithral legion scale seized in the Undying Tournament."
+    passives: { dmgReduce: 3, undeadDmgBonus: 6, thornsDmg: 4, skillBonus: { Athletics: 2, Stealth: 2 } },
+    activeAbility: { name: "Undying Legion Ward", icon: "🛡️", charges: 2, mp: 2, ooc: true, shieldTurns: 3, dmgDice: "3d6", dmgStat: "might", dmgType: "radiant", undeadDouble: true, desc: "2/Quest (2 MP): Flare the gleaming mithral scales for +3 AC Ward (3t) and rebuke foes for 3d6 + Might radiant dmg (2x vs Undead)!" },
+    desc: "Gleaming mithral legion scale seized in the Undying Tournament (+4 AC, +1 Agility, +6 Max HP, -3 Dmg Taken, +6 vs Undead, 4 Thorns, +2 Athletics & Stealth) with Undying Legion Ward."
   },
   "bq_skyreach_frost_greatsword": {
     id: "bq_skyreach_frost_greatsword",
@@ -1408,7 +1410,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     spirit: 1,
     maxMp: 5,
-    desc: "+2 Arcana, +1 Spirit, +5 Max MP. Glowing tincture warded against the entropy of the Void."
+    passives: { spellDmgBonus: 3, mpRegen: 1, healBonus: 2, skillBonus: { Arcana: 2 } },
+    activeAbility: { name: "Starlight Void-Seal", icon: "✨", charges: 2, mp: 1, ooc: true, healDice: "2d6", healStat: "spirit", restoreMp: 4, shieldTurns: 2, desc: "2/Quest (1 MP): Unstopper Dreamsedge starlight to restore 2d6 + Spirit HP, +4 MP, and +3 AC Ward (2t)!" },
+    desc: "Glowing starlight tincture warded against the entropy of the Void (+2 Arcana, +1 Spirit, +5 Max MP, +3 Spell Dmg, +1 MP/turn, +2 Heal, +2 Arcana) with Starlight Void-Seal."
   },
   "bq_dusk_queen_mirror_shard": {
     id: "bq_dusk_queen_mirror_shard",
@@ -1466,7 +1470,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 2,
     maxMp: 6,
-    desc: "+2 AC, +2 Arcana, +6 Max MP. Precision gearwork lens recovered from the First Lab."
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, mpRegen: 1, skillBonus: { Arcana: 3, "Detect Traps": 2 } },
+    activeAbility: { name: "Gearwork Soul-Focus", icon: "🔭", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "radiant", undeadDouble: true, stunTurns: 1, desc: "2/Quest (2 MP): Align Kovac's brass apertures to sear a foe for 3d8 + Arcana radiant dmg (2x vs Undead) and Stun (1t)!" },
+    desc: "Precision gearwork lens recovered from the First Lab (+2 AC, +2 Arcana, +6 Max MP, +4 Spell Dmg, -1 MP Cost, +1 MP/turn, +3 Arcana, +2 Detect Traps) with Gearwork Soul-Focus."
   },
   "bq_hommal_botanical_vial": {
     id: "bq_hommal_botanical_vial",
@@ -2665,9 +2671,9 @@ window.OAKHAVEN.registerItems({
     ac: 2,
     arcana: 3,
     agility: 1,
-    passives: { spellDmgBonus: 3, critRange: 11, skillBonus: { Persuasion: 2 } },
-    activeAbility: { name: "Shadow-Fey Mirage", icon: "🦋", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "psychic", evadeTurns: 2, desc: "2/Quest (2 MP): Weave fey phantasms for 2d8 + Arcana psychic dmg and Evade (2t)!" },
-    desc: "Moonlit crystal focus taken from Lady Maedera (+3 Spell Dmg, +Crit, +2 Persuasion) with Shadow-Fey Mirage."
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, critRange: 10, mpRegen: 1, skillBonus: { Persuasion: 3, Stealth: 2 } },
+    activeAbility: { name: "Shadow-Fey Mirage", icon: "🦋", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "arcane", evadeTurns: 3, chillTurns: 2, desc: "2/Quest (2 MP): Weave fey phantasms for 3d8 + Arcana dmg, Evade (3t), and dazzle-Chill (2t)!" },
+    desc: "Moonlit crystal prism taken from Lady Maedera (+2 AC, +3 Arcana, +1 Agility, +4 Spell Dmg, -1 MP Cost, Crit 10+, +1 MP/turn, +3 Persuasion, +2 Stealth) with Shadow-Fey Mirage."
   },
   "bq_lamassu_golden_diadem": {
     id: "bq_lamassu_golden_diadem",
@@ -2968,9 +2974,9 @@ window.OAKHAVEN.registerItems({
     ac: 3,
     agility: 3,
     luck: 2,
-    passives: { critRange: 11, goldFindPct: 18, skillBonus: { Athletics: 3, Stealth: 2 } },
-    activeAbility: { name: "Red Wastes Gale-Dive", icon: "🪁", charges: 2, dmgDice: "2d8", dmgStat: "agility", dmgType: "physical", evadeTurns: 3, desc: "2/Quest: Swoop in desert circus silks for 2d8 + Agility dmg and Evade (3t)!" },
-    desc: "Wind-catching crimson silk cloak from the Red Wastes (+Crit, +18% Gold, +3 Athletics) with Red Wastes Gale-Dive."
+    passives: { critRange: 10, dmgReduce: 2, goldFindPct: 18, skillBonus: { Athletics: 3, Stealth: 3 } },
+    activeAbility: { name: "Red Wastes Gale-Dive", icon: "🪁", charges: 2, dmgDice: "3d8", dmgStat: "agility", dmgType: "physical", evadeTurns: 3, selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest: Swoop in desert silks for 3d8 + Agility dmg, Evade (3t), and +3 ATK (2t)!" },
+    desc: "Wind-catching crimson silk mantle from the Red Wastes (+3 AC, +3 Agility, +2 Luck, Crit 10+, -2 Dmg Taken, +18% Gold, +3 Athletics & Stealth) with Red Wastes Gale-Dive."
   },
   // Batch 023 Signature Items
   "bq_quolo_sea_witch_blade": {
