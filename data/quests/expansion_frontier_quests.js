@@ -648,41 +648,62 @@ window.OAKHAVEN.registerQuests({
         difficulty: "Hard",
         recommendedLevel: 3,
         discoverySource: "Drake-Hunter Torin (Tavern)",
-        summary: "Climb the smoking basalt ledges of Wyrm Ridge, survive ember-vents, and drive out the Cinder-Drake Broodmother before the Elder Wyrm awakens.",
-        totalPages: 10,
+        summary: "Climb the smoking basalt ledges of Wyrm Ridge, survive ember-vents, uncover Torin's lost hunter notes, and drive out the Cinder-Drake Broodmother before the Elder Wyrm awakens.",
+        totalPages: 14,
         pages: {
-          1: { zone:"Lower Crags", title:"The Smoking Trail", safeRetreat:true, text:"Ash drifts down the black volcanic slopes of Wyrm Ridge. Above, leathery wings circle a jagged ledge. A burned hunter's camp lies tucked under an overhang to your left.", choices:[
-            { t:"Search the burned hunter's camp.", to:2 },
+          1: { zone:"Lower Crags", title:"The Smoking Trail", safeRetreat:true, text:"Warm grey ash drifts like dry snow down the black basalt slopes of Wyrm Ridge, smelling sharply of brimstone and charred pine. High above, leathery crimson wings wheel across a jagged spire where thin ribbons of smoke curl from cracked rock. Tucked beneath a soot-blackened overhang to your left lies Torin's abandoned hunter camp, while a narrow updraft chimney cuts steeply up the cliff face to your right.", choices:[
+            { t:"Search Torin's burned hunter camp beneath the overhang.", to:2 },
+            { t:"Scale the narrow Obsidian Chimney to gain a high vantage.", badge:"Athletics / Stealth DC 11", check:{ stat:"agility", skill:"Athletics", dc:11, pass:11, fail:3, failDmg:3, passMsg:"You wedge handholds up the warm basalt chimney, emerging above the lower slopes!", failMsg:"Loose pumice crumbles under your boot (-3 HP), dumping you back onto the main volcanic switchbacks!" } },
             { t:"Climb directly up the basalt switchbacks.", to:3 }
           ]},
-          2: { zone:"Hunter's Camp", title:"Torin's Fallen Gear", text:"Protected beneath a stone slab you find a Cinderhide Scale-Vest and random drake-hunter supplies!", onEnter:{ items:["cinderhide_vest", ...rollRandomLoot(["consumable","material"], 1)], msg:"Found Cinderhide Scale-Vest & random loot!" }, choices:[
-            { t:"Climb the basalt switchbacks.", to:3 }
+          2: { zone:"Hunter's Camp", title:"Torin's Fallen Gear", text:"Beneath a fallen basalt slab you pull free a supple Cinderhide Scale-Vest, serviceable hunter supplies, and Torin's singed leather field journal. One charcoal-sketched page catches your eye: 'Cinder-Drakes flare their neck-frills wide for two heartbeats before exhaling flame—strike the throat-seam then, or starve their fire with frost or steam.'", onEnter:{ cw:"HUNTER_TACTICS", items:["cinderhide_vest", ...rollRandomLoot(["consumable","material"], 1)], msg:"Found Cinderhide Scale-Vest, random loot & Torin's Hunter Tactics (HUNTER_TACTICS)!" }, choices:[
+            { t:"Climb the basalt switchbacks toward the Sulfur Vents.", to:3 }
           ]},
-          3: { zone:"Volcanic Ledge", title:"The Sulfur Vents", text:"Scalding steam jets erupt randomly across the narrow ridge!", choices:[
-            { t:"Time the vents with Perception or Survival.", badge:"Perception / Agility DC 11", check:{ stat:"agility", skill:"Perception", dc:11, pass:4, fail:4, failDmg:4, passMsg:"You dart cleanly between eruptions!", failMsg:"Hot ash scorches your cloak (-4 HP)!" } },
-            { t:"Cool the vents ahead with Frost Nova.", reqSpell:"Frost Nova", mp:4, badge:"Frost Nova (4 MP)", to:4, onChoose:{ cw:"DRAKE_CHILLED", msg:"Frost coats the ridge cleanly!" } }
+          3: { zone:"Volcanic Ledge", title:"The Sulfur Vents", text:"Halfway up the ridge, the trail narrows to a blistered ledge riddled with whistling fissures. Every few heartbeats, scalding yellow steam jets shriek skyward, turning the stone slick with sulfur condensation.", choices:[
+            { t:"Time the eruptions carefully and dash across the gaps.", badge:"Perception / Agility DC 11", check:{ stat:"agility", skill:"Perception", dc:11, pass:4, fail:4, failDmg:4, passMsg:"You count the hiss between pulses and dart cleanly across the ledge!", failMsg:"A sudden gout of hot ash scorches your cloak (-4 HP) as you scramble past!" } },
+            { t:"Cool the vents ahead with Frost Nova.", reqSpell:"Frost Nova", mp:4, badge:"Frost Nova (4 MP)", to:4, onChoose:{ cw:"DRAKE_CHILLED", xp:15, msg:"Rime frost seals the ridge vents cleanly (DRAKE_CHILLED, +15 XP)!" } },
+            { t:"Wedge a heavy basalt slab into the main fissure to divert the steam upward.", badge:"Athletics / Might DC 12", check:{ stat:"might", skill:"Athletics", dc:12, pass:12, fail:4, failDmg:4, passMsg:"With a groan of stone, you shunt the scalding steam plume up toward the upper nest!", failMsg:"The boiling vent bucks the slab aside, grazing your gauntlets (-4 HP) before you press on!" } }
           ]},
-          4: { zone:"Outer Nest", title:"The Cinder-Whelplings", text:"Two snapping Cinder-Drakes hiss and spit gouts of sparks!", enemy:{ name:"Cinder-Drake Whelplings", desc:"Fierce volcanic hatchlings.", hp:23, ac:12, atk:5, dmg:5, xp:55, gold:32, items:["dragonscale_scrap", ...rollRandomLoot(["material","valuable"], 1)], flee:1 }, choices:[
-            { t:"Inspect the Charred Hoard Alcove.", to:5 },
+          4: { zone:"Outer Nest", title:"The Cinder-Whelplings", text:"The ledge opens into a bowl of warm black gravel littered with cracked eggshells as big as shields. Two snapping Cinder-Drake Whelplings unfurl ember-veined wings, hissing and spitting bright arcs of sparks across your path!", enemy:{ name:"Cinder-Drake Whelplings", desc:"Fierce volcanic hatchlings guarding the outer bowl.", hp:23, ac:12, atk:5, dmg:5, xp:55, gold:32, items:["dragonscale_scrap", ...rollRandomLoot(["material","valuable"], 1)], flee:1, weakCw:["HUNTER_TACTICS"] }, choices:[
+            { t:"Inspect the Charred Hoard Alcove tucked behind the eggshells.", to:5 },
+            { t:"Explore the shimmering Ash-Glass Gallery off to the east.", to:13 },
+            { t:"Step directly onto the Broodmother's Crag!", to:6 }
+          ]},
+          5: { zone:"Hoard Alcove", title:"The Melted Caravan", text:"Dragged into a heat-warped hollow lie the buckled iron rims of an Oakhaven merchant wain. Prying through fused slag and blackened timber, you recover 45 GP and two intact treasures spared by the drakes' fire.", onEnter:{ gold:45, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 2), msg:"Looted 45 GP & 2 random items!" }, choices:[
+            { t:"Check the shimmering Ash-Glass Gallery before climbing higher.", to:13 },
             { t:"Step onto the Broodmother's Crag!", to:6 }
           ]},
-          5: { zone:"Hoard Alcove", title:"The Melted Caravan", text:"Among scorched wagon-iron you recover 45 GP and two random treasures.", onEnter:{ gold:45, items: rollRandomLoot(["weapon","armor","consumable","valuable"], 2), msg:"Looted 45 GP & 2 random items!" }, choices:[
-            { t:"Step onto the Broodmother's Crag!", to:6 }
-          ]},
-          6: { zone:"Broodmother's Crag", title:"The Cinder-Drake Matriarch", text:"A twenty-foot crimson drake unfurls smoking wings atop a pile of bones, where a gleaming Drakefang Spear juts from the ash!", choices:[
+          6: { zone:"Broodmother's Crag", title:"The Cinder-Drake Matriarch", text:"At the crest of Wyrm Ridge, the basalt flattens into a broad volcanic shelf overlooking a smoking caldera. A twenty-foot crimson Matriarch unfurls smoking wings atop a cairn of charred bones, where a gleaming Drakefang Spear juts upright from the ash. Her furnace-bright eyes lock onto you as amber embers gather deep in her throat!", choices:[
             { t:"Blast her fiery throat with Frost Nova!", reqSpell:"Frost Nova", mp:4, badge:"Frost Nova (4 MP)", to:7 },
-            { t:"Face the Cinder-Drake Matriarch in battle!", to:8 }
+            { t:"Exploit the frost-chilled ridge air to snuff her opening flame!", reqCw:"DRAKE_CHILLED", badge:"DRAKE_CHILLED", to:7 },
+            { t:"Lure her over the redirected sulfur-steam plume!", reqCw:"VENT_SHUNTED", badge:"VENT_SHUNTED", to:7 },
+            { t:"Use Torin's field notes to strike her flared throat-seam on the inhale!", reqCw:"HUNTER_TACTICS", badge:"HUNTER_TACTICS", to:14 },
+            { t:"Face the Cinder-Drake Matriarch in open battle!", to:8 }
           ]},
-          7: { zone:"Broodmother's Crag", title:"Frost Against Flame", text:"Your frost-burst chokes her fire-breath in billowing steam! Snarling, the weakened drake lunges with razor claws!", enemy:{ name:"Cinder-Drake Matriarch (Chilled)", desc:"Volcanic drake stripped of her flame.", hp:25, ac:12, atk:5, dmg:5, xp:95, gold:75, items:["drakefang_spear","dragonscale_scrap"] }, choices:[
+          7: { zone:"Broodmother's Crag", title:"Frost Against Flame", text:"A roaring wall of cold mist and hissing steam chokes the Matriarch's fire-breath mid-roar! Blinded by white vapor and coughing black soot, the weakened drake lunges forward with razor claws!", enemy:{ name:"Cinder-Drake Matriarch (Chilled)", desc:"Volcanic drake stripped of her flame.", hp:25, ac:12, atk:5, dmg:5, xp:95, gold:75, items:["drakefang_spear","dragonscale_scrap"], weakCw:["CALDERA_WARD"] }, choices:[
             { t:"Claim the nest's spoils and gaze into the Caldera!", to:9 }
           ]},
-          8: { zone:"Broodmother's Crag", title:"Fury of the Ridge", text:"Sheets of orange flame sweep the basalt ledge as the Matriarch attacks!", enemy:{ name:"Cinder-Drake Matriarch", desc:"Apex predator of the outer crags.", hp:32, ac:13, atk:5, dmg:6, xp:115, gold:85, items:["drakefang_spear","dragonscale_scrap"] }, choices:[
+          8: { zone:"Broodmother's Crag", title:"Fury of the Ridge", text:"Sheets of blinding orange flame sweep across the basalt shelf, turning pebbles into glowing coals as the Cinder-Drake Matriarch dives upon you at full fury!", enemy:{ name:"Cinder-Drake Matriarch", desc:"Apex predator of the outer crags.", hp:32, ac:13, atk:5, dmg:6, xp:115, gold:85, items:["drakefang_spear","dragonscale_scrap"], weakCw:["CALDERA_WARD"] }, choices:[
             { t:"Claim the nest's spoils and gaze into the Caldera!", to:9 }
           ]},
-          9: { zone:"Broodmother's Crag", title:"A Roar From Below", text:"As the Matriarch falls, a seismic roar shakes the entire mountain—deep inside the volcanic caldera, an ancient Elder Wyrm has smelled blood! You snatch 50 GP and a random treasure before retreating down the ridge.", onEnter:{ gold:50, items: rollRandomLoot(["valuable","accessory","consumable"], 1), msg:"Looted 50 GP & random treasure!" }, choices:[
+          9: { zone:"Broodmother's Crag", title:"A Roar From Below", text:"As the Matriarch crashes across the ash, a deep seismic roar shakes the entire mountain from its roots! Far below in the glowing volcanic caldera, something ancient and immense shifts beneath a crust of magma—an Elder Wyrm has smelled drake-blood. You snatch 50 GP and a gleaming relic from the bone-cairn before sprinting back down the switchbacks.", onEnter:{ gold:50, items: rollRandomLoot(["valuable","accessory","consumable"], 1), msg:"Looted 50 GP & random treasure!" }, choices:[
             { t:"Report back to Torin! (Unlocks Part II: Lair of Ignaroth)", to:10 }
           ]},
-          10: { zone:"Epilogue", title:"Clearer of Wyrm Ridge", text:"Torin pales as you describe the roar from the caldera. 'You cleared the outer brood—now Ignaroth himself is awake!' <strong>Part II: Lair of the Elder Ember-Wyrm</strong> is now unlocked!", ending:{ type:"true", title:"Slayer of the Cinder-Brood", xp:120, gold:130, trophy:"Crimson Drake-Horn" }, choices:[] }
+          10: { zone:"Epilogue", title:"Clearer of Wyrm Ridge", text:"Drake-Hunter Torin sets down his whetstone and goes pale as you describe the thunderous tremor rising from the deep caldera. 'By the forge-fires... you cleared the outer brood, and now Ignaroth himself is awake!' He clasps your forearm grimly. <strong>Part II: Lair of the Elder Ember-Wyrm</strong> is now unlocked!", ending:{ type:"true", title:"Slayer of the Cinder-Brood", xp:120, gold:130, trophy:"Crimson Drake-Horn" }, choices:[] },
+          11: { zone:"Obsidian Chimney", title:"The Updraft Shortcut", text:"Warm mountain air rushes past your face inside the natural basalt chimney. Wedged in a smooth wind-pocket rests a weathered drake-hunter's satchel holding 25 GP, fresh Dragonscale Scrap, and chalked diagrams of drake weak-points. From this ledge you can drop cleanly past the lower hazards straight toward the Outer Nest!", onEnter:{ cw:"HUNTER_TACTICS", gold:25, items:["dragonscale_scrap"], msg:"Found 25 GP, Dragonscale Scrap & Hunter Tactics (HUNTER_TACTICS)!" }, choices:[
+            { t:"Drop directly down to the Outer Nest, bypassing the Sulfur Vents!", to:4 },
+            { t:"Climb down to the Sulfur Vents to sabotage the steam fissures first.", to:3 }
+          ]},
+          12: { zone:"Volcanic Ledge", title:"Pressure Redirected", text:"Your wedged basalt slab holds firm with a deep booming shudder! The scalding sulfur plume diverts through an upper chimney, blasting clouds of blinding steam directly across the Broodmother's high shelf while leaving your own trail cool and clear.", onEnter:{ cw:"VENT_SHUNTED", xp:20, msg:"Redirected the sulfur vent onto the upper crag (VENT_SHUNTED, +20 XP)!" }, choices:[
+            { t:"Advance up the cooled trail into the Outer Nest.", to:4 }
+          ]},
+          13: { zone:"Ash-Glass Gallery", title:"The Obsidian Spring", text:"Behind a curtain of fused black volcanic glass lies a quiet grotto where cold snowmelt drips down into a steaming stone basin. Beside the water rests an abandoned drake-hunter's pack with a stoppered alchemist's charge still intact.", choices:[
+            { t:"Bathe your burns in the cool mineral spring and coat your cloak against heat.", onChoose:{ cw:"CALDERA_WARD", healHp:10, healMp:4, msg:"Mineral water restores +10 HP, +4 MP & wards your gear against heat (CALDERA_WARD)!" }, to:6 },
+            { t:"Salvage the intact Alchemist's Bomb from the hunter's pack and ascend.", onChoose:{ items:["alchemist_bomb"], msg:"Salvaged an Alchemist's Bomb!" }, to:6 }
+          ]},
+          14: { zone:"Broodmother's Crag", title:"Hunter's Opening", text:"Just as Torin sketched, the Matriarch flares her crimson neck-frills wide for two telltale heartbeats—and you surge forward before her fire-sac can ignite! Your opening blow tears loose a shower of glowing scales, staggering the great drake as battle erupts!", enemy:{ name:"Cinder-Drake Matriarch (Staggered)", desc:"Volcanic drake caught mid-inhale by Torin's tactics.", hp:26, ac:12, atk:5, dmg:5, xp:105, gold:80, items:["drakefang_spear","dragonscale_scrap"], weakCw:["CALDERA_WARD"] }, choices:[
+            { t:"Claim the nest's spoils and gaze into the Caldera!", to:9 }
+          ]}
         }
       },
 

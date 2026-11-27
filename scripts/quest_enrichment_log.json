@@ -1,5 +1,5 @@
 {
-  "totalPasses": 48,
+  "totalPasses": 49,
   "history": [
     {
       "pass": 1,
@@ -330,6 +330,12 @@
       "title": "Nightfell II: Child of Blood",
       "file": "data/quests/expansion_nightfell.js",
       "summary": "Expanded Part 2 of 6 from 12 to 15 pages, adding Northern Range Snow-Bound Watchfire scene (Perception -> ACOLYTE_TELL or Herbalism +8 HP/+4 MP), playable Sanctuary of Mirithlen blessing with Sister Lyra (MIRITHLEN_WARD +25 GP/+4 MP/+20 XP -> LYVAR_TRUST), Edge of the Wailing Mire scouting/sabotage (Arcana +30 GP or Stealth -> MIRE_CLEARED weakening the Strix Coven), and preserving Part 3 unlock."
+    },
+    {
+      "pass": 49,
+      "questId": "wyrm_ridge",
+      "title": "The Scorched Nest of Wyrm Ridge",
+      "summary": "Expanded from 10 to 14 pages with Obsidian Chimney updraft shortcut, Sulfur Vent redirection (VENT_SHUNTED), Torin field-journal tactics (HUNTER_TACTICS), and Ash-Glass Gallery obsidian spring (CALDERA_WARD)."
     }
   ],
   "questPasses": {
@@ -380,6 +386,7 @@
     "bk_b14_strange_alchemy": 1,
     "bk_b15_no_one_leaves": 1,
     "bk_pt_03_usurpers_tower": 1,
-    "nf_2_child_blood": 1
+    "nf_2_child_blood": 1,
+    "wyrm_ridge": 1
   }
 }
