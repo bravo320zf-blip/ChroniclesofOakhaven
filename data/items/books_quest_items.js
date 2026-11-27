@@ -2292,9 +2292,9 @@ window.OAKHAVEN.registerItems({
     value: 245,
     ac: 2,
     spirit: 2,
-    passives: { undeadDmgBonus: 3, skillBonus: { Perception: 2 } },
-    activeAbility: { name: "Harbor Flare", icon: "🔦", charges: 2, dmgDice: "2d6", dmgStat: "spirit", dmgType: "radiant", chillTurns: 2, desc: "2/Quest: Blinding lighthouse beam deals 2d6 + Spirit radiant dmg & dazzles foe (-2 Enemy ATK, 2t)." },
-    desc: "Faceted beacon crystal from Wrackwater Cove that pierces fog and shadow."
+    passives: { undeadDmgBonus: 5, spellDmgBonus: 3, dmgReduce: 1, skillBonus: { Perception: 3 } },
+    activeAbility: { name: "Harbor Beacon Flare", icon: "🔦", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "spirit", dmgType: "radiant", undeadDouble: true, chillTurns: 2, shieldTurns: 2, desc: "2/Quest (2 MP): Focus a blinding lighthouse beam for 3d8 + Spirit radiant dmg (2x vs Undead), dazzle Chill (2t), and +3 AC Ward (2t)!" },
+    desc: "Faceted lighthouse crystal from Wrackwater Cove that pierces fog and shadow (+2 AC, +2 Spirit, +5 vs Undead, +3 Spell Dmg, -1 Dmg Taken, +3 Perception) with Harbor Beacon Flare."
   },
   "bq_lost_forge_tongs": {
     id: "bq_lost_forge_tongs",
@@ -2667,9 +2667,9 @@ window.OAKHAVEN.registerItems({
     value: 185,
     agility: 2,
     luck: 2,
-    passives: { goldFindPct: 15, skillBonus: { Perception: 2, Survival: 1 } },
-    activeAbility: { name: "Gale-Bottle Surge", icon: "🧭", charges: 2, dmgDice: "2d6", dmgStat: "arcana", dmgType: "lightning", evadeTurns: 2, desc: "2/Quest: Uncork captured harbor lightning for 2d6 + Arcana dmg and Evade (2t)!" },
-    desc: "Brass storm-compass salvaged aboard the Queen's Desire (+15% Gold, +2 Perception) with Gale-Bottle Surge."
+    passives: { goldFindPct: 18, spellDmgBonus: 2, skillBonus: { Perception: 2, Survival: 2 } },
+    activeAbility: { name: "Gale-Bottle Surge", icon: "🧭", charges: 2, mp: 1, dmgDice: "2d8", dmgStat: "agility", dmgType: "lightning", evadeTurns: 2, chillTurns: 1, desc: "2/Quest (1 MP): Uncork captured tempest-lightning for 2d8 + Agility lightning dmg, Evade (2t), and gale-squall Chill (1t)!" },
+    desc: "Brass storm-compass salvaged aboard the Queen's Desire (+2 Agility, +2 Luck, +18% Gold, +2 Spell Dmg, +2 Perception, +2 Survival) with Gale-Bottle Surge."
   },
   "bq_leeward_endless_flask": {
     id: "bq_leeward_endless_flask",

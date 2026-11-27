@@ -1,6 +1,6 @@
 {
-  "totalPasses": 51,
-  "totalItemsReworked": 510,
+  "totalPasses": 52,
+  "totalItemsReworked": 520,
   "history": [
     {
       "pass": 1,
@@ -817,6 +817,22 @@
         "vom_shield_missile_rev"
       ],
       "summary": "Reworked Fulminar Bracers, Shield of Missile Reversal, Rod of Blade Bending, Clockwork Spider Cloak, Root of the World Tree, Barracks Ring-Mage Band, Mithril Buckler, Beads of Contemplation (removed sourcebook tag), fixed Gale-Wing Fey Spear critRange, and polished Beacon Rock Fresnel Buckler."
+    },
+    {
+      "pass": 52,
+      "items": [
+        "vom_candied_axe",
+        "bk_esquire_s_rowels",
+        "bq_queens_desire_compass",
+        "bq_wrackwater_beacon_lens",
+        "vom_fab_assassins_chain",
+        "dragonfire_blade",
+        "nf_alchemy_jug_relic",
+        "ul_ruby_rivener_set",
+        "vom_fab_raurricks_axe",
+        "hunting_blade"
+      ],
+      "summary": "Reworked Fabled Assassin's Chain & Raurrick's Axe, Ignaroth's Dragonfire Blade (added legendary rarity), Malleon's Alchemical Vessel, Blood-Ruby Pendant of Radka, Candied Axe, Esquire's Rowels (removed sourcebook tag), Hunting Blade, and polished Storm-Glass Compass of Messori & Wrackwater Lighthouse Lens."
     }
   ],
   "itemPasses": {
@@ -1329,6 +1345,16 @@
     "mithril_buckler": 1,
     "vom_clockwork_spider_clk": 1,
     "vom_rod_blade_bending": 1,
-    "vom_shield_missile_rev": 1
+    "vom_shield_missile_rev": 1,
+    "vom_candied_axe": 1,
+    "bk_esquire_s_rowels": 1,
+    "bq_queens_desire_compass": 1,
+    "bq_wrackwater_beacon_lens": 1,
+    "vom_fab_assassins_chain": 1,
+    "dragonfire_blade": 1,
+    "nf_alchemy_jug_relic": 1,
+    "ul_ruby_rivener_set": 1,
+    "vom_fab_raurricks_axe": 1,
+    "hunting_blade": 1
   }
 }

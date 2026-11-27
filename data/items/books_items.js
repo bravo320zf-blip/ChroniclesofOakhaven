@@ -168,7 +168,28 @@ window.OAKHAVEN.registerItems({
     "ac": 1,
     "arcana": 2,
     "maxMp": 6,
-    "desc": "+1 AC, +2 Arcana, +6 Max MP (Tome of Heroes)"
+    "passives": {
+      "spellDmgBonus": 2,
+      "skillBonus": {
+        "Athletics": 2,
+        "Perception": 1
+      }
+    },
+    "activeAbility": {
+      "name": "Spur the Arcane",
+      "icon": "✨",
+      "charges": 2,
+      "mp": 1,
+      "ooc": true,
+      "evadeTurns": 2,
+      "selfBuffAtk": {
+        "atk": 3,
+        "turns": 2
+      },
+      "restoreMp": 3,
+      "desc": "2/Quest (1 MP): Click the silver rowels to surge forward — gain Evade (2t), +3 ATK (2t), and recover +3 MP!"
+    },
+    "desc": "Silver-spurred arcane rowels worn by spell-squired riders (+1 AC, +2 Arcana, +6 Max MP, +2 Spell Dmg, +2 Athletics, +1 Perception) with Spur the Arcane."
   },
   "bk_fletcher_s_retort_gloves": {
     "id": "bk_fletcher_s_retort_gloves",
