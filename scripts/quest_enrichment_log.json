@@ -1,5 +1,5 @@
 {
-  "totalPasses": 41,
+  "totalPasses": 42,
   "history": [
     {
       "pass": 1,
@@ -281,6 +281,13 @@
       "title": "Stormcaller's Tower",
       "file": "data/quests/books_quests_batch_001.js",
       "summary": "Expanded from 9 to 12 pages (fixed invalid Acrobatics skill to Athletics), adding rain-gutter Athletics infiltration (GUTTER_INFILTRATOR bypassing Entry Hall), Lower Maintenance Gallery rescue of captive weather-seer Warden Torin (Lockpicking/Athletics -> WARDEN_FREED +65 GP/+40 XP), Surge Room Torin shutdown & Detect Traps relay-bar sabotage (COILS_DRAINED +6 MP/+30 XP), Outer Storm-Balcony scouting (Firebolt / Perception -> EYE_OF_STORM), and Warden Torin's Valley Keep tribute (+90 GP/+50 XP/+20 HP)."
+    },
+    {
+      "pass": 42,
+      "questId": "bk_b18_tob3_perfidious_guru",
+      "title": "Redoubt of the Perfidious Guru",
+      "file": "data/quests/books_quests_batch_018.js",
+      "summary": "Expanded from 6 to 10 pages with Brimstone Censer unmasking (INCENSE_EXPOSED +20 XP), prayer-flag cliff Athletics flank (CLIFF_FLANK bypassing Terrace guards), Dormitory Cloister encounter with Acolyte Tenzin (Persuasion/Arcana -> TENZIN_TRUST +35 GP/+8 HP/+4 MP or MIRROR_FLAW), Sub-Floor Gallery Soul-Mirror sabotage (Detect Traps +45 GP/Firebolt -> MIRROR_CRACKED), and Tenzin's gratitude bonus (+50 GP/+35 XP/+5 MP)."
     }
   ],
   "questPasses": {
@@ -324,6 +331,7 @@
     "bk_b11_sc_1_ruins": 1,
     "bk_b19_returners_tower": 1,
     "bk_b8_ms_4_tomorrows": 1,
-    "bk_pt_10_stormcallers_tower": 1
+    "bk_pt_10_stormcallers_tower": 1,
+    "bk_b18_tob3_perfidious_guru": 1
   }
 }

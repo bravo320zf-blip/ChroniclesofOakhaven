@@ -4,7 +4,7 @@
    ============================================================ */
 window.OAKHAVEN.registerQuests({
   // ==========================================================
-  // 1. REDOUBT OF THE PERFIDIOUS GURU (6 PAGES • LV 5)
+  // 1. REDOUBT OF THE PERFIDIOUS GURU (10 PAGES • LV 5)
   // ==========================================================
   bk_b18_tob3_perfidious_guru: {
     id: "bk_b18_tob3_perfidious_guru",
@@ -15,57 +15,100 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Disillusioned Mountain Acolyte (Rusty Flagon Tavern)",
     summary: "Ascend to a secretive alpine sanctuary promising inner peace and soul-divination—uncovering the fiendish machinations of its elusive Lesser Infernal Tutor past Alpine Creepers and Cloudhoof Assassins!",
-    totalPages: 6,
+    totalPages: 10,
     pages: {
       1: {
         zone: "High Peaks • Sanctuary Trail",
         title: "False Enlightenment",
         safeRetreat: true,
-        text: "Pilgrims climb the misty cliffs seeking a celebrated guru said to read every visitor's soul—yet none who enter the inner redoubt return quite themselves! Clawed Alpine Creepers cling to the icy switchbacks below the temple gates.",
+        text: "Pilgrims climb the cloud-wrapped switchbacks seeking a celebrated guru said to read every visitor's soul—yet those who descend wear vacant smiles and hollow eyes. Sweet juniper incense drifts from copper censers along the cliff path, masking a faint tang of brimstone while pale Alpine Creepers cling to the icicles overhead.",
         choices: [
-          { t: "Spot the camouflaged Alpine Creepers and hidden brimstone censers along the cliff path!", badge: "Perception DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 2, fail: 2, passMsg: "You unmask the soothing incense as a devilish charm, keeping your mind sharp!", failMsg: "Leaping Cloudhoof Assassins drop from the misty spires onto the trail!" }, onPass: { cw: "INCENSE_EXPOSED" } },
-          { t: "March boldly up the stone steps to confront the sanctuary's master!", to: 2 }
+          { t: "Inspect the copper censers and spot the camouflaged Alpine Creepers along the cliff!", badge: "Spirit / Perception DC 13", check: { stat: "spirit", skill: "Perception", dc: 13, pass: 2, fail: 3, failDmg: 5, passMsg: "You unmask the soothing incense as a devilish charm and spot a back stair!", failMsg: "Claws rake from the frost (-5 HP) as Cloudhoof Assassins drop onto the terrace!" }, onPass: { cw: "INCENSE_EXPOSED" } },
+          { t: "Scale the sheer prayer-flag cliff to reach the sanctuary's rear cloister unseen!", badge: "Might / Athletics DC 13", check: { stat: "might", skill: "Athletics", dc: 13, pass: 4, fail: 3, failDmg: 6, passMsg: "You haul yourself over the snow-drifted parapet behind the guards!", failMsg: "Rime-slick slate gives way (-6 HP), tumbling you straight onto the main terrace!" }, onPass: { cw: "CLIFF_FLANK", xp: 25 } },
+          { t: "March boldly up the carved stone steps to confront the sanctuary's guards!", to: 3 }
         ]
       },
       2: {
-        zone: "Mountain Redoubt • Terrace of Clouds",
-        title: "Cloudhoof Assassins & Alpine Creepers",
-        text: "Silent, sure-footed Cloudhoof Assassins and frost-scaled Alpine Creepers bound across the prayer-terrace to silence nosy outsiders!",
-        enemy: { name: "Cloudhoof Assassins & Alpine Creepers", desc: "Swift alpine killers guarding the deceptive mountain sanctuary.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 155, gold: 85, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["INCENSE_EXPOSED"] },
+        zone: "Sanctuary Trail • Brimstone Censer",
+        title: "The Honeyed Glamour",
+        text: "Snuffing a brass censer in the snow, you scrape out a lump of crimson resin stamped with an infernal seal—a mind-clouding charm meant to dull pilgrims' wills before they ever reach the Meditation Hall. Tying a damp scarf over your mouth, you spot both the front prayer-terrace and a narrow servant's stair leading toward the novices' cloister.",
+        onEnter: { xp: 20, msg: "Unmasked the fiendish incense (+20 XP)!" },
         choices: [
-          { t: "Kick open the gilded doors of the Meditation Hall to unmask the Guru!", to: 3 }
+          { t: "Slip quietly up the servant's stair toward the Dormitory Cloister.", to: 4 },
+          { t: "Advance onto the Terrace of Clouds to clear out the outer guards.", to: 3 }
         ]
       },
       3: {
-        zone: "Meditation Hall • Soul-Mirror",
-        title: "The Perfidious Guru",
-        text: "Shedding his serene mortal illusion in a burst of sulfur, the Lesser Infernal Tutor unfolds barbed wings beside a soul-trapping mirror: 'Your devotion is mine—sign in ash!'",
-        enemy: { name: "Lesser Infernal Tutor", desc: "Fiendish deceiver harvesting seekers' souls atop the mountain.", hp: 58, ac: 15, atk: 7, dmg: 8, xp: 215, gold: 145, items: ["bq_guru_prayer_beads"], weakCw: ["INCENSE_EXPOSED"] },
+        zone: "Mountain Redoubt • Terrace of Clouds",
+        title: "Cloudhoof Assassins & Alpine Creepers",
+        text: "Prayer flags snap in the freezing gale as silent, sure-footed Cloudhoof Assassins drop from the eaves alongside frost-scaled Alpine Creepers, steel gleaming to silence nosy outsiders!",
+        enemy: { name: "Cloudhoof Assassins & Alpine Creepers", desc: "Swift alpine killers guarding the deceptive mountain sanctuary.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 155, gold: 85, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["INCENSE_EXPOSED"] },
         choices: [
-          { t: "Shatter the soul-mirror and free the entranced pilgrims!", to: 4 }
+          { t: "Investigate the quiet Dormitory Cloister beside the terrace before facing the Guru.", to: 4 },
+          { t: "Kick open the gilded doors straight into the Meditation Hall!", to: 7 }
         ]
       },
       4: {
-        zone: "Sanctuary Courtyard • Clear Sky",
-        title: "Awakened Seekers",
-        text: "Freed from the fiend's honeyed glamour, the grateful pilgrims pool their travel silver and share alpine tea.",
-        onEnter: { healHp: 12, msg: "Pure mountain springwater restores your vigor (+12 HP)!" },
+        zone: "Dormitory Cloister • Novice's Cell",
+        title: "Acolyte Tenzin's Ledger",
+        text: "Behind a sliding cedar screen kneels Acolyte Tenzin, a young novice who stopped breathing the sanctuary's sweet smoke just in time. He clutches a leather Soul-Ledger listing twelve entranced pilgrims—and points toward a crawlspace running beneath the Meditation Hall's grand soul-mirror.",
         choices: [
-          { t: "Lead the pilgrims safely down the pass.", to: 5 }
+          { t: "Reassure Tenzin and ask how to weaken the Guru's soul-mirror before the duel.", badge: "Spirit / Persuasion DC 13", check: { stat: "spirit", skill: "Persuasion", dc: 13, pass: 5, fail: 7, passMsg: "Tenzin trusts you—handing you 35 GP, warm tea (+8 HP, +4 MP), and the latch to the mirror crawlspace!", failMsg: "Footsteps echo down the hall; Tenzin bolts for cover, leaving you to face the Guru directly!" }, onPass: { cw: "TENZIN_TRUST", xp: 25, gold: 35, hp: 8, mp: 4 } },
+          { t: "Study the infernal binding-glyphs scribbled in the margins of Tenzin's ledger.", badge: "Arcana / Arcana DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 5, fail: 7, passMsg: "You trace the mirror's resonance-seam straight to the crawlspace beneath the dais!", failMsg: "The cramped infernal script blurs before footsteps force you toward the Meditation Hall." }, onPass: { cw: "MIRROR_FLAW", xp: 25 } },
+          { t: "Tell Tenzin to stay hidden and stride straight to the Meditation Hall doors.", to: 7 }
         ]
       },
       5: {
-        zone: "Alpine Switchbacks",
-        title: "True Peace",
-        text: "The false guru's redoubt stands empty beneath clean snow.",
+        zone: "Sub-Floor Gallery • The Silvered Backing",
+        title: "Cracking the Soul-Mirror",
+        text: "Crawling beneath the cedar floorbeams, you reach the tarnished silver backing of the Guru's grand soul-mirror. Pulsing veins of crimson sulfur snake through brass pins bolted into the frame, feeding his serene mortal disguise above!",
         choices: [
-          { t: "Complete the adventure!", to: 6 }
+          { t: "Pry loose the brass sulfur-focusing pins without tripping the fiendish ward!", badge: "Agility / Detect Traps DC 13", check: { stat: "agility", skill: "Detect Traps", dc: 13, pass: 6, fail: 7, failDmg: 6, passMsg: "You slip the brass pins free and pocket 45 GP in pure silver mirror-filigree!", failMsg: "Brimstone sparks sear your palm (-6 HP), alerting the Guru overhead!" }, onPass: { cw: "MIRROR_CRACKED", gold: 45, xp: 30 } },
+          { t: "Scorch the sulfur-veined mirror backing with a quick burst of Firebolt!", reqSpell: "Firebolt", to: 6 },
+          { t: "Leave the warded frame alone and slip up to the Meditation Hall doors.", to: 7 }
         ]
       },
       6: {
-        zone: "Epilogue",
+        zone: "Meditation Hall • Cracked Reflection",
+        title: "Glamour Unraveled",
+        text: "A hairline fracture spiderwebs across the great soul-mirror above as acrid smoke hisses from the seam! The Guru's serene illusion flickers violently—stripping away his fiendish ward before the clash even begins.",
+        onEnter: { cw: "MIRROR_CRACKED", xp: 25, msg: "Soul-Mirror cracked (MIRROR_CRACKED, +25 XP)!" },
+        choices: [
+          { t: "Throw open the gilded doors and unmask the Perfidious Guru!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Meditation Hall • Soul-Mirror",
+        title: "The Perfidious Guru",
+        text: "Shedding his serene mortal illusion in a burst of sulfur, the Lesser Infernal Tutor unfolds barbed wings beside the towering soul-trapping mirror: 'Your devotion is mine—sign in ash!'",
+        enemy: { name: "Lesser Infernal Tutor", desc: "Fiendish deceiver harvesting seekers' souls atop the mountain.", hp: 58, ac: 15, atk: 7, dmg: 8, xp: 215, gold: 145, items: ["bq_guru_prayer_beads"], weakCw: ["INCENSE_EXPOSED", "MIRROR_CRACKED", "CLIFF_FLANK"] },
+        choices: [
+          { t: "Shatter the soul-mirror completely and free the entranced pilgrims!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Sanctuary Courtyard • Clear Sky",
+        title: "Awakened Seekers",
+        text: "Silver shards rain across the flagstones as twelve dazed pilgrims blink awake in the crisp alpine air. Freed from the fiend's honeyed glamour, they gather around the spring-fed basin, pouring steaming mountain tea and pooling their rescued travel silver.",
+        onEnter: { healHp: 12, msg: "Pure mountain springwater restores your vigor (+12 HP)!" },
+        choices: [
+          { t: "Meet Acolyte Tenzin by the bell-arch before leading the pilgrims down.", reqCw: "TENZIN_TRUST", to: 9 },
+          { t: "Lead the awakened pilgrims safely down the snowy pass toward Oakhaven.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Sanctuary Courtyard • Tenzin's Gratitude",
+        title: "True Enlightenment",
+        text: "Acolyte Tenzin bows deeply beneath the prayer-bell, pressing a velvet pouch of hidden temple silver and a crisp vial of alpine tonic into your pack. 'You saved more than our lives today—you gave us back our own minds.'",
+        onEnter: { gold: 50, xp: 35, mp: 5, msg: "Acolyte Tenzin's gratitude grants +50 GP, +35 XP, and +5 MP!" },
+        choices: [
+          { t: "Escort the pilgrims down the sunlit switchbacks toward Oakhaven.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "Alpine Switchbacks • Epilogue",
         title: "Unmasker of the Perfidious Guru",
-        text: "You banished the Infernal Tutor and freed the mountain sanctuary's pilgrims!",
+        text: "Behind you, the false guru's redoubt stands quiet beneath clean snow as mountain wind scatters the last trace of brimstone. Back at the Rusty Flagon, the disillusioned acolyte raises a mug in your honor as word spreads of the fiend you cast from the high peaks.",
         ending: { type: "true", title: "Breaker of the False Redoubt", xp: 250, gold: 240, trophy: "Shattered Soul-Mirror Shard" },
         choices: []
       }
