@@ -380,9 +380,73 @@ def collect_quest_jobs(data, quest_ids):
     return jobs
 
 
+def collect_outskirts_jobs():
+    """Extract every unique Outskirts encounter page text across all 3 zones & materials."""
+    node_code = r"""
+const fs = require('fs'), vm = require('vm');
+const ITEMS = {};
+const sb = { window: {} };
+sb.window = sb;
+sb.OAKHAVEN = {
+  registerItems(o) { Object.assign(ITEMS, o); },
+  registerShops() {},
+  registerRecipes() {}
+};
+vm.runInNewContext(fs.readFileSync('data/items/core_items.js', 'utf8'), sb);
+const eng = fs.readFileSync('js/engine.js', 'utf8');
+const zM = eng.match(/const WILDERNESS_ZONES = \[[\s\S]*?\n    \];/);
+const bStart = eng.indexOf('const encounterBuilders = [');
+const bEnd = eng.indexOf('return encounterBuilders[', bStart);
+const bCode = eng.slice(bStart, bEnd);
+const fn = new Function('ITEMS_DB', 'rollRandomLoot',
+  zM[0] + '\n' +
+  'const out = [];\n' +
+  'for (const zone of WILDERNESS_ZONES) {\n' +
+  '  for (const matId of zone.mats) {\n' +
+  '    const lv = 3, dc = 11, baseGold = 28, baseXp = 48, lootRarity = "common";\n' +
+  '    const matName = ITEMS_DB[matId]?.name || "Wild Herbs";\n' +
+  '    const altMatId = zone.mats.find(m => m !== matId) || matId;\n' +
+  '    const altMatName = ITEMS_DB[altMatId]?.name || matName;\n' +
+  bCode + '\n' +
+  '    encounterBuilders.forEach((b, bi) => {\n' +
+  '      const e = b();\n' +
+  '      if (e && e.pages) {\n' +
+  '        for (const [pn, pg] of Object.entries(e.pages)) {\n' +
+  '          if (pg && pg.text) out.push({ zone: zone.id, bi: bi + 1, pn, text: pg.text });\n' +
+  '        }\n' +
+  '      }\n' +
+  '    });\n' +
+  '  }\n' +
+  '}\n' +
+  'return out;'
+);
+console.log(JSON.stringify(fn(ITEMS, () => [])));
+"""
+    res = subprocess.run(
+        ["node", "-e", node_code],
+        cwd=str(ROOT),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        check=True,
+    )
+    entries = json.loads(res.stdout)
+    jobs = []
+    for e in entries:
+        txt = clean_text(e.get("text", ""))
+        if not txt:
+            continue
+        h = fnv1a_32(txt)
+        key = f"{QUEST_NARRATOR_VOICE}|{h}"
+        rel = f"audio/voices/outskirts/{e['zone']}_e{e['bi']}_p{e['pn']}_{h}.mp3"
+        jobs.append((key, rel, txt, QUEST_NARRATOR_VOICE, QUEST_NARRATOR_SPEED))
+    return jobs
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--town", action="store_true", help="Generate all Oakhaven town NPC & tavern voices")
+    ap.add_argument("--outskirts", action="store_true", help="Generate all Outskirts random encounter voices across all zones")
     ap.add_argument("--enriched", action="store_true", help="Generate all core + enriched quests")
     ap.add_argument("--all-quests", action="store_true", help="Generate all 325 quests in data/quests/*.js")
     ap.add_argument("--quests", type=str, default="", help="Comma-separated quest IDs to generate")
@@ -390,7 +454,7 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="Optional cap on newly generated clips this run")
     args = ap.parse_args()
 
-    if not args.town and not args.enriched and not args.all_quests and not args.quests:
+    if not args.town and not args.outskirts and not args.enriched and not args.all_quests and not args.quests:
         ap.print_help()
         return
 
@@ -401,6 +465,8 @@ def main():
     jobs = []
     if args.town:
         jobs.extend(collect_town_jobs(data))
+    if args.outskirts:
+        jobs.extend(collect_outskirts_jobs())
 
     quest_ids = []
     if args.all_quests:
