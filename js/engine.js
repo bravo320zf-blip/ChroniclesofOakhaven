@@ -2220,7 +2220,8 @@
         `A traveling lutist plucks a quiet frontier ballad as rain patters softly against the Rusty Flagon's leaded windows.`,
         `Sparks snap up the stone chimney while a hooded mapmaker traces charcoal lines across a stained frontier chart.`,
         `A silver-haired cartographer taps a cracked brass compass: "The ley-winds shift every new moon—even old frontier trails hide fresh surprises."`,
-        `A lantern-maker wipes soot from his spectacles: "Strange bells have been chiming out over the Old Abbey Moorlands—even when there's not a breath of wind."`
+        `A lantern-maker wipes soot from his spectacles: "Strange bells have been chiming out over the Old Abbey Moorlands—even when there's not a breath of wind."`,
+        `An apothecary's runner shakes pine-needles from her cloak: "Fresh silver-dew brambles bloomed along the outskirts this morning—watch for tuskers if you go foraging!"`
       ];
       if (state.hardcore) {
         pool.push(`A scarred sellsword raises a pewter mug in your direction: "Hardcore blood, eh? One slip beyond the palisade and it's curtains — drink deep while you still draw breath!"`);
@@ -2248,6 +2249,12 @@
       }
       if (done.whispering_mines) {
         pool.push(`Foreman Durn laughs beside the hearth: "No more singing quartz keeping my miners awake at night—drinks are on the salt-guild whenever you're in town!"`);
+      }
+      if (done.wyrm_ridge) {
+        pool.push(`A grizzled mountaineer raises his horn of mead toward you: "Clear skies over Wyrm Ridge at last—the mountain shepherds swear the wind itself sings your name!"`);
+      }
+      if (done.sunken_lighthouse) {
+        pool.push(`A coastal pilot claps his mug against the bar: "With the Sunken Lighthouse beacon burning steady again, not a single cargo skiff has kissed the reef!"`);
       }
       if ((state.level || 1) >= 7) {
         pool.push(`A hush falls near the hearth as younger sellswords study your scarred gear—word of a frontier legend travels fast in Oakhaven.`);
@@ -2277,11 +2284,13 @@
       if (shopKey === "apothecary") {
         if (state.hp < d.maxHp) return `"Mercy, you've got fresh road-scrapes on you! Stock up on tonics before those bruises stiffen up."`;
         if (done.gloomfen) return `"Ever since you cleared Gloomfen Bog, my runners bring in the cleanest marsh-lotus petals I've seen in twenty years!"`;
+        if (done.sunken_lighthouse) return `"The coastal traders brought fresh sea-kelp and salt-tonic straight past the relit lighthouse—step up and sample the new brews!"`;
         if (done.thornwood_part1) return `"Since you pushed back the Thornwood blight, my herb-pickers finally return with full baskets!"`;
         if ((state.skills || []).includes("Herbalism")) return `"Ah, a fellow hand with roots and poultices! Smell that fresh glowcap tincture — finest batch all season."`;
       }
       if (shopKey === "curios") {
         if (done.crimson_spire) return `"The astral tides have calmed since your venture to the Crimson Spire — my brass astrolabe finally spins true again."`;
+        if (done.wyrm_ridge) return `"Ash-glass from Wyrm Ridge? My shelves have been humming ever since you bested that wyrm—come inspect my rarest talismans!"`;
         if (done.whispering_mines) return `"That crystal shard you brought up from the Whispering Salt-Mines still hums softly in my display case! Come see what else I've turned up."`;
         if ((state.arcana || 0) >= 4 || (state.spells || []).length >= 3) return `"A bright arcane resonance follows you in today! Step close — half these charms only wake for a true spellcaster."`;
         if ((d.s?.luck || 0) >= 6) return `"Curious... the silver pendulum behind my counter swings toward you. Fortune favors your steps today, traveler!"`;
