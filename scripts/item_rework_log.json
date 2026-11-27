@@ -1,6 +1,6 @@
 {
-  "totalPasses": 52,
-  "totalItemsReworked": 520,
+  "totalPasses": 53,
+  "totalItemsReworked": 530,
   "history": [
     {
       "pass": 1,
@@ -833,6 +833,22 @@
         "hunting_blade"
       ],
       "summary": "Reworked Fabled Assassin's Chain & Raurrick's Axe, Ignaroth's Dragonfire Blade (added legendary rarity), Malleon's Alchemical Vessel, Blood-Ruby Pendant of Radka, Candied Axe, Esquire's Rowels (removed sourcebook tag), Hunting Blade, and polished Storm-Glass Compass of Messori & Wrackwater Lighthouse Lens."
+    },
+    {
+      "pass": 53,
+      "items": [
+        "bq_nichenevin_spark_wand",
+        "vom_swolbold_wraps",
+        "vom_forgefire_hammer",
+        "vom_gliding_cloak",
+        "bq_quolo_sea_witch_blade",
+        "nf_murian_grim_dagger",
+        "bq_horseshoe_oasis_spear",
+        "amber_aegis",
+        "vom_pistol_umbral",
+        "vom_staff_desolation"
+      ],
+      "summary": "Reworked Staff of Desolation, Pistol of the Umbral Court, Scorpion-Bane Oasis Spear, Forgefire Hammer, Swolbold Wraps, Gliding Cloak, Murian's Grim Wyrm-Dagger, Resin-Forged Aegis (added rare rarity), and polished Sea Witch's Blade & Nichenevin Chaos-Spark Wand."
     }
   ],
   "itemPasses": {
@@ -1355,6 +1371,16 @@
     "nf_alchemy_jug_relic": 1,
     "ul_ruby_rivener_set": 1,
     "vom_fab_raurricks_axe": 1,
-    "hunting_blade": 1
+    "hunting_blade": 1,
+    "bq_nichenevin_spark_wand": 1,
+    "vom_swolbold_wraps": 1,
+    "vom_forgefire_hammer": 1,
+    "vom_gliding_cloak": 1,
+    "bq_quolo_sea_witch_blade": 1,
+    "nf_murian_grim_dagger": 1,
+    "bq_horseshoe_oasis_spear": 1,
+    "amber_aegis": 1,
+    "vom_pistol_umbral": 1,
+    "vom_staff_desolation": 1
   }
 }

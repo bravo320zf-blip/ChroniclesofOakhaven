@@ -1139,7 +1139,9 @@ window.OAKHAVEN.registerItems({
     source: "Tome of Beasts 2 Lairs",
     atk: 5,
     agility: 2,
-    desc: "+5 Attack, +2 Agility. Balanced desert javelin-spear won at Horseshoe Rock Oasis."
+    passives: { critRange: 10, bossDmgBonus: 4, skillBonus: { Survival: 3, Perception: 2 } },
+    activeAbility: { name: "Oasis Viper-Thrust", icon: "🦂", charges: 2, mp: 1, dmgDice: "3d8", dmgStat: "agility", dmgType: "poison", dot: { dmg: 5, turns: 3, label: "Scorpion Venom" }, evadeTurns: 2, desc: "2/Quest (1 MP): Lunge with the desert spear for 3d8 + Agility poison dmg, Scorpion Venom (5/t, 3t), and Evade (2t)!" },
+    desc: "Balanced desert javelin-spear won at Horseshoe Rock Oasis (+5 Attack, +2 Agility, Crit 10+, +4 vs Bosses, +3 Survival, +2 Perception) with Oasis Viper-Thrust."
   }
 });
 
@@ -2946,9 +2948,9 @@ window.OAKHAVEN.registerItems({
     atk: 3,
     arcana: 2,
     agility: 1,
-    passives: { spellDmgBonus: 2, critRange: 11 },
-    activeAbility: { name: "Tidal Hex-Slash", icon: "🌊", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "frost", chillTurns: 2, desc: "2/Quest (2 MP): Slash with salt-cursed steel for 2d8 + Arcana cold dmg and Chill (2t)!" },
-    desc: "Coral-hilted curved blade recovered from Dawnshore's sea-cellar (+2 Spell Dmg, +Crit) with Tidal Hex-Slash."
+    passives: { spellDmgBonus: 3, critRange: 11, lifesteal: 2, skillBonus: { Arcana: 2 } },
+    activeAbility: { name: "Tidal Hex-Slash", icon: "🌊", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "cold", chillTurns: 2, dot: { dmg: 4, turns: 2, label: "Salt-Curse" }, desc: "2/Quest (2 MP): Slash with salt-cursed steel for 2d8 + Arcana cold dmg, Salt-Curse (4/t, 2t), and Chill (2t)!" },
+    desc: "Coral-hilted curved blade recovered from Dawnshore's sea-cellar (+3 Attack, +2 Arcana, +1 Agility, +3 Spell Dmg, Crit 11+, Lifesteal 2, +2 Arcana) with Tidal Hex-Slash."
   },
   "bq_virtuoso_tuning_baton": {
     id: "bq_virtuoso_tuning_baton",
@@ -3294,9 +3296,9 @@ window.OAKHAVEN.registerItems({
     atk: 1,
     arcana: 2,
     luck: 2,
-    passives: { critRange: 11, goldFindPct: 15, bombDmgBonus: 3 },
-    activeAbility: { name: "Goblin Scrap-Burst", icon: "💥", charges: 3, dmgDice: "2d6", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, desc: "3/Quest: Fire erratic scrap-sparks for 2d6 + Arcana lightning dmg and Stun (1t)!" },
-    desc: "Copper-wired dust-goblin wand (+Crit, +15% Gold, +3 Bomb Dmg) with Goblin Scrap-Burst."
+    passives: { critRange: 11, goldFindPct: 15, bombDmgBonus: 4, spellDmgBonus: 2, skillBonus: { "Detect Traps": 2 } },
+    activeAbility: { name: "Goblin Scrap-Burst", icon: "💥", charges: 3, dmgDice: "2d6", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, restoreLuck: 1, desc: "3/Quest: Fire erratic scrap-sparks for 2d6 + Arcana lightning dmg, Stun (1t), and +1 Luck!" },
+    desc: "Copper-wired dust-goblin wand (+1 Attack, +2 Arcana, +2 Luck, Crit 11+, +15% Gold, +4 Bomb Dmg, +2 Spell Dmg, +2 Detect Traps) with Goblin Scrap-Burst."
   },
   "bq_tangleside_thorn_buckler": {
     id: "bq_tangleside_thorn_buckler",
