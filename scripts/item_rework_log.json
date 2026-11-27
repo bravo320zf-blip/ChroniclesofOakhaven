@@ -1,6 +1,6 @@
 {
-  "totalPasses": 60,
-  "totalItemsReworked": 600,
+  "totalPasses": 61,
+  "totalItemsReworked": 610,
   "history": [
     {
       "pass": 1,
@@ -961,6 +961,22 @@
         "vom_bleak_shinobi"
       ],
       "summary": "Milestone 600th item (80.4%)! Reworked Stormcaller's Winged Helm, Zaeriez's Lake-Pearl Strand, Ioun Stone: Granite, Blood-Soaked Hide, Umbral Chopper, Vile Razor, Vestments of the Bleak Shinobi, Crusader's Shield, and polished Cutting Quickling Razor & The Feaster's Silver Carving Knives."
+    },
+    {
+      "pass": 61,
+      "items": [
+        "nf_arkea_scimitar",
+        "bq_fleshwarper_storm_blade",
+        "bq_sovereign_circle_ring",
+        "ul_crimson_crown_pin",
+        "vom_spear_north",
+        "bq_maestro_whisper_mask",
+        "pirate_king_coat",
+        "vom_lightning_rod",
+        "vom_wave_chain_mail",
+        "bq_gorgo_artisan_hammer"
+      ],
+      "summary": "Reworked 3 Vault of Magic relics, 3 expansion uniques (adding missing rare rarity on pirate_king_coat), and 4 quest relics with thematic passives and active abilities."
     }
   ],
   "itemPasses": {
@@ -1563,6 +1579,16 @@
     "bq_feaster_carving_twin": 1,
     "bq_tempest_winged_helm": 1,
     "vom_crusader_shield": 1,
-    "vom_bleak_shinobi": 1
+    "vom_bleak_shinobi": 1,
+    "nf_arkea_scimitar": 1,
+    "bq_fleshwarper_storm_blade": 1,
+    "bq_sovereign_circle_ring": 1,
+    "ul_crimson_crown_pin": 1,
+    "vom_spear_north": 1,
+    "bq_maestro_whisper_mask": 1,
+    "pirate_king_coat": 1,
+    "vom_lightning_rod": 1,
+    "vom_wave_chain_mail": 1,
+    "bq_gorgo_artisan_hammer": 1
   }
 }

@@ -1640,7 +1640,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 2,
     spirit: 1,
-    desc: "+1 AC, +2 Arcana, +1 Spirit. Frost-etched signet of the old Winter Court."
+    passives: { spellDmgBonus: 4, spellCostReduce: 1, mpRegen: 1, skillBonus: { Arcana: 2, Persuasion: 3 } },
+    activeAbility: { name: "Winter Sovereign's Decree", icon: "❄️", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "cold", chillTurns: 3, shieldTurns: 2, desc: "2/Quest (2 MP): Invoke the Winter Court signet for 3d8 + Arcana cold dmg, Chill (3t), and Hoarfrost Ward (+3 AC, 2t)!" },
+    desc: "Frost-etched platinum signet of the old Winter Court (+1 AC, +2 Arcana, +1 Spirit, +4 Spell Dmg, -1 MP Cost, +1 MP/turn, +2 Arcana, +3 Persuasion) with Winter Sovereign's Decree."
   },
   "bq_urshaka_light_totem": {
     id: "bq_urshaka_light_totem",
@@ -1920,7 +1922,9 @@ window.OAKHAVEN.registerItems({
     atk: 6,
     might: 2,
     spirit: 1,
-    desc: "+6 Attack, +2 Might, +1 Spirit. Storm-blessed steel gifted by the freed Mavrite pilgrims."
+    passives: { critRange: 10, bossDmgBonus: 5, undeadDmgBonus: 4, skillBonus: { Athletics: 2 } },
+    activeAbility: { name: "Crucible Tempest-Cleave", icon: "⚡", charges: 2, mp: 2, dmgDice: "3d10", dmgStat: "might", dmgType: "lightning", stunTurns: 1, selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest (2 MP): Unleash storm-blessed steel for 3d10 + Might lightning dmg, Stun (1t), and +3 ATK (2t)!" },
+    desc: "Storm-blessed crucible greatsword gifted by freed Mavrite pilgrims (+6 Attack, +2 Might, +1 Spirit, Crit 10+, +5 vs Bosses, +4 vs Undead, +2 Athletics) with Crucible Tempest-Cleave."
   },
   "bq_ssileficus_carapace_plate": {
     id: "bq_ssileficus_carapace_plate",
@@ -2249,7 +2253,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 2,
     luck: 1,
-    desc: "+1 AC, +2 Arcana, +1 Luck. Extraplanar domino mask lifted from The Maestro's stage."
+    passives: { spellDmgBonus: 3, critRange: 11, skillBonus: { Stealth: 3, Persuasion: 3 } },
+    activeAbility: { name: "Curtain-Call Mirage", icon: "🎭", charges: 2, mp: 1, dmgDice: "2d8", dmgStat: "arcana", dmgType: "arcane", evadeTurns: 2, restoreLuck: 1, desc: "2/Quest (1 MP): Step behind a shimmering stage-illusion for 2d8 + Arcana dmg, Evade (2t), and +1 Luck!" },
+    desc: "Extraplanar domino mask lifted from The Maestro's stage (+1 AC, +2 Arcana, +1 Luck, +3 Spell Dmg, Crit 11+, +3 Stealth & Persuasion) with Curtain-Call Mirage."
   },
   "bq_bukofa_jade_totem": {
     id: "bq_bukofa_jade_totem",
@@ -2291,7 +2297,9 @@ window.OAKHAVEN.registerItems({
     value: 215,
     atk: 5,
     might: 2,
-    desc: "+5 Attack, +2 Might. Genuine runic forging-hammer seized from Spiteful Keep."
+    passives: { bossDmgBonus: 4, thornsDmg: 3, goldFindPct: 12, skillBonus: { Athletics: 2, "Detect Traps": 2 } },
+    activeAbility: { name: "Anvil-Ringing Smash", icon: "🔨", charges: 2, mp: 1, dmgDice: "3d6", dmgStat: "might", dmgType: "fire", stunTurns: 1, dot: { dmg: 4, turns: 3, label: "Forge-Ember" }, desc: "2/Quest (1 MP): Bring down the runic smith-hammer for 3d6 + Might fire dmg, Stun (1t), and Forge-Ember (4/t, 3t)!" },
+    desc: "Runic masterwork forging-hammer seized from Spiteful Keep (+5 Attack, +2 Might, +4 vs Bosses, 3 Fire Thorns, +12% Gold, +2 Athletics & Detect Traps) with Anvil-Ringing Smash."
   }
 });
 
