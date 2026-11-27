@@ -685,7 +685,9 @@ window.OAKHAVEN.registerItems({
     "value": 80,
     "atk": 3,
     "might": 1,
-    "desc": "+3 Attack, +1 Might (Blackpowder Scattergun • Tome of Heroes)"
+    "passives": { "bombDmgBonus": 3, "bossDmgBonus": 2 },
+    "activeAbility": { "name": "Bell-Muzzle Scatter", "icon": "💥", "charges": 2, "dmgDice": "2d8", "dmgStat": "might", "dmgType": "fire", "chillTurns": 1, "desc": "2/Quest: Blast a wide cone of black-powder shot for 2d8 + Might fire dmg and Chill (1t)!" },
+    "desc": "+3 Attack, +1 Might, +3 Bomb Dmg, +2 Boss Dmg. Bell-muzzled black-powder scattergun granting Bell-Muzzle Scatter."
   },
   "bk_flintlock_pistol": {
     "id": "bk_flintlock_pistol",
@@ -898,7 +900,9 @@ window.OAKHAVEN.registerItems({
     "rarity": "uncommon",
     "value": 60,
     "atk": 3,
-    "desc": "+3 Attack Hand-and-a-Half Blade (Tome of Heroes)"
+    "passives": { "critRange": 19, "skillBonus": { "Athletics": 1 } },
+    "activeAbility": { "name": "Two-Handed Pommel Smash", "icon": "⚔️", "charges": 2, "dmgDice": "2d6", "dmgStat": "might", "dmgType": "slashing", "stunTurns": 1, "desc": "2/Quest: Grip the long hilt with both hands for 2d6 + Might slashing dmg and Stun (1t)!" },
+    "desc": "+3 Attack, Crit 19-20, +1 Athletics. Balanced hand-and-a-half steel blade granting Two-Handed Pommel Smash."
   },
   "bk_chakram": {
     "id": "bk_chakram",

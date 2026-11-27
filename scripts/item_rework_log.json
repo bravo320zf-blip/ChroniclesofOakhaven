@@ -1,6 +1,6 @@
 {
-  "totalPasses": 47,
-  "totalItemsReworked": 470,
+  "totalPasses": 48,
+  "totalItemsReworked": 480,
   "history": [
     {
       "pass": 1,
@@ -753,6 +753,22 @@
         "vom_ring_jarl"
       ],
       "summary": "Reworked Legendary Silver Spurs of the Lunar Knight, Void-Touched Buckler, Spear of the Stilled Heart, Blooddrinker Spear, Ring of the Jarl, Eternal Soulflame Candle, Elk Horn Rod & Cloak of Tentacles (removed sourcebook tags), Chainmail Hauberk, and polished Dawn-Glass Lantern of the Seven Steeds."
+    },
+    {
+      "pass": 48,
+      "items": [
+        "bq_sanctum_obsidian_icon",
+        "vom_staff_lantern_bearer",
+        "vom_sickle_thorns",
+        "bk_blunderbuss",
+        "bq_amaranth_hearth_charm",
+        "apprentice_tome",
+        "bq_orb_of_rule_shard",
+        "vom_grim_escutcheon",
+        "bk_bastard_sword",
+        "vom_consuming_rod"
+      ],
+      "summary": "Reworked Legendary Signet of the Free City Charter, Consuming Rod, Silenced Obsidian Ward-Icon, Amaranth's Golden Hearth-Charm, Staff of the Lantern Bearer, Sickle of Thorns, Grim Escutcheon, Blunderbuss & Bastard Sword (removed sourcebook tags), and Apprentice Grimoire."
     }
   ],
   "itemPasses": {
@@ -1225,6 +1241,16 @@
     "bk_elk_horn_rod": 1,
     "bk_cloak_of_tentacles": 1,
     "ul_soulflame_candle": 1,
-    "vom_ring_jarl": 1
+    "vom_ring_jarl": 1,
+    "bq_sanctum_obsidian_icon": 1,
+    "vom_staff_lantern_bearer": 1,
+    "vom_sickle_thorns": 1,
+    "bk_blunderbuss": 1,
+    "bq_amaranth_hearth_charm": 1,
+    "apprentice_tome": 1,
+    "bq_orb_of_rule_shard": 1,
+    "vom_grim_escutcheon": 1,
+    "bk_bastard_sword": 1,
+    "vom_consuming_rod": 1
   }
 }

@@ -596,7 +596,9 @@ window.OAKHAVEN.registerItems({
     spirit: 2,
     arcana: 2,
     maxHp: 8,
-    desc: "+3 AC, +2 Spirit, +2 Arcana, +8 Max HP. Royal seal affirming Zobeck's freedom from the Shadow Courts."
+    passives: { dmgReduce: 3, spellDmgBonus: 4, healBonus: 4, mpRegen: 2, skillBonus: { Persuasion: 3 } },
+    activeAbility: { name: "Sovereign Charter Decree", icon: "👑", charges: 2, mp: 3, dmgDice: "4d8", dmgStat: "spirit", dmgType: "radiant", shieldTurns: 3, selfBuffAtk: { atk: 4, turns: 3 }, desc: "2/Quest (3 MP): Raise the Free City's royal seal for 4d8 + Spirit radiant dmg, Shield (3t), and +4 Attack (3t)!" },
+    desc: "+3 AC, +2 Spirit, +2 Arcana, +8 Max HP, -3 Dmg Taken, +4 Spell & Heal, +2 MP/turn, +3 Persuasion. Royal seal of Zobeck's freedom with Sovereign Charter Decree."
   },
   "bq_freejus_ember_orb": {
     id: "bq_freejus_ember_orb",
@@ -1703,7 +1705,9 @@ window.OAKHAVEN.registerItems({
     arcana: 2,
     spirit: 1,
     maxMp: 4,
-    desc: "+2 Arcana, +1 Spirit, +4 Max MP. Quieted basalt charm taken from the buried Sanctum."
+    passives: { spellDmgBonus: 3, dmgReduce: 2, mpRegen: 1 },
+    activeAbility: { name: "Obsidian Null-Pulse", icon: "🗿", charges: 2, mp: 2, dmgDice: "2d8", dmgStat: "arcana", dmgType: "force", shieldTurns: 2, desc: "2/Quest (2 MP): Pulse quieted basalt wards for 2d8 + Arcana force dmg and Shield (2t)!" },
+    desc: "+2 Arcana, +1 Spirit, +4 Max MP, +3 Spell Dmg, -2 Dmg Taken, +1 MP/turn. Quieted basalt charm from the buried Sanctum with Obsidian Null-Pulse."
   },
   "bq_anax_star_scroll_case": {
     id: "bq_anax_star_scroll_case",
@@ -2178,7 +2182,9 @@ window.OAKHAVEN.registerItems({
     value: 155,
     spirit: 2,
     maxHp: 6,
-    desc: "+2 Spirit, +6 Max HP. Warm cinnamon-scented draconic charm gifted by Amaranth the Bakery Drake."
+    passives: { healBonus: 3, goldFindPct: 12, skillBonus: { Persuasion: 2 } },
+    activeAbility: { name: "Cinnamon Drake-Warmth", icon: "🥐", charges: 2, ooc: true, healDice: "2d8", healStat: "spirit", restoreMp: 4, selfBuffAtk: { atk: 3, turns: 2 }, desc: "2/Quest: Breathe Amaranth's warm bakery-flame to restore 2d8 + Spirit HP, +4 MP, and +3 Attack (2t)!" },
+    desc: "+2 Spirit, +6 Max HP, +3 Heal, +12% Gold, +2 Persuasion. Cinnamon-scented draconic charm gifted by Amaranth with Cinnamon Drake-Warmth."
   },
   "bq_conductor_ivory_baton": {
     id: "bq_conductor_ivory_baton",
