@@ -148,7 +148,9 @@ window.OAKHAVEN.registerItems({
     ac: 4,
     might: 2,
     arcana: 1,
-    desc: "+4 AC, +2 Might, +1 Arcana. Gold-chased tempest helm humming with mountain lightning."
+    passives: { dmgReduce: 3, thornsDmg: 4, spellDmgBonus: 3, bossDmgBonus: 4, skillBonus: { Athletics: 2, Perception: 2 } },
+    activeAbility: { name: "Thunderhead Crown-Bolt", icon: "⚡", charges: 2, mp: 2, dmgDice: "3d8", dmgStat: "arcana", dmgType: "lightning", stunTurns: 1, shieldTurns: 3, desc: "2/Quest (2 MP): Call mountain lightning from the winged helm for 3d8 + Arcana lightning dmg, Stun (1t), and +3 AC Ward (3t)!" },
+    desc: "Gold-chased tempest helm humming with mountain lightning (+4 AC, +2 Might, +1 Arcana, -3 Dmg Taken, 4 Lightning Thorns, +3 Spell Dmg, +4 vs Bosses, +2 Athletics, +2 Perception) with Thunderhead Crown-Bolt."
   }
 });
 
@@ -373,7 +375,9 @@ window.OAKHAVEN.registerItems({
     ac: 1,
     arcana: 2,
     spirit: 2,
-    desc: "+1 AC, +2 Arcana, +2 Spirit. Enchanted lake pearls taken from the corrupted Alchemists' Guildhall."
+    passives: { spellDmgBonus: 4, healBonus: 4, mpRegen: 1, skillBonus: { Persuasion: 3, Herbalism: 2 } },
+    activeAbility: { name: "Rusalka's Moon-Tide", icon: "🫧", charges: 2, mp: 2, ooc: true, healDice: "3d6", healStat: "spirit", dmgDice: "2d8", dmgStat: "arcana", dmgType: "cold", chillTurns: 3, desc: "2/Quest (2 MP): Invoke enchanted lake-pearls — mend 3d6 + Spirit HP, wash foes in 2d8 + Arcana cold dmg, and Chill (3t)!" },
+    desc: "Enchanted lake pearls taken from the corrupted Alchemists' Guildhall (+1 AC, +2 Arcana, +2 Spirit, +4 Spell Dmg, +4 Heal, +1 MP/turn, +3 Persuasion, +2 Herbalism) with Rusalka's Moon-Tide."
   },
   "bq_deep_ones_trident": {
     id: "bq_deep_ones_trident",
@@ -2865,9 +2869,9 @@ window.OAKHAVEN.registerItems({
     value: 175,
     atk: 4,
     agility: 2,
-    passives: { critRange: 11, lifesteal: 2, skillBonus: { Stealth: 2 } },
-    activeAbility: { name: "Ratfolk Twin-Carve", icon: "🔪", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "physical", multiStrike: 2, desc: "2/Quest: Flash twin silvered cellar blades for 2× (1d8 + Agility) swift strikes!" },
-    desc: "Twin silvered banquet knives seized in Per-Bastet's Old Cellar (+Crit, Lifesteal 2, +2 Stealth) with Ratfolk Twin-Carve."
+    passives: { critRange: 11, lifesteal: 2, undeadDmgBonus: 3, skillBonus: { Stealth: 2 } },
+    activeAbility: { name: "Ratfolk Twin-Carve", icon: "🔪", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "physical", multiStrike: 2, dot: { dmg: 3, turns: 2, label: "Silver Bleed" }, desc: "2/Quest: Flash twin silvered cellar blades for 2× (1d8 + Agility) swift strikes and Silver Bleed (3/t, 2t)!" },
+    desc: "Twin silvered banquet knives seized in Per-Bastet's Old Cellar (+4 Attack, +2 Agility, Crit 11+, Lifesteal 2, +3 vs Undead, +2 Stealth) with Ratfolk Twin-Carve."
   },
   "bq_cikavak_feather_charm": {
     id: "bq_cikavak_feather_charm",
@@ -3198,9 +3202,9 @@ window.OAKHAVEN.registerItems({
     value: 205,
     atk: 3,
     agility: 3,
-    passives: { critRange: 10, skillBonus: { Stealth: 2 } },
-    activeAbility: { name: "Blur of Blades", icon: "⚡", charges: 2, dmgDice: "1d8", dmgStat: "agility", dmgType: "physical", multiStrike: 2, evadeTurns: 1, desc: "2/Quest: Flash at quickling speed for 2 rapid strikes (1d8 + Agility each) and Evade (1t)!" },
-    desc: "Feather-light fey razor-dagger (Crit on 10+, +2 Stealth) with Blur of Blades."
+    passives: { critRange: 10, skillBonus: { Stealth: 2, Perception: 2 } },
+    activeAbility: { name: "Blur of Blades", icon: "⚡", charges: 2, dmgDice: "2d6", dmgStat: "agility", dmgType: "physical", multiStrike: 2, evadeTurns: 2, desc: "2/Quest: Flash at quickling speed for 2× (2d6 + Agility) rapid strikes and Evade (2t)!" },
+    desc: "Feather-light fey razor-dagger (+3 Attack, +3 Agility, Crit 10+, +2 Stealth, +2 Perception) with Blur of Blades."
   },
   "bq_birch_queen_mantle": {
     id: "bq_birch_queen_mantle",

@@ -1,6 +1,6 @@
 {
-  "totalPasses": 59,
-  "totalItemsReworked": 590,
+  "totalPasses": 60,
+  "totalItemsReworked": 600,
   "history": [
     {
       "pass": 1,
@@ -945,6 +945,22 @@
         "sun_buckler"
       ],
       "summary": "Reworked Reef Splitter, Rowan Staff, Solanna Archive Keyblade, Randgrid's Spear-Maiden Torque, Serpent Staff, Ring of the Water Dancer, Bracelet Of The Fire Tender (removed sourcebook tag), Sun-Forged Buckler (added uncommon rarity), Shield of the Fallen, and polished Oban's Bottomless Tankard."
+    },
+    {
+      "pass": 60,
+      "items": [
+        "bq_rusalka_pearls",
+        "vom_blood_soaked_hide",
+        "vom_vile_razor",
+        "bq_quickling_razor_dagger",
+        "vom_umbral_chopper",
+        "vom_ioun_granite",
+        "bq_feaster_carving_twin",
+        "bq_tempest_winged_helm",
+        "vom_crusader_shield",
+        "vom_bleak_shinobi"
+      ],
+      "summary": "Milestone 600th item (80.4%)! Reworked Stormcaller's Winged Helm, Zaeriez's Lake-Pearl Strand, Ioun Stone: Granite, Blood-Soaked Hide, Umbral Chopper, Vile Razor, Vestments of the Bleak Shinobi, Crusader's Shield, and polished Cutting Quickling Razor & The Feaster's Silver Carving Knives."
     }
   ],
   "itemPasses": {
@@ -1537,6 +1553,16 @@
     "vom_shield_fallen": 1,
     "vom_ring_water_dancer": 1,
     "bq_solanna_keyblade": 1,
-    "sun_buckler": 1
+    "sun_buckler": 1,
+    "bq_rusalka_pearls": 1,
+    "vom_blood_soaked_hide": 1,
+    "vom_vile_razor": 1,
+    "bq_quickling_razor_dagger": 1,
+    "vom_umbral_chopper": 1,
+    "vom_ioun_granite": 1,
+    "bq_feaster_carving_twin": 1,
+    "bq_tempest_winged_helm": 1,
+    "vom_crusader_shield": 1,
+    "vom_bleak_shinobi": 1
   }
 }
