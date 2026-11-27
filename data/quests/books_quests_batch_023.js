@@ -24,7 +24,7 @@ window.OAKHAVEN.registerQuests({
         safeRetreat: true,
         text: "Salty sea-breezes blow across Dawnshore's piers as cheerful fisherfolk press warm mugs of cider into your hands and brag about Quolo, the 'legendary mage' in the southern tower. Yet a quiet hedge-healer pulls you aside: 'Every morning the village wakes with new memories of Quolo saving them—and every night I have to cast a ward just to keep my own mind clear.'",
         choices: [
-          { t: "Question the villagers gently to map out the contradictions in their memories.", badge: "Persuasion / Lore DC 13", check: { stat: "lore", skill: "Persuasion", dc: 13, pass: 2, fail: 3, passMsg: "You trace the nightly memory-pulses directly to a hidden cellar beneath Quolo's tower!", failMsg: "Enthusiastic townsfolk sweep you toward Quolo's celebratory beach-feast instead!" }, onPass: { cw: "MEMORY_PULSE_TRACED" } },
+          { t: "Question the villagers gently to map out the contradictions in their memories.", badge: "Persuasion / Spirit DC 13", check: { stat: "spirit", skill: "Persuasion", dc: 13, pass: 2, fail: 3, passMsg: "You trace the nightly memory-pulses directly to a hidden cellar beneath Quolo's tower!", failMsg: "Enthusiastic townsfolk sweep you toward Quolo's celebratory beach-feast instead!" }, onPass: { cw: "MEMORY_PULSE_TRACED" } },
           { t: "Slip along the rocky cliffs toward the base of Quolo's southern tower at dusk.", badge: "Stealth / Agility DC 13", check: { stat: "agility", skill: "Stealth", dc: 13, pass: 2, fail: 3, passMsg: "You slip past the singing revelers and pry open the tower's seaward cellar grate!", failMsg: "A drunken sentry spots you and rings the bell outside the tower gate!" }, onPass: { cw: "TOWER_INFILTRATED" } },
           { t: "March straight up to the tower's front steps and demand answers from Quolo.", to: 3 }
         ]
@@ -133,7 +133,7 @@ window.OAKHAVEN.registerQuests({
         title: "Echoes Beneath the Street",
         text: "Conte's letter reveals that Marko's aunt Giselle is trapped beneath an ancient resonant cavern—held captive by Salamondre, an immortal Virtuoso Lich who conducts an undead orchestra fueled by the Thrice-Cursed Heart!",
         choices: [
-          { t: "Scout the Sentinels' Chamber for hollow acoustic cracks to muffle the lich's aria.", badge: "Perception / Lore DC 14", check: { stat: "lore", skill: "Perception", dc: 14, pass: 4, fail: 4, passMsg: "You jam heavy drapery into the resonance vents—cutting the lich's sonic power!", failMsg: "Your footsteps ring like a bell down the marble nave!" }, onPass: { cw: "ACOUSTICS_MUFFLED" } },
+          { t: "Scout the Sentinels' Chamber for hollow acoustic cracks to muffle the lich's aria.", badge: "Perception / Spirit DC 14", check: { stat: "spirit", skill: "Perception", dc: 14, pass: 4, fail: 4, passMsg: "You jam heavy drapery into the resonance vents—cutting the lich's sonic power!", failMsg: "Your footsteps ring like a bell down the marble nave!" }, onPass: { cw: "ACOUSTICS_MUFFLED" } },
           { t: "Ransack the adherents' cells for silver relics and a way into the choir loft.", badge: "Lockpicking / Stealth DC 14", check: { stat: "agility", skill: "Lockpicking", dc: 14, pass: 4, fail: 4, passMsg: "You recover 70 GP in silver keepsakes and slip into the upper choir loft!", failMsg: "A rusted hinge shrieks—undead sentinels march from the shadows!" }, onPass: { cw: "CHOIR_FLANK", gold: 70 } }
         ]
       },
@@ -203,7 +203,7 @@ window.OAKHAVEN.registerQuests({
         safeRetreat: true,
         text: "Grand Baron Dymytros's courier presses a waxed writ into your hand: Khemma, the young cub of an honored bearfolk emissary, wandered off northwest of Bad Solitz! Along the terraced rows of a sun-warmed vineyard, you spot small, bear-like pawprints leading straight toward an old stone chateau.",
         choices: [
-          { t: "Track Khemma's pawprints carefully through the terraced grapevines.", badge: "Survival / Perception DC 12", check: { stat: "lore", skill: "Survival", dc: 12, pass: 2, fail: 3, passMsg: "You spot tiny derro boot-tracks overlapping Khemma's trail toward the cellar doors!", failMsg: "You lose the trail near the winepress—just as giggling silhouettes dart from the bushes!" }, onPass: { cw: "TRACKS_FOUND" } },
+          { t: "Track Khemma's pawprints carefully through the terraced grapevines.", badge: "Survival / Spirit DC 12", check: { stat: "spirit", skill: "Survival", dc: 12, pass: 2, fail: 3, passMsg: "You spot tiny derro boot-tracks overlapping Khemma's trail toward the cellar doors!", failMsg: "You lose the trail near the winepress—just as giggling silhouettes dart from the bushes!" }, onPass: { cw: "TRACKS_FOUND" } },
           { t: "Scout the vineyard chateau windows quietly before approaching.", badge: "Stealth / Agility DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 2, fail: 3, passMsg: "You hear gnomish vintners shouting for help from behind a hidden cellar wall!", failMsg: "A loose barrel rolls down the slope, alerting the cellar raiders!" }, onPass: { cw: "CELLAR_SCOUTED" } }
         ]
       },
@@ -389,7 +389,7 @@ window.OAKHAVEN.registerQuests({
         text: "Inside the cracked glass conservatory, glowing nectar-vials still pulse with pure Shrine-Tree sap—untainted by the Wastes' corruption!",
         onEnter: { healHp: 12, msg: "Pure Shrine-Tree dew restores +12 HP!" },
         choices: [
-          { t: "Mix an alchemical defoliant from the wizard's bench to weaken the briar-guardians.", badge: "Herbalism / Lore DC 13", check: { stat: "lore", skill: "Lore", dc: 13, pass: 4, fail: 4, passMsg: "You coat your gear with salt-ash defoliant—mutated plants recoil at your touch!", failMsg: "The reagent fizzes harmlessly as tendrils slither across the tiles!" }, onPass: { cw: "DEFOLIANT_READY" } },
+          { t: "Mix an alchemical defoliant from the wizard's bench to weaken the briar-guardians.", badge: "Herbalism / Arcana DC 13", check: { stat: "arcana", skill: "Herbalism", dc: 13, pass: 4, fail: 4, passMsg: "You coat your gear with salt-ash defoliant—mutated plants recoil at your touch!", failMsg: "The reagent fizzes harmlessly as tendrils slither across the tiles!" }, onPass: { cw: "DEFOLIANT_READY" } },
           { t: "Sprint straight down the terraced steps toward the glowing Shrine Tree!", to: 4 }
         ]
       },
@@ -676,7 +676,7 @@ window.OAKHAVEN.registerQuests({
         text: "Flyers across Lower Zobeck advertise trouble at the Broken Handle. Inside, tavernkeeper Vilmos wrings his apron: half his patrons are slumped in magical drunken comas, and cackling rum gremlins led by a wicked sprite named Flix are spoiling every keg! 'Only Oban Byrne—a clurichaun who wandered off to the old roadside ruins—knows how to banish Flix's aura!'",
         choices: [
           { t: "Chase off the pesky rum gremlins raiding Vilmos's cellar right now!", to: 2 },
-          { t: "Follow the trail of spilled stout straight out of town toward Oban's ruins!", badge: "Survival / Perception DC 12", check: { stat: "lore", skill: "Survival", dc: 12, pass: 3, fail: 2, passMsg: "You dodge the tavern brawl and arrive at Oban's moonlit ruin ahead of dusk!", failMsg: "Two giggling gremlins drop from the rafters right onto your shoulders!" }, onPass: { cw: "FAST_TRACK" } }
+          { t: "Follow the trail of spilled stout straight out of town toward Oban's ruins!", badge: "Survival / Spirit DC 12", check: { stat: "spirit", skill: "Survival", dc: 12, pass: 3, fail: 2, passMsg: "You dodge the tavern brawl and arrive at Oban's moonlit ruin ahead of dusk!", failMsg: "Two giggling gremlins drop from the rafters right onto your shoulders!" }, onPass: { cw: "FAST_TRACK" } }
         ]
       },
       2: {
@@ -850,7 +850,7 @@ window.OAKHAVEN.registerQuests({
         text: "Canvas tents snap outside Capleon where Zavrin Tavv's Pioneer company is trying to rebuild its reputation. Lieutenant Afenso Ayeshi eyes you sharply: 'Show your mettle in camp, recruit, and I've got a live scouting contract—an odd spired village that smells like Mharoti Dragon-Empire spies!'",
         choices: [
           { t: "Impress Lieutenant Ayeshi on the sparring ring and obstacle course!", badge: "Athletics / Strength DC 10", check: { stat: "might", skill: "Athletics", dc: 10, pass: 2, fail: 2, passMsg: "Ayeshi grins and issues you extra field rations and a map of the spire's blind spots!", failMsg: "You take a bruise on the spar-ring, though Ayeshi still signs your contract." }, onPass: { cw: "CAMP_FAVOR", healHp: 5 } },
-          { t: "Study Ayeshi's border-intelligence charts for Mharoti troop signals.", badge: "Lore / Perception DC 10", check: { stat: "lore", skill: "Lore", dc: 10, pass: 2, fail: 2, passMsg: "You memorize the Mharoti courier cipher before marching out!", failMsg: "The cipher is dense, so you pack your gear and head out with the squad." }, onPass: { cw: "CIPHER_KNOWN" } }
+          { t: "Study Ayeshi's border-intelligence charts for Mharoti troop signals.", badge: "Perception / Arcana DC 10", check: { stat: "arcana", skill: "Perception", dc: 10, pass: 2, fail: 2, passMsg: "You memorize the Mharoti courier cipher before marching out!", failMsg: "The cipher is dense, so you pack your gear and head out with the squad." }, onPass: { cw: "CIPHER_KNOWN" } }
         ]
       },
       2: {

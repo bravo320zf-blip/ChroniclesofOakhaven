@@ -66,7 +66,7 @@ window.OAKHAVEN.registerQuests({
         text: "Thick emerald foam hisses inside the copper trough, reeking of crushed fire-beetle glands and cave-salt. A torn bottle-label floating in the sawdust reveals the rage-brew breaks down instantly on contact with dry lime-ash!",
         onEnter: { healHp: 12, msg: "You grab a clean restorative tonic from Pit-Master Korrin's shed (+12 HP)!" },
         choices: [
-          { t: "Haul two buckets of dry lime-ash from the pit-shed to neutralize the mutagen!", badge: "Lore / Arcana DC 14", check: { stat: "lore", skill: "Arcana", dc: 14, pass: 6, fail: 6, passMsg: "You pack lime-ash charges ready to blind and calm the mutated Alpha Dogmole!", failMsg: "A cracked bucket spills across your boots—no time left, you sprint for the alley!" }, onPass: { cw: "NEUTRALIZER_READY" } },
+          { t: "Haul two buckets of dry lime-ash from the pit-shed to neutralize the mutagen!", badge: "Arcana DC 14", check: { stat: "arcana", skill: "Arcana", dc: 14, pass: 6, fail: 6, passMsg: "You pack lime-ash charges ready to blind and calm the mutated Alpha Dogmole!", failMsg: "A cracked bucket spills across your boots—no time left, you sprint for the alley!" }, onPass: { cw: "NEUTRALIZER_READY" } },
           { t: "Sprint straight out the back gate into Bleak Rock Alley!", to: 6 }
         ]
       },

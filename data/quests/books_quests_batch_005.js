@@ -1025,7 +1025,7 @@ window.OAKHAVEN.registerQuests({
         text: "Bitter smoke rises over the stilt-houses of Red Craw Village as angry crayfish-harvesters sharpen boar-spears—three fishermen and two trollkin scouts have turned up dead in the mist-choked fen! At the edge of the first cypress clearing, you kneel beside a fallen trollkin warrior and his gleaming rune-etched battleaxe: the wounds across his mail aren't human steel at all, but sizzling, corrosive hydra-acid!",
         choices: [
           { t: "Fold the fallen trollkin's hands over his battleaxe untouched and follow the acid-burned reeds!", to: 2, onChoose: { cw: "HONORED_TROLLKIN", msg: "You honored the fallen warrior's weapon—earning the Red Craw clan's respect!" } },
-          { t: "Examine the acidic scorch-marks and webbed clawprints to learn the predator's habits.", badge: "Survival / Lore DC 16", check: { stat: "lore", skill: "Survival", dc: 16, pass: 3, fail: 2, passMsg: "Five-headed hydra tracks—and you spot a dry cypress root-walk bypassing the cultists' ambush!", failMsg: "Sizzling marsh-gas stings your eyes, forcing you straight into the sunken fen!" }, onPass: { cw: "HYDRA_STUDIED" } },
+          { t: "Examine the acidic scorch-marks and webbed clawprints to learn the predator's habits.", badge: "Survival / Spirit DC 16", check: { stat: "spirit", skill: "Survival", dc: 16, pass: 3, fail: 2, passMsg: "Five-headed hydra tracks—and you spot a dry cypress root-walk bypassing the cultists' ambush!", failMsg: "Sizzling marsh-gas stings your eyes, forcing you straight into the sunken fen!" }, onPass: { cw: "HYDRA_STUDIED" } },
           { t: "Follow the massive webbed tracks straight into the sunken crayfish fen.", to: 2 }
         ]
       },
