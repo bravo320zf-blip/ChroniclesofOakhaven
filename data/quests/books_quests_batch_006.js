@@ -131,7 +131,7 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Hall of the Three Heroes",
         title: "Blessing of the Fallen",
-        text: "With the worms burned away, Hassan, Krythitas, and Tymande bow in solemn peace, sharpening your steel and pointing toward a foul tunnel burrowed beneath their altar: Petring is still alive inside the **Carrion Shrine of Qorgeth**!",
+        text: "With the worms burned away, Hassan, Krythitas, and Tymande bow in solemn peace, sharpening your steel and pointing toward a foul tunnel burrowed beneath their altar: Petring is still alive inside the Carrion Shrine of Qorgeth!",
         onEnter: { healHp: 14, msg: "The Three Heroes bless your resolve (+14 HP)!" },
         choices: [
           { t: "Descend toward the Carrion Shrine in Part 3!", to: 5 }
@@ -857,7 +857,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Sanctum of the Grimalkin",
         title: "The Grimalkin Idol",
-        text: "Upon a sandstone pedestal sits the uncanny **Grimalkin Idol**—a bloated smug-faced cat statue with a single empty, blood-stained eye socket! Rising in golden fury to defend the artifact is the High Keeper of the Sanctuary!",
+        text: "Upon a sandstone pedestal sits the uncanny Grimalkin Idol—a bloated smug-faced cat statue with a single empty, blood-stained eye socket! Rising in golden fury to defend the artifact is the High Keeper of the Sanctuary!",
         enemy: { name: "High Keeper of the Growling Sanctuary", desc: "Feline-masked immortal guardian of the Grimalkin Idol.", hp: 58, ac: 15, atk: 8, dmg: 8, undead: true, xp: 185, gold: 130, items: ["bq_grimalkin_idol"], weakCw: ["BASTET_RHYME"] },
         choices: [
           { t: "Secure the Grimalkin Idol and ascend the sand-shaft back to daylight!", to: 4 }

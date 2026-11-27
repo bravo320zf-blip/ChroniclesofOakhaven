@@ -660,7 +660,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Silk Scabbard • Upper Gallery",
         title: "Xazagra the Ripper",
-        text: "A hollow-eyed river captain splits open in a burst of sulfurous flame as the terrible devil **Xazagra** manifests in full infernal glory—claws dripping crimson hellfire!",
+        text: "A hollow-eyed river captain splits open in a burst of sulfurous flame as the terrible devil Xazagra manifests in full infernal glory—claws dripping crimson hellfire!",
         enemy: { name: "Xazagra, The Infernal Ripper", desc: "Sadistic devil possessing a river captain to bathe the city in blood.", hp: 96, ac: 17, atk: 11, dmg: 13, xp: 450, gold: 280, items: ["bq_xazagra_hell_blade"], weakCw: ["INFERNAL_TRACE"] },
         choices: [
           { t: "Banish Xazagra back to the Nine Hells and pull Tyron to safety!", to: 4 }
@@ -729,7 +729,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Necromantic Sanctum • Linnea's Bier",
         title: "Konrad the Necromancer",
-        text: "Beside a pale crystal sarcophagus holding the preserved spirit of Linnea, mad necromancer **Konrad** raises a staff of black bone! 'Flesh fails, Streck—only undeath is eternal!'",
+        text: "Beside a pale crystal sarcophagus holding the preserved spirit of Linnea, mad necromancer Konrad raises a staff of black bone! 'Flesh fails, Streck—only undeath is eternal!'",
         enemy: { name: "Konrad, Lord of Failing Flesh", desc: "Obsessed noble necromancer commanding an army of the dead.", hp: 108, ac: 17, atk: 12, dmg: 14, xp: 510, gold: 320, items: ["bq_konrad_soul_signet"], weakCw: ["GALA_RUSE"] },
         choices: [
           { t: "Shatter Konrad's bone staff, grant Linnea peaceful rest, and free Lord Streck!", to: 4 }

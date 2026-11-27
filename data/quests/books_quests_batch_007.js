@@ -321,7 +321,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Siwal • Grand Necropolis",
         title: "Secret of the Gravebinders",
         safeRetreat: true,
-        text: "Queen Urzula revealed that Archduke Avgost was taken to Duke Morreto Lichmark's Pure City of Vandekhul! Following dwarven counsel across a Shadow Road to desert Siwal, the secretive Gravebinders agree to teach you how to walk undetected among darakhul—if you first cleanse the restless **Catacombs of the Ghul King**!",
+        text: "Queen Urzula revealed that Archduke Avgost was taken to Duke Morreto Lichmark's Pure City of Vandekhul! Following dwarven counsel across a Shadow Road to desert Siwal, the secretive Gravebinders agree to teach you how to walk undetected among darakhul—if you first cleanse the restless Catacombs of the Ghul King!",
         choices: [
           { t: "Study the Gravebinders' funeral wards carefully before descending.", badge: "Arcana / Lore DC 14", check: { stat: "arcana", skill: "Lore", dc: 14, pass: 2, fail: 2, passMsg: "You master the Gravebinder incantation—undead guardians hesitate before you!", failMsg: "The desert script is dense, yet you press down into the crypt." }, onPass: { cw: "GRAVEBINDER_WARD" } },
           { t: "Descend immediately into the sandstone vaults of the Ghul King!", to: 2 }
@@ -348,7 +348,7 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Siwal • Hall of Gravebinders",
         title: "Passage to the Fuligin Realm",
-        text: "Honoring their pact, the Gravebinders anoint you with their undead-veiling rites and open the deep fissure descending into the **Fuligin Realm**—the lightless Underworld of the Ghoul Imperium!",
+        text: "Honoring their pact, the Gravebinders anoint you with their undead-veiling rites and open the deep fissure descending into the Fuligin Realm—the lightless Underworld of the Ghoul Imperium!",
         onEnter: { healHp: 18, msg: "Anointed by the Gravebinders (+18 HP) for the descent into the Underworld!" },
         choices: [
           { t: "Prepare for Chapter V: Into the Fuligin Realm!", to: 5 }
@@ -951,7 +951,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Vault of the Final Breath",
         title: "Lord of the Stifled Crypt",
-        text: "Guarding the glowing **Ampoule of Eternal Breath**—and the counterweight wheel that opens the tomb's roof—rises the ancient Breathless Pharaoh, wreathed in choking desert dust!",
+        text: "Guarding the glowing Ampoule of Eternal Breath—and the counterweight wheel that opens the tomb's roof—rises the ancient Breathless Pharaoh, wreathed in choking desert dust!",
         enemy: { name: "The Breathless Pharaoh", desc: "Ancient Southlands undead monarch draining air from his tomb.", hp: 64, ac: 15, atk: 8, dmg: 9, undead: true, xp: 210, gold: 150, items: ["bq_last_gasp_ampoule"], weakCw: ["BREATH_PACED"] },
         choices: [
           { t: "Uncork a breath of cool air from the Ampoule and haul open the roof counterweight!", to: 4 }

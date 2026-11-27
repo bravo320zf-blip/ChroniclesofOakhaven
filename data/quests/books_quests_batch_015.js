@@ -39,7 +39,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Espolmar Mine • The Chaos Sump",
         title: "The Tangleside Boss",
-        text: "Beside a shimmering fissure of raw wasteland magic, the scarred **Tangleside War-Boss** holds Hirschel and Nadia at axe-point: 'No one leaves Espolmar alive!'",
+        text: "Beside a shimmering fissure of raw wasteland magic, the scarred Tangleside War-Boss holds Hirschel and Nadia at axe-point: 'No one leaves Espolmar alive!'",
         enemy: { name: "Tangleside War-Boss", desc: "Chaos-touched raider chieftain wielding a jagged basalt greataxe.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 170, items: ["bq_espolmar_basalt_maul"], weakCw: ["ADIT_FLANK"] },
         choices: [
           { t: "Cut Hirschel and Nadia free and escort them back to the surface!", to: 4 }
@@ -108,7 +108,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Tower Peak • The Crystalline Sepulcher",
         title: "The Heart of Refracted Arcana",
-        text: "At the center of the blinding chamber floats a sentient **Prismatic Arch-Warden**, coalesced from a century of leaking Mage War artifacts!",
+        text: "At the center of the blinding chamber floats a sentient Prismatic Arch-Warden, coalesced from a century of leaking Mage War artifacts!",
         enemy: { name: "Prismatic Arch-Warden", desc: "Sentient crystalline entity commanding beams of pure refracted magic.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 310, gold: 195, items: ["bq_crystalline_prism_core"], weakCw: ["CRYSTAL_CHIME"] },
         choices: [
           { t: "Harvest the stabilized arcane relics from the quieted sepulcher!", to: 4 }
@@ -177,7 +177,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Maze Heart • Everstrife's Hoard",
         title: "The Hoard-Warden & Planar Drake",
-        text: "Everstrife may be gone, but the dragon left behind a ferocious **Wasteland Rift-Drake** and animated draconic wards guarding its glittering mounds of planar gold!",
+        text: "Everstrife may be gone, but the dragon left behind a ferocious Wasteland Rift-Drake and animated draconic wards guarding its glittering mounds of planar gold!",
         enemy: { name: "Everstrife's Rift-Drake Warden", desc: "Chaos-breathing drake sworn to guard the vanished dragon's hoard.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 315, gold: 205, items: ["bq_everstrife_portal_key"], weakCw: ["PORTAL_SHORTCUT"] },
         choices: [
           { t: "Stabilize the keystone portal and claim your share of the dragon's hoard!", to: 4 }
@@ -246,7 +246,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Treasure Vault • Shrine of Vh'al Zhubbuth",
         title: "Herald of the Dreadwalker",
-        text: "Hovering before the gleaming **Horizon Glass**, a multi-eyed **Dreadwalker Herald** tears open the air with tendrils of crushing entropy!",
+        text: "Hovering before the gleaming Horizon Glass, a multi-eyed Dreadwalker Herald tears open the air with tendrils of crushing entropy!",
         enemy: { name: "Herald of Vh'al Zhubbuth", desc: "Aberrant temple guardian bound to protect the Horizon Glass.", hp: 82, ac: 16, atk: 9, dmg: 11, xp: 355, gold: 225, items: ["bq_horizon_glass_lens"], weakCw: ["TOMB_COUNTERWEIGHT"] },
         choices: [
           { t: "Lift the Horizon Glass from the altar and ascend before the dunes collapse!", to: 4 }
@@ -315,7 +315,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Observatory Core • Chaos Moon Lens",
         title: "The Gullet Horror",
-        text: "Crouched behind a cracked telescope lens, archaeologist Soave Dirtscrabbler shouts a warning as a monstrous, spell-devouring **Chaos-Moon Maw** erupts from the abyss!",
+        text: "Crouched behind a cracked telescope lens, archaeologist Soave Dirtscrabbler shouts a warning as a monstrous, spell-devouring Chaos-Moon Maw erupts from the abyss!",
         enemy: { name: "The Chaos-Moon Maw", desc: "Colossal spell-warped horror lurking at the bottom of the Gullet.", hp: 82, ac: 16, atk: 9, dmg: 11, xp: 355, gold: 230, items: ["bq_chaos_moon_astrolabe"], weakCw: ["SOAVE_NOTES"] },
         choices: [
           { t: "Haul Soave and her priceless Mage-War journals back up to the surface!", to: 4 }
@@ -384,7 +384,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Walking Fortress • The Crucible Spire",
         title: "The Grand Fleshwarper",
-        text: "Wired into the fortress's beating heart-core with brass surgical arms, the **Grand Fleshwarper** laughs maniacally: 'The pilgrims wanted to be reforged—I shall make them glorious!'",
+        text: "Wired into the fortress's beating heart-core with brass surgical arms, the Grand Fleshwarper laughs maniacally: 'The pilgrims wanted to be reforged—I shall make them glorious!'",
         enemy: { name: "The Grand Fleshwarper", desc: "Deranged biomancer commanding a colossal living siege-fortress.", hp: 98, ac: 17, atk: 11, dmg: 13, xp: 455, gold: 285, items: ["bq_fleshwarper_storm_blade"], weakCw: ["NERVE_SEVERED"] },
         choices: [
           { t: "Sever the heart-core to halt the Walking Fortress and unlock the pilgrims' cages!", to: 4 }
@@ -453,7 +453,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Abyssal Maw • Lair of the Slumberer",
         title: "Ssileficus the Slumberer",
-        text: "Hundreds of bilious eyes snap open above a circular, jagged maw! Trailing armored tentacles and crushing pincers, **Ssileficus the Slumberer** surges upward to devour the Wastes!",
+        text: "Hundreds of bilious eyes snap open above a circular, jagged maw! Trailing armored tentacles and crushing pincers, Ssileficus the Slumberer surges upward to devour the Wastes!",
         enemy: { name: "Ssileficus the Slumberer", desc: "Colossal spiny-scaled eldritch leviathan of the deep Wastes.", hp: 138, ac: 19, atk: 14, dmg: 18, xp: 710, gold: 440, items: ["bq_ssileficus_carapace_plate"], weakCw: ["PATROL_BOMBS"] },
         choices: [
           { t: "Drive the final blow through Ssileficus's maw and rescue the surviving Wasteriders!", to: 4 }
@@ -522,7 +522,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Crown Spire • Throne of the Ley Nexus",
         title: "The Immortal Worm King",
-        text: "Crowned in writhing arcane fire and towering amid swirling ley-storms, the legendary **Worm King** speaks with the voice of grinding continents: 'Empires turn to dust—only the Worm endures!'",
+        text: "Crowned in writhing arcane fire and towering amid swirling ley-storms, the legendary Worm King speaks with the voice of grinding continents: 'Empires turn to dust—only the Worm endures!'",
         enemy: { name: "The Worm King, Sovereign of Entropy", desc: "Mythic max-level overlord commanding the ruined City of Wonders.", hp: 185, ac: 21, atk: 17, dmg: 22, undead: true, xp: 1000, gold: 650, items: ["bq_worm_king_nexus_crown"], weakCw: ["LEY_NEXUS_TAP"] },
         choices: [
           { t: "Shatter the Worm King's staff and restore the ley-line nexus to pure light!", to: 4 }
@@ -582,7 +582,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Devil-Mouth Chapel • Churning Gears",
         title: "Angel of Pestilence",
-        text: "Four monstrous cold-iron gears grind in the walls as an exalted **Mummified Angel of Pestilence** raises her plague-scarab brand and breathes a roaring cloud of locusts!",
+        text: "Four monstrous cold-iron gears grind in the walls as an exalted Mummified Angel of Pestilence raises her plague-scarab brand and breathes a roaring cloud of locusts!",
         enemy: { name: "Mummified Angel of Pestilence", desc: "Fallen, plague-branded celestial guarding the devil-mouth bridge.", hp: 66, ac: 16, atk: 8, dmg: 10, undead: true, xp: 265, gold: 155, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["SACRED_AUGURY"] },
         choices: [
           { t: "Enter the Sun-Disk Pavilion where the corrupted Ark Colossus lumbers forth!", to: 3 }
@@ -591,7 +591,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Sun-Disk Pavilion • The Blight Core",
         title: "The Horned Harbinger & Ark Colossus",
-        text: "Two straining columns of locusts part! Out steps a horned harbinger jangling with pestilent totems beside the towering, brimstone-framed **Twisted Ark Colossus**, wailing skulls glowing in its chest!",
+        text: "Two straining columns of locusts part! Out steps a horned harbinger jangling with pestilent totems beside the towering, brimstone-framed Twisted Ark Colossus, wailing skulls glowing in its chest!",
         enemy: { name: "Twisted Ark Colossus & Harbinger", desc: "Brimstone-corrupted colossus carrying humanity's stolen Sacred Vessels.", hp: 84, ac: 16, atk: 9, dmg: 11, xp: 360, gold: 230, items: ["bq_mercy_iron_nimbus"], weakCw: ["SACRED_AUGURY"] },
         choices: [
           { t: "Purify the Sacred Vessels and halt the Tomb's fiendish blight!", to: 4 }
@@ -660,7 +660,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Funerary Complex • Sanctum of Tiberesh",
         title: "Tiberesh, False God-King",
-        text: "Wearing an eerie finned angler-fish headdress and wielding a gem-studded hook-rod, the undead false prophet **Tiberesh** rises from his sunken sarcophagus!",
+        text: "Wearing an eerie finned angler-fish headdress and wielding a gem-studded hook-rod, the undead false prophet Tiberesh rises from his sunken sarcophagus!",
         enemy: { name: "Tiberesh, False God-King", desc: "Cursed sorcerer-king wearing an angler-fish crown and wielding a hooked rod.", hp: 32, ac: 13, atk: 5, dmg: 6, undead: true, xp: 95, gold: 65, items: ["bq_tiberesh_hooked_rod"], weakCw: ["JUGGERNAUT_JAMMED"] },
         choices: [
           { t: "Claim Tiberesh's relics and return to the Golden Falcon Antiquities camp!", to: 4 }

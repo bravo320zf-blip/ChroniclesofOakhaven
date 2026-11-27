@@ -40,7 +40,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Glade of the Singing Tree",
         title: "The Hollow Man",
-        text: "Beneath a gnarled oak whose leaves whisper a chilling melody stands the tall, bark-skinned **Hollow Man**—once guardian to the forest witch, now bound to the Singing Tree's dark lullaby!",
+        text: "Beneath a gnarled oak whose leaves whisper a chilling melody stands the tall, bark-skinned Hollow Man—once guardian to the forest witch, now bound to the Singing Tree's dark lullaby!",
         enemy: { name: "The Hollow Man", desc: "Lanky, hollow-chested woodland construct hunting heads at midnight.", hp: 26, ac: 12, atk: 5, dmg: 5, xp: 75, gold: 50, items: ["bq_singing_tree_chime"], weakCw: ["SALT_WARD"] },
         choices: [
           { t: "Quiet the Singing Tree's cursed boughs and return to Levoča at dawn!", to: 4 }
@@ -109,7 +109,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Honey Cave • Royal Comb",
         title: "The Honey Queen",
-        text: "Crowned in gleaming amber wax, the majestic yet jealous **Honey Queen** hovers before enchanted Lyla: 'She loves the bees—she shall tend our comb forever!'",
+        text: "Crowned in gleaming amber wax, the majestic yet jealous Honey Queen hovers before enchanted Lyla: 'She loves the bees—she shall tend our comb forever!'",
         enemy: { name: "The Honey Queen", desc: "Fey-touched giant queen bee commanding royal nectar magic.", hp: 32, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 65, items: ["bq_royal_amber_comb"], weakCw: ["BEE_RESPECT"] },
         choices: [
           { t: "Wake Lyla from the sweet trance and lead her safely out of the cave!", to: 4 }
@@ -178,7 +178,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Ravine Hollow • Crimson Camp",
         title: "Captain Eagehrt",
-        text: "Clutching a pulsing blood-stone harvested from Incot, merciless **Captain Eagehrt** draws his notched greatsword: 'Weak villagers! Their lives bought my survival!'",
+        text: "Clutching a pulsing blood-stone harvested from Incot, merciless Captain Eagehrt draws his notched greatsword: 'Weak villagers! Their lives bought my survival!'",
         enemy: { name: "Captain Eagehrt", desc: "Cold-blooded raider captain wielding stolen blood-mark magic.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 140, gold: 95, items: ["bq_incot_vengeance_blade"], weakCw: ["BLOOD_WARD_BROKEN"] },
         choices: [
           { t: "Shatter the blood-stone and escort Incot's children safely to Wheedon!", to: 4 }
@@ -247,7 +247,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Ancient Glade • Belly of the Beast",
         title: "Lord of the Fang",
-        text: "Towering taller than a warhorse, the ancient **Great Wolf of the Fang** steps from the fog with eyes like burning coals: 'Blood or steel—prove your right to leave my wood!'",
+        text: "Towering taller than a warhorse, the ancient Great Wolf of the Fang steps from the fog with eyes like burning coals: 'Blood or steel—prove your right to leave my wood!'",
         enemy: { name: "Great Wolf of the Fang", desc: "Mythic lupine lord of the ancient woodland trial.", hp: 50, ac: 15, atk: 7, dmg: 7, xp: 175, gold: 120, items: ["bq_crimson_hood_cloak"], weakCw: ["SILVER_FANG"] },
         choices: [
           { t: "Claim victory in the Challenge of the Fang and escort Czerwonya home!", to: 4 }
@@ -316,7 +316,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Still Tower • Belfry Nest",
         title: "The Corrupted Ogre Chief",
-        text: "Tiny black beaks crack through speckled shells as the massive, **Corrupted Ogre Chief** swings an iron-banded greatclub to smash anyone who nears his prized loot!",
+        text: "Tiny black beaks crack through speckled shells as the massive, Corrupted Ogre Chief swings an iron-banded greatclub to smash anyone who nears his prized loot!",
         enemy: { name: "Corrupted Ogre Chief", desc: "Towering ogre warlord holding Lesharrkk's hatching griffon clutch.", hp: 58, ac: 14, atk: 7, dmg: 8, xp: 210, gold: 140, items: ["bq_lesharrkk_feather_cloak"], weakCw: ["TOWER_CLIMB"] },
         choices: [
           { t: "Shatter the ogre's curse-fetish to restore Lesharrkk and escape with the hatchlings!", to: 4 }
@@ -385,7 +385,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Mavra's House • Cauldron Room",
         title: "Mavra, Rival of the Crone",
-        text: "Cackling beside a bubbling cauldron of spider-gall, the twisted hag **Mavra** weaves crackling webs across the rafters: 'Jędza's crown never lies—and today her power is mine!'",
+        text: "Cackling beside a bubbling cauldron of spider-gall, the twisted hag Mavra weaves crackling webs across the rafters: 'Jędza's crown never lies—and today her power is mine!'",
         enemy: { name: "Mavra, Hag of the Web", desc: "Cunning forest hag brewing dark venom and stolen prophecies.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 175, items: ["bq_spider_crone_ivy_crown"], weakCw: ["IVY_COUNTER"] },
         choices: [
           { t: "Claim the pure curative elixir and race back to the Witch's Teat Inn!", to: 4 }
@@ -454,7 +454,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "The Briar Palace • Throne of Thorns",
         title: "The King of Thorns",
-        text: "Crowned in razor-sharp crimson brambles, the towering **King of Thorns** rises from his living throne: 'The dominion of mortals is over! The Kingdom of the Briar shall swallow the road!'",
+        text: "Crowned in razor-sharp crimson brambles, the towering King of Thorns rises from his living throne: 'The dominion of mortals is over! The Kingdom of the Briar shall swallow the road!'",
         enemy: { name: "The King of Thorns", desc: "Fierce fey sovereign commanding living brambles and blood-thorns.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 315, gold: 200, items: ["bq_briar_king_blade"], weakCw: ["ROOT_ARCH"] },
         choices: [
           { t: "Sever the heart-root beneath the Briar Throne to wither the thorny blight!", to: 4 }
@@ -654,7 +654,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Cavern Beneath the Oak • Dragon's Lair",
         title: "The Three-Headed Zmey",
-        text: "Sinuous scaly necks coil around the shattered oak roots as the towering, **Three-Headed Vengeful Zmey** roars with triple fury—jaws blazing with primordial dragonfire!",
+        text: "Sinuous scaly necks coil around the shattered oak roots as the towering, Three-Headed Vengeful Zmey roars with triple fury—jaws blazing with primordial dragonfire!",
         enemy: { name: "The Vengeful Three-Headed Zmey", desc: "Ancient multi-headed woodland dragon burning with centuries of rage.", hp: 98, ac: 17, atk: 11, dmg: 13, xp: 455, gold: 290, items: ["bq_zmey_triple_scale_mail"], weakCw: ["OAK_WARD"] },
         choices: [
           { t: "Slay the Zmey and claim its centuries-old hoard beneath the oak!", to: 4 }
@@ -724,7 +724,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Tallest Finger • Star-Ritual Platform",
         title: "Matriarch of Family Starless",
-        text: "Beside a glowing bowl of dark forest sap stands the veiled **Matriarch of Family Starless**, chanting to rouse the sleeping body of ancient Derende!",
+        text: "Beside a glowing bowl of dark forest sap stands the veiled Matriarch of Family Starless, chanting to rouse the sleeping body of ancient Derende!",
         enemy: { name: "Matriarch of Family Starless", desc: "Dark fey ritualist awakening the buried limbs of Derende.", hp: 32, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 65, items: ["bq_derende_finger_twig"], weakCw: ["STAR_TIMING"] },
         choices: [
           { t: "Overturn the ritual bowl and uncover her map pointing to the Tongue of Derende!", to: 4 }
@@ -733,7 +733,7 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Base of the Fingers",
         title: "A Larger Mystery",
-        text: "The Matriarch's bark-scroll reveals that the Fingers are only the beginning—necromancers are already marching on the ancient **Tongue of Derende**!",
+        text: "The Matriarch's bark-scroll reveals that the Fingers are only the beginning—necromancers are already marching on the ancient Tongue of Derende!",
         onEnter: { healHp: 8, msg: "Pure forest air restores your strength (+8 HP)!" },
         choices: [
           { t: "Report back to the woodcutters and prepare for Part 2!", to: 5 }
@@ -795,7 +795,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Tongue of Derende • Summoning Mound",
         title: "Captain Thoulous & The Necromancers",
-        text: "Wielding a black-iron halberd, **Captain Thoulous** steps before the chanting necromancers as the ground rumbles with an ancient woodland voice: 'Derende's spirit belongs to the Imperium!'",
+        text: "Wielding a black-iron halberd, Captain Thoulous steps before the chanting necromancers as the ground rumbles with an ancient woodland voice: 'Derende's spirit belongs to the Imperium!'",
         enemy: { name: "Iron Ghoul Captain Thoulous", desc: "Ruthless undead commander protecting the dark spirit-binding ritual.", hp: 58, ac: 15, atk: 7, dmg: 8, undead: true, xp: 215, gold: 145, items: ["bq_thoulous_iron_spear"], weakCw: ["BEAST_ALLY"] },
         choices: [
           { t: "Break the necromancers' circle and listen to Derende's fading warning!", to: 4 }
@@ -804,7 +804,7 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Tongue of Derende • Quiet Fungi",
         title: "The Voice of the Heart",
-        text: "Before fading back into the soil, the ancient voice of Derende speaks clearly in your mind: a mutated abomination has seized the **Heart of Derende** deep within the forest!",
+        text: "Before fading back into the soil, the ancient voice of Derende speaks clearly in your mind: a mutated abomination has seized the Heart of Derende deep within the forest!",
         onEnter: { healHp: 12, msg: "The grateful forest's magic mends your wounds (+12 HP)!" },
         choices: [
           { t: "Prepare for the final chapter: Part 3 — The Heart of Derende!", to: 5 }
@@ -865,7 +865,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Heart of Derende • Beating Core",
         title: "The Derendian Moth Abomination",
-        text: "Spreading titanic wings dusted in blinding, mutating spores, the **Derendian Moth Abomination** shrieks across the ancient canopy—draining the lifeblood of the forest's Heart!",
+        text: "Spreading titanic wings dusted in blinding, mutating spores, the Derendian Moth Abomination shrieks across the ancient canopy—draining the lifeblood of the forest's Heart!",
         enemy: { name: "Derendian Moth Abomination", desc: "Colossal fey-mutated insect avatar terrorizing the Heart of the woods.", hp: 88, ac: 16, atk: 10, dmg: 12, xp: 395, gold: 250, items: ["bq_heart_of_derende_amulet"], weakCw: ["HEART_CHANT"] },
         choices: [
           { t: "Cleanse the beating Heart of Derende and restore balance to the primeval woods!", to: 4 }

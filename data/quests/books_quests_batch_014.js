@@ -39,7 +39,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Inner Sanctum • Altar of the Mother",
         title: "The Dreaming Priestess",
-        text: "Floating above a pulsing pool of star-flecked shadow, the **Dreaming Priestess** raises a jagged icon: 'Mother wakes! The Wastes shall kneel!'",
+        text: "Floating above a pulsing pool of star-flecked shadow, the Dreaming Priestess raises a jagged icon: 'Mother wakes! The Wastes shall kneel!'",
         enemy: { name: "The Dreaming Priestess", desc: "Eldritch conduit channeling the whispers of a buried Elder power.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 135, gold: 90, items: ["bq_sanctum_obsidian_icon"], weakCw: ["GLYPH_INVERTED"] },
         choices: [
           { t: "Shatter the pulsing obsidian icon and collapse the ritual circle!", to: 4 }
@@ -108,7 +108,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Inner Star-Vault • Dais of Apogeion",
         title: "The Void-Touched Hierophant",
-        text: "Cradling the glowing silver Scroll of Anax Apogeion, the skeletal **Hierophant of Apogeion** levitates amid orbiting chunks of meteoric iron!",
+        text: "Cradling the glowing silver Scroll of Anax Apogeion, the skeletal Hierophant of Apogeion levitates amid orbiting chunks of meteoric iron!",
         enemy: { name: "Hierophant of Anax Apogeion", desc: "Undead cosmic prophet guarding the forbidden star-scroll.", hp: 42, ac: 14, atk: 6, dmg: 6, undead: true, xp: 135, gold: 95, items: ["bq_anax_star_scroll_case"], weakCw: ["STAR_DIAL"] },
         choices: [
           { t: "Claim the sealed Scroll of Anax Apogeion and ascend into the sunlight!", to: 4 }
@@ -177,7 +177,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Island Laboratory • Planar Alembic",
         title: "The Warped Alchemist",
-        text: "Clutching the glowing brass **Arc of the Sextant**, the wild-eyed island alchemist hurls shimmering planar flasks across the stone floor: 'The river speaks to me—you'll never take the Arc!'",
+        text: "Clutching the glowing brass Arc of the Sextant, the wild-eyed island alchemist hurls shimmering planar flasks across the stone floor: 'The river speaks to me—you'll never take the Arc!'",
         enemy: { name: "The Warped Island Alchemist", desc: "Planar-obsessed experimenter armed with unstable transmutation flasks.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 140, gold: 95, items: ["bq_sextant_brass_arc"], weakCw: ["VIVI_COMPASS"] },
         choices: [
           { t: "Secure the Arc of the Sextant and ferry back to Vivi Sparksprocket!", to: 4 }
@@ -246,7 +246,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Pillar Summit • Amniox's Tomb",
         title: "The Shade of Amniox",
-        text: "Black celestial feathers drift through the dusty shaft of sunlight as the undead mystic **Amniox** rises from his basalt bier, clutching the blazing amulet of fallen Arakiel!",
+        text: "Black celestial feathers drift through the dusty shaft of sunlight as the undead mystic Amniox rises from his basalt bier, clutching the blazing amulet of fallen Arakiel!",
         enemy: { name: "Amniox, Mystic of Arakiel", desc: "Fallen-celestial-touched undead sorcerer guarding his tomb.", hp: 50, ac: 15, atk: 7, dmg: 7, undead: true, xp: 175, gold: 115, items: ["bq_arakiel_fallen_amulet"], weakCw: ["SPIRE_CLIMB"] },
         choices: [
           { t: "Lay Amniox to dust and claim the cleansed celestial amulet!", to: 4 }
@@ -315,7 +315,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Vault of the God-King • Core Chamber",
         title: "The Star-Born Champion",
-        text: "Bathed in blinding violet light from the meteor's planar engine, the armored **High Disciple of the God-King** channels dreadwalker lightning to tear open a rift!",
+        text: "Bathed in blinding violet light from the meteor's planar engine, the armored High Disciple of the God-King channels dreadwalker lightning to tear open a rift!",
         enemy: { name: "High Disciple of the God-King", desc: "Star-armored sorcerer channeling an alien planar engine.", hp: 50, ac: 15, atk: 7, dmg: 7, xp: 175, gold: 120, items: ["bq_godking_star_rod"], weakCw: ["HULL_HATCH"] },
         choices: [
           { t: "Shut down the unstable planar engine and salvage the Vault's treasures!", to: 4 }
@@ -384,7 +384,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Mired Wagon • The Cursed Curio",
         title: "The Bog-Ruin Wraith",
-        text: "Cowering under his canvas tarp, trader Mikos Addlebury points at a glowing jade idol in his crate—from which rises a towering, peat-dripping **Bog-Ruin Wraith**!",
+        text: "Cowering under his canvas tarp, trader Mikos Addlebury points at a glowing jade idol in his crate—from which rises a towering, peat-dripping Bog-Ruin Wraith!",
         enemy: { name: "The Bog-Ruin Wraith", desc: "Vengeful marshland specter bound to Mikos's newly purchased curio.", hp: 50, ac: 14, atk: 7, dmg: 7, undead: true, xp: 175, gold: 120, items: ["bq_mikos_marsh_lantern"], weakCw: ["FIRM_PEAT"] },
         choices: [
           { t: "Banish the wraith and help Mikos haul his wagon back to firm ground!", to: 4 }
@@ -564,7 +564,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Spider's Eye Overlook • Brood Lair",
         title: "The Silk-Lord & Broodmother",
-        text: "Perched beside a glittering hoard of looted trade-gems, the ruthless **Silk-Lord** commands a monstrous **Wasteland Broodmother** with clicking mandibles!",
+        text: "Perched beside a glittering hoard of looted trade-gems, the ruthless Silk-Lord commands a monstrous Wasteland Broodmother with clicking mandibles!",
         enemy: { name: "Silk-Lord & Broodmother", desc: "Venomous bandit captain and her giant arachnid matriarch.", hp: 58, ac: 15, atk: 7, dmg: 8, xp: 210, gold: 145, items: ["bq_spiders_eye_emerald"], weakCw: ["WEB_CUT"] },
         choices: [
           { t: "Clear the canyon pass and guide the merchant wagons safely through!", to: 4 }
@@ -633,7 +633,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Void-Vessel • The Shattered Bridge",
         title: "Captain Ocras, Void-Voyager",
-        text: "Encased in a gleaming crystalline exo-frame wired to the ship's psychic core, **Captain Ocras** speaks with a chilling chorus of voices: 'Your living shells will carry my crew back to the stars!'",
+        text: "Encased in a gleaming crystalline exo-frame wired to the ship's psychic core, Captain Ocras speaks with a chilling chorus of voices: 'Your living shells will carry my crew back to the stars!'",
         enemy: { name: "Captain Ocras, Void-Voyager", desc: "Ancient planar captain wielding psychic lightning and an exo-frame.", hp: 68, ac: 16, atk: 8, dmg: 9, xp: 265, gold: 170, items: ["bq_ocras_chrono_lens"], weakCw: ["TERLYN_CIPHER"] },
         choices: [
           { t: "Power down the mind-transfer core and free the captive scouts!", to: 4 }
@@ -702,7 +702,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Shadow Amphitheater • Abyssal Rift",
         title: "Calviana, Voice of the Dark",
-        text: "Wreathed in crackling tendrils of chaotic gloom, **Calviana** tries to pull trembling Sylphie toward the whispering rift: 'She chose the Dark—and now the Dark claims you both!'",
+        text: "Wreathed in crackling tendrils of chaotic gloom, Calviana tries to pull trembling Sylphie toward the whispering rift: 'She chose the Dark—and now the Dark claims you both!'",
         enemy: { name: "Calviana, Voice of the Dark", desc: "Silver-tongued wasteland warlock serving the Tumultuous Dark.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 175, items: ["bq_tumultuous_dark_mantle"], weakCw: ["SYLPHIE_DOUBT"] },
         choices: [
           { t: "Pull Sylphie clear of the closing rift and lead her home to Salzbach!", to: 4 }

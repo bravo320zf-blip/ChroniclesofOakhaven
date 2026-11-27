@@ -472,7 +472,7 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Hidden Cellar Tunnel",
         title: "One Spoke of a Larger Wheel",
-        text: "A freshly dug tunnel beneath the wharf leads directly under the wealthy residential quarter—toward a front called the **Gnawing Thirst Inn** where a rattok demon holds court!",
+        text: "A freshly dug tunnel beneath the wharf leads directly under the wealthy residential quarter—toward a front called the Gnawing Thirst Inn where a rattok demon holds court!",
         choices: [
           { t: "Report the tunnel to Treniece and prepare for Part Two!", to: 5 }
         ]

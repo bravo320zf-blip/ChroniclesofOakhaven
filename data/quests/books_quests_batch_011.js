@@ -386,7 +386,7 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Stair to Level 5",
         title: "Murmur of Dark Waters",
-        text: "Cold, ley-charged air rises from the oldest level of the Scarlet Citadel—where the mysterious subterranean **Black River** flows!",
+        text: "Cold, ley-charged air rises from the oldest level of the Scarlet Citadel—where the mysterious subterranean Black River flows!",
         onEnter: { healHp: 14, msg: "Claimed infernal ward-tonics (+14 HP)!" },
         choices: [
           { t: "Prepare for Part 5: The Black River!", to: 5 }
@@ -447,7 +447,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Level 5 • The Deep Pool",
         title: "Horror in the Pool",
-        text: "Boiling up from the confluence of water, shadow road, and ley energy rises an ancient, tentacled eldritch **Horror in the Pool** that Gellert uses to guard the stair to Level 6!",
+        text: "Boiling up from the confluence of water, shadow road, and ley energy rises an ancient, tentacled eldritch Horror in the Pool that Gellert uses to guard the stair to Level 6!",
         enemy: { name: "The Horror in the Pool", desc: "Abyssal shadow-river monstrosity guarding the lowest stairs.", hp: 84, ac: 16, atk: 10, dmg: 11, xp: 295, gold: 195, items: ["bq_black_river_oar_staff"] },
         choices: [
           { t: "Step through the screaming wind-gate descending into Level 6: The Howling Halls!", to: 3 }
@@ -594,7 +594,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Gellert's Void Sanctum",
         title: "Scion of House Holzanger",
         safeRetreat: true,
-        text: "Floating amid crisscrossing rivers of violet ley light stands the gaunt, terrifying master of the Scarlet Citadel—**Gellert the Gruesome**! 'You slew my Gaoler, broke my Scriptorium, and crossed my Black River? Then behold the majesty of the Void itself!'",
+        text: "Floating amid crisscrossing rivers of violet ley light stands the gaunt, terrifying master of the Scarlet Citadel—Gellert the Gruesome! 'You slew my Gaoler, broke my Scriptorium, and crossed my Black River? Then behold the majesty of the Void itself!'",
         choices: [
           { t: "Disrupt his ley-line focus crystal before he unleashes his grand Void spell!", badge: "Arcana / Agility DC 15", check: { stat: "arcana", skill: "Arcana", dc: 15, pass: 2, fail: 2, failDmg: 9, passMsg: "Crack! The focus crystal splinters—robbing Gellert of his ley-shield!", failMsg: "Void lightning sears you (-9 HP) as Gellert laughs!" }, onPass: { cw: "LEY_BROKEN" } },
           { t: "Charge straight through the violet storm at Gellert the Gruesome!", to: 2 }
@@ -669,7 +669,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Twilight Odeum",
         title: "Act Two: The Crones' Verses",
         safeRetreat: true,
-        text: "Beneath velvet shadows, three cackling crones onstage suddenly turn directly toward you—reciting private memories no mortal stranger could ever know! Then the curtains part for an impossibly tall, dreadful elven figure: the **Herald of Darkness**!",
+        text: "Beneath velvet shadows, three cackling crones onstage suddenly turn directly toward you—reciting private memories no mortal stranger could ever know! Then the curtains part for an impossibly tall, dreadful elven figure: the Herald of Darkness!",
         choices: [
           { t: "Steel your mind against her enchanting, melancholy song!", badge: "Spirit DC 14", check: { stat: "spirit", skill: "Lore", dc: 14, pass: 2, fail: 2, failDmg: 7, passMsg: "You resist her dreadful melody and leap straight onto the stage!", failMsg: "Sorrowful dread chills your marrow (-7 HP) as her priests close in!" }, onPass: { cw: "SONG_RESISTED" } },
           { t: "Vault over the orchestra pit with weapon drawn!", to: 2 }

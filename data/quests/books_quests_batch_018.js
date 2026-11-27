@@ -30,7 +30,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Mountain Redoubt • Terrace of Clouds",
         title: "Cloudhoof Assassins & Alpine Creepers",
-        text: "Silent, sure-footed **Cloudhoof Assassins** and frost-scaled **Alpine Creepers** bound across the prayer-terrace to silence nosy outsiders!",
+        text: "Silent, sure-footed Cloudhoof Assassins and frost-scaled Alpine Creepers bound across the prayer-terrace to silence nosy outsiders!",
         enemy: { name: "Cloudhoof Assassins & Alpine Creepers", desc: "Swift alpine killers guarding the deceptive mountain sanctuary.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 155, gold: 85, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["INCENSE_EXPOSED"] },
         choices: [
           { t: "Kick open the gilded doors of the Meditation Hall to unmask the Guru!", to: 3 }
@@ -39,7 +39,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Meditation Hall • Soul-Mirror",
         title: "The Perfidious Guru",
-        text: "Shedding his serene mortal illusion in a burst of sulfur, the **Lesser Infernal Tutor** unfolds barbed wings beside a soul-trapping mirror: 'Your devotion is mine—sign in ash!'",
+        text: "Shedding his serene mortal illusion in a burst of sulfur, the Lesser Infernal Tutor unfolds barbed wings beside a soul-trapping mirror: 'Your devotion is mine—sign in ash!'",
         enemy: { name: "Lesser Infernal Tutor", desc: "Fiendish deceiver harvesting seekers' souls atop the mountain.", hp: 58, ac: 15, atk: 7, dmg: 8, xp: 215, gold: 145, items: ["bq_guru_prayer_beads"], weakCw: ["INCENSE_EXPOSED"] },
         choices: [
           { t: "Shatter the soul-mirror and free the entranced pilgrims!", to: 4 }
@@ -99,7 +99,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Lighthouse Base • Flooded Cellar",
         title: "Bilge Gremlins & Gullkin Hunters",
-        text: "Cackling **Bilge Gremlins** led by a bosun swarm up from the tide-pool cellar while **Gullkin Hunters** strike from the broken shutters!",
+        text: "Cackling Bilge Gremlins led by a bosun swarm up from the tide-pool cellar while Gullkin Hunters strike from the broken shutters!",
         enemy: { name: "Bilge Gremlin Bosun & Gullkin", desc: "Sabotaging sea-fey and feathered coastal raiders.", hp: 54, ac: 15, atk: 7, dmg: 8, xp: 190, gold: 110, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["FOG_SCOUT"] },
         choices: [
           { t: "Climb the spiraling iron stair to the dark lantern-room!", to: 3 }
@@ -108,7 +108,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Lighthouse Peak • Lantern Room",
         title: "The Eel-Muraenid",
-        text: "Coiled around the unlit oil-mirror, a monstrous, snapping **Muraenid** sea-horror lunges through the shattered glass to keep Wrackwater's beacon dark!",
+        text: "Coiled around the unlit oil-mirror, a monstrous, snapping Muraenid sea-horror lunges through the shattered glass to keep Wrackwater's beacon dark!",
         enemy: { name: "Wrackwater Muraenid", desc: "Ferocious amphibious eel-beast commanding the lighthouse ambush.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 175, items: ["bq_wrackwater_beacon_lens"], weakCw: ["FOG_SCOUT"] },
         choices: [
           { t: "Ignite the great lighthouse mirror and guide the supply ship safely into harbor!", to: 4 }
@@ -290,7 +290,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Millard Estate • Iron Menagerie Gate",
         title: "Show-Pets Gone Monstrous",
         safeRetreat: true,
-        text: "Once laughed off as a harmless eccentric breeding odd show-pets, **Margrave Millard** has crossed a bloody line—kidnapping local townsfolk to test his latest arcane crossbreeds inside a walled hunting arena!",
+        text: "Once laughed off as a harmless eccentric breeding odd show-pets, Margrave Millard has crossed a bloody line—kidnapping local townsfolk to test his latest arcane crossbreeds inside a walled hunting arena!",
         choices: [
           { t: "Uncouple the brass feeding-bell above the beast-pens to lure the Razorfeather Raptors into the empty kennel!", badge: "Stealth / Survival DC 14", check: { stat: "agility", skill: "Stealth", dc: 14, pass: 2, fail: 2, passMsg: "Half the hybrid pack bolts after the feeding-bell, clearing your path to the arena!", failMsg: "Shrill screeches echo from the iron cages as chimeric beasts burst loose!" }, onPass: { cw: "KENNEL_LURE" } },
           { t: "Cut the iron padlock on the menagerie courtyard and charge in!", to: 2 }
@@ -299,7 +299,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Menagerie Courtyard • Caged Pens",
         title: "Dire Owlbear & Razorfeather Raptors",
-        text: "A roaring **Dire Owlbear** and slashing **Razorfeather Raptors** leap across the flagstones alongside darting Slithy Toves!",
+        text: "A roaring Dire Owlbear and slashing Razorfeather Raptors leap across the flagstones alongside darting Slithy Toves!",
         enemy: { name: "Dire Owlbear & Razorfeather Raptors", desc: "Arcanely engineered apex predators guarding Millard's estate.", hp: 60, ac: 15, atk: 8, dmg: 9, xp: 235, gold: 140, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["KENNEL_LURE"] },
         choices: [
           { t: "Burst into the Hunting Arena where Margrave Millard unleashes his Grolar Bear Alpha!", to: 3 }
@@ -308,7 +308,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Hunting Arena • Margrave's Balcony",
         title: "Margrave Millard & Grolar Bear Alpha",
-        text: "Clapping madly from his box, **Margrave Millard** pulls a lever—releasing his towering, frost-furred **Grolar Bear Alpha** straight at you and the bound captives!",
+        text: "Clapping madly from his box, Margrave Millard pulls a lever—releasing his towering, frost-furred Grolar Bear Alpha straight at you and the bound captives!",
         enemy: { name: "Grolar Bear Alpha & Margrave Millard", desc: "Colossal hybrid bear-titan and its deranged aristocratic creator.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 315, gold: 205, items: ["bq_millard_beast_whistle"], weakCw: ["KENNEL_LURE"] },
         choices: [
           { t: "Subdue the Margrave, unlock the captive cages, and seal the breeding vats!", to: 4 }
@@ -368,7 +368,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Arboretum • Winter Gallery",
         title: "Ice Willow & Alpine Creepers",
-        text: "Whipping frozen tendrils like crystal chains, a towering **Ice Willow** and predatory **Alpine Creepers** seal the central conservatory!",
+        text: "Whipping frozen tendrils like crystal chains, a towering Ice Willow and predatory Alpine Creepers seal the central conservatory!",
         enemy: { name: "Ice Willow & Alpine Creepers", desc: "Subzero botanical horrors guarding the overgrown island greenhouse.", hp: 60, ac: 15, atk: 8, dmg: 9, xp: 235, gold: 140, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["STEAM_THAW"] },
         choices: [
           { t: "Approach the crystalline specimen-pedestal guarded by the Ice Golem!", to: 3 }
@@ -377,7 +377,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Green Sanctum • Specimen Pedestal",
         title: "The Ice Golem Guardian",
-        text: "Bound to protect its late mistress's prized botanical treasure, a colossal, translucent **Ice Golem** steps before the glowing rare plant!",
+        text: "Bound to protect its late mistress's prized botanical treasure, a colossal, translucent Ice Golem steps before the glowing rare plant!",
         enemy: { name: "Arboretum Ice Golem", desc: "Unrelenting glacial construct defending the scholar's rarest bloom.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 315, gold: 205, items: ["bq_green_sanctum_bloom"], weakCw: ["STEAM_THAW"] },
         choices: [
           { t: "Carefully pot the priceless exotic bloom and sail back to the Academy!", to: 4 }
@@ -437,7 +437,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Sunken Ship • Flooded Cargo Deck",
         title: "Breakwater Troll & Dire Lionfish",
-        text: "Barnacle-crusted **Breakwater Troll** claws slash through the murk alongside venomous **Dire Lionfish** and cackling Bilge Gremlins!",
+        text: "Barnacle-crusted Breakwater Troll claws slash through the murk alongside venomous Dire Lionfish and cackling Bilge Gremlins!",
         enemy: { name: "Breakwater Troll & Dire Lionfish", desc: "Regenerating sea-troll and venomous reef predators nesting in the wreck.", hp: 66, ac: 15, atk: 8, dmg: 10, xp: 265, gold: 155, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["STERN_DIVE"] },
         choices: [
           { t: "Enter the Grand Salon where the Brine Hag and a Wrackwraith hold court!", to: 3 }
@@ -446,7 +446,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Grand Salon • Mother Celeste's Bower",
         title: "The Brine Hag & Wrackwraith",
-        text: "Draped in kelp and drowned sailors' silver, the hideous **Brine Hag** commands a wailing **Wrackwraith** amid the ship's treasure chests!",
+        text: "Draped in kelp and drowned sailors' silver, the hideous Brine Hag commands a wailing Wrackwraith amid the ship's treasure chests!",
         enemy: { name: "Mother Celeste, Brine Hag & Wrackwraith", desc: "Sinister sea-hag and drowned spirit haunting the sunken salons.", hp: 82, ac: 16, atk: 9, dmg: 11, undead: true, xp: 355, gold: 230, items: ["bq_celeste_pearl_chalice"], weakCw: ["STERN_DIVE"] },
         choices: [
           { t: "Rig salvage-floats to the merchant chests and surface with the cargo!", to: 4 }
@@ -497,7 +497,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Mount Magra • Ash-Covered Slopes",
         title: "Tremors Above Dorma",
         safeRetreat: true,
-        text: "Long dormant above the fertile fields of Dorma, **Mount Magra** now rumbles with thunderous tremors! Planar rifts have torn open inside the volcano's caldera, spewing fiery extraplanar beasts toward the trembling town below!",
+        text: "Long dormant above the fertile fields of Dorma, Mount Magra now rumbles with thunderous tremors! Planar rifts have torn open inside the volcano's caldera, spewing fiery extraplanar beasts toward the trembling town below!",
         choices: [
           { t: "Trace the cool basalt wind-chimneys up the caldera rim to avoid the falling magma-bombs!", badge: "Survival / Athletics DC 15", check: { stat: "might", skill: "Survival", dc: 15, pass: 2, fail: 2, passMsg: "You reach the high crater ledge unharmed, flanking the planar portal-guards!", failMsg: "Blistering ash-gusts sweep the ridge as horned Ibexians charge!" }, onPass: { cw: "BASALT_RIDGE" } },
           { t: "Climb straight up the smoking lava-trail into the caldera bowl!", to: 2 }
@@ -506,7 +506,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Caldera Rim • Smoking Fissures",
         title: "Planar Ibexians",
-        text: "Fierce, bronze-horned **Ibexian** marauders leap across glowing lava fissures, trying to widen the volcano's planar rifts!",
+        text: "Fierce, bronze-horned Ibexian marauders leap across glowing lava fissures, trying to widen the volcano's planar rifts!",
         enemy: { name: "Rampaging Planar Ibexians", desc: "Horned extraplanar raiders pouring out of Mount Magra's rifts.", hp: 66, ac: 16, atk: 8, dmg: 10, xp: 265, gold: 155, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["BASALT_RIDGE"] },
         choices: [
           { t: "Descend to the blazing magma-heart where an Obsidian Ophidian coils around the rift!", to: 3 }
@@ -515,7 +515,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Caldera Heart • Planar Magma Rift",
         title: "The Obsidian Ophidian",
-        text: "Wreathed in volcanic glass and searing magma, a colossal **Obsidian Ophidian** rears out of the crackling portal—threatening to trigger Mount Magra's eruption!",
+        text: "Wreathed in volcanic glass and searing magma, a colossal Obsidian Ophidian rears out of the crackling portal—threatening to trigger Mount Magra's eruption!",
         enemy: { name: "The Obsidian Ophidian", desc: "Volcanic-glass serpent guardian channeling planar eruption fire.", hp: 84, ac: 16, atk: 9, dmg: 11, xp: 360, gold: 230, items: ["bq_magra_obsidian_fang"], weakCw: ["BASALT_RIDGE"] },
         choices: [
           { t: "Collapse the planar rift-anchor and calm the trembling caldera!", to: 4 }
@@ -566,7 +566,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Abandoned Chapel • Nave of Dust",
         title: "A Leap of Faith",
         safeRetreat: true,
-        text: "Paint-splattered visionary **Pol** swears an angel tasked him with completing a luminous magic mural inside this ruined chapel before sundown! Yet the moment his brush touches plaster, dark oozes, shimmering Stained Glass Moths, and a ticking Gearmass awaken to stop the miracle!",
+        text: "Paint-splattered visionary Pol swears an angel tasked him with completing a luminous magic mural inside this ruined chapel before sundown! Yet the moment his brush touches plaster, dark oozes, shimmering Stained Glass Moths, and a ticking Gearmass awaken to stop the miracle!",
         choices: [
           { t: "Consecrate the chapel's dry stone font before Pol begins painting to weaken the corrupting oozes!", badge: "Spirit / Lore DC 15", check: { stat: "spirit", skill: "Lore", dc: 15, pass: 2, fail: 2, passMsg: "Pale radiance gleams across the nave, searing the creeping slimes!", failMsg: "Shattered window-shards flutter to life as Stained Glass Moths descend!" }, onPass: { cw: "FONT_BLESSED" } },
           { t: "Plant yourself before Pol's scaffolding with weapon drawn!", to: 2 }
@@ -575,7 +575,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Eclipsed Chapel • Shattered Windows",
         title: "Stained Glass Moths & Copperkill Slimes",
-        text: "Razor-winged **Stained Glass Moths** swoop from the rose window while **Copperkill & Sinoper Oozes** and a grinding **Gearmass** surge toward Pol's ladder!",
+        text: "Razor-winged Stained Glass Moths swoop from the rose window while Copperkill & Sinoper Oozes and a grinding Gearmass surge toward Pol's ladder!",
         enemy: { name: "Stained Glass Moths & Gearmass", desc: "Lethal living glass insects and corrosive chapel constructs.", hp: 74, ac: 16, atk: 9, dmg: 11, xp: 305, gold: 180, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["FONT_BLESSED"] },
         choices: [
           { t: "Hold the final vigil as a shadowed Apostle steps out of the eclipsed altar!", to: 3 }
@@ -584,7 +584,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Eclipsed Chapel • The Miracle Mural",
         title: "The Eclipsed Apostle",
-        text: "With Pol's final brushstroke moments away, a terrifying **Dark Apostle** erupts from the cracked altar to smear the radiant mural in shadow!",
+        text: "With Pol's final brushstroke moments away, a terrifying Dark Apostle erupts from the cracked altar to smear the radiant mural in shadow!",
         enemy: { name: "The Eclipsed Apostle", desc: "Malevolent heresy-spirit determined to snuff out Pol's angelic mural.", hp: 88, ac: 16, atk: 10, dmg: 12, undead: true, xp: 400, gold: 255, items: ["bq_pol_radiant_brush"], weakCw: ["FONT_BLESSED"] },
         choices: [
           { t: "Watch Pol's final brushstroke ignite the chapel in dazzling angelic light!", to: 4 }
@@ -635,7 +635,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Upscale Quarter • The Veiled Mannequin",
         title: "Silk & Backwards Hands",
         safeRetreat: true,
-        text: "Behind the plush velvet curtains of the Veiled Mannequin tailor's shop lies a hidden stair down into the **Sanctuary of the Twisted Claw**—a fiendish Rakshasa cabal manipulating city officials from the shadows!",
+        text: "Behind the plush velvet curtains of the Veiled Mannequin tailor's shop lies a hidden stair down into the Sanctuary of the Twisted Claw—a fiendish Rakshasa cabal manipulating city officials from the shadows!",
         choices: [
           { t: "Spot the silver-threaded illusion seam in the fitting-room mirror to slip past the tailor's alarm!", badge: "Investigation DC 16", check: { stat: "arcana", skill: "Investigation", dc: 16, pass: 2, fail: 2, passMsg: "You slip cleanly behind the mirrored door, catching the Rakshasa guards off-balance!", failMsg: "The tailor's eyes flash fiery tiger-gold as Rakshasa servitors spring from the curtains!" }, onPass: { cw: "MIRROR_SEAM" } },
           { t: "Kick through the fitting-room mirror straight into the hidden sanctuary!", to: 2 }
@@ -644,7 +644,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Sanctuary of the Twisted Claw • Velvet Hall",
         title: "Rakshasa Myrmidon & Servitors",
-        text: "Tiger-headed **Rakshasa Myrmidons** and spell-cloaked **Rakshasa Servitors** draw curved, cursed blades amidst burning incense!",
+        text: "Tiger-headed Rakshasa Myrmidons and spell-cloaked Rakshasa Servitors draw curved, cursed blades amidst burning incense!",
         enemy: { name: "Rakshasa Myrmidon & Servitors", desc: "Fiendish feline warriors defending the hidden urban cabal.", hp: 82, ac: 16, atk: 10, dmg: 12, xp: 345, gold: 210, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["MIRROR_SEAM"] },
         choices: [
           { t: "Storm the inner sanctum where the Rakshasa Slayer and Pustakam guard their blackmail vault!", to: 3 }
@@ -653,7 +653,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Twisted Sanctuary • Blackmail Vault",
         title: "Rakshasa Slayer & Pustakam",
-        text: "Wreathed in shimmering spell-wards, the lethal **Rakshasa Slayer** and tome-bound **Rakshasa Pustakam** snarl: 'No mortal leaves the Twisted Claw alive!'",
+        text: "Wreathed in shimmering spell-wards, the lethal Rakshasa Slayer and tome-bound Rakshasa Pustakam snarl: 'No mortal leaves the Twisted Claw alive!'",
         enemy: { name: "Rakshasa Slayer & Pustakam", desc: "Fiendish master assassin and arcane grimoire-lord of the cabal.", hp: 98, ac: 17, atk: 11, dmg: 13, xp: 455, gold: 295, items: ["bq_twisted_claw_stiletto"], weakCw: ["MIRROR_SEAM"] },
         choices: [
           { t: "Seize the Rakshasa cabal's ledgers and expose the safehouse to the city!", to: 4 }
@@ -704,7 +704,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Moonlit Pastures • Silver Hoofprints",
         title: "Chains in the Mist",
         safeRetreat: true,
-        text: "A gleaming black stallion draped in silver chains—a trickster **Púca**—has been luring village youths toward the twilight hills! Worse, hooded **Psychophant Cultists** have arrived with grotesque Leashed Lesions to capture the fey steed and force open planar rifts!",
+        text: "A gleaming black stallion draped in silver chains—a trickster Púca—has been luring village youths toward the twilight hills! Worse, hooded Psychophant Cultists have arrived with grotesque Leashed Lesions to capture the fey steed and force open planar rifts!",
         choices: [
           { t: "Track the cultists' psychic beacons across the clover-field to ambush their binding-circle first!", badge: "Arcana / Survival DC 16", check: { stat: "arcana", skill: "Survival", dc: 16, pass: 2, fail: 2, passMsg: "You shatter two planar anchor-stones, disrupting the cultists' leashes!", failMsg: "Twisted Leashed Lesions shriek through the mist as cultists close in!" }, onPass: { cw: "ANCHOR_BROKEN" } },
           { t: "Ride straight toward the clinking silver chains on the moonlit ridge!", to: 2 }
@@ -713,7 +713,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Twilight Ridge • Binding Circle",
         title: "Psychophant Cultists & Leashed Lesions",
-        text: "Mind-warping **Psychophant Cultists** unleash horrifying **Leashed Lesions** to capture the rearing black stallion—and slay anyone interfering!",
+        text: "Mind-warping Psychophant Cultists unleash horrifying Leashed Lesions to capture the rearing black stallion—and slay anyone interfering!",
         enemy: { name: "Psychophant Cultists & Leashed Lesions", desc: "Planar zealots and writhing psychic horrors hunting the Púca.", hp: 90, ac: 17, atk: 11, dmg: 13, xp: 385, gold: 235, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["ANCHOR_BROKEN"] },
         choices: [
           { t: "Confront the wild, silver-chained Púca before it bolts through the village!", to: 3 }
@@ -722,7 +722,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Standing Stones • Midnight Crossing",
         title: "The Silver-Chained Púca",
-        text: "Eyes blazing with wild fey fire, the shapeshifting **Púca** rears amid whipping silver chains—testing your mettle in a furious midnight clash!",
+        text: "Eyes blazing with wild fey fire, the shapeshifting Púca rears amid whipping silver chains—testing your mettle in a furious midnight clash!",
         enemy: { name: "The Silver-Chained Púca", desc: "Powerful shapeshifting fey trickster draped in enchanted silver chains.", hp: 108, ac: 17, atk: 12, dmg: 14, xp: 510, gold: 325, items: ["bq_puca_silver_bridle"], weakCw: ["ANCHOR_BROKEN"] },
         choices: [
           { t: "Earn the Púca's grudging truce and send it galloping far beyond the village!", to: 4 }
@@ -773,7 +773,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Deep Underworld • Bioluminescent Grotto",
         title: "Motes of Light in the Abyss",
         safeRetreat: true,
-        text: "Far below the roots of the mountains, glowing fungi drift like pale stars through echoing caverns—hunting ground of the **Deep King**, an alien Cave Sovereign that feeds on the spiritual essence of every expedition sent against it!",
+        text: "Far below the roots of the mountains, glowing fungi drift like pale stars through echoing caverns—hunting ground of the Deep King, an alien Cave Sovereign that feeds on the spiritual essence of every expedition sent against it!",
         choices: [
           { t: "Read the bioluminescent spore-currents to avoid the soul-draining Duskwilt pockets!", badge: "Arcana / Survival DC 17", check: { stat: "arcana", skill: "Survival", dc: 17, pass: 2, fail: 2, passMsg: "You chart a clean dry-stone ridge straight into the Sovereign's throne grotto!", failMsg: "Spore-clouds burst purple as withered Duskwilt stalkers close in!" }, onPass: { cw: "SPORE_RIDGE" } },
           { t: "Descend boldly into the luminous cavern depths with lantern raised!", to: 2 }
@@ -782,7 +782,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Fungal Caverns • Ossuary Trail",
         title: "Duskwilt Horrors",
-        text: "Twisted, essence-draining **Duskwilt** predators rise from the remains of previous fallen heroes along the glowing cavern floor!",
+        text: "Twisted, essence-draining Duskwilt predators rise from the remains of previous fallen heroes along the glowing cavern floor!",
         enemy: { name: "Cavern Duskwilt Pack", desc: "Soul-siphoning subterranean predators serving the Deep King.", hp: 96, ac: 17, atk: 12, dmg: 14, xp: 420, gold: 260, items: rollRandomLoot(["consumable", "material"], 1, "very_rare"), flee: 1, weakCw: ["SPORE_RIDGE"] },
         choices: [
           { t: "Enter the echoing Cathedral of Spores where the Deep King awaits!", to: 3 }
@@ -791,7 +791,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Cathedral of Spores • Throne of the Deep",
         title: "The Deep King, Cave Sovereign",
-        text: "Radiating crushing psychic pressure amid drifting emerald spores, the alien **Cave Sovereign**—the dreaded Deep King—reaches out to harvest your spirit!",
+        text: "Radiating crushing psychic pressure amid drifting emerald spores, the alien Cave Sovereign—the dreaded Deep King—reaches out to harvest your spirit!",
         enemy: { name: "The Deep King, Cave Sovereign", desc: "Fell alien intelligence feeding on spiritual essence deep beneath the world.", hp: 118, ac: 18, atk: 13, dmg: 15, xp: 575, gold: 360, items: ["bq_deep_king_sovereign_crown"], weakCw: ["SPORE_RIDGE"] },
         choices: [
           { t: "Shatter the Deep King's essence-nexus and claim the fallen expeditions' hoard!", to: 4 }

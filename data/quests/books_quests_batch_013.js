@@ -219,7 +219,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Womford Chapel • The Weeping Altar",
         title: "The Weeper in Shadow",
-        text: "Draped in black moss and tears of liquid shadow, the towering **Weeper in Shadow** rises from the ruined altar—its sorrowful shriek rattling every timber in the lost village!",
+        text: "Draped in black moss and tears of liquid shadow, the towering Weeper in Shadow rises from the ruined altar—its sorrowful shriek rattling every timber in the lost village!",
         enemy: { name: "The Weeper in Shadow", desc: "Malevolent spirit of grief binding Womford to the living wood.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 135, gold: 90, items: ["bq_womford_tear_pendant"], weakCw: ["ROOT_SIGHT"] },
         choices: [
           { t: "Shatter the shadow-root heart beneath the altar to free Womford's trapped spirits!", to: 4 }
@@ -426,7 +426,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Leer Square • The Trollstone Circle",
         title: "Big Briar Arrives",
-        text: "Wreathed in barbed vines and reeking of dark loam, monstrous fey hag-troll **Big Briar** stomps into the square, licking her crooked fangs: 'Where are my sweet little piggies?!'",
+        text: "Wreathed in barbed vines and reeking of dark loam, monstrous fey hag-troll Big Briar stomps into the square, licking her crooked fangs: 'Where are my sweet little piggies?!'",
         enemy: { name: "Big Briar", desc: "Hulking, thorny fey monstrosity feasting on transformed villagers.", hp: 58, ac: 14, atk: 7, dmg: 8, xp: 205, gold: 135, items: ["bq_big_briar_trollstone"], weakCw: ["TROLLSTONE_CRACKED"] },
         choices: [
           { t: "Shatter the mossy trollstone to break Big Briar's transformation curse!", to: 4 }
@@ -564,7 +564,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Palace of Wine • The Music Balcony",
         title: "Fergus ap Hywell",
-        text: "Bristling into monstrous hybrid form, barrel-chested wereboar **Fergus ap Hywell** blows a deafening note on the golden Horn of Revels and charges with wicked ivory tusks!",
+        text: "Bristling into monstrous hybrid form, barrel-chested wereboar Fergus ap Hywell blows a deafening note on the golden Horn of Revels and charges with wicked ivory tusks!",
         enemy: { name: "Fergus ap Hywell, Wereboar Chief", desc: "Ferocious wereboar warlord wielding the enchanted Horn of Revels.", hp: 66, ac: 15, atk: 8, dmg: 9, xp: 255, gold: 165, items: ["bq_horn_of_revels_charm"], weakCw: ["CELLAR_ENTRY"] },
         choices: [
           { t: "Wrest the Horn of Revels from Fergus's grasp and drive the Tusks out!", to: 4 }
@@ -633,7 +633,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Sodality Reliquary • Sovereign's Circle",
         title: "Master of Silent Rites",
-        text: "Before the glowing Winter Court statue stands the gaunt **Master of Silent Rites**, weaving frost-veined shadow magic to unlock the Moonlit King's buried power!",
+        text: "Before the glowing Winter Court statue stands the gaunt Master of Silent Rites, weaving frost-veined shadow magic to unlock the Moonlit King's buried power!",
         enemy: { name: "Master of Silent Rites", desc: "Esoteric shadow-mage commanding winter-forged wards.", hp: 68, ac: 15, atk: 8, dmg: 9, xp: 265, gold: 170, items: ["bq_sovereign_circle_ring"], weakCw: ["SILENT_ENTRY"] },
         choices: [
           { t: "Secure the stolen Winter statue and slip back out into Corremel's fog!", to: 4 }
@@ -702,7 +702,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "House of Reciprocities • Vault of Contracts",
         title: "Mistress of Reciprocities",
-        text: "Surrounded by glowing jars of stolen memories and light, the towering **Mistress of Reciprocities** tips her golden balance: 'Nothing is free beneath my roof, brightlander!'",
+        text: "Surrounded by glowing jars of stolen memories and light, the towering Mistress of Reciprocities tips her golden balance: 'Nothing is free beneath my roof, brightlander!'",
         enemy: { name: "Mistress of Reciprocities", desc: "Ruthless fey broker who enslaves travelers through twisted debts.", hp: 72, ac: 16, atk: 9, dmg: 10, xp: 300, gold: 190, items: ["bq_urshaka_light_totem"], weakCw: ["LEDGER_LOOPHOLE"] },
         choices: [
           { t: "Burn the blood-ink ledger and lead Urshaka's family back to the crossroads!", to: 4 }
@@ -771,7 +771,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Pluming Lantern • Memory Vault",
         title: "The Two Dream-Thieves",
-        text: "Surrounded by glowing glass bottles filled with stolen laughter and song, the twin **Dream-Thieves** lash out with psychic blades: 'His memories taste far too sweet to return!'",
+        text: "Surrounded by glowing glass bottles filled with stolen laughter and song, the twin Dream-Thieves lash out with psychic blades: 'His memories taste far too sweet to return!'",
         enemy: { name: "The Twin Dream-Thieves", desc: "Insidious mind-predators harvesting noble memories in Corremel.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 310, gold: 195, items: ["bq_pluming_lantern_charm"], weakCw: ["MELODY_CLUE"] },
         choices: [
           { t: "Uncork the glowing memory-vials to restore Eldreth Umbril's mind!", to: 4 }
@@ -840,7 +840,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Architect's Vault • The Pendulum Core",
         title: "The Paradox Sentinel",
-        text: "Inside the vault, the architect's daughter strains to hold the collapsing wards as a towering **Paradox Sentinel**—corrupted by centuries of storm-echoes—strikes with twin scythes of frozen light!",
+        text: "Inside the vault, the architect's daughter strains to hold the collapsing wards as a towering Paradox Sentinel—corrupted by centuries of storm-echoes—strikes with twin scythes of frozen light!",
         enemy: { name: "The Paradox Sentinel", desc: "Corrupted chronomantic guardian swinging blades of fractured time.", hp: 74, ac: 16, atk: 9, dmg: 10, xp: 315, gold: 200, items: ["bq_oshragora_hourglass"], weakCw: ["CHRONO_STEP"] },
         choices: [
           { t: "Stabilize the vault-stone and escort the Time-Twister's daughter to safety!", to: 4 }

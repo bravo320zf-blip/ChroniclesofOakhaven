@@ -30,7 +30,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Proudheart Pasture • Hay Barn",
         title: "The Herd Skulker",
-        text: "Shedding its bloodied cloak of stolen champion fleece, a lithe, sharp-fanged **Herd Skulker** lunges out of the shadows beside the hayloft!",
+        text: "Shedding its bloodied cloak of stolen champion fleece, a lithe, sharp-fanged Herd Skulker lunges out of the shadows beside the hayloft!",
         enemy: { name: "The Herd Skulker", desc: "Cunning fleece-draped predator that hides inside sheep flocks.", hp: 24, ac: 12, atk: 4, dmg: 4, xp: 65, gold: 40, items: ["bq_proudheart_wool_cloak"], weakCw: ["SKULKER_SPOTTED"] },
         choices: [
           { t: "Calm the remaining Wool-Off sheep and call Farmer Grumbo out of the farmhouse!", to: 3 }
@@ -98,7 +98,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Shaded Sandstone Basin",
         title: "Caustic Desert Slimes",
-        text: "Shimmering like pools of false oasis water, two ravenous **Desert Slimes** ooze across the basin floor toward the cornered, spitting dromedaries!",
+        text: "Shimmering like pools of false oasis water, two ravenous Desert Slimes ooze across the basin floor toward the cornered, spitting dromedaries!",
         enemy: { name: "Caustic Desert Slimes", desc: "Translucent sand-oozes that ambush thirsty desert travelers.", hp: 24, ac: 11, atk: 4, dmg: 4, xp: 65, gold: 40, items: ["bq_caravan_water_flask"], weakCw: ["CANYON_RIM"] },
         choices: [
           { t: "Soothe the dromedaries with oats and lead the entire string back to the caravan!", to: 3 }
@@ -157,7 +157,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Hundedel Farm • Fortified Fence",
         title: "Bandits in the Barn",
         safeRetreat: true,
-        text: "After busting out of the magistrate's cells, a notorious outlaw and his crew seized the Hundedel family farm! Worse, they tricked the farm's helpful little **Barnyard & Shovel Dragonettes** into digging trenches and guarding the yard while the youngest Hundedel boy is tied up inside!",
+        text: "After busting out of the magistrate's cells, a notorious outlaw and his crew seized the Hundedel family farm! Worse, they tricked the farm's helpful little Barnyard & Shovel Dragonettes into digging trenches and guarding the yard while the youngest Hundedel boy is tied up inside!",
         choices: [
           { t: "Toss shiny copper buttons and explain the outlaws' lies to convince the Shovel Dragonettes to stand down!", badge: "Persuasion DC 11", check: { stat: "spirit", skill: "Persuasion", dc: 11, pass: 2, fail: 2, passMsg: "Chittering furiously at being tricked, the dragonettes flip sides and dig pits under the bandits!", failMsg: "The loyal little dragonettes puff sparks and dive-bomb you alongside a snapping Razorback Crab!" }, onPass: { cw: "DRAGONETTE_TRUCE" } },
           { t: "Vault the hay-bale barricade straight into the farmyard!", to: 2 }
@@ -166,7 +166,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Hundedel Yard • Trench Line",
         title: "Razorback Crab & Bandit Guards",
-        text: "A snapping, shell-spiked **Razorback Crab** and escaped outlaws charge out of the chicken coop to hold the porch!",
+        text: "A snapping, shell-spiked Razorback Crab and escaped outlaws charge out of the chicken coop to hold the porch!",
         enemy: { name: "Escaped Outlaws & Razorback Crab", desc: "Desperate jailbreakers and a spiky farmyard crustacean.", hp: 26, ac: 12, atk: 5, dmg: 5, xp: 75, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "common"), flee: 1, weakCw: ["DRAGONETTE_TRUCE"] },
         choices: [
           { t: "Kick open the farmhouse kitchen door to confront the Bandit Leader!", to: 3 }
@@ -175,7 +175,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Hundedel Farmhouse • Kitchen",
         title: "The Jailbreak Ringleader",
-        text: "Brandishing a stolen magistrate's saber beside the tied-up farm boy, the **Outlaw Ringleader** snarls: 'I ain't going back in irons!'",
+        text: "Brandishing a stolen magistrate's saber beside the tied-up farm boy, the Outlaw Ringleader snarls: 'I ain't going back in irons!'",
         enemy: { name: "Outlaw Ringleader", desc: "Notorious escaped brigand holding the Hundedel boy hostage.", hp: 32, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 65, items: ["bq_hundedel_dragonette_charm"], weakCw: ["DRAGONETTE_TRUCE"] },
         choices: [
           { t: "Untie young Hundedel and hand the bound outlaws over to the magistrate's deputies!", to: 4 }
@@ -366,7 +366,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Abandoned Mill • Courtyard",
         title: "Clockwork Armadillo & Harvest Horse",
-        text: "A spinning, iron-shelled **Clockwork Armadillo** and a scythe-rigged **Harvest Horse** thunder across the yard alongside grinning bandits!",
+        text: "A spinning, iron-shelled Clockwork Armadillo and a scythe-rigged Harvest Horse thunder across the yard alongside grinning bandits!",
         enemy: { name: "Clockwork Armadillo & Harvest Horse", desc: "Hijacked mechanical constructs turned into highway raiders.", hp: 34, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 55, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["GEARS_JAMMED"] },
         choices: [
           { t: "Storm into the mill-loft where the bandit chief commands a Clockwork Pugilist!", to: 3 }
@@ -375,7 +375,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Mill Loft • Gearwork Control",
         title: "Bandit Chief & Clockwork Pugilist",
-        text: "Cranking a brass command-box, the **Bandit Chief** unleashes a towering, iron-fisted **Clockwork Pugilist** to pulverize you!",
+        text: "Cranking a brass command-box, the Bandit Chief unleashes a towering, iron-fisted Clockwork Pugilist to pulverize you!",
         enemy: { name: "Clockwork Pugilist & Bandit Chief", desc: "Heavy brass boxing construct and its clever outlaw master.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 140, gold: 95, items: ["bq_clockwork_pugilist_knuckles"], weakCw: ["GEARS_JAMMED"] },
         choices: [
           { t: "Smash the command-box and return the recovered trade goods to the guild!", to: 4 }
@@ -444,7 +444,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Bakery Cellar • Spice Vault",
         title: "The Rival Saboteur",
-        text: "Caught red-handed clutching a vial of nightshade and corrupted starter-yeast, the envious **Guild Saboteur** hurls caustic alchemical flasks to silence you!",
+        text: "Caught red-handed clutching a vial of nightshade and corrupted starter-yeast, the envious Guild Saboteur hurls caustic alchemical flasks to silence you!",
         enemy: { name: "Envious Confectioner Saboteur", desc: "Poison-slinging rival who framed Amaranth the Bakery Drake.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 140, gold: 95, items: ["bq_amaranth_hearth_charm"], weakCw: ["NIGHTSHADE_TRAIL"] },
         choices: [
           { t: "Drag the saboteur out to clear Amaranth's good name!", to: 4 }
@@ -504,7 +504,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Bardic College • Practice Wing",
         title: "Origami Golems & Animated Quartet",
-        text: "Razor-edged **Origami Golems** folded from ancient scores whirl around a floating **Animated Quartet** of violins and cellos!",
+        text: "Razor-edged Origami Golems folded from ancient scores whirl around a floating Animated Quartet of violins and cellos!",
         enemy: { name: "Animated Quartet & Origami Golems", desc: "Enchanted musical instruments and paper constructs gone haywire.", hp: 34, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 55, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["COUNTER_MELODY"] },
         choices: [
           { t: "Burst onto the Grand Stage where Budanyek is trapped behind the Clockwork Conductor!", to: 3 }
@@ -513,7 +513,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Bardic College • Grand Stage",
         title: "The Clockwork Conductor",
-        text: "Waving twin electrified batons before a terrified Budanyek, the towering **Clockwork Conductor** demands an encore to the death!",
+        text: "Waving twin electrified batons before a terrified Budanyek, the towering Clockwork Conductor demands an encore to the death!",
         enemy: { name: "The Clockwork Conductor", desc: "Obsessive mechanical maestro commanding sonic shocks.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 140, gold: 95, items: ["bq_conductor_ivory_baton"], weakCw: ["COUNTER_MELODY"] },
         choices: [
           { t: "Silence the Conductor and lead Budanyek safely back to his friends!", to: 4 }
@@ -573,7 +573,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Lush Cornfield • Barbed Furrows",
         title: "Tripwire Patches & Cult Reapers",
-        text: "Snapping **Tripwire Patches** of living bramble lash across the loam alongside sickle-wielding harvest cultists!",
+        text: "Snapping Tripwire Patches of living bramble lash across the loam alongside sickle-wielding harvest cultists!",
         enemy: { name: "Harvest Cultists & Tripwire Patches", desc: "Fanatical soil-worshipers and living carnivorous bramble traps.", hp: 34, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 55, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["VINES_CUT"] },
         choices: [
           { t: "Charge the blood-soaked Scarecrow Altar where a captive traveler hangs bound!", to: 3 }
@@ -582,7 +582,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Cornfield Heart • Scarecrow Altar",
         title: "The Harvest Hierophant",
-        text: "Crowned in blackened wheat-stalks, the sinister **Harvest Hierophant** raises a bloodstained scythe over the bound traveler: 'The soil hungers—feed the roots!'",
+        text: "Crowned in blackened wheat-stalks, the sinister Harvest Hierophant raises a bloodstained scythe over the bound traveler: 'The soil hungers—feed the roots!'",
         enemy: { name: "The Harvest Hierophant", desc: "Devious dark druid enslaving Sycamore Crossing with blood-crop magic.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 140, gold: 95, items: ["bq_sycamore_golden_sickle"], weakCw: ["VINES_CUT"] },
         choices: [
           { t: "Cut the traveler free and shatter the dark idol poisoning the village soil!", to: 4 }
@@ -633,7 +633,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Extraplanar Pavilion • Silk Entry",
         title: "Palace of Scandal",
         safeRetreat: true,
-        text: "Beneath striped silken spires floating in twilight operates **The Maestro**, a flamboyant fey information-hoarder who trades in ruinous scandals! Your patron needs a sealed blackmail scroll recovered from his whimsical, trap-filled Pavilion!",
+        text: "Beneath striped silken spires floating in twilight operates The Maestro, a flamboyant fey information-hoarder who trades in ruinous scandals! Your patron needs a sealed blackmail scroll recovered from his whimsical, trap-filled Pavilion!",
         choices: [
           { t: "Trade a harmless fabricated gossip-rumor to distract the chattering Lobe Lemurs guarding the gallery!", badge: "Deception / Persuasion DC 13", check: { stat: "spirit", skill: "Persuasion", dc: 13, pass: 2, fail: 2, passMsg: "The Lobe Lemurs scramble to whisper your fake scandal, leaving the side door wide open!", failMsg: "Shrieking lemurs and bubbling Doppelixirs swarm the silk carpet!" }, onPass: { cw: "FAKE_SCANDAL" } },
           { t: "Stride boldly through the mirrored gallery straight toward the Vault of Whispers!", to: 2 }
@@ -642,7 +642,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Pavilion Gallery • Hall of Mirrors",
         title: "Doppelixirs & Veritigibbet",
-        text: "Living potion-mimic **Doppelixirs** and a swinging, truth-demanding **Veritigibbet** block the archway to The Maestro's stage!",
+        text: "Living potion-mimic Doppelixirs and a swinging, truth-demanding Veritigibbet block the archway to The Maestro's stage!",
         enemy: { name: "Doppelixirs & Veritigibbet", desc: "Whimsical yet lethal fey guardians enforcing The Maestro's secrecy.", hp: 40, ac: 14, atk: 6, dmg: 6, xp: 125, gold: 70, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["FAKE_SCANDAL"] },
         choices: [
           { t: "Confront The Maestro himself atop his velvet whisper-stage!", to: 3 }
@@ -651,7 +651,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Pavilion Stage • Vault of Whispers",
         title: "The Maestro",
-        text: "Flourishing a gilded baton amid floating whisper-orbs, **The Maestro** bows mockingly: 'Every secret has a price—and yours shall be your hide!'",
+        text: "Flourishing a gilded baton amid floating whisper-orbs, The Maestro bows mockingly: 'Every secret has a price—and yours shall be your hide!'",
         enemy: { name: "The Maestro", desc: "Grandiose secret-hoarding fey lord commanding illusions and moppets.", hp: 50, ac: 15, atk: 7, dmg: 7, xp: 175, gold: 120, items: ["bq_maestro_whisper_mask"], weakCw: ["FAKE_SCANDAL"] },
         choices: [
           { t: "Snatch the blackmail scroll from the velvet pedestal and step back through the planar curtain!", to: 4 }
@@ -711,7 +711,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Deep Canopy • Mossy Clearing",
         title: "Leavesrot Ooze & Monkey's Bane Vine",
-        text: "Corrosive **Leavesrot Ooze** drips from the boughs as strangling **Monkey's Bane Vines** lash across the trail!",
+        text: "Corrosive Leavesrot Ooze drips from the boughs as strangling Monkey's Bane Vines lash across the trail!",
         enemy: { name: "Leavesrot Ooze & Monkey's Bane Vine", desc: "Lethal jungle flora and decaying forest slime.", hp: 40, ac: 13, atk: 6, dmg: 6, xp: 125, gold: 70, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["CANOPY_SENSE"] },
         choices: [
           { t: "Enter the sun-dappled Fey Grove where the Rainforest Ogre holds sway!", to: 3 }
@@ -720,7 +720,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "The Fey Grove • Emerald Hollow",
         title: "The Rainforest Ogre",
-        text: "Draped in living moss and swinging a massive ironwood club, a ferocious **Rainforest Ogre** roars across the sacred grove!",
+        text: "Draped in living moss and swinging a massive ironwood club, a ferocious Rainforest Ogre roars across the sacred grove!",
         enemy: { name: "Rainforest Ogre", desc: "Moss-cloaked jungle giant driving Bukofa's settlers back.", hp: 50, ac: 14, atk: 7, dmg: 7, xp: 175, gold: 120, items: ["bq_bukofa_jade_totem"], weakCw: ["CANOPY_SENSE"] },
         choices: [
           { t: "Make peace with the grove's gentle Aziza spirits and return to Bukofa!", to: 4 }
@@ -771,7 +771,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Bay's Burrow • Trade Ridge",
         title: "Claw Marks on the Milestones",
         safeRetreat: true,
-        text: "Caravans are backing up outside Bay's Burrow after an unusually huge, ferocious **Catamount** claimed the trade pass as its hunting ground—spooking draft horses and tearing apart supply wagons!",
+        text: "Caravans are backing up outside Bay's Burrow after an unusually huge, ferocious Catamount claimed the trade pass as its hunting ground—spooking draft horses and tearing apart supply wagons!",
         choices: [
           { t: "Track the Catamount's deep paw-prints upwind to approach its rocky den from the high ridge!", badge: "Survival DC 13", check: { stat: "spirit", skill: "Survival", dc: 13, pass: 2, fail: 2, passMsg: "Staying downwind, you spoil the giant cat's favorite ambush ledge!", failMsg: "A piercing yowl echoes off the crags as the Catamount stalks you from above!" }, onPass: { cw: "UPWIND_STALK" } },
           { t: "Bait the trade road with salted meat and wait with weapon drawn!", to: 2 }
@@ -789,7 +789,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Catamount Den • High Crag",
         title: "The Great Catamount",
-        text: "Muscles rippling beneath tawny fur, the massive **Great Catamount** drops silently from an overhang with a thunderous roar and scythe-like claws!",
+        text: "Muscles rippling beneath tawny fur, the massive Great Catamount drops silently from an overhang with a thunderous roar and scythe-like claws!",
         enemy: { name: "The Great Catamount", desc: "Monstrous territorial mountain lion terrorizing Bay's Burrow.", hp: 50, ac: 15, atk: 7, dmg: 7, xp: 175, gold: 120, items: ["bq_catamount_claw_charm"], weakCw: ["UPWIND_STALK"] },
         choices: [
           { t: "Drive the defeated beast out of the pass and signal the waiting caravans!", to: 4 }
@@ -840,7 +840,7 @@ window.OAKHAVEN.registerQuests({
         zone: "Lonely Peak • Spiteful Keep Gate",
         title: "A Cunning Ogre's Bargain",
         safeRetreat: true,
-        text: "Squatting atop a craggy summit looms Spiteful Keep, workshop of **Lord Gorgo**—an unusually clever ogre artisan famed for crafting wondrous magic items. Yet buyers whisper his wares carry cruel hidden quirks, and his unruly servants guard the mountain path!",
+        text: "Squatting atop a craggy summit looms Spiteful Keep, workshop of Lord Gorgo—an unusually clever ogre artisan famed for crafting wondrous magic items. Yet buyers whisper his wares carry cruel hidden quirks, and his unruly servants guard the mountain path!",
         choices: [
           { t: "Inspect Lord Gorgo's gleaming 'gift' trinkets at the gatehouse to spot their illusory flaws before entering!", badge: "Arcana DC 13", check: { stat: "arcana", skill: "Arcana", dc: 13, pass: 2, fail: 2, passMsg: "Aha! You expose theDokkebi's trick-runes, stripping Gorgo's surprise advantage!", failMsg: "Snorting giant boars and cackling Dokkaebi charge out of the gatehouse!" }, onPass: { cw: "TRICK_EXPOSED" } },
           { t: "Stride boldly through the iron-bound doors of Spiteful Keep!", to: 2 }
@@ -849,7 +849,7 @@ window.OAKHAVEN.registerQuests({
       2: {
         zone: "Spiteful Keep • Courtyard",
         title: "Daeodon & Kobold Ettin",
-        text: "A tusked prehistoric **Daeodon** boar and a bickering two-headed **Kobold Ettin** rush across the flagstones flanked by mischievous Dokkaebi!",
+        text: "A tusked prehistoric Daeodon boar and a bickering two-headed Kobold Ettin rush across the flagstones flanked by mischievous Dokkaebi!",
         enemy: { name: "Daeodon & Kobold Ettin", desc: "Ferocious keep-beasts and two-headed draconic servants of Lord Gorgo.", hp: 46, ac: 14, atk: 7, dmg: 7, xp: 155, gold: 85, items: rollRandomLoot(["consumable", "material"], 1, "rare"), flee: 1, weakCw: ["TRICK_EXPOSED"] },
         choices: [
           { t: "Kick open the forge-hall doors to confront Lord Gorgo himself!", to: 3 }
@@ -858,7 +858,7 @@ window.OAKHAVEN.registerQuests({
       3: {
         zone: "Spiteful Keep • Artisan's Forge",
         title: "Lord Gorgo, Cunning Artisan Ogre",
-        text: "Hefting a blazing runic forging-hammer, the towering **Lord Gorgo** grins with shrewd malice: 'You don't like Gorgo's prices? Then pay in steel!'",
+        text: "Hefting a blazing runic forging-hammer, the towering Lord Gorgo grins with shrewd malice: 'You don't like Gorgo's prices? Then pay in steel!'",
         enemy: { name: "Lord Gorgo, Artisan Ogre", desc: "Cunning, magically armed ogre-smith ruling Spiteful Keep.", hp: 58, ac: 15, atk: 7, dmg: 8, xp: 215, gold: 145, items: ["bq_gorgo_artisan_hammer"], weakCw: ["TRICK_EXPOSED"] },
         choices: [
           { t: "Claim Gorgo's genuine masterwork relics from his locked anvil-chest!", to: 4 }

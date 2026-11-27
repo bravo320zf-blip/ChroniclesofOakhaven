@@ -901,7 +901,7 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "The Summit Landing",
         title: "Edge of the Firmament",
-        text: "Before you looms a scorched steel portcullis marked with titanic dragon claws—the threshold to the orbital **Citadel of the Void Dragons**!",
+        text: "Before you looms a scorched steel portcullis marked with titanic dragon claws—the threshold to the orbital Citadel of the Void Dragons!",
         choices: [
           { t: "Catch your breath and record the sky-path before returning or pressing on in Part 2!", to: 5 }
         ]
