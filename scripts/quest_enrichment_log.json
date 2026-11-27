@@ -1,5 +1,5 @@
 {
-  "totalPasses": 49,
+  "totalPasses": 50,
   "history": [
     {
       "pass": 1,
@@ -336,6 +336,12 @@
       "questId": "wyrm_ridge",
       "title": "The Scorched Nest of Wyrm Ridge",
       "summary": "Expanded from 10 to 14 pages with Obsidian Chimney updraft shortcut, Sulfur Vent redirection (VENT_SHUNTED), Torin field-journal tactics (HUNTER_TACTICS), and Ash-Glass Gallery obsidian spring (CALDERA_WARD)."
+    },
+    {
+      "pass": 50,
+      "questId": "bk_b24_light_of_memoria",
+      "title": "The Light of Memoria",
+      "summary": "Expanded from 7 to 12 pages with oak anchor-line escape (ANCHOR_TIED), Gallery of Forgotten Names (TRUE_NAME_RECALLED), Whispering Parapet stealth flank, Turn Undead radiant surge route, and fixed invalid stat: lore check."
     }
   ],
   "questPasses": {
@@ -387,6 +393,7 @@
     "bk_b15_no_one_leaves": 1,
     "bk_pt_03_usurpers_tower": 1,
     "nf_2_child_blood": 1,
-    "wyrm_ridge": 1
+    "wyrm_ridge": 1,
+    "bk_b24_light_of_memoria": 1
   }
 }

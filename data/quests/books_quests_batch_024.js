@@ -11,7 +11,7 @@
    ============================================================ */
 window.OAKHAVEN.registerQuests({
   // ==========================================================
-  // 1. THE LIGHT OF MEMORIA (7 PAGES • LV 2)
+  // 1. THE LIGHT OF MEMORIA (12 PAGES • LV 2)
   // ==========================================================
   bk_b24_light_of_memoria: {
     id: "bk_b24_light_of_memoria",
@@ -21,43 +21,47 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 2,
     autoDiscover: false,
     discoverySource: "Rusty Flagon Inn Rumor",
-    summary: "Apprentice Tymon accidentally opened a shadow-road portal with an uprooted relic and vanished into the surreal Oubliette—rekindle the Light of Memoria and rescue him from the Forgotten!",
-    totalPages: 7,
+    summary: "Apprentice Tymon accidentally opened a shadow-road portal with an uprooted relic and vanished into the surreal Oubliette—rekindle the Light of Memoria, uncover the wraith's forgotten name, and rescue him from the Forgotten!",
+    totalPages: 12,
     pages: {
       1: {
         zone: "Uprooted Forest Archway",
         title: "The Dropped Lantern",
         safeRetreat: true,
-        text: "Beside a storm-felled oak stands a moss-choked stone archway humming with pale ley-energy. Lying in the mud is the Light of Memoria—a silver lantern dropped by Gellert's missing apprentice Tymon when he stumbled headlong into the shadow-realm of the Oubliette!",
+        text: "Beside a lightning-split oak stands a moss-choked stone archway humming with pale silver ley-energy, its inner air rippling like cold pondwater. Lying half-sunk in the mud is the Light of Memoria—a filigree silver lantern dropped by Master Gellert's missing apprentice Tymon when he stumbled headlong into the amputated shadow-realm known as the Oubliette. Faint cries for help drift back through the mist.",
         choices: [
-          { t: "Channel a spark of arcane focus into the Light of Memoria to stabilize the portal.", badge: "Arcana / Spirit DC 11", check: { stat: "arcana", skill: "Arcana", dc: 11, pass: 2, fail: 2, passMsg: "The lantern flares bright silver, opening a clean archway and warding off shadow-drain!", failMsg: "The portal flickers erratically—you leap through before it snaps shut!" }, onPass: { cw: "LANTERN_CHARGED" } },
-          { t: "Hold the lantern aloft and step boldly through the shimmering archway.", to: 2 }
+          { t: "Channel a spark of arcane focus into the Light of Memoria to stabilize the portal.", badge: "Arcana / Spirit DC 11", check: { stat: "arcana", skill: "Arcana", dc: 11, pass: 2, fail: 2, passMsg: "The lantern flares bright silver, parting the violet fog and warding off shadow-drain!", failMsg: "The portal flickers erratically—you snatch up the lantern and leap through before it snaps shut!" }, onPass: { cw: "LANTERN_CHARGED", xp: 15 } },
+          { t: "Tie a braided hemp anchor-line to the oak roots so you can find the exit cleanly.", badge: "Survival / Athletics DC 10", check: { stat: "might", skill: "Survival", dc: 10, pass: 2, fail: 2, passMsg: "You knot a taut guide-cord to the oak and carry the coil into the mist!", failMsg: "Wet moss slips the knot loose—you step through the archway relying on the lantern alone." }, onPass: { cw: "ANCHOR_TIED", xp: 10 } },
+          { t: "Hold the silver lantern aloft and step boldly through the shimmering archway.", to: 2 }
         ]
       },
       2: {
         zone: "The Oubliette",
         title: "Corridors of Lost Memory",
-        text: "Inside the Oubliette, floating cobbles drift through violet mist while forgotten voices echo from shuttered arches. Restless shadow-husks peel away from the walls, drawn to your living warmth!",
+        text: "Inside the Oubliette, moss-rimmed cobbles float lazily through silent violet mist while half-remembered lullabies echo from shuttered arches. At the warmth of your lantern, restless shadow-husks peel away from the cracked stone walls, reaching with hollow grey fingers!",
         enemy: { name: "Oubliette Shadow-Husks", desc: "Hollow undead remnants wandering the amputated shadow-road.", hp: 22, ac: 12, atk: 4, dmg: 5, undead: true, xp: 55, gold: 25, items: rollRandomLoot(["consumable", "valuable"], 1, "uncommon"), flee: 1, weakCw: ["LANTERN_CHARGED"] },
         choices: [
-          { t: "Follow Tymon's frantic cries deeper into the floating cloister.", to: 3 }
+          { t: "Follow Tymon's frantic cries straight into the Cloister of Echoes.", to: 3 },
+          { t: "Detour through a quiet side-arch into the Gallery of Forgotten Names.", to: 8 }
         ]
       },
       3: {
         zone: "Cloister of Echoes",
         title: "Tymon's Trail",
-        text: "You spot Tymon's torn satchel snagged on a silver railing, along with a chalk-scrawled ward circle warning of a cruel wraith called the Forgotten.",
+        text: "Snagged on a tarnished silver railing hangs Tymon's torn apprentice satchel, spilling parchment scraps across the floating flagstones. Beside it, hasty chalk glyphs form a half-finished ward circle warning of a crowned wraith called the Forgotten—who steals the names of all who linger in its cell.",
         onEnter: { healHp: 8, msg: "You find a spare healing draught in Tymon's satchel (+8 HP)!" },
         choices: [
-          { t: "Trace Tymon's silver ward-chalk onto your weapon before entering the inner cell.", badge: "Lore / Arcana DC 11", check: { stat: "lore", skill: "Arcana", dc: 11, pass: 4, fail: 4, passMsg: "Silver runes flare along your steel—ready to cut through wraith-flesh!", failMsg: "The chalk crumbles as a freezing howl shakes the cloister!" }, onPass: { cw: "SILVER_CHALK" } },
-          { t: "[Turn Undead] Raise the Light of Memoria and stride straight into the Forgotten's cell!", reqSpell: "Turn Undead", to: 4 }
+          { t: "Trace Tymon's silver ward-chalk along your weapon before entering the inner cell.", badge: "Arcana DC 11", check: { stat: "arcana", skill: "Arcana", dc: 11, pass: 4, fail: 4, passMsg: "Silver runes flare along your steel—ready to sever wraith-flesh!", failMsg: "The damp chalk crumbles as a freezing howl shakes the cloister!" }, onPass: { cw: "SILVER_CHALK", xp: 15 } },
+          { t: "[Turn Undead] Flood the Light of Memoria with dawn-radiance and burst into the cell!", reqSpell: "Turn Undead", badge: "Turn Undead", to: 9 },
+          { t: "Climb the narrow Whispering Parapet to drop behind the wraith's dais.", to: 10 },
+          { t: "Stride directly into the Cell of the Forgotten!", to: 4 }
         ]
       },
       4: {
         zone: "Cell of the Forgotten",
         title: "Master of the Oubliette",
-        text: "Huddled behind a cracked pillar, apprentice Tymon trembles as the Forgotten—a crowned wraith draped in tattered shadow-banners—sweeps down to claim his last memories!",
-        enemy: { name: "The Forgotten", desc: "A tyrannical wraith ruling the undead of the Oubliette.", hp: 28, ac: 13, atk: 5, dmg: 6, undead: true, xp: 85, gold: 50, items: ["bq_memoria_lantern"], weakCw: ["LANTERN_CHARGED", "SILVER_CHALK"] },
+        text: "Huddled behind a cracked marble pillar, apprentice Tymon clutches his knees in terror as the Forgotten—a tall, crowned wraith draped in tattered shadow-banners—sweeps down from its floating dais to drink his last memories! 'Another name for the silence,' it rasps, raising a blade of frozen mist!",
+        enemy: { name: "The Forgotten", desc: "A tyrannical wraith ruling the undead of the Oubliette.", hp: 28, ac: 13, atk: 5, dmg: 6, undead: true, xp: 85, gold: 50, items: ["bq_memoria_lantern"], weakCw: ["LANTERN_CHARGED", "SILVER_CHALK", "TRUE_NAME_RECALLED"] },
         choices: [
           { t: "Pull Tymon to his feet and guide him back toward the silver archway.", to: 5 }
         ]
@@ -65,15 +69,16 @@ window.OAKHAVEN.registerQuests({
       5: {
         zone: "Shifting Threshold",
         title: "Out of the Mist",
-        text: "The Oubliette shudders as the Forgotten dissolves into pale motes. Holding the glowing Light of Memoria high, you haul Tymon back through the archway into crisp forest air.",
+        text: "The Oubliette shudders as the Forgotten unravels into drifting silver motes, its floating cobbles beginning to tip into the violet abyss! Holding the glowing Light of Memoria high, you haul a breathless Tymon back across the crumbling flagstones toward the shimmering forest archway.",
         choices: [
-          { t: "Escort the shaken apprentice back to his master's lodge.", to: 6 }
+          { t: "Follow your taut hemp anchor-line straight out of the collapsing mist!", reqCw: "ANCHOR_TIED", badge: "ANCHOR_TIED", to: 12 },
+          { t: "Leap through the closing archway and escort Tymon back to Gellert's lodge.", to: 6 }
         ]
       },
       6: {
         zone: "Forest Edge",
         title: "A Lesson Learned",
-        text: "Tymon swears off poking uprooted relics forever and insists you keep the Light of Memoria alongside his master's rescue purse.",
+        text: "Cool pine-scented air greets you both as the stone archway's hum fades behind you. Tymon drops onto a mossy stump, swearing off poking uprooted shadow-relics forever, and insists you keep the Light of Memoria alongside Master Gellert's grateful rescue purse.",
         choices: [
           { t: "Collect your reward and return to Oakhaven.", to: 7 }
         ]
@@ -81,9 +86,54 @@ window.OAKHAVEN.registerQuests({
       7: {
         zone: "Epilogue",
         title: "Memory Preserved",
-        text: "Tymon is safe, the Forgotten is banished, and the Light of Memoria shines warmly in your keeping.",
+        text: "Apprentice Tymon is safely back at his master's workbench, the Forgotten is banished from the fallen archway, and the Light of Memoria shines warmly in your keeping.",
         ending: { type: "true", title: "Bearer of the Light of Memoria", xp: 120, gold: 95, trophy: "Silver Seal of the Oubliette" },
         choices: []
+      },
+      8: {
+        zone: "Gallery of Forgotten Names",
+        title: "The Whispering Plaques",
+        text: "Dozens of tarnished brass memory-plaques drift gently inside a domed side-chamber, each murmuring a single lost name. On a cracked silver pedestal at the center lies an overturned offering dish and a tarnished crest bearing the title 'Castellan Voren—Warden of the Fallen Arch.'",
+        choices: [
+          { t: "Decipher the faded heraldry to bind the Forgotten's true mortal name.", badge: "Perception / Spirit DC 11", check: { stat: "spirit", skill: "Perception", dc: 11, pass: 3, fail: 3, passMsg: "You memorize Castellan Voren's true name and pocket 20 GP & a Mana Potion from the dish!", failMsg: "The mist blurs the engraving before you can read the full seal, though you press on toward Tymon." }, onPass: { cw: "TRUE_NAME_RECALLED", gold: 20, items: ["mana_potion"], xp: 15 } },
+          { t: "Leave the whispering plaques undisturbed and hurry toward Tymon's cries.", to: 3 }
+        ]
+      },
+      9: {
+        zone: "Cell of the Forgotten",
+        title: "Dawn Inside the Oubliette",
+        text: "You pour Turn Undead directly into the Light of Memoria! A blinding ring of sunrise explodes through the shadowed cell, searing the Forgotten's tattered banners and sending the crowned wraith reeling backward off its dais!",
+        onEnter: { cw: "SILVER_CHALK", xp: 20, msg: "Turn Undead seared the Forgotten before battle (+20 XP)!" },
+        choices: [
+          { t: "Press the advantage against the seared wraith!", to: 11 }
+        ]
+      },
+      10: {
+        zone: "Whispering Parapet",
+        title: "High Archway Flank",
+        text: "A narrow stone ledge winds above the Cell of the Forgotten, shrouded in drifting violet fog. Below, you can see Tymon cowering behind a pillar while the crowned wraith circles lazily—and a loose silver memory-gem glints beside a gargoyle's claw.",
+        choices: [
+          { t: "Slip silently along the parapet, pocket the gem, and drop onto the wraith's blind side!", badge: "Stealth / Agility DC 11", check: { stat: "agility", skill: "Stealth", dc: 11, pass: 4, fail: 4, failDmg: 3, passMsg: "You claim 20 GP in silver-gem dust and drop cleanly onto the Forgotten's flank!", failMsg: "A loose coping stone clatters down (-3 HP), alerting the wraith as you drop into the cell!" }, onPass: { cw: "SILVER_CHALK", gold: 20, xp: 15 } },
+          { t: "Climb back down quietly and enter through the main arch.", to: 4 }
+        ]
+      },
+      11: {
+        zone: "Cell of the Forgotten",
+        title: "The Seared Wraith",
+        text: "Hissing through smoking shadow-ribbons, the sun-burned Forgotten lunges desperately across the cracked marble as Tymon scrambles to safety behind you!",
+        enemy: { name: "The Forgotten (Seared)", desc: "Crown-wraith weakened by dawn-light from the Light of Memoria.", hp: 22, ac: 12, atk: 5, dmg: 5, undead: true, xp: 90, gold: 55, items: ["bq_memoria_lantern"], weakCw: ["LANTERN_CHARGED", "TRUE_NAME_RECALLED"] },
+        choices: [
+          { t: "Pull Tymon to his feet and guide him back toward the silver archway.", to: 5 }
+        ]
+      },
+      12: {
+        zone: "Shifting Threshold",
+        title: "Guided Home by the Cord",
+        text: "Your braided anchor-line pulls taut through the swirling fog like a lifeline! Following it hand-over-hand, you and Tymon clear the collapsing stones with seconds to spare—even snagging a fallen silver coin-pouch wedged beside the threshold.",
+        onEnter: { gold: 15, xp: 20, msg: "Your anchor-line guided you out cleanly (+15 GP, +20 XP)!" },
+        choices: [
+          { t: "Step out to the forest edge with Tymon.", to: 6 }
+        ]
       }
     }
   },
