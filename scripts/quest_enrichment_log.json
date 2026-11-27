@@ -1,5 +1,5 @@
 {
-  "totalPasses": 44,
+  "totalPasses": 45,
   "history": [
     {
       "pass": 1,
@@ -302,6 +302,13 @@
       "title": "The Midnight Tree",
       "file": "data/quests/books_quests_batch_001.js",
       "summary": "Expanded from 9 to 12 pages (cleaned Old Margreve sourcebook tag to Margreve Forest), adding root-arch Stealth scouting (SNARES_CLEARED +15 GP), Kitchen Loft poppy-ash wine sabotage & Firebolt chimney smoke (WINE_DRUGGED), Treasure Chamber knothole scouting (CHIEFTAIN_STUDIED), Canopy Ledge falconer's whistle check (RAVENS_RATTLED), and Courier Alaric's dawn gratitude bonus (+35 GP/+25 XP/+8 HP)."
+    },
+    {
+      "pass": 45,
+      "questId": "bk_b14_strange_alchemy",
+      "title": "Strange Alchemy",
+      "file": "data/quests/books_quests_batch_014.js",
+      "summary": "Expanded from 6 to 10 pages, adding willow-backwater Stealth bypass (BACKWATER_LANDING), Calm Eddy sample-case salvage (+25 GP/+15 XP), Reagent Cellar encounter with Apprentice Bramble (Persuasion/Herbalism -> BRAMBLE_HELPED +30 GP/+8 HP/+4 MP), Pump Alcove manifold sabotage (Detect Traps +35 GP/Firebolt -> ALEMBIC_DRAINED), and Bramble's gratitude bonus (+40 GP/+30 XP/+4 MP)."
     }
   ],
   "questPasses": {
@@ -348,6 +355,7 @@
     "bk_pt_10_stormcallers_tower": 1,
     "bk_b18_tob3_perfidious_guru": 1,
     "bk_b9_tob2_7_horseshoe_oasis": 1,
-    "bk_pt_02_midnight_tree": 1
+    "bk_pt_02_midnight_tree": 1,
+    "bk_b14_strange_alchemy": 1
   }
 }

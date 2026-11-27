@@ -142,7 +142,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 3. STRANGE ALCHEMY (6 PAGES • LV 3)
+  // 3. STRANGE ALCHEMY (10 PAGES • LV 3)
   // ==========================================================
   bk_b14_strange_alchemy: {
     id: "bk_b14_strange_alchemy",
@@ -153,57 +153,100 @@ window.OAKHAVEN.registerQuests({
     autoDiscover: false,
     discoverySource: "Gnome Tinkerer Vivi Sparksprocket (Rusty Flagon Tavern)",
     summary: "Assist Barsella gnome tinkerer Vivi Sparksprocket in tracking down the Arc of the Aberrant Sextant—crossing a magically warped river to confront the erratic alchemist hoarding its planar power!",
-    totalPages: 6,
+    totalPages: 10,
     pages: {
       1: {
         zone: "Warped Riverbank • Alchemist's Isle",
         title: "Rainbow Foam & Strange Currents",
         safeRetreat: true,
-        text: "Gnome tinkerer Vivi Sparksprocket has hunted for years for a piece of the fabled Aberrant Sextant—an artifact capable of opening planar gateways! Now its brass Arc glows atop a rocky island in a river bubbling with shimmering, alchemically mutated foam!",
+        text: "Gnome tinkerer Vivi Sparksprocket has hunted for years for a piece of the fabled Aberrant Sextant—an artifact capable of opening planar gateways! Now its brass Arc glows atop a rocky island in a river bubbling with shimmering, alchemically mutated foam while brass pipes belch violet mist from the glass-domed workshop above.",
         choices: [
-          { t: "Tune Vivi's brass compass to chart a safe skiff-channel through the mutating rapids!", badge: "Arcana DC 12", check: { stat: "arcana", skill: "Arcana", dc: 12, pass: 2, fail: 2, passMsg: "You steer cleanly around the boiling eddies and land right beside the alchemist's rear alembic!", failMsg: "Swirling rainbow foam rocks the skiff as mutated river-oozes surge aboard!" }, onPass: { cw: "VIVI_COMPASS" } },
-          { t: "Row hard straight for the island's stone landing!", to: 2 }
+          { t: "Tune Vivi's brass compass to chart a safe skiff-channel through the mutating rapids!", badge: "Arcana / Arcana DC 12", check: { stat: "arcana", skill: "Arcana", dc: 12, pass: 2, fail: 3, failDmg: 5, passMsg: "You steer cleanly around the boiling eddies into a calm cove!", failMsg: "Swirling rainbow foam splashes the gunwale (-5 HP) as mutated river-oozes surge aboard!" }, onPass: { cw: "VIVI_COMPASS", xp: 20 } },
+          { t: "Pole the skiff quietly along the willow-shaded backwater to bypass the shore sentries!", badge: "Agility / Stealth DC 12", check: { stat: "agility", skill: "Stealth", dc: 12, pass: 4, fail: 3, failDmg: 4, passMsg: "You glide unseen beneath the hanging willows straight to the workshop's cellar culvert!", failMsg: "An oar knocks a floating flask (-4 HP), drawing bubbling shapes across the stones!" }, onPass: { cw: "BACKWATER_LANDING", xp: 25 } },
+          { t: "Row hard straight across the rainbow rapids for the island's stone landing!", to: 3 }
         ]
       },
       2: {
+        zone: "Alchemist's Isle • Calm Eddy",
+        title: "Vivi's Tuning Channel",
+        text: "Vivi's brass compass needle locks steady, guiding your skiff cleanly between two boiling prismatic eddies! Floating beside a tangled willow root, you fish out a waterproof brass sample-case dropped by the alchemist's courier, then spot both the stone landing and a mossy drainage culvert leading under the workshop.",
+        onEnter: { gold: 25, xp: 15, msg: "Salvaged a waterproof sample-case (+25 GP, +15 XP)!" },
+        choices: [
+          { t: "Slip quietly into the mossy drainage culvert beneath the workshop.", to: 4 },
+          { t: "Beach the skiff at the stone landing to clear the shore creatures first.", to: 3 }
+        ]
+      },
+      3: {
         zone: "Alchemist's Isle • Bubbling Shore",
         title: "Mutated River Oozes",
         text: "Iridescent, crackling alchemical oozes and warped brass homunculi slither across the wet stones to defend the island laboratory!",
         enemy: { name: "Alchemical Oozes & Homunculi", desc: "Volatile spill-creatures mutated by planar river magic.", hp: 34, ac: 12, atk: 5, dmg: 6, xp: 95, gold: 55, items: rollRandomLoot(["consumable", "material"], 1, "uncommon"), flee: 1, weakCw: ["VIVI_COMPASS"] },
         choices: [
-          { t: "Storm into the glass-domed island workshop!", to: 3 }
-        ]
-      },
-      3: {
-        zone: "Island Laboratory • Planar Alembic",
-        title: "The Warped Alchemist",
-        text: "Clutching the glowing brass Arc of the Sextant, the wild-eyed island alchemist hurls shimmering planar flasks across the stone floor: 'The river speaks to me—you'll never take the Arc!'",
-        enemy: { name: "The Warped Island Alchemist", desc: "Planar-obsessed experimenter armed with unstable transmutation flasks.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 140, gold: 95, items: ["bq_sextant_brass_arc"], weakCw: ["VIVI_COMPASS"] },
-        choices: [
-          { t: "Secure the Arc of the Sextant and ferry back to Vivi Sparksprocket!", to: 4 }
+          { t: "Inspect the mossy drainage culvert beside the workshop steps before bursting in.", to: 4 },
+          { t: "Storm straight into the glass-domed island workshop!", to: 7 }
         ]
       },
       4: {
-        zone: "Barsella Camp • Vivi's Workshop",
-        title: "Tinkerer's Triumph",
-        text: "Vivi leaps onto her workbench cheering as she examines the intact brass Arc, showering you with gold and a fresh restorative draught.",
-        onEnter: { healHp: 10, msg: "Vivi's sparkling ginger-elixir restores your health (+10 HP)!" },
+        zone: "Under-Workshop • The Reagent Cellar",
+        title: "Apprentice Bramble's Plea",
+        text: "Inside a damp stone cellar lined with glowing carboys crouches Apprentice Bramble, a soot-streaked young alchemist with a cloth tied over his nose. 'Master Corvus went half-mad the night he bolted that brass Sextant Arc into his main alembic!' he whispers. 'Bleed the violet pressure-manifold in the pump alcove and his planar flasks will lose half their kick!'",
         choices: [
-          { t: "Collect your reward.", to: 5 }
+          { t: "Reassure Bramble and ask him for the safest way to neutralize the main alembic.", badge: "Spirit / Persuasion DC 12", check: { stat: "spirit", skill: "Persuasion", dc: 12, pass: 5, fail: 7, passMsg: "Grateful, Bramble hands you 30 GP, a restorative draught (+8 HP, +4 MP), and the wrench to the pump alcove!", failMsg: "Glass shatters upstairs; Bramble ducks for cover, leaving you to climb straight to the lab!" }, onPass: { cw: "BRAMBLE_HELPED", xp: 20, gold: 30, hp: 8, mp: 4 } },
+          { t: "Sample the glowing carboys to mix a quick planar-warding tincture.", badge: "Spirit / Herbalism DC 12", check: { stat: "spirit", skill: "Herbalism", dc: 12, pass: 5, fail: 7, failDmg: 4, passMsg: "You neutralize the fumes and slip cleanly into the pump alcove!", failMsg: "A sour plume stings your lungs (-4 HP), forcing you up the ladder!" }, onPass: { cw: "TINCTURE_BREWED", xp: 20 } },
+          { t: "Tell Bramble to wait by the skiff and climb straight into the main laboratory!", to: 7 }
         ]
       },
       5: {
-        zone: "River Road",
-        title: "Calmer Waters",
-        text: "Without the Sextant's Arc warping the currents, the river slowly clears.",
+        zone: "Pump Alcove • The Violet Manifold",
+        title: "Draining the Planar Alembic",
+        text: "Copper pipes shudder above a stone sump, carrying glowing lavender fluid straight up into Master Corvus's planar alembic.",
         choices: [
-          { t: "Complete the adventure!", to: 6 }
+          { t: "Reverse the brass pressure-valves carefully without snapping the spring-locks!", badge: "Agility / Detect Traps DC 12", check: { stat: "agility", skill: "Detect Traps", dc: 12, pass: 6, fail: 7, failDmg: 5, passMsg: "You bleed the manifold cleanly and pocket 35 GP in pure alchemical silver fittings!", failMsg: "Hot steam jets across your sleeve (-5 HP), alerting the alchemist above!" }, onPass: { cw: "ALEMBIC_DRAINED", gold: 35, xp: 25 } },
+          { t: "Heat the overflow joint with Firebolt to vent the planar vapor out the roof-flue!", reqSpell: "Firebolt", to: 6 },
+          { t: "Leave the hissing pipes alone and climb the iron ladder into the workshop.", to: 7 }
         ]
       },
       6: {
-        zone: "Epilogue",
+        zone: "Under-Workshop • Vented Vapor",
+        title: "Pressure Dropped",
+        text: "With a theatrical whistle, violet steam shoots harmlessly out the roof-vent! Upstairs, glass flasks clatter as the planar alembic dims to a dull amber—robbing the Warped Alchemist of his strongest unstable brews.",
+        onEnter: { cw: "ALEMBIC_DRAINED", xp: 20, msg: "Drained the planar alembic (ALEMBIC_DRAINED, +20 XP)!" },
+        choices: [
+          { t: "Burst up the iron ladder into the glass-domed Island Laboratory!", to: 7 }
+        ]
+      },
+      7: {
+        zone: "Island Laboratory • Planar Alembic",
+        title: "The Warped Alchemist",
+        text: "Clutching the glowing brass Arc of the Sextant beneath a cracked crystal dome, the wild-eyed island alchemist hurls shimmering planar flasks across the stone floor: 'The river speaks to me—you'll never take the Arc!'",
+        enemy: { name: "The Warped Island Alchemist", desc: "Planar-obsessed experimenter armed with unstable transmutation flasks.", hp: 42, ac: 14, atk: 6, dmg: 6, xp: 140, gold: 95, items: ["bq_sextant_brass_arc"], weakCw: ["VIVI_COMPASS", "ALEMBIC_DRAINED", "BACKWATER_LANDING"] },
+        choices: [
+          { t: "Unbolt the humming Arc of the Sextant and ferry back to Vivi Sparksprocket!", to: 8 }
+        ]
+      },
+      8: {
+        zone: "Barsella Camp • Vivi's Workshop",
+        title: "Tinkerer's Triumph",
+        text: "Vivi Sparksprocket leaps onto her cluttered workbench cheering as she inspects the intact brass Arc with her calipers, showering you with stamped gold and uncorking a sparkling ginger-elixir!",
+        onEnter: { healHp: 10, msg: "Vivi's sparkling ginger-elixir restores your health (+10 HP)!" },
+        choices: [
+          { t: "Check in with Apprentice Bramble by the river-skiff before heading home.", reqCw: "BRAMBLE_HELPED", to: 9 },
+          { t: "Bid Vivi farewell and follow the clearing river road back to Oakhaven.", to: 10 }
+        ]
+      },
+      9: {
+        zone: "Barsella Camp • Bramble's Satchel",
+        title: "Clean Waters",
+        text: "Apprentice Bramble grins as he sprinkles neutralizing chalk along the bank, pressing a velvet purse of salvaged silver and a crisp vial of arcane tonic into your pack. 'Without that brass Arc twisting Master Corvus's mind, maybe we can actually do honest alchemy again!'",
+        onEnter: { gold: 40, xp: 30, mp: 4, msg: "Apprentice Bramble's gratitude grants +40 GP, +30 XP, and +4 MP!" },
+        choices: [
+          { t: "Take the clearing river road home to Oakhaven.", to: 10 }
+        ]
+      },
+      10: {
+        zone: "River Road • Epilogue",
         title: "Finder of the Sextant Arc",
-        text: "You braved the warped river island and delivered the Arc of the Sextant to Vivi Sparksprocket!",
+        text: "Behind you, the rainbow foam fades from the river until clear silver water runs sweet once more. Back at the Rusty Flagon, Vivi Sparksprocket buys the whole table a round—her eyes already gleaming with plans to track down the remaining pieces of the Aberrant Sextant.",
         ending: { type: "true", title: "Recoverer of the Brass Arc", xp: 170, gold: 155, trophy: "Vivi's Tuning Compass" },
         choices: []
       }
