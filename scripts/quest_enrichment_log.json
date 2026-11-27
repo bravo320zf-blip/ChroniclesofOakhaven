@@ -1,5 +1,5 @@
 {
-  "totalPasses": 36,
+  "totalPasses": 37,
   "history": [
     {
       "pass": 1,
@@ -246,6 +246,13 @@
       "title": "The Cistern",
       "file": "data/quests/books_quests_batch_004.js",
       "summary": "Expanded from 7 linear pages to 11 branching pages with brick service-flue Lockpicking/Perception entry, Hada's Sealed Study (Arcana/Detect Traps -> DRAKE_WHISTLE + 95 GP, +15 HP/+5 MP, storm-sluice ghoul bypass), Cistern Overflow ambush (DRAKE_WHISTLE/Turn Undead/Firebolt -> DRAKE_RATTLED), Inquisitor intel bonus (+85 GP/+55 XP), and Slayer of the Deep Drake victory ending."
+    },
+    {
+      "pass": 37,
+      "questId": "bk_b13_tenebrous_plain",
+      "title": "Hunters of the Tenebrous Plain",
+      "file": "data/quests/books_quests_batch_013.js",
+      "summary": "Expanded from 6 to 10 pages with Riverbank Ferry-Post Ribbon-Tree (Herbalism/Arcana -> RIBBON_FREED, +22 GP, +6 HP/+3 MP, reed-ditch bypass), Oma's Lantern-Shed Jars of Stolen Laughter (RIBBON_FREED/Firebolt/Lockpicking -> LAUGHS_FREED + 35 GP), family ribbon bonus (+30 GP/+25 XP), and Raider of the Black Hearth victory ending."
     }
   ],
   "questPasses": {
@@ -284,6 +291,7 @@
     "bk_b2_spore_lord": 1,
     "bk_b20_queens_desire": 1,
     "bk_b19_clattering_keep": 1,
-    "bk_bol_21_the_cistern": 1
+    "bk_bol_21_the_cistern": 1,
+    "bk_b13_tenebrous_plain": 1
   }
 }

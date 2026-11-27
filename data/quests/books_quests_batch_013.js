@@ -73,7 +73,7 @@ window.OAKHAVEN.registerQuests({
   },
 
   // ==========================================================
-  // 2. HUNTERS OF THE TENEBROUS PLAIN (6 PAGES • LV 2)
+  // 2. HUNTERS OF THE TENEBROUS PLAIN (10 PAGES • LV 2)
   // ==========================================================
   bk_b13_tenebrous_plain: {
     id: "bk_b13_tenebrous_plain",
@@ -83,33 +83,35 @@ window.OAKHAVEN.registerQuests({
     recommendedLevel: 2,
     autoDiscover: false,
     discoverySource: "Grieving Frontier Parent (Rusty Flagon Tavern)",
-    summary: "Cross the mist-choked Tenebrous Plain along the forgetful waters of the River Lethe, hunt shadow beasts for the eerie Oma Rattenfanger, and rescue ten-year-old Mery before loneliness turns her into an orphan of the black!",
-    totalPages: 6,
+    summary: "Cross the mist-choked Tenebrous Plain along the forgetful waters of the River Lethe, untie the stolen name-ribbons at the ferry-post, and rescue ten-year-old Mery from Oma Rattenfanger before loneliness turns her into an orphan of the black!",
+    totalPages: 10,
     pages: {
       1: {
         zone: "Tenebrous Plain • Banks of the Lethe",
         title: "Lost Through the Cracks",
         safeRetreat: true,
-        text: "Across the grey grasses of the Tenebrous Plain glides the silent River Lethe. Here, a grandmotherly fey named Oma Rattenfanger gathers lonely, neglected children—including ten-year-old Mery—slowly transforming them into hollow 'orphans of the black'!",
+        text: "Across the silver-grey grasses of the Tenebrous Plain glides the silent, forgetful River Lethe. Here, a grandmotherly fey named Oma Rattenfanger gathers lonely children—including ten-year-old Mery, sitting hollow-eyed beside a reed skiff—slowly turning them into 'orphans of the black.' Nearby, pale cloth ribbons flutter from a dead willow by an old stone ferry-post.",
         choices: [
-          { t: "Offer Mery a warm keepsake from home so she remembers her real name despite Lethe's mist!", badge: "Persuasion DC 11", check: { stat: "spirit", skill: "Persuasion", dc: 11, pass: 2, fail: 2, passMsg: "Tears clear Mery's eyes—she whispers the weakness of Oma's hunting hounds!", failMsg: "Oma's cold bell chimes across the plain, summoning her shadow pack!" }, onPass: { cw: "MERY_MEMORY" } },
-          { t: "Track the howling Shadow Beasts across the dark plain to force Oma's hand!", to: 2 }
+          { t: "Offer Mery a warm keepsake from home so she remembers her real name despite Lethe's mist!", badge: "Persuasion / Spirit DC 11", check: { stat: "spirit", skill: "Persuasion", dc: 11, pass: 2, fail: 2, passMsg: "Tears clear Mery's eyes—she whispers the weakness of Oma's hunting hounds!", failMsg: "Oma's cold bell chimes across the plain, summoning her shadow pack!" }, onPass: { cw: "MERY_MEMORY" } },
+          { t: "Inspect the fluttering cloth ribbons tied to the dead willow at the Ferry-Post.", to: 7 },
+          { t: "Track the howling Shadow Beasts across Ash-Hollow to force Oma's hand!", to: 2 }
         ]
       },
       2: {
         zone: "Tenebrous Plain • Ash-Hollow",
         title: "Shadow Beast Hunt",
-        text: "Gaunt, ink-black Shadow Beasts prowl out of the reeds, driven forward by the haunting whistle of Oma's reed pipe!",
-        enemy: { name: "Tenebrous Shadow Beasts", desc: "Lithe twilight predators stalking the banks of the Lethe.", hp: 26, ac: 12, atk: 5, dmg: 5, xp: 75, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "common"), flee: 1, weakCw: ["MERY_MEMORY"] },
+        text: "Gaunt, ink-black Shadow Beasts prowl out of the dry reeds with amber eyes, driven forward by the haunting, breathless whistle of Oma's iron reed pipe!",
+        enemy: { name: "Tenebrous Shadow Beasts", desc: "Lithe twilight predators stalking the banks of the Lethe.", hp: 26, ac: 12, atk: 5, dmg: 5, xp: 75, gold: 45, items: rollRandomLoot(["consumable", "material"], 1, "common"), flee: 1, weakCw: ["MERY_MEMORY", "RIBBON_FREED"] },
         choices: [
-          { t: "Confront Oma Rattenfanger at her lantern-hung cottage to claim Mery's freedom!", to: 3 }
+          { t: "Creep behind Oma's cottage to inspect her glowing Lantern-Shed first.", to: 9 },
+          { t: "Confront Oma Rattenfanger at her front hearth to claim Mery's freedom!", to: 3 }
         ]
       },
       3: {
         zone: "Oma's Cottage • The Black Hearth",
         title: "Oma Rattenfanger",
-        text: "Her kindly smile splits into a jagged fey snarl as Oma Rattenfanger raises her iron piper's crook: 'Ungrateful guests! Mery belongs to the plain now!'",
-        enemy: { name: "Oma Rattenfanger", desc: "Sinister fey kidnapper who feeds on lost children's loneliness.", hp: 32, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 65, items: ["bq_lethe_memory_locket"], weakCw: ["MERY_MEMORY"] },
+        text: "Her kindly grandmotherly smile splits into a jagged fey snarl as Oma Rattenfanger lifts her iron piper's crook: 'Ungrateful guests! Nobody comes looking for the lost ones—Mery belongs to the plain now!'",
+        enemy: { name: "Oma Rattenfanger", desc: "Sinister fey kidnapper who feeds on lost children's loneliness.", hp: 32, ac: 13, atk: 5, dmg: 6, xp: 95, gold: 65, items: ["bq_lethe_memory_locket"], weakCw: ["MERY_MEMORY", "RIBBON_FREED", "LAUGHS_FREED"] },
         choices: [
           { t: "Snap Oma's iron pipe and lead Mery safely back through the twilight veil!", to: 4 }
         ]
@@ -117,16 +119,18 @@ window.OAKHAVEN.registerQuests({
       4: {
         zone: "Edge of the Mortal Road",
         title: "Homeward Bound",
-        text: "As warm sunlight touches Mery's cheeks, the grey shadow-curse melts away and she laughs for the first time in months.",
+        text: "As warm morning sunlight touches Mery's cheeks, the grey shadow-chill melts away and she laughs brightly for the first time in months.",
         onEnter: { healHp: 8, msg: "Morning warmth clears the Lethe's chill (+8 HP)!" },
         choices: [
-          { t: "Escort Mery back to safety.", to: 5 }
+          { t: "Escort Mery home and return the other unbound name-ribbons to Oakhaven's families!", reqCw: "RIBBON_FREED", badge: "RIBBON_FREED", to: 5, onChoose: { gold: 30, xp: 25, msg: "Grateful frontier families add 30 GP & 25 XP for returning the lost name-ribbons!" } },
+          { t: "Escort Mery back to safety.", to: 5 },
+          { t: "Slip Oma's silver keepsake-box from the hearth into your satchel before crossing back.", to: 10 }
         ]
       },
       5: {
         zone: "Oakhaven Border",
         title: "A Child Restored",
-        text: "Grateful villagers press a heavy purse of silver into your palm.",
+        text: "Tears of joy stream down her parents' faces at the town gate as relieved villagers press a heavy purse of silver into your palm.",
         choices: [
           { t: "Complete the adventure!", to: 6 }
         ]
@@ -134,8 +138,46 @@ window.OAKHAVEN.registerQuests({
       6: {
         zone: "Epilogue",
         title: "Rescuer of the Lost",
-        text: "You broke Oma Rattenfanger's pipe and brought Mery home from the Tenebrous Plain!",
+        text: "You broke Oma Rattenfanger's iron pipe and brought Mery safely home from the Tenebrous Plain!",
         ending: { type: "true", title: "Breaker of the Black Piper", xp: 130, gold: 115, trophy: "Oma's Broken Reed Pipe" },
+        choices: []
+      },
+      7: {
+        zone: "Riverbank Ferry-Post",
+        title: "The Ribbon-Tree of Names",
+        text: "Dozens of pale cloth ribbons flutter from the dead willow beside the Lethe—each stitched in faded thread with a missing child's mortal name, held fast by cold fey knots.",
+        choices: [
+          { t: "Burn a pinch of bitter sweetgrass with Herbalism to clear the Lethe-mist!", reqSkill: "Herbalism", badge: "Herbalism", to: 8, onChoose: { msg: "Warm green smoke drifts through the boughs—every stitched name glows silver!" } },
+          { t: "Unravel the cold fey binding-knots with Arcana.", badge: "Arcana DC 11", check: { stat: "arcana", skill: "Arcana", dc: 11, pass: 8, fail: 8, failDmg: 3, passMsg: "The fey knots loosen cleanly, freeing Mery's stitched name!", failMsg: "Frosty thread nips your fingertips (-3 HP), yet the knot gives way!" } },
+          { t: "Leave the ferry-post and follow the beast tracks into Ash-Hollow.", to: 2 }
+        ]
+      },
+      8: {
+        zone: "Riverbank Ferry-Post",
+        title: "The Unbound Ribbons",
+        text: "You slip Mery's embroidered ribbon free along with 22 GP in old river-tolls left at the post, feeling the Lethe's numb chill lift from your bones (+6 HP, +3 MP). Beyond the reeds, a dry ditch circles straight behind Oma's cottage!",
+        onEnter: { cw: "RIBBON_FREED", gold: 22, healHp: 6, healMp: 3, msg: "Freed RIBBON_FREED, found 22 GP, +6 HP & +3 MP!" },
+        choices: [
+          { t: "Follow the dry reed-ditch straight to Oma's Lantern-Shed (bypassing the beasts)!", to: 9 },
+          { t: "Cross into Ash-Hollow to hunt down Oma's Shadow Beasts for their spoils.", to: 2 }
+        ]
+      },
+      9: {
+        zone: "Oma's Cottage • Lantern-Shed",
+        title: "Jars of Stolen Laughter",
+        text: "Behind the cottage hang three iron-stoppered glass jars pulsing softly with trapped childhood laughter, beside a small iron strongbox of hoarded fairy-coin.",
+        choices: [
+          { t: "Touch Mery's unbound ribbon to the jars to pop the iron stoppers cleanly!", reqCw: "RIBBON_FREED", badge: "RIBBON_FREED", to: 3, onChoose: { cw: "LAUGHS_FREED", msg: "Bright laughter chimes across the yard—shattering Oma's cold fey glamour!" } },
+          { t: "Shatter the iron-bound jars with Firebolt!", reqSpell: "Firebolt", mp: 3, badge: "Firebolt (3 MP)", to: 3, onChoose: { cw: "LAUGHS_FREED", msg: "The jars burst in warm golden sparks—Oma shrieks as her stolen power fades!" } },
+          { t: "Pick the iron strongbox padlock for Oma's hoarded coin!", badge: "Lockpicking / Agility DC 11", check: { stat: "agility", skill: "Lockpicking", dc: 11, pass: 3, fail: 3, failDmg: 3, passMsg: "You snag 35 GP and tip over the laugh-jars on your way inside!", failMsg: "A cold iron latch bites your knuckle (-3 HP) as Oma hears you!" }, onPass: { gold: 35, cw: "LAUGHS_FREED" } },
+          { t: "Leave the shed and step straight around to the Black Hearth.", to: 3 }
+        ]
+      },
+      10: {
+        zone: "Epilogue",
+        title: "Raider of the Black Hearth",
+        text: "Mery runs safely into her parents' arms at the border road while your pack jingles with Oma Rattenfanger's hoarded fey silver!",
+        ending: { type: "victory", title: "Raider of the Black Hearth", xp: 110, gold: 150, trophy: "Silver Memory-Ribbon" },
         choices: []
       }
     }
